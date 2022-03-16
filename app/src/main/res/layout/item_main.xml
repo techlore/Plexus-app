@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_6.5"
+    android:layout_marginStart="@dimen/margin_10"
+    android:layout_marginEnd="@dimen/margin_10"
+    android:layout_marginTop="@dimen/margin_4"
+    android:background="@drawable/shape_card_with_ripple"
+    tools:context=".adapters.AppItemAdapter">
+
+    <TextView
+        android:id="@+id/dg_rating"
+        style="@style/MediumBoldText"
+        android:layout_width="60dp"
+        android:layout_height="81dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/shape_bg_start"
+        android:backgroundTint="@color/ratingXColor"
+        android:gravity="center"
+        android:text="@string/x"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_22" />
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/MediumBoldText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginBottom="1.5dp"
+        android:layout_toStartOf="@id/mg_rating"
+        android:layout_toEndOf="@id/dg_rating"
+        android:ellipsize="marquee"
+        android:text="@string/application_name"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textTitleColor"
+        android:textSize="@dimen/text_17" />
+
+    <TextView
+        android:id="@+id/package_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_2.5"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginBottom="1.5dp"
+        android:layout_toStartOf="@id/mg_rating"
+        android:layout_toEndOf="@id/dg_rating"
+        android:ellipsize="marquee"
+        android:text="@string/application_package_name"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textTitleColor"
+        android:textSize="@dimen/text_16" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/package_name"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_2.5"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_6.5"
+        android:layout_toStartOf="@id/mg_rating"
+        android:layout_toEndOf="@id/dg_rating"
+        android:ellipsize="marquee"
+        android:text="@string/application_version"
+        android:textAlignment="viewStart"
+        android:textColor="?attr/colorControlNormal"
+        android:textSize="@dimen/text_14"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/mg_rating"
+        style="@style/MediumBoldText"
+        android:layout_width="60dp"
+        android:layout_height="81dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/shape_bg_end"
+        android:backgroundTint="@color/ratingXColor"
+        android:gravity="center"
+        android:text="@string/x"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_22" />
+
+</RelativeLayout>

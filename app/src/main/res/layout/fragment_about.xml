@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_settings_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+    tools:context=".fragments.AboutFragment"
+    tools:ignore="ContentDescription">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_card_with_ripple"
+        android:layout_margin="@dimen/margin_16">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginBottom="1dp"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/app_icon_img"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:src="@drawable/ic_info" />
+
+            <TextView
+                android:id="@+id/name_info"
+                style="@style/MediumBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6.5"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/app_icon_img"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/app_name"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+            <TextView
+                android:id="@+id/version_info"
+                style="@style/MediumBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name_info"
+                android:layout_toEndOf="@+id/app_icon_img"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/version"
+                android:textColor="?colorControlNormal"
+                android:textSize="@dimen/text_16" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/privacy_policy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginBottom="@dimen/margin_2.5"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_16"
+            android:text="@string/privacy_policy"
+            android:textAlignment="viewStart"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/licenses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginBottom="@dimen/margin_2.5"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_16"
+            android:text="@string/licenses"
+            android:textAlignment="viewStart"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/view_on_git"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginBottom="@dimen/margin_2.5"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_16"
+            android:text="@string/view_on_github"
+            android:textAlignment="viewStart"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+</ScrollView>

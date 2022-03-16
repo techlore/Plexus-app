@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bottom_sheet"
+    android:paddingTop="@dimen/margin_12"
+    android:paddingBottom="@dimen/margin_8"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <include
+        layout="@layout/bottom_sheet_header"/>
+
+        <RadioGroup
+            android:id="@+id/options_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_6.5"
+            android:paddingBottom="@dimen/margin_6.5"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingStart="@dimen/margin_16">
+
+            <RadioButton
+                android:id="@+id/option_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_4"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:checked="true"
+                android:text="@string/system_default"
+                android:textAlignment="viewStart"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+            <RadioButton
+                android:id="@+id/option_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_4"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/light"
+                android:textAlignment="viewStart"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+            <RadioButton
+                android:id="@+id/option_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_4"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/dark"
+                android:textAlignment="viewStart"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+        </RadioGroup>
+
+    <TextView
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_25"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:foreground="@drawable/dialog_buttons_ripple"
+        android:padding="@dimen/margin_12"
+        android:text="@string/cancel_button"
+        style="@style/MediumBoldText"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_16" />
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--LIGHT THEME COLORS-->
+    <color name="colorPrimary">#1DA1F2</color>
+    <color name="colorAccent">#1DA1F2</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="textTitleColor">#424242</color>
+    <color name="switchTrackColor">#C0C1C3</color>
+    <color name="disabledColor">#C4C4C4</color>
+    <color name="enabledColor">#606163</color>
+    <color name="hintColor">#B2B2B2</color>
+    <color name="cardStrokeColor">#DBDCE0</color>
+    <color name="rippleColor">#EBEBEB</color>
+    <color name="scrollbarColor">#B8B8B8</color>
+    <color name="dividerColor">#DBDCE0</color>
+    <color name="bottomSheetColor">#FFFFFF</color>
+    <color name="dragHandleColor">#C0C1C3</color>
+
+    <!--COMMON COLORS-->
+    <color name="constTextColor">#424242</color>
+    <color name="ratingXColor">#718096</color>
+    <color name="rating1Color">#E53E3E</color>
+    <color name="rating2Color">#DD6B20</color>
+    <color name="rating3Color">#3182CE</color>
+    <color name="rating4Color">#38A169</color>
+
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor"
+        app:elevation="0dp"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="@dimen/margin_10"
+            app:contentInsetStartWithNavigation="0dp"
+            android:paddingStart="@dimen/margin_2.5"
+            android:paddingEnd="@dimen/margin_2.5"
+            app:titleTextAppearance="@style/MediumBoldText"/>
+
+        <!--<include layout="@layout/divider_horizontal"/>-->
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/activity_host_fragment"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/ext_fab_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:layout_marginBottom="@dimen/margin_25"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/colorAccent"
+        app:icon="@drawable/search"
+        app:iconTint="@android:color/white"
+        app:iconPadding="@dimen/margin_8"
+        android:text="@string/search"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        style="@style/MediumBoldText"
+        android:textSize="@dimen/text_15"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_settings_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+    tools:context=".fragments.RatingInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/margin_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:text="@string/what_ratings_mean"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_20"
+            style="@style/MediumBoldText"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card_with_ripple"
+            android:padding="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_8">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/x"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_18"
+                android:gravity="center"
+                android:background="@drawable/shape_rounded_corners"
+                android:backgroundTint="@color/ratingXColor"
+                style="@style/MediumBoldText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_tested"
+                android:layout_gravity="center"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card_with_ripple"
+            android:padding="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_8">
+
+            <TextView
+                style="@style/MediumBoldText"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:background="@drawable/shape_rounded_corners"
+                android:backgroundTint="@color/rating1Color"
+                android:gravity="center"
+                android:text="@string/one"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/unusable"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card_with_ripple"
+            android:padding="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_8">
+
+            <TextView
+                style="@style/MediumBoldText"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:background="@drawable/shape_rounded_corners"
+                android:backgroundTint="@color/rating2Color"
+                android:gravity="center"
+                android:text="@string/two"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/acceptable"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card_with_ripple"
+            android:padding="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_8">
+
+            <TextView
+                style="@style/MediumBoldText"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:background="@drawable/shape_rounded_corners"
+                android:backgroundTint="@color/rating3Color"
+                android:gravity="center"
+                android:text="@string/three"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/good"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card_with_ripple"
+            android:padding="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_20">
+
+            <TextView
+                style="@style/MediumBoldText"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:background="@drawable/shape_rounded_corners"
+                android:backgroundTint="@color/rating4Color"
+                android:gravity="center"
+                android:text="@string/four"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/perfect"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <include layout="@layout/divider_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/app_card_breakdown"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_20"
+            style="@style/MediumBoldText"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape_card_with_ripple">
+
+            <TextView
+                android:id="@+id/dg_rating_info"
+                style="@style/MediumBoldText"
+                android:layout_width="60dp"
+                android:layout_height="106dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/shape_bg_start"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/one"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_22" />
+
+            <TextView
+                android:id="@+id/three"
+                style="@style/MediumBoldText"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_6.5"
+                android:layout_toEndOf="@id/dg_rating_info"
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/three"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:id="@+id/name_info"
+                style="@style/MediumBoldText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6.5"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginBottom="1.5dp"
+                android:layout_toStartOf="@id/mg_rating_info"
+                android:layout_toEndOf="@id/three"
+                android:maxLines="1"
+                android:ellipsize="marquee"
+                android:text="@string/twitter"
+                android:textAlignment="viewStart"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_17" />
+
+            <TextView
+                android:id="@+id/four"
+                style="@style/MediumBoldText"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_6.5"
+                android:layout_toEndOf="@id/dg_rating_info"
+                android:layout_below="@+id/three"
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/four"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:id="@+id/package_name_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name_info"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginBottom="1.5dp"
+                android:layout_toStartOf="@id/mg_rating_info"
+                android:layout_toEndOf="@id/four"
+                android:maxLines="1"
+                android:ellipsize="marquee"
+                android:text="@string/twitter_package_name"
+                android:textAlignment="viewStart"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:id="@+id/five"
+                style="@style/MediumBoldText"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_6.5"
+                android:layout_marginBottom="@dimen/margin_4"
+                android:layout_toEndOf="@id/dg_rating_info"
+                android:layout_below="@+id/four"
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/five"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:id="@+id/version_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/package_name_info"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toStartOf="@id/mg_rating_info"
+                android:layout_toEndOf="@id/five"
+                android:maxLines="1"
+                android:ellipsize="marquee"
+                android:text="@string/twitter_version"
+                android:textAlignment="viewStart"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/text_14"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/mg_rating_info"
+                style="@style/MediumBoldText"
+                android:layout_width="60dp"
+                android:layout_height="106dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/shape_bg_end"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/two"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_22" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_4">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/one"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_18"
+                android:gravity="center"
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/colorPrimary"
+                style="@style/MediumBoldText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/degoogled_rating"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_4">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/two"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_18"
+                android:gravity="center"
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/colorPrimary"
+                style="@style/MediumBoldText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/microg_rating"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_4">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/three"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_18"
+                android:gravity="center"
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/colorPrimary"
+                style="@style/MediumBoldText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/application_name"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_4">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/four"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_18"
+                android:gravity="center"
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/colorPrimary"
+                style="@style/MediumBoldText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/application_package_name"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_4">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/five"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_18"
+                android:gravity="center"
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/colorPrimary"
+                style="@style/MediumBoldText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/application_version"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_18" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_45"/>
+
+    </LinearLayout>
+
+</ScrollView>

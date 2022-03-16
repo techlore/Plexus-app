@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name" translatable="false">Plexus</string>
+    <string name="version">Version:</string>
+
+    <!--MAIN ACTIVITY-->
+    <string name="search">Search</string>
+    <string name="all">All</string>
+    <string name="google">Google</string>
+    <string name="amazon">Amazon</string>
+    <string name="payment">Payment</string>
+    <string name="photo">Photo</string>
+    <string name="video">Video</string>
+    <string name="messaging">Messaging</string>
+    <string name="password">Password</string>
+
+    <!--OVERFLOW MENU-->
+    <string name="menu_rating_info">Rating Info</string>
+    <string name="menu_more">More</string>
+    <string name="menu_theme">Theme</string>
+    <string name="menu_report_issue">Report an issue</string>
+    <string name="menu_about">About</string>
+
+    <!--APP DETAILS FRAGMENT-->
+    <string name="de_Googled">de-Googled</string>
+    <string name="microG">\u00B5 (microG)</string>
+
+    <!--SCORE INFO FRAGMENT-->
+    <string name="notes" translatable="false">Notes</string>
+    <string name="what_ratings_mean">What do the ratings mean?</string>
+    <string name="not_tested">Not tested</string>
+    <string name="unusable">Unusable</string>
+    <string name="acceptable">Acceptable</string>
+    <string name="good">Good</string>
+    <string name="perfect">Perfect</string>
+    <string name="x" translatable="false">X</string>
+    <string name="one" translatable="false">1</string>
+    <string name="two" translatable="false">2</string>
+    <string name="three" translatable="false">3</string>
+    <string name="four" translatable="false">4</string>
+    <string name="five" translatable="false">5</string>
+    <string name="app_card_breakdown">Application card breakdown</string>
+    <string name="twitter" translatable="false">Twitter</string>
+    <string name="twitter_package_name" translatable="false">com.twitter.android</string>
+    <string name="twitter_version" translatable="false">9.34.5</string>
+    <string name="degoogled_rating">de-Googled rating</string>
+    <string name="microg_rating">microG rating</string>
+    <string name="application_name">Application name</string>
+    <string name="application_package_name">Application package name</string>
+    <string name="application_version">Application Version</string>
+
+    <!--ABOUT FRAGMENT-->
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="licenses">Licenses</string>
+    <string name="view_on_github">View on GitHub</string>
+
+    <!--BOTTOM SHEET-->
+    <string name="bottom_sheet_title" translatable="false">Bottom Sheet Title</string>
+    <string name="cancel_button">Cancel</string>
+
+    <!--THEME-->
+    <string name="system_default">System Default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!--BOTTOM SHEET-->
+
+    <!--TOASTS-->
+    <string name="no_browsers">No browsers installed on this device</string>
+
+</resources>

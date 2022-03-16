@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--PARENT APP THEME-->
+    <style name="Base.Theme.Plexus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="fontFamily">@font/nunito</item>
+    </style>
+
+    <!--BASE APP THEME-->
+    <style name="BaseAppTheme" parent="Base.Theme.Plexus">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/backgroundColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundColor">@color/backgroundColor</item>
+    </style>
+
+    <!--MEDIUM BOLD TEXT STYLE-->
+    <style name="MediumBoldText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <!--BASE BOTTOM SHEET STYLE-->
+    <style name="BaseBottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!--BOTTOM SHEET ANIMATION-->
+    <style name="BottomSheetAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in_slide_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_slide_to_bottom</item>
+    </style>
+
+    <!--MAKE ROOT VIEW OF BOTTOM SHEET TRANSPARENT FOR CUSTOM VIEW TO SHOW PROPERLY-->
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+</resources>
