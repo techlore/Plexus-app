@@ -32,10 +32,12 @@
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/margin_12"
-                android:src="@drawable/ic_info" />
+                android:background="@drawable/shape_bg_circle"
+                android:backgroundTint="@color/grey_800"
+                android:src="@drawable/ic_launcher_foreground" />
 
             <TextView
-                android:id="@+id/name_info"
+                android:id="@+id/name_about"
                 style="@style/MediumBoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,11 +51,11 @@
                 android:textSize="@dimen/text_18" />
 
             <TextView
-                android:id="@+id/version_info"
+                android:id="@+id/version_about"
                 style="@style/MediumBoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name_info"
+                android:layout_below="@+id/name_about"
                 android:layout_toEndOf="@+id/app_icon_img"
                 android:paddingStart="@dimen/margin_8"
                 android:paddingEnd="@dimen/margin_8"

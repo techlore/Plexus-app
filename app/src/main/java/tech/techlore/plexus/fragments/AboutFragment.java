@@ -52,7 +52,7 @@ public class AboutFragment extends Fragment {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        ((TextView)view.findViewById(R.id.version)).setText(version);
+        ((TextView)view.findViewById(R.id.version_about)).setText(version);
 
         // PRIVACY POLICY
         view.findViewById(R.id.privacy_policy)

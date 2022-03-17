@@ -10,20 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/backgroundColor"
-        app:elevation="0dp"
-        app:liftOnScroll="true">
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_2.5"
             app:contentInsetStartWithNavigation="0dp"
             android:paddingStart="@dimen/margin_2.5"
             android:paddingEnd="@dimen/margin_2.5"
             app:titleTextAppearance="@style/MediumBoldText"/>
 
-        <!--<include layout="@layout/divider_horizontal"/>-->
+        <include layout="@layout/divider_horizontal"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -37,7 +36,7 @@
         android:layout_marginBottom="@dimen/margin_25"
         android:layout_gravity="bottom|end"
         app:backgroundTint="@color/colorAccent"
-        app:icon="@drawable/search"
+        app:icon="@drawable/ic_search"
         app:iconTint="@android:color/white"
         app:iconPadding="@dimen/margin_8"
         android:text="@string/search"

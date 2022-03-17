@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--SPLASH LIGHT THEME-->
+    <style name="SplashTheme" parent="BaseSplashTheme">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <!--APP LIGHT THEME -->
     <style name="AppTheme" parent="BaseAppTheme">
         <item name="android:windowLightStatusBar">true</item>

@@ -2,8 +2,8 @@
 <resources>
 
     <!--LIGHT THEME COLORS-->
-    <color name="colorPrimary">#1DA1F2</color>
-    <color name="colorAccent">#1DA1F2</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorAccent">#2196F3</color>
     <color name="backgroundColor">#FFFFFF</color>
     <color name="textTitleColor">#424242</color>
     <color name="switchTrackColor">#C0C1C3</color>
@@ -18,7 +18,7 @@
     <color name="dragHandleColor">#C0C1C3</color>
 
     <!--COMMON COLORS-->
-    <color name="constTextColor">#424242</color>
+    <color name="grey_800">#424242</color>
     <color name="ratingXColor">#718096</color>
     <color name="rating1Color">#E53E3E</color>
     <color name="rating2Color">#DD6B20</color>

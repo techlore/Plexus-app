@@ -21,6 +21,7 @@
     <string name="menu_about">About</string>
 
     <!--APP DETAILS FRAGMENT-->
+    <string name="details">Details</string>
     <string name="de_Googled">de-Googled</string>
     <string name="microG">\u00B5 (microG)</string>
 

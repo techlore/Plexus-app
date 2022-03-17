@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--BASE SPLASH THEME-->
+    <style name="BaseSplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="backgroundColor">@color/grey_800</item>
+        <item name="colorPrimaryDark">@color/grey_800</item>
+    </style>
+
     <!--PARENT APP THEME-->
     <style name="Base.Theme.Plexus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="fontFamily">@font/nunito</item>

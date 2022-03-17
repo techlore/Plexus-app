@@ -2,8 +2,8 @@
 <resources>
 
     <!--DARK THEME COLORS-->
-    <color name="colorPrimary">#1DA1F2</color>
-    <color name="colorAccent">#1DA1F2</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorAccent">#2196F3</color>
     <color name="backgroundColor">#202124</color>
     <color name="textTitleColor">#FAFAFA</color>
     <color name="switchTrackColor">#606165</color>

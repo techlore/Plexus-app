@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--SPLASH DARK THEME-->
+    <style name="SplashTheme" parent="BaseSplashTheme">
+        <item name="android:navigationBarColor">@color/grey_800</item>
+    </style>
+
     <!--APP DARK THEME-->
     <style name="AppTheme" parent="BaseAppTheme">
         <item name="android:navigationBarColor">@color/backgroundColor</item>

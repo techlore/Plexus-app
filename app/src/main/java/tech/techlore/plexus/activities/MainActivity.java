@@ -60,8 +60,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // EXT FAB
-        extFab.setOnClickListener(v ->
-                DisplayFragment("Search"));
+        // OPEN SEARCH ACTIVITY
+        extFab.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, SearchActivity.class));
+            finish();
+            overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
+        });
 
     }
 
@@ -75,37 +79,23 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new MainFragment();
                 break;
 
-            case "App Details":
-                Objects.requireNonNull(getSupportActionBar()).setTitle("Details");
-                fragment = new AppDetailsFragment();
-                transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                        R.anim.slide_from_start, R.anim.slide_to_end);
-                break;
-
-            case "Search":
-                Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.search);
-                fragment = new AppDetailsFragment();
-                transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                        R.anim.slide_from_start, R.anim.slide_to_end);
-                break;
-
             case "Rating Info":
                 Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menu_rating_info);
                 fragment = new RatingInfoFragment();
                 transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                        R.anim.slide_from_start, R.anim.slide_to_end);
+                                                R.anim.slide_from_start, R.anim.slide_to_end);
                 break;
 
             case "About":
                 Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menu_about);
                 fragment= new AboutFragment();
                 transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                        R.anim.slide_from_start, R.anim.slide_to_end);
+                                                R.anim.slide_from_start, R.anim.slide_to_end);
                 break;
         }
 
         // HIDE BACK ICON ON MAIN FRAGMENT
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(!fragmentName.equals("Main"));
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(getSupportFragmentManager().getBackStackEntryCount() >= 1);
 
         // SHOW EXT FAB ONLY ON MAIN FRAGMENT
         if (fragmentName.equals("Main")){
@@ -119,6 +109,34 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.activity_host_fragment, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    // SEPARATE FUNCTION FOR APP DETAILS FRAGMENT
+    public void AppDetails(String name, String packageName, String version,
+                           String dgNotes, String mgNotes, String dgRating, String mgRating) {
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.details);
+        fragment = new AppDetailsFragment();
+
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        args.putString("packageName", packageName);
+        args.putString("version", version);
+        args.putString("dgNotes", dgNotes);
+        args.putString("mgNotes", mgNotes);
+        args.putString("dgRating", dgRating);
+        args.putString("mgRating", mgRating);
+        fragment.setArguments(args);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        extFab.hide();
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
+                                     R.anim.slide_from_start, R.anim.slide_to_end)
+                .replace(R.id.activity_host_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
+
     }
 
     // MENU
@@ -168,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // THEME BOTTOM SHEET
-    @SuppressLint("NonConstantResourceId")
     private void ThemeBottomSheet(){
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.CustomBottomSheetTheme);
         bottomSheetDialog.setCancelable(true);
@@ -207,19 +224,18 @@ public class MainActivity extends AppCompatActivity {
         // ON SELECTING OPTION
         ((RadioGroup)view.findViewById(R.id.options_radiogroup))
                 .setOnCheckedChangeListener((radioGroup, checkedId) -> {
-                    switch (checkedId){
-                        case R.id.option_default:
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                            break;
 
-                        case R.id.option_light:
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                            break;
-
-                        case R.id.option_dark:
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                            break;
+                    if (checkedId == R.id.option_default) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     }
+                    else if (checkedId == R.id.option_light) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+
+                    else if (checkedId == R.id.option_dark) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    }
+
                     preferenceManager.setInt(THEME_PREF, checkedId);
                     bottomSheetDialog.dismiss();
                     this.recreate();

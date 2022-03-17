@@ -5,10 +5,10 @@
     android:id="@+id/item_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_6.5"
     android:layout_marginStart="@dimen/margin_10"
     android:layout_marginEnd="@dimen/margin_10"
     android:layout_marginTop="@dimen/margin_4"
+    android:layout_marginBottom="@dimen/margin_6.5"
     android:background="@drawable/shape_card_with_ripple"
     tools:context=".adapters.AppItemAdapter">
 
