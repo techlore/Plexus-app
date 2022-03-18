@@ -23,6 +23,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
@@ -30,6 +31,7 @@ import tech.techlore.plexus.fragments.AboutFragment;
 import tech.techlore.plexus.fragments.AppDetailsFragment;
 import tech.techlore.plexus.fragments.MainFragment;
 import tech.techlore.plexus.fragments.RatingInfoFragment;
+import tech.techlore.plexus.models.App;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,8 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private Fragment fragment;
     public ExtendedFloatingActionButton extFab;
+    public List<App> list;
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -53,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+        // GET LIST FROM SPLASH ACTIVITY
+        list = (List<App>) getIntent().getSerializableExtra("appsList");
 
         // DEFAULT FRAGMENT
         if (savedInstanceState==null) {

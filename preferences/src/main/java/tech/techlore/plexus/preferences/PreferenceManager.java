@@ -14,16 +14,6 @@ public class PreferenceManager {
         sharedPreferences=context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE);
     }
 
-    public boolean getBoolean(String key){
-        return sharedPreferences.getBoolean(key, false);
-    }
-
-    public void setBoolean(String key, boolean bool){
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putBoolean(key, bool);
-        editor.apply();
-    }
-
     public int getInt(String key){
         return sharedPreferences.getInt(key,0);
     }
@@ -33,15 +23,4 @@ public class PreferenceManager {
         editor.putInt(key, integer);
         editor.apply();
     }
-
-    public String getString(String key){
-        return sharedPreferences.getString(key, "descending");
-    }
-
-    public void setString(String key, String value){
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.apply();
-    }
-
 }

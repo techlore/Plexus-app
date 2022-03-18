@@ -2,7 +2,9 @@ package tech.techlore.plexus.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class App {
+import java.io.Serializable;
+
+public class App implements Serializable {
 
     @JsonProperty("Application")
     public String name;

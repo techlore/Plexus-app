@@ -4,7 +4,7 @@
     <!--LIGHT THEME COLORS-->
     <color name="colorPrimary">#2196F3</color>
     <color name="colorAccent">#2196F3</color>
-    <color name="backgroundColor">#FFFFFF</color>
+    <color name="backgroundColor">#FAFAFA</color>
     <color name="textTitleColor">#424242</color>
     <color name="switchTrackColor">#C0C1C3</color>
     <color name="disabledColor">#C4C4C4</color>
@@ -14,7 +14,7 @@
     <color name="rippleColor">#EBEBEB</color>
     <color name="scrollbarColor">#B8B8B8</color>
     <color name="dividerColor">#DBDCE0</color>
-    <color name="bottomSheetColor">#FFFFFF</color>
+    <color name="bottomSheetColor">#FAFAFA</color>
     <color name="dragHandleColor">#C0C1C3</color>
 
     <!--COMMON COLORS-->

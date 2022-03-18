@@ -19,7 +19,7 @@ public class SearchActivity extends AppCompatActivity {
         ((MaterialToolbar)findViewById(R.id.toolbar_search)).setNavigationOnClickListener(view ->
                 onBackPressed());
 
-        onNewIntent(getIntent());
+        //onNewIntent(getIntent());
 
         // SEARCH BAR
         /*SearchView searchView = findViewById(R.id.searchView);
