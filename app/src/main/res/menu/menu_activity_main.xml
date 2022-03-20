@@ -6,6 +6,12 @@
     <!--MAIN ACTIVITY MENU-->
 
     <item
+        android:id="@+id/menu_installed_apps"
+        android:icon="@drawable/ic_installed_apps"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_installed_apps"/>
+
+    <item
         android:id="@+id/menu_score_info"
         android:icon="@drawable/ic_info"
         app:showAsAction="ifRoom"

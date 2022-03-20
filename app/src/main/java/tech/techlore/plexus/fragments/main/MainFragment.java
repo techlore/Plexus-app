@@ -1,4 +1,4 @@
-package tech.techlore.plexus.fragments;
+package tech.techlore.plexus.fragments.main;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -51,10 +51,10 @@ public class MainFragment extends Fragment {
         final MainActivity mainActivity = ((MainActivity) requireActivity());
         appsList= mainActivity.list;
 
-        /*===========================================================================================*/
+    /*###########################################################################################*/
 
         rAdapter = new AppItemAdapter(appsList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(rAdapter);
 
         // HANDLE CLICK EVENTS OF ITEMS

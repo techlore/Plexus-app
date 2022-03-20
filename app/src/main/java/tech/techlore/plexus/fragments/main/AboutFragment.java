@@ -1,4 +1,4 @@
-package tech.techlore.plexus.fragments;
+package tech.techlore.plexus.fragments.main;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

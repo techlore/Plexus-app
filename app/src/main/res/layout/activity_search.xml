@@ -2,11 +2,16 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar_search_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/backgroundColor">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor"
+        app:elevation="0dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_search"
@@ -14,7 +19,8 @@
         android:layout_height="?attr/actionBarSize"
         app:contentInsetStartWithNavigation="0dp"
         android:layout_marginTop="@dimen/margin_2.5"
-        app:navigationIcon="@drawable/ic_back">
+        app:navigationIcon="@drawable/ic_back"
+        app:titleTextAppearance="@style/MediumBoldText">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
@@ -31,12 +37,10 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <include
-        layout="@layout/divider_horizontal"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <include
-        layout="@layout/activity_host_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <include layout="@layout/divider_horizontal"/>
+
+    <include layout="@layout/activity_host_fragment"/>
 
 </LinearLayout>

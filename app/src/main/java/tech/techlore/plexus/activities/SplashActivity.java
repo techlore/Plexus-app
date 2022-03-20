@@ -1,7 +1,8 @@
 package tech.techlore.plexus.activities;
 
+import static tech.techlore.plexus.utils.Utility.SendListIntent;
+
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         final Handler handler = new Handler(Looper.getMainLooper());
 
-    /*============================================================================================*/
+    /*###########################################################################################*/
 
         executor.execute(() -> {
 
@@ -56,8 +57,7 @@ public class SplashActivity extends AppCompatActivity {
             handler.post(() -> {
                 try {
                     populateList();
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class)
-                            .putExtra("appsList", (Serializable) appsList));
+                    SendListIntent(this, MainActivity.class, (Serializable) appsList);
                     finish();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -69,7 +69,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private String URLRequest() throws IOException {
         Request request = new Request.Builder()
-                .url("https://raw.githubusercontent.com/parveshnarwal/Plexus-Demo/main/test.json")
+                .url("https://raw.githubusercontent.com/parveshnarwal/Plexus-Demo/main/new.json")
                 .build();
 
         try (Response response = okHttpClient.newCall(request).execute())

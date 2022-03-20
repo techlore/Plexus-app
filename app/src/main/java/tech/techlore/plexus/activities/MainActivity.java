@@ -1,6 +1,7 @@
 package tech.techlore.plexus.activities;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.THEME_PREF;
+import static tech.techlore.plexus.utils.Utility.SendListIntent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -23,14 +24,16 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.fragments.AboutFragment;
-import tech.techlore.plexus.fragments.AppDetailsFragment;
-import tech.techlore.plexus.fragments.MainFragment;
-import tech.techlore.plexus.fragments.RatingInfoFragment;
+import tech.techlore.plexus.fragments.main.AboutFragment;
+import tech.techlore.plexus.fragments.main.AppDetailsFragment;
+import tech.techlore.plexus.fragments.main.InstalledAppsFragment;
+import tech.techlore.plexus.fragments.main.MainFragment;
+import tech.techlore.plexus.fragments.main.RatingInfoFragment;
 import tech.techlore.plexus.models.App;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
@@ -42,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     public List<App> list;
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         final MaterialToolbar toolbar = findViewById(R.id.toolbar_main);
         extFab = findViewById(R.id.ext_fab_main);
 
-        /*===========================================================================================*/
+    /*###########################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
         setSupportActionBar(toolbar);
@@ -59,18 +61,20 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         // GET LIST FROM SPLASH ACTIVITY
+        //noinspection unchecked
         list = (List<App>) getIntent().getSerializableExtra("appsList");
 
         // DEFAULT FRAGMENT
-        if (savedInstanceState==null) {
+        if (savedInstanceState == null) {
             DisplayFragment("Main");
         }
 
         // EXT FAB
         // OPEN SEARCH ACTIVITY
+        // DON'T FINISH THIS ACTIVITY,
+        // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
         extFab.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, SearchActivity.class));
-            finish();
+            SendListIntent(this, SearchActivity.class, (Serializable) list);
             overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
         });
 
@@ -84,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
             case "Main":
                 fragment = new MainFragment();
+                break;
+
+            case "Installed Apps":
+                Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menu_installed_apps);
+                fragment = new InstalledAppsFragment();
+                transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
+                                                R.anim.slide_from_start, R.anim.slide_to_end);
                 break;
 
             case "Rating Info":
@@ -155,8 +166,15 @@ public class MainActivity extends AppCompatActivity {
         // SHOW MENU ICONS ONLY IN MAIN FRAGMENT
         menu.findItem(R.id.action_settings).setVisible(getSupportFragmentManager().getBackStackEntryCount() == 1);
         menu.findItem(R.id.menu_score_info).setVisible(getSupportFragmentManager().getBackStackEntryCount() == 1);
+        menu.findItem(R.id.menu_installed_apps).setVisible(getSupportFragmentManager().getBackStackEntryCount() == 1);
 
-        // SCORES INFO
+        // INSTALLED APPS
+        menu.findItem(R.id.menu_installed_apps).setOnMenuItemClickListener(item -> {
+            DisplayFragment("Installed Apps");
+            return true;
+        });
+
+        // RATING INFO
         menu.findItem(R.id.menu_score_info).setOnMenuItemClickListener(item -> {
             DisplayFragment("Rating Info");
             return true;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-    tools:context=".fragments.AppDetailsFragment"
+    tools:context=".fragments.main.AppDetailsFragment"
     tools:ignore="ContentDescription">
 
     <LinearLayout

@@ -1,23 +1,29 @@
 package tech.techlore.plexus.adapters;
 
+import static tech.techlore.plexus.utils.Utility.ScoreColor;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.models.App;
 
-public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListViewHolder> {
+public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListViewHolder> implements Filterable {
 
     private final List<App> aListViewItems;
+    private final List<App> aListViewItemsFull;
     private OnItemClickListener itemClickListener;
 
     public interface OnItemClickListener {
@@ -25,7 +31,7 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
     }
 
     public void setOnItemClickListener(OnItemClickListener clickListener) {
-        itemClickListener=clickListener;
+        itemClickListener = clickListener;
     }
 
     public static class ListViewHolder extends RecyclerView.ViewHolder
@@ -58,6 +64,7 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
     public AppItemAdapter(List<App> listViewItems)
     {
         aListViewItems = listViewItems;
+        aListViewItemsFull = new ArrayList<>(aListViewItems);
         setHasStableIds(true);
     }
 
@@ -101,35 +108,6 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
         textView.setSelected(true);
     }
 
-    // SET BACKGROUND COLOR BASED ON SCORES
-    private void ScoreColor(Context context, TextView textView, String score) {
-
-        switch (score) {
-
-            case "X":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.ratingXColor));
-                break;
-
-            case "1":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating1Color));
-                break;
-
-            case "2":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating2Color));
-                break;
-
-            case "3":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating3Color));
-                break;
-
-            case "4":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating4Color));
-                break;
-
-        }
-
-    }
-
     @Override
     public int getItemCount() {
         return aListViewItems.size();
@@ -143,6 +121,45 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
     @Override
     public long getItemId(int position) {
         return super.getItemId(position);
+    }
+
+    // REQUIRED FOR SEARCH
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                List<App> filteredList = new ArrayList<>();
+
+                if (charSequence != null) {
+
+                    String searchString = charSequence.toString().toLowerCase().trim();
+
+                    for (App app: aListViewItemsFull){
+
+                        if (app.name.toLowerCase().contains(searchString)
+                            || app.packageName.toLowerCase().contains(searchString)){
+
+                            filteredList.add(app);
+                        }
+                    }
+
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredList;
+                return filterResults;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                aListViewItems.clear();
+                //noinspection unchecked
+                aListViewItems.addAll((ArrayList<App>) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
     }
 
 }

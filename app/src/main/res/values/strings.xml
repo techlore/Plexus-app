@@ -14,6 +14,7 @@
     <string name="password">Password</string>
 
     <!--OVERFLOW MENU-->
+    <string name="menu_installed_apps">Installed Apps</string>
     <string name="menu_rating_info">Rating Info</string>
     <string name="menu_more">More</string>
     <string name="menu_theme">Theme</string>

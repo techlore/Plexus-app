@@ -2,7 +2,6 @@
 <androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.MainFragment"
     android:id="@+id/apps_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

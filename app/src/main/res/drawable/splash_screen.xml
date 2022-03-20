@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/grey_800"/>
-    <item android:width="280dp" android:height="280dp" android:gravity="center" android:drawable="@drawable/ic_launcher_foreground"/>
+    <item android:width="220dp" android:height="220dp" android:gravity="center" android:drawable="@drawable/ic_launcher_foreground"/>
 </layer-list>

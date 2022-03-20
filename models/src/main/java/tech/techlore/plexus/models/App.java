@@ -8,17 +8,17 @@ public class App implements Serializable {
 
     @JsonProperty("Application")
     public String name;
-    @JsonProperty("Month")
+    @JsonProperty("Package")
     public String packageName;
-    @JsonProperty("Year")
+    @JsonProperty("Version")
     public String version;
-    @JsonProperty("Rating (1-4)")
+    @JsonProperty("DG_Rating")
     public String dgRating;
-    @JsonProperty("Notes")
-    public String dgNotes;
-    @JsonProperty("MicroG Rating (1-4)")
+    @JsonProperty("MG_Rating")
     public String mgRating;
-    @JsonProperty("MicroG Notes")
+    @JsonProperty("DG_Notes")
+    public String dgNotes;
+    @JsonProperty("MG_Notes")
     public String mgNotes;
 
 }

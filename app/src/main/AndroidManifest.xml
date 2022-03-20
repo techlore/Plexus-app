@@ -26,18 +26,12 @@
         <!--MAIN ACTIVITY-->
         <activity
             android:name=".activities.MainActivity"
-            android:launchMode="singleTask"
             android:configChanges="orientation|screenSize">
         </activity>
 
         <!--SEARCH ACTIVITY-->
-        <activity android:name=".activities.SearchActivity" >
-            <!--<intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>-->
+        <activity android:name=".activities.SearchActivity"
+            android:configChanges="orientation|screenSize">
         </activity>
 
     </application>

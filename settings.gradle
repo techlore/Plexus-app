@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Plexus"
 include ':app'
-include ':preferences'
 include ':models'
+include ':preferences'
