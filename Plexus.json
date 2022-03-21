@@ -46,7 +46,7 @@
   },
   {
     "Application": "3DMark",
-    "Package": "package_name",
+    "Package": "com.futuremark.dmandroid.application",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -55,7 +55,7 @@
   },
   {
     "Application": "432 Player",
-    "Package": "package_name",
+    "Package": "com.appums.music_pitcher",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -63,8 +63,8 @@
     "MG_Notes": "No reported issues"
   },
   {
-    "Application": 4411,
-    "Package": "package_name",
+    "Application": "4411",
+    "Package": "marlon.mobilefor_4411",
     "Version": "0.0.0",
     "DG_Rating": 2,
     "MG_Rating": "X",
@@ -73,7 +73,7 @@
   },
   {
     "Application": "6ix9ine Runner",
-    "Package": "package_name",
+    "Package": "com.game.jam.beat.saber.six.nine.music",
     "Version": "0.0.0",
     "DG_Rating": 1,
     "MG_Rating": 4,
@@ -91,7 +91,7 @@
   },
   {
     "Application": "99pay",
-    "Package": "package_name",
+    "Package": "com.qqtrade.gugupay",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -145,7 +145,7 @@
   },
   {
     "Application": "ABN AMRO",
-    "Package": "package_name",
+    "Package": "com.abnamro.nl.mobile.payments",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 4,
@@ -154,7 +154,7 @@
   },
   {
     "Application": "Abrecombie & Fitch",
-    "Package": "package_name",
+    "Package": "com.abercrombie.abercrombie",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -181,7 +181,7 @@
   },
   {
     "Application": "Acrylic Nails!",
-    "Package": "package_name",
+    "Package": "com.crazylabs.acrylic.nails",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -190,7 +190,7 @@
   },
   {
     "Application": "Actual Budget",
-    "Package": "package_name",
+    "Package": "com.shiftreset.actual",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -208,7 +208,7 @@
   },
   {
     "Application": "adidas",
-    "Package": "package_name",
+    "Package": "com.adidas.app",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -253,7 +253,7 @@
   },
   {
     "Application": "Aggregator",
-    "Package": "package_name",
+    "Package": "com.tughi.aggregator",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -262,7 +262,7 @@
   },
   {
     "Application": "Airbnb",
-    "Package": "package_name",
+    "Package": "com.airbnb.android",
     "Version": "0.0.0",
     "DG_Rating": 2,
     "MG_Rating": "X",
@@ -271,7 +271,7 @@
   },
   {
     "Application": "AirMessage",
-    "Package": "package_name",
+    "Package": "me.tagavari.airmessage",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -280,7 +280,7 @@
   },
   {
     "Application": "Air NZ",
-    "Package": "package_name",
+    "Package": "nz.co.airnz.mpass",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": "X",
@@ -289,7 +289,7 @@
   },
   {
     "Application": "Airport Control",
-    "Package": "package_name",
+    "Package": "com.nexgen.airportcontrol",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -307,7 +307,7 @@
   },
   {
     "Application": "Akinator",
-    "Package": "package_name",
+    "Package": "om.digidust.elokence.akinator.freemium",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 4,
@@ -316,7 +316,7 @@
   },
   {
     "Application": "AL-Chan",
-    "Package": "package_name",
+    "Package": "com.zen.alchan",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 4,
@@ -325,7 +325,7 @@
   },
   {
     "Application": "ALDI TALK",
-    "Package": "package_name",
+    "Package": "com.medion.alditalknl",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -334,7 +334,7 @@
   },
   {
     "Application": "Alfred Camera",
-    "Package": "package_name",
+    "Package": "com.ivuu",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -388,7 +388,7 @@
   },
   {
     "Application": "Amazon Kindle",
-    "Package": "package_name",
+    "Package": "com.amazon.kindle",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -406,7 +406,7 @@
   },
   {
     "Application": "Amazon Music",
-    "Package": "package_name",
+    "Package": "com.amazon.mp3",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -424,7 +424,7 @@
   },
   {
     "Application": "AMBOSS Medical Knowledge Library & Clinic Resource",
-    "Package": "package_name",
+    "Package": "com.amboss.medical.knowledge",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -433,7 +433,7 @@
   },
   {
     "Application": "Amboss Wissen für Mediziner",
-    "Package": "package_name",
+    "Package": "de.miamed.amboss.knowledge",
     "Version": "0.0.0",
     "DG_Rating": 1,
     "MG_Rating": "X",
@@ -451,7 +451,7 @@
   },
   {
     "Application": "Amegy Bank",
-    "Package": "package_name",
+    "Package": "com.bitbuilders.zions.amegy",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -486,8 +486,8 @@
     "MG_Notes": "No reported issues"
   },
   {
-    "Application": "Ampler",
-    "Package": "package_name",
+    "Application": "Ampler Bikes",
+    "Package": "com.comodule.ampler",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -514,7 +514,7 @@
   },
   {
     "Application": "AniTrend",
-    "Package": "package_name",
+    "Package": "com.mxt.anitrend",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -631,7 +631,7 @@
   },
   {
     "Application": "ArubaPEC",
-    "Package": "package_name",
+    "Package": "it.aruba.pec.mobile",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": "X",
@@ -657,8 +657,8 @@
     "MG_Notes": "X"
   },
   {
-    "Application": "ASN Bankieren",
-    "Package": "package_name",
+    "Application": "ASN Mobiel Bankieren",
+    "Package": "nl.asnbank.asnbankieren",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -667,7 +667,7 @@
   },
   {
     "Application": "aTimeLogger",
-    "Package": "package_name",
+    "Package": "com.aloggers.atimeloggerapp",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -693,8 +693,8 @@
     "MG_Notes": "No reported issues"
   },
   {
-    "Application": "AusPost",
-    "Package": "package_name",
+    "Application": "Australia Post",
+    "Package": "au.com.auspost.android",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 4,
@@ -721,7 +721,7 @@
   },
   {
     "Application": "AutoTagger",
-    "Package": "package_name",
+    "Package": "com.serg.chuprin.tageditor",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 3,
@@ -730,7 +730,7 @@
   },
   {
     "Application": "Axios registro elettronico famiglie",
-    "Package": "package_name",
+    "Package": "com.axiositalia.re.family",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -748,7 +748,7 @@
   },
   {
     "Application": "Ballz",
-    "Package": "package_name",
+    "Package": "com.ketchapp.ballz",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 4,
@@ -766,7 +766,7 @@
   },
   {
     "Application": "Banco Inter",
-    "Package": "package_name",
+    "Package": "br.com.intermedium",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -775,7 +775,7 @@
   },
   {
     "Application": "Banco Inter Empresas",
-    "Package": "package_name",
+    "Package": "br.com.Inter.CDPro",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -784,7 +784,7 @@
   },
   {
     "Application": "Banco Itaú",
-    "Package": "package_name",
+    "Package": "com.itau",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -802,7 +802,7 @@
   },
   {
     "Application": "Bank of America",
-    "Package": "package_name",
+    "Package": "com.infonow.bofa",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -829,7 +829,7 @@
   },
   {
     "Application": "Banorte Movil",
-    "Package": "package_name",
+    "Package": "net.bac.sbe.android",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -838,7 +838,7 @@
   },
   {
     "Application": "Banrisul",
-    "Package": "package_name",
+    "Package": "br.com.banrisul",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -856,7 +856,7 @@
   },
   {
     "Application": "Barclays",
-    "Package": "package_name",
+    "Package": "com.barclays.android.barclaysmobilebanking",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 1,
@@ -874,7 +874,7 @@
   },
   {
     "Application": "BBVA México",
-    "Package": "package_name",
+    "Package": "com.bancomer.mbanking",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -910,7 +910,7 @@
   },
   {
     "Application": "Berichtenbox",
-    "Package": "package_name",
+    "Package": "nl.rijksoverheid.mbb.pub",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -918,8 +918,8 @@
     "MG_Notes": "No reported issues"
   },
   {
-    "Application": "Best Buy",
-    "Package": "package_name",
+    "Application": "ST Best Buy",
+    "Package": "bestbuy.shop.customer",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -928,7 +928,7 @@
   },
   {
     "Application": "BestSecret",
-    "Package": "package_name",
+    "Package": "com.bestsecret.main",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -946,7 +946,7 @@
   },
   {
     "Application": "Binance US",
-    "Package": "package_name",
+    "Package": "com.binance.dev",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 4,
@@ -955,7 +955,7 @@
   },
   {
     "Application": "BHIM UPI",
-    "Package": "package_name",
+    "Package": "in.org.npci.upiapp",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -982,7 +982,7 @@
   },
   {
     "Application": "BirdNET",
-    "Package": "package_name",
+    "Package": "de.tu_chemnitz.mi.kahst.birdnet",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1009,7 +1009,7 @@
   },
   {
     "Application": "Bitpanda",
-    "Package": "package_name",
+    "Package": "de.btpnd.wszjft",
     "Version": "0.0.0",
     "DG_Rating": 1,
     "MG_Rating": "X",
@@ -1071,8 +1071,8 @@
     "MG_Notes": "X"
   },
   {
-    "Application": "BlueDriver",
-    "Package": "package_name",
+    "Application": "BlueDriver OBD2 Scan Tool",
+    "Package": "com.lemurmonitors.bluedriver",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1081,7 +1081,7 @@
   },
   {
     "Application": "BlueMail Lite",
-    "Package": "package_name",
+    "Package": "me.bluemail.lite",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1099,7 +1099,7 @@
   },
   {
     "Application": "BOM Weather",
-    "Package": "package_name",
+    "Package": "au.gov.bom.metview",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1135,7 +1135,7 @@
   },
   {
     "Application": "Bose SoundTouch",
-    "Package": "package_name",
+    "Package": "com.bose.soundtouch",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1171,7 +1171,7 @@
   },
   {
     "Application": "BRD Bitcoin Wallet",
-    "Package": "package_name",
+    "Package": "com.breadwallet",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1198,7 +1198,7 @@
   },
   {
     "Application": "BTS WORLD",
-    "Package": "package_name",
+    "Package": "com.netmarble.btsw",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": "X",
@@ -1207,7 +1207,7 @@
   },
   {
     "Application": "Budbee",
-    "Package": "package_name",
+    "Package": "com.budbee.tracking",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1225,7 +1225,7 @@
   },
   {
     "Application": "Button Mapper by flar2",
-    "Package": "package_name",
+    "Package": "flar2.homebutton",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1270,7 +1270,7 @@
   },
   {
     "Application": "Cake Wallet",
-    "Package": "package_name",
+    "Package": "com.cakewallet.cake_wallet",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1279,7 +1279,7 @@
   },
   {
     "Application": "Caixa",
-    "Package": "package_name",
+    "Package": "br.com.gabba.Caixa",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1288,7 +1288,7 @@
   },
   {
     "Application": "Calculator++",
-    "Package": "package_name",
+    "Package": "org.solovyev.android.calculator",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1297,7 +1297,7 @@
   },
   {
     "Application": "Call a Bike",
-    "Package": "package_name",
+    "Package": "de.bahn.callabike",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1333,7 +1333,7 @@
   },
   {
     "Application": "Camera Adversaria",
-    "Package": "package_name",
+    "Package": "com.kieranbrowne.cameraadversaria",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1342,7 +1342,7 @@
   },
   {
     "Application": "Camera Go",
-    "Package": "package_name",
+    "Package": "com.nerovero.camerago",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1378,7 +1378,7 @@
   },
   {
     "Application": "Canvas Student",
-    "Package": "package_name",
+    "Package": "com.instructure.candroid",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1414,7 +1414,7 @@
   },
   {
     "Application": "Carteira Digital de Trânsito",
-    "Package": "package_name",
+    "Package": "br.gov.serpro.cnhe",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1423,7 +1423,7 @@
   },
   {
     "Application": "Card Wars",
-    "Package": "package_name",
+    "Package": "com.bombayplay.cardbattle",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1432,7 +1432,7 @@
   },
   {
     "Application": "Carx Drift Racing 2",
-    "Package": "package_name",
+    "Package": "com.carxtech.carxdr2",
     "Version": "0.0.0",
     "DG_Rating": 1,
     "MG_Rating": "X",
@@ -1440,8 +1440,8 @@
     "MG_Notes": "X"
   },
   {
-    "Application": "Cash App",
-    "Package": "package_name",
+    "Application": "CashApp",
+    "Package": "proxima.easymoney.android",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1486,7 +1486,7 @@
   },
   {
     "Application": "ČHMÚ",
-    "Package": "package_name",
+    "Package": "cz.oksystem.chmu.basic",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": "X",
@@ -1504,7 +1504,7 @@
   },
   {
     "Application": "China Daily",
-    "Package": "package_name",
+    "Package": "com.theotino.chinadaily",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1513,7 +1513,7 @@
   },
   {
     "Application": "CIBC Mobile Banking",
-    "Package": "package_name",
+    "Package": "com.cibc.android.mobi",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 4,
@@ -1522,7 +1522,7 @@
   },
   {
     "Application": "CIC",
-    "Package": "package_name",
+    "Package": "com.cic_prod.bad",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1531,7 +1531,7 @@
   },
   {
     "Application": "Cisco JABBER",
-    "Package": "package_name",
+    "Package": "com.cisco.im",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1540,7 +1540,7 @@
   },
   {
     "Application": "Cisco WEBEX",
-    "Package": "package_name",
+    "Package": "com.cisco.wx2.android",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1558,7 +1558,7 @@
   },
   {
     "Application": "Citra Emulator",
-    "Package": "package_name",
+    "Package": "org.citra.citra_emu",
     "Version": "0.0.0",
     "DG_Rating": 2,
     "MG_Rating": "X",
@@ -1567,7 +1567,7 @@
   },
   {
     "Application": "Citrix Secure Hub",
-    "Package": "package_name",
+    "Package": "com.zenprise",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1576,7 +1576,7 @@
   },
   {
     "Application": "Citymapper",
-    "Package": "package_name",
+    "Package": "com.citymapper.app.release",
     "Version": "0.0.0",
     "DG_Rating": 1,
     "MG_Rating": 3,
@@ -1585,7 +1585,7 @@
   },
   {
     "Application": "Clash of Clans",
-    "Package": "package_name",
+    "Package": "com.supercell.clashofclans",
     "Version": "0.0.0",
     "DG_Rating": 3,
     "MG_Rating": 3,
@@ -1594,7 +1594,7 @@
   },
   {
     "Application": "Clash Royale",
-    "Package": "package_name",
+    "Package": "com.supercell.clashroyale",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 3,
@@ -1602,8 +1602,8 @@
     "MG_Notes": "Progress can be synced through developer's Supercell ID instead of Google Play. No in-app purchases"
   },
   {
-    "Application": "Clockify",
-    "Package": "package_name",
+    "Application": "Clockify Time Tracker",
+    "Package": "me.clockify.android",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1612,7 +1612,7 @@
   },
   {
     "Application": "CloudEdge",
-    "Package": "package_name",
+    "Package": "com.cloudedge.smarteye",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1630,7 +1630,7 @@
   },
   {
     "Application": "Coinbase",
-    "Package": "package_name",
+    "Package": "com.coinbase.android",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1639,7 +1639,7 @@
   },
   {
     "Application": "Coinbase Wallet",
-    "Package": "package_name",
+    "Package": "org.toshi",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1648,7 +1648,7 @@
   },
   {
     "Application": "Coinbase Pro",
-    "Package": "package_name",
+    "Package": "com.coinbase.pro",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1657,7 +1657,7 @@
   },
   {
     "Application": "CoinDCX Pro",
-    "Package": "package_name",
+    "Package": "com.coindcx",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1675,7 +1675,7 @@
   },
   {
     "Application": "Colombia Radios",
-    "Package": "package_name",
+    "Package": "com.viverit.colombiaradios",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1683,8 +1683,8 @@
     "MG_Notes": "No reported issues"
   },
   {
-    "Application": "ColorNote",
-    "Package": "package_name",
+    "Application": "ColorNote Notepad Notes",
+    "Package": "com.socialnmobile.dictapps.notepad.color.note",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1693,7 +1693,7 @@
   },
   {
     "Application": "Collabora Office",
-    "Package": "package_name",
+    "Package": "com.collabora.libreoffice",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1702,7 +1702,7 @@
   },
   {
     "Application": "Collins Bird Guide",
-    "Package": "package_name",
+    "Package": "com.natureguides.birdguide",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1719,8 +1719,8 @@
     "MG_Notes": "X"
   },
   {
-    "Application": "Comdirect photoTAN",
-    "Package": "package_name",
+    "Application": "Comdirect photoTAN App",
+    "Package": "com.comdirect.phototan",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1729,7 +1729,7 @@
   },
   {
     "Application": "Commbank",
-    "Package": "package_name",
+    "Package": "com.commbank.netbank",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 3,
@@ -1737,8 +1737,8 @@
     "MG_Notes": "Tap/NFC Payments don't work"
   },
   {
-    "Application": "Commerzbank",
-    "Package": "package_name",
+    "Application": "Commerzbank Banking",
+    "Package": "de.commerzbanking.mobil",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1747,7 +1747,7 @@
   },
   {
     "Application": "CommSec",
-    "Package": "package_name",
+    "Package": "au.com.commsec.android.CommSec",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1756,7 +1756,7 @@
   },
   {
     "Application": "Consorsbank SecurePlus",
-    "Package": "package_name",
+    "Package": "com.kobil.consors",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1783,7 +1783,7 @@
   },
   {
     "Application": "Coronapas",
-    "Package": "package_name",
+    "Package": "dk.sum.ssicpas",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1810,7 +1810,7 @@
   },
   {
     "Application": "Coursicle",
-    "Package": "package_name",
+    "Package": "com.coursicle.coursicle",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 3,
@@ -1827,8 +1827,8 @@
     "MG_Notes": "Does not return any items for sale; no difference with microG"
   },
   {
-    "Application": "Creative Cloud",
-    "Package": "package_name",
+    "Application": "Adobe Creative Cloud",
+    "Package": "com.adobe.cc",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1837,7 +1837,7 @@
   },
   {
     "Application": "Creative Cloud Express: Design",
-    "Package": "package_name",
+    "Package": "com.adobe.spark.post",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1846,7 +1846,7 @@
   },
   {
     "Application": "Crédit Mutuel",
-    "Package": "package_name",
+    "Package": "com.cm_prod.bad",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1855,7 +1855,7 @@
   },
   {
     "Application": "Cronometer",
-    "Package": "package_name",
+    "Package": "com.cronometer.android.gold",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": "X",
@@ -1864,7 +1864,7 @@
   },
   {
     "Application": "Crossy Road",
-    "Package": "package_name",
+    "Package": "com.yodo1.crossyroad",
     "Version": "0.0.0",
     "DG_Rating": 4,
     "MG_Rating": 4,
@@ -1873,7 +1873,7 @@
   },
   {
     "Application": "Crunchyroll",
-    "Package": "package_name",
+    "Package": "com.crunchyroll.crunchyroid",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 4,
@@ -1891,7 +1891,7 @@
   },
   {
     "Application": "Crypto.com",
-    "Package": "package_name",
+    "Package": "co.mona.android",
     "Version": "0.0.0",
     "DG_Rating": "X",
     "MG_Rating": 1,
@@ -1900,7 +1900,7 @@
   },
   {
     "Application": "Cryptomator",
-    "Package": "package_name",
+    "Package": "org.cryptomator",
     "Version": "0.0.0",
     "DG_Rating": 2,
     "MG_Rating": "X",
@@ -1918,7 +1918,7 @@
   },
   {
     "Application": "CSR Racing",
-    "Package": "package_name",
+    "Package": "com.naturalmotion.csrracing",
     "Version": "0.0.0",
     "DG_Rating": 1,
     "MG_Rating": "X",
@@ -1927,7 +1927,7 @@
   },
   {
     "Application": "CSR Racing 2",
-    "Package": "package_name",
+    "Package": "com.naturalmotion.customstreetracer2",
     "Version": "0.0.0",
     "DG_Rating": 1,
     "MG_Rating": "X",
@@ -3243,7 +3243,7 @@
     "Application": "Google Chat",
     "Package": "com.google.android.apps.dynamite",
     "Version": "0.0.0",
-    "DG_Rating": 12,
+    "DG_Rating": 1,
     "MG_Rating": 4,
     "DG_Notes": "Unusable",
     "MG_Notes": "No Reported Issues"
@@ -3474,7 +3474,7 @@
     "MG_Notes": "No reported issues"
   },
   {
-    "Application": "GoPro",
+    "Application": "GoPro Quik",
     "Package": "package_name",
     "Version": "0.0.0",
     "DG_Rating": 3,
@@ -3618,7 +3618,7 @@
     "MG_Notes": "No reported issues"
   },
   {
-    "Application": "Headspace: meditation & sleep",
+    "Application": "Headspace: Mindful Meditation",
     "Package": "package_name",
     "Version": "0.0.0",
     "DG_Rating": 3,
@@ -3673,7 +3673,7 @@
   },
   {
     "Application": "Hill Climb Racing",
-    "Package": "package_name",
+    "Package": "com.fingersoft.hillclimb",
     "Version": "0.0.0",
     "DG_Rating": 1,
     "MG_Rating": "X",
@@ -3951,7 +3951,7 @@
     "MG_Notes": "Signing in using some 3rd party accounts (Google & Twitter) does not work"
   },
   {
-    "Application": "Insight timer: meditation, sleep and music",
+    "Application": "Insight timer - Meditation App",
     "Package": "package_name",
     "Version": "0.0.0",
     "DG_Rating": 1,
@@ -4963,17 +4963,17 @@
     "Package": "com.microsoft.office.onenote",
     "Version": "0.0.0",
     "DG_Rating": 4,
-    "MG_Rating": "X",
+    "MG_Rating": 4,
     "DG_Notes": "No reported issues",
-    "MG_Notes": "X"
+    "MG_Notes": "No reported issues"
   },
   {
     "Application": "Microsoft Outlook",
     "Package": "com.microsoft.office.outlook",
-    "Version": "0.0.0",
-    "DG_Rating": 4,
+    "Version": "4.2142.1",
+    "DG_Rating": 1,
     "MG_Rating": 4,
-    "DG_Notes": "No reported issues",
+    "DG_Notes": "App starts and then auto-closes after about five seconds. This is on current Outlook version 4.2142.1. Downgrading to version 4.2131.1 made the app stable and it worked fine. Somewhere between those two versions, Microsoft changed something to make this no longer work",
     "MG_Notes": "No reported issues"
   },
   {
@@ -5904,15 +5904,6 @@
     "MG_Notes": "Will not work in second phone user account"
   },
   {
-    "Application": "Onenote",
-    "Package": "package_name",
-    "Version": "0.0.0",
-    "DG_Rating": 4,
-    "MG_Rating": 4,
-    "DG_Notes": "No reported issues",
-    "MG_Notes": "No reported issues"
-  },
-  {
     "Application": "Onoff",
     "Package": "package_name",
     "Version": "0.0.0",
@@ -6036,15 +6027,6 @@
     "DG_Rating": "X",
     "MG_Rating": 4,
     "DG_Notes": "X",
-    "MG_Notes": "No reported issues"
-  },
-  {
-    "Application": "Outlook",
-    "Package": "package_name",
-    "Version": "0.0.0",
-    "DG_Rating": 1,
-    "MG_Rating": 4,
-    "DG_Notes": "App starts and then auto-closes after about five seconds. This is on current Outlook version 4.2142.1. Downgrading to version 4.2131.1 made the app stable and it worked fine. Somewhere between those two versions, Microsoft changed something to make this no longer work",
     "MG_Notes": "No reported issues"
   },
   {
