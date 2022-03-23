@@ -16,18 +16,18 @@ import java.util.List;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
-import tech.techlore.plexus.adapters.AppItemAdapter;
-import tech.techlore.plexus.models.App;
+import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
+import tech.techlore.plexus.models.PlexusData;
 
-public class MainFragment extends Fragment {
+public class PlexusDataFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private AppItemAdapter rAdapter;
-    private List<App> appsList;
-    private App app;
+    private PlexusDataItemAdapter plexusDataItemAdapter;
+    private List<PlexusData> plexusDataList;
+    private PlexusData plexusData;
     private CountDownTimer delayTimer;
 
-    public MainFragment() {
+    public PlexusDataFragment() {
         // Required empty public constructor
     }
 
@@ -41,28 +41,28 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_main,container,false);
+        return inflater.inflate(R.layout.recycler_view,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        recyclerView = view.findViewById(R.id.apps_recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         final MainActivity mainActivity = ((MainActivity) requireActivity());
-        appsList= mainActivity.list;
+        plexusDataList = mainActivity.list;
+        plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
 
     /*###########################################################################################*/
 
-        rAdapter = new AppItemAdapter(appsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(rAdapter);
+        recyclerView.setAdapter(plexusDataItemAdapter);
 
         // HANDLE CLICK EVENTS OF ITEMS
-        rAdapter.setOnItemClickListener(position -> {
+        plexusDataItemAdapter.setOnItemClickListener(position -> {
 
-            app = appsList.get(position);
-            mainActivity.AppDetails(app.name, app.packageName, app.version,
-                    app.dgNotes, app.mgNotes, app.dgRating, app.mgRating);
+            plexusData = plexusDataList.get(position);
+            mainActivity.AppDetails(plexusData.name, plexusData.packageName, plexusData.version,
+                    plexusData.dgNotes, plexusData.mgNotes, plexusData.dgRating, plexusData.mgRating);
 
         });
 

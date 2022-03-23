@@ -22,8 +22,6 @@
             android:paddingEnd="@dimen/margin_2.5"
             app:titleTextAppearance="@style/MediumBoldText"/>
 
-        <include layout="@layout/divider_horizontal"/>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/activity_host_fragment"/>

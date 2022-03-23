@@ -32,9 +32,9 @@ import tech.techlore.plexus.R;
 import tech.techlore.plexus.fragments.main.AboutFragment;
 import tech.techlore.plexus.fragments.main.AppDetailsFragment;
 import tech.techlore.plexus.fragments.main.InstalledAppsFragment;
-import tech.techlore.plexus.fragments.main.MainFragment;
+import tech.techlore.plexus.fragments.main.MainDefaultFragment;
 import tech.techlore.plexus.fragments.main.RatingInfoFragment;
-import tech.techlore.plexus.models.App;
+import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private Fragment fragment;
     public ExtendedFloatingActionButton extFab;
-    public List<App> list;
+    public List<PlexusData> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         // GET LIST FROM SPLASH ACTIVITY
         //noinspection unchecked
-        list = (List<App>) getIntent().getSerializableExtra("appsList");
+        list = (List<PlexusData>) getIntent().getSerializableExtra("appsList");
 
         // DEFAULT FRAGMENT
-        if (savedInstanceState == null) {
-            DisplayFragment("Main");
-        }
+        DisplayFragment("Main Default");
 
         // EXT FAB
         // OPEN SEARCH ACTIVITY
@@ -86,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         switch (fragmentName) {
 
-            case "Main":
-                fragment = new MainFragment();
+            case "Main Default":
+                fragment = new MainDefaultFragment();
                 break;
 
             case "Installed Apps":
@@ -134,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                            String dgNotes, String mgNotes, String dgRating, String mgRating) {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.details);
-        fragment = new AppDetailsFragment();
+        Fragment fragmentNew = new AppDetailsFragment();
 
         Bundle args = new Bundle();
         args.putString("name", name);
@@ -144,14 +142,15 @@ public class MainActivity extends AppCompatActivity {
         args.putString("mgNotes", mgNotes);
         args.putString("dgRating", dgRating);
         args.putString("mgRating", mgRating);
-        fragment.setArguments(args);
+        fragmentNew.setArguments(args);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         extFab.hide();
         getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                                     R.anim.slide_from_start, R.anim.slide_to_end)
-                .replace(R.id.activity_host_fragment, fragment)
+                .setCustomAnimations(R.anim.fade_scale_in, R.anim.no_movement,
+                                     R.anim.fade_in, R.anim.fade_scale_out)
+                .hide(fragment) // HIDE PREVIOUS FRAGMENT
+                .add(R.id.activity_host_fragment, fragmentNew) // DON'T REPLACE PREVIOUS FRAGMENT
                 .addToBackStack(null)
                 .commit();
 
@@ -166,13 +165,6 @@ public class MainActivity extends AppCompatActivity {
         // SHOW MENU ICONS ONLY IN MAIN FRAGMENT
         menu.findItem(R.id.action_settings).setVisible(getSupportFragmentManager().getBackStackEntryCount() == 1);
         menu.findItem(R.id.menu_score_info).setVisible(getSupportFragmentManager().getBackStackEntryCount() == 1);
-        menu.findItem(R.id.menu_installed_apps).setVisible(getSupportFragmentManager().getBackStackEntryCount() == 1);
-
-        // INSTALLED APPS
-        menu.findItem(R.id.menu_installed_apps).setOnMenuItemClickListener(item -> {
-            DisplayFragment("Installed Apps");
-            return true;
-        });
 
         // RATING INFO
         menu.findItem(R.id.menu_score_info).setOnMenuItemClickListener(item -> {

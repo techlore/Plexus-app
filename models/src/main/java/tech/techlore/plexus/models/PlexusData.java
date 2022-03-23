@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class App implements Serializable {
+public class PlexusData implements Serializable {
 
     @JsonProperty("Application")
     public String name;

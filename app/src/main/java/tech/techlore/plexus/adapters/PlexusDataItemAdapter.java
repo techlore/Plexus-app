@@ -18,12 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.models.App;
+import tech.techlore.plexus.models.PlexusData;
 
-public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListViewHolder> implements Filterable {
+public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder> implements Filterable {
 
-    private final List<App> aListViewItems;
-    private final List<App> aListViewItemsFull;
+    private final List<PlexusData> aListViewItems;
+    private final List<PlexusData> aListViewItemsFull;
     private OnItemClickListener itemClickListener;
 
     public interface OnItemClickListener {
@@ -61,7 +61,7 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
         }
     }
 
-    public AppItemAdapter(List<App> listViewItems)
+    public PlexusDataItemAdapter(List<PlexusData> listViewItems)
     {
         aListViewItems = listViewItems;
         aListViewItemsFull = new ArrayList<>(aListViewItems);
@@ -70,23 +70,23 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
 
     @NonNull
     @Override
-    public AppItemAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false);
-        return new AppItemAdapter.ListViewHolder(view, itemClickListener);
+    public PlexusDataItemAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
+        return new PlexusDataItemAdapter.ListViewHolder(view, itemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final AppItemAdapter.ListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final PlexusDataItemAdapter.ListViewHolder holder, int position) {
 
-        final App app = aListViewItems.get(position);
+        final PlexusData plexusData = aListViewItems.get(position);
         final Context context = holder.itemView.getContext();
 
         // SET APP NAME, PACKAGE NAME, VERSION, SCORES
-        holder.name.setText(app.name);
-        holder.packageName.setText(app.packageName);
-        holder.version.setText(app.version);
-        holder.dgRating.setText(app.dgRating);
-        holder.mgRating.setText(app.mgRating);
+        holder.name.setText(plexusData.name);
+        holder.packageName.setText(plexusData.packageName);
+        holder.version.setText(plexusData.version);
+        holder.dgRating.setText(plexusData.dgRating);
+        holder.mgRating.setText(plexusData.mgRating);
 
         // SET HORIZONTALLY SCROLLING TEXT
         hScrollText(holder.name);
@@ -94,8 +94,8 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
         hScrollText(holder.version);
 
         // SET SCORE BACKGROUND COLOR
-        ScoreColor(context, holder.dgRating, app.dgRating);
-        ScoreColor(context, holder.mgRating, app.mgRating);
+        ScoreColor(context, holder.dgRating, plexusData.dgRating);
+        ScoreColor(context, holder.mgRating, plexusData.mgRating);
 
     }
 
@@ -129,18 +129,18 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                List<App> filteredList = new ArrayList<>();
+                List<PlexusData> filteredList = new ArrayList<>();
 
                 if (charSequence != null) {
 
                     String searchString = charSequence.toString().toLowerCase().trim();
 
-                    for (App app: aListViewItemsFull){
+                    for (PlexusData plexusData : aListViewItemsFull){
 
-                        if (app.name.toLowerCase().contains(searchString)
-                            || app.packageName.toLowerCase().contains(searchString)){
+                        if (plexusData.name.toLowerCase().contains(searchString)
+                            || plexusData.packageName.toLowerCase().contains(searchString)){
 
-                            filteredList.add(app);
+                            filteredList.add(plexusData);
                         }
                     }
 
@@ -156,7 +156,7 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ListView
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 aListViewItems.clear();
                 //noinspection unchecked
-                aListViewItems.addAll((ArrayList<App>) filterResults.values);
+                aListViewItems.addAll((ArrayList<PlexusData>) filterResults.values);
                 notifyDataSetChanged();
             }
         };

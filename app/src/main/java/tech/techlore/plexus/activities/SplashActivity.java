@@ -25,20 +25,20 @@ import java.util.concurrent.Executors;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import tech.techlore.plexus.models.App;
+import tech.techlore.plexus.models.PlexusData;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
     private OkHttpClient okHttpClient;
     public String jsonData;
-    public List<App> appsList;
+    public List<PlexusData> plexusDataList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        appsList = new ArrayList<>();
+        plexusDataList = new ArrayList<>();
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         final Handler handler = new Handler(Looper.getMainLooper());
 
@@ -57,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
             handler.post(() -> {
                 try {
                     populateList();
-                    SendListIntent(this, MainActivity.class, (Serializable) appsList);
+                    SendListIntent(this, MainActivity.class, (Serializable) plexusDataList);
                     finish();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -86,7 +86,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public void populateList() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        appsList = objectMapper.readValue(jsonData, new TypeReference<List<App>>(){});
+        plexusDataList = objectMapper.readValue(jsonData, new TypeReference<List<PlexusData>>(){});
     }
 
 }

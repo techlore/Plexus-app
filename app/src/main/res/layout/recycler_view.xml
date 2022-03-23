@@ -2,7 +2,7 @@
 <androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/apps_recycler_view"
+    android:id="@+id/recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backgroundColor"
@@ -12,4 +12,4 @@
     android:scrollbarSize="@dimen/margin_4"
     android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
     android:scrollbars="vertical"
-    tools:listitem="@layout/item_main" />
+    tools:listitem="@layout/item_recycler_view"/>

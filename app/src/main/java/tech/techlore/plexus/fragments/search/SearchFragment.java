@@ -16,15 +16,15 @@ import java.util.List;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.SearchActivity;
-import tech.techlore.plexus.adapters.AppItemAdapter;
-import tech.techlore.plexus.models.App;
+import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
+import tech.techlore.plexus.models.PlexusData;
 
 public class SearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private AppItemAdapter rAdapter;
-    private List<App> appsList;
-    private App app;
+    private PlexusDataItemAdapter rAdapter;
+    private List<PlexusData> appsList;
+    private PlexusData plexusData;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -39,19 +39,19 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main,container,false);
+        return inflater.inflate(R.layout.recycler_view,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        recyclerView = view.findViewById(R.id.apps_recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         final SearchActivity searchActivity = ((SearchActivity) requireActivity());
         appsList = searchActivity.list;
 
         /*===========================================================================================*/
 
-        rAdapter = new AppItemAdapter(appsList);
+        rAdapter = new PlexusDataItemAdapter(appsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         searchActivity.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -67,6 +67,9 @@ public class SearchFragment extends Fragment {
                     rAdapter.getFilter().filter(searchString);
                     recyclerView.setAdapter(rAdapter);
                 }
+                else {
+                    recyclerView.setAdapter(null);
+                }
 
                 return true;
             }
@@ -77,9 +80,9 @@ public class SearchFragment extends Fragment {
         // HANDLE CLICK EVENTS OF ITEMS
         rAdapter.setOnItemClickListener(position -> {
 
-            app = appsList.get(position);
-            searchActivity.AppDetails(app.name, app.packageName, app.version,
-                    app.dgNotes, app.mgNotes, app.dgRating, app.mgRating);
+            plexusData = appsList.get(position);
+            searchActivity.AppDetails(plexusData.name, plexusData.packageName, plexusData.version,
+                    plexusData.dgNotes, plexusData.mgNotes, plexusData.dgRating, plexusData.mgRating);
 
         });
 

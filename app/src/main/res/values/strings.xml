@@ -4,14 +4,9 @@
 
     <!--MAIN ACTIVITY-->
     <string name="search">Search</string>
-    <string name="all">All</string>
-    <string name="google">Google</string>
-    <string name="amazon">Amazon</string>
-    <string name="payment">Payment</string>
-    <string name="photo">Photo</string>
-    <string name="video">Video</string>
-    <string name="messaging">Messaging</string>
-    <string name="password">Password</string>
+
+    <!--SEARCH ACTIVITY-->
+    <string name="plexus_data">Plexus Data</string>
 
     <!--OVERFLOW MENU-->
     <string name="menu_installed_apps">Installed Apps</string>
@@ -26,7 +21,7 @@
     <string name="de_Googled">de-Googled</string>
     <string name="microG">\u00B5 (microG)</string>
 
-    <!--SCORE INFO FRAGMENT-->
+    <!--RATING INFO FRAGMENT-->
     <string name="notes" translatable="false">Notes</string>
     <string name="what_ratings_mean">What do the ratings mean?</string>
     <string name="not_tested">Not tested</string>
@@ -63,8 +58,6 @@
     <string name="system_default">System Default</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
-
-    <!--BOTTOM SHEET-->
 
     <!--TOASTS-->
     <string name="no_browsers">No browsers installed on this device</string>

@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,13 +16,14 @@ import java.util.Objects;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.fragments.main.AppDetailsFragment;
 import tech.techlore.plexus.fragments.search.SearchFragment;
-import tech.techlore.plexus.models.App;
+import tech.techlore.plexus.models.PlexusData;
 
 public class SearchActivity extends AppCompatActivity {
 
-    public List<App> list;
+    public List<PlexusData> list;
     private Fragment fragment, fragmentHide;
     public SearchView searchView;
+    public TabLayout searchTabLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         final MaterialToolbar toolbar = findViewById(R.id.toolbar_search);
+        searchTabLayout = findViewById(R.id.search_tab_layout);
         searchView = findViewById(R.id.searchView);
 
     /*###########################################################################################*/
@@ -39,12 +42,11 @@ public class SearchActivity extends AppCompatActivity {
 
         // GET LIST FROM MAIN ACTIVITY
         //noinspection unchecked
-        list = (List<App>) getIntent().getSerializableExtra("appsList");
+        list = (List<PlexusData>) getIntent().getSerializableExtra("appsList");
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
             Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-            searchView.setVisibility(View.VISIBLE);
             fragment = new SearchFragment();
             fragmentHide = fragment;
             getSupportFragmentManager().beginTransaction()
@@ -59,6 +61,7 @@ public class SearchActivity extends AppCompatActivity {
     public void AppDetails(String name, String packageName, String version,
                            String dgNotes, String mgNotes, String dgRating, String mgRating) {
 
+        searchTabLayout.setVisibility(View.GONE);
         searchView.setVisibility(View.GONE);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.details);
@@ -91,6 +94,7 @@ public class SearchActivity extends AppCompatActivity {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStackImmediate();
             Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+            searchTabLayout.setVisibility(View.VISIBLE);
             searchView.setVisibility(View.VISIBLE);
         }
 

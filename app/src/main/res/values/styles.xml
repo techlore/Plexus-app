@@ -26,6 +26,11 @@
         <item name="fontFamily">@font/nunito_semibold</item>
     </style>
 
+    <!--TAB TEXT STYLE-->
+    <style name="TabText" parent="MediumBoldText">
+        <item name="android:textSize">@dimen/text_17</item>
+    </style>
+
     <!--BASE BOTTOM SHEET STYLE-->
     <style name="BaseBottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>

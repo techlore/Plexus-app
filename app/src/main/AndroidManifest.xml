@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="tech.techlore.plexus">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
+    </queries>
+
 
     <application
         android:name=".appmanager.ApplicationManager"
@@ -26,12 +37,12 @@
         <!--MAIN ACTIVITY-->
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation">
         </activity>
 
         <!--SEARCH ACTIVITY-->
         <activity android:name=".activities.SearchActivity"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation">
         </activity>
 
     </application>
