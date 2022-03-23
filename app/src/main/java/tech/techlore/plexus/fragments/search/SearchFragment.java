@@ -1,5 +1,7 @@
 package tech.techlore.plexus.fragments.search;
 
+import static tech.techlore.plexus.utils.Utility.AppDetails;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,7 +83,7 @@ public class SearchFragment extends Fragment {
         rAdapter.setOnItemClickListener(position -> {
 
             plexusData = appsList.get(position);
-            searchActivity.AppDetails(plexusData.name, plexusData.packageName, plexusData.version,
+            AppDetails(searchActivity, plexusData.name, plexusData.packageName, plexusData.version,
                     plexusData.dgNotes, plexusData.mgNotes, plexusData.dgRating, plexusData.mgRating);
 
         });

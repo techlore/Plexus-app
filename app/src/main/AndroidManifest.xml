@@ -31,12 +31,18 @@
         <!--MAIN ACTIVITY-->
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="orientation">
+            android:configChanges="orientation|screenSize">
+        </activity>
+
+        <!--APP DETAILS ACTIVITY-->
+        <activity
+            android:name=".activities.AppDetailsActivity"
+            android:configChanges="orientation|screenSize">
         </activity>
 
         <!--SEARCH ACTIVITY-->
         <activity android:name=".activities.SearchActivity"
-            android:configChanges="orientation">
+            android:configChanges="orientation|screenSize">
         </activity>
 
     </application>

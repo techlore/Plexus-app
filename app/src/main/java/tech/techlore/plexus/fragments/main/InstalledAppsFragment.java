@@ -1,9 +1,12 @@
 package tech.techlore.plexus.fragments.main;
 
+import static tech.techlore.plexus.utils.Utility.AppDetails;
+
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +33,7 @@ public class InstalledAppsFragment extends Fragment {
     private List<InstalledApp> installedAppList;
     private InstalledAppItemAdapter installedAppItemAdapter;
     private InstalledApp installedApp;
+    private CountDownTimer delayTimer;
 
     public InstalledAppsFragment() {
         // Required empty public constructor
@@ -94,10 +98,46 @@ public class InstalledAppsFragment extends Fragment {
         installedAppItemAdapter.setOnItemClickListener(position -> {
 
             installedApp = installedAppList.get(position);
-            mainActivity.AppDetails(installedApp.getName(), installedApp.getPackageName(), installedApp.getVersion(),
-                                    installedApp.getDgNotes(), installedApp.getMgNotes(),
-                                    installedApp.getDgRating(), installedApp.getMgRating());
+            AppDetails(mainActivity, installedApp.getName(), installedApp.getPackageName(),
+                        installedApp.getVersion(), installedApp.getDgNotes(),
+                        installedApp.getMgNotes(), installedApp.getDgRating(),
+                        installedApp.getMgRating());
 
+        });
+
+        // SHRINK FAB ON SCROLL
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                // CHECK IF SCROLLING OR NOT
+                //   0 = NO SCROLL
+                // > 0 = SCROLL UP
+                // < 0 = SCROLL DOWN
+                if (dy != 0) {
+
+                    // SHRINK FAB WHEN SCROLLING
+                    mainActivity.extFab.shrink();
+
+                    if (delayTimer != null) {
+                        delayTimer.cancel();
+                    }
+
+                    // EXTEND FAB WHEN SCROLLING STOPPED
+                    // WITH A SUBTLE DELAY
+                    delayTimer = new CountDownTimer(400, 100) {
+
+                        public void onTick(long millisUntilFinished) {}
+
+                        // ON TIMER FINISH, EXTEND FAB
+                        public void onFinish() {
+                            mainActivity.extFab.extend();
+                        }
+                    }.start();
+                }
+
+            }
         });
 
     }

@@ -1,5 +1,7 @@
 package tech.techlore.plexus.fragments.main;
 
+import static tech.techlore.plexus.utils.Utility.AppDetails;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -61,7 +63,7 @@ public class PlexusDataFragment extends Fragment {
         plexusDataItemAdapter.setOnItemClickListener(position -> {
 
             plexusData = plexusDataList.get(position);
-            mainActivity.AppDetails(plexusData.name, plexusData.packageName, plexusData.version,
+            AppDetails(mainActivity, plexusData.name, plexusData.packageName, plexusData.version,
                     plexusData.dgNotes, plexusData.mgNotes, plexusData.dgRating, plexusData.mgRating);
 
         });

@@ -14,14 +14,12 @@ import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.fragments.main.AppDetailsFragment;
 import tech.techlore.plexus.fragments.search.SearchFragment;
 import tech.techlore.plexus.models.PlexusData;
 
 public class SearchActivity extends AppCompatActivity {
 
     public List<PlexusData> list;
-    private Fragment fragment, fragmentHide;
     public SearchView searchView;
     public TabLayout searchTabLayout;
 
@@ -47,43 +45,12 @@ public class SearchActivity extends AppCompatActivity {
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
             Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-            fragment = new SearchFragment();
-            fragmentHide = fragment;
+            Fragment fragment = new SearchFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.activity_host_fragment, fragment)
                     .addToBackStack(null)
                     .commit();
         }
-
-    }
-
-    // APP DETAILS FRAGMENT
-    public void AppDetails(String name, String packageName, String version,
-                           String dgNotes, String mgNotes, String dgRating, String mgRating) {
-
-        searchTabLayout.setVisibility(View.GONE);
-        searchView.setVisibility(View.GONE);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.details);
-        fragment = new AppDetailsFragment();
-
-        Bundle args = new Bundle();
-        args.putString("name", name);
-        args.putString("packageName", packageName);
-        args.putString("version", version);
-        args.putString("dgNotes", dgNotes);
-        args.putString("mgNotes", mgNotes);
-        args.putString("dgRating", dgRating);
-        args.putString("mgRating", mgRating);
-        fragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                                     R.anim.slide_from_start, R.anim.slide_to_end)
-                .hide(fragmentHide) // HIDE THE PREVIOUS FRAGMENT, NOT REPLACE, OR ELSE LIST ISSUES ON BACK PRESSED
-                .add(R.id.activity_host_fragment, fragment)
-                .addToBackStack(null)
-                .commit();
 
     }
 

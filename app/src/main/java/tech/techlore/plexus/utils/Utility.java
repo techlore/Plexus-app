@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import java.io.Serializable;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.activities.AppDetailsActivity;
 
 public class Utility {
 
@@ -47,6 +48,23 @@ public class Utility {
                 break;
 
         }
+
+    }
+
+    // APP DETAILS ACTIVITY
+    public static void AppDetails(Activity activityFrom, String name, String packageName, String version,
+                           String dgNotes, String mgNotes, String dgRating, String mgRating) {
+
+        activityFrom.startActivity(new Intent(activityFrom, AppDetailsActivity.class)
+                                    .putExtra("name", name)
+                                    .putExtra("packageName", packageName)
+                                    .putExtra("version", version)
+                                    .putExtra("dgRating", dgRating)
+                                    .putExtra("mgRating", mgRating)
+                                    .putExtra("dgNotes", dgNotes)
+                                    .putExtra("mgNotes", mgNotes));
+
+        activityFrom.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement);
 
     }
 

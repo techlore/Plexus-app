@@ -30,7 +30,6 @@ import java.util.Objects;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.fragments.main.AboutFragment;
-import tech.techlore.plexus.fragments.main.AppDetailsFragment;
 import tech.techlore.plexus.fragments.main.InstalledAppsFragment;
 import tech.techlore.plexus.fragments.main.MainDefaultFragment;
 import tech.techlore.plexus.fragments.main.RatingInfoFragment;
@@ -65,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
         list = (List<PlexusData>) getIntent().getSerializableExtra("appsList");
 
         // DEFAULT FRAGMENT
-        DisplayFragment("Main Default");
+        if (savedInstanceState == null) {
+            DisplayFragment("Main Default");
+        }
 
         // EXT FAB
         // OPEN SEARCH ACTIVITY
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(getSupportFragmentManager().getBackStackEntryCount() >= 1);
 
         // SHOW EXT FAB ONLY ON MAIN FRAGMENT
-        if (fragmentName.equals("Main")){
+        if (fragmentName.equals("Main Default")){
             extFab.show();
         }
         else{
@@ -125,35 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.activity_host_fragment, fragment)
                 .addToBackStack(null)
                 .commit();
-    }
-
-    // SEPARATE FUNCTION FOR APP DETAILS FRAGMENT
-    public void AppDetails(String name, String packageName, String version,
-                           String dgNotes, String mgNotes, String dgRating, String mgRating) {
-
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.details);
-        Fragment fragmentNew = new AppDetailsFragment();
-
-        Bundle args = new Bundle();
-        args.putString("name", name);
-        args.putString("packageName", packageName);
-        args.putString("version", version);
-        args.putString("dgNotes", dgNotes);
-        args.putString("mgNotes", mgNotes);
-        args.putString("dgRating", dgRating);
-        args.putString("mgRating", mgRating);
-        fragmentNew.setArguments(args);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        extFab.hide();
-        getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.fade_scale_in, R.anim.no_movement,
-                                     R.anim.fade_in, R.anim.fade_scale_out)
-                .hide(fragment) // HIDE PREVIOUS FRAGMENT
-                .add(R.id.activity_host_fragment, fragmentNew) // DON'T REPLACE PREVIOUS FRAGMENT
-                .addToBackStack(null)
-                .commit();
-
     }
 
     // MENU
