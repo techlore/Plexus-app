@@ -1,35 +1,34 @@
 package tech.techlore.plexus.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
-import java.util.Objects;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.fragments.search.SearchFragment;
+import tech.techlore.plexus.fragments.search.SearchDataFragment;
+import tech.techlore.plexus.fragments.search.SearchInstalledFragment;
 import tech.techlore.plexus.models.PlexusData;
 
 public class SearchActivity extends AppCompatActivity {
 
     public List<PlexusData> list;
     public SearchView searchView;
-    public TabLayout searchTabLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        Intent intent = getIntent();
         final MaterialToolbar toolbar = findViewById(R.id.toolbar_search);
-        searchTabLayout = findViewById(R.id.search_tab_layout);
         searchView = findViewById(R.id.searchView);
 
     /*###########################################################################################*/
@@ -40,36 +39,51 @@ public class SearchActivity extends AppCompatActivity {
 
         // GET LIST FROM MAIN ACTIVITY
         //noinspection unchecked
-        list = (List<PlexusData>) getIntent().getSerializableExtra("appsList");
+        list = (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
-            Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-            Fragment fragment = new SearchFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.activity_host_fragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
+
+            if (intent.getStringExtra("from").equals("plexusData")) {
+                DisplayFragment("Search Data");
+            }
+            else {
+                DisplayFragment("Search Installed");
+            }
+
         }
 
     }
 
-    @Override
-    public void onBackPressed() {
+    // SETUP FRAGMENTS
+    private void DisplayFragment(String fragmentName) {
 
-        // IF NOT ON DEFAULT FRAGMENT, GO TO DEFAULT FRAGMENT
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            getSupportFragmentManager().popBackStackImmediate();
-            Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-            searchTabLayout.setVisibility(View.VISIBLE);
-            searchView.setVisibility(View.VISIBLE);
+        Fragment fragment;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (fragmentName.equals("Search Data")) {
+            searchView.setQueryHint(getResources().getString(R.string.search_data));
+            fragment = new SearchDataFragment();
+            transaction.setCustomAnimations(R.anim.slide_from_start, R.anim.slide_to_end,
+                    R.anim.slide_from_end, R.anim.slide_to_start);
         }
 
-        // IF ON DEFAULT FRAGMENT, FINISH ACTIVITY
         else {
-            finish();
-            overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
+            searchView.setQueryHint(getResources().getString(R.string.search_installed));
+            fragment = new SearchInstalledFragment();
+            transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
+                    R.anim.slide_from_start, R.anim.slide_to_end);
         }
 
+        transaction.replace(R.id.activity_host_fragment, fragment)
+                .commit();
+
+    }
+
+    // SET TRANSITION WHEN FINISHING ACTIVITY
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
     }
 }

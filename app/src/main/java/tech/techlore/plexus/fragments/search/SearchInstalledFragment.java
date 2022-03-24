@@ -1,43 +1,40 @@
-package tech.techlore.plexus.fragments.main;
+package tech.techlore.plexus.fragments.search;
 
-import static tech.techlore.plexus.fragments.main.MainDefaultFragment.searchFab;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.activities.MainActivity;
+import tech.techlore.plexus.activities.SearchActivity;
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 
-public class InstalledAppsFragment extends Fragment {
+public class SearchInstalledFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private PackageManager packageManager;
-    private List<PlexusData> plexusDataList;
-    private List<InstalledApp> installedAppsList;
     private InstalledAppItemAdapter installedAppItemAdapter;
-    private CountDownTimer delayTimer;
+    private List<InstalledApp> searchInstalledList;
+    private List<ApplicationInfo> scannedApps;
 
-    public InstalledAppsFragment() {
+    public SearchInstalledFragment() {
         // Required empty public constructor
     }
 
@@ -50,24 +47,24 @@ public class InstalledAppsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.recycler_view, container, false);
+        return inflater.inflate(R.layout.recycler_view,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        final MainActivity mainActivity = ((MainActivity) requireActivity());
         recyclerView = view.findViewById(R.id.recycler_view);
+        final SearchActivity searchActivity = ((SearchActivity) requireActivity());
         packageManager = requireContext().getPackageManager();
-        plexusDataList = mainActivity.list;
-        installedAppsList = new ArrayList<>();
-        installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
+        searchInstalledList = new ArrayList<>();
+        scannedApps = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+        installedAppItemAdapter = new InstalledAppItemAdapter(searchInstalledList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-    /*###########################################################################################*/
+        /*###########################################################################################*/
 
         // SCAN INSTALLED APPS
-        for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)){
+        for (ApplicationInfo appInfo : scannedApps){
 
             InstalledApp installedApp = new InstalledApp();
             String dgRating="X", mgRating="X", dgNotes="X", mgNotes="X";
@@ -87,7 +84,7 @@ public class InstalledAppsFragment extends Fragment {
 
                 // SEARCH FOR THE PACKAGE NAME IN PLEXUS DATA
                 // TO SET RATINGS AND NOTES
-                for (PlexusData plexusData : plexusDataList) {
+                for (PlexusData plexusData : searchActivity.list) {
 
                     if (plexusData.packageName.contains(appInfo.packageName)) {
                         dgRating = plexusData.dgRating;
@@ -102,62 +99,42 @@ public class InstalledAppsFragment extends Fragment {
                 installedApp.setMgRating(mgRating);
                 installedApp.setDgNotes(dgNotes);
                 installedApp.setMgNotes(mgNotes);
-                installedAppsList.add(installedApp);
+                searchInstalledList.add(installedApp);
             }
 
         }
 
-        // SORT ALPHABETICALLY
-        //noinspection ComparatorCombinators
-        Collections.sort(installedAppsList, (ai1, ai2) ->
-                ai1.getName().compareTo(ai2.getName()));
+        // PERFORM SEARCH
+        searchActivity.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String searchString) {
+                return true;
+            }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(installedAppItemAdapter);
+            @Override
+            public boolean onQueryTextChange(String searchString) {
+
+                if (!searchString.isEmpty()) {
+                    installedAppItemAdapter.getFilter().filter(searchString);
+                    recyclerView.setAdapter(installedAppItemAdapter);
+                }
+                else {
+                    recyclerView.setAdapter(null);
+                }
+
+                return true;
+            }
+        });
 
         // HANDLE CLICK EVENTS OF ITEMS
         installedAppItemAdapter.setOnItemClickListener(position -> {
-            InstalledApp installedApp = installedAppsList.get(position);
-            AppDetails(mainActivity, installedApp.getName(), installedApp.getPackageName(),
+
+            InstalledApp installedApp = searchInstalledList.get(position);
+            AppDetails(searchActivity, installedApp.getName(), installedApp.getPackageName(),
                         installedApp.getVersion(), installedApp.getDgNotes(),
                         installedApp.getMgNotes(), installedApp.getDgRating(),
                         installedApp.getMgRating());
 
-        });
-
-        // SHRINK FAB ON SCROLL
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                // CHECK IF SCROLLING OR NOT
-                //   0 = NO SCROLL
-                // > 0 = SCROLL UP
-                // < 0 = SCROLL DOWN
-                if (dy != 0) {
-
-                    // SHRINK FAB WHEN SCROLLING
-                    searchFab.shrink();
-
-                    if (delayTimer != null) {
-                        delayTimer.cancel();
-                    }
-
-                    // EXTEND FAB WHEN SCROLLING STOPPED
-                    // WITH A SUBTLE DELAY
-                    delayTimer = new CountDownTimer(400, 100) {
-
-                        public void onTick(long millisUntilFinished) {}
-
-                        // ON TIMER FINISH, EXTEND FAB
-                        public void onFinish() {
-                            searchFab.extend();
-                        }
-                    }.start();
-                }
-
-            }
         });
 
     }

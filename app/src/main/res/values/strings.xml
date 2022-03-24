@@ -4,12 +4,14 @@
 
     <!--MAIN ACTIVITY-->
     <string name="search">Search</string>
+    <string name="plexus_data">Plexus Data</string>
+    <string name="menu_installed_apps">Installed Apps</string>
 
     <!--SEARCH ACTIVITY-->
-    <string name="plexus_data">Plexus Data</string>
+    <string name="search_data">Search Plexus Data</string>
+    <string name="search_installed">Search Installed Apps</string>
 
     <!--OVERFLOW MENU-->
-    <string name="menu_installed_apps">Installed Apps</string>
     <string name="menu_rating_info">Rating Info</string>
     <string name="menu_more">More</string>
     <string name="menu_theme">Theme</string>

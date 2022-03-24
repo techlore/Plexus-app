@@ -1,5 +1,6 @@
 package tech.techlore.plexus.fragments.main;
 
+import static tech.techlore.plexus.fragments.main.MainDefaultFragment.searchFab;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
 import android.os.Bundle;
@@ -26,7 +27,6 @@ public class PlexusDataFragment extends Fragment {
     private RecyclerView recyclerView;
     private PlexusDataItemAdapter plexusDataItemAdapter;
     private List<PlexusData> plexusDataList;
-    private PlexusData plexusData;
     private CountDownTimer delayTimer;
 
     public PlexusDataFragment() {
@@ -62,7 +62,7 @@ public class PlexusDataFragment extends Fragment {
         // HANDLE CLICK EVENTS OF ITEMS
         plexusDataItemAdapter.setOnItemClickListener(position -> {
 
-            plexusData = plexusDataList.get(position);
+            PlexusData plexusData = plexusDataList.get(position);
             AppDetails(mainActivity, plexusData.name, plexusData.packageName, plexusData.version,
                     plexusData.dgNotes, plexusData.mgNotes, plexusData.dgRating, plexusData.mgRating);
 
@@ -81,7 +81,7 @@ public class PlexusDataFragment extends Fragment {
                 if (dy != 0) {
 
                     // SHRINK FAB WHEN SCROLLING
-                    mainActivity.extFab.shrink();
+                    searchFab.shrink();
 
                     if (delayTimer != null) {
                         delayTimer.cancel();
@@ -95,7 +95,7 @@ public class PlexusDataFragment extends Fragment {
 
                         // ON TIMER FINISH, EXTEND FAB
                         public void onFinish() {
-                            mainActivity.extFab.extend();
+                            searchFab.extend();
                         }
                     }.start();
                 }

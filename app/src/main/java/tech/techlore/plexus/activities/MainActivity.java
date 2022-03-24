@@ -1,7 +1,6 @@
 package tech.techlore.plexus.activities;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.THEME_PREF;
-import static tech.techlore.plexus.utils.Utility.SendListIntent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -22,9 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
     private Fragment fragment;
-    public ExtendedFloatingActionButton extFab;
     public List<PlexusData> list;
 
     @Override
@@ -50,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(this);
         final MaterialToolbar toolbar = findViewById(R.id.toolbar_main);
-        extFab = findViewById(R.id.ext_fab_main);
 
     /*###########################################################################################*/
 
@@ -61,21 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         // GET LIST FROM SPLASH ACTIVITY
         //noinspection unchecked
-        list = (List<PlexusData>) getIntent().getSerializableExtra("appsList");
+        list = (List<PlexusData>) getIntent().getSerializableExtra("plexusDataList");
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
             DisplayFragment("Main Default");
         }
-
-        // EXT FAB
-        // OPEN SEARCH ACTIVITY
-        // DON'T FINISH THIS ACTIVITY,
-        // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
-        extFab.setOnClickListener(v -> {
-            SendListIntent(this, SearchActivity.class, (Serializable) list);
-            overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
-        });
 
     }
 
@@ -113,14 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
         // HIDE BACK ICON ON MAIN FRAGMENT
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(getSupportFragmentManager().getBackStackEntryCount() >= 1);
-
-        // SHOW EXT FAB ONLY ON MAIN FRAGMENT
-        if (fragmentName.equals("Main Default")){
-            extFab.show();
-        }
-        else{
-            extFab.hide();
-        }
 
         transaction
                 .replace(R.id.activity_host_fragment, fragment)
@@ -244,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().popBackStack();
             Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-            extFab.show();
         }
 
         // IF ON DEFAULT FRAGMENT, FINISH ACTIVITY

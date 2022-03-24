@@ -21,14 +21,13 @@ import tech.techlore.plexus.activities.SearchActivity;
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
 import tech.techlore.plexus.models.PlexusData;
 
-public class SearchFragment extends Fragment {
+public class SearchDataFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private PlexusDataItemAdapter rAdapter;
-    private List<PlexusData> appsList;
-    private PlexusData plexusData;
+    private PlexusDataItemAdapter plexusDataItemAdapter;
+    private List<PlexusData> searchDataList;
 
-    public SearchFragment() {
+    public SearchDataFragment() {
         // Required empty public constructor
     }
 
@@ -49,25 +48,25 @@ public class SearchFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         final SearchActivity searchActivity = ((SearchActivity) requireActivity());
-        appsList = searchActivity.list;
-
-        /*===========================================================================================*/
-
-        rAdapter = new PlexusDataItemAdapter(appsList);
+        searchDataList = searchActivity.list;
+        plexusDataItemAdapter = new PlexusDataItemAdapter(searchDataList);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+    /*###########################################################################################*/
+
+        // PERFORM SEARCH
         searchActivity.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchString) {
-                return false;
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String searchString) {
 
                 if (!searchString.isEmpty()) {
-                    rAdapter.getFilter().filter(searchString);
-                    recyclerView.setAdapter(rAdapter);
+                    plexusDataItemAdapter.getFilter().filter(searchString);
+                    recyclerView.setAdapter(plexusDataItemAdapter);
                 }
                 else {
                     recyclerView.setAdapter(null);
@@ -80,9 +79,9 @@ public class SearchFragment extends Fragment {
 
 
         // HANDLE CLICK EVENTS OF ITEMS
-        rAdapter.setOnItemClickListener(position -> {
+        plexusDataItemAdapter.setOnItemClickListener(position -> {
 
-            plexusData = appsList.get(position);
+            PlexusData plexusData = searchDataList.get(position);
             AppDetails(searchActivity, plexusData.name, plexusData.packageName, plexusData.version,
                     plexusData.dgNotes, plexusData.mgNotes, plexusData.dgRating, plexusData.mgRating);
 

@@ -4,22 +4,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
-
-import java.io.Serializable;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.AppDetailsActivity;
 
 public class Utility {
 
-     // SEND ARRAY LIST WITH INTENT
-    public static void SendListIntent(Activity activityFrom, Class<?> activityTo, Serializable appsList) {
+    // HORIZONTALLY SCROLL TEXT
+    // IF TEXT IS TOO LONG
+    public static void hScrollText(TextView textView) {
 
-        activityFrom.startActivity(new Intent(activityFrom, activityTo)
-                                    .putExtra("appsList", appsList));
-
+        // SET THESE 2 PARAMETERS FOR HORIZONTALLY SCROLLING TEXT
+        textView.setSingleLine();
+        textView.setSelected(true);
     }
 
     // SET BACKGROUND COLOR BASED ON SCORES

@@ -1,8 +1,7 @@
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.utils.Utility.SendListIntent;
-
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -57,7 +56,8 @@ public class SplashActivity extends AppCompatActivity {
             handler.post(() -> {
                 try {
                     populateList();
-                    SendListIntent(this, MainActivity.class, (Serializable) plexusDataList);
+                    startActivity(new Intent(this, MainActivity.class)
+                            .putExtra("plexusDataList", (Serializable) plexusDataList));
                     finish();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();

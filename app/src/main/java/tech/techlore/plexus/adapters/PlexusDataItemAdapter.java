@@ -1,6 +1,7 @@
 package tech.techlore.plexus.adapters;
 
 import static tech.techlore.plexus.utils.Utility.ScoreColor;
+import static tech.techlore.plexus.utils.Utility.hScrollText;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -97,15 +98,6 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
         ScoreColor(context, holder.dgRating, plexusData.dgRating);
         ScoreColor(context, holder.mgRating, plexusData.mgRating);
 
-    }
-
-    // HORIZONTALLY SCROLL TEXT
-    // IF TEXT IS TOO LONG
-    private void hScrollText(TextView textView) {
-
-        // SET THESE 2 PARAMETERS FOR HORIZONTALLY SCROLLING TEXT
-        textView.setSingleLine();
-        textView.setSelected(true);
     }
 
     @Override

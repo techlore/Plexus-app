@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
-import java.util.Objects;
-
 import tech.techlore.plexus.R;
 
 public class AppDetailsActivity extends AppCompatActivity {
