@@ -4,8 +4,8 @@
     <!--BASE SPLASH THEME-->
     <style name="BaseSplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="backgroundColor">@color/grey_800</item>
-        <item name="colorPrimaryDark">@color/grey_800</item>
+        <item name="backgroundColor">@color/grey_900</item>
+        <item name="colorPrimaryDark">@color/grey_900</item>
     </style>
 
     <!--PARENT APP THEME-->

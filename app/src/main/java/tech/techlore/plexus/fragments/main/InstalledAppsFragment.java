@@ -60,7 +60,7 @@ public class InstalledAppsFragment extends Fragment {
         final MainActivity mainActivity = ((MainActivity) requireActivity());
         recyclerView = view.findViewById(R.id.recycler_view);
         packageManager = requireContext().getPackageManager();
-        plexusDataList = mainActivity.list;
+        plexusDataList = mainActivity.dataList;
         installedAppsList = new ArrayList<>();
         installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
 
@@ -114,6 +114,10 @@ public class InstalledAppsFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(installedAppItemAdapter);
+
+        // GIVE THE LIST TO MAIN ACTIVITY
+        // TO FURTHER GIVE IT TO SEARCH ACTIVITY WHEN REQUIRED
+        mainActivity.installedList = installedAppsList;
 
         // HANDLE CLICK EVENTS OF ITEMS
         installedAppItemAdapter.setOnItemClickListener(position -> {

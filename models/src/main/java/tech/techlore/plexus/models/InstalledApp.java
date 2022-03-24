@@ -1,6 +1,8 @@
 package tech.techlore.plexus.models;
 
-public class InstalledApp {
+import java.io.Serializable;
+
+public class InstalledApp implements Serializable {
 
     public String name, packageName, version, dgRating, mgRating, dgNotes, mgNotes;
 

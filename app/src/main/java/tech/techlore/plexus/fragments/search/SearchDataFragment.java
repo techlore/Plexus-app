@@ -3,6 +3,7 @@ package tech.techlore.plexus.fragments.search;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class SearchDataFragment extends Fragment {
     private RecyclerView recyclerView;
     private PlexusDataItemAdapter plexusDataItemAdapter;
     private List<PlexusData> searchDataList;
+    private CountDownTimer delayTimer;
 
     public SearchDataFragment() {
         // Required empty public constructor
@@ -48,7 +50,7 @@ public class SearchDataFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         final SearchActivity searchActivity = ((SearchActivity) requireActivity());
-        searchDataList = searchActivity.list;
+        searchDataList = searchActivity.dataList;
         plexusDataItemAdapter = new PlexusDataItemAdapter(searchDataList);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -64,19 +66,32 @@ public class SearchDataFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String searchString) {
 
-                if (!searchString.isEmpty()) {
-                    plexusDataItemAdapter.getFilter().filter(searchString);
-                    recyclerView.setAdapter(plexusDataItemAdapter);
+                if (delayTimer != null) {
+                    delayTimer.cancel();
                 }
-                else {
-                    recyclerView.setAdapter(null);
-                }
+
+                // SEARCH WITH A SUBTLE DELAY
+                delayTimer = new CountDownTimer(400, 100) {
+
+                    public void onTick(long millisUntilFinished) {}
+
+                    // ON TIMER FINISH, EXTEND FAB
+                    public void onFinish() {
+
+                        if (!searchString.isEmpty()) {
+                            plexusDataItemAdapter.getFilter().filter(searchString);
+                            recyclerView.setAdapter(plexusDataItemAdapter);
+                        }
+                        else {
+                            recyclerView.setAdapter(null);
+                        }
+
+                    }
+                }.start();
 
                 return true;
             }
         });
-
-
 
         // HANDLE CLICK EVENTS OF ITEMS
         plexusDataItemAdapter.setOnItemClickListener(position -> {

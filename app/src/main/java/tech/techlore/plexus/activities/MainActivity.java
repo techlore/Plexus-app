@@ -30,6 +30,7 @@ import tech.techlore.plexus.fragments.main.AboutFragment;
 import tech.techlore.plexus.fragments.main.InstalledAppsFragment;
 import tech.techlore.plexus.fragments.main.MainDefaultFragment;
 import tech.techlore.plexus.fragments.main.RatingInfoFragment;
+import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
     private Fragment fragment;
-    public List<PlexusData> list;
+    public List<PlexusData> dataList;
+    public List <InstalledApp> installedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         // GET LIST FROM SPLASH ACTIVITY
         //noinspection unchecked
-        list = (List<PlexusData>) getIntent().getSerializableExtra("plexusDataList");
+        dataList = (List<PlexusData>) getIntent().getSerializableExtra("plexusDataList");
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {

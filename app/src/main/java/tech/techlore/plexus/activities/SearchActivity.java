@@ -15,11 +15,13 @@ import java.util.List;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.fragments.search.SearchDataFragment;
 import tech.techlore.plexus.fragments.search.SearchInstalledFragment;
+import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 
 public class SearchActivity extends AppCompatActivity {
 
-    public List<PlexusData> list;
+    public List<PlexusData> dataList;
+    public List<InstalledApp> installedList;
     public SearchView searchView;
 
     @Override
@@ -37,9 +39,9 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
-        // GET LIST FROM MAIN ACTIVITY
+        // GET PLEXUS DATA LIST FROM MAIN ACTIVITY
         //noinspection unchecked
-        list = (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
+        dataList =  (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
@@ -48,6 +50,9 @@ public class SearchActivity extends AppCompatActivity {
                 DisplayFragment("Search Data");
             }
             else {
+                // GET INSTALLED APPS LIST FROM MAIN ACTIVITY
+                //noinspection unchecked
+                installedList = (List<InstalledApp>) intent.getSerializableExtra("installedList");
                 DisplayFragment("Search Installed");
             }
 

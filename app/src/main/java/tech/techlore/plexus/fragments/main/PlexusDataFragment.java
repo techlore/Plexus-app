@@ -51,7 +51,7 @@ public class PlexusDataFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         final MainActivity mainActivity = ((MainActivity) requireActivity());
-        plexusDataList = mainActivity.list;
+        plexusDataList = mainActivity.dataList;
         plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
 
     /*###########################################################################################*/

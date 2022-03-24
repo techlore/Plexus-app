@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +30,9 @@ import tech.techlore.plexus.models.PlexusData;
 public class SearchInstalledFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private PackageManager packageManager;
     private InstalledAppItemAdapter installedAppItemAdapter;
     private List<InstalledApp> searchInstalledList;
-    private List<ApplicationInfo> scannedApps;
+    private CountDownTimer delayTimer;
 
     public SearchInstalledFragment() {
         // Required empty public constructor
@@ -55,54 +55,11 @@ public class SearchInstalledFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         final SearchActivity searchActivity = ((SearchActivity) requireActivity());
-        packageManager = requireContext().getPackageManager();
-        searchInstalledList = new ArrayList<>();
-        scannedApps = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+        searchInstalledList = searchActivity.installedList;
         installedAppItemAdapter = new InstalledAppItemAdapter(searchInstalledList);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         /*###########################################################################################*/
-
-        // SCAN INSTALLED APPS
-        for (ApplicationInfo appInfo : scannedApps){
-
-            InstalledApp installedApp = new InstalledApp();
-            String dgRating="X", mgRating="X", dgNotes="X", mgNotes="X";
-
-            // NO SYSTEM APPS
-            if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) !=1) {
-
-                installedApp.setName(String.valueOf(appInfo.loadLabel(packageManager)));
-                installedApp.setPackageName(appInfo.packageName);
-
-                try {
-                    PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                    installedApp.setVersion(packageInfo.versionName);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                // SEARCH FOR THE PACKAGE NAME IN PLEXUS DATA
-                // TO SET RATINGS AND NOTES
-                for (PlexusData plexusData : searchActivity.list) {
-
-                    if (plexusData.packageName.contains(appInfo.packageName)) {
-                        dgRating = plexusData.dgRating;
-                        mgRating = plexusData.mgRating;
-                        dgNotes = plexusData.dgNotes;
-                        mgNotes = plexusData.mgNotes;
-                    }
-
-                }
-
-                installedApp.setDgRating(dgRating);
-                installedApp.setMgRating(mgRating);
-                installedApp.setDgNotes(dgNotes);
-                installedApp.setMgNotes(mgNotes);
-                searchInstalledList.add(installedApp);
-            }
-
-        }
 
         // PERFORM SEARCH
         searchActivity.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -114,13 +71,28 @@ public class SearchInstalledFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String searchString) {
 
-                if (!searchString.isEmpty()) {
-                    installedAppItemAdapter.getFilter().filter(searchString);
-                    recyclerView.setAdapter(installedAppItemAdapter);
+                if (delayTimer != null) {
+                    delayTimer.cancel();
                 }
-                else {
-                    recyclerView.setAdapter(null);
-                }
+
+                // SEARCH WITH A SUBTLE DELAY
+                delayTimer = new CountDownTimer(400, 100) {
+
+                    public void onTick(long millisUntilFinished) {}
+
+                    // ON TIMER FINISH, EXTEND FAB
+                    public void onFinish() {
+
+                        if (!searchString.isEmpty()) {
+                            installedAppItemAdapter.getFilter().filter(searchString);
+                            recyclerView.setAdapter(installedAppItemAdapter);
+                        }
+                        else {
+                            recyclerView.setAdapter(null);
+                        }
+
+                    }
+                }.start();
 
                 return true;
             }

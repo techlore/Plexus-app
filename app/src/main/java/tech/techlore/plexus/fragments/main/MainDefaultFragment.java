@@ -83,10 +83,10 @@ public class MainDefaultFragment extends Fragment {
         searchFab.setOnClickListener(v -> {
 
             if (Objects.requireNonNull(mainTabLayout.getTabAt(0)).isSelected()) {
-                Search("plexusData");
+                StartSearch("plexusData");
             }
             else {
-                Search("installedApps");
+                StartSearch("installedApps");
             }
 
             requireActivity().overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
@@ -118,11 +118,20 @@ public class MainDefaultFragment extends Fragment {
     }
 
     // SEARCH ACTIVITY INTENT
-    public void Search(String fromValue) {
+    public void StartSearch(String fromValue) {
 
-        startActivity(new Intent(requireActivity(), SearchActivity.class)
-                .putExtra("plexusDataList", (Serializable) ((MainActivity)requireActivity()).list)
-                .putExtra("from", fromValue));
+        if (fromValue.equals("plexusData")) {
+            startActivity(new Intent(requireActivity(), SearchActivity.class)
+                    .putExtra("plexusDataList", (Serializable) ((MainActivity) requireActivity()).dataList)
+                    .putExtra("from", fromValue));
+        }
+
+        else {
+            startActivity(new Intent(requireActivity(), SearchActivity.class)
+                    .putExtra("plexusDataList", (Serializable) ((MainActivity) requireActivity()).dataList)
+                    .putExtra("installedList", (Serializable) ((MainActivity) requireActivity()).installedList)
+                    .putExtra("from", fromValue));
+        }
 
     }
 
