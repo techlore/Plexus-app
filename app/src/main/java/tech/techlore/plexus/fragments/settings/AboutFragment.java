@@ -1,4 +1,4 @@
-package tech.techlore.plexus.fragments.main;
+package tech.techlore.plexus.fragments.settings;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -15,7 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Objects;
+
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.activities.SettingsActivity;
 
 public class AboutFragment extends Fragment {
 
@@ -34,8 +37,9 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        View v = inflater.inflate(R.layout.fragment_settings_about, container,  false);
+        Objects.requireNonNull(((SettingsActivity) requireActivity()).getSupportActionBar()).setTitle(R.string.about_title);
+        return v;
     }
 
     @Override

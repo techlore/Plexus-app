@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
+import java.util.Objects;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.fragments.search.SearchDataFragment;
@@ -27,33 +28,42 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-        final MaterialToolbar toolbar = findViewById(R.id.toolbar_search);
+        final MaterialToolbar searchToolbar = findViewById(R.id.toolbar_main);
         searchView = findViewById(R.id.searchView);
 
     /*###########################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(view -> onBackPressed());
-
-        // GET PLEXUS DATA LIST FROM MAIN ACTIVITY
-        //noinspection unchecked
-        dataList =  (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
+        setSupportActionBar(searchToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        searchToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
 
-            if (intent.getStringExtra("from").equals("plexusData")) {
+            // IF FROM PLEXUS DATA TAB
+            // DISPLAY SEARCH PLEXUS DATA FRAGMENT
+            if (Objects.equals(intent.getExtras().getInt("from"), 0)){
+
+                // GET PLEXUS DATA LIST FROM MAIN ACTIVITY
+                //noinspection unchecked
+                dataList =  (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
                 DisplayFragment("Search Data");
+
             }
+
+            // ELSE DISPLAY SEARCH INSTALLED APPS FRAGMENT
             else {
+
                 // GET INSTALLED APPS LIST FROM MAIN ACTIVITY
                 //noinspection unchecked
                 installedList = (List<InstalledApp>) intent.getSerializableExtra("installedList");
                 DisplayFragment("Search Installed");
+
             }
 
         }
@@ -69,19 +79,14 @@ public class SearchActivity extends AppCompatActivity {
         if (fragmentName.equals("Search Data")) {
             searchView.setQueryHint(getResources().getString(R.string.search_data));
             fragment = new SearchDataFragment();
-            transaction.setCustomAnimations(R.anim.slide_from_start, R.anim.slide_to_end,
-                    R.anim.slide_from_end, R.anim.slide_to_start);
         }
 
         else {
             searchView.setQueryHint(getResources().getString(R.string.search_installed));
             fragment = new SearchInstalledFragment();
-            transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                    R.anim.slide_from_start, R.anim.slide_to_end);
         }
 
-        transaction.replace(R.id.activity_host_fragment, fragment)
-                .commit();
+        transaction.replace(R.id.activity_host_fragment, fragment).commit();
 
     }
 

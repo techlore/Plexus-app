@@ -1,4 +1,4 @@
-package tech.techlore.plexus.fragments.main;
+package tech.techlore.plexus.fragments.ratinginfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

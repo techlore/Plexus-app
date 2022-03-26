@@ -19,8 +19,11 @@
             android:background="@color/backgroundColor"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="3dp"
+            app:tabIndicatorAnimationMode="elastic"
             app:tabIndicator="@drawable/shape_rounded_corners"
             app:tabTextAppearance="@style/TabText"
+            app:tabTextColor="?attr/colorControlNormal"
+            app:tabSelectedTextColor="@color/textTitleColor"
             app:tabRippleColor="@android:color/transparent">
 
             <com.google.android.material.tabs.TabItem

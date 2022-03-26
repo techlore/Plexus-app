@@ -5,7 +5,8 @@
     <View
         android:layout_width="25dp"
         android:layout_height="4.5dp"
-        android:background="@drawable/shape_drag_handle"
+        android:background="@drawable/shape_rounded_corners"
+        android:backgroundTint="@color/dragHandleColor"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_16"/>

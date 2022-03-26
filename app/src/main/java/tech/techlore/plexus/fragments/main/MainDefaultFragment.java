@@ -15,7 +15,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
@@ -24,6 +23,7 @@ import tech.techlore.plexus.activities.SearchActivity;
 public class MainDefaultFragment extends Fragment {
 
     public static ExtendedFloatingActionButton searchFab;
+    private MainActivity mainActivity;
 
     public MainDefaultFragment() {
         // Required empty public constructor
@@ -45,25 +45,24 @@ public class MainDefaultFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        final TabLayout mainTabLayout = view.findViewById(R.id.tab_layout);
+        final TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         searchFab = view.findViewById(R.id.search_fab);
+        mainActivity = ((MainActivity) requireActivity());
 
     /*###########################################################################################*/
 
-        // DISPLAY PLEXUS DATA FRAGMENT BY DEFAULT
-        DisplayFragment("Plexus Data");
+        // DISPLAY FRAGMENT WHEN NEWLY CREATED OR REATTACHED
+        tabLayout.selectTab(tabLayout.getTabAt(mainActivity.selectedTab));
+        DisplayFragment(tabLayout.getSelectedTabPosition());
 
         // TAB LAYOUT
-        mainTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                if (tab.getPosition() == 0){
-                    DisplayFragment("Plexus Data");
-                }
-                else {
-                    DisplayFragment("Installed Apps");
-                }
+                DisplayFragment(tab.getPosition());
+
             }
 
             @Override
@@ -80,27 +79,18 @@ public class MainDefaultFragment extends Fragment {
         // SEARCH FAB
         // DON'T FINISH MAIN ACTIVITY,
         // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
-        searchFab.setOnClickListener(v -> {
-
-            if (Objects.requireNonNull(mainTabLayout.getTabAt(0)).isSelected()) {
-                StartSearch("plexusData");
-            }
-            else {
-                StartSearch("installedApps");
-            }
-
-            requireActivity().overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
-        });
+        searchFab.setOnClickListener(v ->
+                StartSearch(tabLayout.getSelectedTabPosition()));
 
     }
 
     // SETUP CHILD FRAGMENTS
-    private void DisplayFragment(String fragmentName) {
+    private void DisplayFragment(int selectedTab) {
 
         Fragment fragment;
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
-        if (fragmentName.equals("Plexus Data")) {
+        if (selectedTab == 0) {
             fragment = new PlexusDataFragment();
             transaction.setCustomAnimations(R.anim.slide_from_start, R.anim.slide_to_end,
                     R.anim.slide_from_end, R.anim.slide_to_start);
@@ -112,26 +102,31 @@ public class MainDefaultFragment extends Fragment {
                     R.anim.slide_from_start, R.anim.slide_to_end);
         }
 
+        mainActivity.selectedTab = selectedTab;
         transaction.replace(R.id.tab_host_fragment, fragment)
                 .commit();
 
     }
 
     // SEARCH ACTIVITY INTENT
-    public void StartSearch(String fromValue) {
+    public void StartSearch(int selectedTab) {
 
-        if (fromValue.equals("plexusData")) {
-            startActivity(new Intent(requireActivity(), SearchActivity.class)
-                    .putExtra("plexusDataList", (Serializable) ((MainActivity) requireActivity()).dataList)
-                    .putExtra("from", fromValue));
+        Intent searchIntent = new Intent(requireActivity(), SearchActivity.class);
+        searchIntent.putExtra("from", selectedTab);
+
+        // IF FROM PLEXUS DATA TAB,
+        // GIVE PLEXUS DATA LIST TO SEARCH ACTIVITY
+        if (selectedTab == 0) {
+            searchIntent.putExtra("plexusDataList", (Serializable) mainActivity.dataList);
         }
 
+        // ELSE GIVE INSTALLED APPS LIST TO SEARCH ACTIVITY
         else {
-            startActivity(new Intent(requireActivity(), SearchActivity.class)
-                    .putExtra("plexusDataList", (Serializable) ((MainActivity) requireActivity()).dataList)
-                    .putExtra("installedList", (Serializable) ((MainActivity) requireActivity()).installedList)
-                    .putExtra("from", fromValue));
+            searchIntent.putExtra("installedList", (Serializable) mainActivity.installedList);
         }
+
+        startActivity(searchIntent);
+        requireActivity().overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
 
     }
 

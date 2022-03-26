@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+    tools:context=".fragments.settings.SettingsDefaultFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/settings_theme_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/theme_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:src="@drawable/settings_theme"
+                android:contentDescription="@string/theme_title"/>
+
+            <TextView
+                android:id="@+id/settings_theme_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/theme_img"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/theme_title"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:id="@+id/settings_theme_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_theme_title"
+                android:layout_toEndOf="@+id/theme_img"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/system_default"
+                android:textColor="?colorControlNormal"
+                android:textSize="@dimen/text_14" />
+
+        </RelativeLayout>
+
+        <!--#####################################################-->
+
+        <RelativeLayout
+            android:id="@+id/settings_report_issue_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginBottom="1dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/settings_help_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:src="@drawable/settings_report_issue"
+                android:contentDescription="@string/report_issue_title"/>
+
+            <TextView
+                android:id="@+id/settings_report_issue_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/settings_help_img"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/report_issue_title"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_report_issue_title"
+                android:layout_toEndOf="@+id/settings_help_img"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/report_issue_subtitle"
+                android:textColor="?colorControlNormal"
+                android:textSize="@dimen/text_14" />
+
+        </RelativeLayout>
+
+        <!--#####################################################-->
+
+        <RelativeLayout
+            android:id="@+id/settings_about_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginBottom="1dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/settings_about_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:src="@drawable/ic_info"
+                android:contentDescription="@string/about_title"/>
+
+            <TextView
+                android:id="@+id/settings_about_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/settings_about_img"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/about_title"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_about_title"
+                android:layout_toEndOf="@+id/settings_about_img"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/about_subtitle"
+                android:textColor="?colorControlNormal"
+                android:textSize="@dimen/text_14" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

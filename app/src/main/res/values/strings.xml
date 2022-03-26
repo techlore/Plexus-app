@@ -1,29 +1,34 @@
 <resources>
+
     <string name="app_name" translatable="false">Plexus</string>
-    <string name="version">Version:</string>
 
     <!--MAIN ACTIVITY-->
     <string name="search">Search</string>
     <string name="plexus_data">Plexus Data</string>
     <string name="menu_installed_apps">Installed Apps</string>
 
-    <!--SEARCH ACTIVITY-->
-    <string name="search_data">Search Plexus Data</string>
-    <string name="search_installed">Search Installed Apps</string>
-
-    <!--OVERFLOW MENU-->
+    <!--TOOLBAR MENU-->
     <string name="menu_rating_info">Rating Info</string>
+    <string name="menu_sort">Sort</string>
     <string name="menu_more">More</string>
-    <string name="menu_theme">Theme</string>
-    <string name="menu_report_issue">Report an issue</string>
-    <string name="menu_about">About</string>
+    <string name="menu_settings">Settings</string>
 
-    <!--APP DETAILS FRAGMENT-->
+    <!--#########################################################################################-->
+
+    <!--APP DETAILS ACTIVITY-->
     <string name="details">Details</string>
     <string name="de_Googled">de-Googled</string>
     <string name="microG">\u00B5 (microG)</string>
 
-    <!--RATING INFO FRAGMENT-->
+    <!--#########################################################################################-->
+
+    <!--SEARCH ACTIVITY-->
+    <string name="search_data">Search Plexus Data</string>
+    <string name="search_installed">Search Installed Apps</string>
+
+    <!--#########################################################################################-->
+
+    <!--RATING INFO ACTIVITY-->
     <string name="notes" translatable="false">Notes</string>
     <string name="what_ratings_mean">What do the ratings mean?</string>
     <string name="not_tested">Not tested</string>
@@ -47,19 +52,37 @@
     <string name="application_package_name">Application package name</string>
     <string name="application_version">Application Version</string>
 
+    <!--#########################################################################################-->
+
+    <!--SETTINGS ACTIVITY-->
+    <string name="theme_title">Theme</string>
+    <string name="report_issue_title">Report an issue</string>
+    <string name="report_issue_subtitle">Found a bug? Let us know</string>
+    <string name="about_title">About</string>
+    <string name="about_subtitle">Version, policy and licenses</string>
+
     <!--ABOUT FRAGMENT-->
+    <string name="version">Version:</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="licenses">Licenses</string>
     <string name="view_on_github">View on GitHub</string>
+
+    <!--#########################################################################################-->
 
     <!--BOTTOM SHEET-->
     <string name="bottom_sheet_title" translatable="false">Bottom Sheet Title</string>
     <string name="cancel_button">Cancel</string>
 
+    <!--SORT-->
+    <string name="a_z">A-Z</string>
+    <string name="z_a">Z-A</string>
+
     <!--THEME-->
     <string name="system_default">System Default</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+
+    <!--#########################################################################################-->
 
     <!--TOASTS-->
     <string name="no_browsers">No browsers installed on this device</string>

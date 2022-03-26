@@ -6,32 +6,27 @@
     <!--MAIN ACTIVITY MENU-->
 
     <item
-        android:id="@+id/menu_score_info"
+        android:id="@+id/menu_rating_info"
         android:icon="@drawable/ic_info"
         app:showAsAction="ifRoom"
         android:title="@string/menu_rating_info"/>
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/menu_overflow"
         app:showAsAction="always"
         android:icon="@drawable/ic_overflow_menu"
         android:title="@string/menu_more">
         <menu>
 
             <item
-                android:id="@+id/menu_theme"
-                android:icon="@drawable/ic_theme"
-                android:title="@string/menu_theme"/>
+                android:id="@+id/menu_sort"
+                android:icon="@drawable/ic_sort"
+                android:title="@string/menu_sort"/>
 
             <item
-                android:id="@+id/menu_report_issue"
-                android:icon="@drawable/ic_report_issue"
-                android:title="@string/menu_report_issue"/>
-
-            <item
-                android:id="@+id/menu_about"
-                android:icon="@drawable/ic_info"
-                android:title="@string/menu_about"/>
+                android:id="@+id/menu_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/menu_settings"/>
 
         </menu>
     </item>

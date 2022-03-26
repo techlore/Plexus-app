@@ -22,7 +22,7 @@
             android:paddingStart="@dimen/margin_16">
 
             <RadioButton
-                android:id="@+id/option_default"
+                android:id="@+id/option_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
@@ -36,7 +36,7 @@
                 android:textSize="@dimen/text_16" />
 
             <RadioButton
-                android:id="@+id/option_light"
+                android:id="@+id/option_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
@@ -49,7 +49,7 @@
                 android:textSize="@dimen/text_16" />
 
             <RadioButton
-                android:id="@+id/option_dark"
+                android:id="@+id/option_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"

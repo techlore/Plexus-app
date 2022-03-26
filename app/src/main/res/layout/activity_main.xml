@@ -21,9 +21,26 @@
             app:contentInsetStartWithNavigation="0dp"
             android:paddingStart="@dimen/margin_2.5"
             android:paddingEnd="@dimen/margin_2.5"
-            app:titleTextAppearance="@style/MediumBoldText"/>
+            app:titleTextColor="@color/textTitleColor"
+            app:titleTextAppearance="@style/MediumBoldText">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:iconifiedByDefault="false"
+                app:searchIcon="@null"
+                app:queryBackground="@android:color/transparent"
+                app:defaultQueryHint="@string/search"
+                android:textDirection="locale">
+                <requestFocus/>
+            </androidx.appcompat.widget.SearchView>
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/divider_horizontal"/>
 
     <include layout="@layout/activity_host_fragment"/>
 

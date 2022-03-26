@@ -45,6 +45,18 @@
             android:configChanges="orientation|screenSize">
         </activity>
 
+        <!--RATING INFO ACTIVITY-->
+        <activity
+            android:name=".activities.RatingInfoActivity"
+            android:configChanges="orientation|screenSize">
+        </activity>
+
+        <!--SETTINGS ACTIVITY-->
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:configChanges="orientation|screenSize">
+        </activity>
+
     </application>
 
 </manifest>

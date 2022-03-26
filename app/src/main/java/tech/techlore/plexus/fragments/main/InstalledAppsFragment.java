@@ -1,6 +1,7 @@
 package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.fragments.main.MainDefaultFragment.searchFab;
+import static tech.techlore.plexus.preferences.PreferenceManager.SORT_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
 import android.content.pm.ApplicationInfo;
@@ -27,6 +28,7 @@ import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
+import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class InstalledAppsFragment extends Fragment {
 
@@ -57,6 +59,7 @@ public class InstalledAppsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        final PreferenceManager preferenceManager=new PreferenceManager(requireContext());
         final MainActivity mainActivity = ((MainActivity) requireActivity());
         recyclerView = view.findViewById(R.id.recycler_view);
         packageManager = requireContext().getPackageManager();
@@ -108,9 +111,20 @@ public class InstalledAppsFragment extends Fragment {
         }
 
         // SORT ALPHABETICALLY
-        //noinspection ComparatorCombinators
-        Collections.sort(installedAppsList, (ai1, ai2) ->
-                ai1.getName().compareTo(ai2.getName()));
+        if (preferenceManager.getInt(SORT_PREF) == 0
+                || preferenceManager.getInt(SORT_PREF) == R.id.option_2) {
+
+            //noinspection ComparatorCombinators
+            Collections.sort(installedAppsList, (ai1, ai2) ->
+                    ai1.getName().compareTo(ai2.getName())); // A-Z
+
+        }
+
+        else {
+
+            Collections.sort(installedAppsList, (ai1, ai2) ->
+                    ai2.getName().compareTo(ai1.getName())); // Z-A
+        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(installedAppItemAdapter);

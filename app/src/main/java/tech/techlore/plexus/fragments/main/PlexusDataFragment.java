@@ -1,6 +1,7 @@
 package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.fragments.main.MainDefaultFragment.searchFab;
+import static tech.techlore.plexus.preferences.PreferenceManager.SORT_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
 import android.os.Bundle;
@@ -15,12 +16,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.List;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
 import tech.techlore.plexus.models.PlexusData;
+import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class PlexusDataFragment extends Fragment {
 
@@ -49,12 +52,30 @@ public class PlexusDataFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
         recyclerView = view.findViewById(R.id.recycler_view);
         final MainActivity mainActivity = ((MainActivity) requireActivity());
         plexusDataList = mainActivity.dataList;
         plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
 
     /*###########################################################################################*/
+
+
+        // SORT ALPHABETICALLY
+        if (preferenceManager.getInt(SORT_PREF) == 0
+            || preferenceManager.getInt(SORT_PREF) == R.id.option_2) {
+
+            //noinspection ComparatorCombinators
+            Collections.sort(plexusDataList, (ai1, ai2) ->
+                    ai1.name.compareTo(ai2.name)); // A-Z
+
+        }
+
+        else {
+
+            Collections.sort(plexusDataList, (ai1, ai2) ->
+                    ai2.name.compareTo(ai1.name)); // Z-A
+        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(plexusDataItemAdapter);

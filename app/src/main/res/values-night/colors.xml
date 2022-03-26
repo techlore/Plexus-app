@@ -6,8 +6,6 @@
     <color name="colorAccent">#2196F3</color>
     <color name="backgroundColor">#202124</color>
     <color name="textTitleColor">#FAFAFA</color>
-    <color name="switchTrackColor">#606165</color>
-    <color name="disabledColor">#56575B</color>
     <color name="enabledColor">#B8B8BD</color>
     <color name="hintColor">#9BA0A6</color>
     <color name="cardStrokeColor">#5F6267</color>

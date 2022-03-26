@@ -3,7 +3,7 @@
 
     <!--SPLASH LIGHT THEME-->
     <style name="SplashTheme" parent="BaseSplashTheme">
-        <item name="android:navigationBarColor">@color/grey_800</item>
+        <item name="android:navigationBarColor">@color/grey_900</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>

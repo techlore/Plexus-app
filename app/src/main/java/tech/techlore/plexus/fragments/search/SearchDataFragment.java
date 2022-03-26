@@ -71,7 +71,7 @@ public class SearchDataFragment extends Fragment {
                 }
 
                 // SEARCH WITH A SUBTLE DELAY
-                delayTimer = new CountDownTimer(400, 100) {
+                delayTimer = new CountDownTimer(350, 150) {
 
                     public void onTick(long millisUntilFinished) {}
 

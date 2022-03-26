@@ -2,9 +2,6 @@ package tech.techlore.plexus.fragments.search;
 
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -18,14 +15,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.SearchActivity;
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter;
 import tech.techlore.plexus.models.InstalledApp;
-import tech.techlore.plexus.models.PlexusData;
 
 public class SearchInstalledFragment extends Fragment {
 
@@ -76,7 +71,7 @@ public class SearchInstalledFragment extends Fragment {
                 }
 
                 // SEARCH WITH A SUBTLE DELAY
-                delayTimer = new CountDownTimer(400, 100) {
+                delayTimer = new CountDownTimer(350, 150) {
 
                     public void onTick(long millisUntilFinished) {}
 
