@@ -1,7 +1,6 @@
 package tech.techlore.plexus.activities;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,9 +29,6 @@ public class RatingInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarRatingInfo.setNavigationOnClickListener(v ->
                 onBackPressed());
-
-        // HIDE SEARCH VIEW
-        findViewById(R.id.searchView).setVisibility(View.GONE);
 
         // DISPLAY FRAGMENT
         if (savedInstanceState == null){

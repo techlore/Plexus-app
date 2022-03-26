@@ -1,6 +1,5 @@
 package tech.techlore.plexus.fragments.main;
 
-import static tech.techlore.plexus.fragments.main.MainDefaultFragment.searchFab;
 import static tech.techlore.plexus.preferences.PreferenceManager.SORT_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Collections;
 import java.util.List;
 
+import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
@@ -80,6 +80,9 @@ public class PlexusDataFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(plexusDataItemAdapter);
 
+        // FAST SCROLL
+        new FastScrollerBuilder(recyclerView).useMd2Style().build();
+
         // HANDLE CLICK EVENTS OF ITEMS
         plexusDataItemAdapter.setOnItemClickListener(position -> {
 
@@ -102,7 +105,7 @@ public class PlexusDataFragment extends Fragment {
                 if (dy != 0) {
 
                     // SHRINK FAB WHEN SCROLLING
-                    searchFab.shrink();
+                    mainActivity.searchFab.shrink();
 
                     if (delayTimer != null) {
                         delayTimer.cancel();
@@ -116,7 +119,7 @@ public class PlexusDataFragment extends Fragment {
 
                         // ON TIMER FINISH, EXTEND FAB
                         public void onFinish() {
-                            searchFab.extend();
+                            mainActivity.searchFab.extend();
                         }
                     }.start();
                 }

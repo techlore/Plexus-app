@@ -3,7 +3,12 @@
 
     <!--SPLASH LIGHT THEME-->
     <style name="SplashTheme" parent="BaseSplashTheme">
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!--FETCH DATA LIGHT THEME-->
+    <style name="FetchDataTheme" parent="BaseFetchDataTheme">
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <!--APP LIGHT THEME -->

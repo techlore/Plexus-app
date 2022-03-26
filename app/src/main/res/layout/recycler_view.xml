@@ -9,7 +9,4 @@
     android:clipToPadding="false"
     android:paddingTop="@dimen/margin_10"
     android:paddingBottom="@dimen/margin_10"
-    android:scrollbarSize="@dimen/margin_4"
-    android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-    android:scrollbars="vertical"
     tools:listitem="@layout/item_recycler_view"/>

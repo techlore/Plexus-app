@@ -8,10 +8,22 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import java.io.Serializable;
+
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.AppDetailsActivity;
 
 public class Utility {
+
+    // SEND ARRAY LISTS WITH INTENT
+    public static void SendListsIntent(Activity activityFrom, Class<?> activityTo,
+                                      Serializable plexusDataList, Serializable installedAppsList) {
+
+        activityFrom.startActivity(new Intent(activityFrom, activityTo)
+                .putExtra("plexusDataList", plexusDataList)
+                .putExtra("installedAppsList", installedAppsList));
+
+    }
 
     // HORIZONTALLY SCROLL TEXT
     // IF TEXT IS TOO LONG

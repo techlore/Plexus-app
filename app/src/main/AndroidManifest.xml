@@ -28,6 +28,13 @@
             </intent-filter>
         </activity>
 
+        <!--FETCH DATA ACTIVITY-->
+        <activity
+            android:name=".activities.FetchDataActivity"
+            android:theme="@style/FetchDataTheme"
+            android:configChanges="orientation|screenSize">
+        </activity>
+
         <!--MAIN ACTIVITY-->
         <activity
             android:name=".activities.MainActivity"

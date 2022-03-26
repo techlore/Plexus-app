@@ -1,7 +1,12 @@
 package tech.techlore.plexus.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -24,6 +29,7 @@ public class SearchActivity extends AppCompatActivity {
     public List<PlexusData> dataList;
     public List<InstalledApp> installedList;
     public SearchView searchView;
+    private InputMethodManager inputMethodManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,7 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final MaterialToolbar searchToolbar = findViewById(R.id.toolbar_main);
         searchView = findViewById(R.id.searchView);
+        inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
     /*###########################################################################################*/
 
@@ -41,6 +48,8 @@ public class SearchActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         searchToolbar.setNavigationOnClickListener(view -> onBackPressed());
+
+        searchView.setVisibility(View.VISIBLE);
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
@@ -68,6 +77,16 @@ public class SearchActivity extends AppCompatActivity {
 
         }
 
+        // SHOW KEYBOARD WITH A SUBTLE DELAY
+        // TO STOP FLICKERING OF FAB FROM PREVIOUS ACTIVITY
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+
+            searchView.requestFocus();
+            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.RESULT_HIDDEN);
+
+        },
+                400);
+
     }
 
     // SETUP FRAGMENTS
@@ -90,10 +109,29 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    // SET TRANSITION WHEN FINISHING ACTIVITY
+    // WHEN FINISHING ACTIVITY
     @Override
     public void finish() {
-        super.finish();
-        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
+
+        // IF KEYBOARD IS SHOWN, CLOSE KEYBOARD FIRST
+        // THEN FINISH ACTIVITY WITH A SLIGHT DELAY
+        if (searchView.hasFocus()) {
+
+            inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, InputMethodManager.RESULT_SHOWN);
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        super.finish();
+                        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
+
+                    },
+                    400);
+
+        }
+
+        // ELSE FINISH ACTIVITY IMMEDIATELY
+        else {
+            super.finish();
+            overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
+        }
+
     }
 }

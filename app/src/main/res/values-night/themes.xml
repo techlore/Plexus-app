@@ -6,6 +6,11 @@
         <item name="android:navigationBarColor">@color/grey_900</item>
     </style>
 
+    <!--FETCH DATA DARK THEME-->
+    <style name="FetchDataTheme" parent="BaseFetchDataTheme">
+        <item name="android:navigationBarColor">@color/grey_900</item>
+    </style>
+
     <!--APP DARK THEME-->
     <style name="AppTheme" parent="BaseAppTheme">
         <item name="android:navigationBarColor">@color/backgroundColor</item>

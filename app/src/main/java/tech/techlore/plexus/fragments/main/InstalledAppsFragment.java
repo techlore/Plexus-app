@@ -1,12 +1,8 @@
 package tech.techlore.plexus.fragments.main;
 
-import static tech.techlore.plexus.fragments.main.MainDefaultFragment.searchFab;
 import static tech.techlore.plexus.preferences.PreferenceManager.SORT_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -19,22 +15,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter;
 import tech.techlore.plexus.models.InstalledApp;
-import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class InstalledAppsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private PackageManager packageManager;
-    private List<PlexusData> plexusDataList;
     private List<InstalledApp> installedAppsList;
     private InstalledAppItemAdapter installedAppItemAdapter;
     private CountDownTimer delayTimer;
@@ -62,53 +55,10 @@ public class InstalledAppsFragment extends Fragment {
         final PreferenceManager preferenceManager=new PreferenceManager(requireContext());
         final MainActivity mainActivity = ((MainActivity) requireActivity());
         recyclerView = view.findViewById(R.id.recycler_view);
-        packageManager = requireContext().getPackageManager();
-        plexusDataList = mainActivity.dataList;
-        installedAppsList = new ArrayList<>();
+        installedAppsList = mainActivity.installedList;
         installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
 
     /*###########################################################################################*/
-
-        // SCAN INSTALLED APPS
-        for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)){
-
-            InstalledApp installedApp = new InstalledApp();
-            String dgRating="X", mgRating="X", dgNotes="X", mgNotes="X";
-
-            // NO SYSTEM APPS
-            if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) !=1) {
-
-                installedApp.setName(String.valueOf(appInfo.loadLabel(packageManager)));
-                installedApp.setPackageName(appInfo.packageName);
-
-                try {
-                    PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                    installedApp.setVersion(packageInfo.versionName);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                // SEARCH FOR THE PACKAGE NAME IN PLEXUS DATA
-                // TO SET RATINGS AND NOTES
-                for (PlexusData plexusData : plexusDataList) {
-
-                    if (plexusData.packageName.contains(appInfo.packageName)) {
-                        dgRating = plexusData.dgRating;
-                        mgRating = plexusData.mgRating;
-                        dgNotes = plexusData.dgNotes;
-                        mgNotes = plexusData.mgNotes;
-                    }
-
-                }
-
-                installedApp.setDgRating(dgRating);
-                installedApp.setMgRating(mgRating);
-                installedApp.setDgNotes(dgNotes);
-                installedApp.setMgNotes(mgNotes);
-                installedAppsList.add(installedApp);
-            }
-
-        }
 
         // SORT ALPHABETICALLY
         if (preferenceManager.getInt(SORT_PREF) == 0
@@ -129,9 +79,8 @@ public class InstalledAppsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(installedAppItemAdapter);
 
-        // GIVE THE LIST TO MAIN ACTIVITY
-        // TO FURTHER GIVE IT TO SEARCH ACTIVITY WHEN REQUIRED
-        mainActivity.installedList = installedAppsList;
+        // FAST SCROLL
+        new FastScrollerBuilder(recyclerView).useMd2Style().build();
 
         // HANDLE CLICK EVENTS OF ITEMS
         installedAppItemAdapter.setOnItemClickListener(position -> {
@@ -156,7 +105,7 @@ public class InstalledAppsFragment extends Fragment {
                 if (dy != 0) {
 
                     // SHRINK FAB WHEN SCROLLING
-                    searchFab.shrink();
+                    mainActivity.searchFab.shrink();
 
                     if (delayTimer != null) {
                         delayTimer.cancel();
@@ -170,7 +119,7 @@ public class InstalledAppsFragment extends Fragment {
 
                         // ON TIMER FINISH, EXTEND FAB
                         public void onFinish() {
-                            searchFab.extend();
+                            mainActivity.searchFab.extend();
                         }
                     }.start();
                 }

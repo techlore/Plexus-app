@@ -2,6 +2,12 @@
 
     <string name="app_name" translatable="false">Plexus</string>
 
+    <!--FETCH DATA ACTIVITY-->
+    <string name="fetching_data">Fetching data</string>
+    <string name="scan_installed">Scanning installed apps</string>
+
+    <!--#########################################################################################-->
+
     <!--MAIN ACTIVITY-->
     <string name="search">Search</string>
     <string name="plexus_data">Plexus Data</string>

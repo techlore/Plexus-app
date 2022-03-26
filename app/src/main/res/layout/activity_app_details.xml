@@ -22,7 +22,10 @@
             android:layout_height="?attr/actionBarSize"
             app:contentInsetStartWithNavigation="0dp"
             android:layout_marginTop="@dimen/margin_2.5"
+            android:paddingStart="@dimen/margin_2.5"
+            android:paddingEnd="@dimen/margin_2.5"
             app:navigationIcon="@drawable/ic_back"
+            app:titleTextColor="@color/textTitleColor"
             app:title="@string/details"
             app:titleTextAppearance="@style/MediumBoldText"/>
 

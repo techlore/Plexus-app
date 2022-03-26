@@ -1,9 +1,11 @@
 package tech.techlore.plexus.activities;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.SORT_PREF;
+import static tech.techlore.plexus.utils.Utility.SendListsIntent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,13 +16,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.fragments.main.MainDefaultFragment;
+import tech.techlore.plexus.fragments.main.InstalledAppsFragment;
+import tech.techlore.plexus.fragments.main.PlexusDataFragment;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
@@ -29,36 +34,110 @@ public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
     private Fragment fragment;
-    public int selectedTab = 0; // HELPS KEEPING CHILD FRAG POSITION WHEN PARENT FRAG REATTACHED WHILE USING SORT
     public List<PlexusData> dataList;
     public List <InstalledApp> installedList;
+    public ExtendedFloatingActionButton searchFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
         preferenceManager = new PreferenceManager(this);
+        final TabLayout tabLayout = findViewById(R.id.tab_layout);
+        searchFab = findViewById(R.id.search_fab);
 
     /*###########################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
         setSupportActionBar(findViewById(R.id.toolbar_main));
-        findViewById(R.id.searchView).setVisibility(View.GONE); // HIDE SEARCH VIEW
-        findViewById(R.id.divider).setVisibility(View.GONE); // HIDE DIVIDER
 
-        // GET LIST FROM SPLASH ACTIVITY
+        tabLayout.setVisibility(View.VISIBLE);
+        searchFab.setVisibility(View.VISIBLE);
+
+        // GET LISTS FROM PREVIOUS ACTIVITY
         //noinspection unchecked
-        dataList = (List<PlexusData>) getIntent().getSerializableExtra("plexusDataList");
+        dataList = (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
+        //noinspection unchecked
+        installedList = (List<InstalledApp>) intent.getSerializableExtra("installedAppsList");
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
-            fragment = new MainDefaultFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.activity_host_fragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
+            DisplayFragment(0);
         }
+
+        // TAB LAYOUT
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                DisplayFragment(tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+
+        });
+
+        // SEARCH FAB
+        // DON'T FINISH MAIN ACTIVITY,
+        // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
+        searchFab.setOnClickListener(v ->
+                StartSearch(tabLayout.getSelectedTabPosition()));
+
+    }
+
+    // SETUP FRAGMENTS
+    private void DisplayFragment(int selectedTab) {
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (selectedTab == 0) {
+            fragment = new PlexusDataFragment();
+            transaction.setCustomAnimations(R.anim.slide_from_start, R.anim.slide_to_end,
+                    R.anim.slide_from_end, R.anim.slide_to_start);
+        }
+
+        else {
+            fragment = new InstalledAppsFragment();
+            transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
+                    R.anim.slide_from_start, R.anim.slide_to_end);
+        }
+
+        transaction.replace(R.id.activity_host_fragment, fragment)
+                .commitNow();
+
+    }
+
+    // SEARCH ACTIVITY INTENT
+    public void StartSearch(int selectedTab) {
+
+        Intent searchIntent = new Intent(this, SearchActivity.class);
+        searchIntent.putExtra("from", selectedTab);
+
+        // IF FROM PLEXUS DATA TAB,
+        // GIVE PLEXUS DATA LIST TO SEARCH ACTIVITY
+        if (selectedTab == 0) {
+            searchIntent.putExtra("plexusDataList", (Serializable) dataList);
+        }
+
+        // ELSE GIVE INSTALLED APPS LIST TO SEARCH ACTIVITY
+        else {
+            searchIntent.putExtra("installedAppsList", (Serializable) installedList);
+        }
+
+        startActivity(searchIntent);
+        overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
 
     }
 
@@ -67,10 +146,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
-
-        // SHOW MENU ICONS ONLY IN MAIN FRAGMENT
-        menu.findItem(R.id.menu_overflow).setVisible(getSupportFragmentManager().getBackStackEntryCount() == 1);
-        menu.findItem(R.id.menu_rating_info).setVisible(getSupportFragmentManager().getBackStackEntryCount() == 1);
 
         // RATING INFO
         menu.findItem(R.id.menu_rating_info).setOnMenuItemClickListener(item -> {
@@ -87,8 +162,10 @@ public class MainActivity extends AppCompatActivity {
 
         // SETTINGS
         menu.findItem(R.id.menu_settings).setOnMenuItemClickListener(menuItem -> {
-            startActivity(new Intent(this, SettingsActivity.class)
-                    .putExtra("plexusDataList", (Serializable) dataList));
+
+            // GIVE BOTH LISTS TO SETTINGS ACTIVITY TO HOLD
+            SendListsIntent(this, SettingsActivity.class,
+                    (Serializable) dataList, (Serializable) installedList);
             finish();
             overridePendingTransition(R.anim.fade_in_slide_from_end, R.anim.no_movement);
             return true;

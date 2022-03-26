@@ -18,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.zhanghai.android.fastscroll.PopupTextProvider;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.models.PlexusData;
 
-public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder> implements Filterable {
+public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>
+        implements Filterable, PopupTextProvider {
 
     private final List<PlexusData> aListViewItems;
     private final List<PlexusData> aListViewItemsFull;
@@ -52,7 +54,7 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
             // HANDLE CLICK EVENTS OF ITEMS
             itemView.setOnClickListener(v -> {
                 if (onItemClickListener != null) {
-                    int position=getAdapterPosition();
+                    int position = getBindingAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         onItemClickListener.onItemClick(position);
                     }
@@ -152,6 +154,13 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
                 notifyDataSetChanged();
             }
         };
+    }
+
+    // FAST SCROLL POPUP
+    @NonNull
+    @Override
+    public String getPopupText(int position) {
+        return aListViewItems.get(position).name.substring(0,1);
     }
 
 }
