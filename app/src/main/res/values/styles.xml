@@ -8,12 +8,6 @@
         <item name="colorPrimaryDark">@color/grey_900</item>
     </style>
 
-    <!--BASE FETCH DATA THEME-->
-    <style name="BaseFetchDataTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="backgroundColor">@color/grey_900</item>
-        <item name="colorPrimaryDark">@color/grey_900</item>
-    </style>
-
     <!--PARENT APP THEME-->
     <style name="Base.Theme.Plexus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="fontFamily">@font/nunito</item>

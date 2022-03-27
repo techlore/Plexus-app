@@ -2,7 +2,7 @@
 
     <string name="app_name" translatable="false">Plexus</string>
 
-    <!--FETCH DATA ACTIVITY-->
+    <!--SPLASH ACTIVITY-->
     <string name="fetching_data">Fetching data</string>
     <string name="scan_installed">Scanning installed apps</string>
 

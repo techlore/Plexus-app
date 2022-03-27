@@ -6,11 +6,6 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <!--FETCH DATA LIGHT THEME-->
-    <style name="FetchDataTheme" parent="BaseFetchDataTheme">
-        <item name="android:windowLightStatusBar">false</item>
-    </style>
-
     <!--APP LIGHT THEME -->
     <style name="AppTheme" parent="BaseAppTheme">
         <item name="android:windowLightStatusBar">true</item>
