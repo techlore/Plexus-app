@@ -21,6 +21,18 @@
         <item name="backgroundColor">@color/backgroundColor</item>
     </style>
 
+    <!--DIALOG WIDTH-->
+    <style name="DialogTheme" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:windowMinWidthMinor">87%</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+
+    <!--DIALOG ANIMATION-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_scale_out</item>
+    </style>
+
     <!--MEDIUM BOLD TEXT STYLE-->
     <style name="MediumBoldText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="fontFamily">@font/nunito_semibold</item>

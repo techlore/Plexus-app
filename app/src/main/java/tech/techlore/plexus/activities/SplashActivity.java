@@ -3,16 +3,21 @@ package tech.techlore.plexus.activities;
 import static tech.techlore.plexus.utils.Utility.SendListsIntent;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -48,38 +53,57 @@ public class SplashActivity extends AppCompatActivity {
 
         plexusDataList = new ArrayList<>();
         installedAppsList = new ArrayList<>();
-        final ExecutorService executor = Executors.newSingleThreadExecutor();
-        final Handler handler = new Handler(Looper.getMainLooper());
 
         /*###########################################################################################*/
 
-        executor.execute(() -> {
+        HasNetwork();
 
-            // BACKGROUND THREAD WORK
-            try {
-                DoInBackground();
-            } catch (IOException e) {
-                e.printStackTrace();
+    }
+
+    // CHECK NETWORK CONNECTION
+    private void HasNetwork() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+            if (networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED) {
+                FetchData();
             }
+            else {
+                NoNetworkDialog();
+            }
+        }
+    }
 
-            // UI THREAD WORK
-            handler.post(() -> {
-                try {
-                    PopulateDataList();
-                    ((TextView)findViewById(R.id.progress_text)).setText(R.string.scan_installed);
-                    ScanInstalledApps();
-                    SendListsIntent(this, MainActivity.class,
-                            (Serializable) plexusDataList, (Serializable) installedAppsList);
-                    finish();
-                    overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start);
-                }
+    // NO NETWORK DIALOG
+    private void NoNetworkDialog() {
+        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
+        dialog.setCancelable(false);
 
-                catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
+        @SuppressLint("InflateParams") View view  = getLayoutInflater().inflate(R.layout.dialog_no_network, null);
+        dialog.getWindow().setBackgroundDrawable(ContextCompat
+                .getDrawable(this, R.drawable.shape_rounded_corners));
+        dialog.getWindow().getDecorView().setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.bottomSheetColor));
+        dialog.setContentView(view);
 
-            });
-        });
+        // POSITIVE BUTTON
+        view.findViewById(R.id.dialog_positive_button)
+                .setOnClickListener(view1 -> {
+                    HasNetwork();
+                    dialog.dismiss();
+                });
+
+        // NEGATIVE BUTTON
+        view.findViewById(R.id.dialog_negative_button)
+                .setOnClickListener(view12 -> {
+                    dialog.cancel();
+                    finishAndRemoveTask();
+                });
+
+        // SHOW DIALOG WITH CUSTOM ANIMATION
+        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.show();
     }
 
     private String URLRequest() throws IOException {
@@ -150,5 +174,37 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void FetchData(){
+        final ExecutorService executor = Executors.newSingleThreadExecutor();
+        final Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(() -> {
+
+            // BACKGROUND THREAD WORK
+            try {
+                DoInBackground();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // UI THREAD WORK
+            handler.post(() -> {
+                try {
+                    PopulateDataList();
+                    ((TextView)findViewById(R.id.progress_text)).setText(R.string.scan_installed);
+                    ScanInstalledApps();
+                    SendListsIntent(this, MainActivity.class,
+                            (Serializable) plexusDataList, (Serializable) installedAppsList);
+                    finish();
+                    overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start);
+                }
+
+                catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
+            });
+        });
     }
 }

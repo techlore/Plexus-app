@@ -75,7 +75,15 @@
 
     <!--#########################################################################################-->
 
-    <!--BOTTOM SHEET-->
+    <!--DIALOGS-->
+    <string name="dialog_title" translatable="false">No Internet</string>
+    <string name="dialog_subtitle" translatable="false">Connect to Wi-Fi or mobile data and retry.</string>
+    <string name="dialog_positive_button">Retry</string>
+    <string name="dialog_negative_button">Exit</string>
+
+    <!--#########################################################################################-->
+
+    <!--BOTTOM SHEETS-->
     <string name="bottom_sheet_title" translatable="false">Bottom Sheet Title</string>
     <string name="cancel_button">Cancel</string>
 

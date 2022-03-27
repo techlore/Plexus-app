@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        style="@style/MediumBoldText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:gravity="center"
+        android:text="@string/dialog_title"
+        android:textColor="@color/textTitleColor"
+        android:textSize="@dimen/text_18" />
+
+    <TextView
+        android:id="@+id/dialog_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_title"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_6.5"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:padding="@dimen/margin_12"
+        android:text="@string/dialog_subtitle"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textTitleColor"
+        android:textSize="@dimen/text_16" />
+
+    <TextView
+        android:id="@+id/dialog_negative_button"
+        style="@style/MediumBoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_subtitle"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_2.5"
+        android:layout_toStartOf="@+id/dialog_positive_button"
+        android:foreground="@drawable/dialog_buttons_ripple"
+        android:padding="@dimen/margin_12"
+        android:text="@string/dialog_negative_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_16" />
+
+    <TextView
+        android:id="@+id/dialog_positive_button"
+        android:layout_below="@+id/dialog_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_2.5"
+        android:foreground="@drawable/dialog_buttons_ripple"
+        android:padding="@dimen/margin_12"
+        android:text="@string/dialog_positive_button"
+        style="@style/MediumBoldText"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_16" />
+
+</RelativeLayout>
