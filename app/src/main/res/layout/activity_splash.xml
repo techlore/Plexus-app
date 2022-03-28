@@ -29,7 +29,7 @@
         android:layout_marginStart="@dimen/margin_6.5"
         android:layout_gravity="center"
         android:text="@string/fetching_data"
-        android:textSize="@dimen/text_18"
+        android:textSize="@dimen/text_17"
         android:textColor="#FAFAFA"/>
 
 </RelativeLayout>

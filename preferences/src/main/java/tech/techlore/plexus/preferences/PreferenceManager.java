@@ -9,7 +9,8 @@ public class PreferenceManager {
 
     // SHARED PREF KEYS
     public static final String THEME_PREF = "theme";
-    public static final String SORT_PREF = "sort";
+    public static final String A_Z_SORT_PREF = "a_z_sort";
+    public static final String RATING_SORT_PREF = "rating_sort";
 
     public PreferenceManager(Context context){
         sharedPreferences = context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE);

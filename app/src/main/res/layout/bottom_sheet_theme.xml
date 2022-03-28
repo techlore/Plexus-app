@@ -13,7 +13,7 @@
         layout="@layout/bottom_sheet_header"/>
 
         <RadioGroup
-            android:id="@+id/options_radiogroup"
+            android:id="@+id/theme_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_6.5"
@@ -22,7 +22,7 @@
             android:paddingStart="@dimen/margin_16">
 
             <RadioButton
-                android:id="@+id/option_1"
+                android:id="@+id/sys_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
@@ -36,7 +36,7 @@
                 android:textSize="@dimen/text_16" />
 
             <RadioButton
-                android:id="@+id/option_2"
+                android:id="@+id/light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
@@ -49,7 +49,7 @@
                 android:textSize="@dimen/text_16" />
 
             <RadioButton
-                android:id="@+id/option_3"
+                android:id="@+id/dark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"

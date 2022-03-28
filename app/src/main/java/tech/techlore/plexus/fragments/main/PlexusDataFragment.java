@@ -1,6 +1,7 @@
 package tech.techlore.plexus.fragments.main;
 
-import static tech.techlore.plexus.preferences.PreferenceManager.SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.RATING_SORT_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,15 +57,65 @@ public class PlexusDataFragment extends Fragment {
         final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
         recyclerView = view.findViewById(R.id.recycler_view);
         final MainActivity mainActivity = ((MainActivity) requireActivity());
-        plexusDataList = mainActivity.dataList;
+        plexusDataList = new ArrayList<>();
         plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
 
     /*###########################################################################################*/
 
+        // RATING SORT
+        for (PlexusData plexusData : mainActivity.dataList) {
 
-        // SORT ALPHABETICALLY
-        if (preferenceManager.getInt(SORT_PREF) == 0
-            || preferenceManager.getInt(SORT_PREF) == R.id.option_2) {
+            if (preferenceManager.getInt(RATING_SORT_PREF) == 0
+                || preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_any) {
+
+                plexusDataList.add(plexusData);
+            }
+
+            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_not_tested) {
+
+                if (plexusData.dgRating.equals("X") || plexusData.mgRating.equals("X")) {
+
+                    plexusDataList.add(plexusData);
+                }
+            }
+
+            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_unusable) {
+
+                if (plexusData.dgRating.equals("1") || plexusData.mgRating.equals("1")) {
+
+                    plexusDataList.add(plexusData);
+                }
+            }
+
+            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_acceptable) {
+
+                if (plexusData.dgRating.equals("2") || plexusData.mgRating.equals("2")) {
+
+                    plexusDataList.add(plexusData);
+                }
+            }
+
+            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_good) {
+
+                if (plexusData.dgRating.equals("3") || plexusData.mgRating.equals("3")) {
+
+                    plexusDataList.add(plexusData);
+                }
+            }
+
+            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_perfect) {
+
+                if (plexusData.dgRating.equals("4") || plexusData.mgRating.equals("4")) {
+
+                    plexusDataList.add(plexusData);
+                }
+            }
+        }
+
+
+        // ALPHABETICAL SORT
+        if (preferenceManager.getInt(A_Z_SORT_PREF) == 0
+            || preferenceManager.getInt(A_Z_SORT_PREF) == R.id.sort_a_z) {
 
             //noinspection ComparatorCombinators
             Collections.sort(plexusDataList, (ai1, ai2) ->

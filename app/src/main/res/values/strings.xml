@@ -76,10 +76,11 @@
     <!--#########################################################################################-->
 
     <!--DIALOGS-->
-    <string name="dialog_title" translatable="false">No Internet</string>
-    <string name="dialog_subtitle" translatable="false">Connect to Wi-Fi or mobile data and retry.</string>
-    <string name="dialog_positive_button">Retry</string>
+    <string name="dialog_title">No Network/Internet</string>
+    <string name="dialog_subtitle">Connect to Wi-Fi or mobile data and retry.
+        If already connected, make sure it has an internet connection.</string>
     <string name="dialog_negative_button">Exit</string>
+    <string name="dialog_positive_button">Retry</string>
 
     <!--#########################################################################################-->
 
@@ -88,8 +89,12 @@
     <string name="cancel_button">Cancel</string>
 
     <!--SORT-->
+    <string name="alphabetical">Alphabetical</string>
     <string name="a_z">A-Z</string>
     <string name="z_a">Z-A</string>
+    <string name="rating">Rating</string>
+    <string name="any">Any</string>
+    <string name="done">Done</string>
 
     <!--THEME-->
     <string name="system_default">System Default</string>

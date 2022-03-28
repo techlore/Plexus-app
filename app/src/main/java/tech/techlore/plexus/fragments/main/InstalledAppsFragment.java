@@ -1,6 +1,6 @@
 package tech.techlore.plexus.fragments.main;
 
-import static tech.techlore.plexus.preferences.PreferenceManager.SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 
 import android.os.Bundle;
@@ -61,8 +61,8 @@ public class InstalledAppsFragment extends Fragment {
     /*###########################################################################################*/
 
         // SORT ALPHABETICALLY
-        if (preferenceManager.getInt(SORT_PREF) == 0
-                || preferenceManager.getInt(SORT_PREF) == R.id.option_2) {
+        if (preferenceManager.getInt(A_Z_SORT_PREF) == 0
+                || preferenceManager.getInt(A_Z_SORT_PREF) == R.id.sort_a_z) {
 
             //noinspection ComparatorCombinators
             Collections.sort(installedAppsList, (ai1, ai2) ->

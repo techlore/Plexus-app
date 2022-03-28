@@ -25,6 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -45,6 +47,8 @@ public class SplashActivity extends AppCompatActivity {
     private String jsonData;
     private List<PlexusData> plexusDataList;
     private List<InstalledApp> installedAppsList;
+    private ExecutorService executor;
+    private Handler handler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,26 +57,35 @@ public class SplashActivity extends AppCompatActivity {
 
         plexusDataList = new ArrayList<>();
         installedAppsList = new ArrayList<>();
+        executor = Executors.newSingleThreadExecutor();
+        handler = new Handler(Looper.getMainLooper());
 
         /*###########################################################################################*/
 
-        HasNetwork();
+        FetchData();
 
     }
 
-    // CHECK NETWORK CONNECTION
-    private void HasNetwork() {
+    // CHECK NETWORK AVAILABILITY
+    private boolean HasNetwork() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED);
 
-        if (connectivityManager != null) {
-            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+    }
 
-            if (networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED) {
-                FetchData();
-            }
-            else {
-                NoNetworkDialog();
-            }
+    // CHECK IF NETWORK HAS INTERNET CONNECTION
+    private boolean HasInternet() {
+        try {
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress("github.com", 443),
+                    1500);
+            socket.close();
+
+            return true;
+        }
+        catch (IOException e) {
+            return false;
         }
     }
 
@@ -90,7 +103,7 @@ public class SplashActivity extends AppCompatActivity {
         // POSITIVE BUTTON
         view.findViewById(R.id.dialog_positive_button)
                 .setOnClickListener(view1 -> {
-                    HasNetwork();
+                    FetchData();
                     dialog.dismiss();
                 });
 
@@ -134,14 +147,16 @@ public class SplashActivity extends AppCompatActivity {
 
         PackageManager packageManager = getPackageManager();
 
-        // SCAN INSTALLED APPS
         for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
 
             InstalledApp installedApp = new InstalledApp();
             String dgRating = "X", mgRating = "X", dgNotes = "X", mgNotes = "X";
 
             // NO SYSTEM APPS
-            if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1) {
+            // ONLY SCAN FOR USER INSTALLED APPS
+            // OR SYSTEM APPS THAT WERE UPDATED BY USER
+            if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
+                || (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) !=0) {
 
                 installedApp.setName(String.valueOf(appInfo.loadLabel(packageManager)));
                 installedApp.setPackageName(appInfo.packageName);
@@ -177,34 +192,46 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void FetchData(){
-        final ExecutorService executor = Executors.newSingleThreadExecutor();
-        final Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(() -> {
 
-            // BACKGROUND THREAD WORK
-            try {
-                DoInBackground();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (HasNetwork()) {
 
-            // UI THREAD WORK
-            handler.post(() -> {
-                try {
-                    PopulateDataList();
-                    ((TextView)findViewById(R.id.progress_text)).setText(R.string.scan_installed);
-                    ScanInstalledApps();
-                    SendListsIntent(this, MainActivity.class,
-                            (Serializable) plexusDataList, (Serializable) installedAppsList);
-                    finish();
-                    overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start);
+            executor.execute(() -> {
+
+                // BACKGROUND THREAD WORK
+                if (HasInternet()) {
+
+                    try {
+                        DoInBackground();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // UI THREAD WORK
+                    handler.post(() -> {
+                        try {
+                            PopulateDataList();
+                            ((TextView)findViewById(R.id.progress_text)).setText(R.string.scan_installed);
+                            ScanInstalledApps();
+                            SendListsIntent(this, MainActivity.class,
+                                    (Serializable) plexusDataList, (Serializable) installedAppsList);
+                            finish();
+                            overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start);
+                        }
+
+                        catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
-
-                catch (JsonProcessingException e) {
-                    e.printStackTrace();
+                else {
+                    handler.post(this::NoNetworkDialog);
                 }
-
             });
-        });
+        }
+
+        else {
+            NoNetworkDialog();
+        }
+
     }
 }

@@ -28,13 +28,13 @@ public class ApplicationManager extends Application {
             }
         }
 
-        else if (preferenceManager.getInt(THEME_PREF) == R.id.option_1){
+        else if (preferenceManager.getInt(THEME_PREF) == R.id.sys_default){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
-        else if (preferenceManager.getInt(THEME_PREF) == R.id.option_2){
+        else if (preferenceManager.getInt(THEME_PREF) == R.id.light){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        else if (preferenceManager.getInt(THEME_PREF) == R.id.option_3){
+        else if (preferenceManager.getInt(THEME_PREF) == R.id.dark){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
     }

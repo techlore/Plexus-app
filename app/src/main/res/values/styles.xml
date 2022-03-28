@@ -8,10 +8,14 @@
         <item name="colorPrimaryDark">@color/grey_900</item>
     </style>
 
+    <!--#########################################################################################-->
+
     <!--PARENT APP THEME-->
     <style name="Base.Theme.Plexus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="fontFamily">@font/nunito</item>
     </style>
+
+    <!--#########################################################################################-->
 
     <!--BASE APP THEME-->
     <style name="BaseAppTheme" parent="Base.Theme.Plexus">
@@ -20,6 +24,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundColor">@color/backgroundColor</item>
     </style>
+
+    <!--#########################################################################################-->
 
     <!--DIALOG WIDTH-->
     <style name="DialogTheme" parent="Theme.MaterialComponents.Dialog">
@@ -33,15 +39,34 @@
         <item name="android:windowExitAnimation">@anim/fade_scale_out</item>
     </style>
 
+    <!--#########################################################################################-->
+
     <!--MEDIUM BOLD TEXT STYLE-->
     <style name="MediumBoldText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="fontFamily">@font/nunito_semibold</item>
     </style>
 
+    <!--#########################################################################################-->
+
     <!--TAB TEXT STYLE-->
     <style name="TabText" parent="MediumBoldText">
         <item name="android:textSize">@dimen/text_17</item>
     </style>
+
+    <!--#########################################################################################-->
+
+    <!--FILTER CHIP STYLE-->
+    <style name="FilterChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="checkedIconVisible">false</item>
+        <item name="chipBackgroundColor">@android:color/transparent</item>
+        <item name="chipSurfaceColor">@color/bottomSheetColor</item>
+        <item name="chipStrokeColor">@color/chip_color</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <!--#########################################################################################-->
 
     <!--BASE BOTTOM SHEET STYLE-->
     <style name="BaseBottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">

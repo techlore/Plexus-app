@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bottom_sheet"
+    android:paddingTop="@dimen/margin_12"
+    android:paddingBottom="@dimen/margin_8"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <include
+        layout="@layout/bottom_sheet_header"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:text="@string/alphabetical"
+        style="@style/MediumBoldText"
+        android:textSize="@dimen/text_15"
+        android:textColor="?attr/colorControlNormal"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/alphabetical_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_8"
+        app:chipSpacingHorizontal="@dimen/margin_10"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_a_z"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FilterChipStyle"
+            android:text="@string/a_z"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_z_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FilterChipStyle"
+            android:text="@string/z_a"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:text="@string/rating"
+        style="@style/MediumBoldText"
+        android:textSize="@dimen/text_15"
+        android:textColor="?attr/colorControlNormal"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/rating_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_8"
+        app:chipSpacingHorizontal="@dimen/margin_10"
+        app:chipSpacingVertical="@dimen/margin_4"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_any"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FilterChipStyle"
+            android:text="@string/any"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_not_tested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FilterChipStyle"
+            android:text="@string/not_tested"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_unusable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FilterChipStyle"
+            android:text="@string/unusable"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_acceptable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FilterChipStyle"
+            android:text="@string/acceptable"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FilterChipStyle"
+            android:text="@string/good"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_perfect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FilterChipStyle"
+            android:text="@string/perfect"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/done_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_25"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:foreground="@drawable/dialog_buttons_ripple"
+        android:padding="@dimen/margin_12"
+        android:text="@string/done"
+        style="@style/MediumBoldText"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_16" />
+
+</LinearLayout>

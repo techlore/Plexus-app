@@ -71,13 +71,13 @@ public class SettingsDefaultFragment extends Fragment {
                 chooseThemeSubtitle.setText(R.string.light);
             }
         }
-        else if (preferenceManager.getInt(THEME_PREF) == R.id.option_1){
+        else if (preferenceManager.getInt(THEME_PREF) == R.id.sys_default){
             chooseThemeSubtitle.setText(R.string.system_default);
         }
-        else if (preferenceManager.getInt(THEME_PREF) == R.id.option_2){
+        else if (preferenceManager.getInt(THEME_PREF) == R.id.light){
             chooseThemeSubtitle.setText(R.string.light);
         }
-        else if (preferenceManager.getInt(THEME_PREF) == R.id.option_3){
+        else if (preferenceManager.getInt(THEME_PREF) == R.id.dark){
             chooseThemeSubtitle.setText(R.string.dark);
         }
 
@@ -113,10 +113,10 @@ public class SettingsDefaultFragment extends Fragment {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.CustomBottomSheetTheme);
         bottomSheetDialog.setCancelable(true);
 
-        @SuppressLint("InflateParams") final View view  = getLayoutInflater().inflate(R.layout.bottom_sheet_options, null);
+        @SuppressLint("InflateParams") final View view  = getLayoutInflater().inflate(R.layout.bottom_sheet_theme, null);
         bottomSheetDialog.setContentView(view);
 
-        final RadioGroup themeRadioGroup = view.findViewById(R.id.options_radiogroup);
+        final RadioGroup themeRadioGroup = view.findViewById(R.id.theme_radiogroup);
 
         // TITLE
         ((TextView)view.findViewById(R.id.bottom_sheet_title)).setText(R.string.theme_title);
@@ -124,34 +124,34 @@ public class SettingsDefaultFragment extends Fragment {
         // DEFAULT CHECKED RADIO
         if (preferenceManager.getInt(THEME_PREF) == 0){
             if (Build.VERSION.SDK_INT >= 29){
-                preferenceManager.setInt(THEME_PREF, R.id.option_1);
+                preferenceManager.setInt(THEME_PREF, R.id.sys_default);
             }
             else{
-                preferenceManager.setInt(THEME_PREF, R.id.option_2);
+                preferenceManager.setInt(THEME_PREF, R.id.light);
             }
         }
         themeRadioGroup.check(preferenceManager.getInt(THEME_PREF));
 
         // SHOW SYSTEM DEFAULT OPTION ONLY ON SDK 29 AND ABOVE
         if (Build.VERSION.SDK_INT >= 29){
-            view.findViewById(R.id.option_1).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.sys_default).setVisibility(View.VISIBLE);
         }
         else{
-            view.findViewById(R.id.option_1).setVisibility(View.GONE);
+            view.findViewById(R.id.sys_default).setVisibility(View.GONE);
         }
 
         // ON SELECTING OPTION
-        ((RadioGroup)view.findViewById(R.id.options_radiogroup))
+        ((RadioGroup)view.findViewById(R.id.theme_radiogroup))
                 .setOnCheckedChangeListener((radioGroup, checkedId) -> {
 
-                    if (checkedId == R.id.option_1) {
+                    if (checkedId == R.id.sys_default) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     }
-                    else if (checkedId == R.id.option_2) {
+                    else if (checkedId == R.id.light) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     }
 
-                    else if (checkedId == R.id.option_3) {
+                    else if (checkedId == R.id.dark) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     }
 

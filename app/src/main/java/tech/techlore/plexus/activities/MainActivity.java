@@ -1,6 +1,7 @@
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.preferences.PreferenceManager.SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.RATING_SORT_PREF;
 import static tech.techlore.plexus.utils.Utility.SendListsIntent;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +13,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -177,37 +178,43 @@ public class MainActivity extends AppCompatActivity {
     // SORT BOTTOM SHEET
     private void SortBottomSheet() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.CustomBottomSheetTheme);
-        bottomSheetDialog.setCancelable(true);
+        bottomSheetDialog.setCancelable(false);
 
-        @SuppressLint("InflateParams") final View view = getLayoutInflater().inflate(R.layout.bottom_sheet_options, null);
+        @SuppressLint("InflateParams") final View view = getLayoutInflater().inflate(R.layout.bottom_sheet_sort, null);
         bottomSheetDialog.setContentView(view);
-
-        final RadioGroup sortRadioGroup = view.findViewById(R.id.options_radiogroup);
 
         // TITLE
         ((TextView) view.findViewById(R.id.bottom_sheet_title)).setText(R.string.menu_sort);
 
-        view.findViewById(R.id.option_1).setVisibility(View.GONE);
-        ((TextView) view.findViewById(R.id.option_2)).setText(R.string.a_z);
-        ((TextView) view.findViewById(R.id.option_3)).setText(R.string.z_a);
+        final ChipGroup alphabeticalChipGroup = view.findViewById(R.id.alphabetical_chip_group);
+        final ChipGroup ratingChipGroup = view.findViewById(R.id.rating_chip_group);
 
-        // DEFAULT CHECKED RADIO
-        if (preferenceManager.getInt(SORT_PREF) == 0) {
-            preferenceManager.setInt(SORT_PREF, R.id.option_2);
+        // DEFAULT ALPHABETICAL CHECKED CHIP
+        if (preferenceManager.getInt(A_Z_SORT_PREF) == 0) {
+            preferenceManager.setInt(A_Z_SORT_PREF, R.id.sort_a_z);
         }
-        sortRadioGroup.check(preferenceManager.getInt(SORT_PREF));
+        alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT_PREF));
 
-        // ON SELECTING OPTION
-        sortRadioGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
-            preferenceManager.setInt(SORT_PREF, checkedId);
+        // DEFAULT RATING CHECKED CHIP
+        if (preferenceManager.getInt(RATING_SORT_PREF) == 0) {
+            preferenceManager.setInt(RATING_SORT_PREF, R.id.sort_any);
+        }
+        ratingChipGroup.check(preferenceManager.getInt(RATING_SORT_PREF));
+
+        // ON SELECTING ALPHABETICAL CHIP
+        alphabeticalChipGroup.setOnCheckedChangeListener((chipGroup, checkedId) ->
+                preferenceManager.setInt(A_Z_SORT_PREF, checkedId));
+
+        // ON SELECTING RATING CHIP
+        ratingChipGroup.setOnCheckedChangeListener((chipGroup, checkedId) ->
+                preferenceManager.setInt(RATING_SORT_PREF, checkedId));
+
+        // DONE BUTTON
+        view.findViewById(R.id.done_button).setOnClickListener(view12 -> {
             bottomSheetDialog.dismiss();
             getSupportFragmentManager().beginTransaction().detach(fragment).commit();
             getSupportFragmentManager().beginTransaction().attach(fragment).commit();
         });
-
-        // CANCEL BUTTON
-        view.findViewById(R.id.cancel_button).setOnClickListener(view12 ->
-                bottomSheetDialog.cancel());
 
         // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
         Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;
