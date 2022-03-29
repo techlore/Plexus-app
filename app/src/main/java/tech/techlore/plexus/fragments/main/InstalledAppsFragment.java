@@ -1,7 +1,12 @@
 package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
+import static tech.techlore.plexus.utils.Utility.EmptyList;
+import static tech.techlore.plexus.utils.Utility.InstalledAppsRatingSort;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,10 +61,32 @@ public class InstalledAppsFragment extends Fragment {
         final PreferenceManager preferenceManager=new PreferenceManager(requireContext());
         final MainActivity mainActivity = ((MainActivity) requireActivity());
         recyclerView = view.findViewById(R.id.recycler_view);
-        installedAppsList = mainActivity.installedList;
+        installedAppsList = new ArrayList<>();
         installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
 
     /*###########################################################################################*/
+
+        // RATING SORT
+        for (InstalledApp installedApp : mainActivity.installedList) {
+
+            if (preferenceManager.getInt(RATING_RADIO_PREF) == 0
+                    || preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_any_rating) {
+
+                installedAppsList.add(installedApp);
+            }
+
+            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_dg_rating) {
+
+                InstalledAppsRatingSort(preferenceManager.getInt(DG_RATING_SORT_PREF), installedApp,
+                        installedApp.dgRating, installedAppsList);
+            }
+
+            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_mg_rating) {
+
+                InstalledAppsRatingSort(preferenceManager.getInt(MG_RATING_SORT_PREF), installedApp,
+                        installedApp.mgRating, installedAppsList);
+            }
+        }
 
         // SORT ALPHABETICALLY
         if (preferenceManager.getInt(A_Z_SORT_PREF) == 0
@@ -76,8 +104,13 @@ public class InstalledAppsFragment extends Fragment {
                     ai2.getName().compareTo(ai1.getName())); // Z-A
         }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(installedAppItemAdapter);
+        if (installedAppsList.size() == 0){
+            EmptyList(view.findViewById(R.id.empty_db_view_stub));
+        }
+        else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            recyclerView.setAdapter(installedAppItemAdapter);
+        }
 
         // FAST SCROLL
         new FastScrollerBuilder(recyclerView).useMd2Style().build();

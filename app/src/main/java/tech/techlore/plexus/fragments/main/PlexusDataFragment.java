@@ -1,8 +1,12 @@
 package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.RATING_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
+import static tech.techlore.plexus.utils.Utility.EmptyList;
+import static tech.techlore.plexus.utils.Utility.PlexusDataRatingSort;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -65,50 +69,22 @@ public class PlexusDataFragment extends Fragment {
         // RATING SORT
         for (PlexusData plexusData : mainActivity.dataList) {
 
-            if (preferenceManager.getInt(RATING_SORT_PREF) == 0
-                || preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_any) {
+            if (preferenceManager.getInt(RATING_RADIO_PREF) == 0
+                || preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_any_rating) {
 
                 plexusDataList.add(plexusData);
             }
 
-            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_not_tested) {
+            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_dg_rating) {
 
-                if (plexusData.dgRating.equals("X") || plexusData.mgRating.equals("X")) {
-
-                    plexusDataList.add(plexusData);
-                }
+                PlexusDataRatingSort(preferenceManager.getInt(DG_RATING_SORT_PREF), plexusData,
+                        plexusData.dgRating, plexusDataList);
             }
 
-            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_unusable) {
+            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_mg_rating) {
 
-                if (plexusData.dgRating.equals("1") || plexusData.mgRating.equals("1")) {
-
-                    plexusDataList.add(plexusData);
-                }
-            }
-
-            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_acceptable) {
-
-                if (plexusData.dgRating.equals("2") || plexusData.mgRating.equals("2")) {
-
-                    plexusDataList.add(plexusData);
-                }
-            }
-
-            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_good) {
-
-                if (plexusData.dgRating.equals("3") || plexusData.mgRating.equals("3")) {
-
-                    plexusDataList.add(plexusData);
-                }
-            }
-
-            else if (preferenceManager.getInt(RATING_SORT_PREF) == R.id.sort_perfect) {
-
-                if (plexusData.dgRating.equals("4") || plexusData.mgRating.equals("4")) {
-
-                    plexusDataList.add(plexusData);
-                }
+                PlexusDataRatingSort(preferenceManager.getInt(MG_RATING_SORT_PREF), plexusData,
+                        plexusData.mgRating, plexusDataList);
             }
         }
 
@@ -129,8 +105,13 @@ public class PlexusDataFragment extends Fragment {
                     ai2.name.compareTo(ai1.name)); // Z-A
         }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(plexusDataItemAdapter);
+        if (plexusDataList.size() == 0){
+            EmptyList(view.findViewById(R.id.empty_db_view_stub));
+        }
+        else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            recyclerView.setAdapter(plexusDataItemAdapter);
+        }
 
         // FAST SCROLL
         new FastScrollerBuilder(recyclerView).useMd2Style().build();

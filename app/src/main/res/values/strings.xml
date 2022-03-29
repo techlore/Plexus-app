@@ -12,6 +12,7 @@
     <string name="search">Search</string>
     <string name="plexus_data">Plexus Data</string>
     <string name="menu_installed_apps">Installed Apps</string>
+    <string name="no_apps_found">No such apps found</string>
 
     <!--TOOLBAR MENU-->
     <string name="menu_rating_info">Rating Info</string>

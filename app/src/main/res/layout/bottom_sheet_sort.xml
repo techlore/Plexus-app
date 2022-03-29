@@ -33,9 +33,11 @@
         android:layout_marginTop="@dimen/margin_4"
         android:layout_marginBottom="@dimen/margin_8"
         app:chipSpacingHorizontal="@dimen/margin_10"
-        app:singleSelection="true">
+        app:singleSelection="true"
+        app:selectionRequired="true">
 
         <com.google.android.material.chip.Chip
+            android:checked="true"
             android:id="@+id/sort_a_z"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,6 +64,58 @@
         android:textSize="@dimen/text_15"
         android:textColor="?attr/colorControlNormal"/>
 
+    <RadioGroup
+        android:id="@+id/rating_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_2.5"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        style="@style/MediumBoldText">
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/radio_any_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/radio_button_selector"
+            android:button="@android:color/transparent"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
+            android:text="@string/any"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/radio_button_text_color_state"/>
+
+        <RadioButton
+            android:id="@+id/radio_dg_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/radio_button_selector"
+            android:button="@android:color/transparent"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
+            android:text="@string/de_Googled"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/radio_button_text_color_state"/>
+
+        <RadioButton
+            android:id="@+id/radio_mg_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
+            android:layout_margin="@dimen/margin_4"
+            android:button="@android:color/transparent"
+            android:background="@drawable/radio_button_selector"
+            android:text="@string/microG"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/radio_button_text_color_state"/>
+
+    </RadioGroup>
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/rating_chip_group"
         android:layout_width="match_parent"
@@ -69,19 +123,14 @@
         android:layout_marginStart="@dimen/margin_10"
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_4"
-        android:layout_marginBottom="@dimen/margin_8"
         app:chipSpacingHorizontal="@dimen/margin_10"
         app:chipSpacingVertical="@dimen/margin_4"
-        app:singleSelection="true">
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        android:visibility="gone">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/sort_any"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/FilterChipStyle"
-            android:text="@string/any"/>
-
-        <com.google.android.material.chip.Chip
+            android:checked="true"
             android:id="@+id/sort_not_tested"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,6 +174,7 @@
         android:layout_gravity="end"
         android:layout_marginStart="@dimen/margin_8"
         android:layout_marginEnd="@dimen/margin_25"
+        android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_10"
         android:foreground="@drawable/dialog_buttons_ripple"
         android:padding="@dimen/margin_12"

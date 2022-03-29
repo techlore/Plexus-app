@@ -1,6 +1,6 @@
 package tech.techlore.plexus.adapters;
 
-import static tech.techlore.plexus.utils.Utility.ScoreColor;
+import static tech.techlore.plexus.utils.Utility.RatingColor;
 import static tech.techlore.plexus.utils.Utility.hScrollText;
 
 import android.annotation.SuppressLint;
@@ -97,8 +97,8 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
         hScrollText(holder.version);
 
         // SET SCORE BACKGROUND COLOR
-        ScoreColor(context, holder.dgRating, plexusData.dgRating);
-        ScoreColor(context, holder.mgRating, plexusData.mgRating);
+        RatingColor(context, holder.dgRating, plexusData.dgRating);
+        RatingColor(context, holder.mgRating, plexusData.mgRating);
 
     }
 

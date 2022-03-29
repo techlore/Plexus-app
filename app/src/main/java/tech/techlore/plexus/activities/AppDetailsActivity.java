@@ -1,6 +1,6 @@
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.utils.Utility.ScoreColor;
+import static tech.techlore.plexus.utils.Utility.RatingColor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,8 +50,8 @@ public class AppDetailsActivity extends AppCompatActivity {
             dgRating.setText(intent.getStringExtra("dgRating"));
             mgRating.setText(intent.getStringExtra("mgRating"));
 
-            ScoreColor(this, dgRatingColor, intent.getStringExtra("dgRating"));
-            ScoreColor(this, mgRatingColor, intent.getStringExtra("mgRating"));
+            RatingColor(this, dgRatingColor, intent.getStringExtra("dgRating"));
+            RatingColor(this, mgRatingColor, intent.getStringExtra("mgRating"));
 
         }
 
