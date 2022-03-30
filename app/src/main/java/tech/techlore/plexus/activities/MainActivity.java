@@ -19,7 +19,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;

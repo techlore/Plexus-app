@@ -25,35 +25,7 @@
             android:paddingEnd="@dimen/margin_2.5"
             app:navigationIcon="@drawable/ic_close"
             app:titleTextColor="@color/textTitleColor"
-            app:titleTextAppearance="@style/MediumBoldText">
-
-            <ImageView
-                android:id="@+id/share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:padding="@dimen/margin_8"
-                android:src="@drawable/ic_share"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/shape_circle_ripple"
-                android:contentDescription="@string/share" />
-
-            <ImageView
-                android:id="@+id/play_store"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:padding="@dimen/margin_8"
-                android:src="@drawable/ic_play_store"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/shape_circle_ripple"
-                android:contentDescription="@string/play_store" />
-
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:titleTextAppearance="@style/MediumBoldText"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

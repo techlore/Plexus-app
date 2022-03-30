@@ -23,12 +23,14 @@
     <!--#########################################################################################-->
 
     <!--APP DETAILS ACTIVITY-->
-    <string name="play_store">Play Store</string>
-    <string name="share">Share</string>
     <string name="share_via">Share via</string>
     <string name="de_Googled">de-Googled</string>
     <string name="microG">\u00B5 (microG)</string>
     <string name="notes">notes</string>
+
+    <!--TOOLBAR MENU-->
+    <string name="menu_play_store">Play Store</string>
+    <string name="menu_share">Share</string>
 
     <!--#########################################################################################-->
 

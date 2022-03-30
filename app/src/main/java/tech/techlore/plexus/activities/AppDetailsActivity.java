@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,9 @@ import tech.techlore.plexus.R;
 
 public class AppDetailsActivity extends AppCompatActivity {
 
+    private static String nameString, packageNameString, versionString,
+            dgRatingString, mgRatingString, dgNotesString, mgNotesString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,13 +32,13 @@ public class AppDetailsActivity extends AppCompatActivity {
         final MaterialToolbar toolbar = findViewById(R.id.toolbar_details);
 
         Intent intent = getIntent();
-        final String nameString = intent.getStringExtra("name");
-        final String packageNameString = intent.getStringExtra("packageName");
-        final String versionString = intent.getStringExtra("version");
-        final String dgRatingString = intent.getStringExtra("dgRating");
-        final String mgRatingString = intent.getStringExtra("mgRating");
-        final String dgNotesString = intent.getStringExtra("dgNotes");
-        final String mgNotesString = intent.getStringExtra("mgNotes");
+        nameString = intent.getStringExtra("name");
+        packageNameString = intent.getStringExtra("packageName");
+        versionString = intent.getStringExtra("version");
+        dgRatingString = intent.getStringExtra("dgRating");
+        mgRatingString = intent.getStringExtra("mgRating");
+        dgNotesString = intent.getStringExtra("dgNotes");
+        mgNotesString = intent.getStringExtra("mgNotes");
         TextView name = findViewById(R.id.name_details);
         TextView packageName = findViewById(R.id.package_name_details);
         TextView version = findViewById(R.id.version_details);
@@ -64,53 +68,62 @@ public class AppDetailsActivity extends AppCompatActivity {
         RatingColor(this, dgRatingColor, dgRatingString);
         RatingColor(this, mgRatingColor, mgRatingString);
 
+    }
 
-        // PLAY STORE LINK
-        findViewById(R.id.play_store)
-                .setOnClickListener(v -> {
-                    try
-                    {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://play.google.com/store/apps/details?id="
-                                            + packageNameString)));
-                    }
-                    // IF BROWSERS NOT INSTALLED, SHOW TOAST
-                    catch (ActivityNotFoundException e)
-                    {
-                        Toast.makeText(this, getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
-                    }
-                });
+    // MENU
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_activity_app_details, menu);
+
+        // PLAY STORE
+        menu.findItem(R.id.menu_play_store).setOnMenuItemClickListener(item -> {
+            try
+            {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id="
+                                + packageNameString)));
+            }
+            // IF BROWSERS NOT INSTALLED, SHOW TOAST
+            catch (ActivityNotFoundException e)
+            {
+                Toast.makeText(this, getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        });
 
         // SHARE
-        findViewById(R.id.share)
-                .setOnClickListener(v ->
-                        startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
-                                .setType("text/plain")
-                                .putExtra(Intent.EXTRA_TEXT,
-                                        getResources().getString(R.string.application) + ": "
-                                        + nameString
-                                        + "\n"
-                                        + getResources().getString(R.string.package_name) + ": "
-                                        + packageNameString
-                                        + "\n"
-                                        + getResources().getString(R.string.version) + ": "
-                                        + versionString
-                                        + "\n"
-                                        + getResources().getString(R.string.dg_rating) + ": "
-                                        + dgRatingString
-                                        + "\n"
-                                        + getResources().getString(R.string.mg_rating) + ": "
-                                        + mgRatingString
-                                        + "\n"
-                                        + getResources().getString(R.string.de_Googled) + " "
-                                        + getResources().getString(R.string.notes) + ": "
-                                        + dgNotesString
-                                        + "\n"
-                                        + getResources().getString(R.string.microG) + " "
-                                        + getResources().getString(R.string.notes) + ": "
-                                        + mgNotesString),
-                        getString(R.string.share_via))));
+        menu.findItem(R.id.menu_share).setOnMenuItemClickListener(item -> {
+            startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
+                            .setType("text/plain")
+                            .putExtra(Intent.EXTRA_TEXT,
+                                    getResources().getString(R.string.application) + ": "
+                                            + nameString
+                                            + "\n"
+                                            + getResources().getString(R.string.package_name) + ": "
+                                            + packageNameString
+                                            + "\n"
+                                            + getResources().getString(R.string.version) + ": "
+                                            + versionString
+                                            + "\n"
+                                            + getResources().getString(R.string.dg_rating) + ": "
+                                            + dgRatingString
+                                            + "\n"
+                                            + getResources().getString(R.string.mg_rating) + ": "
+                                            + mgRatingString
+                                            + "\n"
+                                            + getResources().getString(R.string.de_Googled) + " "
+                                            + getResources().getString(R.string.notes) + ": "
+                                            + dgNotesString
+                                            + "\n"
+                                            + getResources().getString(R.string.microG) + " "
+                                            + getResources().getString(R.string.notes) + ": "
+                                            + mgNotesString),
+                    getString(R.string.share_via)));
+            return true;
+        });
 
+        return true;
     }
 
     // SET TRANSITION WHEN FINISHING ACTIVITY
