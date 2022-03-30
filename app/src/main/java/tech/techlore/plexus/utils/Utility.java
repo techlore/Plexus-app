@@ -137,13 +137,16 @@ public class Utility {
     }
 
     // APP DETAILS ACTIVITY
-    public static void AppDetails(Activity activityFrom, String name, String packageName, String version,
-                           String dgNotes, String mgNotes, String dgRating, String mgRating) {
+    public static void AppDetails(Activity activityFrom, String name, String packageName,
+                                  String plexusVersion, String installedVersion,
+                                  String dgNotes, String mgNotes,
+                                  String dgRating, String mgRating) {
 
         activityFrom.startActivity(new Intent(activityFrom, AppDetailsActivity.class)
                                     .putExtra("name", name)
                                     .putExtra("packageName", packageName)
-                                    .putExtra("version", version)
+                                    .putExtra("plexusVersion", plexusVersion)
+                                    .putExtra("installedVersion", installedVersion)
                                     .putExtra("dgRating", dgRating)
                                     .putExtra("mgRating", mgRating)
                                     .putExtra("dgNotes", dgNotes)

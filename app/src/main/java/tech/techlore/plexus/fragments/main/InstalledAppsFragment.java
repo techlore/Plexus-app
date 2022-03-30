@@ -119,9 +119,9 @@ public class InstalledAppsFragment extends Fragment {
         installedAppItemAdapter.setOnItemClickListener(position -> {
             InstalledApp installedApp = installedAppsList.get(position);
             AppDetails(mainActivity, installedApp.getName(), installedApp.getPackageName(),
-                        installedApp.getVersion(), installedApp.getDgNotes(),
-                        installedApp.getMgNotes(), installedApp.getDgRating(),
-                        installedApp.getMgRating());
+                       installedApp.getPlexusVersion(), installedApp.getInstalledVersion(),
+                       installedApp.getDgNotes(), installedApp.getMgNotes(),
+                       installedApp.getDgRating(), installedApp.getMgRating());
 
         });
 

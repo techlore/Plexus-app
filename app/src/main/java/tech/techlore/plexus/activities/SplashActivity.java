@@ -150,7 +150,7 @@ public class SplashActivity extends AppCompatActivity {
         for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
 
             InstalledApp installedApp = new InstalledApp();
-            String dgRating = "X", mgRating = "X", dgNotes = "X", mgNotes = "X";
+            String plexusVersion = "NA", dgRating = "X", mgRating = "X", dgNotes = "X", mgNotes = "X";
 
             // NO SYSTEM APPS
             // ONLY SCAN FOR USER INSTALLED APPS
@@ -163,16 +163,17 @@ public class SplashActivity extends AppCompatActivity {
 
                 try {
                     PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                    installedApp.setVersion(packageInfo.versionName);
+                    installedApp.setInstalledVersion(packageInfo.versionName);
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
                 }
 
                 // SEARCH FOR THE PACKAGE NAME IN PLEXUS DATA
-                // TO SET RATINGS AND NOTES
+                // TO SET PLEXUS VERSION, RATINGS AND NOTES
                 for (PlexusData plexusData : plexusDataList) {
 
                     if (plexusData.packageName.contains(appInfo.packageName)) {
+                        plexusVersion = plexusData.version;
                         dgRating = plexusData.dgRating;
                         mgRating = plexusData.mgRating;
                         dgNotes = plexusData.dgNotes;
@@ -181,6 +182,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 }
 
+                installedApp.setPlexusVersion(plexusVersion);
                 installedApp.setDgRating(dgRating);
                 installedApp.setMgRating(mgRating);
                 installedApp.setDgNotes(dgNotes);

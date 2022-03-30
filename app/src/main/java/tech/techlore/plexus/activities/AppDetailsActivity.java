@@ -6,7 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,27 +21,26 @@ import tech.techlore.plexus.R;
 
 public class AppDetailsActivity extends AppCompatActivity {
 
-    private static String nameString, packageNameString, versionString,
-            dgRatingString, mgRatingString, dgNotesString, mgNotesString;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_details);
 
-        final MaterialToolbar toolbar = findViewById(R.id.toolbar_details);
-
         Intent intent = getIntent();
-        nameString = intent.getStringExtra("name");
-        packageNameString = intent.getStringExtra("packageName");
-        versionString = intent.getStringExtra("version");
-        dgRatingString = intent.getStringExtra("dgRating");
-        mgRatingString = intent.getStringExtra("mgRating");
-        dgNotesString = intent.getStringExtra("dgNotes");
-        mgNotesString = intent.getStringExtra("mgNotes");
+        final MaterialToolbar toolbar = findViewById(R.id.toolbar_details);
+        final String nameString = intent.getStringExtra("name");
+        final String packageNameString = intent.getStringExtra("packageName");
+        final String plexusVersionString = intent.getStringExtra("plexusVersion");
+        final String installedVersionString = intent.getStringExtra("installedVersion");
+        final String dgRatingString = intent.getStringExtra("dgRating");
+        final String mgRatingString = intent.getStringExtra("mgRating");
+        final String dgNotesString = intent.getStringExtra("dgNotes");
+        final String mgNotesString = intent.getStringExtra("mgNotes");
+        final String playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
         TextView name = findViewById(R.id.name_details);
         TextView packageName = findViewById(R.id.package_name_details);
-        TextView version = findViewById(R.id.version_details);
+        TextView plexusVersion = findViewById(R.id.plexus_version_details);
+        TextView installedVersion = findViewById(R.id.installed_version_details);
         TextView dgRating = findViewById(R.id.dg_rating_details);
         TextView mgRating = findViewById(R.id.mg_rating_details);
         TextView dgNotes = findViewById(R.id.dg_notes);
@@ -49,7 +48,7 @@ public class AppDetailsActivity extends AppCompatActivity {
         ImageView dgRatingColor = findViewById(R.id.dg_rating_color);
         ImageView mgRatingColor = findViewById(R.id.mg_rating_color);
 
-        /*###########################################################################################*/
+    /*###########################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
         setSupportActionBar(toolbar);
@@ -59,7 +58,12 @@ public class AppDetailsActivity extends AppCompatActivity {
         // SET DATA RECEIVED
         name.setText(nameString);
         packageName.setText(packageNameString);
-        version.setText(versionString);
+        plexusVersion.setText(plexusVersionString);
+        if (installedVersionString != null) {
+            findViewById(R.id.plexus_ver_text).setVisibility(View.VISIBLE);
+            findViewById(R.id.installed_ver_layout).setVisibility(View.VISIBLE);
+            installedVersion.setText(installedVersionString);
+        }
         dgRating.setText(dgRatingString);
         mgRating.setText(mgRatingString);
         dgNotes.setText(dgNotesString);
@@ -68,62 +72,54 @@ public class AppDetailsActivity extends AppCompatActivity {
         RatingColor(this, dgRatingColor, dgRatingString);
         RatingColor(this, mgRatingColor, mgRatingString);
 
-    }
-
-    // MENU
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_app_details, menu);
-
-        // PLAY STORE
-        menu.findItem(R.id.menu_play_store).setOnMenuItemClickListener(item -> {
-            try
-            {
-                startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id="
-                                + packageNameString)));
-            }
-            // IF BROWSERS NOT INSTALLED, SHOW TOAST
-            catch (ActivityNotFoundException e)
-            {
-                Toast.makeText(this, getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
-            }
-            return true;
-        });
+        // PLAY STORE LINK
+        findViewById(R.id.play_store)
+                .setOnClickListener(v -> {
+                    try
+                    {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(playStoreString)));
+                    }
+                    // IF BROWSERS NOT INSTALLED, SHOW TOAST
+                    catch (ActivityNotFoundException e)
+                    {
+                        Toast.makeText(this, getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         // SHARE
-        menu.findItem(R.id.menu_share).setOnMenuItemClickListener(item -> {
-            startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
-                            .setType("text/plain")
-                            .putExtra(Intent.EXTRA_TEXT,
-                                    getResources().getString(R.string.application) + ": "
-                                            + nameString
-                                            + "\n"
-                                            + getResources().getString(R.string.package_name) + ": "
-                                            + packageNameString
-                                            + "\n"
-                                            + getResources().getString(R.string.version) + ": "
-                                            + versionString
-                                            + "\n"
-                                            + getResources().getString(R.string.dg_rating) + ": "
-                                            + dgRatingString
-                                            + "\n"
-                                            + getResources().getString(R.string.mg_rating) + ": "
-                                            + mgRatingString
-                                            + "\n"
-                                            + getResources().getString(R.string.de_Googled) + " "
-                                            + getResources().getString(R.string.notes) + ": "
-                                            + dgNotesString
-                                            + "\n"
-                                            + getResources().getString(R.string.microG) + " "
-                                            + getResources().getString(R.string.notes) + ": "
-                                            + mgNotesString),
-                    getString(R.string.share_via)));
-            return true;
-        });
+        findViewById(R.id.share)
+                .setOnClickListener(v ->
+                        startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
+                                .setType("text/plain")
+                                .putExtra(Intent.EXTRA_TEXT,
+                                        getResources().getString(R.string.application) + ": "
+                                        + nameString
+                                        + "\n"
+                                        + getResources().getString(R.string.package_name) + ": "
+                                        + packageNameString
+                                        + "\n"
+                                        + getResources().getString(R.string.version) + ": "
+                                        + plexusVersionString
+                                        + "\n"
+                                        + getResources().getString(R.string.dg_rating) + ": "
+                                        + dgRatingString
+                                        + "\n"
+                                        + getResources().getString(R.string.mg_rating) + ": "
+                                        + mgRatingString
+                                        + "\n"
+                                        + getResources().getString(R.string.de_Googled) + " "
+                                        + getResources().getString(R.string.notes) + ": "
+                                        + dgNotesString
+                                        + "\n"
+                                        + getResources().getString(R.string.microG) + " "
+                                        + getResources().getString(R.string.notes) + ": "
+                                        + mgNotesString
+                                        + "\n"
+                                        + getResources().getString(R.string.play_store) + ": "
+                                        + playStoreString),
+                        getString(R.string.share_via))));
 
-        return true;
     }
 
     // SET TRANSITION WHEN FINISHING ACTIVITY

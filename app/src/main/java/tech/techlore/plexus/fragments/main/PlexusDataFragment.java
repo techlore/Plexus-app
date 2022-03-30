@@ -120,8 +120,10 @@ public class PlexusDataFragment extends Fragment {
         plexusDataItemAdapter.setOnItemClickListener(position -> {
 
             PlexusData plexusData = plexusDataList.get(position);
-            AppDetails(mainActivity, plexusData.name, plexusData.packageName, plexusData.version,
-                    plexusData.dgNotes, plexusData.mgNotes, plexusData.dgRating, plexusData.mgRating);
+            AppDetails(mainActivity, plexusData.name, plexusData.packageName,
+                       plexusData.version, null,
+                       plexusData.dgNotes, plexusData.mgNotes,
+                       plexusData.dgRating, plexusData.mgRating);
 
         });
 

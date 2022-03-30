@@ -5,11 +5,13 @@ import static tech.techlore.plexus.utils.Utility.hScrollText;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,16 +41,19 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
 
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
-        private final TextView name, packageName, version, dgRating, mgRating;
+        private final TextView name, packageName, installedVersion, plexusVersion, dgRating, mgRating;
+        private final ImageView versionMismatch;
 
         public ListViewHolder(@NonNull View itemView, InstalledAppItemAdapter.OnItemClickListener onItemClickListener) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name);
             packageName = itemView.findViewById(R.id.package_name);
-            version = itemView.findViewById(R.id.version);
+            installedVersion = itemView.findViewById(R.id.version);
+            plexusVersion = itemView.findViewById(R.id.version2);
             dgRating = itemView.findViewById(R.id.dg_rating);
             mgRating = itemView.findViewById(R.id.mg_rating);
+            versionMismatch = itemView.findViewById(R.id.version_mismatch);
 
 
             // HANDLE CLICK EVENTS OF ITEMS
@@ -84,19 +89,24 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
         final InstalledApp installedApp = aListViewItems.get(position);
         final Context context = holder.itemView.getContext();
 
+        if (!installedApp.getInstalledVersion().equals(installedApp.getPlexusVersion())){
+            holder.versionMismatch.setVisibility(View.VISIBLE);
+        }
+
         // SET APP NAME, PACKAGE NAME, VERSION, SCORES
         holder.name.setText(installedApp.getName());
         holder.packageName.setText(installedApp.getPackageName());
-        holder.version.setText(installedApp.getVersion());
+        holder.installedVersion.setText(installedApp.getInstalledVersion());
+        holder.plexusVersion.setText(installedApp.getPlexusVersion());
         holder.dgRating.setText(installedApp.getDgRating());
         holder.mgRating.setText(installedApp.getMgRating());
 
         // SET HORIZONTALLY SCROLLING TEXT
         hScrollText(holder.name);
         hScrollText(holder.packageName);
-        hScrollText(holder.version);
+        hScrollText(holder.installedVersion);
 
-        // SET SCORE BACKGROUND COLOR
+        // SET RATING BACKGROUND COLOR
         RatingColor(context, holder.dgRating, installedApp.getDgRating());
         RatingColor(context, holder.mgRating, installedApp.getMgRating());
 

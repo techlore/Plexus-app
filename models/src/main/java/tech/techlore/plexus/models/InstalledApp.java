@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class InstalledApp implements Serializable {
 
-    public String name, packageName, version, dgRating, mgRating, dgNotes, mgNotes;
+    public String name, packageName, installedVersion, plexusVersion, dgRating, mgRating, dgNotes, mgNotes;
 
     public String getName() {
         return name;
@@ -22,12 +22,20 @@ public class InstalledApp implements Serializable {
         this.packageName = packageName;
     }
 
-    public String getVersion() {
-        return version;
+    public String getInstalledVersion() {
+        return installedVersion;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setInstalledVersion(String installedVersion) {
+        this.installedVersion = installedVersion;
+    }
+
+    public String getPlexusVersion() {
+        return plexusVersion;
+    }
+
+    public void setPlexusVersion(String plexusVersion) {
+        this.plexusVersion = plexusVersion;
     }
 
     public String getDgRating() {

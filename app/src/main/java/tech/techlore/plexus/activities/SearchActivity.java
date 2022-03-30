@@ -70,7 +70,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 // GET INSTALLED APPS LIST FROM MAIN ACTIVITY
                 //noinspection unchecked
-                installedList = (List<InstalledApp>) intent.getSerializableExtra("installedList");
+                installedList = (List<InstalledApp>) intent.getSerializableExtra("installedAppsList");
                 DisplayFragment("Search Installed");
 
             }

@@ -60,6 +60,18 @@
         android:textColor="@color/textTitleColor"
         android:textSize="@dimen/text_16" />
 
+    <ImageView
+        android:id="@+id/version_mismatch"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/package_name"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_2.5"
+        android:layout_toEndOf="@id/dg_rating"
+        android:background="@drawable/ic_ver_mismatch"
+        tools:ignore="ContentDescription"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/version"
         android:layout_width="match_parent"
@@ -70,13 +82,19 @@
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginBottom="@dimen/margin_6.5"
         android:layout_toStartOf="@id/mg_rating"
-        android:layout_toEndOf="@id/dg_rating"
+        android:layout_toEndOf="@id/version_mismatch"
         android:ellipsize="marquee"
         android:text="@string/version"
         android:textAlignment="viewStart"
         android:textColor="?attr/colorControlNormal"
         android:textSize="@dimen/text_14"
         android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/version2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/mg_rating"

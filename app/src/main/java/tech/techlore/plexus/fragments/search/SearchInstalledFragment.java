@@ -98,9 +98,9 @@ public class SearchInstalledFragment extends Fragment {
 
             InstalledApp installedApp = searchInstalledList.get(position);
             AppDetails(searchActivity, installedApp.getName(), installedApp.getPackageName(),
-                        installedApp.getVersion(), installedApp.getDgNotes(),
-                        installedApp.getMgNotes(), installedApp.getDgRating(),
-                        installedApp.getMgRating());
+                        installedApp.getPlexusVersion(), installedApp.getInstalledVersion(),
+                        installedApp.getDgNotes(), installedApp.getMgNotes(),
+                        installedApp.getDgRating(), installedApp.getMgRating());
 
         });
 

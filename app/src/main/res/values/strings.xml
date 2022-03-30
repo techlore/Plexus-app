@@ -11,7 +11,7 @@
     <!--MAIN ACTIVITY-->
     <string name="search">Search</string>
     <string name="plexus_data">Plexus Data</string>
-    <string name="menu_installed_apps">Installed Apps</string>
+    <string name="installed_apps">Installed Apps</string>
     <string name="no_apps_found">No such apps found</string>
 
     <!--TOOLBAR MENU-->
@@ -23,14 +23,13 @@
     <!--#########################################################################################-->
 
     <!--APP DETAILS ACTIVITY-->
-    <string name="share_via">Share via</string>
     <string name="de_Googled">de-Googled</string>
     <string name="microG">\u00B5 (microG)</string>
     <string name="notes">notes</string>
-
-    <!--TOOLBAR MENU-->
-    <string name="menu_play_store">Play Store</string>
-    <string name="menu_share">Share</string>
+    <string name="version_title">Version:</string>
+    <string name="installed">Installed</string>
+    <string name="play_store">Play store</string>
+    <string name="share_via">Share via</string>
 
     <!--#########################################################################################-->
 
