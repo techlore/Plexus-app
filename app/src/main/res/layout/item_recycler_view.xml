@@ -38,7 +38,7 @@
         android:layout_toStartOf="@id/mg_rating"
         android:layout_toEndOf="@id/dg_rating"
         android:ellipsize="marquee"
-        android:text="@string/application_name"
+        android:text="@string/application"
         android:textAlignment="viewStart"
         android:textColor="@color/textTitleColor"
         android:textSize="@dimen/text_17" />
@@ -55,7 +55,7 @@
         android:layout_toStartOf="@id/mg_rating"
         android:layout_toEndOf="@id/dg_rating"
         android:ellipsize="marquee"
-        android:text="@string/application_package_name"
+        android:text="@string/package_name"
         android:textAlignment="viewStart"
         android:textColor="@color/textTitleColor"
         android:textSize="@dimen/text_16" />
@@ -72,7 +72,7 @@
         android:layout_toStartOf="@id/mg_rating"
         android:layout_toEndOf="@id/dg_rating"
         android:ellipsize="marquee"
-        android:text="@string/application_version"
+        android:text="@string/version"
         android:textAlignment="viewStart"
         android:textColor="?attr/colorControlNormal"
         android:textSize="@dimen/text_14"

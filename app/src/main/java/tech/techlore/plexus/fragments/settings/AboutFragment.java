@@ -48,7 +48,7 @@ public class AboutFragment extends Fragment {
         // VERSION
         try {
             version = getResources().getString(R.string.version)
-                    + " "
+                    + ": "
                     + requireContext().getPackageManager()
                     .getPackageInfo(requireContext()
                             .getPackageName(), 0)

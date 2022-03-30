@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/backgroundColor"
-    tools:context=".activities.AppDetailsActivity"
-    tools:ignore="ContentDescription">
+    tools:context=".activities.AppDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -24,62 +23,84 @@
             android:layout_marginTop="@dimen/margin_2.5"
             android:paddingStart="@dimen/margin_2.5"
             android:paddingEnd="@dimen/margin_2.5"
-            app:navigationIcon="@drawable/ic_back"
+            app:navigationIcon="@drawable/ic_close"
             app:titleTextColor="@color/textTitleColor"
-            app:title="@string/details"
-            app:titleTextAppearance="@style/MediumBoldText"/>
+            app:titleTextAppearance="@style/MediumBoldText">
+
+            <ImageView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:padding="@dimen/margin_8"
+                android:src="@drawable/ic_share"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/shape_circle_ripple"
+                android:contentDescription="@string/share" />
+
+            <ImageView
+                android:id="@+id/play_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:padding="@dimen/margin_8"
+                android:src="@drawable/ic_play_store"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/shape_circle_ripple"
+                android:contentDescription="@string/play_store" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/margin_16">
 
             <TextView
                 android:id="@+id/name_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_4"
+                android:layout_marginStart="@dimen/margin_25"
+                android:layout_marginEnd="@dimen/margin_25"
+                android:layout_marginTop="@dimen/margin_16"
                 android:layout_marginBottom="@dimen/margin_6.5"
-                android:text="@string/application_name"
+                android:text="@string/application"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_20"
+                android:textSize="@dimen/text_22"
                 style="@style/MediumBoldText"/>
 
             <TextView
                 android:id="@+id/package_name_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_4"
+                android:layout_marginStart="@dimen/margin_25"
+                android:layout_marginEnd="@dimen/margin_25"
                 android:layout_marginBottom="@dimen/margin_6.5"
-                android:text="@string/application_package_name"
+                android:text="@string/package_name"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18"/>
+                android:textSize="@dimen/text_20"/>
 
             <TextView
                 android:id="@+id/version_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_4"
-                android:layout_marginBottom="@dimen/margin_25"
-                android:text="@string/application_version"
+                android:layout_marginStart="@dimen/margin_25"
+                android:layout_marginEnd="@dimen/margin_25"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:text="@string/version"
                 android:textColor="?colorControlNormal"
-                android:textSize="@dimen/text_17"/>
+                android:textSize="@dimen/text_18"/>
+
+            <include layout="@layout/divider_horizontal"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_card_with_ripple"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_25"
                 android:layout_marginBottom="@dimen/margin_16"
                 android:paddingBottom="@dimen/margin_8">
 
@@ -89,7 +110,8 @@
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/shape_bg_top"
-                    android:backgroundTint="@color/ratingXColor" />
+                    android:backgroundTint="@color/ratingXColor"
+                    tools:ignore="ContentDescription"/>
 
                 <TextView
                     style="@style/MediumBoldText"
@@ -139,6 +161,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_card_with_ripple"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_16"
                 android:layout_marginBottom="@dimen/margin_4"
                 android:paddingBottom="@dimen/margin_8">
@@ -149,7 +173,8 @@
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/shape_bg_top"
-                    android:backgroundTint="@color/ratingXColor" />
+                    android:backgroundTint="@color/ratingXColor"
+                    tools:ignore="ContentDescription"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -194,9 +219,5 @@
                     android:textSize="@dimen/text_18" />
 
             </RelativeLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
 
 </LinearLayout>
