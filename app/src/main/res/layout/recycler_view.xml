@@ -16,7 +16,7 @@
         tools:listitem="@layout/item_recycler_view"/>
 
     <ViewStub
-        android:id="@+id/empty_db_view_stub"
+        android:id="@+id/empty_list_view_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout="@layout/empty_list"

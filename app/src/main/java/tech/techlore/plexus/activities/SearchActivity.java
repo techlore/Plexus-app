@@ -1,12 +1,8 @@
 package tech.techlore.plexus.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -29,7 +25,6 @@ public class SearchActivity extends AppCompatActivity {
     public List<PlexusData> dataList;
     public List<InstalledApp> installedList;
     public SearchView searchView;
-    private InputMethodManager inputMethodManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,9 +34,8 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final MaterialToolbar searchToolbar = findViewById(R.id.toolbar_main);
         searchView = findViewById(R.id.searchView);
-        inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
-    /*###########################################################################################*/
+        /*###########################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
         setSupportActionBar(searchToolbar);
@@ -50,6 +44,7 @@ public class SearchActivity extends AppCompatActivity {
         searchToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         searchView.setVisibility(View.VISIBLE);
+        searchView.requestFocus();
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
@@ -77,16 +72,6 @@ public class SearchActivity extends AppCompatActivity {
 
         }
 
-        // SHOW KEYBOARD WITH A SUBTLE DELAY
-        // TO STOP FLICKERING OF FAB FROM PREVIOUS ACTIVITY
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-
-            searchView.requestFocus();
-            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.RESULT_HIDDEN);
-
-        },
-                400);
-
     }
 
     // SETUP FRAGMENTS
@@ -96,12 +81,16 @@ public class SearchActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (fragmentName.equals("Search Data")) {
-            searchView.setQueryHint(getResources().getString(R.string.search_data));
+            searchView.setQueryHint(getResources().getString(R.string.menu_search)
+                                    + " "
+                                    + getResources().getString(R.string.plexus_data));
             fragment = new SearchDataFragment();
         }
 
         else {
-            searchView.setQueryHint(getResources().getString(R.string.search_installed));
+            searchView.setQueryHint(getResources().getString(R.string.menu_search)
+                                    + " "
+                                    + getResources().getString(R.string.installed_apps));
             fragment = new SearchInstalledFragment();
         }
 
@@ -109,29 +98,11 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    // WHEN FINISHING ACTIVITY
+    // SET TRANSITION WHEN FINISHING ACTIVITY
     @Override
     public void finish() {
-
-        // IF KEYBOARD IS SHOWN, CLOSE KEYBOARD FIRST
-        // THEN FINISH ACTIVITY WITH A SLIGHT DELAY
-        if (searchView.hasFocus()) {
-
-            inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, InputMethodManager.RESULT_SHOWN);
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        super.finish();
-                        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
-
-                    },
-                    400);
-
-        }
-
-        // ELSE FINISH ACTIVITY IMMEDIATELY
-        else {
-            super.finish();
-            overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
-        }
+        super.finish();
+        overridePendingTransition(0, R.anim.fade_out_slide_to_top);
 
     }
 }

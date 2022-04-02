@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.Serializable;
@@ -38,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
     private Fragment fragment;
+    private TabLayout tabLayout;
     public List<PlexusData> dataList;
     public List <InstalledApp> installedList;
-    public ExtendedFloatingActionButton searchFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         preferenceManager = new PreferenceManager(this);
-        final TabLayout tabLayout = findViewById(R.id.tab_layout);
-        searchFab = findViewById(R.id.search_fab);
+        tabLayout = findViewById(R.id.tab_layout);
 
     /*###########################################################################################*/
 
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar_main));
 
         tabLayout.setVisibility(View.VISIBLE);
-        searchFab.setVisibility(View.VISIBLE);
 
         // GET LISTS FROM PREVIOUS ACTIVITY
         //noinspection unchecked
@@ -92,12 +89,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-        // SEARCH FAB
-        // DON'T FINISH MAIN ACTIVITY,
-        // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
-        searchFab.setOnClickListener(v ->
-                StartSearch(tabLayout.getSelectedTabPosition()));
 
     }
 
@@ -141,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         startActivity(searchIntent);
-        overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
+        overridePendingTransition(R.anim.fade_in_slide_from_top, R.anim.no_movement);
 
     }
 
@@ -151,16 +142,24 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
 
-        // RATING INFO
-        menu.findItem(R.id.menu_rating_info).setOnMenuItemClickListener(item -> {
-            startActivity(new Intent(this, RatingInfoActivity.class));
-            overridePendingTransition(R.anim.fade_in_slide_from_end, R.anim.no_movement);
+        // SEARCH
+        // DON'T FINISH MAIN ACTIVITY,
+        // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
+        menu.findItem(R.id.menu_search).setOnMenuItemClickListener(item -> {
+            StartSearch(tabLayout.getSelectedTabPosition());
             return true;
         });
 
         // SORT
         menu.findItem(R.id.menu_sort).setOnMenuItemClickListener(item -> {
             SortBottomSheet();
+            return true;
+        });
+
+        // HELP
+        menu.findItem(R.id.menu_help).setOnMenuItemClickListener(item -> {
+            startActivity(new Intent(this, HelpActivity.class));
+            overridePendingTransition(R.anim.fade_in_slide_from_end, R.anim.no_movement);
             return true;
         });
 

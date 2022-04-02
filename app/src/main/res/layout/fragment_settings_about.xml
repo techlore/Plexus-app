@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_settings_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
@@ -13,68 +13,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/shape_card_with_ripple"
-        android:layout_margin="@dimen/margin_16">
+        android:layout_margin="@dimen/margin_12">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/app_icon_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_bg_circle"
+            android:backgroundTint="@color/grey_800"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/app_name"
+            style="@style/MediumBoldText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10"
-            android:layout_marginBottom="1dp"
-            android:paddingStart="@dimen/margin_20"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingEnd="@dimen/margin_12"
-            android:paddingBottom="@dimen/margin_10">
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_2.5"
+            android:paddingStart="@dimen/margin_8"
+            android:paddingEnd="@dimen/margin_8"
+            android:text="@string/app_name"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_20" />
 
-            <ImageView
-                android:id="@+id/app_icon_img"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/margin_12"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/grey_800"
-                android:src="@drawable/ic_launcher_foreground" />
+        <TextView
+            android:id="@+id/version_about"
+            style="@style/MediumBoldText"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_8"
+            android:paddingEnd="@dimen/margin_8"
+            android:text="@string/version"
+            android:textColor="?colorControlNormal"
+            android:textSize="@dimen/text_17" />
 
-            <TextView
-                android:id="@+id/name_about"
-                style="@style/MediumBoldText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_6.5"
-                android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toEndOf="@+id/app_icon_img"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/app_name"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
-
-            <TextView
-                android:id="@+id/version_about"
-                style="@style/MediumBoldText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/name_about"
-                android:layout_toEndOf="@+id/app_icon_img"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/version"
-                android:textColor="?colorControlNormal"
-                android:textSize="@dimen/text_16" />
-
-        </RelativeLayout>
+        <include
+            layout="@layout/divider_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"/>
 
         <TextView
             android:id="@+id/privacy_policy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginTop="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_2.5"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:paddingStart="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_12"
             android:paddingTop="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_12"
             android:paddingBottom="@dimen/margin_16"
@@ -82,7 +75,8 @@
             android:textAlignment="viewStart"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16"
-            android:textStyle="normal" />
+            app:drawableStartCompat="@drawable/ic_privacy_policy"
+            android:drawablePadding="@dimen/margin_16"/>
 
         <TextView
             android:id="@+id/licenses"
@@ -93,7 +87,7 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:paddingStart="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_12"
             android:paddingTop="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_12"
             android:paddingBottom="@dimen/margin_16"
@@ -101,7 +95,8 @@
             android:textAlignment="viewStart"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16"
-            android:textStyle="normal" />
+            app:drawableStartCompat="@drawable/ic_licenses"
+            android:drawablePadding="@dimen/margin_16"/>
 
         <TextView
             android:id="@+id/view_on_git"
@@ -112,7 +107,7 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:paddingStart="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_12"
             android:paddingTop="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_12"
             android:paddingBottom="@dimen/margin_16"
@@ -120,7 +115,28 @@
             android:textAlignment="viewStart"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16"
-            android:textStyle="normal" />
+            app:drawableStartCompat="@drawable/ic_github"
+            android:drawablePadding="@dimen/margin_16" />
+
+        <TextView
+            android:id="@+id/visit_techlore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginBottom="@dimen/margin_2.5"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="@dimen/margin_12"
+            android:paddingTop="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_16"
+            android:text="@string/visit_techlore"
+            android:textAlignment="viewStart"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16"
+            app:drawableStartCompat="@drawable/ic_website"
+            android:drawablePadding="@dimen/margin_16" />
 
     </LinearLayout>
 

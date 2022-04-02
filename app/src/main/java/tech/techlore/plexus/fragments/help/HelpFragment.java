@@ -1,4 +1,4 @@
-package tech.techlore.plexus.fragments.ratinginfo;
+package tech.techlore.plexus.fragments.help;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import tech.techlore.plexus.R;
 
-public class RatingInfoFragment extends Fragment {
+public class HelpFragment extends Fragment {
 
-    public RatingInfoFragment() {
+    public HelpFragment() {
         // Required empty public constructor
     }
 
@@ -27,7 +27,7 @@ public class RatingInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_rating_info, container, false);
+        return inflater.inflate(R.layout.fragment_help, container, false);
     }
 
     @Override

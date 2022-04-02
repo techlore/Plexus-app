@@ -31,7 +31,7 @@
                 app:iconifiedByDefault="false"
                 app:searchIcon="@null"
                 app:queryBackground="@android:color/transparent"
-                app:defaultQueryHint="@string/search"
+                app:defaultQueryHint="@string/menu_search"
                 android:textDirection="locale"
                 android:visibility="gone"/>
 
@@ -70,22 +70,5 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/activity_host_fragment"/>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/search_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_25"
-        android:layout_gravity="bottom|center"
-        app:backgroundTint="@color/colorAccent"
-        app:icon="@drawable/ic_search"
-        app:iconTint="@android:color/white"
-        app:iconPadding="@dimen/margin_8"
-        android:text="@string/search"
-        android:textColor="@android:color/white"
-        android:textAllCaps="false"
-        style="@style/MediumBoldText"
-        android:textSize="@dimen/text_15"
-        android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

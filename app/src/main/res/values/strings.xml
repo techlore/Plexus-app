@@ -9,15 +9,15 @@
     <!--#########################################################################################-->
 
     <!--MAIN ACTIVITY-->
-    <string name="search">Search</string>
     <string name="plexus_data">Plexus Data</string>
     <string name="installed_apps">Installed Apps</string>
     <string name="no_apps_found">No such apps found</string>
 
     <!--TOOLBAR MENU-->
-    <string name="menu_rating_info">Rating Info</string>
-    <string name="menu_sort">Sort</string>
+    <string name="menu_search">Search</string>
     <string name="menu_more">More</string>
+    <string name="menu_sort">Sort</string>
+    <string name="menu_help">Help</string>
     <string name="menu_settings">Settings</string>
 
     <!--#########################################################################################-->
@@ -33,13 +33,7 @@
 
     <!--#########################################################################################-->
 
-    <!--SEARCH ACTIVITY-->
-    <string name="search_data">Search Plexus Data</string>
-    <string name="search_installed">Search Installed Apps</string>
-
-    <!--#########################################################################################-->
-
-    <!--RATING INFO ACTIVITY-->
+    <!--HELP ACTIVITY-->
     <string name="what_ratings_mean">What do the ratings mean?</string>
     <string name="not_tested">Not tested</string>
     <string name="unusable">Unusable</string>
@@ -75,6 +69,7 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="licenses">Licenses</string>
     <string name="view_on_github">View on GitHub</string>
+    <string name="visit_techlore">Visit Techlore</string>
 
     <!--#########################################################################################-->
 

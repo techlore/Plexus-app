@@ -1,15 +1,13 @@
 package tech.techlore.plexus.activities;
 
+import static tech.techlore.plexus.utils.Utility.OpenURL;
 import static tech.techlore.plexus.utils.Utility.RatingColor;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -72,20 +70,10 @@ public class AppDetailsActivity extends AppCompatActivity {
         RatingColor(this, dgRatingColor, dgRatingString);
         RatingColor(this, mgRatingColor, mgRatingString);
 
-        // PLAY STORE LINK
+        // PLAY STORE URL
         findViewById(R.id.play_store)
-                .setOnClickListener(v -> {
-                    try
-                    {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse(playStoreString)));
-                    }
-                    // IF BROWSERS NOT INSTALLED, SHOW TOAST
-                    catch (ActivityNotFoundException e)
-                    {
-                        Toast.makeText(this, getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .setOnClickListener(v ->
+                    OpenURL(this, playStoreString));
 
         // SHARE
         findViewById(R.id.share)

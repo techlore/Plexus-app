@@ -1,15 +1,13 @@
 package tech.techlore.plexus.fragments.settings;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
+import static tech.techlore.plexus.utils.Utility.OpenURL;
+
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,48 +58,23 @@ public class AboutFragment extends Fragment {
 
         // PRIVACY POLICY
         view.findViewById(R.id.privacy_policy)
-                .setOnClickListener(v -> {
-                    try
-                    {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md")));
-                    }
-                    // IF BROWSERS NOT INSTALLED, SHOW TOAST
-                    catch (ActivityNotFoundException e)
-                    {
-                        Toast.makeText(requireContext(), getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .setOnClickListener(v ->
+                    OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md"));
 
         // LICENSES
         view.findViewById(R.id.licenses)
-                .setOnClickListener(v -> {
-                    try
-                    {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/techlore/Plexus-app/blob/main/LICENSE")));
-                    }
-                    // IF BROWSERS NOT INSTALLED, SHOW TOAST
-                    catch (ActivityNotFoundException e)
-                    {
-                        Toast.makeText(requireContext(), getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .setOnClickListener(v ->
+                    OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/blob/main/LICENSE"));
 
         // VIEW ON GITHUB
         view.findViewById(R.id.view_on_git)
-                .setOnClickListener(v -> {
-                    try
-                    {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/techlore/Plexus-app/")));
-                    }
-                    // IF BROWSERS NOT INSTALLED, SHOW TOAST
-                    catch (ActivityNotFoundException e)
-                    {
-                        Toast.makeText(requireContext(), getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .setOnClickListener(v ->
+                        OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app"));
+
+        // VISIT TECHLORE
+        view.findViewById(R.id.visit_techlore)
+                .setOnClickListener(v ->
+                        OpenURL(requireActivity(), "https://techlore.tech"));
 
     }
 

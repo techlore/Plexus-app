@@ -1,11 +1,14 @@
 package tech.techlore.plexus.utils;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -153,6 +156,21 @@ public class Utility {
                                     .putExtra("mgNotes", mgNotes));
 
         activityFrom.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement);
+
+    }
+
+    // OPEN LINKS
+    public static void OpenURL(Activity activity, String URL) {
+
+        try
+        {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL)));
+        }
+        // IF BROWSERS NOT INSTALLED, SHOW TOAST
+        catch (ActivityNotFoundException e)
+        {
+            Toast.makeText(activity, activity.getResources().getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
+        }
 
     }
 

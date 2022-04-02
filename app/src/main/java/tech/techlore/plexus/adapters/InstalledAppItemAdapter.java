@@ -92,6 +92,9 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
         if (!installedApp.getInstalledVersion().equals(installedApp.getPlexusVersion())){
             holder.versionMismatch.setVisibility(View.VISIBLE);
         }
+        else {
+            holder.versionMismatch.setVisibility(View.GONE);
+        }
 
         // SET APP NAME, PACKAGE NAME, VERSION, SCORES
         holder.name.setText(installedApp.getName());

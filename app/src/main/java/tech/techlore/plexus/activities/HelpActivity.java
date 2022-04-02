@@ -9,9 +9,9 @@ import com.google.android.material.appbar.MaterialToolbar;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.fragments.ratinginfo.RatingInfoFragment;
+import tech.techlore.plexus.fragments.help.HelpFragment;
 
-public class RatingInfoActivity extends AppCompatActivity {
+public class HelpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class RatingInfoActivity extends AppCompatActivity {
 
         // TOOLBAR AS ACTIONBAR
         setSupportActionBar(toolbarRatingInfo);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menu_rating_info);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menu_help);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarRatingInfo.setNavigationOnClickListener(v ->
@@ -33,7 +33,7 @@ public class RatingInfoActivity extends AppCompatActivity {
         // DISPLAY FRAGMENT
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.activity_host_fragment, new RatingInfoFragment())
+                    .replace(R.id.activity_host_fragment, new HelpFragment())
                     .commitNow();
         }
 

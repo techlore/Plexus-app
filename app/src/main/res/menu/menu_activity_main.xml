@@ -6,10 +6,10 @@
     <!--MAIN ACTIVITY MENU-->
 
     <item
-        android:id="@+id/menu_rating_info"
-        android:icon="@drawable/ic_info"
+        android:id="@+id/menu_search"
+        android:icon="@drawable/ic_search"
         app:showAsAction="ifRoom"
-        android:title="@string/menu_rating_info"/>
+        android:title="@string/menu_search"/>
 
     <item
         android:id="@+id/menu_overflow"
@@ -22,6 +22,11 @@
                 android:id="@+id/menu_sort"
                 android:icon="@drawable/ic_sort"
                 android:title="@string/menu_sort"/>
+
+            <item
+                android:id="@+id/menu_help"
+                android:icon="@drawable/ic_help"
+                android:title="@string/menu_help"/>
 
             <item
                 android:id="@+id/menu_settings"

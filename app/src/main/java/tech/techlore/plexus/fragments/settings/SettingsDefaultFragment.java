@@ -1,11 +1,9 @@
 package tech.techlore.plexus.fragments.settings;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.THEME_PREF;
+import static tech.techlore.plexus.utils.Utility.OpenURL;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,18 +80,8 @@ public class SettingsDefaultFragment extends Fragment {
 
         // REPORT AN ISSUE
         view.findViewById(R.id.settings_report_issue_holder)
-                .setOnClickListener(v2 -> {
-                    try
-                    {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/techlore/Plexus-app/issues")));
-                    }
-                    // IF BROWSERS NOT INSTALLED, SHOW TOAST
-                    catch (ActivityNotFoundException e)
-                    {
-                        Toast.makeText(requireContext(), getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .setOnClickListener(v2 ->
+                    OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/issues"));
 
 
         // ABOUT

@@ -9,7 +9,6 @@ import static tech.techlore.plexus.utils.Utility.EmptyList;
 import static tech.techlore.plexus.utils.Utility.PlexusDataRatingSort;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,6 @@ public class PlexusDataFragment extends Fragment {
     private RecyclerView recyclerView;
     private PlexusDataItemAdapter plexusDataItemAdapter;
     private List<PlexusData> plexusDataList;
-    private CountDownTimer delayTimer;
 
     public PlexusDataFragment() {
         // Required empty public constructor
@@ -106,7 +104,7 @@ public class PlexusDataFragment extends Fragment {
         }
 
         if (plexusDataList.size() == 0){
-            EmptyList(view.findViewById(R.id.empty_db_view_stub));
+            EmptyList(view.findViewById(R.id.empty_list_view_stub));
         }
         else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -125,41 +123,6 @@ public class PlexusDataFragment extends Fragment {
                        plexusData.dgNotes, plexusData.mgNotes,
                        plexusData.dgRating, plexusData.mgRating);
 
-        });
-
-        // SHRINK FAB ON SCROLL
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                // CHECK IF SCROLLING OR NOT
-                //   0 = NO SCROLL
-                // > 0 = SCROLL UP
-                // < 0 = SCROLL DOWN
-                if (dy != 0) {
-
-                    // SHRINK FAB WHEN SCROLLING
-                    mainActivity.searchFab.shrink();
-
-                    if (delayTimer != null) {
-                        delayTimer.cancel();
-                    }
-
-                    // EXTEND FAB WHEN SCROLLING STOPPED
-                    // WITH A SUBTLE DELAY
-                    delayTimer = new CountDownTimer(400, 100) {
-
-                        public void onTick(long millisUntilFinished) {}
-
-                        // ON TIMER FINISH, EXTEND FAB
-                        public void onFinish() {
-                            mainActivity.searchFab.extend();
-                        }
-                    }.start();
-                }
-
-            }
         });
 
     }

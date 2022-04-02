@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/margin_12"
-                android:src="@drawable/settings_theme"
+                android:src="@drawable/ic_theme"
                 android:contentDescription="@string/theme_title"/>
 
             <TextView
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/margin_12"
-                android:src="@drawable/ic_info"
+                android:src="@drawable/ic_about"
                 android:contentDescription="@string/about_title"/>
 
             <TextView
