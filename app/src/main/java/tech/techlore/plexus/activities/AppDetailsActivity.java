@@ -6,7 +6,6 @@ import static tech.techlore.plexus.utils.Utility.RatingColor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,16 +34,16 @@ public class AppDetailsActivity extends AppCompatActivity {
         final String dgNotesString = intent.getStringExtra("dgNotes");
         final String mgNotesString = intent.getStringExtra("mgNotes");
         final String playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
-        TextView name = findViewById(R.id.name_details);
-        TextView packageName = findViewById(R.id.package_name_details);
-        TextView plexusVersion = findViewById(R.id.plexus_version_details);
-        TextView installedVersion = findViewById(R.id.installed_version_details);
-        TextView dgRating = findViewById(R.id.dg_rating_details);
-        TextView mgRating = findViewById(R.id.mg_rating_details);
-        TextView dgNotes = findViewById(R.id.dg_notes);
-        TextView mgNotes = findViewById(R.id.mg_notes);
-        ImageView dgRatingColor = findViewById(R.id.dg_rating_color);
-        ImageView mgRatingColor = findViewById(R.id.mg_rating_color);
+        final TextView name = findViewById(R.id.name_details);
+        final TextView packageName = findViewById(R.id.package_name_details);
+        final TextView plexusVersion = findViewById(R.id.plexus_version_details);
+        final TextView installedVersion = findViewById(R.id.installed_version_details);
+        final TextView dgRating = findViewById(R.id.dg_rating_details);
+        final TextView mgRating = findViewById(R.id.mg_rating_details);
+        final TextView dgNotes = findViewById(R.id.dg_notes);
+        final TextView mgNotes = findViewById(R.id.mg_notes);
+        final TextView dgRatingColor = findViewById(R.id.dg_rating_color);
+        final TextView mgRatingColor = findViewById(R.id.mg_rating_color);
 
     /*###########################################################################################*/
 
@@ -58,7 +57,7 @@ public class AppDetailsActivity extends AppCompatActivity {
         packageName.setText(packageNameString);
         plexusVersion.setText(plexusVersionString);
         if (installedVersionString != null) {
-            findViewById(R.id.plexus_ver_text).setVisibility(View.VISIBLE);
+            findViewById(R.id.plexus_text).setVisibility(View.VISIBLE);
             findViewById(R.id.installed_ver_layout).setVisibility(View.VISIBLE);
             installedVersion.setText(installedVersionString);
         }

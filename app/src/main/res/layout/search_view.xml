@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.SearchView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:iconifiedByDefault="false"
+    app:searchIcon="@null"
+    app:queryBackground="@android:color/transparent"
+    app:defaultQueryHint="@string/menu_search"
+    android:textDirection="locale">
+    <requestFocus/>
+</androidx.appcompat.widget.SearchView>

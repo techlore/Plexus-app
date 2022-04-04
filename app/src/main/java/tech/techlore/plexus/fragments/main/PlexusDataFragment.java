@@ -5,7 +5,7 @@ import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_
 import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
-import static tech.techlore.plexus.utils.Utility.EmptyList;
+import static tech.techlore.plexus.utils.Utility.InflateViewStub;
 import static tech.techlore.plexus.utils.Utility.PlexusDataRatingSort;
 
 import android.os.Bundle;
@@ -104,7 +104,7 @@ public class PlexusDataFragment extends Fragment {
         }
 
         if (plexusDataList.size() == 0){
-            EmptyList(view.findViewById(R.id.empty_list_view_stub));
+            InflateViewStub(view.findViewById(R.id.empty_list_view_stub));
         }
         else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

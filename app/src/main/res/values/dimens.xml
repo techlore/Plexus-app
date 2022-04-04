@@ -1,8 +1,9 @@
 <resources>
 
     <!--MARGINS AND PADDINGS-->
+    <dimen name="margin_50">50dp</dimen>
     <dimen name="margin_45">45dp</dimen>
-    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
     <dimen name="margin_25">25dp</dimen>
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_16">16dp</dimen>
@@ -21,6 +22,5 @@
     <dimen name="text_16">16sp</dimen>
     <dimen name="text_15">15sp</dimen>
     <dimen name="text_14">14sp</dimen>
-    <dimen name="text_13">13sp</dimen>
 
 </resources>

@@ -24,46 +24,19 @@
             app:titleTextColor="@color/textTitleColor"
             app:titleTextAppearance="@style/MediumBoldText">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchView"
+            <ViewStub
+                android:id="@+id/search_view_stub"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:iconifiedByDefault="false"
-                app:searchIcon="@null"
-                app:queryBackground="@android:color/transparent"
-                app:defaultQueryHint="@string/menu_search"
-                android:textDirection="locale"
-                android:visibility="gone"/>
+                android:layout="@layout/search_view"/>
 
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+        <ViewStub
+            android:id="@+id/tab_layout_view_stub"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_4"
-            android:background="@color/backgroundColor"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="3dp"
-            app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicator="@drawable/shape_rounded_corners"
-            app:tabTextAppearance="@style/TabText"
-            app:tabTextColor="?attr/colorControlNormal"
-            app:tabSelectedTextColor="@color/textTitleColor"
-            app:tabRippleColor="@android:color/transparent"
-            android:visibility="gone">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/plexus_data"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/installed_apps"/>
-
-        </com.google.android.material.tabs.TabLayout>
+            android:layout_height="match_parent"
+            android:layout="@layout/tab_layout"/>
 
         <include layout="@layout/divider_horizontal"/>
 

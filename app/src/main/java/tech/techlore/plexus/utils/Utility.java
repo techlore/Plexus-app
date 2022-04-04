@@ -32,10 +32,9 @@ public class Utility {
 
     }
 
-    // EMPTY LIST VIEW STUB
-    public static void EmptyList(ViewStub viewStub) {
+    // INFLATE VIEW STUB
+    public static void InflateViewStub(ViewStub viewStub) {
             viewStub.inflate();
-            viewStub.setVisibility(View.VISIBLE);
 
     }
 

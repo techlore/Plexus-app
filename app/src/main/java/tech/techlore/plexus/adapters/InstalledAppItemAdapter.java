@@ -5,7 +5,6 @@ import static tech.techlore.plexus.utils.Utility.hScrollText;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,7 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
 
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
-        private final TextView name, packageName, installedVersion, plexusVersion, dgRating, mgRating;
+        private final TextView name, packageName, installedVersion, dgRating, mgRating;
         private final ImageView versionMismatch;
 
         public ListViewHolder(@NonNull View itemView, InstalledAppItemAdapter.OnItemClickListener onItemClickListener) {
@@ -50,7 +49,6 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
             name = itemView.findViewById(R.id.name);
             packageName = itemView.findViewById(R.id.package_name);
             installedVersion = itemView.findViewById(R.id.version);
-            plexusVersion = itemView.findViewById(R.id.version2);
             dgRating = itemView.findViewById(R.id.dg_rating);
             mgRating = itemView.findViewById(R.id.mg_rating);
             versionMismatch = itemView.findViewById(R.id.version_mismatch);
@@ -100,7 +98,6 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
         holder.name.setText(installedApp.getName());
         holder.packageName.setText(installedApp.getPackageName());
         holder.installedVersion.setText(installedApp.getInstalledVersion());
-        holder.plexusVersion.setText(installedApp.getPlexusVersion());
         holder.dgRating.setText(installedApp.getDgRating());
         holder.mgRating.setText(installedApp.getMgRating());
 

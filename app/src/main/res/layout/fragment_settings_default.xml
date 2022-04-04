@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/margin_12"
-                android:src="@drawable/settings_report_issue"
+                android:src="@drawable/ic_report_issue"
                 android:contentDescription="@string/report_issue_title"/>
 
             <TextView

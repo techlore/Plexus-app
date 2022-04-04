@@ -91,12 +91,6 @@
         android:textStyle="normal" />
 
     <TextView
-        android:id="@+id/version2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"/>
-
-    <TextView
         android:id="@+id/mg_rating"
         style="@style/MediumBoldText"
         android:layout_width="60dp"

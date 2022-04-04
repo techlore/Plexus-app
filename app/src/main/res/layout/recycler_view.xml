@@ -19,7 +19,6 @@
         android:id="@+id/empty_list_view_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/empty_list"
-        android:layout_marginBottom="200dp"/>
+        android:layout="@layout/empty_list"/>
 
 </RelativeLayout>

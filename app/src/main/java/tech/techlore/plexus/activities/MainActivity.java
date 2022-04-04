@@ -4,6 +4,7 @@ import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
+import static tech.techlore.plexus.utils.Utility.InflateViewStub;
 import static tech.techlore.plexus.utils.Utility.SendListsIntent;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         preferenceManager = new PreferenceManager(this);
+        InflateViewStub(findViewById(R.id.tab_layout_view_stub));
         tabLayout = findViewById(R.id.tab_layout);
 
     /*###########################################################################################*/

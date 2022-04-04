@@ -1,8 +1,9 @@
 package tech.techlore.plexus.activities;
 
+import static tech.techlore.plexus.utils.Utility.InflateViewStub;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -33,7 +34,8 @@ public class SearchActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final MaterialToolbar searchToolbar = findViewById(R.id.toolbar_main);
-        searchView = findViewById(R.id.searchView);
+        InflateViewStub(findViewById(R.id.search_view_stub));
+        searchView = findViewById(R.id.search_view);
 
         /*###########################################################################################*/
 
@@ -42,9 +44,6 @@ public class SearchActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         searchToolbar.setNavigationOnClickListener(view -> onBackPressed());
-
-        searchView.setVisibility(View.VISIBLE);
-        searchView.requestFocus();
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {

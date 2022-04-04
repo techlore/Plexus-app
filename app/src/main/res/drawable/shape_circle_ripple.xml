@@ -3,7 +3,7 @@
     <item android:id="@android:id/mask">
         <shape android:shape="oval">
             <solid android:color="@color/rippleColor"/>
-            <corners android:radius="@dimen/margin_32"/>
+            <corners android:radius="@dimen/margin_35"/>
         </shape>
     </item>
 </ripple>
