@@ -9,6 +9,7 @@ Private Plexus App
 - [Privacy Policy](#privacy-policy)
 - [Issues](#issues)
 - [Contributing](#contributing)
+- [Libraries Used](#libraries-used)
 
 
 
@@ -42,3 +43,10 @@ If you find bugs or have suggestions, please report it to the [issue tracker](ht
 
 
 ## Contributing
+
+
+
+## Libraries Used
+- [Jackson](https://github.com/FasterXML/jackson) | [Apache License 2.0](https://github.com/FasterXML/jackson-core/blob/2.14/LICENSE)
+- [OkHttp](https://github.com/square/okhttp) | [Apache License 2.0](https://github.com/square/okhttp/blob/master/LICENSE.txt)
+- [AndroidFastScroll](https://github.com/zhanghai/AndroidFastScroll) | [Apache License 2.0](https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE)
