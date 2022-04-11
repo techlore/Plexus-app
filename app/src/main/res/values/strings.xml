@@ -15,8 +15,9 @@
 
     <!--TOOLBAR MENU-->
     <string name="menu_search">Search</string>
-    <string name="menu_more">More</string>
     <string name="menu_sort">Sort</string>
+    <string name="menu_more">More</string>
+    <string name="menu_categories">Categories</string>
     <string name="menu_help">Help</string>
     <string name="menu_settings">Settings</string>
 
@@ -76,7 +77,7 @@
     <string name="dialog_title">No Network/Internet</string>
     <string name="dialog_subtitle">Connect to Wi-Fi or mobile data and retry.
         If already connected, make sure it has an internet connection.</string>
-    <string name="dialog_negative_button">Exit</string>
+    <string name="exit">Exit</string>
     <string name="dialog_positive_button">Retry</string>
 
     <!--#########################################################################################-->

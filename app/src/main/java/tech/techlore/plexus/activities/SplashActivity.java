@@ -1,14 +1,13 @@
 package tech.techlore.plexus.activities;
 
+import static tech.techlore.plexus.utils.Utility.HasInternet;
+import static tech.techlore.plexus.utils.Utility.HasNetwork;
+import static tech.techlore.plexus.utils.Utility.ScanInstalledApps;
 import static tech.techlore.plexus.utils.Utility.SendListsIntent;
+import static tech.techlore.plexus.utils.Utility.URLRequest;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,17 +24,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
@@ -43,12 +37,9 @@ import tech.techlore.plexus.models.PlexusData;
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
-    private OkHttpClient okHttpClient;
     private String jsonData;
     private List<PlexusData> plexusDataList;
     private List<InstalledApp> installedAppsList;
-    private ExecutorService executor;
-    private Handler handler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,36 +48,11 @@ public class SplashActivity extends AppCompatActivity {
 
         plexusDataList = new ArrayList<>();
         installedAppsList = new ArrayList<>();
-        executor = Executors.newSingleThreadExecutor();
-        handler = new Handler(Looper.getMainLooper());
 
         /*###########################################################################################*/
 
         FetchData();
 
-    }
-
-    // CHECK NETWORK AVAILABILITY
-    private boolean HasNetwork() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED);
-
-    }
-
-    // CHECK IF NETWORK HAS INTERNET CONNECTION
-    private boolean HasInternet() {
-        try {
-            Socket socket = new Socket();
-            socket.connect(new InetSocketAddress("github.com", 443),
-                    1500);
-            socket.close();
-
-            return true;
-        }
-        catch (IOException e) {
-            return false;
-        }
     }
 
     // NO NETWORK DIALOG
@@ -108,8 +74,9 @@ public class SplashActivity extends AppCompatActivity {
                 });
 
         // NEGATIVE BUTTON
-        view.findViewById(R.id.dialog_negative_button)
-                .setOnClickListener(view12 -> {
+        TextView negativeButton = view.findViewById(R.id.dialog_negative_button);
+        negativeButton.setText(getString(R.string.exit));
+        negativeButton.setOnClickListener(view12 -> {
                     dialog.cancel();
                     finishAndRemoveTask();
                 });
@@ -119,21 +86,9 @@ public class SplashActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private String URLRequest() throws IOException {
-        Request request = new Request.Builder()
-                .url("https://raw.githubusercontent.com/parveshnarwal/Plexus-Demo/main/new.json")
-                .build();
-
-        try (Response response = okHttpClient.newCall(request).execute())
-        {
-            return Objects.requireNonNull(response.body()).string();
-        }
-
-    }
-
     private void DoInBackground() throws IOException {
-        okHttpClient = new OkHttpClient();
-        jsonData = URLRequest();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        jsonData = URLRequest(okHttpClient);
     }
 
     // POPULATE PLEXUS DATA LIST
@@ -142,62 +97,13 @@ public class SplashActivity extends AppCompatActivity {
         plexusDataList = objectMapper.readValue(jsonData, new TypeReference<List<PlexusData>>(){});
     }
 
-    // SCAN ALL INSTALLED APPS AND POPULATE RESPECTIVE LIST
-    private void ScanInstalledApps() {
-
-        PackageManager packageManager = getPackageManager();
-
-        for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
-
-            InstalledApp installedApp = new InstalledApp();
-            String plexusVersion = "NA", dgRating = "X", mgRating = "X", dgNotes = "X", mgNotes = "X";
-
-            // NO SYSTEM APPS
-            // ONLY SCAN FOR USER INSTALLED APPS
-            // OR SYSTEM APPS THAT WERE UPDATED BY USER
-            if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
-                || (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) !=0) {
-
-                installedApp.setName(String.valueOf(appInfo.loadLabel(packageManager)));
-                installedApp.setPackageName(appInfo.packageName);
-
-                try {
-                    PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                    installedApp.setInstalledVersion(packageInfo.versionName);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                // SEARCH FOR THE PACKAGE NAME IN PLEXUS DATA
-                // TO SET PLEXUS VERSION, RATINGS AND NOTES
-                for (PlexusData plexusData : plexusDataList) {
-
-                    if (plexusData.packageName.contains(appInfo.packageName)) {
-                        plexusVersion = plexusData.version;
-                        dgRating = plexusData.dgRating;
-                        mgRating = plexusData.mgRating;
-                        dgNotes = plexusData.dgNotes;
-                        mgNotes = plexusData.mgNotes;
-                    }
-
-                }
-
-                installedApp.setPlexusVersion(plexusVersion);
-                installedApp.setDgRating(dgRating);
-                installedApp.setMgRating(mgRating);
-                installedApp.setDgNotes(dgNotes);
-                installedApp.setMgNotes(mgNotes);
-                installedAppsList.add(installedApp);
-            }
-        }
-
-    }
-
     private void FetchData(){
 
-        if (HasNetwork()) {
+        Handler handler = new Handler(Looper.getMainLooper());
 
-            executor.execute(() -> {
+        if (HasNetwork(this)) {
+
+            Executors.newSingleThreadExecutor().execute(() -> {
 
                 // BACKGROUND THREAD WORK
                 if (HasInternet()) {
@@ -213,7 +119,7 @@ public class SplashActivity extends AppCompatActivity {
                         try {
                             PopulateDataList();
                             ((TextView)findViewById(R.id.progress_text)).setText(R.string.scan_installed);
-                            ScanInstalledApps();
+                            ScanInstalledApps(this, plexusDataList, installedAppsList);
                             SendListsIntent(this, MainActivity.class,
                                     (Serializable) plexusDataList, (Serializable) installedAppsList);
                             finish();

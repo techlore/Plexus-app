@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.List;
 
@@ -52,9 +53,11 @@ public class SearchInstalledFragment extends Fragment {
         final SearchActivity searchActivity = ((SearchActivity) requireActivity());
         searchInstalledList = searchActivity.installedList;
         installedAppItemAdapter = new InstalledAppItemAdapter(searchInstalledList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         /*###########################################################################################*/
+
+        ((SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout)).setEnabled(false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // PERFORM SEARCH
         searchActivity.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

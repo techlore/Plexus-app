@@ -69,7 +69,7 @@
                         android:background="@drawable/shape_outline"
                         android:text="@string/app_name"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_17"/>
+                        android:textSize="@dimen/text_16"/>
 
                     <TextView
                         android:id="@+id/plexus_version_details"
@@ -96,7 +96,7 @@
                         android:background="@drawable/shape_outline"
                         android:text="@string/installed"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_17"/>
+                        android:textSize="@dimen/text_16"/>
 
                     <TextView
                         android:id="@+id/installed_version_details"

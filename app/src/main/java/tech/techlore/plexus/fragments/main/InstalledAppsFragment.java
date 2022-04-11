@@ -7,6 +7,7 @@ import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PR
 import static tech.techlore.plexus.utils.Utility.AppDetails;
 import static tech.techlore.plexus.utils.Utility.InflateViewStub;
 import static tech.techlore.plexus.utils.Utility.InstalledAppsRatingSort;
+import static tech.techlore.plexus.utils.Utility.ScanInstalledApps;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,6 +60,7 @@ public class InstalledAppsFragment extends Fragment {
 
         final PreferenceManager preferenceManager=new PreferenceManager(requireContext());
         final MainActivity mainActivity = ((MainActivity) requireActivity());
+        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         recyclerView = view.findViewById(R.id.recycler_view);
         installedAppsList = new ArrayList<>();
         installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
@@ -104,6 +107,7 @@ public class InstalledAppsFragment extends Fragment {
 
         if (installedAppsList.size() == 0){
             InflateViewStub(view.findViewById(R.id.empty_list_view_stub));
+            swipeRefreshLayout.setEnabled(false);
         }
         else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -121,6 +125,15 @@ public class InstalledAppsFragment extends Fragment {
                        installedApp.getDgNotes(), installedApp.getMgNotes(),
                        installedApp.getDgRating(), installedApp.getMgRating());
 
+        });
+
+        // SWIPE REFRESH LAYOUT
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            ScanInstalledApps(requireContext(), mainActivity.dataList, installedAppsList);
+            mainActivity.installedList = installedAppsList;
+            swipeRefreshLayout.setRefreshing(false);
         });
 
     }

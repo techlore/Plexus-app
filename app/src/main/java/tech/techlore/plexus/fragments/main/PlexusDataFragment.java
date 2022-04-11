@@ -5,25 +5,42 @@ import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_
 import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
 import static tech.techlore.plexus.utils.Utility.AppDetails;
+import static tech.techlore.plexus.utils.Utility.HasInternet;
+import static tech.techlore.plexus.utils.Utility.HasNetwork;
 import static tech.techlore.plexus.utils.Utility.InflateViewStub;
 import static tech.techlore.plexus.utils.Utility.PlexusDataRatingSort;
+import static tech.techlore.plexus.utils.Utility.URLRequest;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.Executors;
 
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
+import okhttp3.OkHttpClient;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
@@ -32,9 +49,12 @@ import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class PlexusDataFragment extends Fragment {
 
+    private MainActivity mainActivity;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private PlexusDataItemAdapter plexusDataItemAdapter;
     private List<PlexusData> plexusDataList;
+    private String jsonData;
 
     public PlexusDataFragment() {
         // Required empty public constructor
@@ -57,8 +77,9 @@ public class PlexusDataFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
+        mainActivity = ((MainActivity) requireActivity());
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         recyclerView = view.findViewById(R.id.recycler_view);
-        final MainActivity mainActivity = ((MainActivity) requireActivity());
         plexusDataList = new ArrayList<>();
         plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
 
@@ -105,6 +126,7 @@ public class PlexusDataFragment extends Fragment {
 
         if (plexusDataList.size() == 0){
             InflateViewStub(view.findViewById(R.id.empty_list_view_stub));
+            swipeRefreshLayout.setEnabled(false);
         }
         else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -124,6 +146,96 @@ public class PlexusDataFragment extends Fragment {
                        plexusData.dgRating, plexusData.mgRating);
 
         });
+
+        // SWIPE REFRESH LAYOUT
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
+        swipeRefreshLayout.setOnRefreshListener(this::RefreshData);
+
+    }
+
+    // NO NETWORK DIALOG
+    private void NoNetworkDialog() {
+        final Dialog dialog = new Dialog(requireContext(), R.style.DialogTheme);
+        dialog.setCancelable(false);
+
+        @SuppressLint("InflateParams") View view  = getLayoutInflater().inflate(R.layout.dialog_no_network, null);
+        dialog.getWindow().setBackgroundDrawable(ContextCompat
+                .getDrawable(requireContext(), R.drawable.shape_rounded_corners));
+        dialog.getWindow().getDecorView().setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.bottomSheetColor));
+        dialog.setContentView(view);
+
+        // POSITIVE BUTTON
+        view.findViewById(R.id.dialog_positive_button)
+                .setOnClickListener(view1 -> {
+                    RefreshData();
+                    dialog.dismiss();
+                });
+
+        // NEGATIVE BUTTON
+        view.findViewById(R.id.dialog_negative_button)
+                .setOnClickListener(view12 -> {
+                    dialog.cancel();
+                    swipeRefreshLayout.setRefreshing(false);
+                });
+
+        // SHOW DIALOG WITH CUSTOM ANIMATION
+        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.show();
+    }
+
+    private void DoInBackground() throws IOException {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        jsonData = URLRequest(okHttpClient);
+    }
+
+    // POPULATE PLEXUS DATA LIST
+    private void PopulateDataList() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        plexusDataList = objectMapper.readValue(jsonData, new TypeReference<List<PlexusData>>(){});
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void RefreshData(){
+
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        if (HasNetwork(requireContext())) {
+
+            Executors.newSingleThreadExecutor().execute(() -> {
+
+                // BACKGROUND THREAD WORK
+                if (HasInternet()) {
+
+                    try {
+                        DoInBackground();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // UI THREAD WORK
+                    handler.post(() -> {
+                        try {
+                            PopulateDataList();
+                            plexusDataItemAdapter.notifyDataSetChanged();
+                            mainActivity.dataList = plexusDataList;
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+
+                        catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+                else {
+                    handler.post(this::NoNetworkDialog);
+                }
+            });
+        }
+
+        else {
+            NoNetworkDialog();
+        }
 
     }
 

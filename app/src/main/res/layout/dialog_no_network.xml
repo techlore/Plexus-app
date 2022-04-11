@@ -42,7 +42,7 @@
         android:layout_toStartOf="@+id/dialog_positive_button"
         android:foreground="@drawable/dialog_buttons_ripple"
         android:padding="@dimen/margin_12"
-        android:text="@string/dialog_negative_button"
+        android:text="@string/cancel_button"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_16" />
 

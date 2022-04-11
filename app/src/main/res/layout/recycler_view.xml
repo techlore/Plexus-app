@@ -5,15 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/backgroundColor"
-        android:clipToPadding="false"
-        android:paddingTop="@dimen/margin_10"
-        android:paddingBottom="@dimen/margin_10"
-        tools:listitem="@layout/item_recycler_view"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10"
+            tools:listitem="@layout/item_recycler_view"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ViewStub
         android:id="@+id/empty_list_view_stub"

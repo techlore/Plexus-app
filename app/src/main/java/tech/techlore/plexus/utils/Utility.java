@@ -1,26 +1,131 @@
 package tech.techlore.plexus.utils;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.List;
+import java.util.Objects;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.AppDetailsActivity;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 
 public class Utility {
+
+    // CHECK NETWORK AVAILABILITY
+    public static boolean HasNetwork(Context context) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED);
+
+    }
+
+    // CHECK IF NETWORK HAS INTERNET CONNECTION
+    // SHOULD BE CALLED IN BACKGROUND THREAD
+    public static boolean HasInternet() {
+
+        try {
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress("github.com", 443), 1500);
+            socket.close();
+
+            return true;
+        }
+        catch (IOException e) {
+            return false;
+        }
+
+    }
+
+    // URL TO FETCH DATA FROM
+    public static String URLRequest(OkHttpClient okHttpClient) throws IOException {
+        Request request = new Request.Builder()
+                .url("https://raw.githubusercontent.com/parveshnarwal/Plexus-Demo/main/new.json")
+                .build();
+
+        try (Response response = okHttpClient.newCall(request).execute())
+        {
+            return Objects.requireNonNull(response.body()).string();
+        }
+
+    }
+
+    // SCAN ALL INSTALLED APPS AND POPULATE RESPECTIVE LIST
+    public static void ScanInstalledApps(Context context, List<PlexusData> plexusDataList, List<InstalledApp> installedAppsList) {
+
+        PackageManager packageManager = context.getPackageManager();
+
+        for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
+
+            InstalledApp installedApp = new InstalledApp();
+            String plexusVersion = "NA", dgRating = "X", mgRating = "X", dgNotes = "X", mgNotes = "X";
+
+            // NO SYSTEM APPS
+            // ONLY SCAN FOR USER INSTALLED APPS
+            // OR SYSTEM APPS THAT WERE UPDATED BY USER
+            if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
+                    || (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) !=0) {
+
+                installedApp.setName(String.valueOf(appInfo.loadLabel(packageManager)));
+                installedApp.setPackageName(appInfo.packageName);
+
+                try {
+                    PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                    installedApp.setInstalledVersion(packageInfo.versionName);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                // SEARCH FOR THE PACKAGE NAME IN PLEXUS DATA
+                // TO SET PLEXUS VERSION, RATINGS AND NOTES
+                for (PlexusData plexusData : plexusDataList) {
+
+                    if (plexusData.packageName.contains(appInfo.packageName)) {
+                        plexusVersion = plexusData.version;
+                        dgRating = plexusData.dgRating;
+                        mgRating = plexusData.mgRating;
+                        dgNotes = plexusData.dgNotes;
+                        mgNotes = plexusData.mgNotes;
+                    }
+
+                }
+
+                installedApp.setPlexusVersion(plexusVersion);
+                installedApp.setDgRating(dgRating);
+                installedApp.setMgRating(mgRating);
+                installedApp.setDgNotes(dgNotes);
+                installedApp.setMgNotes(mgNotes);
+                installedAppsList.add(installedApp);
+            }
+        }
+
+    }
 
     // SEND ARRAY LISTS WITH INTENT
     public static void SendListsIntent(Activity activityFrom, Class<?> activityTo,
@@ -35,7 +140,6 @@ public class Utility {
     // INFLATE VIEW STUB
     public static void InflateViewStub(ViewStub viewStub) {
             viewStub.inflate();
-
     }
 
     // PLEXUS DATA RATING SORT
@@ -103,8 +207,6 @@ public class Utility {
     // HORIZONTALLY SCROLL TEXT
     // IF TEXT IS TOO LONG
     public static void hScrollText(TextView textView) {
-
-        // SET THESE 2 PARAMETERS FOR HORIZONTALLY SCROLLING TEXT
         textView.setSingleLine();
         textView.setSelected(true);
     }
@@ -132,6 +234,23 @@ public class Utility {
 
             case "4":
                 view.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating4Color));
+                break;
+
+        }
+
+    }
+
+    // SET ICONS ACCORDING TO CATEGORY
+    public static void CategoryIcon(String category, ImageView imageView) {
+
+        switch (category) {
+
+            case "Tools":
+                imageView.setImageResource(R.drawable.ic_about);
+                break;
+
+            case "":
+                imageView.setImageResource(R.drawable.ic_theme);
                 break;
 
         }
