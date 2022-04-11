@@ -20,5 +20,7 @@ public class PlexusData implements Serializable {
     public String dgNotes;
     @JsonProperty("MG_Notes")
     public String mgNotes;
+    @JsonProperty("Category")
+    public String category;
 
 }
