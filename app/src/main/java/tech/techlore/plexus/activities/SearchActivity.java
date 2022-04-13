@@ -1,6 +1,6 @@
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.utils.Utility.InflateViewStub;
+import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,7 +1,7 @@
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.utils.Utility.OpenURL;
-import static tech.techlore.plexus.utils.Utility.RatingColor;
+import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
+import static tech.techlore.plexus.utils.UiUtils.RatingColor;
 
 import android.content.Intent;
 import android.os.Bundle;

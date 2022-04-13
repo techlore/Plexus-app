@@ -4,12 +4,13 @@ import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
-import static tech.techlore.plexus.utils.Utility.AppDetails;
-import static tech.techlore.plexus.utils.Utility.HasInternet;
-import static tech.techlore.plexus.utils.Utility.HasNetwork;
-import static tech.techlore.plexus.utils.Utility.InflateViewStub;
-import static tech.techlore.plexus.utils.Utility.PlexusDataRatingSort;
-import static tech.techlore.plexus.utils.Utility.URLRequest;
+import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
+import static tech.techlore.plexus.utils.NetworkUtils.HasInternet;
+import static tech.techlore.plexus.utils.NetworkUtils.HasNetwork;
+import static tech.techlore.plexus.utils.NetworkUtils.URLResponse;
+import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
+import static tech.techlore.plexus.utils.ListUtils.PlexusDataRatingSort;
+import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -29,8 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
-import okhttp3.OkHttpClient;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
@@ -54,7 +52,7 @@ public class PlexusDataFragment extends Fragment {
     private RecyclerView recyclerView;
     private PlexusDataItemAdapter plexusDataItemAdapter;
     private List<PlexusData> plexusDataList;
-    private String jsonData;
+    private static String jsonData;
 
     public PlexusDataFragment() {
         // Required empty public constructor
@@ -184,17 +182,6 @@ public class PlexusDataFragment extends Fragment {
         dialog.show();
     }
 
-    private void DoInBackground() throws IOException {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        jsonData = URLRequest(okHttpClient);
-    }
-
-    // POPULATE PLEXUS DATA LIST
-    private void PopulateDataList() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        plexusDataList = objectMapper.readValue(jsonData, new TypeReference<List<PlexusData>>(){});
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     private void RefreshData(){
 
@@ -208,7 +195,7 @@ public class PlexusDataFragment extends Fragment {
                 if (HasInternet()) {
 
                     try {
-                        DoInBackground();
+                        jsonData = URLResponse();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -216,10 +203,13 @@ public class PlexusDataFragment extends Fragment {
                     // UI THREAD WORK
                     handler.post(() -> {
                         try {
-                            PopulateDataList();
+                            mainActivity.dataList.clear();
+                            mainActivity.dataList = PopulateDataList(jsonData);
+                            plexusDataList = mainActivity.dataList;
                             plexusDataItemAdapter.notifyDataSetChanged();
-                            mainActivity.dataList = plexusDataList;
                             swipeRefreshLayout.setRefreshing(false);
+                            getParentFragmentManager().beginTransaction().detach(mainActivity.fragment).commit();
+                            getParentFragmentManager().beginTransaction().attach(mainActivity.fragment).commit();
                         }
 
                         catch (JsonProcessingException e) {

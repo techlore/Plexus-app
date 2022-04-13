@@ -1,6 +1,6 @@
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.utils.Utility.SendListsIntent;
+import static tech.techlore.plexus.utils.IntentUtils.SendListsIntent;
 
 import android.content.Intent;
 import android.os.Bundle;

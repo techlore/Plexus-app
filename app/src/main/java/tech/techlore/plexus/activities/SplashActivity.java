@@ -1,10 +1,11 @@
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.utils.Utility.HasInternet;
-import static tech.techlore.plexus.utils.Utility.HasNetwork;
-import static tech.techlore.plexus.utils.Utility.ScanInstalledApps;
-import static tech.techlore.plexus.utils.Utility.SendListsIntent;
-import static tech.techlore.plexus.utils.Utility.URLRequest;
+import static tech.techlore.plexus.utils.IntentUtils.SendListsIntent;
+import static tech.techlore.plexus.utils.NetworkUtils.HasInternet;
+import static tech.techlore.plexus.utils.NetworkUtils.HasNetwork;
+import static tech.techlore.plexus.utils.NetworkUtils.URLResponse;
+import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
+import static tech.techlore.plexus.utils.ListUtils.ScanInstalledApps;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -19,8 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -29,7 +28,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 
-import okhttp3.OkHttpClient;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
@@ -37,9 +35,9 @@ import tech.techlore.plexus.models.PlexusData;
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
-    private String jsonData;
     private List<PlexusData> plexusDataList;
     private List<InstalledApp> installedAppsList;
+    private static String jsonData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,17 +84,6 @@ public class SplashActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void DoInBackground() throws IOException {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        jsonData = URLRequest(okHttpClient);
-    }
-
-    // POPULATE PLEXUS DATA LIST
-    private void PopulateDataList() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        plexusDataList = objectMapper.readValue(jsonData, new TypeReference<List<PlexusData>>(){});
-    }
-
     private void FetchData(){
 
         Handler handler = new Handler(Looper.getMainLooper());
@@ -109,7 +96,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (HasInternet()) {
 
                     try {
-                        DoInBackground();
+                        jsonData = URLResponse();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -117,7 +104,7 @@ public class SplashActivity extends AppCompatActivity {
                     // UI THREAD WORK
                     handler.post(() -> {
                         try {
-                            PopulateDataList();
+                            plexusDataList = PopulateDataList(jsonData);
                             ((TextView)findViewById(R.id.progress_text)).setText(R.string.scan_installed);
                             ScanInstalledApps(this, plexusDataList, installedAppsList);
                             SendListsIntent(this, MainActivity.class,

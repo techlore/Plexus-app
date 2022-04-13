@@ -1,7 +1,7 @@
 package tech.techlore.plexus.adapters;
 
-import static tech.techlore.plexus.utils.Utility.RatingColor;
-import static tech.techlore.plexus.utils.Utility.hScrollText;
+import static tech.techlore.plexus.utils.UiUtils.RatingColor;
+import static tech.techlore.plexus.utils.UiUtils.hScrollText;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

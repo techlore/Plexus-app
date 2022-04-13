@@ -1,6 +1,6 @@
 package tech.techlore.plexus.fragments.settings;
 
-import static tech.techlore.plexus.utils.Utility.OpenURL;
+import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;

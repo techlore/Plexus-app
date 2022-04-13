@@ -4,8 +4,8 @@ import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
-import static tech.techlore.plexus.utils.Utility.InflateViewStub;
-import static tech.techlore.plexus.utils.Utility.SendListsIntent;
+import static tech.techlore.plexus.utils.IntentUtils.SendListsIntent;
+import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -37,7 +37,7 @@ import tech.techlore.plexus.preferences.PreferenceManager;
 public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
-    private Fragment fragment;
+    public Fragment fragment;
     private TabLayout tabLayout;
     public List<PlexusData> dataList;
     public List <InstalledApp> installedList;

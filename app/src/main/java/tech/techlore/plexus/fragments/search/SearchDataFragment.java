@@ -1,6 +1,6 @@
 package tech.techlore.plexus.fragments.search;
 
-import static tech.techlore.plexus.utils.Utility.AppDetails;
+import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -14,7 +14,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class SearchDataFragment extends Fragment {
 
     /*###########################################################################################*/
 
-        ((SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout)).setEnabled(false);
+        view.findViewById(R.id.swipe_refresh_layout).setEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // PERFORM SEARCH

@@ -4,12 +4,15 @@ import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
-import static tech.techlore.plexus.utils.Utility.AppDetails;
-import static tech.techlore.plexus.utils.Utility.InflateViewStub;
-import static tech.techlore.plexus.utils.Utility.InstalledAppsRatingSort;
-import static tech.techlore.plexus.utils.Utility.ScanInstalledApps;
+import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
+import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
+import static tech.techlore.plexus.utils.ListUtils.InstalledAppsRatingSort;
+import static tech.techlore.plexus.utils.ListUtils.ScanInstalledApps;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +58,7 @@ public class InstalledAppsFragment extends Fragment {
         return inflater.inflate(R.layout.recycler_view, container, false);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -131,9 +135,13 @@ public class InstalledAppsFragment extends Fragment {
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            ScanInstalledApps(requireContext(), mainActivity.dataList, installedAppsList);
-            mainActivity.installedList = installedAppsList;
+            mainActivity.installedList.clear();
+            ScanInstalledApps(requireContext(), mainActivity.dataList, mainActivity.installedList);
+            installedAppsList = mainActivity.installedList;
+            installedAppItemAdapter.notifyDataSetChanged();
             swipeRefreshLayout.setRefreshing(false);
+            getParentFragmentManager().beginTransaction().detach(mainActivity.fragment).commit();
+            getParentFragmentManager().beginTransaction().attach(mainActivity.fragment).commit();
         });
 
     }

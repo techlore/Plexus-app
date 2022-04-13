@@ -1,7 +1,7 @@
 package tech.techlore.plexus.fragments.settings;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.THEME_PREF;
-import static tech.techlore.plexus.utils.Utility.OpenURL;
+import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
