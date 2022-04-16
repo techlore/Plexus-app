@@ -12,13 +12,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/margin_12">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/app_icon_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginTop="@dimen/margin_12"
             android:layout_gravity="center"
             android:background="@drawable/shape_bg_circle"
             android:backgroundTint="@color/grey_800"
@@ -55,8 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"/>
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"/>
 
         <TextView
             android:id="@+id/privacy_policy"
@@ -67,9 +67,9 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:paddingStart="@dimen/margin_12"
+            android:paddingStart="@dimen/margin_25"
             android:paddingTop="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_12"
+            android:paddingEnd="@dimen/margin_25"
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/privacy_policy"
             android:textAlignment="viewStart"
@@ -85,18 +85,18 @@
             android:layout_marginTop="@dimen/margin_2.5"
             android:layout_marginBottom="@dimen/margin_2.5"
             android:clickable="true"
+            android:drawablePadding="@dimen/margin_16"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:paddingStart="@dimen/margin_12"
+            android:paddingStart="@dimen/margin_25"
             android:paddingTop="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_12"
+            android:paddingEnd="@dimen/margin_25"
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/licenses"
             android:textAlignment="viewStart"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16"
-            app:drawableStartCompat="@drawable/ic_licenses"
-            android:drawablePadding="@dimen/margin_16"/>
+            app:drawableStartCompat="@drawable/ic_licenses" />
 
         <TextView
             android:id="@+id/view_on_git"
@@ -105,18 +105,18 @@
             android:layout_marginTop="@dimen/margin_2.5"
             android:layout_marginBottom="@dimen/margin_2.5"
             android:clickable="true"
+            android:drawablePadding="@dimen/margin_16"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:paddingStart="@dimen/margin_12"
+            android:paddingStart="@dimen/margin_25"
             android:paddingTop="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_12"
+            android:paddingEnd="@dimen/margin_25"
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/view_on_github"
             android:textAlignment="viewStart"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16"
-            app:drawableStartCompat="@drawable/ic_github"
-            android:drawablePadding="@dimen/margin_16" />
+            app:drawableStartCompat="@drawable/ic_github" />
 
         <TextView
             android:id="@+id/visit_techlore"
@@ -125,18 +125,18 @@
             android:layout_marginTop="@dimen/margin_2.5"
             android:layout_marginBottom="@dimen/margin_2.5"
             android:clickable="true"
+            android:drawablePadding="@dimen/margin_16"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:paddingStart="@dimen/margin_12"
+            android:paddingStart="@dimen/margin_25"
             android:paddingTop="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_12"
+            android:paddingEnd="@dimen/margin_25"
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/visit_techlore"
             android:textAlignment="viewStart"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16"
-            app:drawableStartCompat="@drawable/ic_website"
-            android:drawablePadding="@dimen/margin_16" />
+            app:drawableStartCompat="@drawable/ic_website" />
 
     </LinearLayout>
 

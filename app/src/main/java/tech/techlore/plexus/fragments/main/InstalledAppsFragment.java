@@ -8,11 +8,10 @@ import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
 import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
 import static tech.techlore.plexus.utils.ListUtils.InstalledAppsRatingSort;
 import static tech.techlore.plexus.utils.ListUtils.ScanInstalledApps;
+import static tech.techlore.plexus.utils.UiUtils.ReloadFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,12 +29,13 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter;
+import tech.techlore.plexus.databinding.RecyclerViewBinding;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class InstalledAppsFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerViewBinding fragmentBinding;
     private List<InstalledApp> installedAppsList;
     private InstalledAppItemAdapter installedAppItemAdapter;
 
@@ -51,21 +49,20 @@ public class InstalledAppsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.recycler_view, container, false);
+        fragmentBinding = RecyclerViewBinding.inflate(inflater, container, false);
+        return fragmentBinding.getRoot();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        final PreferenceManager preferenceManager=new PreferenceManager(requireContext());
+        final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
         final MainActivity mainActivity = ((MainActivity) requireActivity());
-        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        recyclerView = view.findViewById(R.id.recycler_view);
         installedAppsList = new ArrayList<>();
         installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
 
@@ -110,16 +107,16 @@ public class InstalledAppsFragment extends Fragment {
         }
 
         if (installedAppsList.size() == 0){
-            InflateViewStub(view.findViewById(R.id.empty_list_view_stub));
-            swipeRefreshLayout.setEnabled(false);
+            InflateViewStub(fragmentBinding.emptyListViewStub);
+            fragmentBinding.swipeRefreshLayout.setEnabled(false);
         }
         else {
-            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-            recyclerView.setAdapter(installedAppItemAdapter);
+            fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            fragmentBinding.recyclerView.setAdapter(installedAppItemAdapter);
         }
 
         // FAST SCROLL
-        new FastScrollerBuilder(recyclerView).useMd2Style().build();
+        new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build();
 
         // HANDLE CLICK EVENTS OF ITEMS
         installedAppItemAdapter.setOnItemClickListener(position -> {
@@ -132,18 +129,23 @@ public class InstalledAppsFragment extends Fragment {
         });
 
         // SWIPE REFRESH LAYOUT
-        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
-        swipeRefreshLayout.setOnRefreshListener(() -> {
+        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
+        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
+        fragmentBinding.swipeRefreshLayout.setOnRefreshListener(() -> {
             mainActivity.installedList.clear();
             ScanInstalledApps(requireContext(), mainActivity.dataList, mainActivity.installedList);
             installedAppsList = mainActivity.installedList;
             installedAppItemAdapter.notifyDataSetChanged();
-            swipeRefreshLayout.setRefreshing(false);
-            getParentFragmentManager().beginTransaction().detach(mainActivity.fragment).commit();
-            getParentFragmentManager().beginTransaction().attach(mainActivity.fragment).commit();
+            fragmentBinding.swipeRefreshLayout.setRefreshing(false);
+            ReloadFragment(getParentFragmentManager(), mainActivity.fragment);
         });
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentBinding = null;
     }
 
 }

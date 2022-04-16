@@ -6,25 +6,23 @@ import static tech.techlore.plexus.utils.UiUtils.RatingColor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.databinding.ActivityAppDetailsBinding;
 
 public class AppDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app_details);
+        final ActivityAppDetailsBinding activityBinding = ActivityAppDetailsBinding.inflate(getLayoutInflater());
+        setContentView(activityBinding.getRoot());
 
         Intent intent = getIntent();
-        final MaterialToolbar toolbar = findViewById(R.id.toolbar_details);
         final String nameString = intent.getStringExtra("name");
         final String packageNameString = intent.getStringExtra("packageName");
         final String plexusVersionString = intent.getStringExtra("plexusVersion");
@@ -34,48 +32,38 @@ public class AppDetailsActivity extends AppCompatActivity {
         final String dgNotesString = intent.getStringExtra("dgNotes");
         final String mgNotesString = intent.getStringExtra("mgNotes");
         final String playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
-        final TextView name = findViewById(R.id.name_details);
-        final TextView packageName = findViewById(R.id.package_name_details);
-        final TextView plexusVersion = findViewById(R.id.plexus_version_details);
-        final TextView installedVersion = findViewById(R.id.installed_version_details);
-        final TextView dgRating = findViewById(R.id.dg_rating_details);
-        final TextView mgRating = findViewById(R.id.mg_rating_details);
-        final TextView dgNotes = findViewById(R.id.dg_notes);
-        final TextView mgNotes = findViewById(R.id.mg_notes);
-        final TextView dgRatingColor = findViewById(R.id.dg_rating_color);
-        final TextView mgRatingColor = findViewById(R.id.mg_rating_color);
 
     /*###########################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(toolbar);
+        setSupportActionBar(activityBinding.toolbarDetails);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        activityBinding.toolbarDetails.setNavigationOnClickListener(v -> onBackPressed());
 
         // SET DATA RECEIVED
-        name.setText(nameString);
-        packageName.setText(packageNameString);
-        plexusVersion.setText(plexusVersionString);
+        activityBinding.nameDetails.setText(nameString);
+        activityBinding.packageNameDetails.setText(packageNameString);
+        activityBinding.plexusVersionDetails.setText(plexusVersionString);
         if (installedVersionString != null) {
-            findViewById(R.id.plexus_text).setVisibility(View.VISIBLE);
-            findViewById(R.id.installed_ver_layout).setVisibility(View.VISIBLE);
-            installedVersion.setText(installedVersionString);
+            activityBinding.plexusText.setVisibility(View.VISIBLE);
+            activityBinding.installedVerLayout.setVisibility(View.VISIBLE);
+            activityBinding.installedVersionDetails.setText(installedVersionString);
         }
-        dgRating.setText(dgRatingString);
-        mgRating.setText(mgRatingString);
-        dgNotes.setText(dgNotesString);
-        mgNotes.setText(mgNotesString);
+        activityBinding.dgRatingDetails.setText(dgRatingString);
+        activityBinding.mgRatingDetails.setText(mgRatingString);
+        activityBinding.dgNotes.setText(dgNotesString);
+        activityBinding.mgNotes.setText(mgNotesString);
 
-        RatingColor(this, dgRatingColor, dgRatingString);
-        RatingColor(this, mgRatingColor, mgRatingString);
+        RatingColor(this, activityBinding.dgRatingColor, dgRatingString);
+        RatingColor(this, activityBinding.mgRatingColor, mgRatingString);
 
         // PLAY STORE URL
-        findViewById(R.id.play_store)
+        activityBinding.playStore
                 .setOnClickListener(v ->
                     OpenURL(this, playStoreString));
 
         // SHARE
-        findViewById(R.id.share)
+        activityBinding.share
                 .setOnClickListener(v ->
                         startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
                                 .setType("text/plain")

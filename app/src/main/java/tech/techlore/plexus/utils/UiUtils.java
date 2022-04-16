@@ -1,24 +1,15 @@
 package tech.techlore.plexus.utils;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.List;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.models.InstalledApp;
-import tech.techlore.plexus.models.PlexusData;
 
 public class UiUtils {
 
@@ -60,6 +51,14 @@ public class UiUtils {
                 break;
 
         }
+
+    }
+
+    // RELOAD FRAGMENT
+    public static void ReloadFragment(FragmentManager fragmentManager, Fragment fragment) {
+
+        fragmentManager.beginTransaction().detach(fragment).commit();
+        fragmentManager.beginTransaction().attach(fragment).commit();
 
     }
 

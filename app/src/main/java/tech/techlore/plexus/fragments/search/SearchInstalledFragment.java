@@ -13,18 +13,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.SearchActivity;
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter;
+import tech.techlore.plexus.databinding.RecyclerViewBinding;
 import tech.techlore.plexus.models.InstalledApp;
 
 public class SearchInstalledFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerViewBinding fragmentBinding;
     private InstalledAppItemAdapter installedAppItemAdapter;
     private List<InstalledApp> searchInstalledList;
     private CountDownTimer delayTimer;
@@ -39,27 +38,27 @@ public class SearchInstalledFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.recycler_view,container,false);
+        fragmentBinding = RecyclerViewBinding.inflate(getLayoutInflater());
+        return fragmentBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        recyclerView = view.findViewById(R.id.recycler_view);
         final SearchActivity searchActivity = ((SearchActivity) requireActivity());
         searchInstalledList = searchActivity.installedList;
         installedAppItemAdapter = new InstalledAppItemAdapter(searchInstalledList);
 
         /*###########################################################################################*/
 
-        view.findViewById(R.id.swipe_refresh_layout).setEnabled(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        fragmentBinding.swipeRefreshLayout.setEnabled(false);
+        fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // PERFORM SEARCH
-        searchActivity.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchActivity.searchViewBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchString) {
                 return true;
@@ -82,10 +81,10 @@ public class SearchInstalledFragment extends Fragment {
 
                         if (!searchString.isEmpty()) {
                             installedAppItemAdapter.getFilter().filter(searchString);
-                            recyclerView.setAdapter(installedAppItemAdapter);
+                            fragmentBinding.recyclerView.setAdapter(installedAppItemAdapter);
                         }
                         else {
-                            recyclerView.setAdapter(null);
+                            fragmentBinding.recyclerView.setAdapter(null);
                         }
 
                     }
@@ -106,6 +105,12 @@ public class SearchInstalledFragment extends Fragment {
 
         });
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentBinding = null;
     }
 
 }

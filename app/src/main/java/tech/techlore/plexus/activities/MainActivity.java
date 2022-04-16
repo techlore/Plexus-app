@@ -5,22 +5,18 @@ import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_
 import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
 import static tech.techlore.plexus.utils.IntentUtils.SendListsIntent;
-import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
+import static tech.techlore.plexus.utils.UiUtils.ReloadFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.Serializable;
@@ -28,6 +24,10 @@ import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.databinding.ActivityMainBinding;
+import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
+import tech.techlore.plexus.databinding.BottomSheetSortBinding;
+import tech.techlore.plexus.databinding.TabLayoutBinding;
 import tech.techlore.plexus.fragments.main.InstalledAppsFragment;
 import tech.techlore.plexus.fragments.main.PlexusDataFragment;
 import tech.techlore.plexus.models.InstalledApp;
@@ -38,26 +38,24 @@ public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
     public Fragment fragment;
-    private TabLayout tabLayout;
+    private TabLayoutBinding tabLayoutBinding;
     public List<PlexusData> dataList;
     public List <InstalledApp> installedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        final ActivityMainBinding activityBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityBinding.getRoot());
 
         Intent intent = getIntent();
         preferenceManager = new PreferenceManager(this);
-        InflateViewStub(findViewById(R.id.tab_layout_view_stub));
-        tabLayout = findViewById(R.id.tab_layout);
+        tabLayoutBinding = TabLayoutBinding.bind(activityBinding.tabLayoutViewStub.inflate());
 
     /*###########################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(findViewById(R.id.toolbar_main));
-
-        tabLayout.setVisibility(View.VISIBLE);
+        setSupportActionBar(activityBinding.toolbarMain);
 
         // GET LISTS FROM PREVIOUS ACTIVITY
         //noinspection unchecked
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // TAB LAYOUT
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayoutBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -148,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         // DON'T FINISH MAIN ACTIVITY,
         // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
         menu.findItem(R.id.menu_search).setOnMenuItemClickListener(item -> {
-            StartSearch(tabLayout.getSelectedTabPosition());
+            StartSearch(tabLayoutBinding.tabLayout.getSelectedTabPosition());
             return true;
         });
 
@@ -184,76 +182,73 @@ public class MainActivity extends AppCompatActivity {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.CustomBottomSheetTheme);
         bottomSheetDialog.setCancelable(false);
 
-        @SuppressLint("InflateParams") final View view = getLayoutInflater().inflate(R.layout.bottom_sheet_sort, null);
-        bottomSheetDialog.setContentView(view);
+        final BottomSheetSortBinding bottomSheetBinding = BottomSheetSortBinding.inflate(getLayoutInflater());
+        final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
 
         // TITLE
-        ((TextView) view.findViewById(R.id.bottom_sheet_title)).setText(R.string.menu_sort);
-
-        final ChipGroup alphabeticalChipGroup = view.findViewById(R.id.alphabetical_chip_group);
-        final RadioGroup ratingRadioGroup = view.findViewById(R.id.rating_radiogroup);
-        final ChipGroup ratingChipGroup = view.findViewById(R.id.rating_chip_group);
+        headerBinding.bottomSheetTitle.setText(R.string.menu_sort);
 
         // DEFAULT ALPHABETICAL CHECKED CHIP
         if (preferenceManager.getInt(A_Z_SORT_PREF) == 0) {
             preferenceManager.setInt(A_Z_SORT_PREF, R.id.sort_a_z);
         }
-        alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT_PREF));
+        bottomSheetBinding.alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT_PREF));
 
         // RATING RADIO CHECKED BY DEFAULT
         if (preferenceManager.getInt(RATING_RADIO_PREF) == 0) {
             preferenceManager.setInt(RATING_RADIO_PREF, R.id.radio_any_rating);
         }
-        ratingRadioGroup.check(preferenceManager.getInt(RATING_RADIO_PREF));
+        bottomSheetBinding.ratingRadiogroup.check(preferenceManager.getInt(RATING_RADIO_PREF));
 
         // RATING CHIP GROUP VISIBILITY
         if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_dg_rating) {
 
-            ratingChipGroup.setVisibility(View.VISIBLE);
+            bottomSheetBinding.ratingChipGroup.setVisibility(View.VISIBLE);
 
             // DG RATING CHIP CHECKED BY DEFAULT
             if (preferenceManager.getInt(DG_RATING_SORT_PREF) == 0) {
                 preferenceManager.setInt(DG_RATING_SORT_PREF, R.id.sort_not_tested);
             }
-            ratingChipGroup.check(preferenceManager.getInt(DG_RATING_SORT_PREF));
+            bottomSheetBinding.ratingChipGroup.check(preferenceManager.getInt(DG_RATING_SORT_PREF));
         }
 
         else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_mg_rating) {
 
-            ratingChipGroup.setVisibility(View.VISIBLE);
+            bottomSheetBinding.ratingChipGroup.setVisibility(View.VISIBLE);
 
             // MG RATING CHIP CHECKED BY DEFAULT
             if (preferenceManager.getInt(MG_RATING_SORT_PREF) == 0) {
                 preferenceManager.setInt(MG_RATING_SORT_PREF, R.id.sort_not_tested);
             }
-            ratingChipGroup.check(preferenceManager.getInt(MG_RATING_SORT_PREF));
+            bottomSheetBinding.ratingChipGroup.check(preferenceManager.getInt(MG_RATING_SORT_PREF));
         }
 
         else {
-            ratingChipGroup.setVisibility(View.GONE);
+            bottomSheetBinding.ratingChipGroup.setVisibility(View.GONE);
         }
 
         // ON SELECTING ALPHABETICAL CHIP
-        alphabeticalChipGroup.setOnCheckedChangeListener((chipGroup, checkedId) ->
+        bottomSheetBinding.alphabeticalChipGroup.setOnCheckedChangeListener((chipGroup, checkedId) ->
                 preferenceManager.setInt(A_Z_SORT_PREF, checkedId)
         );
 
         // ON SELECTING RATING RADIO
-        ratingRadioGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
+        bottomSheetBinding.ratingRadiogroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
 
             if (checkedId != R.id.radio_any_rating) {
-                ratingChipGroup.setVisibility(View.VISIBLE);
-                ratingChipGroup.check(R.id.sort_not_tested);
+                bottomSheetBinding.ratingChipGroup.setVisibility(View.VISIBLE);
+                bottomSheetBinding.ratingChipGroup.check(R.id.sort_not_tested);
             }
             else {
-                ratingChipGroup.setVisibility(View.GONE);
+                bottomSheetBinding.ratingChipGroup.setVisibility(View.GONE);
             }
             preferenceManager.setInt(RATING_RADIO_PREF, checkedId);
 
         });
 
         // ON SELECTING RATING CHIP
-        ratingChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+        bottomSheetBinding.ratingChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
 
             if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_dg_rating) {
                 preferenceManager.setInt(DG_RATING_SORT_PREF, checkedId);
@@ -264,10 +259,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // DONE BUTTON
-        view.findViewById(R.id.done_button).setOnClickListener(view12 -> {
+        bottomSheetBinding.doneButton.setOnClickListener(view12 -> {
             bottomSheetDialog.dismiss();
-            getSupportFragmentManager().beginTransaction().detach(fragment).commit();
-            getSupportFragmentManager().beginTransaction().attach(fragment).commit();
+            ReloadFragment(getSupportFragmentManager(), fragment);
         });
 
         // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION

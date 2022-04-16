@@ -3,14 +3,11 @@ package tech.techlore.plexus.fragments.settings;
 import static tech.techlore.plexus.preferences.PreferenceManager.THEME_PREF;
 import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,10 +20,14 @@ import java.util.Objects;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.SettingsActivity;
+import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
+import tech.techlore.plexus.databinding.BottomSheetThemeBinding;
+import tech.techlore.plexus.databinding.FragmentSettingsDefaultBinding;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class SettingsDefaultFragment extends Fragment {
 
+    private FragmentSettingsDefaultBinding fragmentBinding;
     private PreferenceManager preferenceManager;
 
     public SettingsDefaultFragment() {
@@ -39,19 +40,18 @@ public class SettingsDefaultFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_settings_default, container,  false);
+        fragmentBinding = FragmentSettingsDefaultBinding.inflate(inflater, container,  false);
         Objects.requireNonNull(((SettingsActivity) requireActivity()).getSupportActionBar()).setTitle(R.string.menu_settings);
-        return v;
+        return fragmentBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         preferenceManager=new PreferenceManager(requireActivity());
-        TextView chooseThemeSubtitle = view.findViewById(R.id.settings_theme_subtitle);
 
     /*############################################################################################*/
 
@@ -62,30 +62,30 @@ public class SettingsDefaultFragment extends Fragment {
 
         if (preferenceManager.getInt(THEME_PREF) == 0){
             if (Build.VERSION.SDK_INT >= 29){
-                chooseThemeSubtitle.setText(R.string.system_default);
+                fragmentBinding.settingsThemeSubtitle.setText(R.string.system_default);
             }
             else{
-                chooseThemeSubtitle.setText(R.string.light);
+                fragmentBinding.settingsThemeSubtitle.setText(R.string.light);
             }
         }
         else if (preferenceManager.getInt(THEME_PREF) == R.id.sys_default){
-            chooseThemeSubtitle.setText(R.string.system_default);
+            fragmentBinding.settingsThemeSubtitle.setText(R.string.system_default);
         }
         else if (preferenceManager.getInt(THEME_PREF) == R.id.light){
-            chooseThemeSubtitle.setText(R.string.light);
+            fragmentBinding.settingsThemeSubtitle.setText(R.string.light);
         }
         else if (preferenceManager.getInt(THEME_PREF) == R.id.dark){
-            chooseThemeSubtitle.setText(R.string.dark);
+            fragmentBinding.settingsThemeSubtitle.setText(R.string.dark);
         }
 
         // REPORT AN ISSUE
-        view.findViewById(R.id.settings_report_issue_holder)
+        fragmentBinding.settingsReportIssueHolder
                 .setOnClickListener(v2 ->
                     OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/issues"));
 
 
         // ABOUT
-        view.findViewById(R.id.settings_about_holder)
+        fragmentBinding.settingsAboutHolder
                 .setOnClickListener(v3 ->
                         getParentFragmentManager().beginTransaction()
                                 .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
@@ -100,13 +100,12 @@ public class SettingsDefaultFragment extends Fragment {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.CustomBottomSheetTheme);
         bottomSheetDialog.setCancelable(true);
 
-        @SuppressLint("InflateParams") final View view  = getLayoutInflater().inflate(R.layout.bottom_sheet_theme, null);
-        bottomSheetDialog.setContentView(view);
-
-        final RadioGroup themeRadioGroup = view.findViewById(R.id.theme_radiogroup);
+        final BottomSheetThemeBinding bottomSheetBinding = BottomSheetThemeBinding.inflate(getLayoutInflater());
+        final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
 
         // TITLE
-        ((TextView)view.findViewById(R.id.bottom_sheet_title)).setText(R.string.theme_title);
+        headerBinding.bottomSheetTitle.setText(R.string.theme_title);
 
         // DEFAULT CHECKED RADIO
         if (preferenceManager.getInt(THEME_PREF) == 0){
@@ -117,18 +116,18 @@ public class SettingsDefaultFragment extends Fragment {
                 preferenceManager.setInt(THEME_PREF, R.id.light);
             }
         }
-        themeRadioGroup.check(preferenceManager.getInt(THEME_PREF));
+        bottomSheetBinding.themeRadiogroup.check(preferenceManager.getInt(THEME_PREF));
 
         // SHOW SYSTEM DEFAULT OPTION ONLY ON SDK 29 AND ABOVE
         if (Build.VERSION.SDK_INT >= 29){
-            view.findViewById(R.id.sys_default).setVisibility(View.VISIBLE);
+            bottomSheetBinding.sysDefault.setVisibility(View.VISIBLE);
         }
         else{
-            view.findViewById(R.id.sys_default).setVisibility(View.GONE);
+            bottomSheetBinding.sysDefault.setVisibility(View.GONE);
         }
 
         // ON SELECTING OPTION
-        ((RadioGroup)view.findViewById(R.id.theme_radiogroup))
+        bottomSheetBinding.themeRadiogroup
                 .setOnCheckedChangeListener((radioGroup, checkedId) -> {
 
                     if (checkedId == R.id.sys_default) {
@@ -148,12 +147,18 @@ public class SettingsDefaultFragment extends Fragment {
                 });
 
         // CANCEL BUTTON
-        view.findViewById(R.id.cancel_button).setOnClickListener(view12 ->
+        bottomSheetBinding.cancelButton.setOnClickListener(view12 ->
                 bottomSheetDialog.cancel());
 
         // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
         Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;
         bottomSheetDialog.show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentBinding = null;
     }
 
 }

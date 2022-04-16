@@ -1,21 +1,18 @@
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
-
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.databinding.ActivityMainBinding;
+import tech.techlore.plexus.databinding.SearchViewBinding;
 import tech.techlore.plexus.fragments.search.SearchDataFragment;
 import tech.techlore.plexus.fragments.search.SearchInstalledFragment;
 import tech.techlore.plexus.models.InstalledApp;
@@ -25,25 +22,24 @@ public class SearchActivity extends AppCompatActivity {
 
     public List<PlexusData> dataList;
     public List<InstalledApp> installedList;
-    public SearchView searchView;
+    public SearchViewBinding searchViewBinding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        final ActivityMainBinding activityBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityBinding.getRoot());
 
         Intent intent = getIntent();
-        final MaterialToolbar searchToolbar = findViewById(R.id.toolbar_main);
-        InflateViewStub(findViewById(R.id.search_view_stub));
-        searchView = findViewById(R.id.search_view);
+        searchViewBinding = SearchViewBinding.bind(activityBinding.searchViewStub.inflate());
 
         /*###########################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(searchToolbar);
+        setSupportActionBar(activityBinding.toolbarMain);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        searchToolbar.setNavigationOnClickListener(view -> onBackPressed());
+        activityBinding.toolbarMain.setNavigationOnClickListener(view -> onBackPressed());
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
@@ -80,14 +76,14 @@ public class SearchActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (fragmentName.equals("Search Data")) {
-            searchView.setQueryHint(getResources().getString(R.string.menu_search)
+            searchViewBinding.searchView.setQueryHint(getResources().getString(R.string.menu_search)
                                     + " "
                                     + getResources().getString(R.string.plexus_data));
             fragment = new SearchDataFragment();
         }
 
         else {
-            searchView.setQueryHint(getResources().getString(R.string.menu_search)
+            searchViewBinding.searchView.setQueryHint(getResources().getString(R.string.menu_search)
                                     + " "
                                     + getResources().getString(R.string.installed_apps));
             fragment = new SearchInstalledFragment();

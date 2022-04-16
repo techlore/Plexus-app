@@ -46,7 +46,7 @@
             android:configChanges="orientation|screenSize">
         </activity>
 
-        <!--RATING INFO ACTIVITY-->
+        <!--HELP ACTIVITY-->
         <activity
             android:name=".activities.HelpActivity"
             android:configChanges="orientation|screenSize">

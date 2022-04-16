@@ -11,6 +11,7 @@ import static tech.techlore.plexus.utils.NetworkUtils.URLResponse;
 import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
 import static tech.techlore.plexus.utils.ListUtils.PlexusDataRatingSort;
 import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
+import static tech.techlore.plexus.utils.UiUtils.ReloadFragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -26,8 +27,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -42,14 +41,15 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
+import tech.techlore.plexus.databinding.DialogNoNetworkBinding;
+import tech.techlore.plexus.databinding.RecyclerViewBinding;
 import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class PlexusDataFragment extends Fragment {
 
+    private RecyclerViewBinding fragmentBinding;
     private MainActivity mainActivity;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
     private PlexusDataItemAdapter plexusDataItemAdapter;
     private List<PlexusData> plexusDataList;
     private static String jsonData;
@@ -64,11 +64,12 @@ public class PlexusDataFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.recycler_view,container,false);
+        fragmentBinding = RecyclerViewBinding.inflate(inflater, container, false);
+        return fragmentBinding.getRoot();
     }
 
     @Override
@@ -76,8 +77,6 @@ public class PlexusDataFragment extends Fragment {
 
         final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
         mainActivity = ((MainActivity) requireActivity());
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        recyclerView = view.findViewById(R.id.recycler_view);
         plexusDataList = new ArrayList<>();
         plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
 
@@ -123,16 +122,16 @@ public class PlexusDataFragment extends Fragment {
         }
 
         if (plexusDataList.size() == 0){
-            InflateViewStub(view.findViewById(R.id.empty_list_view_stub));
-            swipeRefreshLayout.setEnabled(false);
+            InflateViewStub(fragmentBinding.emptyListViewStub);
+            fragmentBinding.swipeRefreshLayout.setEnabled(false);
         }
         else {
-            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-            recyclerView.setAdapter(plexusDataItemAdapter);
+            fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            fragmentBinding.recyclerView.setAdapter(plexusDataItemAdapter);
         }
 
         // FAST SCROLL
-        new FastScrollerBuilder(recyclerView).useMd2Style().build();
+        new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build();
 
         // HANDLE CLICK EVENTS OF ITEMS
         plexusDataItemAdapter.setOnItemClickListener(position -> {
@@ -146,9 +145,9 @@ public class PlexusDataFragment extends Fragment {
         });
 
         // SWIPE REFRESH LAYOUT
-        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
-        swipeRefreshLayout.setOnRefreshListener(this::RefreshData);
+        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
+        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
+        fragmentBinding.swipeRefreshLayout.setOnRefreshListener(this::RefreshData);
 
     }
 
@@ -157,24 +156,24 @@ public class PlexusDataFragment extends Fragment {
         final Dialog dialog = new Dialog(requireContext(), R.style.DialogTheme);
         dialog.setCancelable(false);
 
-        @SuppressLint("InflateParams") View view  = getLayoutInflater().inflate(R.layout.dialog_no_network, null);
+        final DialogNoNetworkBinding dialogBinding = DialogNoNetworkBinding.inflate(getLayoutInflater());
         dialog.getWindow().setBackgroundDrawable(ContextCompat
                 .getDrawable(requireContext(), R.drawable.shape_rounded_corners));
         dialog.getWindow().getDecorView().setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.bottomSheetColor));
-        dialog.setContentView(view);
+        dialog.setContentView(dialogBinding.getRoot());
 
         // POSITIVE BUTTON
-        view.findViewById(R.id.dialog_positive_button)
+        dialogBinding.dialogPositiveButton
                 .setOnClickListener(view1 -> {
                     RefreshData();
                     dialog.dismiss();
                 });
 
         // NEGATIVE BUTTON
-        view.findViewById(R.id.dialog_negative_button)
+        dialogBinding.dialogNegativeButton
                 .setOnClickListener(view12 -> {
                     dialog.cancel();
-                    swipeRefreshLayout.setRefreshing(false);
+                    fragmentBinding.swipeRefreshLayout.setRefreshing(false);
                 });
 
         // SHOW DIALOG WITH CUSTOM ANIMATION
@@ -207,9 +206,8 @@ public class PlexusDataFragment extends Fragment {
                             mainActivity.dataList = PopulateDataList(jsonData);
                             plexusDataList = mainActivity.dataList;
                             plexusDataItemAdapter.notifyDataSetChanged();
-                            swipeRefreshLayout.setRefreshing(false);
-                            getParentFragmentManager().beginTransaction().detach(mainActivity.fragment).commit();
-                            getParentFragmentManager().beginTransaction().attach(mainActivity.fragment).commit();
+                            fragmentBinding.swipeRefreshLayout.setRefreshing(false);
+                            ReloadFragment(getParentFragmentManager(), mainActivity.fragment);
                         }
 
                         catch (JsonProcessingException e) {
@@ -227,6 +225,12 @@ public class PlexusDataFragment extends Fragment {
             NoNetworkDialog();
         }
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentBinding = null;
     }
 
 }

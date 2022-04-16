@@ -7,38 +7,36 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.appbar.MaterialToolbar;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.databinding.ActivityMainBinding;
 import tech.techlore.plexus.fragments.settings.SettingsDefaultFragment;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    public MaterialToolbar toolbarSettings;
     private List<PlexusData> storeDataList;
     private List <InstalledApp> storeInstalledList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        final ActivityMainBinding activityBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityBinding.getRoot());
 
         Intent intent = getIntent();
-        toolbarSettings = findViewById(R.id.toolbar_main);
 
     /*############################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(toolbarSettings);
+        setSupportActionBar(activityBinding.toolbarMain);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbarSettings.setNavigationOnClickListener(v ->
+        activityBinding.toolbarMain.setNavigationOnClickListener(v ->
                 onBackPressed());
 
         // GET LISTS FROM MAIN ACTIVITY

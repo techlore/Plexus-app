@@ -4,11 +4,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.appbar.MaterialToolbar;
-
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.databinding.ActivityMainBinding;
 import tech.techlore.plexus.fragments.help.HelpFragment;
 
 public class HelpActivity extends AppCompatActivity {
@@ -16,18 +15,17 @@ public class HelpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        final MaterialToolbar toolbarRatingInfo = findViewById(R.id.toolbar_main);
+        final ActivityMainBinding activityBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityBinding.getRoot());
 
     /*############################################################################################*/
 
         // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(toolbarRatingInfo);
+        setSupportActionBar(activityBinding.toolbarMain);
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menu_help);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbarRatingInfo.setNavigationOnClickListener(v ->
+        activityBinding.toolbarMain.setNavigationOnClickListener(v ->
                 onBackPressed());
 
         // DISPLAY FRAGMENT

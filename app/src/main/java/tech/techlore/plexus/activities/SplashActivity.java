@@ -12,7 +12,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -29,6 +28,7 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.databinding.DialogNoNetworkBinding;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 
@@ -58,23 +58,22 @@ public class SplashActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this, R.style.DialogTheme);
         dialog.setCancelable(false);
 
-        @SuppressLint("InflateParams") View view  = getLayoutInflater().inflate(R.layout.dialog_no_network, null);
+        final DialogNoNetworkBinding dialogBinding = DialogNoNetworkBinding.inflate(getLayoutInflater());
         dialog.getWindow().setBackgroundDrawable(ContextCompat
                 .getDrawable(this, R.drawable.shape_rounded_corners));
         dialog.getWindow().getDecorView().setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.bottomSheetColor));
-        dialog.setContentView(view);
+        dialog.setContentView(dialogBinding.getRoot());
 
         // POSITIVE BUTTON
-        view.findViewById(R.id.dialog_positive_button)
+        dialogBinding.dialogPositiveButton
                 .setOnClickListener(view1 -> {
                     FetchData();
                     dialog.dismiss();
                 });
 
         // NEGATIVE BUTTON
-        TextView negativeButton = view.findViewById(R.id.dialog_negative_button);
-        negativeButton.setText(getString(R.string.exit));
-        negativeButton.setOnClickListener(view12 -> {
+        dialogBinding.dialogNegativeButton.setText(getString(R.string.exit));
+        dialogBinding.dialogNegativeButton.setOnClickListener(view12 -> {
                     dialog.cancel();
                     finishAndRemoveTask();
                 });

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,9 +16,11 @@ import java.util.Objects;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.SettingsActivity;
+import tech.techlore.plexus.databinding.FragmentSettingsAboutBinding;
 
 public class AboutFragment extends Fragment {
 
+    private FragmentSettingsAboutBinding fragmentBinding;
     String version;
 
     public AboutFragment() {
@@ -32,12 +33,12 @@ public class AboutFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_settings_about, container,  false);
+        fragmentBinding = FragmentSettingsAboutBinding.inflate(inflater, container, false);
         Objects.requireNonNull(((SettingsActivity) requireActivity()).getSupportActionBar()).setTitle(R.string.about_title);
-        return v;
+        return fragmentBinding.getRoot();
     }
 
     @Override
@@ -54,28 +55,34 @@ public class AboutFragment extends Fragment {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        ((TextView)view.findViewById(R.id.version_about)).setText(version);
+        fragmentBinding.versionAbout.setText(version);
 
         // PRIVACY POLICY
-        view.findViewById(R.id.privacy_policy)
+        fragmentBinding.privacyPolicy
                 .setOnClickListener(v ->
                     OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md"));
 
         // LICENSES
-        view.findViewById(R.id.licenses)
+        fragmentBinding.licenses
                 .setOnClickListener(v ->
                     OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/blob/main/LICENSE"));
 
         // VIEW ON GITHUB
-        view.findViewById(R.id.view_on_git)
+        fragmentBinding.viewOnGit
                 .setOnClickListener(v ->
                         OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app"));
 
         // VISIT TECHLORE
-        view.findViewById(R.id.visit_techlore)
+        fragmentBinding.visitTechlore
                 .setOnClickListener(v ->
                         OpenURL(requireActivity(), "https://techlore.tech"));
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentBinding = null;
     }
 
 }
