@@ -50,3 +50,4 @@ If you find bugs or have suggestions, please report it to the [issue tracker](ht
 - [Jackson](https://github.com/FasterXML/jackson) | [Apache License 2.0](https://github.com/FasterXML/jackson-core/blob/2.14/LICENSE)
 - [OkHttp](https://github.com/square/okhttp) | [Apache License 2.0](https://github.com/square/okhttp/blob/master/LICENSE.txt)
 - [AndroidFastScroll](https://github.com/zhanghai/AndroidFastScroll) | [Apache License 2.0](https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE)
+- Some additional icons (other than the official ones by Google) are provided by [MaterialDesignIcons](https://github.com/Templarian/MaterialDesign) | [Pictogrammers Free License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
