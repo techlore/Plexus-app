@@ -28,14 +28,23 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
 
     private final List<InstalledApp> aListViewItems;
     private final List<InstalledApp> aListViewItemsFull;
-    private InstalledAppItemAdapter.OnItemClickListener itemClickListener;
+    private OnItemClickListener itemClickListener;
+    private OnItemLongCLickListener itemLongCLickListener;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListener(InstalledAppItemAdapter.OnItemClickListener clickListener) {
+    public interface OnItemLongCLickListener {
+        void onItemLongCLick (int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener clickListener) {
         itemClickListener = clickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongCLickListener longClickListener) {
+        itemLongCLickListener = longClickListener;
     }
 
     public static class ListViewHolder extends RecyclerView.ViewHolder
@@ -43,7 +52,7 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
         private final TextView name, packageName, installedVersion, dgRating, mgRating;
         private final ImageView versionMismatch;
 
-        public ListViewHolder(@NonNull View itemView, InstalledAppItemAdapter.OnItemClickListener onItemClickListener) {
+        public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name);
@@ -64,6 +73,17 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
                 }
             });
 
+            // HANDLE LONG CLICK EVENTS OF ITEMS
+            itemView.setOnLongClickListener(v -> {
+                if (onItemLongCLickListener != null) {
+                    int position=getBindingAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        onItemLongCLickListener.onItemLongCLick(position);
+                    }
+                }
+                return true;
+            });
+
         }
     }
 
@@ -77,8 +97,8 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
     @NonNull
     @Override
     public InstalledAppItemAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
-        return new InstalledAppItemAdapter.ListViewHolder(view, itemClickListener);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
+        return new InstalledAppItemAdapter.ListViewHolder(view, itemClickListener, itemLongCLickListener);
     }
 
     @Override

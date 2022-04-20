@@ -29,7 +29,7 @@
     <string name="notes">notes</string>
     <string name="installed">Installed</string>
     <string name="play_store">Play store</string>
-    <string name="share_via">Share via</string>
+    <string name="share">Share</string>
 
     <!--#########################################################################################-->
 
@@ -62,6 +62,8 @@
     <string name="theme_title">Theme</string>
     <string name="report_issue_title">Report an issue</string>
     <string name="report_issue_subtitle">Found a bug? Let us know</string>
+    <string name="pull_req_title">Open a pull request</string>
+    <string name="pull_req_subtitle">Improve the app or existing data</string>
     <string name="about_title">About</string>
     <string name="about_subtitle">Version, policy and licenses</string>
 

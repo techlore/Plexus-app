@@ -1,15 +1,25 @@
 package tech.techlore.plexus.utils;
 
+import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
+import static tech.techlore.plexus.utils.IntentUtils.Share;
+
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.util.Objects;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.adapters.ViewPagerAdapter;
+import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
+import tech.techlore.plexus.databinding.BottomSheetLongClickBinding;
 
 public class UiUtils {
 
@@ -55,11 +65,49 @@ public class UiUtils {
     }
 
     // RELOAD FRAGMENT
-    public static void ReloadFragment(FragmentManager fragmentManager, Fragment fragment) {
+    public static void ReloadFragment(ViewPager2 viewPager2, ViewPagerAdapter viewPagerAdapter, int position) {
 
-        fragmentManager.beginTransaction().detach(fragment).commit();
-        fragmentManager.beginTransaction().attach(fragment).commit();
+        viewPager2.setAdapter(null);
+        viewPager2.setAdapter(viewPagerAdapter);
+        viewPager2.setCurrentItem(position);
 
+    }
+
+    // LONG CLICK BOTTOM SHEET
+    public static void LongClickBottomSheet(Activity activity, String nameString, String packageNameString, String plexusVersionString,
+                                      String dgRatingString, String mgRatingString,
+                                      String dgNotesString, String mgNotesString){
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity, R.style.CustomBottomSheetTheme);
+        bottomSheetDialog.setCancelable(true);
+
+        final BottomSheetLongClickBinding bottomSheetBinding = BottomSheetLongClickBinding.inflate(activity.getLayoutInflater());
+        final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
+
+        final String playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
+
+        // TITLE
+        headerBinding.bottomSheetTitle.setText(nameString);
+
+        // PLAY STORE
+        bottomSheetBinding.playStore.setOnClickListener(v -> {
+            OpenURL(activity, playStoreString);
+            bottomSheetDialog.dismiss();
+        });
+
+        // SHARE
+        bottomSheetBinding.share.setOnClickListener(v -> {
+            Share(activity,
+                  nameString, packageNameString, plexusVersionString,
+                  dgRatingString, mgRatingString,
+                  dgNotesString, mgNotesString,
+                  playStoreString);
+            bottomSheetDialog.dismiss();
+        });
+
+        // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
+        Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;
+        bottomSheetDialog.show();
     }
 
 }

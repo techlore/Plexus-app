@@ -58,4 +58,43 @@ public class IntentUtils {
 
     }
 
+    // SHARE
+    public static void Share(Activity activity,
+                             String nameString, String packageNameString, String plexusVersionString,
+                             String dgRatingString, String mgRatingString,
+                             String dgNotesString, String mgNotesString,
+                             String playStoreString) {
+
+        activity.startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
+                                                    .setType("text/plain")
+                                                    .putExtra(Intent.EXTRA_TEXT,
+                                                                activity.getString(R.string.application) + ": "
+                                                                + nameString
+                                                                + "\n"
+                                                                + activity.getString(R.string.package_name) + ": "
+                                                                + packageNameString
+                                                                + "\n"
+                                                                + activity.getString(R.string.version) + ": "
+                                                                + plexusVersionString
+                                                                + "\n"
+                                                                + activity.getString(R.string.dg_rating) + ": "
+                                                                + dgRatingString
+                                                                + "\n"
+                                                                + activity.getString(R.string.mg_rating) + ": "
+                                                                + mgRatingString
+                                                                + "\n"
+                                                                + activity.getString(R.string.de_Googled) + " "
+                                                                + activity.getString(R.string.notes) + ": "
+                                                                + dgNotesString
+                                                                + "\n"
+                                                                + activity.getString(R.string.microG) + " "
+                                                                + activity.getString(R.string.notes) + ": "
+                                                                + mgNotesString
+                                                                + "\n"
+                                                                + activity.getString(R.string.play_store) + ": "
+                                                                + playStoreString),
+                                                    activity.getString(R.string.share)));
+
+    }
+
 }

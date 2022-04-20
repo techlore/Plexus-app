@@ -28,20 +28,29 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
     private final List<PlexusData> aListViewItems;
     private final List<PlexusData> aListViewItemsFull;
     private OnItemClickListener itemClickListener;
+    private OnItemLongCLickListener itemLongCLickListener;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    public interface OnItemLongCLickListener {
+        void onItemLongCLick (int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener clickListener) {
         itemClickListener = clickListener;
     }
 
+    public void setOnItemLongClickListener(OnItemLongCLickListener longClickListener) {
+        itemLongCLickListener=longClickListener;
+    }
+
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView name, packageName, version, dgRating, mgRating;
 
-        public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+        public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name);
@@ -61,6 +70,17 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
                 }
             });
 
+            // HANDLE LONG CLICK EVENTS OF ITEMS
+            itemView.setOnLongClickListener(v -> {
+                if (onItemLongCLickListener != null) {
+                    int position=getBindingAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        onItemLongCLickListener.onItemLongCLick(position);
+                    }
+                }
+                return true;
+            });
+
         }
     }
 
@@ -75,7 +95,7 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
     @Override
     public PlexusDataItemAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
-        return new PlexusDataItemAdapter.ListViewHolder(view, itemClickListener);
+        return new PlexusDataItemAdapter.ListViewHolder(view, itemClickListener, itemLongCLickListener);
     }
 
     @Override

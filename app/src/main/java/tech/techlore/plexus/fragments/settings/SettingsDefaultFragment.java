@@ -83,10 +83,15 @@ public class SettingsDefaultFragment extends Fragment {
                 .setOnClickListener(v2 ->
                     OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/issues"));
 
+        // PULL REQUEST
+        fragmentBinding.settingsPullReqHolder
+                .setOnClickListener(v3 ->
+                        OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/pulls"));
+
 
         // ABOUT
         fragmentBinding.settingsAboutHolder
-                .setOnClickListener(v3 ->
+                .setOnClickListener(v4 ->
                         getParentFragmentManager().beginTransaction()
                                 .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
                                         R.anim.slide_from_start, R.anim.slide_to_end)

@@ -11,6 +11,7 @@ import static tech.techlore.plexus.utils.NetworkUtils.URLResponse;
 import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
 import static tech.techlore.plexus.utils.ListUtils.PlexusDataRatingSort;
 import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
+import static tech.techlore.plexus.utils.UiUtils.LongClickBottomSheet;
 import static tech.techlore.plexus.utils.UiUtils.ReloadFragment;
 
 import android.annotation.SuppressLint;
@@ -50,7 +51,6 @@ public class PlexusDataFragment extends Fragment {
 
     private RecyclerViewBinding fragmentBinding;
     private MainActivity mainActivity;
-    private PlexusDataItemAdapter plexusDataItemAdapter;
     private List<PlexusData> plexusDataList;
     private static String jsonData;
 
@@ -78,7 +78,7 @@ public class PlexusDataFragment extends Fragment {
         final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
         mainActivity = ((MainActivity) requireActivity());
         plexusDataList = new ArrayList<>();
-        plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
+        final PlexusDataItemAdapter plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
 
     /*###########################################################################################*/
 
@@ -133,7 +133,7 @@ public class PlexusDataFragment extends Fragment {
         // FAST SCROLL
         new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build();
 
-        // HANDLE CLICK EVENTS OF ITEMS
+        // ON CLICK
         plexusDataItemAdapter.setOnItemClickListener(position -> {
 
             PlexusData plexusData = plexusDataList.get(position);
@@ -141,6 +141,16 @@ public class PlexusDataFragment extends Fragment {
                        plexusData.version, null,
                        plexusData.dgNotes, plexusData.mgNotes,
                        plexusData.dgRating, plexusData.mgRating);
+
+        });
+
+        // ON LONG CLICK
+        plexusDataItemAdapter.setOnItemLongClickListener(position -> {
+
+            PlexusData plexusData = plexusDataList.get(position);
+            LongClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName, plexusData.version,
+                                 plexusData.dgRating, plexusData.mgRating,
+                                 plexusData.dgNotes, plexusData.mgNotes);
 
         });
 
@@ -204,10 +214,8 @@ public class PlexusDataFragment extends Fragment {
                         try {
                             mainActivity.dataList.clear();
                             mainActivity.dataList = PopulateDataList(jsonData);
-                            plexusDataList = mainActivity.dataList;
-                            plexusDataItemAdapter.notifyDataSetChanged();
                             fragmentBinding.swipeRefreshLayout.setRefreshing(false);
-                            ReloadFragment(getParentFragmentManager(), mainActivity.fragment);
+                            ReloadFragment(mainActivity.activityBinding.viewPager, mainActivity.viewPagerAdapter, 0);
                         }
 
                         catch (JsonProcessingException e) {

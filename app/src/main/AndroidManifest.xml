@@ -9,7 +9,6 @@
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
 
-
     <application
         android:name=".appmanager.ApplicationManager"
         android:icon="@mipmap/ic_launcher"

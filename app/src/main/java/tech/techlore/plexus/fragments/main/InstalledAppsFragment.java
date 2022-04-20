@@ -8,6 +8,7 @@ import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
 import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
 import static tech.techlore.plexus.utils.ListUtils.InstalledAppsRatingSort;
 import static tech.techlore.plexus.utils.ListUtils.ScanInstalledApps;
+import static tech.techlore.plexus.utils.UiUtils.LongClickBottomSheet;
 import static tech.techlore.plexus.utils.UiUtils.ReloadFragment;
 
 import android.annotation.SuppressLint;
@@ -37,7 +38,6 @@ public class InstalledAppsFragment extends Fragment {
 
     private RecyclerViewBinding fragmentBinding;
     private List<InstalledApp> installedAppsList;
-    private InstalledAppItemAdapter installedAppItemAdapter;
 
     public InstalledAppsFragment() {
         // Required empty public constructor
@@ -64,7 +64,7 @@ public class InstalledAppsFragment extends Fragment {
         final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
         final MainActivity mainActivity = ((MainActivity) requireActivity());
         installedAppsList = new ArrayList<>();
-        installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
+        final InstalledAppItemAdapter installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
 
     /*###########################################################################################*/
 
@@ -118,7 +118,7 @@ public class InstalledAppsFragment extends Fragment {
         // FAST SCROLL
         new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build();
 
-        // HANDLE CLICK EVENTS OF ITEMS
+        // ON CLICK
         installedAppItemAdapter.setOnItemClickListener(position -> {
             InstalledApp installedApp = installedAppsList.get(position);
             AppDetails(mainActivity, installedApp.getName(), installedApp.getPackageName(),
@@ -128,16 +128,25 @@ public class InstalledAppsFragment extends Fragment {
 
         });
 
+        // ON LONG CLICK
+        installedAppItemAdapter.setOnItemLongClickListener(position -> {
+
+            InstalledApp installedApp = installedAppsList.get(position);
+            LongClickBottomSheet(mainActivity,
+                                 installedApp.getName(), installedApp.getPackageName(), installedApp.getPlexusVersion(),
+                                 installedApp.getDgRating(), installedApp.getMgRating(),
+                                 installedApp.getDgNotes(), installedApp.getMgNotes());
+
+        });
+
         // SWIPE REFRESH LAYOUT
         fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
         fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener(() -> {
             mainActivity.installedList.clear();
             ScanInstalledApps(requireContext(), mainActivity.dataList, mainActivity.installedList);
-            installedAppsList = mainActivity.installedList;
-            installedAppItemAdapter.notifyDataSetChanged();
             fragmentBinding.swipeRefreshLayout.setRefreshing(false);
-            ReloadFragment(getParentFragmentManager(), mainActivity.fragment);
+            ReloadFragment(mainActivity.activityBinding.viewPager, mainActivity.viewPagerAdapter, 1);
         });
 
     }

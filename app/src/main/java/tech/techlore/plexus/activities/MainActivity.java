@@ -8,8 +8,6 @@ import static tech.techlore.plexus.utils.IntentUtils.SendListsIntent;
 import static tech.techlore.plexus.utils.UiUtils.ReloadFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,40 +15,41 @@ import android.view.Menu;
 import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.adapters.ViewPagerAdapter;
 import tech.techlore.plexus.databinding.ActivityMainBinding;
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
 import tech.techlore.plexus.databinding.BottomSheetSortBinding;
 import tech.techlore.plexus.databinding.TabLayoutBinding;
-import tech.techlore.plexus.fragments.main.InstalledAppsFragment;
-import tech.techlore.plexus.fragments.main.PlexusDataFragment;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    public ActivityMainBinding activityBinding;
+    public ViewPagerAdapter viewPagerAdapter;
     private PreferenceManager preferenceManager;
-    public Fragment fragment;
     private TabLayoutBinding tabLayoutBinding;
     public List<PlexusData> dataList;
-    public List <InstalledApp> installedList;
+    public List<InstalledApp> installedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActivityMainBinding activityBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        activityBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityBinding.getRoot());
 
         Intent intent = getIntent();
         preferenceManager = new PreferenceManager(this);
         tabLayoutBinding = TabLayoutBinding.bind(activityBinding.tabLayoutViewStub.inflate());
+        viewPagerAdapter = new ViewPagerAdapter(this);
 
     /*###########################################################################################*/
 
@@ -63,54 +62,21 @@ public class MainActivity extends AppCompatActivity {
         //noinspection unchecked
         installedList = (List<InstalledApp>) intent.getSerializableExtra("installedAppsList");
 
-        // DEFAULT FRAGMENT
-        if (savedInstanceState == null) {
-            DisplayFragment(0);
-        }
+        activityBinding.viewPager.setVisibility(View.VISIBLE);
+        activityBinding.viewPager.setAdapter(viewPagerAdapter);
 
-        // TAB LAYOUT
-        tabLayoutBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        // SLIDING TAB LAYOUT WITH VIEWPAGER2
+        new TabLayoutMediator(tabLayoutBinding.tabLayout, activityBinding.viewPager,
+                              true, (tab, position) -> {
 
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                DisplayFragment(tab.getPosition());
-
+            if (position == 0){
+                tab.setText(R.string.plexus_data);
+            }
+            else {
+                tab.setText(R.string.installed_apps);
             }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-
-        });
-
-    }
-
-    // SETUP FRAGMENTS
-    private void DisplayFragment(int selectedTab) {
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        if (selectedTab == 0) {
-            fragment = new PlexusDataFragment();
-            transaction.setCustomAnimations(R.anim.slide_from_start, R.anim.slide_to_end,
-                    R.anim.slide_from_end, R.anim.slide_to_start);
-        }
-
-        else {
-            fragment = new InstalledAppsFragment();
-            transaction.setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                    R.anim.slide_from_start, R.anim.slide_to_end);
-        }
-
-        transaction.replace(R.id.activity_host_fragment, fragment)
-                .commitNow();
+        }).attach();
 
     }
 
@@ -260,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
 
         // DONE BUTTON
         bottomSheetBinding.doneButton.setOnClickListener(view12 -> {
-            bottomSheetDialog.dismiss();
-            ReloadFragment(getSupportFragmentManager(), fragment);
+                    bottomSheetDialog.dismiss();
+                    ReloadFragment(activityBinding.viewPager, viewPagerAdapter, tabLayoutBinding.tabLayout.getSelectedTabPosition());
         });
 
         // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION

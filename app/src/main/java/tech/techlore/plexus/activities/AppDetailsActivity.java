@@ -1,6 +1,7 @@
 package tech.techlore.plexus.activities;
 
 import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
+import static tech.techlore.plexus.utils.IntentUtils.Share;
 import static tech.techlore.plexus.utils.UiUtils.RatingColor;
 
 import android.content.Intent;
@@ -58,42 +59,18 @@ public class AppDetailsActivity extends AppCompatActivity {
         RatingColor(this, activityBinding.mgRatingColor, mgRatingString);
 
         // PLAY STORE URL
-        activityBinding.playStore
+        activityBinding.playStoreImg
                 .setOnClickListener(v ->
                     OpenURL(this, playStoreString));
 
         // SHARE
-        activityBinding.share
+        activityBinding.shareImg
                 .setOnClickListener(v ->
-                        startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
-                                .setType("text/plain")
-                                .putExtra(Intent.EXTRA_TEXT,
-                                        getResources().getString(R.string.application) + ": "
-                                        + nameString
-                                        + "\n"
-                                        + getResources().getString(R.string.package_name) + ": "
-                                        + packageNameString
-                                        + "\n"
-                                        + getResources().getString(R.string.version) + ": "
-                                        + plexusVersionString
-                                        + "\n"
-                                        + getResources().getString(R.string.dg_rating) + ": "
-                                        + dgRatingString
-                                        + "\n"
-                                        + getResources().getString(R.string.mg_rating) + ": "
-                                        + mgRatingString
-                                        + "\n"
-                                        + getResources().getString(R.string.de_Googled) + " "
-                                        + getResources().getString(R.string.notes) + ": "
-                                        + dgNotesString
-                                        + "\n"
-                                        + getResources().getString(R.string.microG) + " "
-                                        + getResources().getString(R.string.notes) + ": "
-                                        + mgNotesString
-                                        + "\n"
-                                        + getResources().getString(R.string.play_store) + ": "
-                                        + playStoreString),
-                        getString(R.string.share_via))));
+                        Share(this,
+                                nameString, packageNameString, plexusVersionString,
+                                dgRatingString, mgRatingString,
+                                dgNotesString, mgNotesString,
+                                playStoreString));
 
     }
 

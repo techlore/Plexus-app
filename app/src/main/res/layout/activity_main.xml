@@ -42,6 +42,13 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:visibility="gone"/>
+
     <include layout="@layout/activity_host_fragment"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
