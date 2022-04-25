@@ -76,4 +76,5 @@ Assuming Twitter as the app for example here.
 
 
 ## Contributing to the app
-Make sure not to use any deprecated libraries, dependencies or methods. 
+- Try to stick to the project's existing code style and naming conventions.
+- Make sure not to use any deprecated libraries, dependencies or methods. 
