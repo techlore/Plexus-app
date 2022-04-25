@@ -1,3 +1,22 @@
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
 <resources>
 
     <string name="app_name" translatable="false">Plexus</string>
@@ -63,7 +82,7 @@
     <string name="report_issue_title">Report an issue</string>
     <string name="report_issue_subtitle">Found a bug? Let us know</string>
     <string name="pull_req_title">Open a pull request</string>
-    <string name="pull_req_subtitle">Improve the app or existing data</string>
+    <string name="pull_req_subtitle">Improve the app or the existing data</string>
     <string name="about_title">About</string>
     <string name="about_subtitle">Version, policy and licenses</string>
 
@@ -100,6 +119,12 @@
     <string name="system_default">System Default</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+
+    <!--LICENSES-->
+    <string name="jackson">Jackson</string>
+    <string name="okhttp">OkHttp</string>
+    <string name="fastscroll">AndroidFastScroll</string>
+    <string name="material_icons">MaterialDesignIcons</string>
 
     <!--#########################################################################################-->
 

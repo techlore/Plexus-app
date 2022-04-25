@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2022 Techlore
+ *
+ *  This file is part of Plexus.
+ *
+ *  Plexus is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Plexus is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package tech.techlore.plexus.fragments.settings;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.THEME_PREF;
@@ -22,6 +41,7 @@ import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.SettingsActivity;
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding;
+import tech.techlore.plexus.databinding.DialogFooterBinding;
 import tech.techlore.plexus.databinding.FragmentSettingsDefaultBinding;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
@@ -107,6 +127,7 @@ public class SettingsDefaultFragment extends Fragment {
 
         final BottomSheetThemeBinding bottomSheetBinding = BottomSheetThemeBinding.inflate(getLayoutInflater());
         final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(bottomSheetBinding.getRoot());
         bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
 
         // TITLE
@@ -151,8 +172,11 @@ public class SettingsDefaultFragment extends Fragment {
                     requireActivity().recreate();
                 });
 
-        // CANCEL BUTTON
-        bottomSheetBinding.cancelButton.setOnClickListener(view12 ->
+        // POSITIVE BUTTON
+        footerBinding.positiveButton.setVisibility(View.GONE);
+
+        // NEGATIVE BUTTON
+        footerBinding.negativeButton.setOnClickListener(view12 ->
                 bottomSheetDialog.cancel());
 
         // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION

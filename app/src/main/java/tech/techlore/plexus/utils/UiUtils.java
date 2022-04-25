@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2022 Techlore
+ *
+ *  This file is part of Plexus.
+ *
+ *  Plexus is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Plexus is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package tech.techlore.plexus.utils;
 
 import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
@@ -20,6 +39,7 @@ import tech.techlore.plexus.R;
 import tech.techlore.plexus.adapters.ViewPagerAdapter;
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
 import tech.techlore.plexus.databinding.BottomSheetLongClickBinding;
+import tech.techlore.plexus.databinding.DialogFooterBinding;
 
 public class UiUtils {
 
@@ -65,7 +85,7 @@ public class UiUtils {
     }
 
     // RELOAD FRAGMENT
-    public static void ReloadFragment(ViewPager2 viewPager2, ViewPagerAdapter viewPagerAdapter, int position) {
+    public static void ReloadViewPagerFragment(ViewPager2 viewPager2, ViewPagerAdapter viewPagerAdapter, int position) {
 
         viewPager2.setAdapter(null);
         viewPager2.setAdapter(viewPagerAdapter);
@@ -77,11 +97,13 @@ public class UiUtils {
     public static void LongClickBottomSheet(Activity activity, String nameString, String packageNameString, String plexusVersionString,
                                       String dgRatingString, String mgRatingString,
                                       String dgNotesString, String mgNotesString){
+
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity, R.style.CustomBottomSheetTheme);
         bottomSheetDialog.setCancelable(true);
 
         final BottomSheetLongClickBinding bottomSheetBinding = BottomSheetLongClickBinding.inflate(activity.getLayoutInflater());
         final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(bottomSheetBinding.getRoot());
         bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
 
         final String playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
@@ -104,6 +126,13 @@ public class UiUtils {
                   playStoreString);
             bottomSheetDialog.dismiss();
         });
+
+        // POSITIVE BUTTON
+        footerBinding.positiveButton.setVisibility(View.GONE);
+
+        // NEGATIVE BUTTON
+        footerBinding.negativeButton.setOnClickListener(view12 ->
+                bottomSheetDialog.cancel());
 
         // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
         Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;

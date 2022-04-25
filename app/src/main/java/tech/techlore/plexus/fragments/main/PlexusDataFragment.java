@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2022 Techlore
+ *
+ *  This file is part of Plexus.
+ *
+ *  Plexus is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Plexus is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
@@ -12,7 +31,7 @@ import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
 import static tech.techlore.plexus.utils.ListUtils.PlexusDataRatingSort;
 import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
 import static tech.techlore.plexus.utils.UiUtils.LongClickBottomSheet;
-import static tech.techlore.plexus.utils.UiUtils.ReloadFragment;
+import static tech.techlore.plexus.utils.UiUtils.ReloadViewPagerFragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -42,6 +61,7 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
+import tech.techlore.plexus.databinding.DialogFooterBinding;
 import tech.techlore.plexus.databinding.DialogNoNetworkBinding;
 import tech.techlore.plexus.databinding.RecyclerViewBinding;
 import tech.techlore.plexus.models.PlexusData;
@@ -166,21 +186,23 @@ public class PlexusDataFragment extends Fragment {
         final Dialog dialog = new Dialog(requireContext(), R.style.DialogTheme);
         dialog.setCancelable(false);
 
-        final DialogNoNetworkBinding dialogBinding = DialogNoNetworkBinding.inflate(getLayoutInflater());
         dialog.getWindow().setBackgroundDrawable(ContextCompat
                 .getDrawable(requireContext(), R.drawable.shape_rounded_corners));
         dialog.getWindow().getDecorView().setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.bottomSheetColor));
+
+        final DialogNoNetworkBinding dialogBinding = DialogNoNetworkBinding.inflate(getLayoutInflater());
+        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(dialogBinding.getRoot());
         dialog.setContentView(dialogBinding.getRoot());
 
         // POSITIVE BUTTON
-        dialogBinding.dialogPositiveButton
+        footerBinding.positiveButton
                 .setOnClickListener(view1 -> {
                     RefreshData();
                     dialog.dismiss();
                 });
 
         // NEGATIVE BUTTON
-        dialogBinding.dialogNegativeButton
+        footerBinding.negativeButton
                 .setOnClickListener(view12 -> {
                     dialog.cancel();
                     fragmentBinding.swipeRefreshLayout.setRefreshing(false);
@@ -215,7 +237,7 @@ public class PlexusDataFragment extends Fragment {
                             mainActivity.dataList.clear();
                             mainActivity.dataList = PopulateDataList(jsonData);
                             fragmentBinding.swipeRefreshLayout.setRefreshing(false);
-                            ReloadFragment(mainActivity.activityBinding.viewPager, mainActivity.viewPagerAdapter, 0);
+                            ReloadViewPagerFragment(mainActivity.activityBinding.viewPager, mainActivity.viewPagerAdapter, 0);
                         }
 
                         catch (JsonProcessingException e) {

@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -17,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_6.5"
-            android:paddingBottom="@dimen/margin_6.5"
+            android:paddingBottom="@dimen/margin_4"
             android:paddingEnd="@dimen/margin_12"
             android:paddingStart="@dimen/margin_16">
 
@@ -53,7 +73,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_4"
                 android:paddingStart="@dimen/margin_8"
                 android:paddingEnd="@dimen/margin_8"
                 android:text="@string/dark"
@@ -63,19 +82,6 @@
 
         </RadioGroup>
 
-    <TextView
-        android:id="@+id/cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginStart="@dimen/margin_8"
-        android:layout_marginEnd="@dimen/margin_25"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:foreground="@drawable/dialog_buttons_ripple"
-        android:padding="@dimen/margin_12"
-        android:text="@string/cancel_button"
-        style="@style/MediumBoldText"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_16" />
+    <include layout="@layout/dialog_footer"/>
 
 </LinearLayout>

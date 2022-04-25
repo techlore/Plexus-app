@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2022 Techlore
+ *
+ *  This file is part of Plexus.
+ *
+ *  Plexus is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Plexus is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package tech.techlore.plexus.activities;
 
 import static tech.techlore.plexus.utils.IntentUtils.SendListsIntent;
@@ -28,6 +47,7 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.databinding.DialogFooterBinding;
 import tech.techlore.plexus.databinding.DialogNoNetworkBinding;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
@@ -58,22 +78,24 @@ public class SplashActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this, R.style.DialogTheme);
         dialog.setCancelable(false);
 
-        final DialogNoNetworkBinding dialogBinding = DialogNoNetworkBinding.inflate(getLayoutInflater());
         dialog.getWindow().setBackgroundDrawable(ContextCompat
                 .getDrawable(this, R.drawable.shape_rounded_corners));
         dialog.getWindow().getDecorView().setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.bottomSheetColor));
+
+        final DialogNoNetworkBinding dialogBinding = DialogNoNetworkBinding.inflate(getLayoutInflater());
+        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(dialogBinding.getRoot());
         dialog.setContentView(dialogBinding.getRoot());
 
         // POSITIVE BUTTON
-        dialogBinding.dialogPositiveButton
+        footerBinding.positiveButton
                 .setOnClickListener(view1 -> {
                     FetchData();
                     dialog.dismiss();
                 });
 
         // NEGATIVE BUTTON
-        dialogBinding.dialogNegativeButton.setText(getString(R.string.exit));
-        dialogBinding.dialogNegativeButton.setOnClickListener(view12 -> {
+        footerBinding.negativeButton.setText(getString(R.string.exit));
+        footerBinding.negativeButton.setOnClickListener(view12 -> {
                     dialog.cancel();
                     finishAndRemoveTask();
                 });

@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2022 Techlore
+ *
+ *  This file is part of Plexus.
+ *
+ *  Plexus is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Plexus is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package tech.techlore.plexus.activities;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
@@ -5,13 +24,15 @@ import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_
 import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
 import static tech.techlore.plexus.utils.IntentUtils.SendListsIntent;
-import static tech.techlore.plexus.utils.UiUtils.ReloadFragment;
+import static tech.techlore.plexus.utils.UiUtils.ReloadViewPagerFragment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -26,6 +47,7 @@ import tech.techlore.plexus.adapters.ViewPagerAdapter;
 import tech.techlore.plexus.databinding.ActivityMainBinding;
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
 import tech.techlore.plexus.databinding.BottomSheetSortBinding;
+import tech.techlore.plexus.databinding.DialogFooterBinding;
 import tech.techlore.plexus.databinding.TabLayoutBinding;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
@@ -62,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         //noinspection unchecked
         installedList = (List<InstalledApp>) intent.getSerializableExtra("installedAppsList");
 
-        activityBinding.viewPager.setVisibility(View.VISIBLE);
         activityBinding.viewPager.setAdapter(viewPagerAdapter);
 
         // SLIDING TAB LAYOUT WITH VIEWPAGER2
@@ -102,43 +123,44 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // MENU
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         // SEARCH
         // DON'T FINISH MAIN ACTIVITY,
         // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
-        menu.findItem(R.id.menu_search).setOnMenuItemClickListener(item -> {
+        if (item.getItemId() == R.id.menu_search) {
             StartSearch(tabLayoutBinding.tabLayout.getSelectedTabPosition());
-            return true;
-        });
+        }
 
         // SORT
-        menu.findItem(R.id.menu_sort).setOnMenuItemClickListener(item -> {
+        else if (item.getItemId() == R.id.menu_sort) {
             SortBottomSheet();
-            return true;
-        });
+        }
 
         // HELP
-        menu.findItem(R.id.menu_help).setOnMenuItemClickListener(item -> {
+        else if (item.getItemId() == R.id.menu_help) {
             startActivity(new Intent(this, HelpActivity.class));
             overridePendingTransition(R.anim.fade_in_slide_from_end, R.anim.no_movement);
-            return true;
-        });
+        }
 
         // SETTINGS
-        menu.findItem(R.id.menu_settings).setOnMenuItemClickListener(menuItem -> {
+        else if (item.getItemId() == R.id.menu_settings) {
 
             // GIVE BOTH LISTS TO SETTINGS ACTIVITY TO HOLD
             SendListsIntent(this, SettingsActivity.class,
                     (Serializable) dataList, (Serializable) installedList);
             finish();
             overridePendingTransition(R.anim.fade_in_slide_from_end, R.anim.no_movement);
-            return true;
-        });
+        }
 
         return true;
     }
@@ -150,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
         final BottomSheetSortBinding bottomSheetBinding = BottomSheetSortBinding.inflate(getLayoutInflater());
         final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(bottomSheetBinding.getRoot());
         bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
 
         // TITLE
@@ -224,11 +247,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // DONE BUTTON
-        bottomSheetBinding.doneButton.setOnClickListener(view12 -> {
+        // POSITIVE BUTTON
+        footerBinding.positiveButton.setText(getString(R.string.done));
+        footerBinding.positiveButton.setOnClickListener(view12 -> {
                     bottomSheetDialog.dismiss();
-                    ReloadFragment(activityBinding.viewPager, viewPagerAdapter, tabLayoutBinding.tabLayout.getSelectedTabPosition());
+                    ReloadViewPagerFragment(activityBinding.viewPager, viewPagerAdapter, tabLayoutBinding.tabLayout.getSelectedTabPosition());
         });
+
+        // NEGATIVE BUTTON
+        footerBinding.negativeButton.setVisibility(View.GONE);
 
         // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
         Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;

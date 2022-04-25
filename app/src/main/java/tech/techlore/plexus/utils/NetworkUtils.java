@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2022 Techlore
+ *
+ *  This file is part of Plexus.
+ *
+ *  Plexus is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Plexus is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package tech.techlore.plexus.utils;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
@@ -47,7 +66,7 @@ public class NetworkUtils {
 
     public static String URLResponse() throws IOException {
         Request request = new Request.Builder()
-                .url("https://raw.githubusercontent.com/parveshnarwal/Plexus-Demo/main/new.json")
+                .url("https://raw.githubusercontent.com/techlore/Plexus-app/main/Plexus.json")
                 .build();
 
         try (Response response = okHttpClient.newCall(request).execute())
