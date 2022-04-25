@@ -1,8 +1,12 @@
 # Plexus-app
-Private Plexus App
+***Remove the fear of Android app compatibility on de-Googled devices.***
+
+Android app for [Plexus](https://plexus.techlore.tech)
 
 
 ## Contents
+- [Explanation](#explanation)
+- [What Do The Ratings Mean?](#what-do-the-ratings-mean)
 - [Screenshots](#screenshots)
 - [Download](#download)
 - [Changelog](#changelog)
@@ -10,6 +14,25 @@ Private Plexus App
 - [Issues](#issues)
 - [Contributing](#contributing)
 - [Libraries Used](#libraries-used)
+- [Credits](#credits)
+- [License](#license)
+
+
+
+
+## Explanation
+Google Play Services are an integral part of most Android devices that enable users to utilize their Google account on their phone, as well as enable Google-specific features for applications that rely on them.
+
+When users move to a de-googled ROM like GrapheneOS, CalyxOS or LineageOS, they are faced with opening their standard applications hoping they work. Plexus aims to beat the guessing game and allow users to know exactly what will happen once they flash a new ROM. Plexus supports ROMs with no Google Play Services e.g: [(GrapheneOS)](https://grapheneos.org/), as well as ROMs with [microG](https://microg.org/), an open source alternative of Google Play Services, e.g: [(CalyxOS)](https://calyxos.org/).
+
+
+
+## What Do The Ratings Mean?
+- X: App has not been tested
+- 1: Unusable, mostly apps that fail to open
+- 2: Acceptable but with missing or broken functionality
+- 3: Almost everything works with minimal caveats
+- 4: Perfect or like-perfect experience
 
 
 
@@ -53,4 +76,15 @@ If you find bugs or have suggestions, please report it to the [issue tracker](ht
 - [Jackson](https://github.com/FasterXML/jackson) | [Apache License 2.0](https://github.com/FasterXML/jackson-core/blob/2.14/LICENSE)
 - [OkHttp](https://github.com/square/okhttp) | [Apache License 2.0](https://github.com/square/okhttp/blob/master/LICENSE.txt)
 - [AndroidFastScroll](https://github.com/zhanghai/AndroidFastScroll) | [Apache License 2.0](https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE)
+
+
+
+## Credits
+- [henryistaken](https://github.com/henryistaken) for going forward with the project, keeping up with and replying to my spams.
+- [pareveshnarwal](https://github.com/parveshnarwal) for helping with the initial implementation of json into this app.
 - Some additional icons (other than the official ones by Google) are provided by [MaterialDesignIcons](https://github.com/Templarian/MaterialDesign) | [Pictogrammers Free License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
+
+
+
+## License
+Except where indicated otherwise, this project is licensed under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html).
