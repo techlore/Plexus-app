@@ -69,6 +69,7 @@ If you find bugs or have suggestions, please report it to the [issue tracker](ht
 
 
 ## Contributing
+It is advised to read [contributing guidelines](https://github.com/techlore/Plexus-app/blob/main/CONTRIBUTING.md) before contributing. New pull requests can be submitted [here](https://github.com/techlore/Plexus-app/pulls).
 
 
 
