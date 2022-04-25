@@ -133,7 +133,7 @@
         <!--#####################################################-->
 
         <RelativeLayout
-            android:id="@+id/settings_pull_req_holder"
+            android:id="@+id/settings_contribute_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_2.5"
@@ -147,7 +147,7 @@
             android:paddingBottom="@dimen/margin_10">
 
             <ImageView
-                android:id="@+id/settings_pull_req_img"
+                android:id="@+id/settings_contribute_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -156,25 +156,25 @@
                 android:src="@drawable/ic_contribute" />
 
             <TextView
-                android:id="@+id/settings_pull_req_title"
+                android:id="@+id/settings_contribute_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toEndOf="@+id/settings_pull_req_img"
+                android:layout_toEndOf="@+id/settings_contribute_img"
                 android:paddingStart="@dimen/margin_8"
                 android:paddingEnd="@dimen/margin_8"
-                android:text="@string/pull_req_title"
+                android:text="@string/contribute_title"
                 android:textColor="@color/textTitleColor"
                 android:textSize="@dimen/text_16" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/settings_pull_req_title"
-                android:layout_toEndOf="@+id/settings_pull_req_img"
+                android:layout_below="@+id/settings_contribute_title"
+                android:layout_toEndOf="@+id/settings_contribute_img"
                 android:paddingStart="@dimen/margin_8"
                 android:paddingEnd="@dimen/margin_8"
-                android:text="@string/pull_req_subtitle"
+                android:text="@string/contribute_subtitle"
                 android:textColor="?colorControlNormal"
                 android:textSize="@dimen/text_14" />
 

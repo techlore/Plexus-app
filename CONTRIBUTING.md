@@ -38,7 +38,7 @@ Assuming Twitter as the app for example here.
 ```json
 {
   "Application": "Twitter",
-  "Package": "com.android.twitter",
+  "Package": "com.twitter.android",
   "Version": "9.41.0",
   "DG_Rating": "3",
   "MG_Rating": "3",
@@ -51,7 +51,7 @@ Assuming Twitter as the app for example here.
 ```json
 {
   "Application": "Twitter",
-  "Package": "com.android.twitter",
+  "Package": "com.twitter.android",
   "Version": "9.41.0",
   "DG_Rating": "3",
   "MG_Rating": "X",
@@ -64,7 +64,7 @@ Assuming Twitter as the app for example here.
 ```json
 {
   "Application": "Twitter",
-  "Package": "com.android.twitter",
+  "Package": "com.twitter.android",
   "Version": "9.41.0",
   "DG_Rating": "X",
   "MG_Rating": "3",

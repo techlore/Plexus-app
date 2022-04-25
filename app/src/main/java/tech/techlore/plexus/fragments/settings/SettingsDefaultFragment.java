@@ -40,6 +40,7 @@ import java.util.Objects;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.SettingsActivity;
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
+import tech.techlore.plexus.databinding.BottomSheetLongClickBinding;
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding;
 import tech.techlore.plexus.databinding.DialogFooterBinding;
 import tech.techlore.plexus.databinding.FragmentSettingsDefaultBinding;
@@ -103,10 +104,10 @@ public class SettingsDefaultFragment extends Fragment {
                 .setOnClickListener(v2 ->
                     OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/issues"));
 
-        // PULL REQUEST
-        fragmentBinding.settingsPullReqHolder
+        // CONTRIBUTE
+        fragmentBinding.settingsContributeHolder
                 .setOnClickListener(v3 ->
-                        OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/pulls"));
+                        ContributeBottomSheet());
 
 
         // ABOUT
@@ -182,6 +183,49 @@ public class SettingsDefaultFragment extends Fragment {
         // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
         Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;
         bottomSheetDialog.show();
+    }
+
+    // CONTRIBUTE BOTTOM SHEET
+    private void ContributeBottomSheet() {
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext(), R.style.CustomBottomSheetTheme);
+        bottomSheetDialog.setCancelable(true);
+
+        final BottomSheetLongClickBinding bottomSheetBinding = BottomSheetLongClickBinding.inflate(getLayoutInflater());
+        final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(bottomSheetBinding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
+
+        // TITLE
+        headerBinding.bottomSheetTitle.setText(getString(R.string.contribute_title));
+
+        // READ GUIDELINES
+        bottomSheetBinding.playStore.setText(getString(R.string.read_guidelines));
+        bottomSheetBinding.playStore.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_read_guidelines, 0, 0, 0);
+        bottomSheetBinding.playStore.setOnClickListener(v -> {
+            OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/blob/main/CONTRIBUTING.md");
+            bottomSheetDialog.dismiss();
+        });
+
+        // OPEN PULL REQUEST
+        bottomSheetBinding.share.setText(getString(R.string.pull_req));
+        bottomSheetBinding.share.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_contribute, 0, 0, 0);
+        bottomSheetBinding.share.setOnClickListener(v -> {
+            OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/pulls");
+            bottomSheetDialog.dismiss();
+        });
+
+        // POSITIVE BUTTON
+        footerBinding.positiveButton.setVisibility(View.GONE);
+
+        // NEGATIVE BUTTON
+        footerBinding.negativeButton.setOnClickListener(view12 ->
+                bottomSheetDialog.cancel());
+
+        // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
+        Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;
+        bottomSheetDialog.show();
+
     }
 
     @Override

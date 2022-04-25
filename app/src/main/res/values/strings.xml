@@ -81,8 +81,8 @@
     <string name="theme_title">Theme</string>
     <string name="report_issue_title">Report an issue</string>
     <string name="report_issue_subtitle">Found a bug? Let us know</string>
-    <string name="pull_req_title">Open a pull request</string>
-    <string name="pull_req_subtitle">Improve the app or the existing data</string>
+    <string name="contribute_title">Contribute</string>
+    <string name="contribute_subtitle">Improve the app or the existing data</string>
     <string name="about_title">About</string>
     <string name="about_subtitle">Version, policy and licenses</string>
 
@@ -119,6 +119,10 @@
     <string name="system_default">System Default</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+
+    <!--CONTRIBUTE-->
+    <string name="read_guidelines">Read contributing guidelines</string>
+    <string name="pull_req">Open a pull request</string>
 
     <!--LICENSES-->
     <string name="jackson">Jackson</string>
