@@ -127,7 +127,6 @@ public class InstalledAppsFragment extends Fragment {
 
         if (installedAppsList.size() == 0){
             InflateViewStub(fragmentBinding.emptyListViewStub);
-            fragmentBinding.swipeRefreshLayout.setEnabled(false);
         }
         else {
             fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

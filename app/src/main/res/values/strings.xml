@@ -122,7 +122,7 @@
 
     <!--CONTRIBUTE-->
     <string name="read_guidelines">Read contributing guidelines</string>
-    <string name="pull_req">Open a pull request</string>
+    <string name="pull_req">Submit a pull request</string>
 
     <!--LICENSES-->
     <string name="jackson">Jackson</string>

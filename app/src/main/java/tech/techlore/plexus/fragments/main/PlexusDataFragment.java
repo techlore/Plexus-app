@@ -143,7 +143,6 @@ public class PlexusDataFragment extends Fragment {
 
         if (plexusDataList.size() == 0){
             InflateViewStub(fragmentBinding.emptyListViewStub);
-            fragmentBinding.swipeRefreshLayout.setEnabled(false);
         }
         else {
             fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
