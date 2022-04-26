@@ -84,8 +84,10 @@ It is advised to read [contributing guidelines](https://github.com/techlore/Plex
 
 
 ## Credits
+- [the-weird-aquarian](https://github.com/the-weird-aquarian) For building this application and taking Plexus a major step forward towards full automation!
 - [henryistaken](https://github.com/henryistaken) for going forward with the project, keeping up with and replying to my spams.
 - [pareveshnarwal](https://github.com/parveshnarwal) for helping with the initial implementation of json into this app.
+- [Tom Konidas](https://github.com/tomkonidas) For building the original Plexus website and speeding up the development of this project.
 - Some additional icons (other than the official ones by Google) are provided by [MaterialDesignIcons](https://github.com/Templarian/MaterialDesign) | [Pictogrammers Free License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
 
 
