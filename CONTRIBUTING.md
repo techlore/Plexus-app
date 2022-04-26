@@ -24,13 +24,13 @@ The general format to add new applications is as follows:
 ```
 
 ### Testing Standards
-- Test only Google Play Store applications (Regardless of where they came from, including the Aurora Store)
+- Test only Google Play Store applications _(Regardless of where they came from, including the Aurora Store)_
 - Kindly disable Netguard and other blockers
 - No Google Play Services. Plexus evaluates MicroG, or nothing. Plexus assumes all variants of Google Play Services (ex. Sandboxed Play Services, OpenGApps, etc.) will function without issues for compatibility.
 - Pay extra attention to notifications as some will not properly work. If you're testing on MicroG, it is assumed you have enabled GCM/FCM. If you have not enabled GCM/FCM, you are still free to report applications, but please exclude any information regarding missing notifications. (Notifications working is okay and encouraged even with GCM/FCM disabled.)
 - If you're testing **with MicroG** only, input data in the MG_Rating & MG_Notes and enter DG_Rating and DG_Notes as "X".
 - If you're testing with a fully de-googled ROM only **without MicroG**, input data in the DG_Rating & DG_Notes and enter MG_Rating and MG_Notes as "X".
-- We check over all data for accuracy as best we can, and ultimately hold the right to turn down a submission if we feel it wasn't tested properly. Many times we will follow up with individuals for clarification when necessary.
+- We check all data for accuracy as best we can, and ultimately hold the right to turn down a submission if we feel it wasn't tested properly. Generally, we will follow up with individuals for clarification when necessary.
 
 ### Example
 Assuming Twitter as the app for example here.
