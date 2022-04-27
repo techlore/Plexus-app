@@ -1,0 +1,4 @@
+Elimine el miedo a la compatibilidad de la aplicación de Android en los dispositivos de-Googled.
+
+Google Play Services es una parte integral de la mayoría de los dispositivos Android que permiten a los usuarios utilizar su cuenta de Google en su teléfono, así como permitir funciones específicas de Google para aplicaciones que dependen de ellos.
+Cuando los usuarios se mudan a una ROM descongelada como Grapheneos, Calyxos o Lineageos, se enfrentan a abrir sus aplicaciones estándar con la esperanza de que funcionen. Plexus tiene como objetivo vencer el juego de adivinanzas y permitir a los usuarios saber exactamente qué sucederá una vez que muestre una nueva ROM. Plexus admite ROM sin servicios de Google Play, por ejemplo: Grapheneos, así como ROM con Microg, una alternativa de código abierto de los servicios de Google Play, por ejemplo: Calyxos.

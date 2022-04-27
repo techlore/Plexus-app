@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!--
+    ENSURE PROPER ENCODING OF CHARACTERS
+        ä = \u00E4
+        ß = \u00DF
+        ü = \u00FC
+        Ü = \u00DC
+    -->
+
+    <!--SPLASH ACTIVITY-->
+    <string name="fetching_data">Daten abrufen</string>
+    <string name="scan_installed">Scannen installierte apps</string>
+
+    <!--#########################################################################################-->
+
+    <!--MAIN ACTIVITY-->
+    <string name="plexus_data">Plexus Daten</string>
+    <string name="installed_apps">Installierte Apps</string>
+    <string name="no_apps_found">Keine solchen apps gefunden</string>
+
+    <!--TOOLBAR MENU-->
+    <string name="menu_search">Suche</string>
+    <string name="menu_sort">Sort</string>
+    <string name="menu_more">Mehr</string>
+    <string name="menu_help">Hilfe</string>
+    <string name="menu_settings">Einstellungen</string>
+
+    <!--#########################################################################################-->
+
+    <!--APP DETAILS ACTIVITY-->
+    <string name="notes">anmerkungen</string>
+    <string name="installed">Installierte</string>
+    <string name="play_store">Play store</string>
+    <string name="share">Teilen</string>
+
+    <!--#########################################################################################-->
+
+    <!--HELP ACTIVITY-->
+    <string name="what_ratings_mean">Was bedeuten die bewertungen?</string>
+    <string name="not_tested">Nicht getestet</string>
+    <string name="unusable">Unbrauchbar</string>
+    <string name="acceptable">Akzeptabel</string>
+    <string name="good">Gut</string>
+    <string name="perfect">Perfekt</string>
+    <string name="app_card_breakdown">Aufschl\u00FCsselung f\u00FCr anwendungskarten</string>
+    <string name="dg_rating">de-Googled bewertung</string>
+    <string name="mg_rating">microG bewertung</string>
+    <string name="application">Anwendung</string>
+    <string name="package_name">Paketnamen</string>
+    <string name="version">Version</string>
+
+    <!--#########################################################################################-->
+
+    <!--SETTINGS ACTIVITY-->
+    <string name="theme_title">Thema</string>
+    <string name="report_issue_title">Ein problem melden</string>
+    <string name="report_issue_subtitle">Einen fehler gefunden? Lass uns wissen</string>
+    <string name="contribute_title">Beitragen</string>
+    <string name="contribute_subtitle">Verbessern sie die app oder die vorhandenen daten</string>
+    <string name="about_title">\u00DCber</string>
+    <string name="about_subtitle">Version, richtlinien und lizenzen</string>
+
+    <!--ABOUT FRAGMENT-->
+    <string name="privacy_policy">Datenschutzbestimmungen</string>
+    <string name="licenses">Lizenzen</string>
+    <string name="view_on_github">Auf GitHub anschauen</string>
+    <string name="visit_techlore">Besuche Techlore</string>
+
+    <!--#########################################################################################-->
+
+    <!--DIALOGS-->
+    <string name="dialog_title">Kein Netzwerk/Internet</string>
+    <string name="dialog_subtitle">Stellen sie eine verbindung zu Wi-Fi- oder mobilfunkdaten her und versuchen sie es erneut.
+        Wenn sie bereits verbunden sind, stellen sie sicher, dass eine internetverbindung besteht.</string>
+    <string name="exit">Ausgang</string>
+    <string name="dialog_positive_button">Wiederholen</string>
+
+    <!--#########################################################################################-->
+
+    <!--BOTTOM SHEETS-->
+    <string name="cancel_button">Abbrechen</string>
+
+    <!--SORT-->
+    <string name="alphabetical">Alphabetisch</string>
+    <string name="rating">Bewertung</string>
+    <string name="any">Irgendein</string>
+    <string name="done">Erledigt</string>
+
+    <!--THEME-->
+    <string name="system_default">Systemvorgabe</string>
+    <string name="light">Hell</string>
+    <string name="dark">Dunkel</string>
+
+    <!--CONTRIBUTE-->
+    <string name="read_guidelines">Lesen sie bei den richtlinien</string>
+    <string name="pull_req">Senden sie eine pull anfrage</string>
+
+    <!--#########################################################################################-->
+
+    <!--TOASTS-->
+    <string name="no_browsers">Es ist kein browser auf diesem ger\u00E4t installiert</string>
+
+</resources>

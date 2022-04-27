@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Copyright (c) 2022 Techlore
   ~
@@ -36,15 +38,14 @@
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort</string>
     <string name="menu_more">More</string>
-    <string name="menu_categories">Categories</string>
     <string name="menu_help">Help</string>
     <string name="menu_settings">Settings</string>
 
     <!--#########################################################################################-->
 
     <!--APP DETAILS ACTIVITY-->
-    <string name="de_Googled">de-Googled</string>
-    <string name="microG">\u00B5 (microG)</string>
+    <string name="de_Googled" translatable="false">de-Googled</string>
+    <string name="microG" translatable="false">\u00B5 (microG)</string>
     <string name="notes">notes</string>
     <string name="installed">Installed</string>
     <string name="play_store">Play store</string>
@@ -109,8 +110,8 @@
 
     <!--SORT-->
     <string name="alphabetical">Alphabetical</string>
-    <string name="a_z">A-Z</string>
-    <string name="z_a">Z-A</string>
+    <string name="a_z" translatable="false">A-Z</string>
+    <string name="z_a" translatable="false">Z-A</string>
     <string name="rating">Rating</string>
     <string name="any">Any</string>
     <string name="done">Done</string>
@@ -125,10 +126,10 @@
     <string name="pull_req">Submit a pull request</string>
 
     <!--LICENSES-->
-    <string name="jackson">Jackson</string>
-    <string name="okhttp">OkHttp</string>
-    <string name="fastscroll">AndroidFastScroll</string>
-    <string name="material_icons">MaterialDesignIcons</string>
+    <string name="jackson" translatable="false">Jackson</string>
+    <string name="okhttp" translatable="false">OkHttp</string>
+    <string name="fastscroll" translatable="false">AndroidFastScroll</string>
+    <string name="material_icons" translatable="false">MaterialDesignIcons</string>
 
     <!--#########################################################################################-->
 

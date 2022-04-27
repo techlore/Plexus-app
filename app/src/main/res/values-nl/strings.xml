@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!--
+    ENSURE PROPER ENCODING OF CHARACTERS
+        ï = \u00EF
+    -->
+
+    <!--SPLASH ACTIVITY-->
+    <string name="fetching_data">Data ophalen</string>
+    <string name="scan_installed">Ge\u00EFnstalleerde apps scannen</string>
+
+    <!--#########################################################################################-->
+
+    <!--MAIN ACTIVITY-->
+    <string name="plexus_data">Plexus Gegeven</string>
+    <string name="installed_apps">Ge\u00EFnstalleerde Apps</string>
+    <string name="no_apps_found">Zulke apps zijn niet gevonden</string>
+
+    <!--TOOLBAR MENU-->
+    <string name="menu_search">Zoekopdracht</string>
+    <string name="menu_sort">Soort</string>
+    <string name="menu_more">Meer</string>
+    <string name="menu_help">Helpen</string>
+    <string name="menu_settings">Instellingen</string>
+
+    <!--#########################################################################################-->
+
+    <!--APP DETAILS ACTIVITY-->
+    <string name="notes">aantekeningen</string>
+    <string name="installed">Ge\u00EFnstalleerde</string>
+    <string name="play_store">Play store</string>
+    <string name="share">Delen</string>
+
+    <!--#########################################################################################-->
+
+    <!--HELP ACTIVITY-->
+    <string name="what_ratings_mean">Wat betekenen de beoordelingen?</string>
+    <string name="not_tested">Niet getest</string>
+    <string name="unusable">Onbruikbaar</string>
+    <string name="acceptable">Aanvaardbaar</string>
+    <string name="good">Goed</string>
+    <string name="perfect">Perfect</string>
+    <string name="app_card_breakdown">Afbraak van applicatiekaart</string>
+    <string name="dg_rating">de-Googled beoordeling</string>
+    <string name="mg_rating">microG beoordeling</string>
+    <string name="application">Sollicitatie</string>
+    <string name="package_name">Verpakkingsnaam</string>
+    <string name="version">Versie</string>
+
+    <!--#########################################################################################-->
+
+    <!--SETTINGS ACTIVITY-->
+    <string name="theme_title">Thema</string>
+    <string name="report_issue_title">Een probleem melden</string>
+    <string name="report_issue_subtitle">Een bug gevonden? Laat het ons weten</string>
+    <string name="contribute_title">Bijdrage leveren</string>
+    <string name="contribute_subtitle">De app of de bestaande gegevens verbeteren</string>
+    <string name="about_title">Over</string>
+    <string name="about_subtitle">Versie, beleid en licenties</string>
+
+    <!--ABOUT FRAGMENT-->
+    <string name="privacy_policy">Privacybeleid</string>
+    <string name="licenses">Licenties</string>
+    <string name="view_on_github">Bekijk op GitHub</string>
+    <string name="visit_techlore">Bezoek Techlore</string>
+
+    <!--#########################################################################################-->
+
+    <!--DIALOGS-->
+    <string name="dialog_title">Geen Netwerk/Internet</string>
+    <string name="dialog_subtitle">Maak verbinding met Wi-Fi of mobiele gegevens en probeer het opnieuw.
+        Als u al verbonden bent, zorg er dan voor dat deze een internetverbinding heeft.</string>
+    <string name="exit">Uitgang</string>
+    <string name="dialog_positive_button">Opnieuw proberen</string>
+
+    <!--#########################################################################################-->
+
+    <!--BOTTOM SHEETS-->
+    <string name="cancel_button">Annuleren</string>
+
+    <!--SORT-->
+    <string name="alphabetical">Alfabetisch</string>
+    <string name="rating">Beoordeling</string>
+    <string name="any">Ieder</string>
+    <string name="done">Klaar</string>
+
+    <!--THEME-->
+    <string name="system_default">Systeemfout</string>
+    <string name="light">Licht</string>
+    <string name="dark">Donker</string>
+
+    <!--CONTRIBUTE-->
+    <string name="read_guidelines">Lees bijdragende richtlijnen</string>
+    <string name="pull_req">Dien een pull aanvraag in</string>
+
+    <!--#########################################################################################-->
+
+    <!--TOASTS-->
+    <string name="no_browsers">Geen browsers ge\u00EFnstalleerd op dit apparaat</string>
+
+</resources>
