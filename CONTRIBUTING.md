@@ -4,9 +4,18 @@
 
 
 
+## Contents
+- [Contributing to the data](#contributing-to-the-data)
+  - [Add new apps](#add-new-apps)
+  - [Testing Standards](#testing-standards)
+  - [Example](#example)
+- [Contributing to the app](#contributing-to-the-app)
+
+
+
 ## Contributing to the data
 
-### General format
+### Add new apps
 Ensure you're adding new applications in alphabetical order to make merging as simple as possible.
 
 The general format to add new applications is as follows:
@@ -28,14 +37,14 @@ The general format to add new applications is as follows:
 - Kindly disable Netguard and other blockers
 - No Google Play Services. Plexus evaluates MicroG, or nothing. Plexus assumes all variants of Google Play Services (ex. Sandboxed Play Services, OpenGApps, etc.) will function without issues for compatibility.
 - Pay extra attention to notifications as some will not properly work. If you're testing on MicroG, it is assumed you have enabled GCM/FCM. If you have not enabled GCM/FCM, you are still free to report applications, but please exclude any information regarding missing notifications. (Notifications working is okay and encouraged even with GCM/FCM disabled.)
-- If you're testing **with MicroG** only, input data in the MG_Rating & MG_Notes and enter DG_Rating and DG_Notes as "X".
-- If you're testing with a fully de-googled ROM only **without MicroG**, input data in the DG_Rating & DG_Notes and enter MG_Rating and MG_Notes as "X".
+- If you're testing **with MicroG** only, input data in the MG_Rating and MG_Notes. Enter "X" in both DG_Rating and DG_Notes.
+- If you're testing with a fully de-googled ROM only **without MicroG**, input data in the DG_Rating and DG_Notes. Enter "X" in both MG_Rating and MG_Notes.
 - We check all data for accuracy as best we can, and ultimately hold the right to turn down a submission if we feel it wasn't tested properly. Generally, we will follow up with individuals for clarification when necessary.
 
 ### Example
 Assuming Twitter as the app for example here.
 
-- Tested on both Degoogled ROM and MicroG:
+- Tested with both Degoogled ROM and MicroG:
 ```json
 {
   "Application": "Twitter",
@@ -48,7 +57,7 @@ Assuming Twitter as the app for example here.
 }
 ```
 
-- Tested on Degoogled ROM only, without MicroG:
+- Tested with Degoogled ROM only, without MicroG:
 ```json
 {
   "Application": "Twitter",
@@ -61,7 +70,7 @@ Assuming Twitter as the app for example here.
 }
 ```
 
-- Tested on MicroG only:
+- Tested with MicroG only:
 ```json
 {
   "Application": "Twitter",
@@ -78,4 +87,5 @@ Assuming Twitter as the app for example here.
 
 ## Contributing to the app
 - Try to stick to the project's existing code style and naming conventions.
-- Make sure not to use any deprecated libraries, dependencies or methods. 
+- Do not use any deprecated libraries, dependencies or methods.
+- Make sure the characters are properly encoded when translating strings (example: ä as \u00E4, é as \u00E9 etc).
