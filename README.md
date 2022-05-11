@@ -73,6 +73,7 @@ Please read the [contributing guidelines](https://github.com/techlore/Plexus-app
 
 - The plexus data can be found [here](https://github.com/techlore/Plexus-app/blob/main/Plexus.json).
 - New pull requests can be submitted [here](https://github.com/techlore/Plexus-app/pulls).
+- The application is currently missing one **major** feature: submissions directly from the app, enabling users to automatically submit their applications. If you believe you are able to help us develop a workflow to easily track and maintain a database of user submissions, please reach out to us at contact@techlore.tech - thanks!
 
 
 
