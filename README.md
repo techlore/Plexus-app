@@ -51,7 +51,7 @@ When users move to a de-googled ROM like GrapheneOS, CalyxOS or LineageOS, they 
      alt="Get it on GitHub"
      height="80">](https://github.com/techlore/Plexus-app/releases/latest)
 
-
+*F-Droid awaiting approval*
 
 ## Changelog
 All notable changes to this project will be documented in the [changelog](https://github.com/techlore/Plexus-app/blob/main/CHANGELOG.md).
@@ -59,17 +59,17 @@ All notable changes to this project will be documented in the [changelog](https:
 
 
 ## Privacy Policy
-Privacy policy is mentioned [here](https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md).
+Privacy policy is located [here](https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md).
 
 
 
 ## Issues
-If you find bugs or have suggestions, please report it to the [issue tracker](https://github.com/techlore/Plexus-app/issues). We really encourage you to search for existing issues before opening a new one. Any duplicates will be closed immediately.
+If you find bugs or have suggestions, please report it to the [issue tracker](https://github.com/techlore/Plexus-app/issues). We encourage you to search for existing issues before opening a new one. Any duplicates will be closed immediately.
 
 
 
 ## Contributing
-It is advised to read [contributing guidelines](https://github.com/techlore/Plexus-app/blob/main/CONTRIBUTING.md) before contributing.
+Please read the [contributing guidelines](https://github.com/techlore/Plexus-app/blob/main/CONTRIBUTING.md) before contributing.
 
 - The plexus data can be found [here](https://github.com/techlore/Plexus-app/blob/main/Plexus.json).
 - New pull requests can be submitted [here](https://github.com/techlore/Plexus-app/pulls).
