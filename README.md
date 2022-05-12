@@ -3,6 +3,13 @@
 
 Android app for [Plexus](https://plexus.techlore.tech)
 
+## Important updates as of May 12, 2022
+Hey everyone, thanks for visiting the repo & thank you to all contributors. Plexus is going through a massive transition right now:
+* [The Plexus application has been released](https://github.com/techlore/Plexus-app)
+* [The Plexus data in that repo is now in JSON format](https://github.com/techlore/Plexus-app/blob/main/Plexus.json) meaning we now have two different datasets, at least temporarily. (The website has its own data as well)
+* The JSON format is already better than the terrible CSV format in the website repo, but the JSON format is actually temporary. We are working on an API to avoid the entire GitHub submission workflow.
+* Because so many changes are happening at once, we will not be accepting pull requests until our new workflow is completed. Once it's completed, we will be manually porting over your submissions to the new data and closing the PRs.
+* Once everything is completed, all submissions will only be done via the application. We don't have an estimate yet, but it'll be the best ever experience once this is completed, enabling anyone to easily submit apps in an automated fashion in bulk.
 
 ## Contents
 - [Explanation](#explanation)
