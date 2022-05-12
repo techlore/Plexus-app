@@ -6158,11 +6158,11 @@
   {
     "Application": "PayPal",
     "Package": "com.paypal.android.p2pmobile",
-    "Version": "0.0.0",
-    "DG_Rating": 4,
-    "MG_Rating": 3,
-    "DG_Notes": "No reported issues",
-    "MG_Notes": "No notifications"
+    "Version": "8.16.0",
+    "DG_Rating": "X",
+    "MG_Rating": 1,
+    "DG_Notes": "X",
+    "MG_Notes": "Crashes on launch. See https://github.com/microg/GmsCore/issues/1710 for more details."
   },
   {
     "Application": "Paysera Mobile Wallet",
