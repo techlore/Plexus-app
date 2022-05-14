@@ -28,21 +28,25 @@
         ü = \u00FC
         Ü = \u00DC
     -->
+  
+    <!--
+    Use the informal "du" for translations
+    -->
 
     <!--SPLASH ACTIVITY-->
     <string name="fetching_data">Daten abrufen</string>
-    <string name="scan_installed">Scannen installierte apps</string>
+    <string name="scan_installed">Installierte Apps scannen</string>
 
     <!--#########################################################################################-->
 
     <!--MAIN ACTIVITY-->
     <string name="plexus_data">Plexus Daten</string>
     <string name="installed_apps">Installierte Apps</string>
-    <string name="no_apps_found">Keine solchen apps gefunden</string>
+    <string name="no_apps_found">Keine solchen Apps gefunden</string>
 
     <!--TOOLBAR MENU-->
     <string name="menu_search">Suche</string>
-    <string name="menu_sort">Sort</string>
+    <string name="menu_sort">Sortieren</string>
     <string name="menu_more">Mehr</string>
     <string name="menu_help">Hilfe</string>
     <string name="menu_settings">Einstellungen</string>
@@ -50,37 +54,37 @@
     <!--#########################################################################################-->
 
     <!--APP DETAILS ACTIVITY-->
-    <string name="notes">anmerkungen</string>
-    <string name="installed">Installierte</string>
-    <string name="play_store">Play store</string>
+    <string name="notes">Anmerkungen</string>
+    <string name="installed">Installiert</string>
+    <string name="play_store">Play Store</string>
     <string name="share">Teilen</string>
 
     <!--#########################################################################################-->
 
     <!--HELP ACTIVITY-->
-    <string name="what_ratings_mean">Was bedeuten die bewertungen?</string>
+    <string name="what_ratings_mean">Was bedeuten die Bewertungen?</string>
     <string name="not_tested">Nicht getestet</string>
     <string name="unusable">Unbrauchbar</string>
     <string name="acceptable">Akzeptabel</string>
     <string name="good">Gut</string>
     <string name="perfect">Perfekt</string>
-    <string name="app_card_breakdown">Aufschl\u00FCsselung f\u00FCr anwendungskarten</string>
-    <string name="dg_rating">de-Googled bewertung</string>
-    <string name="mg_rating">microG bewertung</string>
-    <string name="application">Anwendung</string>
-    <string name="package_name">Paketnamen</string>
+    <string name="app_card_breakdown">Aufschl\u00FCsselung f\u00FCr Anwendungskarten</string>
+    <string name="dg_rating">de-Googled Bewertung</string>
+    <string name="mg_rating">microG Bewertung</string>
+    <string name="application">App</string>
+    <string name="package_name">Paketname</string>
     <string name="version">Version</string>
 
     <!--#########################################################################################-->
 
     <!--SETTINGS ACTIVITY-->
     <string name="theme_title">Thema</string>
-    <string name="report_issue_title">Ein problem melden</string>
-    <string name="report_issue_subtitle">Einen fehler gefunden? Lass uns wissen</string>
+    <string name="report_issue_title">Ein Problem melden</string>
+    <string name="report_issue_subtitle">Einen Fehler gefunden? Lass' es uns wissen</string>
     <string name="contribute_title">Beitragen</string>
-    <string name="contribute_subtitle">Verbessern sie die app oder die vorhandenen daten</string>
+    <string name="contribute_subtitle">Verbessert die App oder die vorhandenen Daten</string>
     <string name="about_title">\u00DCber</string>
-    <string name="about_subtitle">Version, richtlinien und lizenzen</string>
+    <string name="about_subtitle">Version, Richtlinien und Lizenzen</string>
 
     <!--ABOUT FRAGMENT-->
     <string name="privacy_policy">Datenschutzbestimmungen</string>
@@ -92,8 +96,8 @@
 
     <!--DIALOGS-->
     <string name="dialog_title">Kein Netzwerk/Internet</string>
-    <string name="dialog_subtitle">Stellen sie eine verbindung zu Wi-Fi- oder mobilfunkdaten her und versuchen sie es erneut.
-        Wenn sie bereits verbunden sind, stellen sie sicher, dass eine internetverbindung besteht.</string>
+    <string name="dialog_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
+        Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
     <string name="exit">Ausgang</string>
     <string name="dialog_positive_button">Wiederholen</string>
 
@@ -105,8 +109,8 @@
     <!--SORT-->
     <string name="alphabetical">Alphabetisch</string>
     <string name="rating">Bewertung</string>
-    <string name="any">Irgendein</string>
-    <string name="done">Erledigt</string>
+    <string name="any">Alle</string>
+    <string name="done">Anwenden</string>
 
     <!--THEME-->
     <string name="system_default">Systemvorgabe</string>
@@ -114,12 +118,12 @@
     <string name="dark">Dunkel</string>
 
     <!--CONTRIBUTE-->
-    <string name="read_guidelines">Lesen sie bei den richtlinien</string>
-    <string name="pull_req">Senden sie eine pull anfrage</string>
+    <string name="read_guidelines">Lest die Richtlinien</string>
+    <string name="pull_req">Sende uns einen Pull Request</string>
 
     <!--#########################################################################################-->
 
     <!--TOASTS-->
-    <string name="no_browsers">Es ist kein browser auf diesem ger\u00E4t installiert</string>
+    <string name="no_browsers">Es ist kein Browser auf diesem Ger\u00E4t installiert</string>
 
 </resources>
