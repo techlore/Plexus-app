@@ -80,7 +80,7 @@
     <!--SETTINGS ACTIVITY-->
     <string name="theme_title">Thema</string>
     <string name="report_issue_title">Ein Problem melden</string>
-    <string name="report_issue_subtitle">Einen Fehler gefunden? Lass' es uns wissen</string>
+    <string name="report_issue_subtitle">Einen Fehler gefunden? Lass\' es uns wissen</string>
     <string name="contribute_title">Beitragen</string>
     <string name="contribute_subtitle">Verbessert die App oder die vorhandenen Daten</string>
     <string name="about_title">\u00DCber</string>
