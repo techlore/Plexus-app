@@ -5,7 +5,7 @@
 
 Android app for [Plexus](https://plexus.techlore.tech)
 
-<img src="https://img.shields.io/badge/f--Droid-v1.0.0-green?style=for-the-badge" alt="F-Droid"> <img src="https://img.shields.io/badge/GitHub-v1.0.0-212121?style=for-the-badge" alt="GitHub"> <img src="https://img.shields.io/badge/IzzyOnDroid-v1.0.0-blue?style=for-the-badge" alt="IzzyOnDroid">
+<img src="https://img.shields.io/f-droid/v/tech.techlore.plexus?color=green&style=for-the-badge" alt="F-Droid Version"> <img src="https://img.shields.io/github/v/release/techlore/Plexus-app?color=212121&label=GitHub&style=for-the-badge" alt="GitHub Version"> <img src="https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/tech.techlore.plexus?&style=for-the-badge" alt="IzzyOnDroid Version">
 
 
 
