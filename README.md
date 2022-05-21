@@ -1,7 +1,13 @@
+<img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" width="90"/>
+
 # Plexus-app
 ***Remove the fear of Android app compatibility on de-Googled devices.***
 
 Android app for [Plexus](https://plexus.techlore.tech)
+
+<img src="https://img.shields.io/badge/f--Droid-v1.0.0-green?style=for-the-badge" alt="F-Droid"> <img src="https://img.shields.io/badge/GitHub-v1.0.0-212121?style=for-the-badge" alt="GitHub"> <img src="https://img.shields.io/badge/IzzyOnDroid-v1.0.0-blue?style=for-the-badge" alt="IzzyOnDroid">
+
+
 
 ## Important updates as of May 12, 2022
 Hey everyone, thanks for visiting the repo & thank you to all contributors. Plexus is going through a massive transition right now:
@@ -57,8 +63,11 @@ When users move to a de-googled ROM like GrapheneOS, CalyxOS or LineageOS, they 
 [<img src="https://camo.githubusercontent.com/70bffd8873ab81e1bb0bccc44e488c3a989e3bd5/68747470733a2f2f692e6962622e636f2f71306d6463345a2f6765742d69742d6f6e2d6769746875622e706e67"
      alt="Get it on GitHub"
      height="80">](https://github.com/techlore/Plexus-app/releases/latest)
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" 
+      alt='Get it on IzzyOnDroid' 
+      height="80">](https://apt.izzysoft.de/fdroid/index/apk/tech.techlore.plexus)
 
-*F-Droid awaiting approval*
+
 
 ## Changelog
 All notable changes to this project will be documented in the [changelog](https://github.com/techlore/Plexus-app/blob/main/CHANGELOG.md).
@@ -94,7 +103,7 @@ Please read the [contributing guidelines](https://github.com/techlore/Plexus-app
 ## Credits
 - [the-weird-aquarian](https://github.com/the-weird-aquarian) For building this application and taking Plexus a major step forward towards full automation!
 - [henryistaken](https://github.com/henryistaken) for going forward with the project, keeping up with and replying to my spams.
-- [pareveshnarwal](https://github.com/parveshnarwal) for helping with the initial implementation of json into this app.
+- [parveshnarwal](https://github.com/parveshnarwal) for helping with the initial implementation of json into this app.
 - [Tom Konidas](https://github.com/tomkonidas) For building the original Plexus website and speeding up the development of this project.
 - Some additional icons (other than the official ones by Google) are provided by [MaterialDesignIcons](https://github.com/Templarian/MaterialDesign) | [Pictogrammers Free License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
 
