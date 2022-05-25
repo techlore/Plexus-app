@@ -1,4 +1,6 @@
-Remove the fear of Android app compatibility on de-Googled devices.
+<b>Remove the fear of app compatibility on de-Googled Android devices.</b>
 
-Google Play Services are an integral part of most Android devices that enable users to utilize their Google account on their phone, as well as enable Google-specific features for applications that rely on them.
-When users move to a de-googled ROM like GrapheneOS, CalyxOS or LineageOS, they are faced with opening their standard applications hoping they work. Plexus aims to beat the guessing game and allow users to know exactly what will happen once they flash a new ROM. Plexus supports ROMs with no Google Play Services e.g: GrapheneOS, as well as ROMs with microG, an open source alternative of Google Play Services, e.g: CalyxOS.
+When users move to a de-googled ROM like GrapheneOS, CalyxOS or LineageOS, they are faced with opening their applications hoping they function properly. Plexus aims to beat the guessing game, allowing users to know exactly what apps work when they flash a new ROM. Plexus supports ROMs with no Google Play Services <i>e.g: GrapheneOS</i. as well as ROMs with microG, an open source alternative of Google Play Services. <i>e.g: CalyxOS</i>
+
+<b>Important Notice</b>
+This is the first version of the Plexus app. The final goal is to enable user submissions. Please be patient as we finish rolling out this important functionality.
