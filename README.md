@@ -1,4 +1,4 @@
-<img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" width="90"/>
+<img src="fastlane/metadata/android/en-US/images/icon.png" width="85"/>
 
 # Plexus-app
 ***Remove the fear of Android app compatibility on de-Googled devices.***
