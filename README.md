@@ -5,7 +5,7 @@
 
 Android app for [Plexus](https://plexus.techlore.tech)
 
-<img src="https://img.shields.io/f-droid/v/tech.techlore.plexus?color=green&style=for-the-badge" alt="F-Droid Version"> <img src="https://img.shields.io/github/v/release/techlore/Plexus-app?color=212121&label=GitHub&style=for-the-badge" alt="GitHub Version"> <img src="https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/tech.techlore.plexus?&style=for-the-badge" alt="IzzyOnDroid Version">
+<img src="https://img.shields.io/f-droid/v/tech.techlore.plexus?color=green&style=for-the-badge" alt="F-Droid Version"> <img src="https://img.shields.io/github/v/release/techlore/Plexus-app?color=212121&label=GitHub&style=for-the-badge" alt="GitHub Version">
 
 
 
@@ -16,6 +16,8 @@ Hey everyone, thanks for visiting the repo & thank you to all contributors. Plex
 * The JSON format is already better than the terrible CSV format in the website repo, but the JSON format is actually temporary. We are working on an API to avoid the entire GitHub submission workflow.
 * Because so many changes are happening at once, we will not be accepting pull requests until our new workflow is completed. Once it's completed, we will be manually porting over your submissions to the new data and closing the PRs.
 * Once everything is completed, all submissions will only be done via the application. We don't have an estimate yet, but it'll be the best ever experience once this is completed, enabling anyone to easily submit apps in an automated fashion in bulk.
+
+
 
 ## Contents
 - [Explanation](#explanation)
@@ -63,9 +65,6 @@ When users move to a de-googled ROM like GrapheneOS, CalyxOS or LineageOS, they 
 [<img src="https://camo.githubusercontent.com/70bffd8873ab81e1bb0bccc44e488c3a989e3bd5/68747470733a2f2f692e6962622e636f2f71306d6463345a2f6765742d69742d6f6e2d6769746875622e706e67"
      alt="Get it on GitHub"
      height="80">](https://github.com/techlore/Plexus-app/releases/latest)
-[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" 
-      alt='Get it on IzzyOnDroid' 
-      height="80">](https://apt.izzysoft.de/fdroid/index/apk/tech.techlore.plexus)
 
 
 
