@@ -4599,13 +4599,13 @@
     "MG_Notes": "No reported issues"
   },
   {
-    "Application": "Ma Banque (Crédit agricoles)",
+    "Application": "Ma Banque (Crédit Agricole)",
     "Package": "fr.creditagricole.androidapp",
-    "Version": "0.0.0",
-    "DG_Rating": 0,
-    "MG_Rating": "X",
-    "DG_Notes": "Don't start",
-    "MG_Notes": "X"
+    "Version": "30.1.0",
+    "DG_Rating": 4,
+    "MG_Rating": 4,
+    "DG_Notes": "Needs locked bootloader",
+    "MG_Notes": "Needs locked bootloader"
   },
   {
     "Application": "Magic Earth",
