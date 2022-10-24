@@ -30,34 +30,34 @@
 
     <!--Splash activity-->
     <string name="retrieving_data">Recuperando i dati</string>
-    <string name="scan_installed">Scansione di app installate</string>
+    <string name="scan_installed">Scansionando le appplicazione installate</string>
 
     <!--#########################################################################################-->
 
     <!--Main activity-->
-    <string name="no_apps_found">Nessuna app trovata</string>
+    <string name="no_apps_found">Nessuna appplicazione trovata</string>
 
     <!--My ratings fragment-->
     <string name="no_ratings_available">Nessuna valutazione disponibile</string>
-    <string name="submit_first_rating">Toccare \u002B per inviare la prima valutazione</string>
+    <string name="submit_first_rating">Tocca \u002B per inviare la prima valutazione</string>
 
     <!--Toolbar menu-->
-    <string name="menu_search">Ricerca</string>
-    <string name="menu_sort">Ordinare</string>
+    <string name="menu_search">Cerca</string>
+    <string name="menu_sort">Ordina</string>
 
     <!--Nav view-->
-    <string name="plexus_data">Plexus dati</string>
-    <string name="installed_apps">Apps installate</string>
+    <string name="plexus_data">Dati di Plexus</string>
+    <string name="installed_apps">Appplicazioni installate</string>
     <string name="favorites">Preferiti</string>
     <string name="my_account">Il mio account</string>
     <string name="my_ratings">Le mie valutazioni</string>
-    <string name="delete_account">Eliminare l\'account</string>
+    <string name="delete_account">Elimina l\'account</string>
     <string name="settings">Impostazioni</string>
 
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="rate">Rate</string>
+    <string name="rate">Valutazione</string>
     <string name="app">Applicazione</string>
     <string name="package_name">Nome del pacchetto</string>
     <string name="total_score">Punteggio totale</string>
@@ -66,7 +66,7 @@
 
     <!--Toolbar menu-->
     <string name="menu_help">Aiuto</string>
-    <string name="menu_more">Altre opzioni</string>
+    <string name="menu_more">Altro</string>
     <string name="new_submission">Nuovo invio</string>
 
     <!--Progress bar fragment-->
@@ -84,15 +84,16 @@
     <string name="verify_to_get_started">Verifica il tuo indirizzo email per iniziare</string>
     <string name="verify">Verifica</string>
     <string name="terms_conditions_title">Termini e condizioni</string>
-    <string name="terms_conditions_desc">L\'email \u00E8 necessaria per inviare le apps a Plexus.
+    <string name="terms_conditions_desc">L\'email \u00E8 necessaria per contribure a Plexus.
         \nL\'email sar\u00E0 utilizzata solo a scopo di verifica e sar\u00E0 rimossa dai nostri sistemi dopo la verifica.
         \n
         \nQuesto viene fatto per:
-        \n\u2022 prevenire potenziali abusi delle nostre API.
-        \n\u2022 garantire l\'accuratezza dei dati inviati.
-        \nL\'utente pu\u00F2 cancellare il proprio account da questo dispositivo in qualsiasi momento.</string>
-    <string name="by_proceeding_agree_desc">Procedendo, l\'utente accetta l\'uso corretto di Plexus.
-        Se i termini e le condizioni di cui sopra vengono violati, il vostro account verr\u00E0 cancellato insieme a tutte le valutazioni che avete inviato.</string>
+        \n\u2022 prevenire potenziali abusi della nostra API.
+        \n\u2022 assicurare l\'accuratezza dei dati inviati.
+        \n
+        \nPotrai cancellare il tuo account da questo dispositivo in qualsiasi momento.</string>
+    <string name="by_proceeding_agree_desc">Procedendo, accetti di usare Plexus in modo corretto.
+        Se i termini e le condizioni vengono violati, il tuo account verr\u00E0 cancellato insieme a tutte le valutazioni inviate.</string>
     <string name="verification">Verifica</string>
 
     <!--Code verification fragment-->
@@ -118,46 +119,46 @@
     <string name="conf_before_submit">Confermare prima di inviare</string>
     <string name="about">Info</string>
     <string name="version">Versione</string>
-    <string name="privacy_policy">Politica sulla Riservatezza</string>
+    <string name="privacy_policy">Informativa sulla privacy</string>
     <string name="report_issue">Segnala un problema</string>
-    <string name="support_us">Sosteneteci</string>
-    <string name="view_on_github">Vedi su GitHub</string>
+    <string name="support_us">Sostieni il progetto</string>
+    <string name="view_on_github">Apri su GitHub</string>
     <string name="visit_techlore">Visita Techlore</string>
-    <string name="third_party_licenses">Licenze di terze parti</string>
+    <string name="third_party_licenses">Licenze dei componenti terze parti</string>
 
     <!--Help fragment-->
     <string name="icons">Icone</string>
     <string name="not_tested_subtitle">Non disponibile, l\'applicazione non \u00E8 stata testata</string>
     <string name="broken_title">Rotto</string>
-    <string name="broken_subtitle">Inutilizzabili, per lo pi\u00F9 app che non riescono ad aprirsi</string>
+    <string name="broken_subtitle">Inutilizzabile, per lo pi\u00F9 applicazioni che non riescono ad aprirsi</string>
     <string name="bronze_title">Bronzo</string>
-    <string name="bronze_subtitle">Accettabile ma con funzionalit\u00E0 mancanti o interrotte</string>
+    <string name="bronze_subtitle">Accettabile ma con funzionalit\u00E0 mancanti o rotte</string>
     <string name="silver_title">Argento</string>
-    <string name="silver_subtitle">Funziona quasi tutto, con minimi accorgimenti</string>
+    <string name="silver_subtitle">Funziona quasi tutto, con minime limitazioni</string>
     <string name="gold_title">Oro</string>
-    <string name="gold_subtitle">Esperienza perfetta o simile alla perfezione</string>
+    <string name="gold_subtitle">Esperienza perfetta o quasi</string>
     <string name="other">Altro</string>
-    <string name="android_version_desc">Versioni Android</string>
-    <string name="installation_source_desc">Fonte di installazione delle apps</string>
-    <string name="apps_submit_proc">Procedura di presentazione delle apps</string>
+    <string name="android_version_desc">Versioni di Android</string>
+    <string name="installation_source_desc">Fonte di installazione delle applicazioni</string>
+    <string name="apps_submit_proc">Procedura di invio delle applicazioni</string>
 
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
     <string name="done">Fatto</string>
     <string name="cancel">Annulla</string>
-    <string name="dismiss">Congedo</string>
-    <string name="exit">Uscita</string>
-    <string name="retry">Riprovare</string>
-    <string name="skip">Salto</string>
+    <string name="dismiss">Chiudi</string>
+    <string name="exit">Chiudi</string>
+    <string name="retry">Riprova</string>
+    <string name="skip">Salta</string>
 
     <!--No Network/Internet-->
-    <string name="no_network_title">Nessuna Rete/Internet</string>
-    <string name="no_network_subtitle">Connettiti a dati Wi-Fi o mobili e riprova.
-        Se gi\u00E0 connesso, assicurarsi che abbia una connessione internet.</string>
+    <string name="no_network_title">Nessuna connesione nternet</string>
+    <string name="no_network_subtitle">Connettiti a una rete Wi-Fi o ai dati mobili e riprova.
+        Se gi\u00E0 connesso, assicurarsi di avere una connessione ad Internet.</string>
 
     <!--First launch-->
-    <string name="welcome_text_desc">Se si utilizza l\'app per la prima volta, si consiglia di familiarizzare con le icone e gli indicatori di stato.</string>
+    <string name="welcome_text_desc">Come utente novizio, si consiglia di prendere familiarizzazione con le icone e gli indicatori di stato.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alfabetico</string>
@@ -171,28 +172,28 @@
 
     <!--Delete account-->
     <string name="delete_account_desc">Se cancelli il tuo account:
-        \n\u2022 non sar\u00E0 pi\u00F9 possibile inviare valutazioni.
+        \n\u2022 non sarai pi\u00F9 in grado di inviare valutazioni.
         \n\u2022 tutte le valutazioni precedentemente inviate saranno rimosse in modo permanente da questo dispositivo.
         \n
         \n\u00C8 sicuro di voler procedere?</string>
 
     <!--Theme-->
-    <string name="follow_system">Segui il sistema</string>
+    <string name="follow_system">Segui l'impostazione di sistema</string>
     <string name="light">Chiaro</string>
     <string name="dark">Scuro</string>
 
     <!--More options-->
-    <string name="menu_share">Condividere</string>
+    <string name="menu_share">Condividi</string>
 
     <!--First submission-->
     <string name="first_submission_desc">Tutti i futuri invii terranno conto di questa selezione, che non potr\u00E0 essere modificata in seguito.</string>
-    <string name="select_correct_rom">Selezionare la ROM corretta installata sul dispositivo.</string>
-    <string name="select">Selezionare</string>
-    <string name="proceed">Procedere</string>
+    <string name="select_correct_rom">Seleziona la ROM corretta installata sul dispositivo.</string>
+    <string name="select">Seleziona</string>
+    <string name="proceed">Procedi</string>
 
     <!--Submit-->
-    <string name="about_to_submit">State per inviare una valutazione. \u00C8 sicuro di voler procedere?</string>
-    <string name="wait_submitting_data">Si prega di attendere, l\'invio dei dati …</string>
+    <string name="about_to_submit">Stai per inviare una valutazione. Procedere con l'invio?</string>
+    <string name="wait_submitting_data">Si prega di attendere, invio dei dati in corso…</string>
     <string name="submit_success">Inviato con successo</string>
     <string name="submit_error">Errore durante l\'invio dei dati</string>
     <string name="thanks_for_submitting">Grazie per aver inviato i dati e per aver aiutato la comunit\u00E0.</string>
@@ -200,8 +201,8 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="install_app_to_submit">Installare %1$s per inviare la valutazione</string>
-    <string name="device_should_be_degoogled_or_microg">Il dispositivo deve essere de-Googled o avere il microG per inviare la valutazione</string>
+    <string name="install_app_to_submit">Installare %1$s per inviare una valutazione</string>
+    <string name="device_should_be_degoogled_or_microg">Il dispositivo deve essere de-Googled o avere microG installato per inviare la valutazione</string>
     <string name="rating_already_submitted">Valutazione gi\u00E0 inviata per %1$s %2$s</string>
     <string name="no_browsers">Nessun browser installato sul dispositivo</string>
     <string name="deleted_account_successfully">Account cancellato con successo</string>
