@@ -2835,6 +2835,15 @@
     "MG_Notes": "X"
   },
   {
+    "Application": "Flashscore",
+    "Package": "eu.livesport.FlashScore_com",
+    "Version": "5.3.1",
+    "DG_Rating": "X",
+    "MG_Rating": "3",
+    "DG_Notes": "X",
+    "MG_Notes": "Cannot login into Google account"
+  },
+  {
     "Application": "Flexom 2.0",
     "Package": "com.ubiant.flexom",
     "Version": "0.0.0",
@@ -3244,9 +3253,9 @@
     "Package": "com.google.android.apps.classroom",
     "Version": "0.0.0",
     "DG_Rating": "X",
-    "MG_Rating": 2,
+    "MG_Rating": 1,
     "DG_Notes": "X",
-    "MG_Notes": "Cannot login into Google account"
+    "MG_Notes": "Cannot login into Google account (App is impossible to use without login)"
   },
   {
     "Application": "Google Contacts",
@@ -3504,6 +3513,15 @@
     "Application": "Grab",
     "Package": "package_name",
     "Version": "0.0.0",
+    "DG_Rating": "X",
+    "MG_Rating": 4,
+    "DG_Notes": "X",
+    "MG_Notes": "No reported issues"
+  },
+  {
+    "Application": "Grab Superapp",
+    "Package": "com.grabtaxi.passenger",
+    "Version": "5.231",
     "DG_Rating": "X",
     "MG_Rating": 4,
     "DG_Notes": "X",
@@ -4158,6 +4176,15 @@
     "MG_Notes": "No reported issues"
   },
   {
+    "Application": "K PLUS",
+    "Package": "com.kasikorn.retail.mbanking.wap",
+    "Version": "5.16.4",
+    "DG_Rating": "X",
+    "MG_Rating": 4,
+    "DG_Notes": "X",
+    "MG_Notes": "No reported issues"
+  },
+  {
     "Application": "Kalorické Tabulky",
     "Package": "cz.psc.android.kaloricketabulky",
     "Version": "0.0.0",
@@ -4383,6 +4410,15 @@
     "MG_Notes": "No reported issues"
   },
   {
+    "Application": "Lazada",
+    "Package": "com.lazada.android",
+    "Version": "7.15.2",
+    "DG_Rating": "X",
+    "MG_Rating": 4,
+    "DG_Notes": "X",
+    "MG_Notes": "No reported issues"
+  },
+  {
     "Application": "LBRY",
     "Package": "io.lbry.browser",
     "Version": "0.0.0",
@@ -4489,6 +4525,15 @@
     "MG_Rating": 4,
     "DG_Notes": "X",
     "MG_Notes": "No reported issues"
+  },
+  {
+    "Application": "LINE",
+    "Package": "jp.naver.line.android",
+    "Version": "12.21.0",
+    "DG_Rating": "X",
+    "MG_Rating": 3,
+    "DG_Notes": "X",
+    "MG_Notes": "Unable to share location"
   },
   {
     "Application": "LinkedIn",
@@ -7122,6 +7167,15 @@
     "Application": "SHEIN",
     "Package": "package_name",
     "Version": "0.0.0",
+    "DG_Rating": "X",
+    "MG_Rating": 4,
+    "DG_Notes": "X",
+    "MG_Notes": "No reported issues"
+  },
+  {
+    "Application": "Shopee TH",
+    "Package": "com.shopee.th",
+    "Version": "2.95.47",
     "DG_Rating": "X",
     "MG_Rating": 4,
     "DG_Notes": "X",
