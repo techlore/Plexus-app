@@ -963,6 +963,15 @@
     "MG_Notes": "X"
   },
   {
+    "Application": "bilibili",
+    "Package": "com.bstar.intl",
+    "Version": "2.18.0",
+    "DG_Rating": "X",
+    "MG_Rating": 3,
+    "DG_Notes": "X",
+    "MG_Notes": "The Google login button doesn't show up."
+  },
+  {
     "Application": "Binance US",
     "Package": "com.binance.dev",
     "Version": "0.0.0",
