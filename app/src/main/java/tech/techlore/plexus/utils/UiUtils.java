@@ -25,40 +25,61 @@ import static tech.techlore.plexus.utils.IntentUtils.Share;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
-import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.Objects;
-
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.adapters.ViewPagerAdapter;
+import tech.techlore.plexus.databinding.BottomSheetFooterBinding;
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
 import tech.techlore.plexus.databinding.BottomSheetLongClickBinding;
-import tech.techlore.plexus.databinding.DialogFooterBinding;
 
 public class UiUtils {
 
-    // INFLATE VIEW STUB
-    public static void InflateViewStub(ViewStub viewStub) {
-            viewStub.inflate();
-    }
-
-    // HORIZONTALLY SCROLL TEXT
-    // IF TEXT IS TOO LONG
+    // Horizontally scroll text,
+    // if text is too long
     public static void hScrollText(TextView textView) {
         textView.setSingleLine();
         textView.setSelected(true);
     }
 
-    // SET BACKGROUND COLOR BASED ON RATING
-    public static void RatingColor(Context context, View view, String rating) {
+    // Set badge color according to status
+    public static void BadgeColor(Context context, ImageView imageView, String status) {
 
-        switch (rating) {
+        switch (status) {
+
+            case "X":
+                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.ratingXColor));
+                break;
+
+            case "1":
+                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.rating1Color));
+                break;
+
+            case "2":
+                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.rating2Color));
+                break;
+
+            case "3":
+                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.rating3Color));
+                break;
+
+            case "4":
+                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.rating4Color));
+                break;
+
+        }
+
+    }
+
+    // SET BACKGROUND COLOR BASED ON STATUS
+    /*public static void BgColor(Context context, View view, String status) {
+
+        switch (status) {
 
             case "X":
                 view.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.ratingXColor));
@@ -82,60 +103,48 @@ public class UiUtils {
 
         }
 
-    }
+    }*/
 
-    // RELOAD FRAGMENT
-    public static void ReloadViewPagerFragment(ViewPager2 viewPager2, ViewPagerAdapter viewPagerAdapter, int position) {
+    // Long click bottom sheet
+    public static void LongClickBottomSheet(Activity activity, String nameString, String packageNameString, /*String plexusVersionString,
+                                            String dgRatingString, String mgRatingString,
+                                            String dgNotesString, String mgNotesString,*/
+                                            CoordinatorLayout coordinatorLayout, View anchorView){
 
-        viewPager2.setAdapter(null);
-        viewPager2.setAdapter(viewPagerAdapter);
-        viewPager2.setCurrentItem(position);
-
-    }
-
-    // LONG CLICK BOTTOM SHEET
-    public static void LongClickBottomSheet(Activity activity, String nameString, String packageNameString, String plexusVersionString,
-                                      String dgRatingString, String mgRatingString,
-                                      String dgNotesString, String mgNotesString){
-
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity, R.style.CustomBottomSheetTheme);
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
         bottomSheetDialog.setCancelable(true);
 
         final BottomSheetLongClickBinding bottomSheetBinding = BottomSheetLongClickBinding.inflate(activity.getLayoutInflater());
         final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
-        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(bottomSheetBinding.getRoot());
+        final BottomSheetFooterBinding footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.getRoot());
         bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
 
         final String playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
 
-        // TITLE
         headerBinding.bottomSheetTitle.setText(nameString);
 
-        // PLAY STORE
+        // Play store
         bottomSheetBinding.playStore.setOnClickListener(v -> {
-            OpenURL(activity, playStoreString);
             bottomSheetDialog.dismiss();
+            OpenURL(activity, playStoreString, coordinatorLayout, anchorView);
         });
 
-        // SHARE
+        // Share
         bottomSheetBinding.share.setOnClickListener(v -> {
             Share(activity,
-                  nameString, packageNameString, plexusVersionString,
+                  nameString, packageNameString, /*plexusVersionString,
                   dgRatingString, mgRatingString,
-                  dgNotesString, mgNotesString,
+                  dgNotesString, mgNotesString,*/
                   playStoreString);
             bottomSheetDialog.dismiss();
         });
 
-        // POSITIVE BUTTON
         footerBinding.positiveButton.setVisibility(View.GONE);
 
-        // NEGATIVE BUTTON
+        // Cancel
         footerBinding.negativeButton.setOnClickListener(view12 ->
                 bottomSheetDialog.cancel());
 
-        // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
-        Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;
         bottomSheetDialog.show();
     }
 

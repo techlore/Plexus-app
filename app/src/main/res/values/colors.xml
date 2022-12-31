@@ -21,27 +21,32 @@
 
 <resources>
 
-    <!--LIGHT THEME COLORS-->
+    <!--Light theme colors-->
     <color name="colorPrimary">#1DA1F2</color>
-    <color name="colorAccent">#1DA1F2</color>
-    <color name="backgroundColor">#FAFAFA</color>
-    <color name="textTitleColor">#424242</color>
+    <color name="colorAccent">#E54A3A</color>
+    <color name="colorPrimary30">#301DA1F2</color>
+    <color name="colorAccent30">#30E54A3A</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="colorControlNormal">#747474</color>
+    <color name="textTitleColor">@color/grey_800</color>
     <color name="enabledColor">#606163</color>
     <color name="hintColor">#B2B2B2</color>
-    <color name="cardStrokeColor">#DBDCE0</color>
+    <color name="cardStrokeColor">#E0E0E0</color>
     <color name="rippleColor">#EBEBEB</color>
     <color name="scrollbarColor">#B8B8B8</color>
     <color name="dividerColor">#DBDCE0</color>
-    <color name="bottomSheetColor">#FAFAFA</color>
+    <color name="bottomSheetColor">@color/backgroundColor</color>
     <color name="dragHandleColor">#C0C1C3</color>
 
-    <!--COMMON COLORS-->
+    <!--Common colors-->
     <color name="grey_800">#424242</color>
     <color name="grey_900">#212121</color>
+    <color name="snackbarTextColor">#FAFAFA</color>
+    <color name="snackbarBackgroundColor">#3C3D40</color>
     <color name="ratingXColor">#718096</color>
-    <color name="rating1Color">#E53E3E</color>
-    <color name="rating2Color">#DD6B20</color>
-    <color name="rating3Color">#3182CE</color>
-    <color name="rating4Color">#38A169</color>
+    <color name="rating1Color">#FF0000</color>
+    <color name="rating2Color">#B4945A</color>
+    <color name="rating3Color">#A6A6A6</color>
+    <color name="rating4Color">#CFB53B</color>
 
 </resources>

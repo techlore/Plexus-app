@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/version_name_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_4"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/hintColor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/version_name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Version"
+                android:textAlignment="viewStart"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--#####################################################-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:text="Status"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:text="@string/de_Googled"
+            android:textColor="?attr/colorControlNormal"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/dg_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_8"
+            app:chipSpacingHorizontal="@dimen/margin_10"
+            app:chipSpacingVertical="@dimen/margin_4"
+            app:singleSelection="true"
+            app:selectionRequired="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/dg_not_tested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/not_tested_title"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/dg_unusable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/borked_title"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/dg_acceptable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/bronze_title"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/dg_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/silver_title"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/dg_perfect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/gold_title"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!--#####################################################-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:text="@string/microG"
+            android:textColor="?attr/colorControlNormal"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/mg_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_16"
+            app:chipSpacingHorizontal="@dimen/margin_10"
+            app:chipSpacingVertical="@dimen/margin_4"
+            app:singleSelection="true"
+            app:selectionRequired="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mg_not_tested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/not_tested_title"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mg_unusable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/borked_title"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mg_acceptable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/bronze_title"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mg_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/silver_title"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mg_perfect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/FilterChipTheme"
+                app:chipSurfaceColor="@color/backgroundColor"
+                android:text="@string/gold_title"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!--#####################################################-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:text="Notes"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dg_notes_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_4"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/hintColor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dg_notes_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="4"
+                android:hint="@string/de_Googled"
+                android:gravity="top"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mg_notes_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_12"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_4"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/hintColor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mg_notes_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="4"
+                android:hint="@string/microG"
+                android:gravity="top"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/text_16" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--#####################################################-->
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="Submit"
+            android:textSize="@dimen/text_17"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

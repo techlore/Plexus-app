@@ -19,11 +19,12 @@
 
 package tech.techlore.plexus.adapters;
 
-import static tech.techlore.plexus.utils.UiUtils.RatingColor;
+import static tech.techlore.plexus.utils.UiUtils.BadgeColor;
 import static tech.techlore.plexus.utils.UiUtils.hScrollText;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +69,8 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
 
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
-        private final TextView name, packageName, installedVersion, dgRating, mgRating;
-        private final ImageView versionMismatch;
+        private final TextView name, packageName, installedVersion;
+        private final ImageView dgBadge, mgBadge, versionMismatch;
 
         public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
             super(itemView);
@@ -77,12 +78,12 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
             name = itemView.findViewById(R.id.name);
             packageName = itemView.findViewById(R.id.package_name);
             installedVersion = itemView.findViewById(R.id.version);
-            dgRating = itemView.findViewById(R.id.dg_rating);
-            mgRating = itemView.findViewById(R.id.mg_rating);
+            dgBadge = itemView.findViewById(R.id.dg_badge);
+            mgBadge = itemView.findViewById(R.id.mg_badge);
             versionMismatch = itemView.findViewById(R.id.version_mismatch);
 
 
-            // HANDLE CLICK EVENTS OF ITEMS
+            // Handle click events of items
             itemView.setOnClickListener(v -> {
                 if (onItemClickListener != null) {
                     int position = getBindingAdapterPosition();
@@ -92,7 +93,7 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
                 }
             });
 
-            // HANDLE LONG CLICK EVENTS OF ITEMS
+            // Handle long click events of items
             itemView.setOnLongClickListener(v -> {
                 if (onItemLongCLickListener != null) {
                     int position=getBindingAdapterPosition();
@@ -133,21 +134,24 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
             holder.versionMismatch.setVisibility(View.GONE);
         }
 
-        // SET APP NAME, PACKAGE NAME, VERSION, SCORES
         holder.name.setText(installedApp.getName());
         holder.packageName.setText(installedApp.getPackageName());
         holder.installedVersion.setText(installedApp.getInstalledVersion());
-        holder.dgRating.setText(installedApp.getDgRating());
-        holder.mgRating.setText(installedApp.getMgRating());
+        /*try{
+            holder.dgBadge.setImageDrawable(context.getPackageManager().getApplicationIcon(installedApp.getPackageName()));
+        }
+        catch (PackageManager.NameNotFoundException e){
+            e.printStackTrace();
+        }*/
 
-        // SET HORIZONTALLY SCROLLING TEXT
+        // Horizontally scrolling text
         hScrollText(holder.name);
         hScrollText(holder.packageName);
         hScrollText(holder.installedVersion);
 
-        // SET RATING BACKGROUND COLOR
-        RatingColor(context, holder.dgRating, installedApp.getDgRating());
-        RatingColor(context, holder.mgRating, installedApp.getMgRating());
+        // Badge color
+        BadgeColor(context, holder.dgBadge, installedApp.getDgRating());
+        BadgeColor(context, holder.mgBadge, installedApp.getMgRating());
 
     }
 
@@ -166,7 +170,7 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
         return super.getItemId(position);
     }
 
-    // REQUIRED FOR SEARCH
+    // Req. for search
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -205,7 +209,7 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
         };
     }
 
-    // FAST SCROLL POPUP
+    // Fast scroll popup
     @NonNull
     @Override
     public String getPopupText(int position) {

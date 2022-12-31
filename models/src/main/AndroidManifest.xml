@@ -19,7 +19,6 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<manifest
-    package="tech.techlore.plexus.models">
+<manifest>
 
 </manifest>

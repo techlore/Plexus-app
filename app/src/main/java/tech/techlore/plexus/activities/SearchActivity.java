@@ -21,10 +21,13 @@ package tech.techlore.plexus.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.List;
 import java.util.Objects;
@@ -54,18 +57,22 @@ public class SearchActivity extends AppCompatActivity {
 
         /*###########################################################################################*/
 
-        // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(activityBinding.toolbarMain);
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activityBinding.toolbarMain.setNavigationOnClickListener(view -> onBackPressed());
+        // BOTTOM TOOLBAR AS ACTIONBAR
+        setSupportActionBar(activityBinding.toolbarBottom);
+        activityBinding.toolbarBottom.setNavigationIcon(R.drawable.ic_back);
+        activityBinding.toolbarBottom.setNavigationOnClickListener(view -> onBackPressed());
+
+        activityBinding.appbarTop.setVisibility(View.GONE);
+
+        // NAV VIEW BOTTOM SHEET
+        BottomSheetBehavior.from(activityBinding.bottomNavContainer).setDraggable(false);
 
         // DEFAULT FRAGMENT
         if (savedInstanceState == null) {
 
-            // IF FROM PLEXUS DATA TAB
+            // IF FROM PLEXUS DATA
             // DISPLAY SEARCH PLEXUS DATA FRAGMENT
-            if (Objects.equals(intent.getExtras().getInt("from"), 0)){
+            if (Objects.equals(intent.getExtras().getInt("from"), R.id.nav_plexus_data)){
 
                 // GET PLEXUS DATA LIST FROM MAIN ACTIVITY
                 //noinspection unchecked
@@ -116,7 +123,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, R.anim.fade_out_slide_to_top);
+        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
 
     }
 }

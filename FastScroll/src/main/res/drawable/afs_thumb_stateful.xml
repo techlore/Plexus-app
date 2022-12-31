@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<!--
+  ~ It was later discovered that this XML drawable doesn't work on Lollipop (API 21) due to the bug
+  ~ that GradientDrawable didn't actually implement tinting until Lollipop MR1 (API 22). So if you
+  ~ need to support API 21, you'll need to work around it yourself.
+  -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape
+            android:shape="rectangle"
+            android:tint="?colorControlActivated">
+            <size android:width="8dp" android:height="48dp" />
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+
+    <item>
+        <shape
+            android:shape="rectangle"
+            android:tint="?colorControlNormal">
+            <size android:width="8dp" android:height="48dp" />
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+</selector>

@@ -19,13 +19,14 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_settings_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-    tools:context=".fragments.help.HelpFragment">
+    tools:context=".fragments.main.HelpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,164 +40,235 @@
             android:layout_marginStart="@dimen/margin_4"
             android:layout_marginEnd="@dimen/margin_4"
             android:layout_marginBottom="@dimen/margin_20"
-            android:text="@string/what_ratings_mean"
+            android:text="@string/what_status_mean"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_20"
             style="@style/MediumBoldText"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_card_with_ripple"
-            android:padding="@dimen/margin_12"
-            android:layout_marginBottom="@dimen/margin_8">
+            android:layout_marginBottom="1dp"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/not_tested_badge"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:contentDescription="@string/not_tested_title"
+                android:src="@drawable/ic_badge"
+                app:tint="@color/ratingXColor" />
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:text="@string/x"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_18"
-                android:gravity="center"
-                android:background="@drawable/shape_rounded_corners"
-                android:backgroundTint="@color/ratingXColor"
-                style="@style/MediumBoldText"/>
-
-            <TextView
+                android:id="@+id/not_tested_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/not_tested"
-                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/not_tested_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/not_tested_title"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18"/>
+                android:textSize="@dimen/text_17" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/not_tested_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/not_tested_title"
+                android:layout_toEndOf="@+id/not_tested_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/not_tested_subtitle"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/text_16" />
 
-        <LinearLayout
+        </RelativeLayout>
+
+        <!--#####################################################-->
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_card_with_ripple"
-            android:padding="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_8">
+            android:layout_marginBottom="1dp"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/borked_badge"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:contentDescription="@string/borked_title"
+                android:src="@drawable/ic_badge"
+                app:tint="@color/rating1Color" />
 
             <TextView
-                style="@style/MediumBoldText"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:background="@drawable/shape_rounded_corners"
-                android:backgroundTint="@color/rating1Color"
-                android:gravity="center"
-                android:text="@string/one"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_20" />
-
-            <TextView
+                android:id="@+id/borked_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/unusable"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/borked_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/borked_title"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/borked_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/borked_title"
+                android:layout_toEndOf="@+id/borked_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/borked_subtitle"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/text_16" />
 
-        <LinearLayout
+        </RelativeLayout>
+
+        <!--#####################################################-->
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_card_with_ripple"
-            android:padding="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_8">
+            android:layout_marginBottom="1dp"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/bronze_badge"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:contentDescription="@string/bronze_title"
+                android:src="@drawable/ic_badge"
+                app:tint="@color/rating2Color" />
 
             <TextView
-                style="@style/MediumBoldText"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:background="@drawable/shape_rounded_corners"
-                android:backgroundTint="@color/rating2Color"
-                android:gravity="center"
-                android:text="@string/two"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_20" />
-
-            <TextView
+                android:id="@+id/bronze_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/acceptable"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/bronze_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/bronze_title"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/bronze_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bronze_title"
+                android:layout_toEndOf="@+id/bronze_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/bronze_subtitle"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/text_16" />
 
-        <LinearLayout
+        </RelativeLayout>
+
+        <!--#####################################################-->
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_card_with_ripple"
-            android:padding="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_8">
+            android:layout_marginBottom="1dp"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/silver_badge"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:contentDescription="@string/silver_title"
+                android:src="@drawable/ic_badge"
+                app:tint="@color/rating3Color" />
 
             <TextView
-                style="@style/MediumBoldText"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:background="@drawable/shape_rounded_corners"
-                android:backgroundTint="@color/rating3Color"
-                android:gravity="center"
-                android:text="@string/three"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_20" />
-
-            <TextView
+                android:id="@+id/silver_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/good"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/silver_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/silver_title"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/silver_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/silver_title"
+                android:layout_toEndOf="@+id/silver_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/silver_subtitle"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/text_16" />
 
-        <LinearLayout
+        </RelativeLayout>
+
+        <!--#####################################################-->
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_card_with_ripple"
-            android:padding="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_20">
+            android:layout_marginBottom="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10">
+
+            <ImageView
+                android:id="@+id/gold_badge"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:contentDescription="@string/gold_title"
+                android:src="@drawable/ic_badge"
+                app:tint="@color/rating4Color" />
 
             <TextView
-                style="@style/MediumBoldText"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:background="@drawable/shape_rounded_corners"
-                android:backgroundTint="@color/rating4Color"
-                android:gravity="center"
-                android:text="@string/four"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_20" />
-
-            <TextView
+                android:id="@+id/gold_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/perfect"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_toEndOf="@+id/gold_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/gold_title"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/gold_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gold_title"
+                android:layout_toEndOf="@+id/gold_badge"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/gold_subtitle"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/text_16" />
+
+        </RelativeLayout>
+
+        <!--#####################################################-->
 
         <include layout="@layout/divider_horizontal"/>
 
@@ -218,19 +290,34 @@
             android:layout_margin="@dimen/margin_4"
             android:background="@drawable/shape_card_with_ripple">
 
-            <TextView
-                android:id="@+id/dg_rating_info"
-                style="@style/MediumBoldText"
-                android:layout_width="60dp"
-                android:layout_height="106dp"
+            <ImageView
+                android:id="@+id/dg_status_badge"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/shape_bg_start"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginEnd="@dimen/margin_6.5"
+                android:contentDescription="@string/not_tested_title"
+                android:src="@drawable/ic_badge"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/dg_status_info"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_6.5"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/dg_status_badge"
+                android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/one"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_22" />
+                android:textSize="@dimen/text_16"
+                style="@style/MediumBoldText"/>
 
             <TextView
                 android:id="@+id/three"
@@ -240,7 +327,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginEnd="@dimen/margin_6.5"
-                android:layout_toEndOf="@id/dg_rating_info"
+                android:layout_toEndOf="@id/dg_status_info"
                 android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
                 android:gravity="center"
@@ -256,7 +343,7 @@
                 android:layout_marginTop="@dimen/margin_6.5"
                 android:layout_marginEnd="@dimen/margin_10"
                 android:layout_marginBottom="1.5dp"
-                android:layout_toStartOf="@id/mg_rating_info"
+                android:layout_toStartOf="@id/mg_status_info"
                 android:layout_toEndOf="@id/three"
                 android:maxLines="1"
                 android:ellipsize="marquee"
@@ -273,7 +360,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginEnd="@dimen/margin_6.5"
-                android:layout_toEndOf="@id/dg_rating_info"
+                android:layout_toEndOf="@id/dg_status_info"
                 android:layout_below="@+id/three"
                 android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
@@ -290,7 +377,7 @@
                 android:layout_marginTop="@dimen/margin_10"
                 android:layout_marginEnd="@dimen/margin_10"
                 android:layout_marginBottom="1.5dp"
-                android:layout_toStartOf="@id/mg_rating_info"
+                android:layout_toStartOf="@id/mg_status_info"
                 android:layout_toEndOf="@id/four"
                 android:maxLines="1"
                 android:ellipsize="marquee"
@@ -308,7 +395,7 @@
                 android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginEnd="@dimen/margin_6.5"
                 android:layout_marginBottom="@dimen/margin_4"
-                android:layout_toEndOf="@id/dg_rating_info"
+                android:layout_toEndOf="@id/dg_status_info"
                 android:layout_below="@+id/four"
                 android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
@@ -325,7 +412,7 @@
                 android:layout_marginTop="@dimen/margin_12"
                 android:layout_marginEnd="@dimen/margin_10"
                 android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toStartOf="@id/mg_rating_info"
+                android:layout_toStartOf="@id/mg_status_info"
                 android:layout_toEndOf="@id/five"
                 android:maxLines="1"
                 android:ellipsize="marquee"
@@ -335,19 +422,34 @@
                 android:textSize="@dimen/text_14"
                 android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/mg_rating_info"
-                style="@style/MediumBoldText"
-                android:layout_width="60dp"
-                android:layout_height="106dp"
+            <ImageView
+                android:id="@+id/mg_status_badge"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/shape_bg_end"
+                android:layout_marginStart="@dimen/margin_6.5"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:contentDescription="@string/not_tested_title"
+                android:src="@drawable/ic_badge"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/mg_status_info"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_6.5"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/mg_status_badge"
+                android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/two"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_22" />
+                android:textSize="@dimen/text_16"
+                style="@style/MediumBoldText"/>
 
         </RelativeLayout>
 
@@ -358,13 +460,13 @@
             android:layout_marginBottom="@dimen/margin_4">
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/margin_35"
+                android:layout_height="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/one"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
@@ -373,9 +475,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dg_rating"
+                android:text="@string/dg_status"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
         </LinearLayout>
 
@@ -386,13 +488,13 @@
             android:layout_marginBottom="@dimen/margin_4">
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/margin_35"
+                android:layout_height="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/two"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
@@ -401,9 +503,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mg_rating"
+                android:text="@string/mg_status"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
         </LinearLayout>
 
@@ -414,13 +516,13 @@
             android:layout_marginBottom="@dimen/margin_4">
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/margin_35"
+                android:layout_height="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/three"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
@@ -431,7 +533,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/application"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
         </LinearLayout>
 
@@ -442,13 +544,13 @@
             android:layout_marginBottom="@dimen/margin_4">
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/margin_35"
+                android:layout_height="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/four"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
@@ -459,7 +561,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/package_name"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
         </LinearLayout>
 
@@ -470,13 +572,13 @@
             android:layout_marginBottom="@dimen/margin_4">
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/margin_35"
+                android:layout_height="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/five"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
                 android:backgroundTint="@color/colorPrimary"
@@ -487,14 +589,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/version"
                 android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+                android:textSize="@dimen/text_17" />
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_45"/>
-
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

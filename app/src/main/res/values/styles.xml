@@ -21,8 +21,8 @@
 
 <resources>
 
-    <!--BASE SPLASH THEME-->
-    <style name="BaseSplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!--Base splash style-->
+    <style name="BaseSplashStyle" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="backgroundColor">@color/grey_900</item>
         <item name="colorPrimaryDark">@color/grey_900</item>
@@ -30,82 +30,90 @@
 
     <!--#########################################################################################-->
 
-    <!--PARENT APP THEME-->
-    <style name="Base.Theme.Plexus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="fontFamily">@font/roboto</item>
-    </style>
-
-    <!--#########################################################################################-->
-
-    <!--BASE APP THEME-->
-    <style name="BaseAppTheme" parent="Base.Theme.Plexus">
+    <!--Base app style-->
+    <style name="BaseAppStyle" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/backgroundColor</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundColor">@color/backgroundColor</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
+        <item name="snackbarStyle">@style/SnackbarStyle</item>
+        <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--DIALOG WIDTH-->
-    <style name="DialogTheme" parent="Theme.MaterialComponents.Dialog">
-        <item name="android:windowMinWidthMinor">87%</item>
-        <item name="android:backgroundDimAmount">0.5</item>
-    </style>
-
-    <!--DIALOG ANIMATION-->
-    <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/fade_scale_in</item>
-        <item name="android:windowExitAnimation">@anim/fade_scale_out</item>
-    </style>
-
-    <!--#########################################################################################-->
-
-    <!--MEDIUM BOLD TEXT STYLE-->
-    <style name="MediumBoldText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <!--Medium bold text style-->
+    <style name="MediumBoldText" parent="TextAppearance.Material3.ActionBar.Title">
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--TAB TEXT STYLE-->
-    <style name="TabText" parent="MediumBoldText">
-        <item name="android:textSize">@dimen/text_17</item>
+    <!--Nav view style-->
+    <style name="NavViewStyle" parent="Widget.Material3.NavigationView">
+        <item name="itemShapeFillColor">@color/nav_item_bg_color</item>
+        <item name="itemTextAppearance">@style/NavViewText</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--FILTER CHIP STYLE-->
-    <style name="FilterChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
-        <item name="checkedIconVisible">false</item>
-        <item name="chipBackgroundColor">@android:color/transparent</item>
-        <item name="chipSurfaceColor">@color/bottomSheetColor</item>
-        <item name="chipStrokeColor">@color/chip_color</item>
-        <item name="chipStrokeWidth">1dp</item>
-        <item name="android:textColor">@color/chip_text_color</item>
+    <!--Nav view items texts style-->
+    <style name="NavViewText" parent="MediumBoldText">
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--BASE BOTTOM SHEET STYLE-->
-    <style name="BaseBottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="android:backgroundDimAmount">0.5</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+    <!--Base dialog style-->
+    <style name="BaseDialogStyle" parent="MaterialAlertDialog.Material3">
+        <item name="shapeAppearance">@style/DialogShapeStyle</item>
+        <item name="shapeAppearanceOverlay">@null</item>
     </style>
 
-    <!--BOTTOM SHEET ANIMATION-->
-    <style name="BottomSheetAnimation">
-        <item name="android:windowEnterAnimation">@anim/fade_in_slide_from_bottom</item>
-        <item name="android:windowExitAnimation">@anim/fade_out_slide_to_bottom</item>
+    <!--Dialog title text-->
+    <style name="DialogTitleTextStyle" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/textTitleColor</item>
+        <item name="android:textSize">@dimen/text_18</item>
     </style>
 
-    <!--MAKE ROOT VIEW OF BOTTOM SHEET TRANSPARENT FOR CUSTOM VIEW TO SHOW PROPERLY-->
-    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+    <!--Dialog body text-->
+    <style name="DialogBodyTextStyle" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/textTitleColor</item>
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <!--Dialog buttons-->
+    <style name="DialogButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <!--Dialog rounded corners-->
+    <style name="DialogShapeStyle" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">@dimen/margin_12</item>
+    </style>
+
+    <!--#########################################################################################-->
+
+    <!--Base bottom sheet style-->
+    <!--Make root view of bottom sheet transparent for custom view to show properly-->
+    <style name="BaseBottomSheetStyle" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbar style-->
+    <style name="SnackbarStyle" parent="Widget.Material3.Snackbar">
+        <item name="android:backgroundTint">@color/snackbarBackgroundColor</item>
+    </style>
+
+    <!--Snackbar text style-->
+    <style name="SnackbarTextStyle" parent="Widget.Material3.Snackbar.TextView">
+        <item name="android:textColor">@color/snackbarTextColor</item>
     </style>
 
 </resources>

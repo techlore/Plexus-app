@@ -33,16 +33,18 @@ import java.util.List;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
+import tech.techlore.plexus.models.Root;
 
 public class ListUtils {
 
-    // POPULATE PLEXUS DATA LIST
+    // Populate Plexus data list
     public static List<PlexusData> PopulateDataList(String jsonData) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonData, new TypeReference<List<PlexusData>>() {});
+        Root root = objectMapper.readValue(jsonData, Root.class);
+        return root.data;
     }
 
-    // SCAN ALL INSTALLED APPS AND POPULATE RESPECTIVE LIST
+    // Scan all installed apps and populate respective list
     public static void ScanInstalledApps(Context context, List<PlexusData> plexusDataList, List<InstalledApp> installedAppsList) {
 
         PackageManager packageManager = context.getPackageManager();
@@ -50,13 +52,13 @@ public class ListUtils {
         for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
 
             InstalledApp installedApp = new InstalledApp();
-            String plexusVersion = "NA", dgRating = "X", mgRating = "X", dgNotes = "X", mgNotes = "X";
+            String plexusVersion = "NA", dgStatus = "X", mgStatus = "X", dgNotes = "X", mgNotes = "X";
 
-            // NO SYSTEM APPS
-            // ONLY SCAN FOR USER INSTALLED APPS
-            // OR SYSTEM APPS THAT WERE UPDATED BY USER
+            // No system apps
+            // Only scan for user installed apps
+            // OR system apps updated by user
             if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
-                    || (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) !=0) {
+                 || (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
 
                 installedApp.setName(String.valueOf(appInfo.loadLabel(packageManager)));
                 installedApp.setPackageName(appInfo.packageName);
@@ -64,27 +66,28 @@ public class ListUtils {
                 try {
                     PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                     installedApp.setInstalledVersion(packageInfo.versionName);
-                } catch (PackageManager.NameNotFoundException e) {
+                }
+                catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
                 }
 
-                // SEARCH FOR THE PACKAGE NAME IN PLEXUS DATA
-                // TO SET PLEXUS VERSION, RATINGS AND NOTES
+                // Search for package name in Plexus data
+                // To set Plexus version, status & notes
                 for (PlexusData plexusData : plexusDataList) {
 
                     if (plexusData.packageName.contains(appInfo.packageName)) {
-                        plexusVersion = plexusData.version;
-                        dgRating = plexusData.dgRating;
-                        mgRating = plexusData.mgRating;
-                        dgNotes = plexusData.dgNotes;
-                        mgNotes = plexusData.mgNotes;
+//                        plexusVersion = plexusData.version;
+//                        dgStatus = plexusData.dgStatus;
+//                        mgStatus = plexusData.mgStatus;
+//                        dgNotes = plexusData.dgNotes;
+//                        mgNotes = plexusData.mgNotes;
                     }
 
                 }
 
                 installedApp.setPlexusVersion(plexusVersion);
-                installedApp.setDgRating(dgRating);
-                installedApp.setMgRating(mgRating);
+                installedApp.setDgRating(dgStatus);
+                installedApp.setMgRating(mgStatus);
                 installedApp.setDgNotes(dgNotes);
                 installedApp.setMgNotes(mgNotes);
                 installedAppsList.add(installedApp);
@@ -93,62 +96,62 @@ public class ListUtils {
 
     }
 
-    // PLEXUS DATA RATING SORT
-    public static void PlexusDataRatingSort(int preferenceKey, PlexusData plexusData,
-                                            String rating, List<PlexusData> plexusDataList) {
+    // Plexus data status sort
+    public static void PlexusDataStatusSort(int preferenceKey, PlexusData plexusData,
+                                            String status, List<PlexusData> plexusDataList) {
 
         if (preferenceKey == 0
                 || preferenceKey == R.id.sort_not_tested) {
 
-            if (rating.equals("X")) {
+            if (status.equals("X")) {
                 plexusDataList.add(plexusData);
             }
 
         }
-        else if (preferenceKey == R.id.sort_unusable && rating.equals("1")) {
+        else if (preferenceKey == R.id.sort_unusable && status.equals("1")) {
 
             plexusDataList.add(plexusData);
         }
-        else if (preferenceKey == R.id.sort_acceptable && rating.equals("2")) {
+        else if (preferenceKey == R.id.sort_acceptable && status.equals("2")) {
 
             plexusDataList.add(plexusData);
         }
-        else if (preferenceKey == R.id.sort_good && rating.equals("3")) {
+        else if (preferenceKey == R.id.sort_good && status.equals("3")) {
 
             plexusDataList.add(plexusData);
         }
-        else if (preferenceKey == R.id.sort_perfect && rating.equals("4")) {
+        else if (preferenceKey == R.id.sort_perfect && status.equals("4")) {
 
             plexusDataList.add(plexusData);
         }
 
     }
 
-    // INSTALLED APPS RATING SORT
-    public static void InstalledAppsRatingSort(int preferenceKey, InstalledApp installedApp,
-                                               String rating, List<InstalledApp> installedAppsList) {
+    // Installed apps status sort
+    public static void InstalledAppsStatusSort(int preferenceKey, InstalledApp installedApp,
+                                               String status, List<InstalledApp> installedAppsList) {
 
         if (preferenceKey == 0
                 || preferenceKey == R.id.sort_not_tested) {
 
-            if (rating.equals("X")) {
+            if (status.equals("X")) {
                 installedAppsList.add(installedApp);
             }
 
         }
-        else if (preferenceKey == R.id.sort_unusable && rating.equals("1")) {
+        else if (preferenceKey == R.id.sort_unusable && status.equals("1")) {
 
             installedAppsList.add(installedApp);
         }
-        else if (preferenceKey == R.id.sort_acceptable && rating.equals("2")) {
+        else if (preferenceKey == R.id.sort_acceptable && status.equals("2")) {
 
             installedAppsList.add(installedApp);
         }
-        else if (preferenceKey == R.id.sort_good && rating.equals("3")) {
+        else if (preferenceKey == R.id.sort_good && status.equals("3")) {
 
             installedAppsList.add(installedApp);
         }
-        else if (preferenceKey == R.id.sort_perfect && rating.equals("4")) {
+        else if (preferenceKey == R.id.sort_perfect && status.equals("4")) {
 
             installedAppsList.add(installedApp);
         }

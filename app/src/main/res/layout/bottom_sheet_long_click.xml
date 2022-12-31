@@ -74,6 +74,6 @@
         app:drawableStartCompat="@drawable/ic_share"
         android:drawablePadding="@dimen/margin_20"/>
 
-    <include layout="@layout/dialog_footer"/>
+    <include layout="@layout/bottom_sheet_footer"/>
 
 </LinearLayout>

@@ -20,15 +20,15 @@
 package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.DG_STATUS_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.FILTER_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.MG_STATUS_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.STATUS_RADIO_PREF;
 import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
-import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
-import static tech.techlore.plexus.utils.ListUtils.InstalledAppsRatingSort;
+import static tech.techlore.plexus.utils.IntentUtils.ReloadFragment;
+import static tech.techlore.plexus.utils.ListUtils.InstalledAppsStatusSort;
 import static tech.techlore.plexus.utils.ListUtils.ScanInstalledApps;
 import static tech.techlore.plexus.utils.UiUtils.LongClickBottomSheet;
-import static tech.techlore.plexus.utils.UiUtils.ReloadViewPagerFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -42,6 +42,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,7 +57,7 @@ import tech.techlore.plexus.preferences.PreferenceManager;
 public class InstalledAppsFragment extends Fragment {
 
     private RecyclerViewBinding fragmentBinding;
-    private List<InstalledApp> installedAppsList;
+    private List<InstalledApp> installedAppsFinalList;
 
     public InstalledAppsFragment() {
         // Required empty public constructor
@@ -82,89 +83,125 @@ public class InstalledAppsFragment extends Fragment {
 
         final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
         final MainActivity mainActivity = ((MainActivity) requireActivity());
-        installedAppsList = new ArrayList<>();
-        final InstalledAppItemAdapter installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsList);
+        List<InstalledApp> installedAppsTempList = new ArrayList<>();
+        installedAppsFinalList = new ArrayList<>();
+        List<String> playStoreInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.aurora.store"));
+        final InstalledAppItemAdapter installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsFinalList);
 
-    /*###########################################################################################*/
+        /*###########################################################################################*/
 
-        // RATING SORT
-        for (InstalledApp installedApp : mainActivity.installedList) {
+        ((MainActivity) requireActivity()).activityBinding.toolbarTop.setTitle(R.string.installed_apps);
 
-            if (preferenceManager.getInt(RATING_RADIO_PREF) == 0
-                    || preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_any_rating) {
+        // Filter based on installers (play store, aurora etc.)
+        if (preferenceManager.getInt(FILTER_PREF) == 0
+            || preferenceManager.getInt(FILTER_PREF) == R.id.menu_all_apps) {
 
-                installedAppsList.add(installedApp);
+            installedAppsTempList = mainActivity.installedList;
+
+        }
+        else if (preferenceManager.getInt(FILTER_PREF) == R.id.menu_play_apps) {
+
+            for (InstalledApp installedApp : mainActivity.installedList) {
+
+                String installerName = requireContext().getPackageManager()
+                        .getInstallerPackageName(installedApp.getPackageName());
+
+                if (playStoreInstallers.contains(installerName)) {
+                    installedAppsTempList.add(installedApp);
+                }
+
             }
 
-            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_dg_rating) {
+        }
+        else {
 
-                InstalledAppsRatingSort(preferenceManager.getInt(DG_RATING_SORT_PREF), installedApp,
-                        installedApp.dgRating, installedAppsList);
-            }
+            for (InstalledApp installedApp : mainActivity.installedList) {
 
-            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_mg_rating) {
+                String installerName = requireContext().getPackageManager()
+                        .getInstallerPackageName(installedApp.getPackageName());
 
-                InstalledAppsRatingSort(preferenceManager.getInt(MG_RATING_SORT_PREF), installedApp,
-                        installedApp.mgRating, installedAppsList);
+                if (!playStoreInstallers.contains(installerName)) {
+                    installedAppsTempList.add(installedApp);
+                }
+
             }
         }
 
-        // SORT ALPHABETICALLY
+        // Status sort
+        for (InstalledApp installedApp : installedAppsTempList) {
+
+            if (preferenceManager.getInt(STATUS_RADIO_PREF) == 0
+                    || preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_any_status) {
+
+                installedAppsFinalList.add(installedApp);
+            }
+            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
+
+                InstalledAppsStatusSort(preferenceManager.getInt(DG_STATUS_SORT_PREF), installedApp,
+                        installedApp.dgRating, installedAppsFinalList);
+            }
+            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_mg_status) {
+
+                InstalledAppsStatusSort(preferenceManager.getInt(MG_STATUS_SORT_PREF), installedApp,
+                        installedApp.mgRating, installedAppsFinalList);
+            }
+        }
+
+        // Alphabetical sort
         if (preferenceManager.getInt(A_Z_SORT_PREF) == 0
-                || preferenceManager.getInt(A_Z_SORT_PREF) == R.id.sort_a_z) {
+            || preferenceManager.getInt(A_Z_SORT_PREF) == R.id.sort_a_z) {
 
             //noinspection ComparatorCombinators
-            Collections.sort(installedAppsList, (ai1, ai2) ->
+            Collections.sort(installedAppsFinalList, (ai1, ai2) ->
                     ai1.getName().compareTo(ai2.getName())); // A-Z
 
         }
-
         else {
 
-            Collections.sort(installedAppsList, (ai1, ai2) ->
+            Collections.sort(installedAppsFinalList, (ai1, ai2) ->
                     ai2.getName().compareTo(ai1.getName())); // Z-A
         }
 
-        if (installedAppsList.size() == 0){
-            InflateViewStub(fragmentBinding.emptyListViewStub);
+        if (installedAppsFinalList.size() == 0){
+            fragmentBinding.emptyListViewStub.inflate();
         }
         else {
-            fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
             fragmentBinding.recyclerView.setAdapter(installedAppItemAdapter);
+            new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build(); // Fast scroll
         }
 
-        // FAST SCROLL
-        new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build();
-
-        // ON CLICK
+        // On click
         installedAppItemAdapter.setOnItemClickListener(position -> {
-            InstalledApp installedApp = installedAppsList.get(position);
-            AppDetails(mainActivity, installedApp.getName(), installedApp.getPackageName(),
-                       installedApp.getPlexusVersion(), installedApp.getInstalledVersion(),
+
+            InstalledApp installedApp = installedAppsFinalList.get(position);
+            AppDetails(mainActivity, installedApp.getName(), installedApp.getPackageName()
+                       /*installedApp.getPlexusVersion(), installedApp.getInstalledVersion(),
                        installedApp.getDgNotes(), installedApp.getMgNotes(),
-                       installedApp.getDgRating(), installedApp.getMgRating());
+                       installedApp.getDgRating(), installedApp.getMgRating()*/);
 
         });
 
-        // ON LONG CLICK
+        // On long click
         installedAppItemAdapter.setOnItemLongClickListener(position -> {
 
-            InstalledApp installedApp = installedAppsList.get(position);
+            InstalledApp installedApp = installedAppsFinalList.get(position);
             LongClickBottomSheet(mainActivity,
-                                 installedApp.getName(), installedApp.getPackageName(), installedApp.getPlexusVersion(),
+                                 installedApp.getName(), installedApp.getPackageName(), /*installedApp.getPlexusVersion(),
                                  installedApp.getDgRating(), installedApp.getMgRating(),
-                                 installedApp.getDgNotes(), installedApp.getMgNotes());
+                                 installedApp.getDgNotes(), installedApp.getMgNotes(),*/
+                                 mainActivity.activityBinding.mainCoordinatorLayout,
+                                 mainActivity.activityBinding.bottomNavContainer);
 
         });
 
-        // SWIPE REFRESH LAYOUT
+        // Swipe refresh layout
         fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
-        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
+        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent, requireContext().getTheme()));
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener(() -> {
             mainActivity.installedList.clear();
             ScanInstalledApps(requireContext(), mainActivity.dataList, mainActivity.installedList);
             fragmentBinding.swipeRefreshLayout.setRefreshing(false);
-            ReloadViewPagerFragment(mainActivity.activityBinding.viewPager, mainActivity.viewPagerAdapter, 1);
+            ReloadFragment(getParentFragmentManager(), this);
         });
 
     }

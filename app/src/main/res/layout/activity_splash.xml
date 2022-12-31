@@ -27,16 +27,16 @@
     android:background="@android:color/transparent">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:layout_above="@id/progress_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/progress_text"
         android:layout_marginBottom="@dimen/margin_8"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="@dimen/margin_6.5"
         app:indicatorSize="@dimen/margin_25"
         app:trackThickness="3dp"
         app:trackCornerRadius="@dimen/margin_20"
-        app:indicatorColor="@color/colorPrimary"
+        app:indicatorColor="@color/colorAccent"
         android:indeterminateOnly="true"/>
 
     <TextView
@@ -50,6 +50,6 @@
         android:layout_gravity="center"
         android:text="@string/fetching_data"
         android:textSize="@dimen/text_17"
-        android:textColor="#FAFAFA"/>
+        android:textColor="@color/snackbarTextColor"/>
 
 </RelativeLayout>

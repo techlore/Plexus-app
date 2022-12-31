@@ -19,7 +19,7 @@
 
 package tech.techlore.plexus.adapters;
 
-import static tech.techlore.plexus.utils.UiUtils.RatingColor;
+import static tech.techlore.plexus.utils.UiUtils.BadgeColor;
 import static tech.techlore.plexus.utils.UiUtils.hScrollText;
 
 import android.annotation.SuppressLint;
@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,7 +68,8 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
 
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
-        private final TextView name, packageName, version, dgRating, mgRating;
+        private final TextView name, packageName, version;
+        private final ImageView dgBadge, mgBadge;
 
         public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
             super(itemView);
@@ -75,11 +77,11 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
             name = itemView.findViewById(R.id.name);
             packageName = itemView.findViewById(R.id.package_name);
             version = itemView.findViewById(R.id.version);
-            dgRating = itemView.findViewById(R.id.dg_rating);
-            mgRating = itemView.findViewById(R.id.mg_rating);
+            dgBadge = itemView.findViewById(R.id.dg_badge);
+            mgBadge = itemView.findViewById(R.id.mg_badge);
 
 
-            // HANDLE CLICK EVENTS OF ITEMS
+            // Handle click events of items
             itemView.setOnClickListener(v -> {
                 if (onItemClickListener != null) {
                     int position = getBindingAdapterPosition();
@@ -89,7 +91,7 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
                 }
             });
 
-            // HANDLE LONG CLICK EVENTS OF ITEMS
+            // Handle long click events of items
             itemView.setOnLongClickListener(v -> {
                 if (onItemLongCLickListener != null) {
                     int position=getBindingAdapterPosition();
@@ -123,21 +125,18 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
         final PlexusData plexusData = aListViewItems.get(position);
         final Context context = holder.itemView.getContext();
 
-        // SET APP NAME, PACKAGE NAME, VERSION, SCORES
         holder.name.setText(plexusData.name);
         holder.packageName.setText(plexusData.packageName);
-        holder.version.setText(plexusData.version);
-        holder.dgRating.setText(plexusData.dgRating);
-        holder.mgRating.setText(plexusData.mgRating);
+        //holder.version.setText(plexusData.version);
 
-        // SET HORIZONTALLY SCROLLING TEXT
+        /// Horizontally scrolling text
         hScrollText(holder.name);
         hScrollText(holder.packageName);
         hScrollText(holder.version);
 
-        // SET SCORE BACKGROUND COLOR
-        RatingColor(context, holder.dgRating, plexusData.dgRating);
-        RatingColor(context, holder.mgRating, plexusData.mgRating);
+        // Badge color
+//        BadgeColor(context, holder.dgBadge, plexusData.dgStatus);
+//        BadgeColor(context, holder.mgBadge, plexusData.mgStatus);
 
     }
 
@@ -156,7 +155,7 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
         return super.getItemId(position);
     }
 
-    // REQUIRED FOR SEARCH
+    // Req. for search
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -195,7 +194,7 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
         };
     }
 
-    // FAST SCROLL POPUP
+    // Fast scroll popup
     @NonNull
     @Override
     public String getPopupText(int position) {

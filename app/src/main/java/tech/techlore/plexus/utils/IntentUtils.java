@@ -23,7 +23,14 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.Toast;
+import android.view.View;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.Serializable;
 
@@ -32,7 +39,7 @@ import tech.techlore.plexus.activities.AppDetailsActivity;
 
 public class IntentUtils {
 
-    // SEND ARRAY LISTS WITH INTENT
+    // Send array list with intent
     public static void SendListsIntent(Activity activityFrom, Class<?> activityTo,
                                        Serializable plexusDataList, Serializable installedAppsList) {
 
@@ -42,46 +49,54 @@ public class IntentUtils {
 
     }
 
-    // APP DETAILS ACTIVITY
-    public static void AppDetails(Activity activityFrom, String name, String packageName,
-                                  String plexusVersion, String installedVersion,
-                                  String dgNotes, String mgNotes,
-                                  String dgRating, String mgRating) {
+    // App details activity
+    public static void AppDetails(Activity activityFrom, String name, String packageName) {
+//                                  String plexusVersion, String installedVersion,
+//                                  String dgNotes, String mgNotes,
+//                                  String dgStatus, String mgStatus
 
         activityFrom.startActivity(new Intent(activityFrom, AppDetailsActivity.class)
                                     .putExtra("name", name)
-                                    .putExtra("packageName", packageName)
-                                    .putExtra("plexusVersion", plexusVersion)
-                                    .putExtra("installedVersion", installedVersion)
-                                    .putExtra("dgRating", dgRating)
-                                    .putExtra("mgRating", mgRating)
-                                    .putExtra("dgNotes", dgNotes)
-                                    .putExtra("mgNotes", mgNotes));
+                                    .putExtra("packageName", packageName));
+//                                    .putExtra("plexusVersion", plexusVersion)
+//                                    .putExtra("installedVersion", installedVersion)
+//                                    .putExtra("dgStatus", dgStatus)
+//                                    .putExtra("mgStatus", mgStatus)
+//                                    .putExtra("dgNotes", dgNotes)
+//                                    .putExtra("mgNotes", mgNotes)
 
         activityFrom.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement);
 
     }
 
-    // OPEN LINKS
-    public static void OpenURL(Activity activity, String URL) {
+    // Refresh fragment
+    public static void ReloadFragment(FragmentManager fragmentManager, Fragment fragment) {
+        fragmentManager.beginTransaction().detach(fragment).commitNow();
+        fragmentManager.beginTransaction().attach(fragment).commitNow();
+    }
+
+    // Open links
+    public static void OpenURL(Activity activity, String URL, CoordinatorLayout coordinatorLayout, View anchorView) {
 
         try
         {
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL)));
         }
-        // IF BROWSERS NOT INSTALLED, SHOW TOAST
+        // If no browser installed, show snackbar
         catch (ActivityNotFoundException e)
         {
-            Toast.makeText(activity, activity.getResources().getString(R.string.no_browsers), Toast.LENGTH_SHORT).show();
+            Snackbar.make(coordinatorLayout, R.string.no_browsers, BaseTransientBottomBar.LENGTH_SHORT)
+                    .setAnchorView(anchorView) // Above FAB, bottom bar etc.
+                    .show();
         }
 
     }
 
-    // SHARE
+    // Share
     public static void Share(Activity activity,
-                             String nameString, String packageNameString, String plexusVersionString,
-                             String dgRatingString, String mgRatingString,
-                             String dgNotesString, String mgNotesString,
+                             String nameString, String packageNameString, /*String plexusVersionString,
+                             String dgStatusString, String mgStatusString,
+                             String dgNotesString, String mgNotesString,*/
                              String playStoreString) {
 
         activity.startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
@@ -93,14 +108,14 @@ public class IntentUtils {
                                                                 + activity.getString(R.string.package_name) + ": "
                                                                 + packageNameString
                                                                 + "\n"
-                                                                + activity.getString(R.string.version) + ": "
+                                                                /*+ activity.getString(R.string.version) + ": "
                                                                 + plexusVersionString
                                                                 + "\n"
-                                                                + activity.getString(R.string.dg_rating) + ": "
-                                                                + dgRatingString
+                                                                + activity.getString(R.string.dg_status) + ": "
+                                                                + dgStatusString
                                                                 + "\n"
-                                                                + activity.getString(R.string.mg_rating) + ": "
-                                                                + mgRatingString
+                                                                + activity.getString(R.string.mg_status) + ": "
+                                                                + mgStatusString
                                                                 + "\n"
                                                                 + activity.getString(R.string.de_Googled) + " "
                                                                 + activity.getString(R.string.notes) + ": "
@@ -109,7 +124,7 @@ public class IntentUtils {
                                                                 + activity.getString(R.string.microG) + " "
                                                                 + activity.getString(R.string.notes) + ": "
                                                                 + mgNotesString
-                                                                + "\n"
+                                                                + "\n"*/
                                                                 + activity.getString(R.string.play_store) + ": "
                                                                 + playStoreString),
                                                     activity.getString(R.string.share)));

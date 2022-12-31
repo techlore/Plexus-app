@@ -22,52 +22,98 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/backgroundColor">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/backgroundColor"
+        android:background="@android:color/transparent"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar_main"
+            android:id="@+id/toolbar_top"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_2.5"
             android:layout_marginTop="@dimen/margin_2.5"
             app:contentInsetStartWithNavigation="0dp"
             android:paddingStart="@dimen/margin_2.5"
             android:paddingEnd="@dimen/margin_2.5"
             app:titleTextColor="@color/textTitleColor"
-            app:titleTextAppearance="@style/MediumBoldText">
-
-            <ViewStub
-                android:id="@+id/search_view_stub"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout="@layout/search_view"/>
-
-        </com.google.android.material.appbar.MaterialToolbar>
-
-        <ViewStub
-            android:id="@+id/tab_layout_view_stub"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout="@layout/tab_layout"/>
+            app:titleTextAppearance="@style/MediumBoldText"
+            app:layout_scrollFlags="scroll|enterAlways"/>
 
         <include layout="@layout/divider_horizontal"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+    <include
+        layout="@layout/activity_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="?attr/actionBarSize"/>
 
-    <include layout="@layout/activity_host_fragment"/>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottom_nav_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bottomSheetColor"
+        app:elevation="@dimen/margin_8"
+        app:behavior_peekHeight="?attr/actionBarSize"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/divider_horizontal"/>
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:elevation="0dp">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:navigationIcon="@drawable/ic_nav_view"
+                    app:contentInsetStartWithNavigation="0dp"
+                    android:paddingStart="@dimen/margin_2.5"
+                    android:paddingEnd="@dimen/margin_2.5">
+
+                    <ViewStub
+                        android:id="@+id/search_view_stub"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout="@layout/search_view"/>
+
+                </com.google.android.material.appbar.MaterialToolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/nav_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                app:elevation="0dp"
+                app:itemIconPadding="@dimen/margin_20"
+                app:itemIconSize="22dp"
+                app:itemIconTint="@color/nav_item_icon_color"
+                app:itemTextColor="@color/nav_item_text_color"
+                app:menu="@menu/menu_nav_view"
+                style="@style/NavViewStyle"/>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

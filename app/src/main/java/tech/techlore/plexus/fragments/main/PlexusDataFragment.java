@@ -20,21 +20,19 @@
 package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.DG_STATUS_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.MG_STATUS_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.STATUS_RADIO_PREF;
 import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
+import static tech.techlore.plexus.utils.IntentUtils.ReloadFragment;
 import static tech.techlore.plexus.utils.NetworkUtils.HasInternet;
 import static tech.techlore.plexus.utils.NetworkUtils.HasNetwork;
 import static tech.techlore.plexus.utils.NetworkUtils.URLResponse;
-import static tech.techlore.plexus.utils.UiUtils.InflateViewStub;
-import static tech.techlore.plexus.utils.ListUtils.PlexusDataRatingSort;
+import static tech.techlore.plexus.utils.ListUtils.PlexusDataStatusSort;
 import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
 import static tech.techlore.plexus.utils.UiUtils.LongClickBottomSheet;
-import static tech.techlore.plexus.utils.UiUtils.ReloadViewPagerFragment;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -44,25 +42,23 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Executors;
 
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
-import tech.techlore.plexus.databinding.DialogFooterBinding;
-import tech.techlore.plexus.databinding.DialogNoNetworkBinding;
 import tech.techlore.plexus.databinding.RecyclerViewBinding;
 import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
@@ -102,30 +98,30 @@ public class PlexusDataFragment extends Fragment {
 
     /*###########################################################################################*/
 
-        // RATING SORT
+        ((MainActivity) requireActivity()).activityBinding.toolbarTop.setTitle(R.string.plexus_data);
+
+        // Status sort
         for (PlexusData plexusData : mainActivity.dataList) {
 
-            if (preferenceManager.getInt(RATING_RADIO_PREF) == 0
-                || preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_any_rating) {
+            if (preferenceManager.getInt(STATUS_RADIO_PREF) == 0
+                || preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_any_status) {
 
                 plexusDataList.add(plexusData);
             }
-
-            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_dg_rating) {
-
-                PlexusDataRatingSort(preferenceManager.getInt(DG_RATING_SORT_PREF), plexusData,
-                        plexusData.dgRating, plexusDataList);
-            }
-
-            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_mg_rating) {
-
-                PlexusDataRatingSort(preferenceManager.getInt(MG_RATING_SORT_PREF), plexusData,
-                        plexusData.mgRating, plexusDataList);
-            }
+//            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
+//
+//                PlexusDataStatusSort(preferenceManager.getInt(DG_STATUS_SORT_PREF), plexusData,
+//                        plexusData.dgStatus, plexusDataList);
+//            }
+//            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_mg_status) {
+//
+//                PlexusDataStatusSort(preferenceManager.getInt(MG_STATUS_SORT_PREF), plexusData,
+//                        plexusData.mgStatus, plexusDataList);
+//            }
         }
 
 
-        // ALPHABETICAL SORT
+        // Alphabetical sort
         if (preferenceManager.getInt(A_Z_SORT_PREF) == 0
             || preferenceManager.getInt(A_Z_SORT_PREF) == R.id.sort_a_z) {
 
@@ -134,82 +130,65 @@ public class PlexusDataFragment extends Fragment {
                     ai1.name.compareTo(ai2.name)); // A-Z
 
         }
-
         else {
 
             Collections.sort(plexusDataList, (ai1, ai2) ->
                     ai2.name.compareTo(ai1.name)); // Z-A
         }
 
-        if (plexusDataList.size() == 0){
-            InflateViewStub(fragmentBinding.emptyListViewStub);
+        if (mainActivity.dataList.size() == 0){
+            fragmentBinding.emptyListViewStub.inflate();
         }
         else {
-            fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
             fragmentBinding.recyclerView.setAdapter(plexusDataItemAdapter);
+            new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build(); // Fast scroll
         }
 
-        // FAST SCROLL
-        new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build();
-
-        // ON CLICK
+        // On click
         plexusDataItemAdapter.setOnItemClickListener(position -> {
 
             PlexusData plexusData = plexusDataList.get(position);
-            AppDetails(mainActivity, plexusData.name, plexusData.packageName,
-                       plexusData.version, null,
+            AppDetails(mainActivity, plexusData.name, plexusData.packageName
+                       /*plexusData.version, null,
                        plexusData.dgNotes, plexusData.mgNotes,
-                       plexusData.dgRating, plexusData.mgRating);
+                       plexusData.dgStatus, plexusData.mgStatus*/);
 
         });
 
-        // ON LONG CLICK
+        // On long click
         plexusDataItemAdapter.setOnItemLongClickListener(position -> {
 
             PlexusData plexusData = plexusDataList.get(position);
-            LongClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName, plexusData.version,
-                                 plexusData.dgRating, plexusData.mgRating,
-                                 plexusData.dgNotes, plexusData.mgNotes);
+            LongClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName, /*plexusData.version,
+                                 plexusData.dgStatus, plexusData.mgStatus,
+                                 plexusData.dgNotes, plexusData.mgNotes,*/
+                                 mainActivity.activityBinding.mainCoordinatorLayout,
+                                 mainActivity.activityBinding.bottomNavContainer);
 
         });
 
-        // SWIPE REFRESH LAYOUT
+        // Swipe refresh layout
         fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
-        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, requireContext().getTheme()));
+        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent, requireContext().getTheme()));
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener(this::RefreshData);
 
     }
 
-    // NO NETWORK DIALOG
     private void NoNetworkDialog() {
-        final Dialog dialog = new Dialog(requireContext(), R.style.DialogTheme);
-        dialog.setCancelable(false);
 
-        dialog.getWindow().setBackgroundDrawable(ContextCompat
-                .getDrawable(requireContext(), R.drawable.shape_rounded_corners));
-        dialog.getWindow().getDecorView().setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.bottomSheetColor));
+        new MaterialAlertDialogBuilder(requireContext(), R.style.DialogTheme)
 
-        final DialogNoNetworkBinding dialogBinding = DialogNoNetworkBinding.inflate(getLayoutInflater());
-        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(dialogBinding.getRoot());
-        dialog.setContentView(dialogBinding.getRoot());
+                .setTitle(R.string.dialog_title)
+                .setMessage(R.string.dialog_subtitle)
 
-        // POSITIVE BUTTON
-        footerBinding.positiveButton
-                .setOnClickListener(view1 -> {
-                    RefreshData();
-                    dialog.dismiss();
-                });
+                .setPositiveButton(R.string.retry, (dialog, which) ->
+                        RefreshData())
 
-        // NEGATIVE BUTTON
-        footerBinding.negativeButton
-                .setOnClickListener(view12 -> {
-                    dialog.cancel();
-                    fragmentBinding.swipeRefreshLayout.setRefreshing(false);
-                });
+                .setNegativeButton(R.string.cancel, (dialog, which) ->
+                        fragmentBinding.swipeRefreshLayout.setRefreshing(false))
 
-        // SHOW DIALOG WITH CUSTOM ANIMATION
-        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.show();
+                .show();
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -221,24 +200,23 @@ public class PlexusDataFragment extends Fragment {
 
             Executors.newSingleThreadExecutor().execute(() -> {
 
-                // BACKGROUND THREAD WORK
+                // Background thread work
                 if (HasInternet()) {
 
                     try {
                         jsonData = URLResponse();
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                    // UI THREAD WORK
+                    // UI Thread work
                     handler.post(() -> {
                         try {
-                            mainActivity.dataList.clear();
                             mainActivity.dataList = PopulateDataList(jsonData);
                             fragmentBinding.swipeRefreshLayout.setRefreshing(false);
-                            ReloadViewPagerFragment(mainActivity.activityBinding.viewPager, mainActivity.viewPagerAdapter, 0);
+                            ReloadFragment(getParentFragmentManager(), this);
                         }
-
                         catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
@@ -249,7 +227,6 @@ public class PlexusDataFragment extends Fragment {
                 }
             });
         }
-
         else {
             NoNetworkDialog();
         }

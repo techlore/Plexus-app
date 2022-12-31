@@ -19,36 +19,50 @@
 
 package tech.techlore.plexus.activities;
 
+import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED;
+import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED;
+import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HALF_EXPANDED;
 import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.DG_RATING_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.MG_RATING_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.RATING_RADIO_PREF;
-import static tech.techlore.plexus.utils.IntentUtils.SendListsIntent;
-import static tech.techlore.plexus.utils.UiUtils.ReloadViewPagerFragment;
+import static tech.techlore.plexus.preferences.PreferenceManager.DG_STATUS_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.FILTER_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.MG_STATUS_SORT_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.STATUS_RADIO_PREF;
+import static tech.techlore.plexus.preferences.PreferenceManager.THEME_PREF;
+import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
+import static tech.techlore.plexus.utils.IntentUtils.ReloadFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.adapters.ViewPagerAdapter;
 import tech.techlore.plexus.databinding.ActivityMainBinding;
+import tech.techlore.plexus.databinding.BottomSheetFooterBinding;
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
+import tech.techlore.plexus.databinding.BottomSheetLongClickBinding;
 import tech.techlore.plexus.databinding.BottomSheetSortBinding;
-import tech.techlore.plexus.databinding.DialogFooterBinding;
-import tech.techlore.plexus.databinding.TabLayoutBinding;
+import tech.techlore.plexus.databinding.BottomSheetThemeBinding;
+import tech.techlore.plexus.fragments.main.HelpFragment;
+import tech.techlore.plexus.fragments.main.InstalledAppsFragment;
+import tech.techlore.plexus.fragments.main.PlexusDataFragment;
+import tech.techlore.plexus.fragments.main.AboutFragment;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
@@ -56,9 +70,10 @@ import tech.techlore.plexus.preferences.PreferenceManager;
 public class MainActivity extends AppCompatActivity {
 
     public ActivityMainBinding activityBinding;
-    public ViewPagerAdapter viewPagerAdapter;
+    private BottomSheetBehavior<CoordinatorLayout> bottomSheetBehavior;
+    private int checkedItem = 0; // To set nav view item background, check selected item
+    public Fragment fragment;
     private PreferenceManager preferenceManager;
-    private TabLayoutBinding tabLayoutBinding;
     public List<PlexusData> dataList;
     public List<InstalledApp> installedList;
 
@@ -70,56 +85,108 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         preferenceManager = new PreferenceManager(this);
-        tabLayoutBinding = TabLayoutBinding.bind(activityBinding.tabLayoutViewStub.inflate());
-        viewPagerAdapter = new ViewPagerAdapter(this);
 
     /*###########################################################################################*/
 
-        // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(activityBinding.toolbarMain);
+        setSupportActionBar(activityBinding.toolbarBottom);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
-        // GET LISTS FROM PREVIOUS ACTIVITY
+        // Get lists from previous activity
         //noinspection unchecked
         dataList = (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
         //noinspection unchecked
         installedList = (List<InstalledApp>) intent.getSerializableExtra("installedAppsList");
 
-        activityBinding.viewPager.setAdapter(viewPagerAdapter);
+        // Default fragment
+        fragment = new PlexusDataFragment();
+        checkedItem = R.id.nav_plexus_data;
+        DisplayFragment(fragment, checkedItem);
 
-        // SLIDING TAB LAYOUT WITH VIEWPAGER2
-        new TabLayoutMediator(tabLayoutBinding.tabLayout, activityBinding.viewPager,
-                              true, (tab, position) -> {
+        // Nav view bottom sheet
+        bottomSheetBehavior = BottomSheetBehavior.from(activityBinding.bottomNavContainer);
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
-            if (position == 0){
-                tab.setText(R.string.plexus_data);
+                if (newState == STATE_COLLAPSED) {
+                    DisplayFragment(fragment, checkedItem);
+                }
+
             }
-            else {
-                tab.setText(R.string.installed_apps);
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+                activityBinding.navView.setCheckedItem(checkedItem); // Always sync checked item on slide
+
             }
 
-        }).attach();
+        });
+
+        // Nav view icon
+        activityBinding.toolbarBottom.setNavigationOnClickListener(v -> {
+
+            if (bottomSheetBehavior.getState() == STATE_COLLAPSED) {
+                bottomSheetBehavior.setState(STATE_HALF_EXPANDED);
+            }
+            else if (bottomSheetBehavior.getState() == STATE_HALF_EXPANDED) {
+                bottomSheetBehavior.setState(STATE_EXPANDED);
+            }
+            else if (bottomSheetBehavior.getState() == STATE_EXPANDED) {
+                bottomSheetBehavior.setState(STATE_COLLAPSED);
+            }
+
+        });
+
+        // Nav view items
+        activityBinding.navView.setNavigationItemSelectedListener(navMenuItem -> {
+
+            bottomSheetBehavior.setState(STATE_COLLAPSED); // Close nav view first
+
+            if (navMenuItem.getItemId() == R.id.nav_plexus_data) {
+                fragment = new PlexusDataFragment();
+                checkedItem = R.id.nav_plexus_data;
+            }
+            else if (navMenuItem.getItemId() == R.id.nav_installed_apps) {
+                fragment = new InstalledAppsFragment();
+                checkedItem = R.id.nav_installed_apps;
+            }
+            else if (navMenuItem.getItemId() == R.id.nav_fav) {
+                checkedItem = R.id.nav_fav;
+            }
+            else if (navMenuItem.getItemId() == R.id.nav_report_issue) {
+                        OpenURL(this, "https://github.com/techlore/Plexus-app/issues",
+                                activityBinding.mainCoordinatorLayout, activityBinding.bottomNavContainer);
+            }
+            else if (navMenuItem.getItemId() == R.id.nav_pull_req) {
+                PullReqBottomSheet();
+            }
+            else if (navMenuItem.getItemId() == R.id.nav_help) {
+                fragment = new HelpFragment();
+                checkedItem = R.id.nav_help;
+            }
+            else if (navMenuItem.getItemId() == R.id.nav_theme) {
+                ThemeBottomSheet();
+            }
+            else if (navMenuItem.getItemId() == R.id.nav_about) {
+                fragment = new AboutFragment();
+                checkedItem = R.id.nav_about;
+            }
+
+            return true;
+        });
 
     }
 
-    // SEARCH ACTIVITY INTENT
-    public void StartSearch(int selectedTab) {
+    // Setup fragments
+    private void DisplayFragment(Fragment fragment, int checkedItem) {
 
-        Intent searchIntent = new Intent(this, SearchActivity.class);
-        searchIntent.putExtra("from", selectedTab);
-
-        // IF FROM PLEXUS DATA TAB,
-        // GIVE PLEXUS DATA LIST TO SEARCH ACTIVITY
-        if (selectedTab == 0) {
-            searchIntent.putExtra("plexusDataList", (Serializable) dataList);
-        }
-
-        // ELSE GIVE INSTALLED APPS LIST TO SEARCH ACTIVITY
-        else {
-            searchIntent.putExtra("installedAppsList", (Serializable) installedList);
-        }
-
-        startActivity(searchIntent);
-        overridePendingTransition(R.anim.fade_in_slide_from_top, R.anim.no_movement);
+        activityBinding.appbarTop.setExpanded(true,true);
+        getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.activity_host_fragment, fragment)
+                .commitNow();
+        activityBinding.navView.setCheckedItem(checkedItem);
 
     }
 
@@ -128,143 +195,275 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
 
+        if (checkedItem == R.id.nav_installed_apps) {
+            menu.findItem(R.id.menu_filter).setVisible(true);
+
+            if (preferenceManager.getInt(FILTER_PREF) == 0
+                || preferenceManager.getInt(FILTER_PREF) == R.id.menu_all_apps) {
+                menu.findItem(R.id.menu_all_apps).setChecked(true);
+            }
+            else if (preferenceManager.getInt(FILTER_PREF) == R.id.menu_play_apps) {
+                menu.findItem(R.id.menu_play_apps).setChecked(true);
+            }
+            else {
+                menu.findItem(R.id.menu_non_play_apps).setChecked(true);
+            }
+
+        }
+        else if (checkedItem == R.id.nav_help
+                 || checkedItem == R.id.nav_about) {
+            menu.findItem(R.id.menu_search).setVisible(false);
+            menu.findItem(R.id.menu_sort).setVisible(false);
+            menu.findItem(R.id.menu_filter).setVisible(false);
+        }
+        else {
+            menu.findItem(R.id.menu_search).setVisible(true);
+            menu.findItem(R.id.menu_sort).setVisible(true);
+            menu.findItem(R.id.menu_filter).setVisible(false);
+        }
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        // SEARCH
+        if (bottomSheetBehavior.getState() != STATE_COLLAPSED) {
+            bottomSheetBehavior.setState(STATE_COLLAPSED);
+        }
+
+        // Search
         // DON'T FINISH MAIN ACTIVITY,
         // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
         if (item.getItemId() == R.id.menu_search) {
-            StartSearch(tabLayoutBinding.tabLayout.getSelectedTabPosition());
+
+            Intent searchIntent = new Intent(this, SearchActivity.class);
+            searchIntent.putExtra("from", checkedItem);
+
+            // If from Plexus Data, give Plexus Data list
+            if (checkedItem == R.id.nav_plexus_data) {
+                searchIntent.putExtra("plexusDataList", (Serializable) dataList);
+            }
+
+            // Else give Installed Apps list
+            else {
+                searchIntent.putExtra("installedAppsList", (Serializable) installedList);
+            }
+
+            startActivity(searchIntent);
+            overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
         }
 
-        // SORT
+        // Sort
         else if (item.getItemId() == R.id.menu_sort) {
             SortBottomSheet();
         }
 
-        // HELP
-        else if (item.getItemId() == R.id.menu_help) {
-            startActivity(new Intent(this, HelpActivity.class));
-            overridePendingTransition(R.anim.fade_in_slide_from_end, R.anim.no_movement);
-        }
-
-        // SETTINGS
-        else if (item.getItemId() == R.id.menu_settings) {
-
-            // GIVE BOTH LISTS TO SETTINGS ACTIVITY TO HOLD
-            SendListsIntent(this, SettingsActivity.class,
-                    (Serializable) dataList, (Serializable) installedList);
-            finish();
-            overridePendingTransition(R.anim.fade_in_slide_from_end, R.anim.no_movement);
+        // Filter
+        else if (item.getItemId() == R.id.menu_all_apps
+                || item.getItemId() == R.id.menu_play_apps
+                || item. getItemId() == R.id.menu_non_play_apps) {
+            preferenceManager.setInt(FILTER_PREF, item.getItemId());
+            ReloadFragment(getSupportFragmentManager(), fragment);
         }
 
         return true;
     }
 
-    // SORT BOTTOM SHEET
     private void SortBottomSheet() {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.CustomBottomSheetTheme);
-        bottomSheetDialog.setCancelable(false);
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
 
         final BottomSheetSortBinding bottomSheetBinding = BottomSheetSortBinding.inflate(getLayoutInflater());
         final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
-        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(bottomSheetBinding.getRoot());
+        final BottomSheetFooterBinding footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.getRoot());
         bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
 
-        // TITLE
         headerBinding.bottomSheetTitle.setText(R.string.menu_sort);
 
-        // DEFAULT ALPHABETICAL CHECKED CHIP
+        // Default alphabetical checked chip
         if (preferenceManager.getInt(A_Z_SORT_PREF) == 0) {
             preferenceManager.setInt(A_Z_SORT_PREF, R.id.sort_a_z);
         }
         bottomSheetBinding.alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT_PREF));
 
-        // RATING RADIO CHECKED BY DEFAULT
-        if (preferenceManager.getInt(RATING_RADIO_PREF) == 0) {
-            preferenceManager.setInt(RATING_RADIO_PREF, R.id.radio_any_rating);
+        // Status radio btn checked by default
+        if (preferenceManager.getInt(STATUS_RADIO_PREF) == 0) {
+            preferenceManager.setInt(STATUS_RADIO_PREF, R.id.radio_any_status);
         }
-        bottomSheetBinding.ratingRadiogroup.check(preferenceManager.getInt(RATING_RADIO_PREF));
+        bottomSheetBinding.statusRadiogroup.check(preferenceManager.getInt(STATUS_RADIO_PREF));
 
-        // RATING CHIP GROUP VISIBILITY
-        if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_dg_rating) {
+        // Status chip group visibility
+        if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
 
-            bottomSheetBinding.ratingChipGroup.setVisibility(View.VISIBLE);
+            bottomSheetBinding.statusChipGroup.setVisibility(View.VISIBLE);
 
-            // DG RATING CHIP CHECKED BY DEFAULT
-            if (preferenceManager.getInt(DG_RATING_SORT_PREF) == 0) {
-                preferenceManager.setInt(DG_RATING_SORT_PREF, R.id.sort_not_tested);
+            // Default DG status checked chip
+            if (preferenceManager.getInt(DG_STATUS_SORT_PREF) == 0) {
+                preferenceManager.setInt(DG_STATUS_SORT_PREF, R.id.sort_not_tested);
             }
-            bottomSheetBinding.ratingChipGroup.check(preferenceManager.getInt(DG_RATING_SORT_PREF));
+            bottomSheetBinding.statusChipGroup.check(preferenceManager.getInt(DG_STATUS_SORT_PREF));
         }
+        else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_mg_status) {
 
-        else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_mg_rating) {
+            bottomSheetBinding.statusChipGroup.setVisibility(View.VISIBLE);
 
-            bottomSheetBinding.ratingChipGroup.setVisibility(View.VISIBLE);
-
-            // MG RATING CHIP CHECKED BY DEFAULT
-            if (preferenceManager.getInt(MG_RATING_SORT_PREF) == 0) {
-                preferenceManager.setInt(MG_RATING_SORT_PREF, R.id.sort_not_tested);
+            // Default MG status checked chip
+            if (preferenceManager.getInt(MG_STATUS_SORT_PREF) == 0) {
+                preferenceManager.setInt(MG_STATUS_SORT_PREF, R.id.sort_not_tested);
             }
-            bottomSheetBinding.ratingChipGroup.check(preferenceManager.getInt(MG_RATING_SORT_PREF));
+            bottomSheetBinding.statusChipGroup.check(preferenceManager.getInt(MG_STATUS_SORT_PREF));
         }
-
         else {
-            bottomSheetBinding.ratingChipGroup.setVisibility(View.GONE);
+            bottomSheetBinding.statusChipGroup.setVisibility(View.GONE);
         }
 
-        // ON SELECTING ALPHABETICAL CHIP
-        bottomSheetBinding.alphabeticalChipGroup.setOnCheckedChangeListener((chipGroup, checkedId) ->
-                preferenceManager.setInt(A_Z_SORT_PREF, checkedId)
-        );
+        // On selecting status radio btn
+        bottomSheetBinding.statusRadiogroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
 
-        // ON SELECTING RATING RADIO
-        bottomSheetBinding.ratingRadiogroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
-
-            if (checkedId != R.id.radio_any_rating) {
-                bottomSheetBinding.ratingChipGroup.setVisibility(View.VISIBLE);
-                bottomSheetBinding.ratingChipGroup.check(R.id.sort_not_tested);
+            if (checkedId != R.id.radio_any_status) {
+                bottomSheetBinding.statusChipGroup.setVisibility(View.VISIBLE);
             }
             else {
-                bottomSheetBinding.ratingChipGroup.setVisibility(View.GONE);
+                bottomSheetBinding.statusChipGroup.setVisibility(View.GONE);
             }
-            preferenceManager.setInt(RATING_RADIO_PREF, checkedId);
 
         });
 
-        // ON SELECTING RATING CHIP
-        bottomSheetBinding.ratingChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
-
-            if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_dg_rating) {
-                preferenceManager.setInt(DG_RATING_SORT_PREF, checkedId);
-            }
-            else if (preferenceManager.getInt(RATING_RADIO_PREF) == R.id.radio_mg_rating) {
-                preferenceManager.setInt(MG_RATING_SORT_PREF, checkedId);
-            }
-        });
-
-        // POSITIVE BUTTON
+        // Done
         footerBinding.positiveButton.setText(getString(R.string.done));
         footerBinding.positiveButton.setOnClickListener(view12 -> {
-                    bottomSheetDialog.dismiss();
-                    ReloadViewPagerFragment(activityBinding.viewPager, viewPagerAdapter, tabLayoutBinding.tabLayout.getSelectedTabPosition());
+
+            preferenceManager.setInt(A_Z_SORT_PREF, bottomSheetBinding.alphabeticalChipGroup.getCheckedChipId());
+            preferenceManager.setInt(STATUS_RADIO_PREF, bottomSheetBinding.statusRadiogroup.getCheckedRadioButtonId());
+
+            if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
+                preferenceManager.setInt(DG_STATUS_SORT_PREF, bottomSheetBinding.statusChipGroup.getCheckedChipId());
+            }
+            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_mg_status) {
+                preferenceManager.setInt(MG_STATUS_SORT_PREF, bottomSheetBinding.statusChipGroup.getCheckedChipId());
+            }
+
+            bottomSheetDialog.dismiss();
+            ReloadFragment(getSupportFragmentManager(), fragment);
+
         });
 
-        // NEGATIVE BUTTON
-        footerBinding.negativeButton.setVisibility(View.GONE);
+        // Cancel
+        footerBinding.negativeButton.setOnClickListener(view12 ->
+                bottomSheetDialog.cancel());
 
-        // SHOW BOTTOM SHEET WITH CUSTOM ANIMATION
-        Objects.requireNonNull(bottomSheetDialog.getWindow()).getAttributes().windowAnimations = R.style.BottomSheetAnimation;
         bottomSheetDialog.show();
     }
 
-    // ON BACK PRESSED
+    private void PullReqBottomSheet() {
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+
+        final BottomSheetLongClickBinding bottomSheetBinding = BottomSheetLongClickBinding.inflate(getLayoutInflater());
+        final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        final BottomSheetFooterBinding footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
+
+        headerBinding.bottomSheetTitle.setText(getString(R.string.contribute_title));
+
+        // Read guidelines
+        bottomSheetBinding.playStore.setText(getString(R.string.read_guidelines));
+        bottomSheetBinding.playStore.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_read_guidelines, 0, 0, 0);
+        bottomSheetBinding.playStore.setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            OpenURL(this, "https://github.com/techlore/Plexus-app/blob/main/CONTRIBUTING.md",
+                    activityBinding.mainCoordinatorLayout, activityBinding.bottomNavContainer);
+        });
+
+        // Open pull request
+        bottomSheetBinding.share.setText(getString(R.string.pull_req));
+        bottomSheetBinding.share.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_contribute, 0, 0, 0);
+        bottomSheetBinding.share.setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            OpenURL(this, "https://github.com/techlore/Plexus-app/pulls",
+                    activityBinding.mainCoordinatorLayout, activityBinding.bottomNavContainer);
+        });
+
+        footerBinding.positiveButton.setVisibility(View.GONE);
+
+        // Cancel
+        footerBinding.negativeButton.setOnClickListener(view12 ->
+                bottomSheetDialog.cancel());
+
+        bottomSheetDialog.show();
+
+    }
+
+    private void ThemeBottomSheet(){
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+
+        final BottomSheetThemeBinding bottomSheetBinding = BottomSheetThemeBinding.inflate(getLayoutInflater());
+        final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
+        final BottomSheetFooterBinding footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
+
+        headerBinding.bottomSheetTitle.setText(R.string.theme_title);
+
+        // Default checked radio btn
+        if (preferenceManager.getInt(THEME_PREF) == 0){
+            if (Build.VERSION.SDK_INT >= 29){
+                preferenceManager.setInt(THEME_PREF, R.id.sys_default);
+            }
+            else{
+                preferenceManager.setInt(THEME_PREF, R.id.light);
+            }
+        }
+        bottomSheetBinding.themeRadiogroup.check(preferenceManager.getInt(THEME_PREF));
+
+        // Show system default option only on SDK 29 and above
+        if (Build.VERSION.SDK_INT >= 29){
+            bottomSheetBinding.sysDefault.setVisibility(View.VISIBLE);
+        }
+        else{
+            bottomSheetBinding.sysDefault.setVisibility(View.GONE);
+        }
+
+        // On selecting option
+        bottomSheetBinding.themeRadiogroup
+                .setOnCheckedChangeListener((radioGroup, checkedId) -> {
+
+                    if (checkedId == R.id.sys_default) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    }
+                    else if (checkedId == R.id.light) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+                    else if (checkedId == R.id.dark) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    }
+
+                    preferenceManager.setInt(THEME_PREF, checkedId);
+                    bottomSheetDialog.dismiss();
+                    this.recreate();
+                });
+
+        footerBinding.positiveButton.setVisibility(View.GONE);
+
+        // Cancel
+        footerBinding.negativeButton.setOnClickListener(view12 ->
+                bottomSheetDialog.cancel());
+
+        bottomSheetDialog.show();
+    }
+
     @Override
     public void onBackPressed() {
-        finish();
+
+        if (bottomSheetBehavior.getState() != STATE_COLLAPSED) {
+            bottomSheetBehavior.setState(STATE_COLLAPSED);
+        }
+        else if (checkedItem != R.id.nav_plexus_data) {
+            fragment = new PlexusDataFragment();
+            checkedItem = R.id.nav_plexus_data;
+            DisplayFragment(fragment, checkedItem);
+        }
+        else {
+            finish();
+        }
     }
 }

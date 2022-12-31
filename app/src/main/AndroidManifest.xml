@@ -19,9 +19,9 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="tech.techlore.plexus">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -37,7 +37,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--SPLASH ACTIVITY-->
+        <!--Splash activity-->
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme"
@@ -48,32 +48,20 @@
             </intent-filter>
         </activity>
 
-        <!--MAIN ACTIVITY-->
+        <!--Main activity-->
         <activity
             android:name=".activities.MainActivity"
             android:configChanges="orientation|screenSize">
         </activity>
 
-        <!--APP DETAILS ACTIVITY-->
+        <!--App details activity-->
         <activity
             android:name=".activities.AppDetailsActivity"
             android:configChanges="orientation|screenSize">
         </activity>
 
-        <!--SEARCH ACTIVITY-->
+        <!--Search activity-->
         <activity android:name=".activities.SearchActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
-        <!--HELP ACTIVITY-->
-        <activity
-            android:name=".activities.HelpActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
-        <!--SETTINGS ACTIVITY-->
-        <activity
-            android:name=".activities.SettingsActivity"
             android:configChanges="orientation|screenSize">
         </activity>
 

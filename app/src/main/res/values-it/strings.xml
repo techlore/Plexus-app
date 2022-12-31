@@ -22,7 +22,7 @@
 <resources>
 
     <!--
-    ENSURE PROPER ENCODING OF CHARACTERS
+    Ensure proper encoding of characters
         à = \u00E0
         ù = \u00F9
     -->
@@ -56,15 +56,15 @@
     <!--#########################################################################################-->
 
     <!--HELP ACTIVITY-->
-    <string name="what_ratings_mean">Cosa significano le valutazioni?</string>
-    <string name="not_tested">Non testato</string>
-    <string name="unusable">Inutilizzabile</string>
-    <string name="acceptable">Accettabile</string>
-    <string name="good">Bene</string>
-    <string name="perfect">Perfetto</string>
+    <string name="what_status_mean">Cosa significano le valutazioni?</string>
+    <string name="not_tested_title">Non testato</string>
+    <string name="borked_subtitle">Inutilizzabile</string>
+    <string name="bronze_subtitle">Accettabile</string>
+    <string name="silver_subtitle">Bene</string>
+    <string name="gold_subtitle">Perfetto</string>
     <string name="app_card_breakdown">Bruccol della scheda dell\'applicazione</string>
-    <string name="dg_rating">de-Googled valutazione</string>
-    <string name="mg_rating">microG valutazione</string>
+    <string name="dg_status">de-Googled valutazione</string>
+    <string name="mg_status">microG valutazione</string>
     <string name="application">Applicazione</string>
     <string name="package_name">Nome del pacchetto</string>
     <string name="version">Versione</string>
@@ -93,12 +93,12 @@
     <string name="dialog_subtitle">Connettiti a dati Wi-Fi o mobili e riprova.
         Se gi\u00E0 connesso, assicurarsi che abbia una connessione internet.</string>
     <string name="exit">Uscita</string>
-    <string name="dialog_positive_button">Riprovare</string>
+    <string name="retry">Riprovare</string>
 
     <!--#########################################################################################-->
 
     <!--BOTTOM SHEETS-->
-    <string name="cancel_button">Annulla</string>
+    <string name="cancel">Annulla</string>
 
     <!--SORT-->
     <string name="alphabetical">Alfabetico</string>

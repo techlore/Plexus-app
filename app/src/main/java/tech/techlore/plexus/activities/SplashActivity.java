@@ -27,7 +27,6 @@ import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
 import static tech.techlore.plexus.utils.ListUtils.ScanInstalledApps;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,20 +34,17 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Executors;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.databinding.DialogFooterBinding;
-import tech.techlore.plexus.databinding.DialogNoNetworkBinding;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.models.PlexusData;
 
@@ -73,36 +69,21 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    // NO NETWORK DIALOG
     private void NoNetworkDialog() {
-        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
-        dialog.setCancelable(false);
 
-        dialog.getWindow().setBackgroundDrawable(ContextCompat
-                .getDrawable(this, R.drawable.shape_rounded_corners));
-        dialog.getWindow().getDecorView().setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.bottomSheetColor));
+        new MaterialAlertDialogBuilder(this, R.style.DialogTheme)
 
-        final DialogNoNetworkBinding dialogBinding = DialogNoNetworkBinding.inflate(getLayoutInflater());
-        final DialogFooterBinding footerBinding = DialogFooterBinding.bind(dialogBinding.getRoot());
-        dialog.setContentView(dialogBinding.getRoot());
+                .setTitle(R.string.dialog_title)
+                .setMessage(R.string.dialog_subtitle)
 
-        // POSITIVE BUTTON
-        footerBinding.positiveButton
-                .setOnClickListener(view1 -> {
-                    FetchData();
-                    dialog.dismiss();
-                });
+                .setPositiveButton(R.string.retry, (dialog, which) ->
+                        FetchData())
 
-        // NEGATIVE BUTTON
-        footerBinding.negativeButton.setText(getString(R.string.exit));
-        footerBinding.negativeButton.setOnClickListener(view12 -> {
-                    dialog.cancel();
-                    finishAndRemoveTask();
-                });
+                .setNegativeButton(R.string.exit, (dialog, which) ->
+                        finishAndRemoveTask())
 
-        // SHOW DIALOG WITH CUSTOM ANIMATION
-        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.show();
+                .show();
+
     }
 
     private void FetchData(){
@@ -113,7 +94,7 @@ public class SplashActivity extends AppCompatActivity {
 
             Executors.newSingleThreadExecutor().execute(() -> {
 
-                // BACKGROUND THREAD WORK
+                // Background thread work
                 if (HasInternet()) {
 
                     try {
@@ -122,7 +103,7 @@ public class SplashActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    // UI THREAD WORK
+                    // UI Thread work
                     handler.post(() -> {
                         try {
                             plexusDataList = PopulateDataList(jsonData);
@@ -144,7 +125,6 @@ public class SplashActivity extends AppCompatActivity {
                 }
             });
         }
-
         else {
             NoNetworkDialog();
         }

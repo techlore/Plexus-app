@@ -21,79 +21,131 @@ package tech.techlore.plexus.activities;
 
 import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 import static tech.techlore.plexus.utils.IntentUtils.Share;
-import static tech.techlore.plexus.utils.UiUtils.RatingColor;
+import static tech.techlore.plexus.utils.UiUtils.BadgeColor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-import java.util.Objects;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding;
 
 public class AppDetailsActivity extends AppCompatActivity {
 
+    private ActivityAppDetailsBinding activityBinding;
+    private String nameString, packageNameString, plexusVersionString,
+            dgStatusString, mgStatusString, dgNotesString, mgNotesString, playStoreString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActivityAppDetailsBinding activityBinding = ActivityAppDetailsBinding.inflate(getLayoutInflater());
+        activityBinding = ActivityAppDetailsBinding.inflate(getLayoutInflater());
         setContentView(activityBinding.getRoot());
 
         Intent intent = getIntent();
-        final String nameString = intent.getStringExtra("name");
-        final String packageNameString = intent.getStringExtra("packageName");
-        final String plexusVersionString = intent.getStringExtra("plexusVersion");
+        nameString = intent.getStringExtra("name");
+        packageNameString = intent.getStringExtra("packageName");
+        /*plexusVersionString = intent.getStringExtra("plexusVersion");
         final String installedVersionString = intent.getStringExtra("installedVersion");
-        final String dgRatingString = intent.getStringExtra("dgRating");
-        final String mgRatingString = intent.getStringExtra("mgRating");
-        final String dgNotesString = intent.getStringExtra("dgNotes");
-        final String mgNotesString = intent.getStringExtra("mgNotes");
-        final String playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
+        dgStatusString = intent.getStringExtra("dgStatus");
+        mgStatusString = intent.getStringExtra("mgStatus");
+        dgNotesString = intent.getStringExtra("dgNotes");
+        mgNotesString = intent.getStringExtra("mgNotes");*/
+        playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
 
     /*###########################################################################################*/
 
-        // TOOLBAR AS ACTIONBAR
-        setSupportActionBar(activityBinding.toolbarDetails);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-        activityBinding.toolbarDetails.setNavigationOnClickListener(v -> onBackPressed());
+        setSupportActionBar(activityBinding.bottomAppBar);
+        activityBinding.bottomAppBar.setNavigationOnClickListener(v -> onBackPressed());
 
-        // SET DATA RECEIVED
         activityBinding.nameDetails.setText(nameString);
         activityBinding.packageNameDetails.setText(packageNameString);
-        activityBinding.plexusVersionDetails.setText(plexusVersionString);
-        if (installedVersionString != null) {
+        //activityBinding.plexusVersionDetails.setText(plexusVersionString);
+        /*if (installedVersionString != null) {
             activityBinding.plexusText.setVisibility(View.VISIBLE);
             activityBinding.installedVerLayout.setVisibility(View.VISIBLE);
             activityBinding.installedVersionDetails.setText(installedVersionString);
-        }
-        activityBinding.dgRatingDetails.setText(dgRatingString);
-        activityBinding.mgRatingDetails.setText(mgRatingString);
+        }*/
         activityBinding.dgNotes.setText(dgNotesString);
         activityBinding.mgNotes.setText(mgNotesString);
 
-        RatingColor(this, activityBinding.dgRatingColor, dgRatingString);
-        RatingColor(this, activityBinding.mgRatingColor, mgRatingString);
+        BgColor(this, activityBinding.dgText, dgStatusString);
+        BgColor(this, activityBinding.mgText, mgStatusString);
 
-        // PLAY STORE URL
-        activityBinding.playStoreImg
-                .setOnClickListener(v ->
-                    OpenURL(this, playStoreString));
-
-        // SHARE
-        activityBinding.shareImg
-                .setOnClickListener(v ->
-                        Share(this,
-                                nameString, packageNameString, plexusVersionString,
-                                dgRatingString, mgRatingString,
-                                dgNotesString, mgNotesString,
-                                playStoreString));
+        BadgeColor(this, activityBinding.dgBadgeDetails, dgStatusString);
+        BadgeColor(this, activityBinding.mgBadgeDetails, mgStatusString);
 
     }
 
-    // SET TRANSITION WHEN FINISHING ACTIVITY
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_activity_details, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        // Play store URL
+        if (item.getItemId() == R.id.menu_play_store) {
+
+            OpenURL(this, playStoreString, activityBinding.appDetailsCoordinatorLayout, activityBinding.updateFab);
+        }
+
+        // Share
+        else if (item.getItemId() == R.id.menu_share) {
+            Share(this,
+                    nameString, packageNameString, /*plexusVersionString,
+                    dgStatusString, mgStatusString,
+                    dgNotesString, mgNotesString,*/
+                    playStoreString);
+        }
+
+        return true;
+    }
+
+    private void BgColor(Context context, TextView textView, String status) {
+
+        switch (status) {
+
+            case "X":
+                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.ratingXColor));
+                break;
+
+            case "1":
+                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating1Color));
+                break;
+
+            case "2":
+                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating2Color));
+                break;
+
+            case "3":
+                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating3Color));
+                break;
+
+            case "4":
+                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating4Color));
+                break;
+
+        }
+
+    }
+
+    // Set transition when finishing activity
     @Override
     public void finish() {
         super.finish();

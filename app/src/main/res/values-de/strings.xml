@@ -22,13 +22,13 @@
 <resources>
 
     <!--
-    ENSURE PROPER ENCODING OF CHARACTERS
+    Ensure proper encoding of characters
         ä = \u00E4
         ß = \u00DF
         ü = \u00FC
         Ü = \u00DC
     -->
-  
+
     <!--
     Use the informal "du" for translations
     -->
@@ -99,12 +99,12 @@
     <string name="dialog_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
         Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
     <string name="exit">Ausgang</string>
-    <string name="dialog_positive_button">Wiederholen</string>
+    <string name="retry">Wiederholen</string>
 
     <!--#########################################################################################-->
 
     <!--BOTTOM SHEETS-->
-    <string name="cancel_button">Abbrechen</string>
+    <string name="cancel">Abbrechen</string>
 
     <!--SORT-->
     <string name="alphabetical">Alphabetisch</string>

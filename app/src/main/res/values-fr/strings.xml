@@ -22,7 +22,7 @@
 <resources>
 
     <!--
-    ENSURE PROPER ENCODING OF CHARACTERS
+    Ensure proper encoding of characters
         à = \u00E0
         è = \u00E8
         é = \u00E9
@@ -59,15 +59,15 @@
     <!--#########################################################################################-->
 
     <!--HELP ACTIVITY-->
-    <string name="what_ratings_mean">Qu\'est-ce que les \u00E9valuations signifient?</string>
-    <string name="not_tested">Pas test\u00E9</string>
-    <string name="unusable">Inutilisable</string>
-    <string name="acceptable">Acceptable</string>
-    <string name="good">Bon</string>
-    <string name="perfect">Parfait</string>
+    <string name="what_status_mean">Qu\'est-ce que les \u00E9valuations signifient?</string>
+    <string name="not_tested_title">Pas test\u00E9</string>
+    <string name="borked_subtitle">Inutilisable</string>
+    <string name="bronze_subtitle">Acceptable</string>
+    <string name="silver_subtitle">Bon</string>
+    <string name="gold_subtitle">Parfait</string>
     <string name="app_card_breakdown">R\u00E9partition de la carte d\'application</string>
-    <string name="dg_rating">de-Googled \u00E9valuation</string>
-    <string name="mg_rating">microG \u00E9valuation</string>
+    <string name="dg_status">de-Googled \u00E9valuation</string>
+    <string name="mg_status">microG \u00E9valuation</string>
     <string name="application">Application</string>
     <string name="package_name">Nom du paquet</string>
     <string name="version">Version</string>
@@ -96,12 +96,12 @@
     <string name="dialog_subtitle">Connectez-vous aux donn\u00E9es Wi-Fi ou mobiles et r\u00E9essayez.
         Si vous \u00EAtes d\u00E9j\u00E0 connect\u00E9, assurez-vous qu\'il a une connexion internet.</string>
     <string name="exit">Sortie</string>
-    <string name="dialog_positive_button">Retenter</string>
+    <string name="retry">Retenter</string>
 
     <!--#########################################################################################-->
 
     <!--BOTTOM SHEETS-->
-    <string name="cancel_button">Annuler</string>
+    <string name="cancel">Annuler</string>
 
     <!--SORT-->
     <string name="alphabetical">Alphab\u00E9tique</string>

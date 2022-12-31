@@ -76,7 +76,7 @@ public class SearchInstalledFragment extends Fragment {
         fragmentBinding.swipeRefreshLayout.setEnabled(false);
         fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // PERFORM SEARCH
+        // Perform search
         searchActivity.searchViewBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchString) {
@@ -90,12 +90,11 @@ public class SearchInstalledFragment extends Fragment {
                     delayTimer.cancel();
                 }
 
-                // SEARCH WITH A SUBTLE DELAY
+                // Search with a subtle delay
                 delayTimer = new CountDownTimer(350, 150) {
 
                     public void onTick(long millisUntilFinished) {}
 
-                    // ON TIMER FINISH, EXTEND FAB
                     public void onFinish() {
 
                         if (!searchString.isEmpty()) {
@@ -113,14 +112,14 @@ public class SearchInstalledFragment extends Fragment {
             }
         });
 
-        // HANDLE CLICK EVENTS OF ITEMS
+        // On click
         installedAppItemAdapter.setOnItemClickListener(position -> {
 
             InstalledApp installedApp = searchInstalledList.get(position);
-            AppDetails(searchActivity, installedApp.getName(), installedApp.getPackageName(),
-                        installedApp.getPlexusVersion(), installedApp.getInstalledVersion(),
-                        installedApp.getDgNotes(), installedApp.getMgNotes(),
-                        installedApp.getDgRating(), installedApp.getMgRating());
+            AppDetails(searchActivity, installedApp.getName(), installedApp.getPackageName());
+//                        installedApp.getPlexusVersion(), installedApp.getInstalledVersion(),
+//                        installedApp.getDgNotes(), installedApp.getMgNotes(),
+//                        installedApp.getDgRating(), installedApp.getMgRating()
 
         });
 

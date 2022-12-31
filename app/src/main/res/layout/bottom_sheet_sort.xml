@@ -41,7 +41,7 @@
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/alphabetical"
         style="@style/MediumBoldText"
-        android:textSize="@dimen/text_15"
+        android:textSize="@dimen/text_16"
         android:textColor="?attr/colorControlNormal"/>
 
     <com.google.android.material.chip.ChipGroup
@@ -61,14 +61,14 @@
             android:id="@+id/sort_a_z"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipStyle"
+            style="@style/FilterChipTheme"
             android:text="@string/a_z"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_z_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipStyle"
+            style="@style/FilterChipTheme"
             android:text="@string/z_a"/>
 
     </com.google.android.material.chip.ChipGroup>
@@ -79,65 +79,64 @@
         android:layout_marginStart="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_4"
-        android:text="@string/rating"
+        android:text="@string/status"
         style="@style/MediumBoldText"
-        android:textSize="@dimen/text_15"
+        android:textSize="@dimen/text_16"
         android:textColor="?attr/colorControlNormal"/>
 
     <RadioGroup
-        android:id="@+id/rating_radiogroup"
+        android:id="@+id/status_radiogroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_4"
-        android:layout_marginBottom="@dimen/margin_2.5"
+        android:layout_marginBottom="@dimen/margin_4"
         android:orientation="horizontal"
-        android:layout_gravity="center"
-        style="@style/MediumBoldText">
+        android:layout_gravity="center">
 
-        <RadioButton
-            android:checked="true"
-            android:id="@+id/radio_any_rating"
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_any_status"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/radio_button_selector"
+            android:background="@drawable/shape_radio_btn_selector"
+            android:checked="true"
             android:button="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
             android:text="@string/any"
             android:textSize="@dimen/text_16"
-            android:textColor="@color/radio_button_text_color_state"/>
+            android:textColor="@color/radio_btn_text_color"/>
 
-        <RadioButton
-            android:id="@+id/radio_dg_rating"
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_dg_status"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/radio_button_selector"
+            android:background="@drawable/shape_radio_btn_selector"
             android:button="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
             android:text="@string/de_Googled"
             android:textSize="@dimen/text_16"
-            android:textColor="@color/radio_button_text_color_state"/>
+            android:textColor="@color/radio_btn_text_color"/>
 
-        <RadioButton
-            android:id="@+id/radio_mg_rating"
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_mg_status"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
             android:layout_margin="@dimen/margin_4"
             android:button="@android:color/transparent"
-            android:background="@drawable/radio_button_selector"
+            android:background="@drawable/shape_radio_btn_selector"
             android:text="@string/microG"
             android:textSize="@dimen/text_16"
-            android:textColor="@color/radio_button_text_color_state"/>
+            android:textColor="@color/radio_btn_text_color"/>
 
     </RadioGroup>
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/rating_chip_group"
+        android:id="@+id/status_chip_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_10"
@@ -150,43 +149,47 @@
         android:visibility="gone">
 
         <com.google.android.material.chip.Chip
-            android:checked="true"
             android:id="@+id/sort_not_tested"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipStyle"
-            android:text="@string/not_tested"/>
+            android:checked="true"
+            style="@style/FilterChipTheme"
+            android:text="@string/not_tested_title"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_unusable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipStyle"
-            android:text="@string/unusable"/>
+            style="@style/FilterChipTheme"
+            android:text="@string/borked_title"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_acceptable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipStyle"
-            android:text="@string/acceptable"/>
+            style="@style/FilterChipTheme"
+            android:text="@string/bronze_title"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_good"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipStyle"
-            android:text="@string/good"/>
+            style="@style/FilterChipTheme"
+            android:text="@string/silver_title"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_perfect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipStyle"
-            android:text="@string/perfect"/>
+            style="@style/FilterChipTheme"
+            android:text="@string/gold_title"/>
 
     </com.google.android.material.chip.ChipGroup>
 
-    <include layout="@layout/dialog_footer"/>
+    <include
+        layout="@layout/bottom_sheet_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"/>
 
 </LinearLayout>

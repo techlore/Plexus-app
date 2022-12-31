@@ -21,10 +21,13 @@
 
 <resources>
 
-    <!--DARK THEME COLORS-->
+    <!--Dark theme colors-->
     <color name="colorPrimary">#1DA1F2</color>
-    <color name="colorAccent">#1DA1F2</color>
-    <color name="backgroundColor">#202124</color>
+    <color name="colorAccent">#FF5252</color>
+    <color name="colorPrimary30">#301DA1F2</color>
+    <color name="colorAccent30">#30FF5252</color>
+    <color name="backgroundColor">@color/grey_900</color>
+    <color name="colorControlNormal">#BCBCBC</color>
     <color name="textTitleColor">#FAFAFA</color>
     <color name="enabledColor">#B8B8BD</color>
     <color name="hintColor">#9BA0A6</color>

@@ -21,31 +21,47 @@
 
 <resources>
 
-    <string name="app_name" translatable="false">Plexus</string>
-
-    <!--SPLASH ACTIVITY-->
+    <!--Splash activity -->
     <string name="fetching_data">Fetching data</string>
     <string name="scan_installed">Scanning installed apps</string>
 
     <!--#########################################################################################-->
 
-    <!--MAIN ACTIVITY-->
+    <!--Main activity-->
     <string name="plexus_data">Plexus Data</string>
     <string name="installed_apps">Installed Apps</string>
     <string name="no_apps_found">No such apps found</string>
 
-    <!--TOOLBAR MENU-->
+    <!--Toolbar menu-->
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort</string>
     <string name="menu_more">More</string>
     <string name="menu_help">Help</string>
     <string name="menu_settings">Settings</string>
 
+    <!--Help fragment-->
+    <string name="what_status_mean">What do the status mean?</string>
+    <string name="not_tested_title">Not tested</string>
+    <string name="not_tested_subtitle">App has not been tested</string>
+    <string name="borked_title">Borked</string>
+    <string name="borked_subtitle">Unusable, mostly apps that fail to open</string>
+    <string name="bronze_title">Bronze</string>
+    <string name="bronze_subtitle">Acceptable but with missing or broken functionality</string>
+    <string name="silver_title">Silver</string>
+    <string name="silver_subtitle">Almost everything works with minimal caveats</string>
+    <string name="gold_title">Gold</string>
+    <string name="gold_subtitle">Perfect or perfect-like experience</string>
+    <string name="x">X</string>
+    <string name="app_card_breakdown">Application card breakdown</string>
+    <string name="dg_status">de-Googled status</string>
+    <string name="mg_status">microG status</string>
+    <string name="application">Application</string>
+    <string name="package_name">Package name</string>
+    <string name="version">Version</string>
+
     <!--#########################################################################################-->
 
-    <!--APP DETAILS ACTIVITY-->
-    <string name="de_Googled" translatable="false">de-Googled</string>
-    <string name="microG" translatable="false">\u00B5 (microG)</string>
+    <!--App details activity-->
     <string name="notes">notes</string>
     <string name="installed">Installed</string>
     <string name="play_store">Play store</string>
@@ -53,41 +69,15 @@
 
     <!--#########################################################################################-->
 
-    <!--HELP ACTIVITY-->
-    <string name="what_ratings_mean">What do the ratings mean?</string>
-    <string name="not_tested">Not tested</string>
-    <string name="unusable">Unusable</string>
-    <string name="acceptable">Acceptable</string>
-    <string name="good">Good</string>
-    <string name="perfect">Perfect</string>
-    <string name="x" translatable="false">X</string>
-    <string name="one" translatable="false">1</string>
-    <string name="two" translatable="false">2</string>
-    <string name="three" translatable="false">3</string>
-    <string name="four" translatable="false">4</string>
-    <string name="five" translatable="false">5</string>
-    <string name="app_card_breakdown">Application card breakdown</string>
-    <string name="twitter" translatable="false">Twitter</string>
-    <string name="twitter_package_name" translatable="false">com.twitter.android</string>
-    <string name="twitter_version" translatable="false">9.34.5</string>
-    <string name="dg_rating">de-Googled rating</string>
-    <string name="mg_rating">microG rating</string>
-    <string name="application">Application</string>
-    <string name="package_name">Package name</string>
-    <string name="version">Version</string>
-
-    <!--#########################################################################################-->
-
     <!--SETTINGS ACTIVITY-->
     <string name="theme_title">Theme</string>
     <string name="report_issue_title">Report an issue</string>
-    <string name="report_issue_subtitle">Found a bug? Let us know</string>
+    <string name="def_label_title">Default Label</string>
     <string name="contribute_title">Contribute</string>
-    <string name="contribute_subtitle">Improve the app or the existing data</string>
     <string name="about_title">About</string>
     <string name="about_subtitle">Version, policy and licenses</string>
 
-    <!--ABOUT FRAGMENT-->
+    <!--About fragment-->
     <string name="privacy_policy">Privacy Policy</string>
     <string name="licenses">Licenses</string>
     <string name="view_on_github">View on GitHub</string>
@@ -95,45 +85,37 @@
 
     <!--#########################################################################################-->
 
-    <!--DIALOGS-->
+    <!--Dialog-->
     <string name="dialog_title">No Network/Internet</string>
     <string name="dialog_subtitle">Connect to Wi-Fi or mobile data and retry.
         If already connected, make sure it has an internet connection.</string>
     <string name="exit">Exit</string>
-    <string name="dialog_positive_button">Retry</string>
+    <string name="retry">Retry</string>
 
     <!--#########################################################################################-->
 
-    <!--BOTTOM SHEETS-->
-    <string name="bottom_sheet_title" translatable="false">Bottom Sheet Title</string>
-    <string name="cancel_button">Cancel</string>
+    <!--Bottom sheets-->
+    <string name="cancel">Cancel</string>
+    <string name="dismiss">Dismiss</string>
 
-    <!--SORT-->
+    <!--Sort-->
     <string name="alphabetical">Alphabetical</string>
-    <string name="a_z" translatable="false">A-Z</string>
-    <string name="z_a" translatable="false">Z-A</string>
-    <string name="rating">Rating</string>
+    <string name="status">Status</string>
     <string name="any">Any</string>
     <string name="done">Done</string>
 
-    <!--THEME-->
+    <!--Theme-->
     <string name="system_default">System Default</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
 
-    <!--CONTRIBUTE-->
+    <!--Contribute-->
     <string name="read_guidelines">Read contributing guidelines</string>
     <string name="pull_req">Submit a pull request</string>
 
-    <!--LICENSES-->
-    <string name="jackson" translatable="false">Jackson</string>
-    <string name="okhttp" translatable="false">OkHttp</string>
-    <string name="fastscroll" translatable="false">AndroidFastScroll</string>
-    <string name="material_icons" translatable="false">MaterialDesignIcons</string>
-
     <!--#########################################################################################-->
 
-    <!--TOASTS-->
+    <!--Snackbar-->
     <string name="no_browsers">No browsers installed on this device</string>
 
 </resources>

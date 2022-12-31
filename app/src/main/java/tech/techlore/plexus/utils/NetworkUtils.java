@@ -38,7 +38,7 @@ public class NetworkUtils {
 
     private static final OkHttpClient okHttpClient = new OkHttpClient();
 
-    // CHECK NETWORK AVAILABILITY
+    // Check network availability
     public static boolean HasNetwork(Context context) {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
@@ -47,8 +47,8 @@ public class NetworkUtils {
 
     }
 
-    // CHECK IF NETWORK HAS INTERNET CONNECTION
-    // MUST BE CALLED IN BACKGROUND THREAD
+    // Check if network has internet connection
+    // Must be called in background thread
     public static boolean HasInternet() {
 
         try {
@@ -66,7 +66,7 @@ public class NetworkUtils {
 
     public static String URLResponse() throws IOException {
         Request request = new Request.Builder()
-                .url("https://raw.githubusercontent.com/techlore/Plexus-app/main/Plexus.json")
+                .url("https://plexus.fly.dev/api/v1/applications")
                 .build();
 
         try (Response response = okHttpClient.newCall(request).execute())

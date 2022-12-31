@@ -82,6 +82,6 @@
 
         </RadioGroup>
 
-    <include layout="@layout/dialog_footer"/>
+    <include layout="@layout/bottom_sheet_footer"/>
 
 </LinearLayout>

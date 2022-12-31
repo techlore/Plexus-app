@@ -19,14 +19,14 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<ScrollView
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-    tools:context=".fragments.settings.AboutFragment"
+    tools:context=".fragments.main.AboutFragment"
     tools:ignore="ContentDescription">
 
     <LinearLayout
@@ -67,7 +67,7 @@
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/version"
-            android:textColor="?colorControlNormal"
+            android:textColor="@color/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <include
@@ -160,4 +160,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

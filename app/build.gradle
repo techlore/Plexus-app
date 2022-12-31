@@ -22,14 +22,15 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    namespace 'tech.techlore.plexus'
+    compileSdk 33
 
     defaultConfig {
         applicationId "tech.techlore.plexus"
         minSdk 23
-        targetSdk 31
-        versionCode 100
-        versionName "1.0.0"
+        targetSdk 33
+        versionCode 120
+        versionName "1.2.0"
     }
 
     buildTypes {
@@ -53,13 +54,14 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.7'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.11.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
-    implementation 'me.zhanghai.android.fastscroll:library:1.1.7'
+    //implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
+    implementation project(path: ':FastScroll')
     implementation project(path: ':models')
     implementation project(path: ':preferences')
 

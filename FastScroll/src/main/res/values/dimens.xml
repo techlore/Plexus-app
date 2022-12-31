@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <dimen name="afs_min_touch_target_size">48dp</dimen>
+
+    <dimen name="afs_popup_min_size">88dp</dimen>
+    <dimen name="afs_popup_margin_end">16dp</dimen>
+    <dimen name="afs_popup_text_size">45dp</dimen>
+
+    <dimen name="afs_md2_popup_min_width">78dp</dimen>
+    <dimen name="afs_md2_popup_min_height">64dp</dimen>
+    <dimen name="afs_md2_popup_margin_end">14dp</dimen>
+    <dimen name="afs_md2_popup_padding_start">16dp</dimen>
+    <dimen name="afs_md2_popup_padding_end">29dp</dimen>
+    <dimen name="afs_md2_popup_elevation">3dp</dimen>
+    <dimen name="afs_md2_popup_text_size">34dp</dimen>
+</resources>
