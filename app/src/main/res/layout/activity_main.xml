@@ -44,8 +44,7 @@
             android:paddingStart="@dimen/margin_2.5"
             android:paddingEnd="@dimen/margin_2.5"
             app:titleTextColor="@color/textTitleColor"
-            app:titleTextAppearance="@style/MediumBoldText"
-            app:layout_scrollFlags="scroll|enterAlways"/>
+            app:titleTextAppearance="@style/MediumBoldText"/>
 
         <include layout="@layout/divider_horizontal"/>
 
@@ -58,7 +57,14 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginBottom="?attr/actionBarSize"/>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <View
+        android:id="@+id/dim_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:alpha="0.0"/>
+
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/bottom_nav_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -114,6 +120,6 @@
 
         </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

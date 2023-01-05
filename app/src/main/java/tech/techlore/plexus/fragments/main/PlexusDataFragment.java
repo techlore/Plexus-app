@@ -20,15 +20,12 @@
 package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.DG_STATUS_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.MG_STATUS_SORT_PREF;
 import static tech.techlore.plexus.preferences.PreferenceManager.STATUS_RADIO_PREF;
 import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
 import static tech.techlore.plexus.utils.IntentUtils.ReloadFragment;
 import static tech.techlore.plexus.utils.NetworkUtils.HasInternet;
 import static tech.techlore.plexus.utils.NetworkUtils.HasNetwork;
 import static tech.techlore.plexus.utils.NetworkUtils.URLResponse;
-import static tech.techlore.plexus.utils.ListUtils.PlexusDataStatusSort;
 import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
 import static tech.techlore.plexus.utils.UiUtils.LongClickBottomSheet;
 
@@ -43,8 +40,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -62,6 +57,7 @@ import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
 import tech.techlore.plexus.databinding.RecyclerViewBinding;
 import tech.techlore.plexus.models.PlexusData;
 import tech.techlore.plexus.preferences.PreferenceManager;
+import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener;
 
 public class PlexusDataFragment extends Fragment {
 
@@ -98,7 +94,8 @@ public class PlexusDataFragment extends Fragment {
 
     /*###########################################################################################*/
 
-        ((MainActivity) requireActivity()).activityBinding.toolbarTop.setTitle(R.string.plexus_data);
+        mainActivity.activityBinding.toolbarTop.setTitle(R.string.plexus_data);
+        fragmentBinding.recyclerView.addOnItemTouchListener(new RecyclerViewItemTouchListener(mainActivity));
 
         // Status sort
         for (PlexusData plexusData : mainActivity.dataList) {

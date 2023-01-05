@@ -34,7 +34,7 @@ import static tech.techlore.plexus.utils.IntentUtils.ReloadFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -70,7 +70,7 @@ import tech.techlore.plexus.preferences.PreferenceManager;
 public class MainActivity extends AppCompatActivity {
 
     public ActivityMainBinding activityBinding;
-    private BottomSheetBehavior<CoordinatorLayout> bottomSheetBehavior;
+    public BottomSheetBehavior<NestedScrollView> bottomSheetBehavior;
     private int checkedItem = 0; // To set nav view item background, check selected item
     public Fragment fragment;
     private PreferenceManager preferenceManager;
@@ -107,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
+    
+//                if (newState == STATE_EXPANDED) {
+//
+//                } else {
+//                    activityBinding.dimView.setAlpha(0.0f); // fully transparent
+//                }
 
                 if (newState == STATE_COLLAPSED) {
                     DisplayFragment(fragment, checkedItem);
@@ -118,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
 
                 activityBinding.navView.setCheckedItem(checkedItem); // Always sync checked item on slide
+                activityBinding.dimBg.setAlpha(slideOffset);
 
             }
 
@@ -180,8 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Setup fragments
     private void DisplayFragment(Fragment fragment, int checkedItem) {
-
-        activityBinding.appbarTop.setExpanded(true,true);
+        
         getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(R.id.activity_host_fragment, fragment)
@@ -233,8 +239,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Search
-        // DON'T FINISH MAIN ACTIVITY,
-        // OR ELSE ISSUES WHEN GETTING LIST BACK FROM SEARCH ACTIVITY
+        // Don't finish main activity,
+        // Or else issues when getting list back from search activity
         if (item.getItemId() == R.id.menu_search) {
 
             Intent searchIntent = new Intent(this, SearchActivity.class);
