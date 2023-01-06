@@ -21,6 +21,7 @@ package tech.techlore.plexus.fragments.main;
 
 import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,13 +32,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-
 import tech.techlore.plexus.R;
+import tech.techlore.plexus.activities.LicensesActivity;
 import tech.techlore.plexus.activities.MainActivity;
-import tech.techlore.plexus.databinding.BottomSheetHeaderBinding;
-import tech.techlore.plexus.databinding.BottomSheetLicensesBinding;
-import tech.techlore.plexus.databinding.BottomSheetFooterBinding;
 import tech.techlore.plexus.databinding.FragmentSettingsAboutBinding;
 
 public class AboutFragment extends Fragment {
@@ -94,7 +91,7 @@ public class AboutFragment extends Fragment {
         // Licenses
         fragmentBinding.licenses
                 .setOnClickListener(v ->
-                                LicensesBottomSheet());
+                        mainActivity.startActivity(new Intent(mainActivity, LicensesActivity.class)));
 
         // View on GitHub
         fragmentBinding.viewOnGit
@@ -108,51 +105,6 @@ public class AboutFragment extends Fragment {
                         OpenURL(requireActivity(), "https://techlore.tech",
                                 mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));
 
-    }
-
-    private void LicensesBottomSheet(){
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
-
-        final BottomSheetLicensesBinding bottomSheetBinding = BottomSheetLicensesBinding.inflate(getLayoutInflater());
-        final BottomSheetHeaderBinding headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.getRoot());
-        final BottomSheetFooterBinding footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.getRoot());
-        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
-
-        headerBinding.bottomSheetTitle.setText(R.string.licenses);
-
-        // Plexus
-        /*bottomSheetBinding.plexusLicense.setOnClickListener(v ->
-                OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/blob/main/LICENSE",
-                        mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));*/
-
-        // Jackson
-        bottomSheetBinding.jacksonLicense.setOnClickListener(v ->
-                OpenURL(requireActivity(), "https://github.com/FasterXML/jackson-core/blob/2.14/LICENSE",
-                        mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));
-
-        // OkHttp
-        bottomSheetBinding.okhttpLicense.setOnClickListener(v ->
-                OpenURL(requireActivity(), "https://github.com/square/okhttp/blob/master/LICENSE.txt",
-                        mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));
-
-        // Android fast scroll
-        bottomSheetBinding.fastscrollLicense.setOnClickListener(v ->
-                OpenURL(requireActivity(), "https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE",
-                        mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));
-
-        // Material design icons
-        bottomSheetBinding.materialIconsLicense.setOnClickListener(v ->
-                OpenURL(requireActivity(), "https://github.com/Templarian/MaterialDesign/blob/master/LICENSE",
-                        mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));
-
-        footerBinding.positiveButton.setVisibility(View.GONE);
-
-        // Dismiss
-        footerBinding.negativeButton.setText(R.string.dismiss);
-        footerBinding.negativeButton.setOnClickListener(view12 ->
-                bottomSheetDialog.cancel());
-
-        bottomSheetDialog.show();
     }
 
     @Override

@@ -81,6 +81,8 @@ public class SplashActivity extends AppCompatActivity {
 
                 .setNegativeButton(R.string.exit, (dialog, which) ->
                         finishAndRemoveTask())
+                
+                .setCancelable(false)
 
                 .show();
 

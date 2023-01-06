@@ -37,6 +37,7 @@
     <color name="dividerColor">#DBDCE0</color>
     <color name="bottomSheetColor">@color/backgroundColor</color>
     <color name="dragHandleColor">#C0C1C3</color>
+    <color name="urlColor">#1976D2</color>
 
     <!--Common colors-->
     <color name="grey_800">#424242</color>

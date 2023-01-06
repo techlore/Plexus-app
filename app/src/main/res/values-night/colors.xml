@@ -37,5 +37,6 @@
     <color name="dividerColor">#5F6267</color>
     <color name="bottomSheetColor">#3C3D40</color>
     <color name="dragHandleColor">#606165</color>
+    <color name="urlColor">#42A5F5</color>
 
 </resources>

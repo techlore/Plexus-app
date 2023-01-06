@@ -185,7 +185,7 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
                     for (InstalledApp installedApp: aListViewItemsFull){
 
                         if (installedApp.getName().toLowerCase().contains(searchString)
-                                || installedApp.getPackageName().toLowerCase().contains(searchString)){
+                            || installedApp.getPackageName().toLowerCase().contains(searchString)){
 
                             filteredList.add(installedApp);
                         }

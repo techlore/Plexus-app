@@ -105,7 +105,7 @@ Please read the [contributing guidelines](https://github.com/techlore/Plexus-app
 - [henryistaken](https://github.com/henryistaken) for going forward with the project, keeping up with and replying to my spams.
 - [parveshnarwal](https://github.com/parveshnarwal) for helping with the initial implementation of json into this app.
 - [Tom Konidas](https://github.com/tomkonidas) For building the original Plexus website and speeding up the development of this project.
-- Some additional icons (other than the official ones by Google) are provided by [MaterialDesignIcons](https://github.com/Templarian/MaterialDesign) | [Pictogrammers Free License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
+- Some additional icons (other than the official ones by Google) are provided by [MaterialDesignIcons](https://github.com/Templarian/MaterialDesign) | [Apache License 2.0](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
 
 
 

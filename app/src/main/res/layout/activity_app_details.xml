@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingStart="@dimen/margin_12"
+                    android:paddingStart="1dp"
                     android:paddingEnd="@dimen/margin_12">
 
                     <TextView
@@ -75,62 +75,7 @@
                         android:layout_marginBottom="@dimen/margin_12"
                         android:text="@string/package_name"
                         android:textColor="@color/textTitleColor"
-                        android:textSize="@dimen/text_20"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/plexus_text"
-                            android:visibility="gone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/margin_16"
-                            android:padding="@dimen/margin_6.5"
-                            android:background="@drawable/shape_outline"
-                            android:text="@string/app_name"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/text_16"/>
-
-                        <TextView
-                            android:id="@+id/plexus_version_details"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/version"
-                            android:textColor="?colorControlNormal"
-                            android:textSize="@dimen/text_18"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/installed_ver_layout"
-                        android:visibility="gone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/margin_12">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_6.5"
-                            android:background="@drawable/shape_outline"
-                            android:text="@string/installed"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/text_16"/>
-
-                        <TextView
-                            android:id="@+id/installed_version_details"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_16"
-                            android:text="@string/version"
-                            android:textColor="?colorControlNormal"
-                            android:textSize="@dimen/text_18"/>
-
-                    </LinearLayout>
+                        android:textSize="@dimen/text_18"/>
 
                 </LinearLayout>
 
@@ -139,6 +84,64 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <include layout="@layout/divider_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_16">
+
+            <TextView
+                android:id="@+id/plexus_text"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:padding="@dimen/margin_6.5"
+                android:background="@drawable/shape_outline"
+                android:text="@string/app_name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_16"/>
+
+            <TextView
+                android:id="@+id/plexus_version_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/version"
+                android:textColor="?colorControlNormal"
+                android:textSize="@dimen/text_16"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/installed_ver_layout"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_16">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_6.5"
+                android:background="@drawable/shape_outline"
+                android:text="@string/installed"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_16"/>
+
+            <TextView
+                android:id="@+id/installed_version_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_12"
+                android:text="@string/version"
+                android:textColor="?colorControlNormal"
+                android:textSize="@dimen/text_16"/>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -250,17 +253,6 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_45"
-            android:layout_marginBottom="@dimen/margin_12"
-            android:text="NOTE: \n\nTop half of this screen will be redesigned later to accommodate multiple versions.\n\nHaven't really thought of anything yet."
-            android:textColor="@color/textTitleColor"
-            android:textSize="@dimen/text_18"/>
-
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -269,14 +261,10 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_close"
-        android:backgroundTint="@color/bottomSheetColor"
-        app:fabCradleMargin="@dimen/margin_10"
-        app:fabCradleRoundedCornerRadius="@dimen/margin_16"
-        app:fabAlignmentMode="end"/>
+        android:backgroundTint="@color/bottomSheetColor"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/update_fab"
-        app:fabCustomSize="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/bottom_app_bar"

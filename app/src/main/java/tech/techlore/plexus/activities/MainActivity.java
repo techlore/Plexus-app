@@ -107,12 +107,6 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-    
-//                if (newState == STATE_EXPANDED) {
-//
-//                } else {
-//                    activityBinding.dimView.setAlpha(0.0f); // fully transparent
-//                }
 
                 if (newState == STATE_COLLAPSED) {
                     DisplayFragment(fragment, checkedItem);
@@ -124,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
 
                 activityBinding.navView.setCheckedItem(checkedItem); // Always sync checked item on slide
-                activityBinding.dimBg.setAlpha(slideOffset);
+                activityBinding.dimBg.setAlpha(slideOffset); // Dm background when bottom sheet is sliding
 
             }
 

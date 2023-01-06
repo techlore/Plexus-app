@@ -76,7 +76,7 @@ public class AppDetailsActivity extends AppCompatActivity {
             activityBinding.plexusText.setVisibility(View.VISIBLE);
             activityBinding.installedVerLayout.setVisibility(View.VISIBLE);
             activityBinding.installedVersionDetails.setText(installedVersionString);
-        }*/
+        }
         activityBinding.dgNotes.setText(dgNotesString);
         activityBinding.mgNotes.setText(mgNotesString);
 
@@ -84,7 +84,7 @@ public class AppDetailsActivity extends AppCompatActivity {
         BgColor(this, activityBinding.mgText, mgStatusString);
 
         BadgeColor(this, activityBinding.dgBadgeDetails, dgStatusString);
-        BadgeColor(this, activityBinding.mgBadgeDetails, mgStatusString);
+        BadgeColor(this, activityBinding.mgBadgeDetails, mgStatusString);*/
 
     }
 
