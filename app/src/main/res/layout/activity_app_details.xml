@@ -264,7 +264,7 @@
         android:backgroundTint="@color/bottomSheetColor"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/update_fab"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/bottom_app_bar"

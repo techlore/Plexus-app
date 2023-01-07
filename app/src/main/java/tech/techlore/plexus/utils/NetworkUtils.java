@@ -53,7 +53,7 @@ public class NetworkUtils {
 
         try {
             Socket socket = new Socket();
-            socket.connect(new InetSocketAddress("github.com", 443), 1500);
+            socket.connect(new InetSocketAddress("plexus.fly.dev", 443), 5000);
             socket.close();
 
             return true;
@@ -64,7 +64,8 @@ public class NetworkUtils {
 
     }
 
-    public static String URLResponse() throws IOException {
+    // GET request
+    public static String GETReq() throws IOException {
         Request request = new Request.Builder()
                 .url("https://plexus.fly.dev/api/v1/applications")
                 .build();
@@ -75,5 +76,6 @@ public class NetworkUtils {
         }
 
     }
+    
 
 }

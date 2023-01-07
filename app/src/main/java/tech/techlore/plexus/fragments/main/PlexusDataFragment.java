@@ -25,7 +25,7 @@ import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
 import static tech.techlore.plexus.utils.IntentUtils.ReloadFragment;
 import static tech.techlore.plexus.utils.NetworkUtils.HasInternet;
 import static tech.techlore.plexus.utils.NetworkUtils.HasNetwork;
-import static tech.techlore.plexus.utils.NetworkUtils.URLResponse;
+import static tech.techlore.plexus.utils.NetworkUtils.GETReq;
 import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
 import static tech.techlore.plexus.utils.UiUtils.LongClickBottomSheet;
 
@@ -201,7 +201,7 @@ public class PlexusDataFragment extends Fragment {
                 if (HasInternet()) {
 
                     try {
-                        jsonData = URLResponse();
+                        jsonData = GETReq();
                     }
                     catch (IOException e) {
                         e.printStackTrace();

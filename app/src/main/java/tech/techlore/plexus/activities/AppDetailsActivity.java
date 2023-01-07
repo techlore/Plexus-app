@@ -85,6 +85,10 @@ public class AppDetailsActivity extends AppCompatActivity {
 
         BadgeColor(this, activityBinding.dgBadgeDetails, dgStatusString);
         BadgeColor(this, activityBinding.mgBadgeDetails, mgStatusString);*/
+        
+        // FAB
+        activityBinding.fab.setOnClickListener(v ->
+             startActivity(new Intent(AppDetailsActivity.this, SubmitActivity.class)));
 
     }
 
@@ -102,7 +106,7 @@ public class AppDetailsActivity extends AppCompatActivity {
         // Play store URL
         if (item.getItemId() == R.id.menu_play_store) {
 
-            OpenURL(this, playStoreString, activityBinding.appDetailsCoordinatorLayout, activityBinding.updateFab);
+            OpenURL(this, playStoreString, activityBinding.appDetailsCoordinatorLayout, activityBinding.bottomAppBar);
         }
 
         // Share

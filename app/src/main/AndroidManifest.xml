@@ -31,26 +31,27 @@
         <!-- Main activity -->
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"/>
 
         <!-- App details activity -->
         <activity
             android:name=".activities.AppDetailsActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"/>
 
         <!-- Search activity -->
         <activity
             android:name=".activities.SearchActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"/>
+
+        <!--Submit Activity-->
+        <activity
+            android:name=".activities.SubmitActivity"
+            android:configChanges="orientation|screenSize"/>
 
         <!-- Licenses activity -->
         <activity
             android:name=".activities.LicensesActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"/>
 
     </application>
 
