@@ -61,7 +61,5 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.11.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
     implementation project(path: ':FastScroll')
-    implementation project(path: ':models')
-    implementation project(path: ':preferences')
 
 }

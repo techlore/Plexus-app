@@ -34,5 +34,3 @@ dependencyResolutionManagement {
 rootProject.name = "Plexus"
 include ':app'
 include ':FastScroll'
-include ':models'
-include ':preferences'
