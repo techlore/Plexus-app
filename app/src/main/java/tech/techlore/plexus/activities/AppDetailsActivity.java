@@ -63,8 +63,8 @@ public class AppDetailsActivity extends AppCompatActivity {
         dgNotesString = intent.getStringExtra("dgNotes");
         mgNotesString = intent.getStringExtra("mgNotes");*/
         playStoreString = "https://play.google.com/store/apps/details?id=" + packageNameString;
-
-    /*###########################################################################################*/
+        
+        /*########################################################################################*/
 
         setSupportActionBar(activityBinding.bottomAppBar);
         activityBinding.bottomAppBar.setNavigationOnClickListener(v -> onBackPressed());
@@ -87,8 +87,12 @@ public class AppDetailsActivity extends AppCompatActivity {
         BadgeColor(this, activityBinding.mgBadgeDetails, mgStatusString);*/
         
         // FAB
-        activityBinding.fab.setOnClickListener(v ->
-             startActivity(new Intent(AppDetailsActivity.this, SubmitActivity.class)));
+        activityBinding.fab.setOnClickListener(v -> {
+            startActivity(new Intent(AppDetailsActivity.this, SubmitActivity.class)
+                                  .putExtra("name", nameString)
+                                  .putExtra("packageName", packageNameString));
+            overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement);
+        });
 
     }
 

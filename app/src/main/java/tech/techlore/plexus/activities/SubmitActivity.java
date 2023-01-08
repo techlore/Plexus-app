@@ -19,81 +19,156 @@
 
 package tech.techlore.plexus.activities;
 
+import static tech.techlore.plexus.utils.NetworkUtils.HasInternet;
+import static tech.techlore.plexus.utils.NetworkUtils.HasNetwork;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
+import tech.techlore.plexus.R;
 import tech.techlore.plexus.databinding.ActivitySubmitBinding;
 
 public class SubmitActivity extends AppCompatActivity {
+    
+    private ActivitySubmitBinding activityBinding;
+    private String nameString, packageNameString, plexusVersionString,
+            dgStatusString, mgStatusString, dgNotesString, mgNotesString;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
-        tech.techlore.plexus.databinding.ActivitySubmitBinding activityBinding = ActivitySubmitBinding.inflate(getLayoutInflater());
+        activityBinding = ActivitySubmitBinding.inflate(getLayoutInflater());
         setContentView(activityBinding.getRoot());
+    
+        Intent intent = getIntent();
+        nameString = intent.getStringExtra("name");
+        packageNameString = intent.getStringExtra("packageName");
+    
+        /*########################################################################################*/
+        
+        setSupportActionBar(activityBinding.submitBottomAppBar);
+        activityBinding.submitBottomAppBar.setNavigationOnClickListener(v -> onBackPressed());
+    
+        activityBinding.submitName.setText(nameString);
+        activityBinding.submitPackageName.setText(packageNameString);
         
         // FAB
-        activityBinding.submitFab.setOnClickListener(v -> {
+        activityBinding.submitFab.setEnabled(false);
+        activityBinding.submitFab.setOnClickListener(v -> SubmitData());
+        
+    }
+    
+    private void NoNetworkDialog() {
+    
+        new MaterialAlertDialogBuilder(this, R.style.DialogTheme)
             
-            OkHttpClient client = new OkHttpClient();
+                .setTitle(R.string.dialog_title)
+                .setMessage(R.string.dialog_subtitle)
             
-            // Create a JSON object with the desired data
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectNode application = mapper.createObjectNode();
-            application.put("name", "TestApp4");
-            application.put("package", "test.package.4");
+                .setPositiveButton(R.string.retry, (dialog, which) ->
+                        SubmitData())
             
-            ObjectNode data = mapper.createObjectNode();
-            data.set("application", application);
+                .setNegativeButton(R.string.cancel, (dialog, which) ->
+                        dialog.dismiss())
+
+                .setCancelable(false)
             
-            // Convert the JSON object to a string
-            String json = null;
-            try {
-                json = mapper.writeValueAsString(data);
-            }
-            catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-            
-            // Create a request body with the JSON string as the content
-            assert json != null;
-            RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json; charset=utf-8"));
+                .show();
+        
+    }
+    
+    private void SubmitData(){
+        
+        Handler handler = new Handler(Looper.getMainLooper());
+        
+        if (HasNetwork(this)) {
             
             Executors.newSingleThreadExecutor().execute(() -> {
                 
-                // Create a request builder and set the request method to POST
-                Request request = new Request.Builder()
-                        .url("https://plexus.fly.dev/api/v1/applications")
-                        .post(requestBody)
-                        .build();
-                
-                try {
-                    client.newCall(request).execute();
+                // Background thread work
+                if (HasInternet()) {
+    
+                    OkHttpClient client = new OkHttpClient();
+    
+                    // Create a JSON object with the data
+                    ObjectMapper mapper = new ObjectMapper();
+                    
+                    ObjectNode application = mapper.createObjectNode();
+                    application.put("name", nameString);
+                    application.put("package", packageNameString);
+    
+                    ObjectNode data = mapper.createObjectNode();
+                    data.set("application", application);
+    
+                    // Convert the JSON object to a string
+                    String json = null;
+                    try {
+                        json = mapper.writeValueAsString(data);
+                    }
+                    catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+    
+                    // Create a request body with the JSON string as the content
+                    assert json != null;
+                    RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json; charset=utf-8"));
+    
+                    // Create a request builder and set the request method to POST
+                    Request request = new Request.Builder()
+                            .url("https://plexus.fly.dev/api/v1/applications")
+                            .post(requestBody)
+                            .build();
+    
+                    try {
+                        client.newCall(request).execute();
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    
+                    // UI Thread work
+                    handler.post(() ->
+                         Snackbar.make(activityBinding.submitCoordinatorLayout,
+                                       "Data submitted successfully",
+                                       BaseTransientBottomBar.LENGTH_SHORT)
+                                 .setAnchorView(activityBinding.submitBottomAppBar) // Above FAB, bottom bar etc.
+                                 .show());
                 }
-                catch (IOException e) {
-                    e.printStackTrace();
+                else {
+                    handler.post(this::NoNetworkDialog);
                 }
-                
             });
-        });
+        }
+        else {
+            NoNetworkDialog();
+        }
         
+    }
+    
+    // Set transition when finishing activity
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
     }
     
 }

@@ -33,225 +33,215 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingTop="@dimen/margin_2.5"
         android:layout_marginBottom="?attr/actionBarSize">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/name_details"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:elevation="0dp">
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_2.5"
+            android:layout_marginStart="@dimen/margin_17"
+            android:layout_marginEnd="@dimen/margin_17"
+            android:text="@string/application"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_22"/>
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar_details"
+        <TextView
+            android:id="@+id/package_name_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_17"
+            android:layout_marginEnd="@dimen/margin_17"
+            android:text="@string/package_name"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_17"/>
+
+        <include layout="@layout/divider_horizontal"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:contentInsetStartWithNavigation="0dp"
-                android:layout_marginTop="@dimen/margin_2.5"
-                android:paddingStart="@dimen/margin_2.5"
-                android:paddingEnd="@dimen/margin_2.5">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingStart="1dp"
-                    android:paddingEnd="@dimen/margin_12">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_16">
 
                     <TextView
-                        android:id="@+id/name_details"
+                        android:id="@+id/plexus_text"
+                        android:visibility="visible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_12"
-                        android:layout_marginBottom="@dimen/margin_8"
-                        android:text="@string/application"
-                        android:textColor="@color/textTitleColor"
-                        android:textSize="@dimen/text_22"
-                        style="@style/MediumBoldText"/>
+                        android:layout_marginEnd="@dimen/margin_12"
+                        android:padding="@dimen/margin_6.5"
+                        android:background="@drawable/shape_outline"
+                        android:text="@string/app_name"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_16"/>
 
                     <TextView
-                        android:id="@+id/package_name_details"
+                        android:id="@+id/plexus_version_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_12"
-                        android:text="@string/package_name"
-                        android:textColor="@color/textTitleColor"
-                        android:textSize="@dimen/text_18"/>
+                        android:text="@string/version"
+                        android:textColor="?colorControlNormal"
+                        android:textSize="@dimen/text_16"/>
 
                 </LinearLayout>
 
-            </com.google.android.material.appbar.MaterialToolbar>
+                <LinearLayout
+                    android:id="@+id/installed_ver_layout"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:layout_marginStart="@dimen/margin_16">
 
-        </com.google.android.material.appbar.AppBarLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_6.5"
+                        android:background="@drawable/shape_outline"
+                        android:text="@string/installed"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_16"/>
 
-        <include layout="@layout/divider_horizontal"/>
+                    <TextView
+                        android:id="@+id/installed_version_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_12"
+                        android:text="@string/version"
+                        android:textColor="?colorControlNormal"
+                        android:textSize="@dimen/text_16"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/margin_12"
-            android:layout_marginStart="@dimen/margin_16">
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/plexus_text"
-                android:visibility="visible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_12"
-                android:padding="@dimen/margin_6.5"
-                android:background="@drawable/shape_outline"
-                android:text="@string/app_name"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_16"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_card_with_ripple"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_25"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    android:paddingBottom="@dimen/margin_8">
 
-            <TextView
-                android:id="@+id/plexus_version_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/version"
-                android:textColor="?colorControlNormal"
-                android:textSize="@dimen/text_16"/>
+                    <TextView
+                        android:id="@+id/dg_text"
+                        style="@style/MediumBoldText"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/shape_bg_top"
+                        android:backgroundTint="@color/ratingXColor"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/margin_16"
+                        android:paddingEnd="@dimen/margin_8"
+                        android:text="@string/de_Googled"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_18" />
 
-        </LinearLayout>
+                    <ImageView
+                        android:id="@+id/dg_badge_details"
+                        android:layout_width="@dimen/margin_35"
+                        android:layout_height="@dimen/margin_35"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:layout_marginEnd="@dimen/margin_12"
+                        android:background="@drawable/shape_bg_circle"
+                        android:contentDescription="@string/not_tested_title"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_badge"
+                        app:tint="@color/ratingXColor" />
 
-        <LinearLayout
-            android:id="@+id/installed_ver_layout"
-            android:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/margin_12"
-            android:layout_marginStart="@dimen/margin_16">
+                    <TextView
+                        android:id="@+id/dg_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/dg_text"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginTop="@dimen/margin_12"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:layout_marginBottom="@dimen/margin_12"
+                        android:text="@string/notes"
+                        android:textColor="@color/textTitleColor"
+                        android:textSize="@dimen/text_18" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_6.5"
-                android:background="@drawable/shape_outline"
-                android:text="@string/installed"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_16"/>
+                </RelativeLayout>
 
-            <TextView
-                android:id="@+id/installed_version_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12"
-                android:text="@string/version"
-                android:textColor="?colorControlNormal"
-                android:textSize="@dimen/text_16"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_card_with_ripple"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:layout_marginBottom="@dimen/margin_4"
+                    android:paddingBottom="@dimen/margin_8">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/mg_text"
+                        style="@style/MediumBoldText"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/shape_bg_top"
+                        android:backgroundTint="@color/ratingXColor"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/margin_16"
+                        android:paddingEnd="@dimen/margin_8"
+                        android:text="@string/microG"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_18" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_card_with_ripple"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_25"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:paddingBottom="@dimen/margin_8">
+                    <ImageView
+                        android:id="@+id/mg_badge_details"
+                        android:layout_width="@dimen/margin_35"
+                        android:layout_height="@dimen/margin_35"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:layout_marginEnd="@dimen/margin_12"
+                        android:background="@drawable/shape_bg_circle"
+                        android:contentDescription="@string/not_tested_title"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_badge"
+                        app:tint="@color/ratingXColor" />
 
-            <TextView
-                android:id="@+id/dg_text"
-                style="@style/MediumBoldText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/shape_bg_top"
-                android:backgroundTint="@color/ratingXColor"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/margin_16"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/de_Googled"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_18" />
+                    <TextView
+                        android:id="@+id/mg_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mg_text"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:layout_marginTop="@dimen/margin_12"
+                        android:layout_marginBottom="@dimen/margin_12"
+                        android:text="@string/notes"
+                        android:textColor="@color/textTitleColor"
+                        android:textSize="@dimen/text_18" />
 
-            <ImageView
-                android:id="@+id/dg_badge_details"
-                android:layout_width="@dimen/margin_35"
-                android:layout_height="@dimen/margin_35"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_12"
-                android:background="@drawable/shape_bg_circle"
-                android:contentDescription="@string/not_tested_title"
-                android:padding="6dp"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/ratingXColor" />
+                </RelativeLayout>
 
-            <TextView
-                android:id="@+id/dg_notes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/dg_text"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:layout_marginBottom="@dimen/margin_12"
-                android:text="@string/notes"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
+            </LinearLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_card_with_ripple"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:paddingBottom="@dimen/margin_8">
-
-            <TextView
-                android:id="@+id/mg_text"
-                style="@style/MediumBoldText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/shape_bg_top"
-                android:backgroundTint="@color/ratingXColor"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/margin_16"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/microG"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_18" />
-
-            <ImageView
-                android:id="@+id/mg_badge_details"
-                android:layout_width="@dimen/margin_35"
-                android:layout_height="@dimen/margin_35"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_12"
-                android:background="@drawable/shape_bg_circle"
-                android:contentDescription="@string/not_tested_title"
-                android:padding="6dp"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/ratingXColor" />
-
-            <TextView
-                android:id="@+id/mg_notes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/mg_text"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginBottom="@dimen/margin_12"
-                android:text="@string/notes"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_18" />
-
-        </RelativeLayout>
+        </ScrollView>
 
     </LinearLayout>
 

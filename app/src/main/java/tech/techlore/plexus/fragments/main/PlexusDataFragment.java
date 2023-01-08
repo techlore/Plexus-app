@@ -184,6 +184,8 @@ public class PlexusDataFragment extends Fragment {
                 .setNegativeButton(R.string.cancel, (dialog, which) ->
                         fragmentBinding.swipeRefreshLayout.setRefreshing(false))
 
+                .setCancelable(false)
+
                 .show();
 
     }

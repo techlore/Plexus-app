@@ -44,8 +44,7 @@
             android:paddingStart="@dimen/margin_2.5"
             android:paddingEnd="@dimen/margin_2.5"
             app:title="@string/licenses"
-            app:titleTextColor="@color/textTitleColor"
-            app:titleTextAppearance="@style/MediumBoldText"/>
+            app:titleTextColor="@color/textTitleColor"/>
 
         <include layout="@layout/divider_horizontal"/>
 

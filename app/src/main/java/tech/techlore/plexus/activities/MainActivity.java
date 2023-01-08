@@ -34,6 +34,7 @@ import static tech.techlore.plexus.utils.IntentUtils.ReloadFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -70,7 +71,7 @@ import tech.techlore.plexus.preferences.PreferenceManager;
 public class MainActivity extends AppCompatActivity {
 
     public ActivityMainBinding activityBinding;
-    public BottomSheetBehavior<NestedScrollView> bottomSheetBehavior;
+    public BottomSheetBehavior<CoordinatorLayout> bottomSheetBehavior;
     private int checkedItem = 0; // To set nav view item background, check selected item
     public Fragment fragment;
     private PreferenceManager preferenceManager;
