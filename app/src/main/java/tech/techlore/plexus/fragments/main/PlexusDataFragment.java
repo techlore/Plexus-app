@@ -93,8 +93,7 @@ public class PlexusDataFragment extends Fragment {
         final PlexusDataItemAdapter plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
 
     /*###########################################################################################*/
-
-        mainActivity.activityBinding.toolbarTop.setTitle(R.string.plexus_data);
+        
         fragmentBinding.recyclerView.addOnItemTouchListener(new RecyclerViewItemTouchListener(mainActivity));
 
         // Status sort

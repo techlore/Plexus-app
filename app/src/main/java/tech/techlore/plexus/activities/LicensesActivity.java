@@ -24,10 +24,8 @@ import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 
-import java.util.Objects;
-
+import tech.techlore.plexus.R;
 import tech.techlore.plexus.databinding.ActivityLicensesBinding;
 
 public class LicensesActivity extends AppCompatActivity {
@@ -39,7 +37,6 @@ public class LicensesActivity extends AppCompatActivity {
         setContentView(activityBinding.getRoot());
     
         setSupportActionBar(activityBinding.toolbarBottom);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         
         activityBinding.toolbarBottom.setNavigationOnClickListener(v -> onBackPressed());
         
@@ -66,6 +63,13 @@ public class LicensesActivity extends AppCompatActivity {
                   OpenURL(this, "https://github.com/Templarian/MaterialDesign/blob/master/LICENSE",
                           activityBinding.coordinatorLayout, activityBinding.appBarBottom));
 
+    }
+    
+    // Set transition when finishing activity
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, R.anim.fade_scale_out);
     }
     
 }

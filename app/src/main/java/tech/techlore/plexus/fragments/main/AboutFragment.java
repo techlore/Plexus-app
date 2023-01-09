@@ -35,11 +35,11 @@ import androidx.fragment.app.Fragment;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.LicensesActivity;
 import tech.techlore.plexus.activities.MainActivity;
-import tech.techlore.plexus.databinding.FragmentSettingsAboutBinding;
+import tech.techlore.plexus.databinding.FragmentAboutBinding;
 
 public class AboutFragment extends Fragment {
 
-    private FragmentSettingsAboutBinding fragmentBinding;
+    private FragmentAboutBinding fragmentBinding;
     private MainActivity mainActivity;
     String version;
 
@@ -57,7 +57,7 @@ public class AboutFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        fragmentBinding = FragmentSettingsAboutBinding.inflate(inflater, container, false);
+        fragmentBinding = FragmentAboutBinding.inflate(inflater, container, false);
         return fragmentBinding.getRoot();
     }
 
@@ -65,8 +65,6 @@ public class AboutFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         mainActivity = (MainActivity) requireActivity();
-
-        mainActivity.activityBinding.toolbarTop.setTitle(R.string.about_title);
 
         // Version
         try {
@@ -90,8 +88,10 @@ public class AboutFragment extends Fragment {
 
         // Licenses
         fragmentBinding.licenses
-                .setOnClickListener(v ->
-                        mainActivity.startActivity(new Intent(mainActivity, LicensesActivity.class)));
+                .setOnClickListener(v -> {
+                    mainActivity.startActivity(new Intent(mainActivity, LicensesActivity.class));
+                    mainActivity.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement);
+                });
 
         // View on GitHub
         fragmentBinding.viewOnGit

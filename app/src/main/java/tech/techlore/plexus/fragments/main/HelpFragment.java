@@ -55,13 +55,6 @@ public class HelpFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        ((MainActivity) requireActivity()).activityBinding.toolbarTop.setTitle(R.string.menu_help);
-
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         fragmentBinding = null;

@@ -35,7 +35,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -73,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
     public ActivityMainBinding activityBinding;
     public BottomSheetBehavior<CoordinatorLayout> bottomSheetBehavior;
     private int checkedItem = 0; // To set nav view item background, check selected item
-    public Fragment fragment;
+    private Fragment fragment;
+    private String toolbarTitle;
     private PreferenceManager preferenceManager;
     public List<PlexusData> dataList;
     public List<InstalledApp> installedList;
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         // Default fragment
         fragment = new PlexusDataFragment();
         checkedItem = R.id.nav_plexus_data;
+        toolbarTitle = getString(R.string.plexus_data);
         DisplayFragment(fragment, checkedItem);
 
         // Nav view bottom sheet
@@ -117,9 +118,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
+    
+                activityBinding.dimBg.setAlpha(slideOffset); // Dim background on sliding up
                 activityBinding.navView.setCheckedItem(checkedItem); // Always sync checked item on slide
-                activityBinding.dimBg.setAlpha(slideOffset); // Dm background when bottom sheet is sliding
+                
+                // Hide toolbar title and menu on slide up
+                if (slideOffset > 0.03) {
+                    activityBinding.toolbarBottom.setTitle(null);
+                    activityBinding.toolbarBottom.getMenu().clear();
+                }
+                else {
+                    activityBinding.toolbarBottom.setTitle(toolbarTitle);
+                    invalidateMenu();
+                }
 
             }
 
@@ -148,17 +159,20 @@ public class MainActivity extends AppCompatActivity {
             if (navMenuItem.getItemId() == R.id.nav_plexus_data) {
                 fragment = new PlexusDataFragment();
                 checkedItem = R.id.nav_plexus_data;
+                toolbarTitle = getString(R.string.plexus_data);
             }
             else if (navMenuItem.getItemId() == R.id.nav_installed_apps) {
                 fragment = new InstalledAppsFragment();
                 checkedItem = R.id.nav_installed_apps;
+                toolbarTitle = getString(R.string.installed_apps);
+                
             }
             else if (navMenuItem.getItemId() == R.id.nav_fav) {
                 checkedItem = R.id.nav_fav;
             }
             else if (navMenuItem.getItemId() == R.id.nav_report_issue) {
-                        OpenURL(this, "https://github.com/techlore/Plexus-app/issues",
-                                activityBinding.mainCoordinatorLayout, activityBinding.bottomNavContainer);
+                OpenURL(this, "https://github.com/techlore/Plexus-app/issues",
+                        activityBinding.mainCoordinatorLayout, activityBinding.bottomNavContainer);
             }
             else if (navMenuItem.getItemId() == R.id.nav_pull_req) {
                 PullReqBottomSheet();
@@ -166,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             else if (navMenuItem.getItemId() == R.id.nav_help) {
                 fragment = new HelpFragment();
                 checkedItem = R.id.nav_help;
+                toolbarTitle = getString(R.string.menu_help);
             }
             else if (navMenuItem.getItemId() == R.id.nav_theme) {
                 ThemeBottomSheet();
@@ -173,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
             else if (navMenuItem.getItemId() == R.id.nav_about) {
                 fragment = new AboutFragment();
                 checkedItem = R.id.nav_about;
+                toolbarTitle = getString(R.string.about_title);
             }
 
             return true;
@@ -188,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.activity_host_fragment, fragment)
                 .commitNow();
         activityBinding.navView.setCheckedItem(checkedItem);
+        activityBinding.toolbarBottom.setTitle(toolbarTitle);
 
     }
 
@@ -228,10 +245,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (bottomSheetBehavior.getState() != STATE_COLLAPSED) {
-            bottomSheetBehavior.setState(STATE_COLLAPSED);
-        }
 
         // Search
         // Don't finish main activity,
@@ -461,6 +474,7 @@ public class MainActivity extends AppCompatActivity {
         else if (checkedItem != R.id.nav_plexus_data) {
             fragment = new PlexusDataFragment();
             checkedItem = R.id.nav_plexus_data;
+            toolbarTitle = getString(R.string.plexus_data);
             DisplayFragment(fragment, checkedItem);
         }
         else {

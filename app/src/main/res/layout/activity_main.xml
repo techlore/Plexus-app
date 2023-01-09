@@ -27,28 +27,6 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_2.5"
-            android:layout_marginTop="@dimen/margin_2.5"
-            app:contentInsetStartWithNavigation="0dp"
-            android:paddingStart="@dimen/margin_2.5"
-            android:paddingEnd="@dimen/margin_2.5"
-            app:titleTextColor="@color/textTitleColor"/>
-
-        <include layout="@layout/divider_horizontal"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <include
         layout="@layout/activity_host_fragment"
         android:layout_width="match_parent"
@@ -92,7 +70,8 @@
                     app:navigationIcon="@drawable/ic_nav_view"
                     app:contentInsetStartWithNavigation="0dp"
                     android:paddingStart="@dimen/margin_2.5"
-                    android:paddingEnd="@dimen/margin_2.5">
+                    android:paddingEnd="@dimen/margin_2.5"
+                    app:titleTextColor="@color/textTitleColor">
 
                     <ViewStub
                         android:id="@+id/search_view_stub"

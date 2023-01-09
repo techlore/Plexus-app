@@ -21,7 +21,6 @@ package tech.techlore.plexus.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -61,8 +60,6 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(activityBinding.toolbarBottom);
         activityBinding.toolbarBottom.setNavigationIcon(R.drawable.ic_back);
         activityBinding.toolbarBottom.setNavigationOnClickListener(view -> onBackPressed());
-
-        activityBinding.appbarTop.setVisibility(View.GONE);
 
         // NAV VIEW BOTTOM SHEET
         BottomSheetBehavior.from(activityBinding.bottomNavContainer).setDraggable(false);

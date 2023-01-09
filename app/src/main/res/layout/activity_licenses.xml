@@ -27,42 +27,18 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_2.5"
-            android:layout_marginTop="@dimen/margin_2.5"
-            app:contentInsetStartWithNavigation="0dp"
-            android:paddingStart="@dimen/margin_2.5"
-            android:paddingEnd="@dimen/margin_2.5"
-            app:title="@string/licenses"
-            app:titleTextColor="@color/textTitleColor"/>
-
-        <include layout="@layout/divider_horizontal"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/backgroundColor"
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-        android:layout_marginTop="68dp"
         android:layout_marginBottom="?attr/actionBarSize">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_12"
-            android:paddingBottom="@dimen/margin_8"
+            android:paddingBottom="@dimen/margin_20"
             android:orientation="vertical">
 
             <TextView
@@ -224,7 +200,9 @@
             app:navigationIcon="@drawable/ic_back"
             app:contentInsetStartWithNavigation="0dp"
             android:paddingStart="@dimen/margin_2.5"
-            android:paddingEnd="@dimen/margin_2.5">
+            android:paddingEnd="@dimen/margin_2.5"
+            app:title="@string/licenses"
+            app:titleTextColor="@color/textTitleColor">
 
             <ViewStub
                 android:id="@+id/search_view_stub"
@@ -235,4 +213,5 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

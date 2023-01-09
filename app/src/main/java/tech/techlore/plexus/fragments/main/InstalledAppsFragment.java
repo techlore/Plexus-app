@@ -88,9 +88,7 @@ public class InstalledAppsFragment extends Fragment {
         List<String> playStoreInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.aurora.store"));
         final InstalledAppItemAdapter installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsFinalList);
 
-        /*###########################################################################################*/
-
-        ((MainActivity) requireActivity()).activityBinding.toolbarTop.setTitle(R.string.installed_apps);
+        /*########################################################################################*/
 
         // Filter based on installers (play store, aurora etc.)
         if (preferenceManager.getInt(FILTER_PREF) == 0

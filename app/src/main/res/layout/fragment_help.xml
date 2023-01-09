@@ -19,7 +19,7 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<androidx.core.widget.NestedScrollView
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -32,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="@dimen/margin_16">
+        android:layout_margin="@dimen/margin_16"
+        android:paddingBottom="@dimen/margin_35">
 
         <TextView
             android:layout_width="wrap_content"
@@ -595,4 +596,4 @@
 
     </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+</ScrollView>
