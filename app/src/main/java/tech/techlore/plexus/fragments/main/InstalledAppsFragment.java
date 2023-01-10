@@ -39,7 +39,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +50,7 @@ import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.MainActivity;
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter;
 import tech.techlore.plexus.databinding.RecyclerViewBinding;
+import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener;
 import tech.techlore.plexus.models.InstalledApp;
 import tech.techlore.plexus.preferences.PreferenceManager;
 
@@ -89,6 +89,8 @@ public class InstalledAppsFragment extends Fragment {
         final InstalledAppItemAdapter installedAppItemAdapter = new InstalledAppItemAdapter(installedAppsFinalList);
 
         /*########################################################################################*/
+    
+        fragmentBinding.recyclerView.addOnItemTouchListener(new RecyclerViewItemTouchListener(mainActivity));
 
         // Filter based on installers (play store, aurora etc.)
         if (preferenceManager.getInt(FILTER_PREF) == 0
