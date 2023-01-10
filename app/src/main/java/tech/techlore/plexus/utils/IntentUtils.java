@@ -102,12 +102,12 @@ public class IntentUtils {
         activity.startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND)
                                                     .setType("text/plain")
                                                     .putExtra(Intent.EXTRA_TEXT,
-                                                                activity.getString(R.string.application) + ": "
-                                                                + nameString
-                                                                + "\n"
-                                                                + activity.getString(R.string.package_name) + ": "
-                                                                + packageNameString
-                                                                + "\n"
+                                                              activity.getString(R.string.app_name) + ": "
+                                                              + nameString
+                                                              + "\n"
+                                                              + activity.getString(R.string.package_name) + ": "
+                                                              + packageNameString
+                                                              + "\n"
                                                                 /*+ activity.getString(R.string.version) + ": "
                                                                 + plexusVersionString
                                                                 + "\n"
@@ -125,8 +125,8 @@ public class IntentUtils {
                                                                 + activity.getString(R.string.notes) + ": "
                                                                 + mgNotesString
                                                                 + "\n"*/
-                                                                + activity.getString(R.string.play_store) + ": "
-                                                                + playStoreString),
+                                                              + activity.getString(R.string.play_store) + ": "
+                                                              + playStoreString),
                                                     activity.getString(R.string.share)));
 
     }

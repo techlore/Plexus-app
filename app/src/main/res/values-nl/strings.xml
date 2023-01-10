@@ -64,19 +64,19 @@
     <string name="app_card_breakdown">Afbraak van applicatiekaart</string>
     <string name="dg_status">de-Googled beoordeling</string>
     <string name="mg_status">microG beoordeling</string>
-    <string name="application">Sollicitatie</string>
+    <string name="app_name">Sollicitatie</string>
     <string name="package_name">Verpakkingsnaam</string>
     <string name="version">Versie</string>
 
     <!--#########################################################################################-->
 
     <!--SETTINGS ACTIVITY-->
-    <string name="theme_title">Thema</string>
-    <string name="report_issue_title">Een probleem melden</string>
+    <string name="theme">Thema</string>
+    <string name="report_issue">Een probleem melden</string>
     <string name="report_issue_subtitle">Een bug gevonden? Laat het ons weten</string>
-    <string name="contribute_title">Bijdrage leveren</string>
+    <string name="contribute">Bijdrage leveren</string>
     <string name="contribute_subtitle">De app of de bestaande gegevens verbeteren</string>
-    <string name="about_title">Over</string>
+    <string name="about">Over</string>
     <string name="about_subtitle">Versie, beleid en licenties</string>
 
     <!--ABOUT FRAGMENT-->

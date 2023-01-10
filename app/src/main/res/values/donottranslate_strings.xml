@@ -21,7 +21,7 @@
 
 <resources>
 
-    <string name="app_name">Plexus</string>
+    <string name="plexus">Plexus</string>
 
     <string name="one">1</string>
     <string name="two">2</string>

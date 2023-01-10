@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+    tools:context=".fragments.settings.LicensesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_12"
+        android:paddingBottom="@dimen/margin_20"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/plexus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_22"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/plexus"
+            android:textAlignment="viewStart"
+            android:textColor="@color/urlColor"
+            android:textSize="@dimen/text_18" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_12"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingTop="@dimen/margin_12"
+            android:background="@color/rippleColor"
+            android:text="@string/copyright_techlore"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:padding="@dimen/margin_12"
+            android:background="@color/rippleColor"
+            android:text="@string/gpl_3_0_license"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/jackson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_22"
+            android:layout_marginTop="@dimen/margin_25"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/jackson"
+            android:textAlignment="viewStart"
+            android:textColor="@color/urlColor"
+            android:textSize="@dimen/text_18" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:padding="@dimen/margin_12"
+            android:background="@color/rippleColor"
+            android:text="@string/apache_2_0_license"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/okhttp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_25"
+            android:layout_marginStart="@dimen/margin_22"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/okhttp"
+            android:textAlignment="viewStart"
+            android:textColor="@color/urlColor"
+            android:textSize="@dimen/text_18"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:padding="@dimen/margin_12"
+            android:background="@color/rippleColor"
+            android:text="@string/apache_2_0_license"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/fastscroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_25"
+            android:layout_marginStart="@dimen/margin_22"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/fastscroll"
+            android:textAlignment="viewStart"
+            android:textColor="@color/urlColor"
+            android:textSize="@dimen/text_18"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:padding="@dimen/margin_12"
+            android:background="@color/rippleColor"
+            android:text="@string/apache_2_0_license"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/md_icons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_25"
+            android:layout_marginStart="@dimen/margin_22"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/md_icons"
+            android:textAlignment="viewStart"
+            android:textColor="@color/urlColor"
+            android:textSize="@dimen/text_18"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:padding="@dimen/margin_12"
+            android:background="@color/rippleColor"
+            android:text="@string/apache_2_0_license"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/text_16" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -43,7 +43,7 @@
 
     </group>
 
-    <item android:title="@string/contribute_title">
+    <item android:title="@string/contribute">
         <menu>
             <group android:checkableBehavior="single"
                 android:id="@+id/group_contribute">
@@ -51,12 +51,7 @@
                 <item
                     android:id="@+id/nav_report_issue"
                     android:icon="@drawable/ic_report_issue"
-                    android:title="@string/report_issue_title"/>
-
-                <item
-                    android:id="@+id/nav_pull_req"
-                    android:icon="@drawable/ic_contribute"
-                    android:title="@string/pull_req"/>
+                    android:title="@string/report_issue"/>
 
             </group>
         </menu>
@@ -75,12 +70,12 @@
                 <item
                     android:id="@+id/nav_theme"
                     android:icon="@drawable/ic_theme"
-                    android:title="@string/theme_title"/>
+                    android:title="@string/theme"/>
 
                 <item
                     android:id="@+id/nav_about"
                     android:icon="@drawable/ic_about"
-                    android:title="@string/about_title"/>
+                    android:title="@string/about"/>
 
             </group>
         </menu>

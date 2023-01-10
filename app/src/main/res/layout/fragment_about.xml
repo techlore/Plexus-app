@@ -26,7 +26,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-    tools:context=".fragments.main.AboutFragment"
+    tools:context=".fragments.settings.AboutFragment"
     tools:ignore="ContentDescription">
 
     <LinearLayout
@@ -36,7 +36,6 @@
         android:paddingBottom="@dimen/margin_25">
 
         <ImageView
-            android:id="@+id/app_icon_img"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginTop="@dimen/margin_12"
@@ -55,7 +54,7 @@
             android:layout_marginBottom="@dimen/margin_2.5"
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
-            android:text="@string/app_name"
+            android:text="@string/plexus"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_20" />
 

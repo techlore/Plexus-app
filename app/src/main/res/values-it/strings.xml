@@ -65,19 +65,19 @@
     <string name="app_card_breakdown">Bruccol della scheda dell\'applicazione</string>
     <string name="dg_status">de-Googled valutazione</string>
     <string name="mg_status">microG valutazione</string>
-    <string name="application">Applicazione</string>
+    <string name="app_name">Applicazione</string>
     <string name="package_name">Nome del pacchetto</string>
     <string name="version">Versione</string>
 
     <!--#########################################################################################-->
 
     <!--SETTINGS ACTIVITY-->
-    <string name="theme_title">Tema</string>
-    <string name="report_issue_title">Segnala un problema</string>
+    <string name="theme">Tema</string>
+    <string name="report_issue">Segnala un problema</string>
     <string name="report_issue_subtitle">Hai trovato un bug? Facci sapere</string>
-    <string name="contribute_title">Contribuire</string>
+    <string name="contribute">Contribuire</string>
     <string name="contribute_subtitle">Migliorare l\'app o i dati esistenti</string>
-    <string name="about_title">Info</string>
+    <string name="about">Info</string>
     <string name="about_subtitle">Versione, politica e licenze</string>
 
     <!--ABOUT FRAGMENT-->

@@ -44,7 +44,7 @@
             android:layout_marginBottom="@dimen/margin_2.5"
             android:layout_marginStart="@dimen/margin_17"
             android:layout_marginEnd="@dimen/margin_17"
-            android:text="@string/application"
+            android:text="@string/app_name"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_22"/>
 

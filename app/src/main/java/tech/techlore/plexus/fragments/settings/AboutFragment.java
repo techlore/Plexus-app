@@ -17,11 +17,10 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.main;
+package tech.techlore.plexus.fragments.settings;
 
 import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,14 +32,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import tech.techlore.plexus.R;
-import tech.techlore.plexus.activities.LicensesActivity;
-import tech.techlore.plexus.activities.MainActivity;
+import tech.techlore.plexus.activities.SettingsActivity;
 import tech.techlore.plexus.databinding.FragmentAboutBinding;
 
 public class AboutFragment extends Fragment {
 
     private FragmentAboutBinding fragmentBinding;
-    private MainActivity mainActivity;
     String version;
 
     public AboutFragment() {
@@ -56,15 +53,14 @@ public class AboutFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
         fragmentBinding = FragmentAboutBinding.inflate(inflater, container, false);
         return fragmentBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        mainActivity = (MainActivity) requireActivity();
+    
+        SettingsActivity settingsActivity = (SettingsActivity) requireActivity();
 
         // Version
         try {
@@ -84,26 +80,29 @@ public class AboutFragment extends Fragment {
         fragmentBinding.privacyPolicy
                 .setOnClickListener(v ->
                     OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md",
-                            mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));
+                            settingsActivity.activityBinding.settingsCoordLayout, settingsActivity.activityBinding.toolbarBottom));
 
         // Licenses
         fragmentBinding.licenses
-                .setOnClickListener(v -> {
-                    mainActivity.startActivity(new Intent(mainActivity, LicensesActivity.class));
-                    mainActivity.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement);
-                });
+                .setOnClickListener(v ->
+                    getParentFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
+                                                 R.anim.slide_from_start, R.anim.slide_to_end)
+                            .replace(R.id.activity_host_fragment, new LicensesFragment())
+                            .addToBackStack(null)
+                            .commit());
 
         // View on GitHub
         fragmentBinding.viewOnGit
                 .setOnClickListener(v ->
                         OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app",
-                                mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));
+                                settingsActivity.activityBinding.settingsCoordLayout, settingsActivity.activityBinding.toolbarBottom));
 
         // Visit Techlore
         fragmentBinding.visitTechlore
                 .setOnClickListener(v ->
                         OpenURL(requireActivity(), "https://techlore.tech",
-                                mainActivity.activityBinding.mainCoordinatorLayout, mainActivity.activityBinding.bottomNavContainer));
+                                settingsActivity.activityBinding.settingsCoordLayout, settingsActivity.activityBinding.toolbarBottom));
 
     }
 

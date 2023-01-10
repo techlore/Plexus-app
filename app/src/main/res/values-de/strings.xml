@@ -71,19 +71,19 @@
     <string name="app_card_breakdown">Aufschl\u00FCsselung f\u00FCr Anwendungskarten</string>
     <string name="dg_rating">de-Googled Bewertung</string>
     <string name="mg_rating">microG Bewertung</string>
-    <string name="application">App</string>
+    <string name="app_name">App</string>
     <string name="package_name">Paketname</string>
     <string name="version">Version</string>
 
     <!--#########################################################################################-->
 
     <!--SETTINGS ACTIVITY-->
-    <string name="theme_title">Thema</string>
-    <string name="report_issue_title">Ein Problem melden</string>
+    <string name="theme">Thema</string>
+    <string name="report_issue">Ein Problem melden</string>
     <string name="report_issue_subtitle">Einen Fehler gefunden? Lass\' es uns wissen</string>
-    <string name="contribute_title">Beitragen</string>
+    <string name="contribute">Beitragen</string>
     <string name="contribute_subtitle">Verbessert die App oder die vorhandenen Daten</string>
-    <string name="about_title">\u00DCber</string>
+    <string name="about">\u00DCber</string>
     <string name="about_subtitle">Version, Richtlinien und Lizenzen</string>
 
     <!--ABOUT FRAGMENT-->

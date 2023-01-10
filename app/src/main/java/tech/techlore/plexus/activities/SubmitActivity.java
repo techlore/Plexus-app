@@ -72,7 +72,7 @@ public class SubmitActivity extends AppCompatActivity {
         activityBinding.submitPackageName.setText(packageNameString);
         
         // FAB
-        activityBinding.submitFab.setEnabled(false);
+        activityBinding.submitFab.setEnabled(false); // Temporary, will be removed
         activityBinding.submitFab.setOnClickListener(v -> SubmitData());
         
     }
@@ -148,7 +148,7 @@ public class SubmitActivity extends AppCompatActivity {
                     // UI Thread work
                     handler.post(() ->
                          Snackbar.make(activityBinding.submitCoordinatorLayout,
-                                       "Data submitted successfully",
+                                       getString(R.string.submit_success),
                                        BaseTransientBottomBar.LENGTH_SHORT)
                                  .setAnchorView(activityBinding.submitBottomAppBar) // Above FAB, bottom bar etc.
                                  .show());

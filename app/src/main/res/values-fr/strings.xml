@@ -68,19 +68,19 @@
     <string name="app_card_breakdown">R\u00E9partition de la carte d\'application</string>
     <string name="dg_status">de-Googled \u00E9valuation</string>
     <string name="mg_status">microG \u00E9valuation</string>
-    <string name="application">Application</string>
+    <string name="app_name">Application</string>
     <string name="package_name">Nom du paquet</string>
     <string name="version">Version</string>
 
     <!--#########################################################################################-->
 
     <!--SETTINGS ACTIVITY-->
-    <string name="theme_title">Th\u00E8me</string>
-    <string name="report_issue_title">Signaler un probl\u00E8me</string>
+    <string name="theme">Th\u00E8me</string>
+    <string name="report_issue">Signaler un probl\u00E8me</string>
     <string name="report_issue_subtitle">Vous avez trouv\u00E9 un bug? Faites le nous savoir</string>
-    <string name="contribute_title">Contribuer</string>
+    <string name="contribute">Contribuer</string>
     <string name="contribute_subtitle">Am\u00E9liorer l\'application ou les donn\u00E9es existantes</string>
-    <string name="about_title">Sur</string>
+    <string name="about">Sur</string>
     <string name="about_subtitle">Version, politique et licenses</string>
 
     <!--ABOUT FRAGMENT-->

@@ -28,8 +28,6 @@
     <!--#########################################################################################-->
 
     <!--Main activity-->
-    <string name="plexus_data">Plexus Data</string>
-    <string name="installed_apps">Installed Apps</string>
     <string name="no_apps_found">No such apps found</string>
 
     <!--Toolbar menu-->
@@ -38,6 +36,14 @@
     <string name="menu_more">More</string>
     <string name="menu_help">Help</string>
     <string name="menu_settings">Settings</string>
+
+    <!--Nav view-->
+    <string name="plexus_data">Plexus Data</string>
+    <string name="installed_apps">Installed Apps</string>
+    <string name="report_issue">Report an issue</string>
+    <string name="contribute">Contribute</string>
+    <string name="about">About</string>
+    <string name="theme">Theme</string>
 
     <!--Help fragment-->
     <string name="what_status_mean">What do the status mean?</string>
@@ -51,11 +57,10 @@
     <string name="silver_subtitle">Almost everything works with minimal caveats</string>
     <string name="gold_title">Gold</string>
     <string name="gold_subtitle">Perfect or perfect-like experience</string>
-    <string name="x">X</string>
     <string name="app_card_breakdown">Application card breakdown</string>
     <string name="dg_status">de-Googled status</string>
     <string name="mg_status">microG status</string>
-    <string name="application">Application</string>
+    <string name="app_name">App name</string>
     <string name="package_name">Package name</string>
     <string name="version">Version</string>
 
@@ -69,13 +74,7 @@
 
     <!--#########################################################################################-->
 
-    <!--SETTINGS ACTIVITY-->
-    <string name="theme_title">Theme</string>
-    <string name="report_issue_title">Report an issue</string>
-    <string name="def_label_title">Default Label</string>
-    <string name="contribute_title">Contribute</string>
-    <string name="about_title">About</string>
-    <string name="about_subtitle">Version, policy and licenses</string>
+    <!--Settings activity-->
 
     <!--About fragment-->
     <string name="privacy_policy">Privacy Policy</string>
@@ -85,7 +84,7 @@
 
     <!--#########################################################################################-->
 
-    <!--Dialog-->
+    <!--Dialogs-->
     <string name="dialog_title">No Network/Internet</string>
     <string name="dialog_subtitle">Connect to Wi-Fi or mobile data and retry.
         If already connected, make sure it has an internet connection.</string>
@@ -109,13 +108,10 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
 
-    <!--Contribute-->
-    <string name="read_guidelines">Read contributing guidelines</string>
-    <string name="pull_req">Submit a pull request</string>
-
     <!--#########################################################################################-->
 
     <!--Snackbar-->
     <string name="no_browsers">No browsers installed on this device</string>
+    <string name="submit_success">Data submitted successfully</string>
 
 </resources>

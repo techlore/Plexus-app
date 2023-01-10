@@ -44,7 +44,7 @@
             android:layout_marginBottom="@dimen/margin_2.5"
             android:layout_marginStart="@dimen/margin_17"
             android:layout_marginEnd="@dimen/margin_17"
-            android:text="@string/application"
+            android:text="@string/app_name"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_22"/>
 
@@ -86,7 +86,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:padding="@dimen/margin_6.5"
                         android:background="@drawable/shape_outline"
-                        android:text="@string/app_name"
+                        android:text="@string/plexus"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_16"/>
 
