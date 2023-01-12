@@ -22,20 +22,48 @@
 <resources>
 
     <!--Light theme colors-->
-    <color name="colorPrimary">#1DA1F2</color>
-    <color name="colorAccent">#E54A3A</color>
-    <color name="colorPrimary30">#301DA1F2</color>
-    <color name="colorAccent30">#30E54A3A</color>
-    <color name="backgroundColor">#FFFFFF</color>
+    <color name="seed">#344470</color>
+    <color name="color_primary">#3C5BA9</color>
+    <color name="color_onPrimary">#FFFFFF</color>
+    <color name="color_primaryContainer">#DAE1FF</color>
+    <color name="color_onPrimaryContainer">#001849</color>
+    <color name="color_secondary">#00629E</color>
+    <color name="color_onSecondary">#FFFFFF</color>
+    <color name="color_secondaryContainer">#CFE5FF</color>
+    <color name="color_onSecondaryContainer">#001D34</color>
+    <color name="color_tertiary">#735471</color>
+    <color name="color_onTertiary">#FFFFFF</color>
+    <color name="color_tertiaryContainer">#FFD6F9</color>
+    <color name="color_onTertiaryContainer">#2B122B</color>
+    <color name="color_error">#BA1A1A</color>
+    <color name="color_errorContainer">#FFDAD6</color>
+    <color name="color_onError">#FFFFFF</color>
+    <color name="color_onErrorContainer">#410002</color>
+    <color name="color_background">#FEFBFF</color>
+    <color name="color_onBackground">#1B1B1F</color>
+    <color name="color_surface">#FEFBFF</color>
+    <color name="color_onSurface">#1B1B1F</color>
+    <color name="color_surfaceVariant">#E1E2EC</color>
+    <color name="color_onSurfaceVariant">#45464F</color>
+    <color name="color_outline">#757680</color>
+    <color name="color_inverseOnSurface">#F2F0F4</color>
+    <color name="color_inverseSurface">#303034</color>
+    <color name="color_inversePrimary">#B3C5FF</color>
+    <color name="color_shadow">#000000</color>
+    <color name="color_surfaceTint">#3C5BA9</color>
+    <color name="color_outlineVariant">#C5C6D0</color>
+    <color name="color_scrim">#000000</color>
+
+
     <color name="colorControlNormal">#747474</color>
     <color name="textTitleColor">@color/grey_800</color>
+    <color name="textTitleInverseColor">#FAFAFA</color>
     <color name="enabledColor">#606163</color>
     <color name="hintColor">#B2B2B2</color>
     <color name="cardStrokeColor">#E0E0E0</color>
-    <color name="rippleColor">#EBEBEB</color>
+    <color name="color_grey_text_surface">#EBEBEB</color>
     <color name="scrollbarColor">#B8B8B8</color>
     <color name="dividerColor">#DBDCE0</color>
-    <color name="bottomSheetColor">@color/backgroundColor</color>
     <color name="dragHandleColor">#C0C1C3</color>
     <color name="urlColor">#1976D2</color>
 

@@ -36,7 +36,7 @@
         app:indicatorSize="@dimen/margin_25"
         app:trackThickness="3dp"
         app:trackCornerRadius="@dimen/margin_20"
-        app:indicatorColor="@color/colorAccent"
+        app:indicatorColor="@color/color_primary"
         android:indeterminateOnly="true"/>
 
     <TextView

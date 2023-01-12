@@ -26,7 +26,7 @@
     android:id="@+id/submit_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@color/color_background"
     tools:context=".activities.SubmitActivity">
 
     <LinearLayout
@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/not_tested_title"/>
 
                     <com.google.android.material.chip.Chip
@@ -119,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/borked_title"/>
 
                     <com.google.android.material.chip.Chip
@@ -127,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/bronze_title"/>
 
                     <com.google.android.material.chip.Chip
@@ -135,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/silver_title"/>
 
                     <com.google.android.material.chip.Chip
@@ -143,7 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/gold_title"/>
 
                 </com.google.android.material.chip.ChipGroup>
@@ -180,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/not_tested_title"/>
 
                     <com.google.android.material.chip.Chip
@@ -188,7 +188,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/borked_title"/>
 
                     <com.google.android.material.chip.Chip
@@ -196,7 +196,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/bronze_title"/>
 
                     <com.google.android.material.chip.Chip
@@ -204,7 +204,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/silver_title"/>
 
                     <com.google.android.material.chip.Chip
@@ -212,7 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/FilterChipTheme"
-                        app:chipSurfaceColor="@color/backgroundColor"
+                        app:chipSurfaceColor="@color/color_background"
                         android:text="@string/gold_title"/>
 
                 </com.google.android.material.chip.ChipGroup>
@@ -290,17 +290,14 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_close"
-        android:backgroundTint="@color/bottomSheetColor"/>
+        app:navigationIcon="@drawable/ic_close"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/submit_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/submit_bottom_app_bar"
-        android:backgroundTint="@color/colorAccent"
         android:src="@drawable/ic_done"
-        app:tint="@android:color/white"
         android:contentDescription="Update/Submit" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -27,7 +27,6 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_12"
     android:paddingBottom="@dimen/margin_8"
-    android:background="@drawable/shape_bottom_sheet"
     android:layout_gravity="center"
     android:orientation="vertical">
 

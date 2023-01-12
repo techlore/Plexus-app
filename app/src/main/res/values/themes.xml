@@ -39,19 +39,18 @@
     <!--Filter chip theme-->
     <style name="FilterChipTheme" parent="Widget.Material3.Chip.Filter">
         <item name="chipBackgroundColor">@android:color/transparent</item>
-        <item name="chipSurfaceColor">@color/bottomSheetColor</item>
+        <item name="chipSurfaceColor">@android:color/transparent</item>
         <item name="chipStrokeColor">@color/chip_stroke_color</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="android:textColor">@color/chip_text_color</item>
         <item name="android:textSize">@dimen/text_16</item>
-        <item name="checkedIconTint">@color/colorPrimary</item>
+        <item name="checkedIconTint">@color/color_primary</item>
     </style>
 
     <!--#########################################################################################-->
 
     <!--Dialog theme-->
     <style name="DialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="android:backgroundTint">@color/bottomSheetColor</item>
         <item name="alertDialogStyle">@style/BaseDialogStyle</item>
         <item name="materialAlertDialogTitleTextStyle">@style/DialogTitleTextStyle</item>
         <item name="materialAlertDialogBodyTextStyle">@style/DialogBodyTextStyle</item>
@@ -64,9 +63,9 @@
     <!--#########################################################################################-->
 
     <!--Bottom sheet theme-->
-    <style name="BottomSheetTheme" parent="BaseBottomSheetStyle">
-        <item name="bottomSheetStyle">@style/BaseBottomSheetStyle</item>
-        <item name="android:backgroundDimAmount">0.32</item>
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+        <item name="android:backgroundDimAmount">0.35</item>
         <item name="android:windowEnterAnimation">@anim/fade_in_slide_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/fade_out_slide_to_bottom</item>
     </style>

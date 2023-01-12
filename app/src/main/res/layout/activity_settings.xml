@@ -26,7 +26,7 @@
     android:id="@+id/settings_coord_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@color/color_background"
     tools:context=".activities.SettingsActivity">
 
     <include
@@ -35,21 +35,25 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"/>
 
+    <!--This is just here to provide color
+        For some reason appbar layout doesn't show elevated color-->
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom"/>
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bottomSheetColor"
-        app:elevation="0dp"
+        android:background="@android:color/transparent"
         android:layout_gravity="bottom">
-
-        <include
-            layout="@layout/divider_horizontal"/>
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_back"
+            android:background="@android:color/transparent"
             app:contentInsetStartWithNavigation="0dp"
             android:paddingStart="@dimen/margin_2.5"
             android:paddingEnd="@dimen/margin_2.5"

@@ -26,7 +26,7 @@
     android:id="@+id/main_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@color/color_background"
     tools:context=".activities.MainActivity">
 
     <include
@@ -46,8 +46,7 @@
         android:id="@+id/bottom_nav_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bottomSheetColor"
-        app:elevation="@dimen/margin_8"
+        android:elevation="3dp"
         app:behavior_peekHeight="?attr/actionBarSize"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
@@ -56,12 +55,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/divider_horizontal"/>
-
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
                 app:elevation="0dp">
 
                 <com.google.android.material.appbar.MaterialToolbar
@@ -88,12 +84,8 @@
                 android:id="@+id/nav_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
                 app:elevation="0dp"
-                app:itemIconPadding="@dimen/margin_20"
                 app:itemIconSize="22dp"
-                app:itemIconTint="@color/nav_item_icon_color"
-                app:itemTextColor="@color/nav_item_text_color"
                 app:menu="@menu/menu_nav_view"
                 style="@style/NavViewStyle"/>
 

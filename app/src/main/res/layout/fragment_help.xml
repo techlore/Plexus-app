@@ -301,7 +301,7 @@
                 android:layout_marginEnd="@dimen/margin_6.5"
                 android:contentDescription="@string/not_tested_title"
                 android:src="@drawable/ic_badge"
-                app:tint="@color/colorPrimary" />
+                app:tint="@color/color_primary" />
 
             <TextView
                 android:id="@+id/dg_status_info"
@@ -313,10 +313,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/dg_status_badge"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 android:gravity="center"
                 android:text="@string/one"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_16"
                 style="@style/MediumBoldText"/>
 
@@ -330,10 +330,10 @@
                 android:layout_marginEnd="@dimen/margin_6.5"
                 android:layout_toEndOf="@id/dg_status_info"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 android:gravity="center"
                 android:text="@string/three"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_16" />
 
             <TextView
@@ -364,10 +364,10 @@
                 android:layout_toEndOf="@id/dg_status_info"
                 android:layout_below="@+id/three"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 android:gravity="center"
                 android:text="@string/four"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_16" />
 
             <TextView
@@ -399,10 +399,10 @@
                 android:layout_toEndOf="@id/dg_status_info"
                 android:layout_below="@+id/four"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 android:gravity="center"
                 android:text="@string/five"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_16" />
 
             <TextView
@@ -433,7 +433,7 @@
                 android:layout_marginEnd="@dimen/margin_10"
                 android:contentDescription="@string/not_tested_title"
                 android:src="@drawable/ic_badge"
-                app:tint="@color/colorPrimary" />
+                app:tint="@color/color_primary" />
 
             <TextView
                 android:id="@+id/mg_status_info"
@@ -445,10 +445,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@id/mg_status_badge"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 android:gravity="center"
                 android:text="@string/two"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_16"
                 style="@style/MediumBoldText"/>
 
@@ -466,11 +466,11 @@
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/one"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 style="@style/MediumBoldText"/>
 
             <TextView
@@ -494,11 +494,11 @@
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/two"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 style="@style/MediumBoldText"/>
 
             <TextView
@@ -522,11 +522,11 @@
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/three"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 style="@style/MediumBoldText"/>
 
             <TextView
@@ -550,11 +550,11 @@
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/four"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 style="@style/MediumBoldText"/>
 
             <TextView
@@ -578,11 +578,11 @@
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/five"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textTitleInverseColor"
                 android:textSize="@dimen/text_17"
                 android:gravity="center"
                 android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 style="@style/MediumBoldText"/>
 
             <TextView

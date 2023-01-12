@@ -26,7 +26,6 @@
     android:id="@+id/app_details_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
     tools:context=".activities.AppDetailsActivity">
 
     <LinearLayout
@@ -87,7 +86,7 @@
                         android:padding="@dimen/margin_6.5"
                         android:background="@drawable/shape_outline"
                         android:text="@string/plexus"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_primary"
                         android:textSize="@dimen/text_16"/>
 
                     <TextView
@@ -95,7 +94,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/version"
-                        android:textColor="?colorControlNormal"
                         android:textSize="@dimen/text_16"/>
 
                 </LinearLayout>
@@ -115,8 +113,8 @@
                         android:padding="@dimen/margin_6.5"
                         android:background="@drawable/shape_outline"
                         android:text="@string/installed"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_16"/>
+                        android:textColor="@color/color_primary"
+                        android:textSize="@dimen/text_16" />
 
                     <TextView
                         android:id="@+id/installed_version_details"
@@ -124,7 +122,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_12"
                         android:text="@string/version"
-                        android:textColor="?colorControlNormal"
                         android:textSize="@dimen/text_16"/>
 
                 </LinearLayout>
@@ -250,17 +247,14 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_close"
-        android:backgroundTint="@color/bottomSheetColor"/>
+        app:navigationIcon="@drawable/ic_close"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/bottom_app_bar"
-        android:backgroundTint="@color/colorAccent"
         android:src="@drawable/ic_edit"
-        app:tint="@android:color/white"
         android:contentDescription="Update/Submit" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

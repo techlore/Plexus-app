@@ -164,8 +164,8 @@ public class PlexusDataFragment extends Fragment {
         });
 
         // Swipe refresh layout
-        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.backgroundColor, requireContext().getTheme()));
-        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent, requireContext().getTheme()));
+        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.color_background, requireContext().getTheme()));
+        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.color_secondary, requireContext().getTheme()));
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener(this::RefreshData);
 
     }

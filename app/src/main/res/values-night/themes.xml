@@ -30,7 +30,7 @@
 
     <!--App dark theme-->
     <style name="AppTheme" parent="BaseAppStyle">
-        <item name="android:navigationBarColor">@color/bottomSheetColor</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

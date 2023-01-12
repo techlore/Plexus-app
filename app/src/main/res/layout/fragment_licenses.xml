@@ -54,7 +54,7 @@
             android:paddingStart="@dimen/margin_12"
             android:paddingEnd="@dimen/margin_12"
             android:paddingTop="@dimen/margin_12"
-            android:background="@color/rippleColor"
+            android:background="@color/color_grey_text_surface"
             android:text="@string/copyright_techlore"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16" />
@@ -65,7 +65,7 @@
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
             android:padding="@dimen/margin_12"
-            android:background="@color/rippleColor"
+            android:background="@color/color_grey_text_surface"
             android:text="@string/gpl_3_0_license"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16" />
@@ -90,7 +90,7 @@
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
             android:padding="@dimen/margin_12"
-            android:background="@color/rippleColor"
+            android:background="@color/color_grey_text_surface"
             android:text="@string/apache_2_0_license"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16" />
@@ -115,7 +115,7 @@
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
             android:padding="@dimen/margin_12"
-            android:background="@color/rippleColor"
+            android:background="@color/color_grey_text_surface"
             android:text="@string/apache_2_0_license"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16" />
@@ -140,7 +140,7 @@
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
             android:padding="@dimen/margin_12"
-            android:background="@color/rippleColor"
+            android:background="@color/color_grey_text_surface"
             android:text="@string/apache_2_0_license"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16" />
@@ -165,7 +165,7 @@
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
             android:padding="@dimen/margin_12"
-            android:background="@color/rippleColor"
+            android:background="@color/color_grey_text_surface"
             android:text="@string/apache_2_0_license"
             android:textColor="@color/textTitleColor"
             android:textSize="@dimen/text_16" />
