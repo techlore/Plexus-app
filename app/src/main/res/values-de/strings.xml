@@ -34,7 +34,7 @@
     -->
 
     <!--SPLASH ACTIVITY-->
-    <string name="fetching_data">Daten abrufen</string>
+    <string name="retrieving_data">Daten abrufen</string>
     <string name="scan_installed">Installierte Apps scannen</string>
 
     <!--#########################################################################################-->

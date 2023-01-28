@@ -27,7 +27,7 @@
     -->
 
     <!--SPLASH ACTIVITY-->
-    <string name="fetching_data">Data ophalen</string>
+    <string name="retrieving_data">Data ophalen</string>
     <string name="scan_installed">Ge\u00EFnstalleerde apps scannen</string>
 
     <!--#########################################################################################-->
@@ -57,7 +57,7 @@
     <!--HELP ACTIVITY-->
     <string name="what_status_mean">Wat betekenen de beoordelingen?</string>
     <string name="not_tested_title">Niet getest</string>
-    <string name="borked_subtitle">Onbruikbaar</string>
+    <string name="broken_subtitle">Onbruikbaar</string>
     <string name="bronze_subtitle">Aanvaardbaar</string>
     <string name="silver_subtitle">Goed</string>
     <string name="gold_subtitle">Perfect</string>

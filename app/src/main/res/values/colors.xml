@@ -55,10 +55,14 @@
     <color name="color_scrim">#000000</color>
 
 
+    <color name="color_nav_item_bg">@color/color_primary</color>
+    <color name="color_fab">@color/color_primary</color>
     <color name="colorControlNormal">#747474</color>
     <color name="textTitleColor">@color/grey_800</color>
     <color name="textTitleInverseColor">#FAFAFA</color>
     <color name="enabledColor">#606163</color>
+    <color name="color_disabled">#D4D3DD</color>
+    <color name="color_text_disabled">#8D8D95</color>
     <color name="hintColor">#B2B2B2</color>
     <color name="cardStrokeColor">#E0E0E0</color>
     <color name="color_grey_text_surface">#EBEBEB</color>
@@ -67,15 +71,15 @@
     <color name="dragHandleColor">#C0C1C3</color>
     <color name="urlColor">#1976D2</color>
 
+    <color name="color_broken_status">#FF8980</color>
+    <color name="color_bronze_status">#BBAB74</color>
+    <color name="color_silver_status">#B4CAD5</color>
+    <color name="color_gold_status">#FFE084</color>
+
     <!--Common colors-->
     <color name="grey_800">#424242</color>
     <color name="grey_900">#212121</color>
     <color name="snackbarTextColor">#FAFAFA</color>
     <color name="snackbarBackgroundColor">#3C3D40</color>
-    <color name="ratingXColor">#718096</color>
-    <color name="rating1Color">#FF0000</color>
-    <color name="rating2Color">#B4945A</color>
-    <color name="rating3Color">#A6A6A6</color>
-    <color name="rating4Color">#CFB53B</color>
 
 </resources>

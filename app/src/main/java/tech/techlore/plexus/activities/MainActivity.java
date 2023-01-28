@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
     
-                activityBinding.dimBg.setAlpha(slideOffset); // Dim background on sliding up
+                activityBinding.dimBg.setAlpha(slideOffset * 2); // Dim background on sliding up
                 activityBinding.navView.setCheckedItem(checkedItem); // Always sync checked item on slide
                 
                 // Hide toolbar title and menu on slide up

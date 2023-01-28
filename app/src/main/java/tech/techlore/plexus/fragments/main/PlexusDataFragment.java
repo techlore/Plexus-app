@@ -203,21 +203,16 @@ public class PlexusDataFragment extends Fragment {
 
                     try {
                         jsonData = GETReq();
+                        mainActivity.dataList = PopulateDataList(jsonData);
                     }
                     catch (IOException e) {
                         e.printStackTrace();
                     }
-
+    
                     // UI Thread work
                     handler.post(() -> {
-                        try {
-                            mainActivity.dataList = PopulateDataList(jsonData);
-                            fragmentBinding.swipeRefreshLayout.setRefreshing(false);
-                            ReloadFragment(getParentFragmentManager(), this);
-                        }
-                        catch (JsonProcessingException e) {
-                            e.printStackTrace();
-                        }
+                        fragmentBinding.swipeRefreshLayout.setRefreshing(false);
+                        ReloadFragment(getParentFragmentManager(), this);
                     });
                 }
                 else {

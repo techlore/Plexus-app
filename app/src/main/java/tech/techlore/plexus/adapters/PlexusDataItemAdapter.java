@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.adapters;
 
-import static tech.techlore.plexus.utils.UiUtils.BadgeColor;
 import static tech.techlore.plexus.utils.UiUtils.hScrollText;
 
 import android.annotation.SuppressLint;
@@ -69,7 +68,7 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView name, packageName, version;
-        private final ImageView dgBadge, mgBadge;
+        private final ImageView dgBadge;
 
         public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
             super(itemView);
@@ -78,7 +77,6 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
             packageName = itemView.findViewById(R.id.package_name);
             version = itemView.findViewById(R.id.version);
             dgBadge = itemView.findViewById(R.id.dg_badge);
-            mgBadge = itemView.findViewById(R.id.mg_badge);
 
 
             // Handle click events of items

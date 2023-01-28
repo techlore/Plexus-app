@@ -19,14 +19,14 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <View
+    <androidx.cardview.widget.CardView
         android:layout_width="25dp"
         android:layout_height="4.5dp"
-        android:background="@drawable/shape_rounded_corners"
         android:backgroundTint="@color/dragHandleColor"
+        app:cardElevation="0dp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_16"/>

@@ -22,8 +22,7 @@
 <resources>
 
     <!--Splash activity -->
-    <string name="fetching_data">Fetching data</string>
-    <string name="scan_installed">Scanning installed apps</string>
+    <string name="retrieving_data">Retrieving data</string>
 
     <!--#########################################################################################-->
 
@@ -49,8 +48,8 @@
     <string name="what_status_mean">What do the status mean?</string>
     <string name="not_tested_title">Not tested</string>
     <string name="not_tested_subtitle">App has not been tested</string>
-    <string name="borked_title">Borked</string>
-    <string name="borked_subtitle">Unusable, mostly apps that fail to open</string>
+    <string name="broken_title">Broken</string>
+    <string name="broken_subtitle">Unusable, mostly apps that fail to open</string>
     <string name="bronze_title">Bronze</string>
     <string name="bronze_subtitle">Acceptable but with missing or broken functionality</string>
     <string name="silver_title">Silver</string>

@@ -28,7 +28,7 @@
     -->
 
     <!--SPLASH ACTIVITY-->
-    <string name="fetching_data">Recuperando i dati</string>
+    <string name="retrieving_data">Recuperando i dati</string>
     <string name="scan_installed">Scansione di app installate</string>
 
     <!--#########################################################################################-->
@@ -58,7 +58,7 @@
     <!--HELP ACTIVITY-->
     <string name="what_status_mean">Cosa significano le valutazioni?</string>
     <string name="not_tested_title">Non testato</string>
-    <string name="borked_subtitle">Inutilizzabile</string>
+    <string name="broken_subtitle">Inutilizzabile</string>
     <string name="bronze_subtitle">Accettabile</string>
     <string name="silver_subtitle">Bene</string>
     <string name="gold_subtitle">Perfetto</string>

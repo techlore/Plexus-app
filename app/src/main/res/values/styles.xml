@@ -76,15 +76,27 @@
 
     <!--Nav view style-->
     <style name="NavViewStyle" parent="Widget.Material3.NavigationView">
-        <!--<item name="itemShapeFillColor">@color/nav_item_bg_color</item>-->
+        <item name="itemShapeFillColor">@color/nav_item_bg_color</item>
         <item name="itemTextAppearance">@style/NavViewText</item>
+        <item name="itemIconTint">@color/nav_item_text_color</item>
+        <item name="itemTextColor">@color/nav_item_text_color</item>
     </style>
-
-    <!--#########################################################################################-->
 
     <!--Nav view items texts style-->
     <style name="NavViewText" parent="MediumBoldText">
         <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <!--#########################################################################################-->
+
+    <!--Base filter chip style-->
+    <style name="BaseFilterChipStyle" parent="Widget.Material3.Chip.Filter">
+        <item name="chipSurfaceColor">@android:color/transparent</item>
+        <item name="chipStrokeColor">@android:color/transparent</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">@color/textTitleColor</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="checkedIconTint">@color/textTitleColor</item>
     </style>
 
     <!--#########################################################################################-->

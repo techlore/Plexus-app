@@ -21,22 +21,17 @@ package tech.techlore.plexus.activities;
 
 import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 import static tech.techlore.plexus.utils.IntentUtils.Share;
-import static tech.techlore.plexus.utils.UiUtils.BadgeColor;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding;
@@ -123,34 +118,6 @@ public class AppDetailsActivity extends AppCompatActivity {
         }
 
         return true;
-    }
-
-    private void BgColor(Context context, TextView textView, String status) {
-
-        switch (status) {
-
-            case "X":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.ratingXColor));
-                break;
-
-            case "1":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating1Color));
-                break;
-
-            case "2":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating2Color));
-                break;
-
-            case "3":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating3Color));
-                break;
-
-            case "4":
-                textView.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating4Color));
-                break;
-
-        }
-
     }
 
     // Set transition when finishing activity

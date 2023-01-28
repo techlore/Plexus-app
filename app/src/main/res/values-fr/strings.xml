@@ -31,7 +31,7 @@
     -->
 
     <!--SPLASH ACTIVITY-->
-    <string name="fetching_data">R\u00E9cup\u00E9ration des donn\u00E9es</string>
+    <string name="retrieving_data">R\u00E9cup\u00E9ration des donn\u00E9es</string>
     <string name="scan_installed">Analyse des applications install\u00E9es</string>
 
     <!--#########################################################################################-->
@@ -61,7 +61,7 @@
     <!--HELP ACTIVITY-->
     <string name="what_status_mean">Qu\'est-ce que les \u00E9valuations signifient?</string>
     <string name="not_tested_title">Pas test\u00E9</string>
-    <string name="borked_subtitle">Inutilisable</string>
+    <string name="broken_subtitle">Inutilisable</string>
     <string name="bronze_subtitle">Acceptable</string>
     <string name="silver_subtitle">Bon</string>
     <string name="gold_subtitle">Parfait</string>

@@ -36,7 +36,7 @@
         app:indicatorSize="@dimen/margin_25"
         app:trackThickness="3dp"
         app:trackCornerRadius="@dimen/margin_20"
-        app:indicatorColor="@color/color_primary"
+        app:indicatorColor="#B3C5FF"
         android:indeterminateOnly="true"/>
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="@dimen/margin_6.5"
         android:layout_gravity="center"
-        android:text="@string/fetching_data"
+        android:text="@string/retrieving_data"
         android:textSize="@dimen/text_17"
         android:textColor="@color/snackbarTextColor"/>
 

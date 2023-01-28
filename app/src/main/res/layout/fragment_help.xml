@@ -46,553 +46,112 @@
             android:textSize="@dimen/text_20"
             style="@style/MediumBoldText"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_10">
-
-            <ImageView
-                android:id="@+id/not_tested_badge"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/margin_8"
-                android:contentDescription="@string/not_tested_title"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/ratingXColor" />
-
-            <TextView
-                android:id="@+id/not_tested_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toEndOf="@+id/not_tested_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/not_tested_title"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-            <TextView
-                android:id="@+id/not_tested_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/not_tested_title"
-                android:layout_toEndOf="@+id/not_tested_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/not_tested_subtitle"
-                android:textColor="?attr/colorControlNormal"
-                android:textSize="@dimen/text_16" />
-
-        </RelativeLayout>
-
-        <!--#####################################################-->
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_10">
-
-            <ImageView
-                android:id="@+id/borked_badge"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/margin_8"
-                android:contentDescription="@string/borked_title"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/rating1Color" />
-
-            <TextView
-                android:id="@+id/borked_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toEndOf="@+id/borked_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/borked_title"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-            <TextView
-                android:id="@+id/borked_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/borked_title"
-                android:layout_toEndOf="@+id/borked_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/borked_subtitle"
-                android:textColor="?attr/colorControlNormal"
-                android:textSize="@dimen/text_16" />
-
-        </RelativeLayout>
-
-        <!--#####################################################-->
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_10">
-
-            <ImageView
-                android:id="@+id/bronze_badge"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/margin_8"
-                android:contentDescription="@string/bronze_title"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/rating2Color" />
-
-            <TextView
-                android:id="@+id/bronze_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toEndOf="@+id/bronze_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/bronze_title"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-            <TextView
-                android:id="@+id/bronze_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/bronze_title"
-                android:layout_toEndOf="@+id/bronze_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/bronze_subtitle"
-                android:textColor="?attr/colorControlNormal"
-                android:textSize="@dimen/text_16" />
-
-        </RelativeLayout>
-
-        <!--#####################################################-->
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_10">
-
-            <ImageView
-                android:id="@+id/silver_badge"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/margin_8"
-                android:contentDescription="@string/silver_title"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/rating3Color" />
-
-            <TextView
-                android:id="@+id/silver_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toEndOf="@+id/silver_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/silver_title"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-            <TextView
-                android:id="@+id/silver_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/silver_title"
-                android:layout_toEndOf="@+id/silver_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/silver_subtitle"
-                android:textColor="?attr/colorControlNormal"
-                android:textSize="@dimen/text_16" />
-
-        </RelativeLayout>
-
-        <!--#####################################################-->
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_10">
-
-            <ImageView
-                android:id="@+id/gold_badge"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/margin_8"
-                android:contentDescription="@string/gold_title"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/rating4Color" />
-
-            <TextView
-                android:id="@+id/gold_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toEndOf="@+id/gold_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/gold_title"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-            <TextView
-                android:id="@+id/gold_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/gold_title"
-                android:layout_toEndOf="@+id/gold_badge"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/gold_subtitle"
-                android:textColor="?attr/colorControlNormal"
-                android:textSize="@dimen/text_16" />
-
-        </RelativeLayout>
-
-        <!--#####################################################-->
-
-        <include layout="@layout/divider_horizontal"/>
+            android:layout_marginStart="@dimen/margin_12"
+            android:clickable="false"
+            style="@style/NotTestedFilterChipTheme"
+            app:chipBackgroundColor="@android:color/transparent"
+            android:text="@string/not_tested_title"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_4"
-            android:layout_marginEnd="@dimen/margin_4"
-            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_16"
-            android:text="@string/app_card_breakdown"
-            android:textColor="@color/textTitleColor"
-            android:textSize="@dimen/text_20"
-            style="@style/MediumBoldText"/>
+            android:text="@string/not_tested_subtitle"
+            android:textColor="?attr/colorControlNormal"
+            android:textSize="@dimen/text_16" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_card_with_ripple">
+        <include layout="@layout/divider_horizontal"/>
 
-            <ImageView
-                android:id="@+id/dg_status_badge"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginEnd="@dimen/margin_6.5"
-                android:contentDescription="@string/not_tested_title"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/color_primary" />
-
-            <TextView
-                android:id="@+id/dg_status_info"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_6.5"
-                android:layout_marginEnd="@dimen/margin_10"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/dg_status_badge"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                android:gravity="center"
-                android:text="@string/one"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_16"
-                style="@style/MediumBoldText"/>
-
-            <TextView
-                android:id="@+id/three"
-                style="@style/MediumBoldText"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_6.5"
-                android:layout_toEndOf="@id/dg_status_info"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                android:gravity="center"
-                android:text="@string/three"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_16" />
-
-            <TextView
-                android:id="@+id/name_info"
-                style="@style/MediumBoldText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_6.5"
-                android:layout_marginEnd="@dimen/margin_10"
-                android:layout_marginBottom="1.5dp"
-                android:layout_toStartOf="@id/mg_status_info"
-                android:layout_toEndOf="@id/three"
-                android:maxLines="1"
-                android:ellipsize="marquee"
-                android:text="@string/twitter"
-                android:textAlignment="viewStart"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-            <TextView
-                android:id="@+id/four"
-                style="@style/MediumBoldText"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_6.5"
-                android:layout_toEndOf="@id/dg_status_info"
-                android:layout_below="@+id/three"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                android:gravity="center"
-                android:text="@string/four"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_16" />
-
-            <TextView
-                android:id="@+id/package_name_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/name_info"
-                android:layout_marginTop="@dimen/margin_10"
-                android:layout_marginEnd="@dimen/margin_10"
-                android:layout_marginBottom="1.5dp"
-                android:layout_toStartOf="@id/mg_status_info"
-                android:layout_toEndOf="@id/four"
-                android:maxLines="1"
-                android:ellipsize="marquee"
-                android:text="@string/twitter_package_name"
-                android:textAlignment="viewStart"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_16" />
-
-            <TextView
-                android:id="@+id/five"
-                style="@style/MediumBoldText"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_6.5"
-                android:layout_marginBottom="@dimen/margin_4"
-                android:layout_toEndOf="@id/dg_status_info"
-                android:layout_below="@+id/four"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                android:gravity="center"
-                android:text="@string/five"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_16" />
-
-            <TextView
-                android:id="@+id/version_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/package_name_info"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginEnd="@dimen/margin_10"
-                android:layout_marginBottom="@dimen/margin_2.5"
-                android:layout_toStartOf="@id/mg_status_info"
-                android:layout_toEndOf="@id/five"
-                android:maxLines="1"
-                android:ellipsize="marquee"
-                android:text="@string/twitter_version"
-                android:textAlignment="viewStart"
-                android:textColor="?attr/colorControlNormal"
-                android:textSize="@dimen/text_14"
-                android:textStyle="normal" />
-
-            <ImageView
-                android:id="@+id/mg_status_badge"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="@dimen/margin_6.5"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginEnd="@dimen/margin_10"
-                android:contentDescription="@string/not_tested_title"
-                android:src="@drawable/ic_badge"
-                app:tint="@color/color_primary" />
-
-            <TextView
-                android:id="@+id/mg_status_info"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_6.5"
-                android:layout_marginStart="@dimen/margin_4"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/mg_status_badge"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                android:gravity="center"
-                android:text="@string/two"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_16"
-                style="@style/MediumBoldText"/>
-
-        </RelativeLayout>
-
-        <LinearLayout
+        <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_4">
+            android:layout_marginStart="@dimen/margin_12"
+            android:clickable="false"
+            style="@style/BrokenFilterChipTheme"
+            app:chipBackgroundColor="@color/color_broken_status"
+            android:text="@string/broken_title"/>
 
-            <TextView
-                android:layout_width="@dimen/margin_35"
-                android:layout_height="@dimen/margin_35"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:text="@string/one"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_17"
-                android:gravity="center"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                style="@style/MediumBoldText"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dg_status"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12"
-            android:layout_marginBottom="@dimen/margin_4">
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/broken_subtitle"
+            android:textColor="?attr/colorControlNormal"
+            android:textSize="@dimen/text_16" />
 
-            <TextView
-                android:layout_width="@dimen/margin_35"
-                android:layout_height="@dimen/margin_35"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:text="@string/two"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_17"
-                android:gravity="center"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                style="@style/MediumBoldText"/>
+        <include layout="@layout/divider_horizontal"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mg_status"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12"
-            android:layout_marginBottom="@dimen/margin_4">
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_12"
+            android:clickable="false"
+            style="@style/BronzeFilterChipTheme"
+            app:chipBackgroundColor="@color/color_bronze_status"
+            android:text="@string/bronze_title"/>
 
-            <TextView
-                android:layout_width="@dimen/margin_35"
-                android:layout_height="@dimen/margin_35"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:text="@string/three"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_17"
-                android:gravity="center"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                style="@style/MediumBoldText"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12"
-            android:layout_marginBottom="@dimen/margin_4">
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/bronze_subtitle"
+            android:textColor="?attr/colorControlNormal"
+            android:textSize="@dimen/text_16" />
 
-            <TextView
-                android:layout_width="@dimen/margin_35"
-                android:layout_height="@dimen/margin_35"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:text="@string/four"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_17"
-                android:gravity="center"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                style="@style/MediumBoldText"/>
+        <include layout="@layout/divider_horizontal"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/package_name"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12"
-            android:layout_marginBottom="@dimen/margin_4">
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_12"
+            android:clickable="false"
+            style="@style/SilverFilterChipTheme"
+            app:chipBackgroundColor="@color/color_silver_status"
+            android:text="@string/silver_title"/>
 
-            <TextView
-                android:layout_width="@dimen/margin_35"
-                android:layout_height="@dimen/margin_35"
-                android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:text="@string/five"
-                android:textColor="@color/textTitleInverseColor"
-                android:textSize="@dimen/text_17"
-                android:gravity="center"
-                android:background="@drawable/shape_bg_circle"
-                android:backgroundTint="@color/color_primary"
-                style="@style/MediumBoldText"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/silver_subtitle"
+            android:textColor="?attr/colorControlNormal"
+            android:textSize="@dimen/text_16" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/version"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17" />
+        <include layout="@layout/divider_horizontal"/>
 
-        </LinearLayout>
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_12"
+            android:clickable="false"
+            style="@style/GoldFilterChipTheme"
+            app:chipBackgroundColor="@color/color_gold_status"
+            android:text="@string/gold_title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/gold_subtitle"
+            android:textColor="?attr/colorControlNormal"
+            android:textSize="@dimen/text_16" />
 
     </LinearLayout>
 

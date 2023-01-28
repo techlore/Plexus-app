@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2022 Techlore
   ~
@@ -17,17 +18,7 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="?colorControlHighlight">
-    <item android:id="@android:id/mask">
-        <shape android:shape="rectangle">
-            <corners android:radius="@dimen/margin_8"/>
-            <solid android:color="@color/color_surfaceVariant"/>
-        </shape>
-    </item>
-    <item android:id="@android:id/background">
-        <shape android:shape="rectangle">
-            <corners android:radius="@dimen/margin_8"/>
-            <stroke android:color="@color/cardStrokeColor" android:width="1dp"/>
-        </shape>
-    </item>
-</ripple>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#DAE1FF" android:state_checked="true"/>
+    <item android:color="@color/textTitleColor" android:state_checked="false"/>
+</selector>

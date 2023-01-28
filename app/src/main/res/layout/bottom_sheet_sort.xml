@@ -60,14 +60,14 @@
             android:id="@+id/sort_a_z"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipTheme"
+            style="@style/NotTestedFilterChipTheme"
             android:text="@string/a_z"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_z_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipTheme"
+            style="@style/NotTestedFilterChipTheme"
             android:text="@string/z_a"/>
 
     </com.google.android.material.chip.ChipGroup>
@@ -152,35 +152,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            style="@style/FilterChipTheme"
+            style="@style/NotTestedFilterChipTheme"
             android:text="@string/not_tested_title"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_unusable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipTheme"
-            android:text="@string/borked_title"/>
+            style="@style/BrokenFilterChipTheme"
+            android:text="@string/broken_title"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_acceptable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipTheme"
+            style="@style/BronzeFilterChipTheme"
             android:text="@string/bronze_title"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_good"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipTheme"
+            style="@style/SilverFilterChipTheme"
             android:text="@string/silver_title"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_perfect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChipTheme"
+            style="@style/GoldFilterChipTheme"
             android:text="@string/gold_title"/>
 
     </com.google.android.material.chip.ChipGroup>

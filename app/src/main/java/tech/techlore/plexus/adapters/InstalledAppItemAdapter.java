@@ -19,12 +19,10 @@
 
 package tech.techlore.plexus.adapters;
 
-import static tech.techlore.plexus.utils.UiUtils.BadgeColor;
 import static tech.techlore.plexus.utils.UiUtils.hScrollText;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +68,7 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView name, packageName, installedVersion;
-        private final ImageView dgBadge, mgBadge, versionMismatch;
+        private final ImageView dgBadge, versionMismatch;
 
         public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
             super(itemView);
@@ -79,7 +77,6 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
             packageName = itemView.findViewById(R.id.package_name);
             installedVersion = itemView.findViewById(R.id.version);
             dgBadge = itemView.findViewById(R.id.dg_badge);
-            mgBadge = itemView.findViewById(R.id.mg_badge);
             versionMismatch = itemView.findViewById(R.id.version_mismatch);
 
 
@@ -148,10 +145,6 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
         hScrollText(holder.name);
         hScrollText(holder.packageName);
         hScrollText(holder.installedVersion);
-
-        // Badge color
-        BadgeColor(context, holder.dgBadge, installedApp.getDgRating());
-        BadgeColor(context, holder.mgBadge, installedApp.getMgRating());
 
     }
 

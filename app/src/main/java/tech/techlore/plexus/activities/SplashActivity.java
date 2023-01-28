@@ -101,25 +101,18 @@ public class SplashActivity extends AppCompatActivity {
 
                     try {
                         jsonData = GETReq();
+                        plexusDataList = PopulateDataList(jsonData);
+                        ScanInstalledApps(this, plexusDataList, installedAppsList);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                     // UI Thread work
                     handler.post(() -> {
-                        try {
-                            plexusDataList = PopulateDataList(jsonData);
-                            ((TextView)findViewById(R.id.progress_text)).setText(R.string.scan_installed);
-                            ScanInstalledApps(this, plexusDataList, installedAppsList);
-                            SendListsIntent(this, MainActivity.class,
-                                    (Serializable) plexusDataList, (Serializable) installedAppsList);
-                            finish();
-                            overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start);
-                        }
-
-                        catch (JsonProcessingException e) {
-                            e.printStackTrace();
-                        }
+                        SendListsIntent(this, MainActivity.class,
+                                        (Serializable) plexusDataList, (Serializable) installedAppsList);
+                        finish();
+                        overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start);
                     });
                 }
                 else {

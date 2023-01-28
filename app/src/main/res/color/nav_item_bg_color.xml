@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2022 Techlore
   ~
   ~  This file is part of Plexus.
@@ -20,6 +18,6 @@
   -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/color_secondary" android:state_checked="true"/>
-    <item android:color="@color/textTitleColor" android:state_checked="false"/>
+    <item android:color="@color/color_nav_item_bg" android:state_checked="true"/>
+    <item android:color="@android:color/transparent" android:state_checked="false"/>
 </selector>

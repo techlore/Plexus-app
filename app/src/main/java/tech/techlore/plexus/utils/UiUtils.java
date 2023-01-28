@@ -47,64 +47,6 @@ public class UiUtils {
         textView.setSelected(true);
     }
 
-    // Set badge color according to status
-    public static void BadgeColor(Context context, ImageView imageView, String status) {
-
-        switch (status) {
-
-            case "X":
-                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.ratingXColor));
-                break;
-
-            case "1":
-                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.rating1Color));
-                break;
-
-            case "2":
-                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.rating2Color));
-                break;
-
-            case "3":
-                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.rating3Color));
-                break;
-
-            case "4":
-                imageView.setImageTintList(ContextCompat.getColorStateList(context, R.color.rating4Color));
-                break;
-
-        }
-
-    }
-
-    // SET BACKGROUND COLOR BASED ON STATUS
-    /*public static void BgColor(Context context, View view, String status) {
-
-        switch (status) {
-
-            case "X":
-                view.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.ratingXColor));
-                break;
-
-            case "1":
-                view.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating1Color));
-                break;
-
-            case "2":
-                view.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating2Color));
-                break;
-
-            case "3":
-                view.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating3Color));
-                break;
-
-            case "4":
-                view.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.rating4Color));
-                break;
-
-        }
-
-    }*/
-
     // Long click bottom sheet
     public static void LongClickBottomSheet(Activity activity, String nameString, String packageNameString, /*String plexusVersionString,
                                             String dgRatingString, String mgRatingString,

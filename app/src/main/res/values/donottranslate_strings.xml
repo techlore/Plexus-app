@@ -23,15 +23,6 @@
 
     <string name="plexus">Plexus</string>
 
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
-    <string name="four">4</string>
-    <string name="five">5</string>
-    <string name="twitter">Twitter</string>
-    <string name="twitter_package_name">com.twitter.android</string>
-    <string name="twitter_version">9.34.5</string>
-
     <string name="de_Googled">de-Googled</string>
     <string name="microG">\u00B5 (microG)</string>
 
