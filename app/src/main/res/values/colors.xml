@@ -54,22 +54,20 @@
     <color name="color_outlineVariant">#C5C6D0</color>
     <color name="color_scrim">#000000</color>
 
-
-    <color name="color_nav_item_bg">@color/color_primary</color>
+    <color name="color_nav_item_bg">#5674C4</color>
     <color name="color_fab">@color/color_primary</color>
     <color name="colorControlNormal">#747474</color>
-    <color name="textTitleColor">@color/grey_800</color>
-    <color name="textTitleInverseColor">#FAFAFA</color>
-    <color name="enabledColor">#606163</color>
+    <color name="color_text_title">@color/grey_800</color>
+    <color name="color_enabled">#606163</color>
     <color name="color_disabled">#D4D3DD</color>
     <color name="color_text_disabled">#8D8D95</color>
-    <color name="hintColor">#B2B2B2</color>
-    <color name="cardStrokeColor">#E0E0E0</color>
+    <color name="color_hint">#B2B2B2</color>
+    <color name="color_card_stroke">#E0E0E0</color>
     <color name="color_grey_text_surface">#EBEBEB</color>
-    <color name="scrollbarColor">#B8B8B8</color>
-    <color name="dividerColor">#DBDCE0</color>
-    <color name="dragHandleColor">#C0C1C3</color>
-    <color name="urlColor">#1976D2</color>
+    <color name="color_scrollbar">#B8B8B8</color>
+    <color name="color_divider">#DBDCE0</color>
+    <color name="color_drag_handle">#C0C1C3</color>
+    <color name="color_url">#1976D2</color>
 
     <color name="color_broken_status">#FF8980</color>
     <color name="color_bronze_status">#BBAB74</color>
@@ -79,7 +77,7 @@
     <!--Common colors-->
     <color name="grey_800">#424242</color>
     <color name="grey_900">#212121</color>
-    <color name="snackbarTextColor">#FAFAFA</color>
-    <color name="snackbarBackgroundColor">#3C3D40</color>
+    <color name="color_snackbar_text">#FAFAFA</color>
+    <color name="color_snackbar_bg">#3C3D40</color>
 
 </resources>

@@ -72,8 +72,7 @@ public class SearchActivity extends AppCompatActivity {
             if (Objects.equals(intent.getExtras().getInt("from"), R.id.nav_plexus_data)){
 
                 // GET PLEXUS DATA LIST FROM MAIN ACTIVITY
-                //noinspection unchecked
-                dataList =  (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
+                dataList = intent.getParcelableArrayListExtra("plexusDataList");
                 DisplayFragment("Search Data");
 
             }
@@ -82,8 +81,7 @@ public class SearchActivity extends AppCompatActivity {
             else {
 
                 // GET INSTALLED APPS LIST FROM MAIN ACTIVITY
-                //noinspection unchecked
-                installedList = (List<InstalledApp>) intent.getSerializableExtra("installedAppsList");
+                installedList = intent.getParcelableArrayListExtra("installedAppsList");
                 DisplayFragment("Search Installed");
 
             }

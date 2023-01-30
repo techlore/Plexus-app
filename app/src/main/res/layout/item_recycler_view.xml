@@ -37,14 +37,14 @@
     tools:context=".adapters.PlexusDataItemAdapter">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/dg_badge"
+        android:id="@+id/icon"
         android:layout_width="@dimen/margin_45"
         android:layout_height="@dimen/margin_45"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/unnamed"
+        android:src="@drawable/ic_apk"
         android:layout_marginEnd="@dimen/margin_8"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small"/>
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
     <TextView
         android:id="@+id/name"
@@ -55,11 +55,11 @@
         android:layout_marginTop="@dimen/margin_4"
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginBottom="1.5dp"
-        android:layout_toEndOf="@id/dg_badge"
+        android:layout_toEndOf="@id/icon"
         android:ellipsize="marquee"
         android:text="@string/app_name"
         android:textAlignment="viewStart"
-        android:textColor="@color/textTitleColor"
+        android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_17" />
 
     <TextView
@@ -71,11 +71,11 @@
         android:layout_marginTop="@dimen/margin_2.5"
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginBottom="1.5dp"
-        android:layout_toEndOf="@id/dg_badge"
+        android:layout_toEndOf="@id/icon"
         android:ellipsize="marquee"
         android:text="@string/package_name"
         android:textAlignment="viewStart"
-        android:textColor="@color/textTitleColor"
+        android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16" />
 
     <ImageView
@@ -85,7 +85,7 @@
         android:layout_below="@+id/package_name"
         android:layout_marginStart="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_2.5"
-        android:layout_toEndOf="@id/dg_badge"
+        android:layout_toEndOf="@id/icon"
         android:background="@drawable/ic_ver_mismatch"
         tools:ignore="ContentDescription"
         android:visibility="gone"/>

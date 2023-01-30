@@ -23,6 +23,7 @@ import static tech.techlore.plexus.utils.UiUtils.hScrollText;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,43 +44,42 @@ import tech.techlore.plexus.models.InstalledApp;
 
 public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppItemAdapter.ListViewHolder>
         implements Filterable, PopupTextProvider {
-
+    
     private final List<InstalledApp> aListViewItems;
     private final List<InstalledApp> aListViewItemsFull;
     private OnItemClickListener itemClickListener;
     private OnItemLongCLickListener itemLongCLickListener;
-
+    
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
-
+    
     public interface OnItemLongCLickListener {
         void onItemLongCLick (int position);
     }
-
+    
     public void setOnItemClickListener(OnItemClickListener clickListener) {
         itemClickListener = clickListener;
     }
-
+    
     public void setOnItemLongClickListener(OnItemLongCLickListener longClickListener) {
         itemLongCLickListener = longClickListener;
     }
-
+    
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
+        private final ImageView icon, versionMismatch;
         private final TextView name, packageName, installedVersion;
-        private final ImageView dgBadge, versionMismatch;
-
+        
         public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
             super(itemView);
-
+    
+            icon = itemView.findViewById(R.id.icon);
             name = itemView.findViewById(R.id.name);
             packageName = itemView.findViewById(R.id.package_name);
             installedVersion = itemView.findViewById(R.id.version);
-            dgBadge = itemView.findViewById(R.id.dg_badge);
             versionMismatch = itemView.findViewById(R.id.version_mismatch);
-
-
+            
             // Handle click events of items
             itemView.setOnClickListener(v -> {
                 if (onItemClickListener != null) {
@@ -89,7 +89,7 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
                     }
                 }
             });
-
+            
             // Handle long click events of items
             itemView.setOnLongClickListener(v -> {
                 if (onItemLongCLickListener != null) {
@@ -100,69 +100,72 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
                 }
                 return true;
             });
-
+            
         }
     }
-
+    
     public InstalledAppItemAdapter(List<InstalledApp> listViewItems)
     {
         aListViewItems = listViewItems;
         aListViewItemsFull = new ArrayList<>(aListViewItems);
         setHasStableIds(true);
     }
-
+    
     @NonNull
     @Override
     public InstalledAppItemAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
         return new InstalledAppItemAdapter.ListViewHolder(view, itemClickListener, itemLongCLickListener);
     }
-
+    
     @Override
     public void onBindViewHolder(@NonNull final InstalledAppItemAdapter.ListViewHolder holder, int position) {
-
+        
         final InstalledApp installedApp = aListViewItems.get(position);
         final Context context = holder.itemView.getContext();
-
+        
+        try{
+            holder.icon.setImageDrawable(context.getPackageManager().getApplicationIcon(installedApp.getPackageName()));
+            // Don't use GLIDE to load icons directly to ImageView
+            // as there's a delay in displaying icons when fast scrolling
+        }
+        catch (PackageManager.NameNotFoundException e){
+            e.printStackTrace();
+        }
+    
         if (!installedApp.getInstalledVersion().equals(installedApp.getPlexusVersion())){
             holder.versionMismatch.setVisibility(View.VISIBLE);
         }
         else {
             holder.versionMismatch.setVisibility(View.GONE);
         }
-
+        
         holder.name.setText(installedApp.getName());
         holder.packageName.setText(installedApp.getPackageName());
         holder.installedVersion.setText(installedApp.getInstalledVersion());
-        /*try{
-            holder.dgBadge.setImageDrawable(context.getPackageManager().getApplicationIcon(installedApp.getPackageName()));
-        }
-        catch (PackageManager.NameNotFoundException e){
-            e.printStackTrace();
-        }*/
-
+        
         // Horizontally scrolling text
         hScrollText(holder.name);
         hScrollText(holder.packageName);
         hScrollText(holder.installedVersion);
-
+        
     }
-
+    
     @Override
     public int getItemCount() {
         return aListViewItems.size();
     }
-
+    
     @Override
     public  int getItemViewType(int position){
         return position;
     }
-
+    
     @Override
     public long getItemId(int position) {
         return super.getItemId(position);
     }
-
+    
     // Req. for search
     @Override
     public Filter getFilter() {
@@ -170,27 +173,27 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 List<InstalledApp> filteredList = new ArrayList<>();
-
+                
                 if (charSequence != null) {
-
+                    
                     String searchString = charSequence.toString().toLowerCase().trim();
-
+                    
                     for (InstalledApp installedApp: aListViewItemsFull){
-
+                        
                         if (installedApp.getName().toLowerCase().contains(searchString)
                             || installedApp.getPackageName().toLowerCase().contains(searchString)){
-
+                            
                             filteredList.add(installedApp);
                         }
                     }
-
+                    
                 }
-
+                
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredList;
                 return filterResults;
             }
-
+            
             @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
@@ -201,12 +204,12 @@ public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppIt
             }
         };
     }
-
+    
     // Fast scroll popup
     @NonNull
     @Override
     public String getPopupText(int position) {
         return aListViewItems.get(position).name.substring(0,1);
     }
-
+    
 }

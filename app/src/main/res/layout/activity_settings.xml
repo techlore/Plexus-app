@@ -35,7 +35,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"/>
 
-    <!--This is just here to provide color
+    <!--This is just here to provide bg color
         For some reason appbar layout doesn't show elevated color-->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
@@ -57,7 +57,7 @@
             app:contentInsetStartWithNavigation="0dp"
             android:paddingStart="@dimen/margin_2.5"
             android:paddingEnd="@dimen/margin_2.5"
-            app:titleTextColor="@color/textTitleColor"/>
+            app:titleTextColor="@color/color_text_title"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

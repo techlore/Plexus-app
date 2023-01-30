@@ -34,6 +34,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.RequestManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,16 +71,16 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
 
     public static class ListViewHolder extends RecyclerView.ViewHolder
     {
+        private final ImageView icon;
         private final TextView name, packageName, version;
-        private final ImageView dgBadge;
 
         public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
             super(itemView);
-
+    
+            icon = itemView.findViewById(R.id.icon);
             name = itemView.findViewById(R.id.name);
             packageName = itemView.findViewById(R.id.package_name);
             version = itemView.findViewById(R.id.version);
-            dgBadge = itemView.findViewById(R.id.dg_badge);
 
 
             // Handle click events of items
@@ -116,13 +120,18 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
         return new PlexusDataItemAdapter.ListViewHolder(view, itemClickListener, itemLongCLickListener);
     }
-
+    
     @Override
     public void onBindViewHolder(@NonNull final PlexusDataItemAdapter.ListViewHolder holder, int position) {
 
         final PlexusData plexusData = aListViewItems.get(position);
-        final Context context = holder.itemView.getContext();
-
+        final Context context = holder.itemView.getContext().getApplicationContext();
+        
+        Glide.with(context)
+                .load("")
+                .placeholder(R.drawable.ic_apk)
+                .into(holder.icon);
+        
         holder.name.setText(plexusData.name);
         holder.packageName.setText(plexusData.packageName);
         //holder.version.setText(plexusData.version);
@@ -131,10 +140,6 @@ public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAd
         hScrollText(holder.name);
         hScrollText(holder.packageName);
         hScrollText(holder.version);
-
-        // Badge color
-//        BadgeColor(context, holder.dgBadge, plexusData.dgStatus);
-//        BadgeColor(context, holder.mgBadge, plexusData.mgStatus);
 
     }
 

@@ -22,16 +22,21 @@ package tech.techlore.plexus.activities;
 import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
 import static tech.techlore.plexus.utils.IntentUtils.Share;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.RequestManager;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding;
@@ -41,6 +46,7 @@ public class AppDetailsActivity extends AppCompatActivity {
     private ActivityAppDetailsBinding activityBinding;
     private String nameString, packageNameString, plexusVersionString,
             dgStatusString, mgStatusString, dgNotesString, mgNotesString, playStoreString;
+    private Drawable icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +57,9 @@ public class AppDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nameString = intent.getStringExtra("name");
         packageNameString = intent.getStringExtra("packageName");
-        /*plexusVersionString = intent.getStringExtra("plexusVersion");
+        //plexusVersionString = intent.getStringExtra("plexusVersion");
         final String installedVersionString = intent.getStringExtra("installedVersion");
-        dgStatusString = intent.getStringExtra("dgStatus");
+        /*dgStatusString = intent.getStringExtra("dgStatus");
         mgStatusString = intent.getStringExtra("mgStatus");
         dgNotesString = intent.getStringExtra("dgNotes");
         mgNotesString = intent.getStringExtra("mgNotes");*/
@@ -63,16 +69,36 @@ public class AppDetailsActivity extends AppCompatActivity {
 
         setSupportActionBar(activityBinding.bottomAppBar);
         activityBinding.bottomAppBar.setNavigationOnClickListener(v -> onBackPressed());
-
-        activityBinding.nameDetails.setText(nameString);
-        activityBinding.packageNameDetails.setText(packageNameString);
-        //activityBinding.plexusVersionDetails.setText(plexusVersionString);
-        /*if (installedVersionString != null) {
+        
+        RequestManager requestManager = Glide.with(getApplicationContext());
+        RequestBuilder<Drawable> requestBuilder;
+        if (installedVersionString != null) {
+            
             activityBinding.plexusText.setVisibility(View.VISIBLE);
             activityBinding.installedVerLayout.setVisibility(View.VISIBLE);
             activityBinding.installedVersionDetails.setText(installedVersionString);
+            try {
+                requestBuilder = requestManager.load(getPackageManager().getApplicationIcon(packageNameString));
+            }
+            catch (PackageManager.NameNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
-        activityBinding.dgNotes.setText(dgNotesString);
+        else {
+            requestBuilder = requestManager
+                                .load("")
+                                .placeholder(R.drawable.ic_apk)
+                                .onlyRetrieveFromCache(true); // Image will always be in cache
+                                                                  // since it's loaded in Plexus Data fragment
+        }
+        
+        requestBuilder.into(activityBinding.detailsAppIcon);
+    
+        activityBinding.nameDetails.setText(nameString);
+        activityBinding.packageNameDetails.setText(packageNameString);
+        //activityBinding.plexusVersionDetails.setText(plexusVersionString);
+        
+        /*activityBinding.dgNotes.setText(dgNotesString);
         activityBinding.mgNotes.setText(mgNotesString);
 
         BgColor(this, activityBinding.dgText, dgStatusString);

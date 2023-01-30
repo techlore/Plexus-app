@@ -25,7 +25,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="25dp"
         android:layout_height="4.5dp"
-        android:backgroundTint="@color/dragHandleColor"
+        android:backgroundTint="@color/color_drag_handle"
         app:cardElevation="0dp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_8"
@@ -41,7 +41,7 @@
         android:text="@string/bottom_sheet_title"
         android:textSize="@dimen/text_18"
         android:layout_gravity="start"
-        android:textColor="@color/textTitleColor"
+        android:textColor="@color/color_text_title"
         style="@style/MediumBoldText"/>
 
 </merge>

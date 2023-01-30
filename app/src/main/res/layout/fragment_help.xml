@@ -42,23 +42,21 @@
             android:layout_marginEnd="@dimen/margin_4"
             android:layout_marginBottom="@dimen/margin_20"
             android:text="@string/what_status_mean"
-            android:textColor="@color/textTitleColor"
+            android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_20"
             style="@style/MediumBoldText"/>
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_4"
             android:clickable="false"
-            style="@style/NotTestedFilterChipTheme"
-            app:chipBackgroundColor="@android:color/transparent"
-            android:text="@string/not_tested_title"/>
+            style="@style/NotTestedFilterChipTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/not_tested_subtitle"
@@ -71,16 +69,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_4"
             android:clickable="false"
-            style="@style/BrokenFilterChipTheme"
-            app:chipBackgroundColor="@color/color_broken_status"
-            android:text="@string/broken_title"/>
+            style="@style/BrokenFilterChipTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/broken_subtitle"
@@ -93,16 +89,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_4"
             android:clickable="false"
-            style="@style/BronzeFilterChipTheme"
-            app:chipBackgroundColor="@color/color_bronze_status"
-            android:text="@string/bronze_title"/>
+            style="@style/BronzeFilterChipTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/bronze_subtitle"
@@ -115,16 +109,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_4"
             android:clickable="false"
-            style="@style/SilverFilterChipTheme"
-            app:chipBackgroundColor="@color/color_silver_status"
-            android:text="@string/silver_title"/>
+            style="@style/SilverFilterChipTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/silver_subtitle"
@@ -137,16 +129,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_4"
             android:clickable="false"
-            style="@style/GoldFilterChipTheme"
-            app:chipBackgroundColor="@color/color_gold_status"
-            android:text="@string/gold_title"/>
+            style="@style/GoldFilterChipTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/gold_subtitle"

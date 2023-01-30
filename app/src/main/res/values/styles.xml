@@ -60,7 +60,7 @@
         <item name="colorPrimaryInverse">@color/color_inversePrimary</item>
 
         <item name="fontFamily">@font/roboto</item>
-        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
         <item name="snackbarStyle">@style/SnackbarStyle</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
     </style>
@@ -78,6 +78,7 @@
     <style name="NavViewStyle" parent="Widget.Material3.NavigationView">
         <item name="itemShapeFillColor">@color/nav_item_bg_color</item>
         <item name="itemTextAppearance">@style/NavViewText</item>
+        <item name="itemIconSize">@dimen/margin_22</item>
         <item name="itemIconTint">@color/nav_item_text_color</item>
         <item name="itemTextColor">@color/nav_item_text_color</item>
     </style>
@@ -94,9 +95,9 @@
         <item name="chipSurfaceColor">@android:color/transparent</item>
         <item name="chipStrokeColor">@android:color/transparent</item>
         <item name="chipStrokeWidth">0dp</item>
-        <item name="android:textColor">@color/textTitleColor</item>
+        <item name="android:textColor">@color/color_text_title</item>
         <item name="android:textSize">@dimen/text_16</item>
-        <item name="checkedIconTint">@color/textTitleColor</item>
+        <item name="checkedIconTint">@color/color_text_title</item>
     </style>
 
     <!--#########################################################################################-->
@@ -110,13 +111,13 @@
     <!--Dialog title text-->
     <style name="DialogTitleTextStyle" parent="MaterialAlertDialog.Material3.Title.Text">
         <item name="fontFamily">@font/roboto_medium</item>
-        <item name="android:textColor">@color/textTitleColor</item>
+        <item name="android:textColor">@color/color_text_title</item>
         <item name="android:textSize">@dimen/text_18</item>
     </style>
 
     <!--Dialog body text-->
     <style name="DialogBodyTextStyle" parent="MaterialAlertDialog.Material3.Body.Text">
-        <item name="android:textColor">@color/textTitleColor</item>
+        <item name="android:textColor">@color/color_text_title</item>
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
@@ -147,12 +148,12 @@
 
     <!--Snackbar style-->
     <style name="SnackbarStyle" parent="Widget.Material3.Snackbar">
-        <item name="android:backgroundTint">@color/snackbarBackgroundColor</item>
+        <item name="android:backgroundTint">@color/color_snackbar_bg</item>
     </style>
 
     <!--Snackbar text style-->
     <style name="SnackbarTextStyle" parent="Widget.Material3.Snackbar.TextView">
-        <item name="android:textColor">@color/snackbarTextColor</item>
+        <item name="android:textColor">@color/color_snackbar_text</item>
     </style>
 
 </resources>

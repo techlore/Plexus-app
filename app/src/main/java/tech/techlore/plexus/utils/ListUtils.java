@@ -25,7 +25,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
@@ -59,7 +58,7 @@ public class ListUtils {
             // OR system apps updated by user
             if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
                  || (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
-
+                
                 installedApp.setName(String.valueOf(appInfo.loadLabel(packageManager)));
                 installedApp.setPackageName(appInfo.packageName);
 

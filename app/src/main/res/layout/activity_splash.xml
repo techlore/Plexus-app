@@ -50,6 +50,6 @@
         android:layout_gravity="center"
         android:text="@string/retrieving_data"
         android:textSize="@dimen/text_17"
-        android:textColor="@color/snackbarTextColor"/>
+        android:textColor="@color/color_snackbar_text"/>
 
 </RelativeLayout>

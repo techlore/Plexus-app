@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/no_apps_found"
         android:textSize="@dimen/text_17"
-        android:textColor="@color/textTitleColor"
+        android:textColor="@color/color_text_title"
         app:drawableTopCompat="@drawable/ic_empty_list"
         android:drawablePadding="@dimen/margin_10"/>
 

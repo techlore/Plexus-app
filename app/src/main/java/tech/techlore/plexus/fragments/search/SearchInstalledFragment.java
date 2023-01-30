@@ -116,7 +116,7 @@ public class SearchInstalledFragment extends Fragment {
         installedAppItemAdapter.setOnItemClickListener(position -> {
 
             InstalledApp installedApp = searchInstalledList.get(position);
-            AppDetails(searchActivity, installedApp.getName(), installedApp.getPackageName());
+            AppDetails(searchActivity, installedApp.getName(), installedApp.getPackageName(), null);
 //                        installedApp.getPlexusVersion(), installedApp.getInstalledVersion(),
 //                        installedApp.getDgNotes(), installedApp.getMgNotes(),
 //                        installedApp.getDgRating(), installedApp.getMgRating()

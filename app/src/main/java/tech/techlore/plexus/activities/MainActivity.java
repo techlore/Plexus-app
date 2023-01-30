@@ -47,9 +47,9 @@ import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.elevation.SurfaceColors;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -92,10 +92,8 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         // Get lists from previous activity
-        //noinspection unchecked
-        dataList = (List<PlexusData>) intent.getSerializableExtra("plexusDataList");
-        //noinspection unchecked
-        installedList = (List<InstalledApp>) intent.getSerializableExtra("installedAppsList");
+        dataList = intent.getParcelableArrayListExtra("plexusDataList");
+        installedList = intent.getParcelableArrayListExtra("installedAppsList");
 
         // Default fragment
         fragment = new PlexusDataFragment();
@@ -258,12 +256,12 @@ public class MainActivity extends AppCompatActivity {
 
             // If from Plexus Data, give Plexus Data list
             if (checkedItem == R.id.nav_plexus_data) {
-                searchIntent.putExtra("plexusDataList", (Serializable) dataList);
+                searchIntent.putParcelableArrayListExtra("plexusDataList", (ArrayList<PlexusData>) dataList);
             }
 
             // Else give Installed Apps list
             else {
-                searchIntent.putExtra("installedAppsList", (Serializable) installedList);
+                searchIntent.putParcelableArrayListExtra("installedAppsList", (ArrayList<InstalledApp>) installedList);
             }
 
             startActivity(searchIntent);

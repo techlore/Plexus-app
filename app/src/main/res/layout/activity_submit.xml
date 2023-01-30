@@ -59,7 +59,7 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/app_name"
-                android:textColor="@color/textTitleColor"
+                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_22"/>
 
             <TextView
@@ -71,7 +71,7 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/package_name"
-                android:textColor="@color/textTitleColor"
+                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_17"/>
 
             <TextView
@@ -81,8 +81,8 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_4"
                 android:text="Status"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"/>
 
             <TextView
@@ -113,36 +113,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    style="@style/NotTestedFilterChipTheme"
-                    android:text="@string/not_tested_title"/>
+                    style="@style/NotTestedFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/dg_unusable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/BrokenFilterChipTheme"
-                    android:text="@string/broken_title"/>
+                    style="@style/BrokenFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/dg_acceptable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/BronzeFilterChipTheme"
-                    android:text="@string/bronze_title"/>
+                    style="@style/BronzeFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/dg_good"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/SilverFilterChipTheme"
-                    android:text="@string/silver_title"/>
+                    style="@style/SilverFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/dg_perfect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/GoldFilterChipTheme"
-                    android:text="@string/gold_title"/>
+                    style="@style/GoldFilterChipTheme"/>
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -177,15 +172,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    style="@style/NotTestedFilterChipTheme"
-                    android:text="@string/not_tested_title"/>
+                    style="@style/NotTestedFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/mg_unusable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/BrokenFilterChipTheme"
-                    android:text="@string/broken_title"/>
+                    style="@style/BrokenFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/mg_acceptable"
@@ -198,15 +191,13 @@
                     android:id="@+id/mg_good"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/SilverFilterChipTheme"
-                    android:text="@string/silver_title"/>
+                    style="@style/SilverFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/mg_perfect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/GoldFilterChipTheme"
-                    android:text="@string/gold_title"/>
+                    style="@style/GoldFilterChipTheme"/>
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -220,8 +211,8 @@
                 android:layout_marginEnd="@dimen/margin_4"
                 android:layout_marginBottom="@dimen/margin_10"
                 android:text="Notes"
-                android:textColor="@color/textTitleColor"
-                android:textSize="@dimen/text_17"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -233,7 +224,7 @@
                 android:paddingTop="@dimen/margin_4"
                 android:paddingBottom="@dimen/margin_4"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:textColorHint="@color/hintColor">
+                android:textColorHint="@color/color_hint">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dg_notes_text"
@@ -242,7 +233,7 @@
                     android:minLines="4"
                     android:hint="@string/de_Googled"
                     android:gravity="top"
-                    android:textColor="@color/textTitleColor"
+                    android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_16" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -258,7 +249,7 @@
                 android:paddingTop="@dimen/margin_4"
                 android:paddingBottom="@dimen/margin_4"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:textColorHint="@color/hintColor">
+                android:textColorHint="@color/color_hint">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/mg_notes_text"
@@ -267,7 +258,7 @@
                     android:minLines="4"
                     android:hint="@string/microG"
                     android:gravity="top"
-                    android:textColor="@color/textTitleColor"
+                    android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_16" />
 
             </com.google.android.material.textfield.TextInputLayout>

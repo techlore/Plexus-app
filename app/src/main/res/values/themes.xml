@@ -41,22 +41,27 @@
         <item name="chipBackgroundColor">@android:color/transparent</item>
         <item name="chipStrokeColor">@color/chip_stroke_color</item>
         <item name="chipStrokeWidth">1dp</item>
+        <item name="android:text">@string/not_tested_title</item>
     </style>
 
     <style name="BrokenFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_broken_status</item>
+        <item name="android:text">@string/broken_title</item>
     </style>
 
     <style name="BronzeFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_bronze_status</item>
+        <item name="android:text">@string/bronze_title</item>
     </style>
 
     <style name="SilverFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_silver_status</item>
+        <item name="android:text">@string/silver_title</item>
     </style>
 
     <style name="GoldFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_gold_status</item>
+        <item name="android:text">@string/gold_title</item>
     </style>
 
     <!--#########################################################################################-->
@@ -75,7 +80,7 @@
     <!--#########################################################################################-->
 
     <!--Bottom sheet theme-->
-    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
+    <style name="BottomSheetTheme" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
         <item name="android:backgroundDimAmount">0.50</item>
         <item name="android:windowEnterAnimation">@anim/fade_in_slide_from_bottom</item>

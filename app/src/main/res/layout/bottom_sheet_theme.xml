@@ -51,7 +51,7 @@
                 android:checked="true"
                 android:text="@string/system_default"
                 android:textAlignment="viewStart"
-                android:textColor="@color/textTitleColor"
+                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_16" />
 
             <RadioButton
@@ -64,7 +64,7 @@
                 android:paddingEnd="@dimen/margin_8"
                 android:text="@string/light"
                 android:textAlignment="viewStart"
-                android:textColor="@color/textTitleColor"
+                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_16" />
 
             <RadioButton
@@ -76,7 +76,7 @@
                 android:paddingEnd="@dimen/margin_8"
                 android:text="@string/dark"
                 android:textAlignment="viewStart"
-                android:textColor="@color/textTitleColor"
+                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_16" />
 
         </RadioGroup>

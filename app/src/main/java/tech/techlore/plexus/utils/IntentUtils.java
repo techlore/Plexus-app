@@ -32,34 +32,36 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.activities.AppDetailsActivity;
+import tech.techlore.plexus.models.InstalledApp;
+import tech.techlore.plexus.models.PlexusData;
 
 public class IntentUtils {
 
     // Send array list with intent
     public static void SendListsIntent(Activity activityFrom, Class<?> activityTo,
-                                       Serializable plexusDataList, Serializable installedAppsList) {
+                                       ArrayList<PlexusData> plexusDataList, ArrayList<InstalledApp> installedAppsList) {
 
         activityFrom.startActivity(new Intent(activityFrom, activityTo)
-                                    .putExtra("plexusDataList", plexusDataList)
-                                    .putExtra("installedAppsList", installedAppsList));
+                                    .putParcelableArrayListExtra("plexusDataList", plexusDataList)
+                                    .putParcelableArrayListExtra("installedAppsList", installedAppsList));
 
     }
 
     // App details activity
-    public static void AppDetails(Activity activityFrom, String name, String packageName) {
-//                                  String plexusVersion, String installedVersion,
+    public static void AppDetails(Activity activityFrom, String name, String packageName, String installedVersion) {
+//                                  String plexusVersion,
 //                                  String dgNotes, String mgNotes,
 //                                  String dgStatus, String mgStatus
 
         activityFrom.startActivity(new Intent(activityFrom, AppDetailsActivity.class)
-                                    .putExtra("name", name)
-                                    .putExtra("packageName", packageName));
+                                           .putExtra("name", name)
+                                           .putExtra("packageName", packageName)
+                                           .putExtra("installedVersion", installedVersion));
 //                                    .putExtra("plexusVersion", plexusVersion)
-//                                    .putExtra("installedVersion", installedVersion)
 //                                    .putExtra("dgStatus", dgStatus)
 //                                    .putExtra("mgStatus", mgStatus)
 //                                    .putExtra("dgNotes", dgNotes)

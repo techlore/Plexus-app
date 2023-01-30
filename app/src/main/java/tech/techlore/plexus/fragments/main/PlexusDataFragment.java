@@ -41,7 +41,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
@@ -144,7 +143,7 @@ public class PlexusDataFragment extends Fragment {
         plexusDataItemAdapter.setOnItemClickListener(position -> {
 
             PlexusData plexusData = plexusDataList.get(position);
-            AppDetails(mainActivity, plexusData.name, plexusData.packageName
+            AppDetails(mainActivity, plexusData.name, plexusData.packageName, null
                        /*plexusData.version, null,
                        plexusData.dgNotes, plexusData.mgNotes,
                        plexusData.dgStatus, plexusData.mgStatus*/);

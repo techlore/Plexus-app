@@ -116,7 +116,7 @@ public class SearchDataFragment extends Fragment {
         plexusDataItemAdapter.setOnItemClickListener(position -> {
 
             PlexusData plexusData = searchDataList.get(position);
-            AppDetails(searchActivity, plexusData.name, plexusData.packageName);
+            AppDetails(searchActivity, plexusData.name, plexusData.packageName, null);
 //                       plexusData.version, null,
 //                       plexusData.dgNotes, plexusData.mgNotes,
 //                       plexusData.dgStatus, plexusData.mgStatus);

@@ -152,36 +152,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            style="@style/NotTestedFilterChipTheme"
-            android:text="@string/not_tested_title"/>
+            style="@style/NotTestedFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_unusable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/BrokenFilterChipTheme"
-            android:text="@string/broken_title"/>
+            style="@style/BrokenFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_acceptable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/BronzeFilterChipTheme"
-            android:text="@string/bronze_title"/>
+            style="@style/BronzeFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_good"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/SilverFilterChipTheme"
-            android:text="@string/silver_title"/>
+            style="@style/SilverFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_perfect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/GoldFilterChipTheme"
-            android:text="@string/gold_title"/>
+            style="@style/GoldFilterChipTheme"/>
 
     </com.google.android.material.chip.ChipGroup>
 

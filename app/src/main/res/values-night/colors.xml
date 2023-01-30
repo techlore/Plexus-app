@@ -53,22 +53,20 @@
     <color name="color_outlineVariant">#45464F</color>
     <color name="color_scrim">#000000</color>
 
-
     <color name="color_nav_item_bg">@color/color_secondaryContainer</color>
     <color name="color_fab">@color/color_primaryContainer</color>
     <color name="colorControlNormal">#BCBCBC</color>
-    <color name="textTitleColor">#FAFAFA</color>
-    <color name="textTitleInverseColor">@color/grey_800</color>
-    <color name="enabledColor">#B8B8BD</color>
+    <color name="color_text_title">#FAFAFA</color>
+    <color name="color_enabled">#B8B8BD</color>
     <color name="color_disabled">#3F3F47</color>
     <color name="color_text_disabled">#7E7D83</color>
-    <color name="hintColor">#9BA0A6</color>
-    <color name="cardStrokeColor">#5F6267</color>
+    <color name="color_hint">#9BA0A6</color>
+    <color name="color_card_stroke">#5F6267</color>
     <color name="color_grey_text_surface">#4D4D4D</color>
-    <color name="scrollbarColor">#717274</color>
-    <color name="dividerColor">#5F6267</color>
-    <color name="dragHandleColor">#606165</color>
-    <color name="urlColor">#42A5F5</color>
+    <color name="color_scrollbar">#717274</color>
+    <color name="color_divider">#5F6267</color>
+    <color name="color_drag_handle">#606165</color>
+    <color name="color_url">#42A5F5</color>
 
     <color name="color_broken_status">#BA1A20</color>
     <color name="color_bronze_status">#9C432F</color>

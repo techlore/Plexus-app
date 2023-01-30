@@ -30,16 +30,13 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -65,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
 
         /*###########################################################################################*/
 
-        FetchData();
+        RetrieveData();
 
     }
 
@@ -77,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
                 .setMessage(R.string.dialog_subtitle)
 
                 .setPositiveButton(R.string.retry, (dialog, which) ->
-                        FetchData())
+                        RetrieveData())
 
                 .setNegativeButton(R.string.exit, (dialog, which) ->
                         finishAndRemoveTask())
@@ -88,7 +85,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    private void FetchData(){
+    private void RetrieveData(){
 
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -110,7 +107,7 @@ public class SplashActivity extends AppCompatActivity {
                     // UI Thread work
                     handler.post(() -> {
                         SendListsIntent(this, MainActivity.class,
-                                        (Serializable) plexusDataList, (Serializable) installedAppsList);
+                                        (ArrayList<PlexusData>) plexusDataList, (ArrayList<InstalledApp>) installedAppsList);
                         finish();
                         overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start);
                     });

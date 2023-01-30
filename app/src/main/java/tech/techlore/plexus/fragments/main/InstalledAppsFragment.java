@@ -175,8 +175,8 @@ public class InstalledAppsFragment extends Fragment {
 
             InstalledApp installedApp = installedAppsFinalList.get(position);
             AppDetails(mainActivity, installedApp.getName(), installedApp.getPackageName()
-                       /*installedApp.getPlexusVersion(), installedApp.getInstalledVersion(),
-                       installedApp.getDgNotes(), installedApp.getMgNotes(),
+                       /*installedApp.getPlexusVersion()*/, installedApp.getInstalledVersion()
+                       /*installedApp.getDgNotes(), installedApp.getMgNotes(),
                        installedApp.getDgRating(), installedApp.getMgRating()*/);
 
         });

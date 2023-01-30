@@ -21,5 +21,5 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:color="@color/color_primary" android:state_checked="true"/>
-    <item android:color="@color/textTitleColor" android:state_checked="false"/>
+    <item android:color="@color/color_text_title" android:state_checked="false"/>
 </selector>

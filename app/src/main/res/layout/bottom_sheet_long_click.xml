@@ -48,7 +48,7 @@
         android:paddingBottom="@dimen/margin_16"
         android:text="@string/play_store"
         android:textAlignment="viewStart"
-        android:textColor="@color/textTitleColor"
+        android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         app:drawableStartCompat="@drawable/ic_play_store"
         android:drawablePadding="@dimen/margin_20"/>
@@ -68,7 +68,7 @@
         android:paddingBottom="@dimen/margin_16"
         android:text="@string/share"
         android:textAlignment="viewStart"
-        android:textColor="@color/textTitleColor"
+        android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         app:drawableStartCompat="@drawable/ic_share"
         android:drawablePadding="@dimen/margin_20"/>

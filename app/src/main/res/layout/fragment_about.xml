@@ -55,7 +55,7 @@
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/plexus"
-            android:textColor="@color/textTitleColor"
+            android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_20" />
 
         <TextView
@@ -93,7 +93,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/privacy_policy"
             android:textAlignment="viewStart"
-            android:textColor="@color/textTitleColor"
+            android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_privacy_policy"
             android:drawablePadding="@dimen/margin_16"/>
@@ -114,7 +114,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/licenses"
             android:textAlignment="viewStart"
-            android:textColor="@color/textTitleColor"
+            android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_licenses" />
 
@@ -134,7 +134,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/view_on_github"
             android:textAlignment="viewStart"
-            android:textColor="@color/textTitleColor"
+            android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_github" />
 
@@ -154,7 +154,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/visit_techlore"
             android:textAlignment="viewStart"
-            android:textColor="@color/textTitleColor"
+            android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_website" />
 

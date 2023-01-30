@@ -68,7 +68,7 @@
                     app:contentInsetStartWithNavigation="0dp"
                     android:paddingStart="@dimen/margin_2.5"
                     android:paddingEnd="@dimen/margin_2.5"
-                    app:titleTextColor="@color/textTitleColor">
+                    app:titleTextColor="@color/color_text_title">
 
                     <ViewStub
                         android:id="@+id/search_view_stub"
@@ -85,7 +85,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:elevation="0dp"
-                app:itemIconSize="22dp"
                 app:menu="@menu/menu_nav_view"
                 style="@style/NavViewStyle"/>
 
