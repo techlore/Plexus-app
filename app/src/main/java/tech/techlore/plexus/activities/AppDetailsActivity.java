@@ -76,7 +76,7 @@ public class AppDetailsActivity extends AppCompatActivity {
             
             activityBinding.plexusText.setVisibility(View.VISIBLE);
             activityBinding.installedVerLayout.setVisibility(View.VISIBLE);
-            activityBinding.installedVersionDetails.setText(installedVersionString);
+            activityBinding.detailsInstalledVersion.setText(installedVersionString);
             try {
                 requestBuilder = requestManager.load(getPackageManager().getApplicationIcon(packageNameString));
             }
@@ -94,8 +94,8 @@ public class AppDetailsActivity extends AppCompatActivity {
         
         requestBuilder.into(activityBinding.detailsAppIcon);
     
-        activityBinding.nameDetails.setText(nameString);
-        activityBinding.packageNameDetails.setText(packageNameString);
+        activityBinding.detailsName.setText(nameString);
+        activityBinding.detailsPackageName.setText(packageNameString);
         //activityBinding.plexusVersionDetails.setText(plexusVersionString);
         
         /*activityBinding.dgNotes.setText(dgNotesString);

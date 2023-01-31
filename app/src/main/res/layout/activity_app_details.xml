@@ -49,7 +49,7 @@
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
             <TextView
-                android:id="@+id/name_details"
+                android:id="@+id/details_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -62,7 +62,7 @@
                 android:textSize="@dimen/text_22" />
 
             <TextView
-                android:id="@+id/package_name_details"
+                android:id="@+id/details_package_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -97,7 +97,7 @@
                     android:visibility="gone"/>
 
                 <TextView
-                    android:id="@+id/plexus_version_details"
+                    android:id="@+id/details_plexus_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8"
@@ -129,7 +129,7 @@
                     android:textSize="@dimen/text_16" />
 
                 <TextView
-                    android:id="@+id/installed_version_details"
+                    android:id="@+id/details_installed_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_12"
@@ -138,7 +138,7 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_card"
@@ -153,25 +153,22 @@
                     android:id="@+id/dg_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="@dimen/margin_12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:layout_marginStart="@dimen/margin_20"
-                    android:gravity="center_vertical"
                     android:text="@string/de_Googled"
                     android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_18"
-                    style="@style/MediumBoldText"
-                    tools:ignore="RelativeOverlap"/>
+                    style="@style/MediumBoldText"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/details_dg_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/dg_text"
-                    android:layout_alignParentTop="true"
+                    app:layout_constraintStart_toEndOf="@id/dg_text"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_2.5"
                     android:clickable="false"
                     style="@style/BrokenFilterChipTheme"/>
 
@@ -179,7 +176,8 @@
                     android:id="@+id/dg_notes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/details_dg_status"
+                    app:layout_constraintTop_toBottomOf="@id/dg_text"
+                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="@dimen/margin_25"
                     android:layout_marginEnd="@dimen/margin_25"
                     android:layout_marginTop="@dimen/margin_12"
@@ -192,32 +190,30 @@
                     layout="@layout/divider_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@+id/dg_notes"
+                    app:layout_constraintTop_toBottomOf="@id/dg_notes"
                     android:layout_margin="@dimen/margin_16"/>
 
                 <TextView
                     android:id="@+id/mg_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/divider"
-                    android:layout_marginTop="@dimen/margin_12"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/margin_16"
                     android:layout_marginStart="@dimen/margin_20"
-                    android:gravity="center_vertical"
                     android:text="@string/microG"
                     android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_18"
-                    style="@style/MediumBoldText"
-                    tools:ignore="RelativeOverlap"/>
+                    style="@style/MediumBoldText"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/details_mg_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/mg_text"
-                    android:layout_below="@+id/divider"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    app:layout_constraintStart_toEndOf="@id/mg_text"
                     android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_2.5"
+                    android:layout_marginTop="@dimen/margin_6.5"
                     android:clickable="false"
                     style="@style/GoldFilterChipTheme"/>
 
@@ -225,7 +221,9 @@
                     android:id="@+id/mg_notes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/details_mg_status"
+                    app:layout_constraintTop_toBottomOf="@id/mg_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginStart="@dimen/margin_25"
                     android:layout_marginEnd="@dimen/margin_25"
                     android:layout_marginTop="@dimen/margin_12"
@@ -234,7 +232,7 @@
                     android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_18" />
 
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 

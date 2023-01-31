@@ -46,7 +46,7 @@
                 android:layout_height="65dp"
                 android:layout_marginTop="@dimen/margin_16"
                 android:layout_gravity="center"
-                android:src="@drawable/unnamed"
+                android:src="@drawable/ic_apk"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
 
             <TextView
