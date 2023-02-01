@@ -48,7 +48,6 @@ import android.view.View;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -145,8 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     else if (clickedItem == R.id.nav_theme) {
                         ThemeBottomSheet();
                     }
-                    else if (clickedItem == R.id.nav_help
-                             || clickedItem == R.id.nav_about) {
+                    else if (clickedItem == R.id.nav_about) {
                         startActivity(new Intent(MainActivity.this, SettingsActivity.class)
                                               .putExtra("frag", clickedItem));
                     }
@@ -228,8 +226,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        else if (checkedItem == R.id.nav_help
-                 || checkedItem == R.id.nav_about) {
+        else if (checkedItem == R.id.nav_about) {
             menu.findItem(R.id.menu_search).setVisible(false);
             menu.findItem(R.id.menu_sort).setVisible(false);
             menu.findItem(R.id.menu_filter).setVisible(false);

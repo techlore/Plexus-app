@@ -142,6 +142,11 @@ public class AppDetailsActivity extends AppCompatActivity {
                     dgNotesString, mgNotesString,*/
                     playStoreString);
         }
+    
+        if (item.getItemId() == R.id.menu_help) {
+            startActivity(new Intent(AppDetailsActivity.this, SettingsActivity.class)
+                                  .putExtra("frag", R.id.menu_help));
+        }
 
         return true;
     }

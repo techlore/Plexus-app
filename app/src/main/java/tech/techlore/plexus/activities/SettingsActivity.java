@@ -59,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
         Fragment fragment;
         String toolbarTitle;
         
-        if (intentValue == R.id.nav_help) {
+        if (intentValue == R.id.menu_help) {
             fragment = new HelpFragment();
             toolbarTitle = getString(R.string.menu_help);
         }
