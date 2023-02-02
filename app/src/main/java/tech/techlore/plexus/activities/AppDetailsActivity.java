@@ -74,8 +74,12 @@ public class AppDetailsActivity extends AppCompatActivity {
         RequestBuilder<Drawable> requestBuilder;
         if (installedVersionString != null) {
             
+            activityBinding.detailsVersion.setVisibility(View.GONE);
             activityBinding.plexusText.setVisibility(View.VISIBLE);
-            activityBinding.installedVerLayout.setVisibility(View.VISIBLE);
+            activityBinding.detailsPlexusVersion.setVisibility(View.VISIBLE);
+            //activityBinding.detailsPlexusVersion.setText(plexusVersionString)
+            activityBinding.installedText.setVisibility(View.VISIBLE);
+            activityBinding.detailsInstalledVersion.setVisibility(View.VISIBLE);
             activityBinding.detailsInstalledVersion.setText(installedVersionString);
             try {
                 requestBuilder = requestManager.load(getPackageManager().getApplicationIcon(packageNameString));
@@ -90,19 +94,17 @@ public class AppDetailsActivity extends AppCompatActivity {
                                 .placeholder(R.drawable.ic_apk)
                                 .onlyRetrieveFromCache(true); // Image will always be in cache
                                                                   // since it's loaded in Plexus Data fragment
+            
+            //activityBinding.detailsVersion.setText(plexusVersionString);
         }
         
         requestBuilder.into(activityBinding.detailsAppIcon);
     
         activityBinding.detailsName.setText(nameString);
         activityBinding.detailsPackageName.setText(packageNameString);
-        //activityBinding.plexusVersionDetails.setText(plexusVersionString);
         
         /*activityBinding.dgNotes.setText(dgNotesString);
         activityBinding.mgNotes.setText(mgNotesString);
-
-        BgColor(this, activityBinding.dgText, dgStatusString);
-        BgColor(this, activityBinding.mgText, mgStatusString);
 
         BadgeColor(this, activityBinding.dgBadgeDetails, dgStatusString);
         BadgeColor(this, activityBinding.mgBadgeDetails, mgStatusString);*/

@@ -34,17 +34,18 @@
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
         android:layout_marginBottom="?attr/actionBarSize">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/details_app_icon"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_gravity="center"
                 android:src="@drawable/ic_apk"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
@@ -52,9 +53,10 @@
                 android:id="@+id/details_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/details_app_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_2.5"
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/app_name"
@@ -65,176 +67,196 @@
                 android:id="@+id/details_package_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_12"
+                app:layout_constraintTop_toBottomOf="@id/details_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_2.5"
                 android:layout_marginStart="@dimen/margin_17"
                 android:layout_marginEnd="@dimen/margin_17"
                 android:text="@string/package_name"
                 android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_17"/>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/details_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/details_package_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_2.5"
+                android:layout_marginStart="@dimen/margin_17"
+                android:layout_marginEnd="@dimen/margin_17"
+                android:text="@string/version"
+                android:textSize="@dimen/text_17"/>
+
+            <TextView
+                android:id="@+id/plexus_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/details_version"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_20"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginStart="@dimen/margin_16">
+                android:layout_marginEnd="@dimen/margin_4"
+                android:paddingTop="@dimen/margin_4"
+                android:paddingBottom="@dimen/margin_4"
+                android:paddingStart="@dimen/margin_6.5"
+                android:paddingEnd="@dimen/margin_6.5"
+                android:background="@drawable/shape_outline"
+                android:text="@string/plexus"
+                android:textColor="@color/color_primary"
+                android:textSize="@dimen/text_16"
+                android:visibility="gone"/>
 
-                <TextView
-                    android:id="@+id/plexus_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_4"
-                    android:layout_marginEnd="@dimen/margin_4"
-                    android:paddingTop="@dimen/margin_4"
-                    android:paddingBottom="@dimen/margin_4"
-                    android:paddingStart="@dimen/margin_6.5"
-                    android:paddingEnd="@dimen/margin_6.5"
-                    android:background="@drawable/shape_outline"
-                    android:text="@string/plexus"
-                    android:textColor="@color/color_primary"
-                    android:textSize="@dimen/text_16"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/details_plexus_version"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_8"
-                    android:text="@string/version"
-                    android:textSize="@dimen/text_16"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/installed_ver_layout"
+            <TextView
+                android:id="@+id/details_plexus_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginStart="@dimen/margin_16"
-                android:visibility="gone">
+                app:layout_constraintTop_toBottomOf="@id/details_version"
+                app:layout_constraintStart_toEndOf="@id/plexus_text"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_20"
+                android:text="@string/version"
+                android:textSize="@dimen/text_16"
+                android:visibility="gone"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_4"
-                    android:paddingTop="@dimen/margin_4"
-                    android:paddingBottom="@dimen/margin_4"
-                    android:paddingStart="@dimen/margin_6.5"
-                    android:paddingEnd="@dimen/margin_6.5"
-                    android:background="@drawable/shape_outline"
-                    android:text="@string/installed"
-                    android:textColor="@color/color_primary"
-                    android:textSize="@dimen/text_16" />
-
-                <TextView
-                    android:id="@+id/details_installed_version"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_12"
-                    android:text="@string/version"
-                    android:textSize="@dimen/text_16"/>
-
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/installed_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/plexus_text"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_12"
+                android:paddingTop="@dimen/margin_4"
+                android:paddingBottom="@dimen/margin_4"
+                android:paddingStart="@dimen/margin_6.5"
+                android:paddingEnd="@dimen/margin_6.5"
+                android:background="@drawable/shape_outline"
+                android:text="@string/installed"
+                android:textColor="@color/color_primary"
+                android:textSize="@dimen/text_16"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/details_installed_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/details_plexus_version"
+                app:layout_constraintStart_toEndOf="@id/installed_text"
+                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_20"
+                android:text="@string/version"
+                android:textSize="@dimen/text_16"
+                android:visibility="gone"/>
+
+            <View
+                android:id="@+id/card_outline"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:background="@drawable/shape_card"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_25"
+                app:layout_constraintTop_toBottomOf="@id/installed_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_35"
                 android:layout_marginBottom="@dimen/margin_16"
-                android:paddingTop="@dimen/margin_8"
-                android:paddingBottom="@dimen/margin_8">
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"/>
 
-                <TextView
-                    android:id="@+id/dg_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:text="@string/de_Googled"
-                    android:textColor="@color/color_text_title"
-                    android:textSize="@dimen/text_18"
-                    style="@style/MediumBoldText"/>
+            <TextView
+                android:id="@+id/dg_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/card_outline"
+                app:layout_constraintTop_toTopOf="@id/card_outline"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_20"
+                android:text="@string/de_Googled"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"
+                style="@style/MediumBoldText"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintTop_toBottomOf="@id/card_outline"/>
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/details_dg_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/dg_text"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:clickable="false"
-                    style="@style/BrokenFilterChipTheme"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/details_dg_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/dg_text"
+                app:layout_constraintTop_toTopOf="@id/card_outline"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_4"
+                android:clickable="false"
+                style="@style/BrokenFilterChipTheme"/>
 
-                <TextView
-                    android:id="@+id/dg_notes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/dg_text"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="@dimen/margin_25"
-                    android:layout_marginEnd="@dimen/margin_25"
-                    android:layout_marginTop="@dimen/margin_12"
-                    android:layout_marginBottom="@dimen/margin_12"
-                    android:text="@string/notes"
-                    android:textColor="@color/color_text_title"
-                    android:textSize="@dimen/text_18" />
+            <TextView
+                android:id="@+id/dg_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/dg_text"
+                app:layout_constraintStart_toStartOf="@id/card_outline"
+                android:paddingStart="@dimen/margin_22"
+                android:paddingEnd="@dimen/margin_22"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginBottom="@dimen/margin_12"
+                android:text="@string/notes"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18" />
 
-                <include
-                    layout="@layout/divider_horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    app:layout_constraintTop_toBottomOf="@id/dg_notes"
-                    android:layout_margin="@dimen/margin_16"/>
+            <include
+                layout="@layout/divider_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@id/dg_notes"
+                app:layout_constraintStart_toStartOf="@id/card_outline"
+                app:layout_constraintEnd_toEndOf="@id/card_outline"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_35"
+                android:layout_marginEnd="@dimen/margin_35"/>
 
-                <TextView
-                    android:id="@+id/mg_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/divider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:text="@string/microG"
-                    android:textColor="@color/color_text_title"
-                    android:textSize="@dimen/text_18"
-                    style="@style/MediumBoldText"/>
+            <TextView
+                android:id="@+id/mg_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@id/card_outline"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_20"
+                android:text="@string/microG"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"
+                style="@style/MediumBoldText"/>
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/details_mg_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/divider"
-                    app:layout_constraintStart_toEndOf="@id/mg_text"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_6.5"
-                    android:clickable="false"
-                    style="@style/GoldFilterChipTheme"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/details_mg_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@id/mg_text"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_6.5"
+                android:clickable="false"
+                style="@style/GoldFilterChipTheme"/>
 
-                <TextView
-                    android:id="@+id/mg_notes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/mg_text"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="@dimen/margin_25"
-                    android:layout_marginEnd="@dimen/margin_25"
-                    android:layout_marginTop="@dimen/margin_12"
-                    android:layout_marginBottom="@dimen/margin_12"
-                    android:text="@string/notes"
-                    android:textColor="@color/color_text_title"
-                    android:textSize="@dimen/text_18" />
+            <TextView
+                android:id="@+id/mg_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/mg_text"
+                app:layout_constraintStart_toStartOf="@id/card_outline"
+                app:layout_constraintBottom_toBottomOf="@id/card_outline"
+                android:paddingStart="@dimen/margin_22"
+                android:paddingEnd="@dimen/margin_22"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:text="@string/notes"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
