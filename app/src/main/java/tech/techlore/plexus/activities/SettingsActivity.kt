@@ -26,7 +26,7 @@ import androidx.fragment.app.FragmentTransaction
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivitySettingsBinding
 import tech.techlore.plexus.fragments.settings.AboutFragment
-import tech.techlore.plexus.fragments.settings.HelpFragment
+import tech.techlore.plexus.fragments.details.HelpFragment
 
 class SettingsActivity : AppCompatActivity() {
 

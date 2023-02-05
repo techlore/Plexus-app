@@ -92,12 +92,15 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
     }
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+        
         val plexusData = aListViewItems[position]
         val context = holder.itemView.context.applicationContext
+        
         Glide.with(context)
             .load("")
             .placeholder(R.drawable.ic_apk)
             .into(holder.icon)
+        
         holder.name.text = plexusData.name
         holder.packageName.text = plexusData.packageName
         //holder.version.setText(plexusData.version);
@@ -124,7 +127,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
                 if (charSequence.isNotEmpty()) {
                     val searchString =
                         charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
-                    for (plexusData in aListViewItemsFull!!) {
+                    for (plexusData in aListViewItemsFull) {
                         if (plexusData.name.lowercase(Locale.getDefault()).contains(searchString)
                             || plexusData.packageName.lowercase(Locale.getDefault())
                                 .contains(searchString)) {

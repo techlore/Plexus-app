@@ -93,8 +93,10 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
     }
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+        
         val installedApp = aListViewItems[position]
         val context = holder.itemView.context
+        
         try {
             holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(installedApp.packageName))
             // Don't use GLIDE to load icons directly to ImageView

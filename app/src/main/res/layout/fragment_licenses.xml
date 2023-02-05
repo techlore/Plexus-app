@@ -19,7 +19,8 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
@@ -44,7 +45,7 @@
             android:text="@string/plexus"
             android:textAlignment="viewStart"
             android:textColor="@color/color_url"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_20" />
 
         <TextView
             android:layout_width="match_parent"
@@ -71,7 +72,7 @@
             android:textSize="@dimen/text_16" />
 
         <TextView
-            android:id="@+id/jackson"
+            android:id="@+id/retrofit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_22"
@@ -79,35 +80,23 @@
             android:layout_marginBottom="@dimen/margin_4"
             android:clickable="true"
             android:focusable="true"
-            android:text="@string/jackson"
+            android:text="@string/retrofit"
             android:textAlignment="viewStart"
             android:textColor="@color/color_url"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_20" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
-            android:padding="@dimen/margin_12"
+            android:paddingStart="@dimen/margin_12"
+            android:paddingEnd="@dimen/margin_12"
+            android:paddingTop="@dimen/margin_12"
             android:background="@color/color_grey_text_surface"
-            android:text="@string/apache_2_0_license"
+            android:text="@string/copyright_square"
             android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_16" />
-
-        <TextView
-            android:id="@+id/okhttp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_25"
-            android:layout_marginStart="@dimen/margin_22"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/okhttp"
-            android:textAlignment="viewStart"
-            android:textColor="@color/color_url"
-            android:textSize="@dimen/text_18"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -132,7 +121,7 @@
             android:text="@string/fastscroll"
             android:textAlignment="viewStart"
             android:textColor="@color/color_url"
-            android:textSize="@dimen/text_18"/>
+            android:textSize="@dimen/text_20"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -157,7 +146,7 @@
             android:text="@string/md_icons"
             android:textAlignment="viewStart"
             android:textColor="@color/color_url"
-            android:textSize="@dimen/text_18"/>
+            android:textSize="@dimen/text_20"/>
 
         <TextView
             android:layout_width="match_parent"

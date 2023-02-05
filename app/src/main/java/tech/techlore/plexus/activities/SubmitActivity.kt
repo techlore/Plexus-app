@@ -21,8 +21,6 @@ package tech.techlore.plexus.activities
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -41,7 +39,6 @@ import tech.techlore.plexus.models.Application
 import tech.techlore.plexus.utils.ApiUtils.Companion.createService
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
 class SubmitActivity : AppCompatActivity(), CoroutineScope {
@@ -108,6 +105,13 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 call.enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                         // handle the response here
+                        if (response.isSuccessful) {
+                            Snackbar.make(activityBinding.submitCoordinatorLayout,
+                                          getString(R.string.submit_success),
+                                          BaseTransientBottomBar.LENGTH_SHORT)
+                                .setAnchorView(activityBinding.submitBottomAppBar) // Above FAB, bottom bar etc.
+                                .show()
+                        }
                     }
         
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -119,85 +123,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 noNetworkDialog()
             }
         }
-        
-        /*val handler = Handler(Looper.getMainLooper())
-        
-        if (hasNetwork(this)) {
-            
-            Executors.newSingleThreadExecutor().execute {
-                
-                // Background thread work
-                if (hasInternet()) {
-                    
-                    val application = Application(name = nameString,
-                                                  packageName = packageNameString)
-                    val call = createService().sendApplication(application)
-                    call.enqueue(object : Callback<ResponseBody> {
-                        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                            // handle the response here
-                        }
-        
-                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                            // handle the failure here
-                        }
-                    })
-
-
-*//*                    OkHttpClient client = new OkHttpClient();
-
-                    // Create a JSON object with the data
-                    ObjectMapper mapper = new ObjectMapper();
-
-                    ObjectNode application = mapper.createObjectNode();
-                    application.put("name", nameString);
-                    application.put("package", packageNameString);
-
-                    ObjectNode data = mapper.createObjectNode();
-                    data.set("application", application);
-
-                    // Convert the JSON object to a string
-                    String json = null;
-                    try {
-                        json = mapper.writeValueAsString(data);
-                    }
-                    catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-
-                    // Create a request body with the JSON string as the content
-                    assert json != null;
-                    RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json; charset=utf-8"));
-
-                    // Create a request builder and set the request method to POST
-                    Request request = new Request.Builder()
-                            .url("https://plexus.fly.dev/api/v1/applications")
-                            .post(requestBody)
-                            .build();
-
-                    try {
-                        client.newCall(request).execute();
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }*//*
-                    
-                    // UI Thread work
-                    handler.post {
-                        Snackbar.make(activityBinding.submitCoordinatorLayout,
-                                      getString(R.string.submit_success),
-                                      BaseTransientBottomBar.LENGTH_SHORT)
-                            .setAnchorView(activityBinding.submitBottomAppBar) // Above FAB, bottom bar etc.
-                            .show()
-                    }
-                }
-                else {
-                    handler.post { noNetworkDialog() }
-                }
-            }
-        }
-        else {
-            noNetworkDialog()
-        }*/
     }
     
     // Set transition when finishing activity

@@ -56,19 +56,13 @@ class LicensesFragment : Fragment() {
         }
         
         // Jackson
-        fragmentBinding.jackson.setOnClickListener {
+        fragmentBinding.retrofit.setOnClickListener {
             openURL(requireActivity(),
-                    "https://github.com/FasterXML/jackson-core/blob/2.15/LICENSE",
+                    "https://github.com/square/retrofit/blob/master/LICENSE.txt",
                     settingsActivity.activityBinding.settingsCoordLayout,
                     settingsActivity.activityBinding.toolbarBottom)
         }
-        // OkHttp
-        fragmentBinding.okhttp.setOnClickListener {
-            openURL(requireActivity(),
-                    "https://github.com/square/okhttp/blob/master/LICENSE.txt",
-                    settingsActivity.activityBinding.settingsCoordLayout,
-                    settingsActivity.activityBinding.toolbarBottom)
-        }
+        
         // Plexus
         fragmentBinding.fastscroll.setOnClickListener {
             openURL(requireActivity(),
