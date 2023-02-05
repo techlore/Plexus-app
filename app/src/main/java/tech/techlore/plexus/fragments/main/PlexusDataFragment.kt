@@ -19,16 +19,17 @@
 
 package tech.techlore.plexus.fragments.main
 
-import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
@@ -40,27 +41,23 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.utils.IntentUtils.Companion.appDetails
 import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
 import tech.techlore.plexus.utils.ListUtils.Companion.populateDataList
-import tech.techlore.plexus.utils.NetworkUtils.Companion.getReq
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
-import java.io.IOException
-import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
+import kotlin.coroutines.CoroutineContext
 
 class PlexusDataFragment :
     Fragment(),
     PlexusDataItemAdapter.OnItemClickListener,
-    PlexusDataItemAdapter.OnItemLongCLickListener {
+    PlexusDataItemAdapter.OnItemLongCLickListener,
+    CoroutineScope {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
+    private val job = Job()
     private lateinit var mainActivity: MainActivity
     private lateinit var plexusDataList: ArrayList<PlexusData>
-    
-    companion object {
-        private lateinit var jsonData: String
-    }
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -126,6 +123,28 @@ class PlexusDataFragment :
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshData() }
     }
     
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+    
+    // On click
+    override fun onItemClick(position: Int) {
+        val plexusData = plexusDataList[position]
+        appDetails(mainActivity, plexusData.name, plexusData.packageName, null
+            /*plexusData.version,
+           plexusData.dgNotes, plexusData.mgNotes,
+           plexusData.dgStatus, plexusData.mgStatus*/)
+    }
+    
+    // On long click
+    override fun onItemLongCLick(position: Int) {
+        val plexusData = plexusDataList[position]
+        longClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName,  /*plexusData.version,
+                                 plexusData.dgStatus, plexusData.mgStatus,
+                                 plexusData.dgNotes, plexusData.mgNotes,*/
+                             mainActivity.activityBinding.mainCoordinatorLayout,
+                             mainActivity.activityBinding.bottomNavContainer)
+    }
+    
     private fun noNetworkDialog() {
         MaterialAlertDialogBuilder(requireContext(), R.style.DialogTheme)
             
@@ -144,59 +163,23 @@ class PlexusDataFragment :
             .show()
     }
     
-    @SuppressLint("NotifyDataSetChanged")
     private fun refreshData() {
-        val handler = Handler(Looper.getMainLooper())
-        if (hasNetwork(requireContext())) {
-            Executors.newSingleThreadExecutor().execute {
-                
-                // Background thread work
-                if (hasInternet()) {
-                    try {
-                        jsonData = getReq()
-                        mainActivity.dataList = populateDataList(jsonData)
-                    }
-                    catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                    
-                    // UI Thread work
-                    handler.post {
-                        fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                        reloadFragment(parentFragmentManager, this)
-                    }
-                }
-                else {
-                    handler.post { noNetworkDialog() }
-                }
+        
+        launch {
+            if (hasNetwork(requireContext()) && hasInternet()) {
+                mainActivity.dataList = populateDataList()
+                fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                reloadFragment(parentFragmentManager, this@PlexusDataFragment)
+            }
+            else {
+                noNetworkDialog()
             }
         }
-        else {
-            noNetworkDialog()
-        }
-    }
-    
-    // On click
-    override fun onItemClick(position: Int) {
-        val plexusData = plexusDataList[position]
-        appDetails(mainActivity, plexusData.name, plexusData.packageName, null
-                        /*plexusData.version,
-                       plexusData.dgNotes, plexusData.mgNotes,
-                       plexusData.dgStatus, plexusData.mgStatus*/)
-    }
-    
-    // On long click
-    override fun onItemLongCLick(position: Int) {
-        val plexusData = plexusDataList[position]
-        longClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName,  /*plexusData.version,
-                                 plexusData.dgStatus, plexusData.mgStatus,
-                                 plexusData.dgNotes, plexusData.mgNotes,*/
-                             mainActivity.activityBinding.mainCoordinatorLayout,
-                             mainActivity.activityBinding.bottomNavContainer)
     }
     
     override fun onDestroyView() {
         super.onDestroyView()
+        job.cancel()
         _binding = null
     }
 }

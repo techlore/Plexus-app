@@ -19,12 +19,15 @@
 
 package tech.techlore.plexus.fragments.main
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
@@ -39,14 +42,17 @@ import tech.techlore.plexus.utils.ListUtils.Companion.installedAppsStatusSort
 import tech.techlore.plexus.utils.ListUtils.Companion.scanInstalledApps
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
 import kotlin.collections.ArrayList
+import kotlin.coroutines.CoroutineContext
 
 class InstalledAppsFragment :
     Fragment(),
     InstalledAppItemAdapter.OnItemClickListener,
-    InstalledAppItemAdapter.OnItemLongCLickListener {
+    InstalledAppItemAdapter.OnItemLongCLickListener,
+    CoroutineScope {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
+    private val job = Job()
     private lateinit var mainActivity: MainActivity
     private lateinit var installedAppsFinalList: ArrayList<InstalledApp>
     
@@ -59,7 +65,6 @@ class InstalledAppsFragment :
         return fragmentBinding.root
     }
     
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val preferenceManager = PreferenceManager(requireContext())
@@ -140,12 +145,17 @@ class InstalledAppsFragment :
         fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
         fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener {
-            mainActivity.installedList.clear()
-            scanInstalledApps(requireContext(), mainActivity.dataList, mainActivity.installedList)
-            fragmentBinding.swipeRefreshLayout.isRefreshing = false
-            reloadFragment(parentFragmentManager, this)
+            launch {
+                mainActivity.installedList.clear()
+                scanInstalledApps(requireContext(), mainActivity.dataList, mainActivity.installedList)
+                fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                reloadFragment(parentFragmentManager, this@InstalledAppsFragment)
+            }
         }
     }
+    
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
     
     // On click
     override fun onItemClick(position: Int) {
@@ -171,6 +181,7 @@ class InstalledAppsFragment :
     
     override fun onDestroyView() {
         super.onDestroyView()
+        job.cancel()
         _binding = null
     }
     

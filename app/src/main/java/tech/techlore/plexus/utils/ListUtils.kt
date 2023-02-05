@@ -22,23 +22,27 @@ package tech.techlore.plexus.utils
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.await
+import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.InstalledApp
 import tech.techlore.plexus.models.PlexusData
-import tech.techlore.plexus.models.Root
+import tech.techlore.plexus.utils.ApiUtils.Companion.createService
 
 class ListUtils {
     
     companion object {
     
         // Populate Plexus data list
-        @Throws(JsonProcessingException::class)
-        fun populateDataList(jsonData: String): ArrayList<PlexusData> {
-            val objectMapper = ObjectMapper()
-            val root = objectMapper.readValue(jsonData, Root::class.java)
-            return root.data
+        suspend fun populateDataList(): ArrayList<PlexusData> {
+            return withContext(Dispatchers.IO) {
+                val call = createService().getApplications()
+                val response = call.awaitResponse()
+                val root = response.body()!!
+                root.data
+            }
         }
     
         // Scan all installed apps and populate respective list

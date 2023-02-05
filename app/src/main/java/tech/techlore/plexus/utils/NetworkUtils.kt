@@ -22,55 +22,38 @@ package tech.techlore.plexus.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
-import java.util.*
 
 class NetworkUtils {
     
     companion object {
     
-        private val okHttpClient = OkHttpClient()
-    
         // Check network availability
-        fun hasNetwork(context: Context): Boolean {
-            val connectivityManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val network = connectivityManager.activeNetwork
-            val capabilities = connectivityManager.getNetworkCapabilities(network)
-            return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        suspend fun hasNetwork(context: Context): Boolean {
+            return withContext(Dispatchers.IO) {
+                val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            }
         }
     
         // Check if network has internet connection
         // Must be called in background thread
-        fun hasInternet(): Boolean {
+        suspend fun hasInternet(): Boolean {
             return try {
-                val socket = Socket()
-                socket.connect(InetSocketAddress("plexus.fly.dev", 443), 5000)
-                socket.close()
-                true
-            }
-            catch (e: IOException) {
+                withContext(Dispatchers.IO) {
+                    val socket = Socket()
+                    socket.connect(InetSocketAddress("plexus.fly.dev", 443), 5000)
+                    socket.close()
+                    true
+                }
+            } catch (e: IOException) {
                 false
             }
-        }
-    
-        // GET request
-        @Throws(IOException::class)
-        fun getReq(): String {
-            
-            val request = Request.Builder()
-                .url("https://plexus.fly.dev/api/v1/applications")
-                .build()
-            
-            okHttpClient.newCall(request)
-                .execute()
-                .use { response ->
-                    return response.body.string()
-                }
         }
     }
 }

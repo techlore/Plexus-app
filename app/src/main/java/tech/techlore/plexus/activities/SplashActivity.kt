@@ -22,31 +22,28 @@ package tech.techlore.plexus.activities
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.InstalledApp
 import tech.techlore.plexus.models.PlexusData
 import tech.techlore.plexus.utils.IntentUtils.Companion.sendListsIntent
 import tech.techlore.plexus.utils.ListUtils.Companion.populateDataList
 import tech.techlore.plexus.utils.ListUtils.Companion.scanInstalledApps
-import tech.techlore.plexus.utils.NetworkUtils.Companion.getReq
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import java.io.IOException
-import java.util.concurrent.Executors
+import kotlin.coroutines.CoroutineContext
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(), CoroutineScope {
     
+    private val job = Job()
     private lateinit var plexusDataList: ArrayList<PlexusData>
     private lateinit var installedAppsList: ArrayList<InstalledApp>
-    
-    companion object {
-        private lateinit var jsonData: String
-    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +52,13 @@ class SplashActivity : AppCompatActivity() {
         plexusDataList = ArrayList()
         installedAppsList = ArrayList()
         
-        /*###########################################################################################*/retrieveData()
+        /*########################################################################################*/
+        
+        retrieveData()
     }
+    
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
     
     private fun noNetworkDialog() {
         MaterialAlertDialogBuilder(this, R.style.DialogTheme)
@@ -77,38 +79,24 @@ class SplashActivity : AppCompatActivity() {
     }
     
     private fun retrieveData() {
-        
-        val handler = Handler(Looper.getMainLooper())
-        
-        if (hasNetwork(this)) {
-            Executors.newSingleThreadExecutor().execute {
-                
-                // Background thread work
-                if (hasInternet()) {
-                    try {
-                        jsonData = getReq()
-                        plexusDataList = populateDataList(jsonData)
-                        scanInstalledApps(this, plexusDataList, installedAppsList)
-                    }
-                    catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                    
-                    // UI Thread work
-                    handler.post {
-                        sendListsIntent(this, MainActivity::class.java,
-                                        plexusDataList, installedAppsList)
-                        finish()
-                        overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start)
-                    }
-                }
-                else {
-                    handler.post { noNetworkDialog() }
-                }
+    
+        launch {
+            if (hasNetwork(this@SplashActivity) && hasInternet()) {
+                plexusDataList = populateDataList()
+                scanInstalledApps(this@SplashActivity, plexusDataList, installedAppsList)
+                sendListsIntent(this@SplashActivity, MainActivity::class.java,
+                                plexusDataList, installedAppsList)
+                finish()
+            }
+            else {
+                noNetworkDialog()
             }
         }
-        else {
-            noNetworkDialog()
-        }
+    }
+    
+    override fun finish() {
+        super.finish()
+        job.cancel()
+        overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start)
     }
 }
