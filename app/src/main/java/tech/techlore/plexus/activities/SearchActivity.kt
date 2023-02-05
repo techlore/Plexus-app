@@ -17,108 +17,93 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.activities;
+package tech.techlore.plexus.activities
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.os.Build
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import tech.techlore.plexus.R
+import tech.techlore.plexus.databinding.ActivityMainBinding
+import tech.techlore.plexus.databinding.SearchViewBinding
+import tech.techlore.plexus.fragments.search.SearchDataFragment
+import tech.techlore.plexus.fragments.search.SearchInstalledFragment
+import tech.techlore.plexus.models.InstalledApp
+import tech.techlore.plexus.models.PlexusData
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
-import java.util.List;
-import java.util.Objects;
-
-import tech.techlore.plexus.R;
-import tech.techlore.plexus.databinding.ActivityMainBinding;
-import tech.techlore.plexus.databinding.SearchViewBinding;
-import tech.techlore.plexus.fragments.search.SearchDataFragment;
-import tech.techlore.plexus.fragments.search.SearchInstalledFragment;
-import tech.techlore.plexus.models.InstalledApp;
-import tech.techlore.plexus.models.PlexusData;
-
-public class SearchActivity extends AppCompatActivity {
-
-    public List<PlexusData> dataList;
-    public List<InstalledApp> installedList;
-    public SearchViewBinding searchViewBinding;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        final ActivityMainBinding activityBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(activityBinding.getRoot());
-
-        Intent intent = getIntent();
-        searchViewBinding = SearchViewBinding.bind(activityBinding.searchViewStub.inflate());
-
+class SearchActivity : AppCompatActivity() {
+    
+    lateinit var dataList: ArrayList<PlexusData>
+    lateinit var installedList: ArrayList<InstalledApp>
+    lateinit var searchViewBinding: SearchViewBinding
+    
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val activityBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(activityBinding.root)
+        
+        searchViewBinding = SearchViewBinding.bind(activityBinding.searchViewStub.inflate())
+        
         /*###########################################################################################*/
-
-        // BOTTOM TOOLBAR AS ACTIONBAR
-        setSupportActionBar(activityBinding.toolbarBottom);
-        activityBinding.toolbarBottom.setNavigationIcon(R.drawable.ic_back);
-        activityBinding.toolbarBottom.setNavigationOnClickListener(view -> onBackPressed());
-
-        // NAV VIEW BOTTOM SHEET
-        BottomSheetBehavior.from(activityBinding.bottomNavContainer).setDraggable(false);
-
-        // DEFAULT FRAGMENT
+        
+        // Bottom toolbar as actionbar
+        setSupportActionBar(activityBinding.toolbarBottom)
+        activityBinding.toolbarBottom.setNavigationIcon(R.drawable.ic_back)
+        activityBinding.toolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        
+        // Nav view bottom sheet
+        BottomSheetBehavior.from(activityBinding.bottomNavContainer).isDraggable = false
+        
+        // Default fragment
         if (savedInstanceState == null) {
-
-            // IF FROM PLEXUS DATA
-            // DISPLAY SEARCH PLEXUS DATA FRAGMENT
-            if (Objects.equals(intent.getExtras().getInt("from"), R.id.nav_plexus_data)){
-
-                // GET PLEXUS DATA LIST FROM MAIN ACTIVITY
-                dataList = intent.getParcelableArrayListExtra("plexusDataList");
-                DisplayFragment("Search Data");
-
+            
+            if (intent.extras!!.getInt("from") == R.id.nav_plexus_data) {
+                
+                dataList =
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        intent.getParcelableArrayListExtra("plexusDataList", PlexusData::class.java)!!
+                    }
+                    else {
+                        intent.getParcelableArrayListExtra("plexusDataList")!!
+                    }
+                
+                displayFragment("Search Data")
             }
-
-            // ELSE DISPLAY SEARCH INSTALLED APPS FRAGMENT
             else {
-
-                // GET INSTALLED APPS LIST FROM MAIN ACTIVITY
-                installedList = intent.getParcelableArrayListExtra("installedAppsList");
-                DisplayFragment("Search Installed");
-
+                
+                installedList =
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        intent.getParcelableArrayListExtra("installedAppsList", InstalledApp::class.java)!!
+                    }
+                    else {
+                        intent.getParcelableArrayListExtra("installedAppsList")!!
+                    }
+                displayFragment("Search Installed")
             }
-
         }
-
     }
-
+    
     // SETUP FRAGMENTS
-    private void DisplayFragment(String fragmentName) {
-
-        Fragment fragment;
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        if (fragmentName.equals("Search Data")) {
-            searchViewBinding.searchView.setQueryHint(getResources().getString(R.string.menu_search)
-                                    + " "
-                                    + getResources().getString(R.string.plexus_data));
-            fragment = new SearchDataFragment();
+    private fun displayFragment(fragmentName: String) {
+        val fragment: Fragment
+        val transaction = supportFragmentManager.beginTransaction()
+        
+        if (fragmentName == "Search Data") {
+            searchViewBinding.searchView.queryHint = "${resources.getString(R.string.menu_search)} ${resources.getString(R.string.plexus_data)}"
+            fragment = SearchDataFragment()
         }
-
         else {
-            searchViewBinding.searchView.setQueryHint(getResources().getString(R.string.menu_search)
-                                    + " "
-                                    + getResources().getString(R.string.installed_apps));
-            fragment = new SearchInstalledFragment();
+            searchViewBinding.searchView.queryHint = "${resources.getString(R.string.menu_search)} ${resources.getString(R.string.installed_apps)}"
+            fragment = SearchInstalledFragment()
         }
-
-        transaction.replace(R.id.activity_host_fragment, fragment).commit();
-
+        
+        transaction.replace(R.id.activity_host_fragment, fragment).commit()
     }
-
+    
     // SET TRANSITION WHEN FINISHING ACTIVITY
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom);
-
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
     }
 }

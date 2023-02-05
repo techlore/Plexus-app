@@ -17,81 +17,78 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.settings;
+package tech.techlore.plexus.fragments.settings
 
-import static tech.techlore.plexus.utils.IntentUtils.OpenURL;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.SettingsActivity
+import tech.techlore.plexus.databinding.FragmentLicensesBinding
+import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import tech.techlore.plexus.R;
-import tech.techlore.plexus.activities.SettingsActivity;
-import tech.techlore.plexus.databinding.FragmentLicensesBinding;
-
-public class LicensesFragment extends Fragment {
+class LicensesFragment : Fragment() {
     
-    private FragmentLicensesBinding fragmentBinding;
-    private SettingsActivity settingsActivity;
+    private var _binding: FragmentLicensesBinding? = null
+    private val fragmentBinding get() = _binding!!
+    private lateinit var settingsActivity: SettingsActivity
     
-    public LicensesFragment() {
-        // Required empty public constructor
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        _binding = FragmentLicensesBinding.inflate(inflater, container, false)
+        return fragmentBinding.root
     }
     
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-    
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        fragmentBinding = FragmentLicensesBinding.inflate(inflater, container, false);
-        return fragmentBinding.getRoot();
-    }
-    
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    
-        settingsActivity = (SettingsActivity) requireActivity();
-    
-        settingsActivity.activityBinding.toolbarBottom.setTitle(getString(R.string.licenses));
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        
+        settingsActivity = requireActivity() as SettingsActivity
+        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.licenses)
         
         // Plexus
-        fragmentBinding.plexus.setOnClickListener(v ->
-                  OpenURL(requireActivity(), "https://github.com/techlore/Plexus-app/blob/main/LICENSE",
-                          settingsActivity.activityBinding.settingsCoordLayout, settingsActivity.activityBinding.toolbarBottom));
-    
+        fragmentBinding.plexus.setOnClickListener {
+            openURL(requireActivity(),
+                    "https://github.com/techlore/Plexus-app/blob/main/LICENSE",
+                    settingsActivity.activityBinding.settingsCoordLayout,
+                    settingsActivity.activityBinding.toolbarBottom)
+        }
+        
         // Jackson
-        fragmentBinding.jackson.setOnClickListener(v ->
-                  OpenURL(requireActivity(), "https://github.com/FasterXML/jackson-core/blob/2.15/LICENSE",
-                          settingsActivity.activityBinding.settingsCoordLayout, settingsActivity.activityBinding.toolbarBottom));
+        fragmentBinding.jackson.setOnClickListener {
+            openURL(requireActivity(),
+                    "https://github.com/FasterXML/jackson-core/blob/2.15/LICENSE",
+                    settingsActivity.activityBinding.settingsCoordLayout,
+                    settingsActivity.activityBinding.toolbarBottom)
+        }
         // OkHttp
-        fragmentBinding.okhttp.setOnClickListener(v ->
-                  OpenURL(requireActivity(), "https://github.com/square/okhttp/blob/master/LICENSE.txt",
-                          settingsActivity.activityBinding.settingsCoordLayout, settingsActivity.activityBinding.toolbarBottom));
+        fragmentBinding.okhttp.setOnClickListener {
+            openURL(requireActivity(),
+                    "https://github.com/square/okhttp/blob/master/LICENSE.txt",
+                    settingsActivity.activityBinding.settingsCoordLayout,
+                    settingsActivity.activityBinding.toolbarBottom)
+        }
         // Plexus
-        fragmentBinding.fastscroll.setOnClickListener(v ->
-                  OpenURL(requireActivity(), "https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE",
-                          settingsActivity.activityBinding.settingsCoordLayout, settingsActivity.activityBinding.toolbarBottom));
-    
+        fragmentBinding.fastscroll.setOnClickListener {
+            openURL(requireActivity(),
+                    "https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE",
+                    settingsActivity.activityBinding.settingsCoordLayout,
+                    settingsActivity.activityBinding.toolbarBottom)
+        }
+        
         // Material Design Icons
-        fragmentBinding.mdIcons.setOnClickListener(v ->
-                  OpenURL(requireActivity(), "https://github.com/Templarian/MaterialDesign/blob/master/LICENSE",
-                          settingsActivity.activityBinding.settingsCoordLayout, settingsActivity.activityBinding.toolbarBottom));
-
+        fragmentBinding.mdIcons.setOnClickListener {
+            openURL(requireActivity(),
+                    "https://github.com/Templarian/MaterialDesign/blob/master/LICENSE",
+                    settingsActivity.activityBinding.settingsCoordLayout,
+                    settingsActivity.activityBinding.toolbarBottom)
+        }
     }
     
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        settingsActivity.activityBinding.toolbarBottom.setTitle(getString(R.string.about));
-        fragmentBinding = null;
+    override fun onDestroyView() {
+        super.onDestroyView()
+        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.about)
+        _binding = null
     }
-    
 }

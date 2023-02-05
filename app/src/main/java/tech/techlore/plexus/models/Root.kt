@@ -17,24 +17,23 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models;
+package tech.techlore.plexus.models
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty
 
-import java.util.List;
-
-public class Root {
-    public List<PlexusData> data;
+class Root {
     
+    lateinit var data: ArrayList<PlexusData>
+
     @JsonProperty("page_number")
-    public int pageNumber;
-    
+    var pageNumber = 0
+
     @JsonProperty("page_size")
-    public int pageSize;
-    
+    var pageSize = 0
+
     @JsonProperty("total_entries")
-    public int totalEntries;
-    
+    var totalEntries = 0
+
     @JsonProperty("total_pages")
-    public int totalPages;
+    var totalPages = 0
 }

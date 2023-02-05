@@ -17,120 +17,101 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.search;
+package tech.techlore.plexus.fragments.search
 
-import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import tech.techlore.plexus.activities.SearchActivity
+import tech.techlore.plexus.adapters.PlexusDataItemAdapter
+import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.utils.IntentUtils.Companion.appDetails
 
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import java.util.List;
-
-import tech.techlore.plexus.activities.SearchActivity;
-import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
-import tech.techlore.plexus.databinding.RecyclerViewBinding;
-import tech.techlore.plexus.models.PlexusData;
-
-public class SearchDataFragment extends Fragment {
-
-    private RecyclerViewBinding fragmentBinding;
-    private PlexusDataItemAdapter plexusDataItemAdapter;
-    private List<PlexusData> searchDataList;
-    private CountDownTimer delayTimer;
-
-    public SearchDataFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+class SearchDataFragment :
+    Fragment(),
+    PlexusDataItemAdapter.OnItemClickListener,
+    PlexusDataItemAdapter.OnItemLongCLickListener {
+    
+    private var _binding: RecyclerViewBinding? = null
+    private val fragmentBinding get() = _binding!!
+    private lateinit var searchActivity: SearchActivity
+    private lateinit var plexusDataItemAdapter: PlexusDataItemAdapter
+    private lateinit var searchDataList: ArrayList<PlexusData>
+    private var delayTimer: CountDownTimer? = null
+    
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        fragmentBinding = RecyclerViewBinding.inflate(getLayoutInflater());
-        return fragmentBinding.getRoot();
+        _binding = RecyclerViewBinding.inflate(layoutInflater)
+        return fragmentBinding.root
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        final SearchActivity searchActivity = ((SearchActivity) requireActivity());
-        searchDataList = searchActivity.dataList;
-        plexusDataItemAdapter = new PlexusDataItemAdapter(searchDataList);
-
-    /*###########################################################################################*/
-
-        fragmentBinding.swipeRefreshLayout.setEnabled(false);
-        fragmentBinding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        
+        searchActivity = requireActivity() as SearchActivity
+        searchDataList = searchActivity.dataList
+        plexusDataItemAdapter = PlexusDataItemAdapter(searchDataList, this, this)
+        
+        /*########################################################################################*/
+        
+        fragmentBinding.swipeRefreshLayout.isEnabled = false
+        fragmentBinding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        
         // Perform search
-        searchActivity.searchViewBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String searchString) {
-                return true;
+        searchActivity.searchViewBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            
+            override fun onQueryTextSubmit(searchString: String): Boolean {
+                return true
             }
-
-            @Override
-            public boolean onQueryTextChange(String searchString) {
-
+            
+            override fun onQueryTextChange(searchString: String): Boolean {
                 if (delayTimer != null) {
-                    delayTimer.cancel();
+                    delayTimer !!.cancel()
                 }
-
+                
                 // Search with a subtle delay
-                delayTimer = new CountDownTimer(350, 150) {
-
-                    public void onTick(long millisUntilFinished) {}
-
-                    public void onFinish() {
-
-                        if (!searchString.isEmpty()) {
-                            plexusDataItemAdapter.getFilter().filter(searchString);
-                            fragmentBinding.recyclerView.setAdapter(plexusDataItemAdapter);
+                delayTimer = object : CountDownTimer(350, 150) {
+                    
+                    override fun onTick(millisUntilFinished: Long) {}
+                    
+                    override fun onFinish() {
+                        if (searchString.isNotEmpty()) {
+                            plexusDataItemAdapter.filter.filter(searchString)
+                            fragmentBinding.recyclerView.adapter = plexusDataItemAdapter
                         }
                         else {
-                            fragmentBinding.recyclerView.setAdapter(null);
+                            fragmentBinding.recyclerView.adapter = null
                         }
-
                     }
-                }.start();
-
-                return true;
+                }.start()
+                
+                return true
             }
-        });
-
-        // On click
-        plexusDataItemAdapter.setOnItemClickListener(position -> {
-
-            PlexusData plexusData = searchDataList.get(position);
-            AppDetails(searchActivity, plexusData.name, plexusData.packageName, null);
-//                       plexusData.version, null,
-//                       plexusData.dgNotes, plexusData.mgNotes,
-//                       plexusData.dgStatus, plexusData.mgStatus);
-
-        });
-
+        })
+        
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        fragmentBinding = null;
+    
+    // On click
+    override fun onItemClick(position: Int) {
+        val plexusData = searchDataList[position]
+        appDetails(searchActivity, plexusData.name, plexusData.packageName, null)
     }
-
-
+    
+    // On long click
+    override fun onItemLongCLick(position: Int) {
+        TODO("Not yet implemented")
+    }
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    
 }
-

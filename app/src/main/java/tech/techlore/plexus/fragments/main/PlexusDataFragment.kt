@@ -17,93 +17,78 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.main;
+package tech.techlore.plexus.fragments.main
 
-import static tech.techlore.plexus.preferences.PreferenceManager.A_Z_SORT_PREF;
-import static tech.techlore.plexus.preferences.PreferenceManager.STATUS_RADIO_PREF;
-import static tech.techlore.plexus.utils.IntentUtils.AppDetails;
-import static tech.techlore.plexus.utils.IntentUtils.ReloadFragment;
-import static tech.techlore.plexus.utils.NetworkUtils.HasInternet;
-import static tech.techlore.plexus.utils.NetworkUtils.HasNetwork;
-import static tech.techlore.plexus.utils.NetworkUtils.GETReq;
-import static tech.techlore.plexus.utils.ListUtils.PopulateDataList;
-import static tech.techlore.plexus.utils.UiUtils.LongClickBottomSheet;
+import android.annotation.SuppressLint
+import android.content.DialogInterface
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.MainActivity
+import tech.techlore.plexus.adapters.PlexusDataItemAdapter
+import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
+import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.utils.IntentUtils.Companion.appDetails
+import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
+import tech.techlore.plexus.utils.ListUtils.Companion.populateDataList
+import tech.techlore.plexus.utils.NetworkUtils.Companion.getReq
+import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
+import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
+import java.io.IOException
+import java.util.concurrent.Executors
+import kotlin.collections.ArrayList
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Executors;
-
-import me.zhanghai.android.fastscroll.FastScrollerBuilder;
-import tech.techlore.plexus.R;
-import tech.techlore.plexus.activities.MainActivity;
-import tech.techlore.plexus.adapters.PlexusDataItemAdapter;
-import tech.techlore.plexus.databinding.RecyclerViewBinding;
-import tech.techlore.plexus.models.PlexusData;
-import tech.techlore.plexus.preferences.PreferenceManager;
-import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener;
-
-public class PlexusDataFragment extends Fragment {
-
-    private RecyclerViewBinding fragmentBinding;
-    private MainActivity mainActivity;
-    private List<PlexusData> plexusDataList;
-    private static String jsonData;
-
-    public PlexusDataFragment() {
-        // Required empty public constructor
+class PlexusDataFragment :
+    Fragment(),
+    PlexusDataItemAdapter.OnItemClickListener,
+    PlexusDataItemAdapter.OnItemLongCLickListener {
+    
+    private var _binding: RecyclerViewBinding? = null
+    private val fragmentBinding get() = _binding!!
+    private lateinit var mainActivity: MainActivity
+    private lateinit var plexusDataList: ArrayList<PlexusData>
+    
+    companion object {
+        private lateinit var jsonData: String
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
-        fragmentBinding = RecyclerViewBinding.inflate(inflater, container, false);
-        return fragmentBinding.getRoot();
+        setHasOptionsMenu(true)
+        _binding = RecyclerViewBinding.inflate(inflater, container, false)
+        return fragmentBinding.root
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        final PreferenceManager preferenceManager = new PreferenceManager(requireContext());
-        mainActivity = ((MainActivity) requireActivity());
-        plexusDataList = new ArrayList<>();
-        final PlexusDataItemAdapter plexusDataItemAdapter = new PlexusDataItemAdapter(plexusDataList);
-
-    /*###########################################################################################*/
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        fragmentBinding.recyclerView.addOnItemTouchListener(new RecyclerViewItemTouchListener(mainActivity));
-
+        val preferenceManager = PreferenceManager(requireContext())
+        mainActivity = requireActivity() as MainActivity
+        plexusDataList = ArrayList()
+        val plexusDataItemAdapter = PlexusDataItemAdapter(plexusDataList, this, this)
+        
+        /*########################################################################################*/
+        
+        fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
+        
         // Status sort
-        for (PlexusData plexusData : mainActivity.dataList) {
-
-            if (preferenceManager.getInt(STATUS_RADIO_PREF) == 0
-                || preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_any_status) {
-
-                plexusDataList.add(plexusData);
+        for (plexusData in mainActivity.dataList) {
+            if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == 0
+                || preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_any_status) {
+                plexusDataList.add(plexusData)
             }
-//            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
+            //            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
 //
 //                PlexusDataStatusSort(preferenceManager.getInt(DG_STATUS_SORT_PREF), plexusData,
 //                        plexusData.dgStatus, plexusDataList);
@@ -114,121 +99,104 @@ public class PlexusDataFragment extends Fragment {
 //                        plexusData.mgStatus, plexusDataList);
 //            }
         }
-
-
+        
+        
         // Alphabetical sort
-        if (preferenceManager.getInt(A_Z_SORT_PREF) == 0
-            || preferenceManager.getInt(A_Z_SORT_PREF) == R.id.sort_a_z) {
-
-            //noinspection ComparatorCombinators
-            Collections.sort(plexusDataList, (ai1, ai2) ->
-                    ai1.name.compareTo(ai2.name)); // A-Z
-
+        if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
+            || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
+            plexusDataList.sortWith { ai1: PlexusData, ai2: PlexusData ->
+                ai1.name.compareTo(ai2.name) } // A-Z
         }
         else {
-
-            Collections.sort(plexusDataList, (ai1, ai2) ->
-                    ai2.name.compareTo(ai1.name)); // Z-A
+            plexusDataList.sortWith { ai1: PlexusData, ai2: PlexusData ->
+                ai2.name.compareTo(ai1.name) } // Z-A
         }
-
-        if (mainActivity.dataList.size() == 0){
-            fragmentBinding.emptyListViewStub.inflate();
+        
+        if (mainActivity.dataList.size == 0) {
+            fragmentBinding.emptyListViewStub.inflate()
         }
         else {
-            fragmentBinding.recyclerView.setAdapter(plexusDataItemAdapter);
-            new FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build(); // Fast scroll
+            fragmentBinding.recyclerView.adapter = plexusDataItemAdapter
+            FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
         }
-
-        // On click
-        plexusDataItemAdapter.setOnItemClickListener(position -> {
-
-            PlexusData plexusData = plexusDataList.get(position);
-            AppDetails(mainActivity, plexusData.name, plexusData.packageName, null
-                       /*plexusData.version, null,
-                       plexusData.dgNotes, plexusData.mgNotes,
-                       plexusData.dgStatus, plexusData.mgStatus*/);
-
-        });
-
-        // On long click
-        plexusDataItemAdapter.setOnItemLongClickListener(position -> {
-
-            PlexusData plexusData = plexusDataList.get(position);
-            LongClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName, /*plexusData.version,
-                                 plexusData.dgStatus, plexusData.mgStatus,
-                                 plexusData.dgNotes, plexusData.mgNotes,*/
-                                 mainActivity.activityBinding.mainCoordinatorLayout,
-                                 mainActivity.activityBinding.bottomNavContainer);
-
-        });
-
+        
         // Swipe refresh layout
-        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.color_background, requireContext().getTheme()));
-        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.color_secondary, requireContext().getTheme()));
-        fragmentBinding.swipeRefreshLayout.setOnRefreshListener(this::RefreshData);
-
+        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
+        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
+        fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshData() }
     }
-
-    private void NoNetworkDialog() {
-
-        new MaterialAlertDialogBuilder(requireContext(), R.style.DialogTheme)
-
-                .setTitle(R.string.dialog_title)
-                .setMessage(R.string.dialog_subtitle)
-
-                .setPositiveButton(R.string.retry, (dialog, which) ->
-                        RefreshData())
-
-                .setNegativeButton(R.string.cancel, (dialog, which) ->
-                        fragmentBinding.swipeRefreshLayout.setRefreshing(false))
-
-                .setCancelable(false)
-
-                .show();
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void RefreshData(){
-
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        if (HasNetwork(requireContext())) {
-
-            Executors.newSingleThreadExecutor().execute(() -> {
-
-                // Background thread work
-                if (HasInternet()) {
-
-                    try {
-                        jsonData = GETReq();
-                        mainActivity.dataList = PopulateDataList(jsonData);
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
     
+    private fun noNetworkDialog() {
+        MaterialAlertDialogBuilder(requireContext(), R.style.DialogTheme)
+            
+            .setTitle(R.string.dialog_title)
+            
+            .setMessage(R.string.dialog_subtitle)
+            
+            .setPositiveButton(R.string.retry) { _: DialogInterface?, _: Int ->
+                refreshData() }
+                
+            .setNegativeButton(R.string.cancel) { _: DialogInterface?, _: Int ->
+                fragmentBinding.swipeRefreshLayout.isRefreshing = false }
+                
+            .setCancelable(false)
+            
+            .show()
+    }
+    
+    @SuppressLint("NotifyDataSetChanged")
+    private fun refreshData() {
+        val handler = Handler(Looper.getMainLooper())
+        if (hasNetwork(requireContext())) {
+            Executors.newSingleThreadExecutor().execute {
+                
+                // Background thread work
+                if (hasInternet()) {
+                    try {
+                        jsonData = getReq()
+                        mainActivity.dataList = populateDataList(jsonData)
+                    }
+                    catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                    
                     // UI Thread work
-                    handler.post(() -> {
-                        fragmentBinding.swipeRefreshLayout.setRefreshing(false);
-                        ReloadFragment(getParentFragmentManager(), this);
-                    });
+                    handler.post {
+                        fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                        reloadFragment(parentFragmentManager, this)
+                    }
                 }
                 else {
-                    handler.post(this::NoNetworkDialog);
+                    handler.post { noNetworkDialog() }
                 }
-            });
+            }
         }
         else {
-            NoNetworkDialog();
+            noNetworkDialog()
         }
-
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        fragmentBinding = null;
+    
+    // On click
+    override fun onItemClick(position: Int) {
+        val plexusData = plexusDataList[position]
+        appDetails(mainActivity, plexusData.name, plexusData.packageName, null
+                        /*plexusData.version,
+                       plexusData.dgNotes, plexusData.mgNotes,
+                       plexusData.dgStatus, plexusData.mgStatus*/)
     }
-
+    
+    // On long click
+    override fun onItemLongCLick(position: Int) {
+        val plexusData = plexusDataList[position]
+        longClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName,  /*plexusData.version,
+                                 plexusData.dgStatus, plexusData.mgStatus,
+                                 plexusData.dgNotes, plexusData.mgNotes,*/
+                             mainActivity.activityBinding.mainCoordinatorLayout,
+                             mainActivity.activityBinding.bottomNavContainer)
+    }
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

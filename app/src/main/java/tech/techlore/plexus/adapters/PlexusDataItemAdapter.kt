@@ -17,189 +17,137 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.adapters;
+package tech.techlore.plexus.adapters
 
-import static tech.techlore.plexus.utils.UiUtils.hScrollText;
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import me.zhanghai.android.fastscroll.PopupTextProvider
+import tech.techlore.plexus.R
+import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
+import java.util.*
+import kotlin.collections.ArrayList
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import me.zhanghai.android.fastscroll.PopupTextProvider;
-import tech.techlore.plexus.R;
-import tech.techlore.plexus.models.PlexusData;
-
-public class PlexusDataItemAdapter extends RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>
-        implements Filterable, PopupTextProvider {
-
-    private final List<PlexusData> aListViewItems;
-    private final List<PlexusData> aListViewItemsFull;
-    private OnItemClickListener itemClickListener;
-    private OnItemLongCLickListener itemLongCLickListener;
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    public interface OnItemLongCLickListener {
-        void onItemLongCLick (int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener clickListener) {
-        itemClickListener = clickListener;
-    }
-
-    public void setOnItemLongClickListener(OnItemLongCLickListener longClickListener) {
-        itemLongCLickListener=longClickListener;
-    }
-
-    public static class ListViewHolder extends RecyclerView.ViewHolder
-    {
-        private final ImageView icon;
-        private final TextView name, packageName, version;
-
-        public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
-            super(itemView);
+class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
+                            private val clickListener: OnItemClickListener,
+                            private val longClickListener: OnItemLongCLickListener) :
+    RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
-            icon = itemView.findViewById(R.id.icon);
-            name = itemView.findViewById(R.id.name);
-            packageName = itemView.findViewById(R.id.package_name);
-            version = itemView.findViewById(R.id.version);
-
-
-            // Handle click events of items
-            itemView.setOnClickListener(v -> {
-                if (onItemClickListener != null) {
-                    int position = getBindingAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        onItemClickListener.onItemClick(position);
-                    }
-                }
-            });
-
-            // Handle long click events of items
-            itemView.setOnLongClickListener(v -> {
-                if (onItemLongCLickListener != null) {
-                    int position=getBindingAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        onItemLongCLickListener.onItemLongCLick(position);
-                    }
-                }
-                return true;
-            });
-
+    private val aListViewItemsFull: List<PlexusData>
+    
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+    
+    interface OnItemLongCLickListener {
+        fun onItemLongCLick(position: Int)
+    }
+    
+    inner class ListViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
+        
+        val icon: ImageView = itemView.findViewById(R.id.icon)
+        val name: TextView = itemView.findViewById(R.id.name)
+        val packageName: TextView = itemView.findViewById(R.id.package_name)
+        val version: TextView = itemView.findViewById(R.id.version)
+        
+        init {
+            itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
+        }
+    
+        override fun onClick(v: View?) {
+            val position = bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                clickListener.onItemClick(position)
+            }
+        }
+    
+        override fun onLongClick(v: View?): Boolean {
+            val position = bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                longClickListener.onItemLongCLick(position)
+            }
+            return true
         }
     }
-
-    public PlexusDataItemAdapter(List<PlexusData> listViewItems)
-    {
-        aListViewItems = listViewItems;
-        aListViewItemsFull = new ArrayList<>(aListViewItems);
-        setHasStableIds(true);
-    }
-
-    @NonNull
-    @Override
-    public PlexusDataItemAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
-        return new PlexusDataItemAdapter.ListViewHolder(view, itemClickListener, itemLongCLickListener);
+    
+    init {
+        aListViewItemsFull = ArrayList(aListViewItems)
+        setHasStableIds(true)
     }
     
-    @Override
-    public void onBindViewHolder(@NonNull final PlexusDataItemAdapter.ListViewHolder holder, int position) {
-
-        final PlexusData plexusData = aListViewItems.get(position);
-        final Context context = holder.itemView.getContext().getApplicationContext();
-        
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+        return ListViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
+        )
+    }
+    
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+        val plexusData = aListViewItems[position]
+        val context = holder.itemView.context.applicationContext
         Glide.with(context)
-                .load("")
-                .placeholder(R.drawable.ic_apk)
-                .into(holder.icon);
-        
-        holder.name.setText(plexusData.name);
-        holder.packageName.setText(plexusData.packageName);
+            .load("")
+            .placeholder(R.drawable.ic_apk)
+            .into(holder.icon)
+        holder.name.text = plexusData.name
+        holder.packageName.text = plexusData.packageName
         //holder.version.setText(plexusData.version);
-
+        
         /// Horizontally scrolling text
         hScrollText(holder.name);
         hScrollText(holder.packageName);
         hScrollText(holder.version);
-
     }
-
-    @Override
-    public int getItemCount() {
-        return aListViewItems.size();
+    
+    override fun getItemCount(): Int {
+        return aListViewItems.size
     }
-
-    @Override
-    public  int getItemViewType(int position){
-        return position;
+    
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
-
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
+    
     // Req. for search
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                List<PlexusData> filteredList = new ArrayList<>();
-
-                if (charSequence != null) {
-
-                    String searchString = charSequence.toString().toLowerCase().trim();
-
-                    for (PlexusData plexusData : aListViewItemsFull){
-
-                        if (plexusData.name.toLowerCase().contains(searchString)
-                            || plexusData.packageName.toLowerCase().contains(searchString)){
-
-                            filteredList.add(plexusData);
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val filteredList: ArrayList<PlexusData> = ArrayList()
+                if (charSequence.isNotEmpty()) {
+                    val searchString =
+                        charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
+                    for (plexusData in aListViewItemsFull!!) {
+                        if (plexusData.name.lowercase(Locale.getDefault()).contains(searchString)
+                            || plexusData.packageName.lowercase(Locale.getDefault())
+                                .contains(searchString)) {
+                            filteredList.add(plexusData)
                         }
                     }
-
                 }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = filteredList;
-                return filterResults;
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
             }
-
+            
             @SuppressLint("NotifyDataSetChanged")
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                aListViewItems.clear();
-                //noinspection unchecked
-                aListViewItems.addAll((ArrayList<PlexusData>) filterResults.values);
-                notifyDataSetChanged();
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                aListViewItems.clear()
+                aListViewItems.addAll((filterResults.values as ArrayList<PlexusData>))
+                notifyDataSetChanged()
             }
-        };
+        }
     }
-
+    
     // Fast scroll popup
-    @NonNull
-    @Override
-    public String getPopupText(int position) {
-        return aListViewItems.get(position).name.substring(0,1);
+    override fun getPopupText(position: Int): String {
+        return aListViewItems[position].name.substring(0, 1)
     }
-
 }

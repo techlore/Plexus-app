@@ -19,30 +19,13 @@
 
 package tech.techlore.plexus.activities;
 
-import static tech.techlore.plexus.utils.NetworkUtils.HasInternet;
-import static tech.techlore.plexus.utils.NetworkUtils.HasNetwork;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.io.IOException;
-import java.util.concurrent.Executors;
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import tech.techlore.plexus.R;
 import tech.techlore.plexus.databinding.ActivitySubmitBinding;
 
@@ -73,7 +56,7 @@ public class SubmitActivity extends AppCompatActivity {
         
         // FAB
         activityBinding.submitFab.setEnabled(false); // Temporary, will be removed
-        activityBinding.submitFab.setOnClickListener(v -> SubmitData());
+        //activityBinding.submitFab.setOnClickListener(v -> SubmitData());
         
     }
     
@@ -84,8 +67,8 @@ public class SubmitActivity extends AppCompatActivity {
                 .setTitle(R.string.dialog_title)
                 .setMessage(R.string.dialog_subtitle)
             
-                .setPositiveButton(R.string.retry, (dialog, which) ->
-                        SubmitData())
+                /*.setPositiveButton(R.string.retry, (dialog, which) ->
+                        SubmitData())*/
             
                 .setNegativeButton(R.string.cancel, (dialog, which) ->
                         dialog.dismiss())
@@ -96,7 +79,7 @@ public class SubmitActivity extends AppCompatActivity {
         
     }
     
-    private void SubmitData(){
+    /*private void SubmitData(){
         
         Handler handler = new Handler(Looper.getMainLooper());
         
@@ -162,7 +145,7 @@ public class SubmitActivity extends AppCompatActivity {
             NoNetworkDialog();
         }
         
-    }
+    }*/
     
     // Set transition when finishing activity
     @Override

@@ -17,199 +17,148 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.adapters;
+package tech.techlore.plexus.adapters
 
-import static tech.techlore.plexus.utils.UiUtils.hScrollText;
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import me.zhanghai.android.fastscroll.PopupTextProvider
+import tech.techlore.plexus.R
+import tech.techlore.plexus.models.InstalledApp
+import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
+import java.util.Locale
+import kotlin.collections.ArrayList
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import me.zhanghai.android.fastscroll.PopupTextProvider;
-import tech.techlore.plexus.R;
-import tech.techlore.plexus.models.InstalledApp;
-
-public class InstalledAppItemAdapter extends RecyclerView.Adapter<InstalledAppItemAdapter.ListViewHolder>
-        implements Filterable, PopupTextProvider {
+class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp>,
+                              private val clickListener: OnItemClickListener,
+                              private val longClickListener: OnItemLongCLickListener) :
+    RecyclerView.Adapter<InstalledAppItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
-    private final List<InstalledApp> aListViewItems;
-    private final List<InstalledApp> aListViewItemsFull;
-    private OnItemClickListener itemClickListener;
-    private OnItemLongCLickListener itemLongCLickListener;
+    private val aListViewItemsFull: List<InstalledApp>
     
-    public interface OnItemClickListener {
-        void onItemClick(int position);
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
     }
     
-    public interface OnItemLongCLickListener {
-        void onItemLongCLick (int position);
+    interface OnItemLongCLickListener {
+        fun onItemLongCLick(position: Int)
     }
     
-    public void setOnItemClickListener(OnItemClickListener clickListener) {
-        itemClickListener = clickListener;
-    }
-    
-    public void setOnItemLongClickListener(OnItemLongCLickListener longClickListener) {
-        itemLongCLickListener = longClickListener;
-    }
-    
-    public static class ListViewHolder extends RecyclerView.ViewHolder
-    {
-        private final ImageView icon, versionMismatch;
-        private final TextView name, packageName, installedVersion;
+    inner class ListViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
         
-        public ListViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, OnItemLongCLickListener onItemLongCLickListener) {
-            super(itemView);
+        val icon: ImageView = itemView.findViewById(R.id.icon)
+        val name: TextView = itemView.findViewById(R.id.name)
+        val packageName: TextView = itemView.findViewById(R.id.package_name)
+        val installedVersion: TextView = itemView.findViewById(R.id.version)
+        val versionMismatch: ImageView = itemView.findViewById(R.id.version_mismatch)
+        
+        init {
+            itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
+        }
     
-            icon = itemView.findViewById(R.id.icon);
-            name = itemView.findViewById(R.id.name);
-            packageName = itemView.findViewById(R.id.package_name);
-            installedVersion = itemView.findViewById(R.id.version);
-            versionMismatch = itemView.findViewById(R.id.version_mismatch);
-            
-            // Handle click events of items
-            itemView.setOnClickListener(v -> {
-                if (onItemClickListener != null) {
-                    int position = getBindingAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        onItemClickListener.onItemClick(position);
-                    }
-                }
-            });
-            
-            // Handle long click events of items
-            itemView.setOnLongClickListener(v -> {
-                if (onItemLongCLickListener != null) {
-                    int position=getBindingAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        onItemLongCLickListener.onItemLongCLick(position);
-                    }
-                }
-                return true;
-            });
-            
+        override fun onClick(v: View?) {
+            val position = bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                clickListener.onItemClick(position)
+            }
+        }
+    
+        override fun onLongClick(v: View?): Boolean {
+            val position = bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                longClickListener.onItemLongCLick(position)
+            }
+            return true
         }
     }
     
-    public InstalledAppItemAdapter(List<InstalledApp> listViewItems)
-    {
-        aListViewItems = listViewItems;
-        aListViewItemsFull = new ArrayList<>(aListViewItems);
-        setHasStableIds(true);
+    init {
+        aListViewItemsFull = ArrayList(aListViewItems)
+        setHasStableIds(true)
     }
     
-    @NonNull
-    @Override
-    public InstalledAppItemAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
-        return new InstalledAppItemAdapter.ListViewHolder(view, itemClickListener, itemLongCLickListener);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+        return ListViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
+        )
     }
     
-    @Override
-    public void onBindViewHolder(@NonNull final InstalledAppItemAdapter.ListViewHolder holder, int position) {
-        
-        final InstalledApp installedApp = aListViewItems.get(position);
-        final Context context = holder.itemView.getContext();
-        
-        try{
-            holder.icon.setImageDrawable(context.getPackageManager().getApplicationIcon(installedApp.getPackageName()));
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+        val installedApp = aListViewItems[position]
+        val context = holder.itemView.context
+        try {
+            holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(installedApp.packageName))
             // Don't use GLIDE to load icons directly to ImageView
             // as there's a delay in displaying icons when fast scrolling
         }
-        catch (PackageManager.NameNotFoundException e){
-            e.printStackTrace();
+        catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
         }
-    
-        if (!installedApp.getInstalledVersion().equals(installedApp.getPlexusVersion())){
-            holder.versionMismatch.setVisibility(View.VISIBLE);
+        if (installedApp.installedVersion != installedApp.plexusVersion) {
+            holder.versionMismatch.visibility = View.VISIBLE
         }
         else {
-            holder.versionMismatch.setVisibility(View.GONE);
+            holder.versionMismatch.visibility = View.GONE
         }
-        
-        holder.name.setText(installedApp.getName());
-        holder.packageName.setText(installedApp.getPackageName());
-        holder.installedVersion.setText(installedApp.getInstalledVersion());
+        holder.name.text = installedApp.name
+        holder.packageName.text = installedApp.packageName
+        holder.installedVersion.text = installedApp.installedVersion
         
         // Horizontally scrolling text
-        hScrollText(holder.name);
-        hScrollText(holder.packageName);
-        hScrollText(holder.installedVersion);
-        
+        hScrollText(holder.name)
+        hScrollText(holder.packageName)
+        hScrollText(holder.installedVersion)
     }
     
-    @Override
-    public int getItemCount() {
-        return aListViewItems.size();
+    override fun getItemCount(): Int {
+        return aListViewItems.size
     }
     
-    @Override
-    public  int getItemViewType(int position){
-        return position;
-    }
-    
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
     
     // Req. for search
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                List<InstalledApp> filteredList = new ArrayList<>();
-                
-                if (charSequence != null) {
-                    
-                    String searchString = charSequence.toString().toLowerCase().trim();
-                    
-                    for (InstalledApp installedApp: aListViewItemsFull){
-                        
-                        if (installedApp.getName().toLowerCase().contains(searchString)
-                            || installedApp.getPackageName().toLowerCase().contains(searchString)){
-                            
-                            filteredList.add(installedApp);
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val filteredList: MutableList<InstalledApp> = ArrayList()
+                if (charSequence.isNotEmpty()) {
+                    val searchString =
+                        charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
+                    for (installedApp in aListViewItemsFull) {
+                        if (installedApp.name.lowercase(Locale.getDefault()).contains(searchString)
+                            || installedApp.packageName.lowercase(Locale.getDefault())
+                                .contains(searchString)) {
+                            filteredList.add(installedApp)
                         }
                     }
-                    
                 }
-                
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = filteredList;
-                return filterResults;
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
             }
             
             @SuppressLint("NotifyDataSetChanged")
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                aListViewItems.clear();
-                //noinspection unchecked
-                aListViewItems.addAll((ArrayList<InstalledApp>) filterResults.values);
-                notifyDataSetChanged();
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                aListViewItems.clear()
+                aListViewItems.addAll((filterResults.values as ArrayList<InstalledApp>))
+                notifyDataSetChanged()
             }
-        };
+        }
     }
     
     // Fast scroll popup
-    @NonNull
-    @Override
-    public String getPopupText(int position) {
-        return aListViewItems.get(position).name.substring(0,1);
+    override fun getPopupText(position: Int): String {
+        return aListViewItems[position].name.substring(0, 1)
     }
-    
 }

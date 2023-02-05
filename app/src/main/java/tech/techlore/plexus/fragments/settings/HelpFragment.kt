@@ -17,47 +17,22 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.settings;
+package tech.techlore.plexus.fragments.settings
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import tech.techlore.plexus.R
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import tech.techlore.plexus.R;
-import tech.techlore.plexus.activities.MainActivity;
-import tech.techlore.plexus.databinding.FragmentHelpBinding;
-
-public class HelpFragment extends Fragment {
-
-    private FragmentHelpBinding fragmentBinding;
-
-    public HelpFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+class HelpFragment : Fragment() {
+    
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
-        fragmentBinding = FragmentHelpBinding.inflate(inflater, container, false);
-        return fragmentBinding.getRoot();
+        return inflater.inflate(R.layout.fragment_help, container, false)
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        fragmentBinding = null;
-    }
-
+    
 }
