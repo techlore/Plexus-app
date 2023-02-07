@@ -47,20 +47,11 @@ class IntentUtils {
         }
     
         // App details activity
-        fun appDetails(activityFrom: Activity, name: String, packageName: String, installedVersion: String?) {
-//                                  String plexusVersion,
-//                                  String dgNotes, String mgNotes,
-//                                  String dgStatus, String mgStatus
+        fun appDetailsActivity(activityFrom: Activity, packageName: String, fromFragment: String) {
     
             activityFrom.startActivity(Intent(activityFrom, AppDetailsActivity::class.java)
-                                           .putExtra("name", name)
                                            .putExtra("packageName", packageName)
-                                           .putExtra("installedVersion", installedVersion))
-            //                                    .putExtra("plexusVersion", plexusVersion)
-//                                    .putExtra("dgStatus", dgStatus)
-//                                    .putExtra("mgStatus", mgStatus)
-//                                    .putExtra("dgNotes", dgNotes)
-//                                    .putExtra("mgNotes", mgNotes)
+                                           .putExtra("fromFrag", fromFragment))
             
             activityFrom.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement)
         }

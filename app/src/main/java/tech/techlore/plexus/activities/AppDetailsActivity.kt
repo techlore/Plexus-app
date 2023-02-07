@@ -29,15 +29,27 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
+import tech.techlore.plexus.database.MainDatabase
+import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
+import tech.techlore.plexus.models.InstalledApp
+import tech.techlore.plexus.models.PlexusData
 import tech.techlore.plexus.utils.IntentUtils.Companion.share
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
+import kotlin.coroutines.CoroutineContext
 
-class AppDetailsActivity : AppCompatActivity() {
-
+class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
+    
+    private val job = Job()
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var activityBinding: ActivityAppDetailsBinding
-    private lateinit var nameString: String
+    private var nameString: String? = null
     private lateinit var packageNameString: String
     /*private lateinit val plexusVersionString: String
     private lateinit val dgStatusString: String
@@ -51,10 +63,13 @@ class AppDetailsActivity : AppCompatActivity() {
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
 
-        nameString = intent.getStringExtra("name")!!
+        val db = getDatabase(this)
+        var installedApp: InstalledApp? = null
+        var plexusData: PlexusData? = null
         packageNameString = intent.getStringExtra("packageName")!!
+    
         //plexusVersionString = intent.getStringExtra("plexusVersion");
-        val installedVersionString = intent.getStringExtra("installedVersion")
+        //val installedVersionString = intent.getStringExtra("installedVersion")
         /*dgStatusString = intent.getStringExtra("dgStatus");
         mgStatusString = intent.getStringExtra("mgStatus");
         dgNotesString = intent.getStringExtra("dgNotes");
@@ -69,14 +84,37 @@ class AppDetailsActivity : AppCompatActivity() {
 
         activityBinding.bottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
-        if (installedVersionString != null) {
+        if (intent.getStringExtra("fromFrag").equals("plexus")) {
+    
+            launch(Dispatchers.IO) {
+                plexusData = getPlexusDataByPackage(db, packageNameString)
+            }.invokeOnCompletion {
+                nameString = plexusData?.name!!
+            }
+    
+            requestBuilder = requestManager
+                .load("")
+                .placeholder(R.drawable.ic_apk)
+                .onlyRetrieveFromCache(true) // Image should always be in cache
+                                                 // since it's loaded in Plexus Data fragment
+    
+            activityBinding.fab.visibility = View.GONE
+    
+            //activityBinding.detailsVersion.setText(plexusVersionString);
+        }
+        else {
+            launch(Dispatchers.IO) {
+                installedApp = getInstalledAppByPackage(db, packageNameString)
+            }.invokeOnCompletion {
+                nameString = installedApp?.name!!
+            }
             activityBinding.detailsVersion.visibility = View.GONE
             activityBinding.plexusText.visibility = View.VISIBLE
             activityBinding.detailsPlexusVersion.visibility = View.VISIBLE
             //activityBinding.detailsPlexusVersion.setText(plexusVersionString)
             activityBinding.installedText.visibility = View.VISIBLE
             activityBinding.detailsInstalledVersion.visibility = View.VISIBLE
-            activityBinding.detailsInstalledVersion.text = installedVersionString
+            //activityBinding.detailsInstalledVersion.text = installedVersionString
             requestBuilder =
                 try {
                     requestManager.load(packageManager.getApplicationIcon(packageNameString))
@@ -85,17 +123,9 @@ class AppDetailsActivity : AppCompatActivity() {
                     throw RuntimeException(e)
                 }
         }
-        else {
-            requestBuilder = requestManager
-                .load("")
-                .placeholder(R.drawable.ic_apk)
-                .onlyRetrieveFromCache(true) // Image will always be in cache
-                                                 // since it's loaded in Plexus Data fragment
-
-            //activityBinding.detailsVersion.setText(plexusVersionString);
-        }
 
         requestBuilder.into(activityBinding.detailsAppIcon)
+        
         activityBinding.detailsName.text = nameString
         activityBinding.detailsPackageName.text = packageNameString
         /*activityBinding.dgNotes.setText(dgNotesString);
@@ -128,7 +158,7 @@ class AppDetailsActivity : AppCompatActivity() {
                                             activityBinding.appDetailsCoordinatorLayout,
                                             activityBinding.bottomAppBar)
 
-            R.id.menu_share -> share(this, nameString, packageNameString,
+            R.id.menu_share -> share(this, nameString!!, packageNameString,
                                     /*plexusVersionString,
                                         dgStatusString, mgStatusString,
                                         dgNotesString, mgNotesString,*/
@@ -141,10 +171,23 @@ class AppDetailsActivity : AppCompatActivity() {
 
         return true
     }
+    
+    private suspend fun getPlexusDataByPackage(database: MainDatabase, packageName: String): PlexusData {
+        return withContext(Dispatchers.IO) {
+            database.plexusDataDao().getPlexusDataByPackage(packageName)!!
+        }
+    }
+    
+    private suspend fun getInstalledAppByPackage(database: MainDatabase, packageName: String): InstalledApp {
+        return withContext(Dispatchers.IO) {
+            database.installedDataDao().getInstalledAppByPackage(packageName)!!
+        }
+    }
 
     // Set transition when finishing activity
     override fun finish() {
         super.finish()
+        job.cancel()
         overridePendingTransition(0, R.anim.fade_scale_out)
     }
 }

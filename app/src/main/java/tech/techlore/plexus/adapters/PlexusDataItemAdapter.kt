@@ -33,7 +33,7 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.PlexusData
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
-import java.util.*
+import java.util.Locale
 import kotlin.collections.ArrayList
 
 class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,

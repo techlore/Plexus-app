@@ -32,14 +32,15 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter
+import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.InstalledApp
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.utils.IntentUtils.Companion.appDetails
+import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
+import tech.techlore.plexus.utils.IntentUtils.Companion.appDetailsActivity
 import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
-import tech.techlore.plexus.utils.ListUtils.Companion.installedAppsStatusSort
-import tech.techlore.plexus.utils.ListUtils.Companion.scanInstalledApps
+import tech.techlore.plexus.utils.ListUtils.Companion.getInstalledAppsList
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
@@ -50,9 +51,10 @@ class InstalledAppsFragment :
     InstalledAppItemAdapter.OnItemLongCLickListener,
     CoroutineScope {
     
+    private val job = Job()
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
-    private val job = Job()
     private lateinit var mainActivity: MainActivity
     private lateinit var installedAppsFinalList: ArrayList<InstalledApp>
     
@@ -85,18 +87,14 @@ class InstalledAppsFragment :
         }
         else if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_play_apps) {
             for (installedApp in mainActivity.installedList) {
-                val installerName = requireContext().packageManager
-                    .getInstallerPackageName(installedApp.packageName)
-                if (playStoreInstallers.contains(installerName)) {
+                if (playStoreInstallers.contains(installedApp.installedFrom)) {
                     installedAppsTempList.add(installedApp)
                 }
             }
         }
         else {
             for (installedApp in mainActivity.installedList) {
-                val installerName = requireContext().packageManager
-                    .getInstallerPackageName(installedApp.packageName)
-                if (! playStoreInstallers.contains(installerName)) {
+                if (! playStoreInstallers.contains(installedApp.installedFrom)) {
                     installedAppsTempList.add(installedApp)
                 }
             }
@@ -109,16 +107,16 @@ class InstalledAppsFragment :
                 installedAppsFinalList.add(installedApp)
             }
             else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_dg_status) {
-                installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.DG_STATUS_SORT_PREF),
+                /*installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.DG_STATUS_SORT_PREF),
                                         installedApp,
                                         installedApp.dgRating,
-                                        installedAppsFinalList)
+                                        installedAppsFinalList)*/
             }
             else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_mg_status) {
-                installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.MG_STATUS_SORT_PREF),
+                /*installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.MG_STATUS_SORT_PREF),
                                         installedApp,
                                         installedApp.mgRating,
-                                        installedAppsFinalList)
+                                        installedAppsFinalList)*/
             }
         }
         
@@ -126,11 +124,11 @@ class InstalledAppsFragment :
         if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
             || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
             installedAppsFinalList.sortWith { ai1: InstalledApp, ai2: InstalledApp ->
-                ai1.name.compareTo(ai2.name) } // A-Z
+                ai1.name!!.compareTo(ai2.name!!) } // A-Z
         }
         else {
             installedAppsFinalList.sortWith { ai1: InstalledApp, ai2: InstalledApp ->
-                ai2.name.compareTo(ai1.name) } // Z-A
+                ai2.name!!.compareTo(ai1.name!!) } // Z-A
         }
         
         if (installedAppsFinalList.size == 0) {
@@ -146,33 +144,27 @@ class InstalledAppsFragment :
         fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener {
             launch {
+                val db = getDatabase(requireContext())
                 mainActivity.installedList.clear()
-                scanInstalledApps(requireContext(), mainActivity.dataList, mainActivity.installedList)
+                installedAppsIntoDB(requireContext(), db.installedDataDao())
+                mainActivity.installedList = getInstalledAppsList(db.installedDataDao())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 reloadFragment(parentFragmentManager, this@InstalledAppsFragment)
             }
         }
     }
     
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-    
     // On click
     override fun onItemClick(position: Int) {
         val installedApp = installedAppsFinalList[position]
-        appDetails(mainActivity,
-                   installedApp.name,
-                   installedApp.packageName /*installedApp.getPlexusVersion()*/,
-                   installedApp.installedVersion /*installedApp.getDgNotes(), installedApp.getMgNotes(),
-                       installedApp.getDgRating(), installedApp.getMgRating()*/
-        )
+        appDetailsActivity(mainActivity, installedApp.packageName, "installed")
     }
     
     // On long click
     override fun onItemLongCLick(position: Int) {
         val installedApp = installedAppsFinalList[position]
         longClickBottomSheet(mainActivity,
-                             installedApp.name, installedApp.packageName,  /*installedApp.getPlexusVersion(),
+                             installedApp.name!!, installedApp.packageName,  /*installedApp.getPlexusVersion(),
                                  installedApp.getDgRating(), installedApp.getMgRating(),
                                  installedApp.getDgNotes(), installedApp.getMgNotes(),*/
                              mainActivity.activityBinding.mainCoordinatorLayout,

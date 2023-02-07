@@ -30,8 +30,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.models.PlexusData
-import tech.techlore.plexus.utils.IntentUtils.Companion.appDetails
 
 class SearchDataFragment :
     Fragment(),
@@ -42,7 +40,7 @@ class SearchDataFragment :
     private val fragmentBinding get() = _binding!!
     private lateinit var searchActivity: SearchActivity
     private lateinit var plexusDataItemAdapter: PlexusDataItemAdapter
-    private lateinit var searchDataList: ArrayList<PlexusData>
+    //private lateinit var searchDataList: ArrayList<PlexusData>
     private var delayTimer: CountDownTimer? = null
     
     override fun onCreateView(inflater: LayoutInflater,
@@ -56,8 +54,8 @@ class SearchDataFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         searchActivity = requireActivity() as SearchActivity
-        searchDataList = searchActivity.dataList
-        plexusDataItemAdapter = PlexusDataItemAdapter(searchDataList, this, this)
+        //searchDataList = searchActivity.dataList
+        //plexusDataItemAdapter = PlexusDataItemAdapter(searchDataList, this, this)
         
         /*########################################################################################*/
         
@@ -100,8 +98,8 @@ class SearchDataFragment :
     
     // On click
     override fun onItemClick(position: Int) {
-        val plexusData = searchDataList[position]
-        appDetails(searchActivity, plexusData.name, plexusData.packageName, null)
+        //val plexusData = searchDataList[position]
+        //appDetails(searchActivity, plexusData.name, plexusData.packageName, null)
     }
     
     // On long click

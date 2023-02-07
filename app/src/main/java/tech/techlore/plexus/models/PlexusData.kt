@@ -19,61 +19,19 @@
 
 package tech.techlore.plexus.models
 
-import android.os.Parcel
 import android.os.Parcelable
-import android.os.Parcelable.Creator
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.parcelize.Parcelize
 
-class PlexusData() : Parcelable {
-
+@Entity(tableName = "plexus_table")
+@Parcelize
+data class PlexusData(
     @JsonProperty("id")
-    lateinit var id: String
-
+    val id: String,
     @JsonProperty("name")
-    lateinit var name: String
-
-    @JsonProperty("package")
-    lateinit var packageName: String
-
-    /*@JsonProperty("Version")
-    lateinit var version: String
-
-    @JsonProperty("DG_Rating")
-    lateinit var dgStatus: String
-
-    @JsonProperty("MG_Rating")
-    lateinit var mgStatus: String
-
-    @JsonProperty("DG_Notes")
-    lateinit var dgNotes: String
-
-    @JsonProperty("MG_Notes")
-    lateinit var mgNotes: String*/
-
-    constructor(parcel: Parcel) : this() {
-        id = parcel.readString()!!
-        name = parcel.readString()!!
-        packageName = parcel.readString()!!
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(name)
-        parcel.writeString(packageName)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Creator<PlexusData> {
-        override fun createFromParcel(parcel: Parcel): PlexusData {
-            return PlexusData(parcel)
-        }
-
-        override fun newArray(size: Int): Array<PlexusData?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
+    var name: String,
+    @PrimaryKey @JsonProperty("package")
+    var packageName: String
+) : Parcelable

@@ -30,8 +30,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.utils.IntentUtils.Companion.appDetails
 
 class SearchInstalledFragment :
     Fragment(),
@@ -42,7 +40,7 @@ class SearchInstalledFragment :
     private val fragmentBinding get() = _binding!!
     private lateinit var searchActivity: SearchActivity
     private lateinit var installedAppItemAdapter: InstalledAppItemAdapter
-    private lateinit var searchInstalledList: ArrayList<InstalledApp>
+    //private lateinit var searchInstalledList: ArrayList<InstalledApp>
     private var delayTimer: CountDownTimer? = null
     
     override fun onCreateView(inflater: LayoutInflater,
@@ -56,8 +54,8 @@ class SearchInstalledFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         searchActivity = requireActivity() as SearchActivity
-        searchInstalledList = searchActivity.installedList
-        installedAppItemAdapter = InstalledAppItemAdapter(searchInstalledList, this, this)
+        //searchInstalledList = searchActivity.installedList
+        //installedAppItemAdapter = InstalledAppItemAdapter(searchInstalledList, this, this)
         
         /*########################################################################################*/
         
@@ -100,8 +98,8 @@ class SearchInstalledFragment :
     
     // On click
     override fun onItemClick(position: Int) {
-        val installedApp = searchInstalledList[position]
-        appDetails(searchActivity, installedApp.name, installedApp.packageName, null)
+        //val installedApp = searchInstalledList[position]
+        //appDetails(searchActivity, installedApp.name, installedApp.packageName, null)
     }
     
     // On long click

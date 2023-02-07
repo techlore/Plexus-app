@@ -21,7 +21,9 @@ package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -29,11 +31,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
+import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.models.InstalledApp
 import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
+import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataIntoDB
 import tech.techlore.plexus.utils.IntentUtils.Companion.sendListsIntent
-import tech.techlore.plexus.utils.ListUtils.Companion.populateDataList
-import tech.techlore.plexus.utils.ListUtils.Companion.scanInstalledApps
+import tech.techlore.plexus.utils.ListUtils.Companion.getInstalledAppsList
+import tech.techlore.plexus.utils.ListUtils.Companion.getPlexusDataList
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import kotlin.coroutines.CoroutineContext
@@ -42,6 +47,7 @@ import kotlin.coroutines.CoroutineContext
 class SplashActivity : AppCompatActivity(), CoroutineScope {
     
     private val job = Job()
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var plexusDataList: ArrayList<PlexusData>
     private lateinit var installedAppsList: ArrayList<InstalledApp>
     
@@ -49,16 +55,10 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         
-        plexusDataList = ArrayList()
-        installedAppsList = ArrayList()
-        
         /*########################################################################################*/
         
         retrieveData()
     }
-    
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
     
     private fun noNetworkDialog() {
         MaterialAlertDialogBuilder(this, R.style.DialogTheme)
@@ -81,11 +81,18 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
     private fun retrieveData() {
     
         launch {
-            if (hasNetwork(this@SplashActivity) && hasInternet()) {
-                plexusDataList = populateDataList()
-                scanInstalledApps(this@SplashActivity, plexusDataList, installedAppsList)
-                sendListsIntent(this@SplashActivity, MainActivity::class.java,
+            val context = this@SplashActivity
+            if (hasNetwork(context) && hasInternet()) {
+                val db = getDatabase(context)
+                plexusDataIntoDB(db.plexusDataDao())
+                installedAppsIntoDB(context, db.installedDataDao())
+                plexusDataList = getPlexusDataList(db.plexusDataDao())
+                installedAppsList = getInstalledAppsList(db.installedDataDao())
+                sendListsIntent(context, MainActivity::class.java,
                                 plexusDataList, installedAppsList)
+                // Lists are sent through intent, because if they are not,
+                // we have to get lists from db in recycler view fragment or main activity
+                // which causes slight delay for lists to show up.
                 finish()
             }
             else {

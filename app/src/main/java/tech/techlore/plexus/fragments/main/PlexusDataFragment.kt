@@ -34,13 +34,15 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter
+import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.PlexusData
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.utils.IntentUtils.Companion.appDetails
+import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataIntoDB
+import tech.techlore.plexus.utils.IntentUtils.Companion.appDetailsActivity
 import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
-import tech.techlore.plexus.utils.ListUtils.Companion.populateDataList
+import tech.techlore.plexus.utils.ListUtils.Companion.getPlexusDataList
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
@@ -53,9 +55,10 @@ class PlexusDataFragment :
     PlexusDataItemAdapter.OnItemLongCLickListener,
     CoroutineScope {
     
+    private val job = Job()
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
-    private val job = Job()
     private lateinit var mainActivity: MainActivity
     private lateinit var plexusDataList: ArrayList<PlexusData>
     
@@ -123,16 +126,10 @@ class PlexusDataFragment :
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshData() }
     }
     
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-    
     // On click
     override fun onItemClick(position: Int) {
         val plexusData = plexusDataList[position]
-        appDetails(mainActivity, plexusData.name, plexusData.packageName, null
-            /*plexusData.version,
-           plexusData.dgNotes, plexusData.mgNotes,
-           plexusData.dgStatus, plexusData.mgStatus*/)
+        appDetailsActivity(mainActivity, plexusData.packageName, "plexus")
     }
     
     // On long click
@@ -167,7 +164,9 @@ class PlexusDataFragment :
         
         launch {
             if (hasNetwork(requireContext()) && hasInternet()) {
-                mainActivity.dataList = populateDataList()
+                val db = getDatabase(requireContext())
+                plexusDataIntoDB(db.plexusDataDao())
+                mainActivity.dataList = getPlexusDataList(db.plexusDataDao())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 reloadFragment(parentFragmentManager, this@PlexusDataFragment)
             }

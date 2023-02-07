@@ -59,6 +59,7 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
         val packageName: TextView = itemView.findViewById(R.id.package_name)
         val installedVersion: TextView = itemView.findViewById(R.id.version)
         val versionMismatch: ImageView = itemView.findViewById(R.id.version_mismatch)
+        val fav: ImageView = itemView.findViewById(R.id.fav)
         
         init {
             itemView.setOnClickListener(this)
@@ -98,19 +99,21 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
         val context = holder.itemView.context
         
         try {
-            holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(installedApp.packageName))
+            holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(installedApp.packageName!!))
             // Don't use GLIDE to load icons directly to ImageView
             // as there's a delay in displaying icons when fast scrolling
         }
         catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
-        if (installedApp.installedVersion != installedApp.plexusVersion) {
+        
+        /*if (installedApp.installedVersion != installedApp.plexusVersion) {
             holder.versionMismatch.visibility = View.VISIBLE
         }
         else {
             holder.versionMismatch.visibility = View.GONE
-        }
+        }*/
+        
         holder.name.text = installedApp.name
         holder.packageName.text = installedApp.packageName
         holder.installedVersion.text = installedApp.installedVersion
@@ -119,6 +122,10 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
         hScrollText(holder.name)
         hScrollText(holder.packageName)
         hScrollText(holder.installedVersion)
+    
+        holder.fav.setOnClickListener {
+            holder.fav.isSelected = ! holder.fav.isSelected
+        }
     }
     
     override fun getItemCount(): Int {
@@ -138,8 +145,8 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
                     val searchString =
                         charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
                     for (installedApp in aListViewItemsFull) {
-                        if (installedApp.name.lowercase(Locale.getDefault()).contains(searchString)
-                            || installedApp.packageName.lowercase(Locale.getDefault())
+                        if (installedApp.name!!.lowercase(Locale.getDefault()).contains(searchString)
+                            || installedApp.packageName!!.lowercase(Locale.getDefault())
                                 .contains(searchString)) {
                             filteredList.add(installedApp)
                         }
@@ -161,6 +168,6 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
     
     // Fast scroll popup
     override fun getPopupText(position: Int): String {
-        return aListViewItems[position].name.substring(0, 1)
+        return aListViewItems[position].name!!.substring(0, 1)
     }
 }

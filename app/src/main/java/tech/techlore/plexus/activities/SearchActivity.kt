@@ -60,25 +60,25 @@ class SearchActivity : AppCompatActivity() {
             
             if (intent.extras!!.getInt("from") == R.id.nav_plexus_data) {
                 
-                dataList =
+                /*dataList =
                     if (Build.VERSION.SDK_INT >= 33) {
                         intent.getParcelableArrayListExtra("plexusDataList", PlexusData::class.java)!!
                     }
                     else {
                         intent.getParcelableArrayListExtra("plexusDataList")!!
-                    }
+                    }*/
                 
                 displayFragment("Search Data")
             }
             else {
-                
-                installedList =
+    
+                /*installedList =
                     if (Build.VERSION.SDK_INT >= 33) {
                         intent.getParcelableArrayListExtra("installedAppsList", InstalledApp::class.java)!!
                     }
                     else {
                         intent.getParcelableArrayListExtra("installedAppsList")!!
-                    }
+                    }*/
                 displayFragment("Search Installed")
             }
         }

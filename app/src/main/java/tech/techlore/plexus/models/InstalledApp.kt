@@ -19,53 +19,17 @@
 
 package tech.techlore.plexus.models
 
-import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-class InstalledApp() : Parcelable {
-    lateinit var name: String
-    lateinit var packageName: String
-    lateinit var installedVersion: String
-    lateinit var plexusVersion: String
-    lateinit var dgRating: String
-    lateinit var mgRating: String
-    lateinit var dgNotes: String
-    lateinit var mgNotes: String
-
-    constructor(parcel: Parcel) : this() {
-        name = parcel.readString()!!
-        packageName = parcel.readString()!!
-        installedVersion = parcel.readString()!!
-        plexusVersion = parcel.readString()!!
-        dgRating = parcel.readString()!!
-        mgRating = parcel.readString()!!
-        dgNotes = parcel.readString()!!
-        mgNotes = parcel.readString()!!
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
-        parcel.writeString(packageName)
-        parcel.writeString(installedVersion)
-        parcel.writeString(plexusVersion)
-        parcel.writeString(dgRating)
-        parcel.writeString(mgRating)
-        parcel.writeString(dgNotes)
-        parcel.writeString(mgNotes)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<InstalledApp> {
-        override fun createFromParcel(parcel: Parcel): InstalledApp {
-            return InstalledApp(parcel)
-        }
-
-        override fun newArray(size: Int): Array<InstalledApp?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
+@Entity(tableName = "installed_table")
+@Parcelize
+data class InstalledApp(
+    var name: String? = null,
+    @PrimaryKey var packageName: String = "tech.techlore.plexus", // Primary key can't be null
+    var installedVersion: String? = null,
+    var installedFrom: String? = null,
+    var isFav: Boolean = false
+) : Parcelable

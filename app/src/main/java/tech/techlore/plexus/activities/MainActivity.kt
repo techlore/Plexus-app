@@ -26,6 +26,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -241,10 +242,10 @@ class MainActivity : AppCompatActivity() {
     
                 // If from Plexus Data, give Plexus Data list
                 if (checkedItem == R.id.nav_plexus_data) {
-                    searchIntent.putParcelableArrayListExtra("plexusDataList", dataList)
+                    searchIntent.putExtra("plexusDataList", checkedItem)
                 }
                 else {
-                    searchIntent.putParcelableArrayListExtra("installedAppsList", installedList)
+                    searchIntent.putExtra("installedAppsList", checkedItem)
                 }
                 startActivity(searchIntent)
                 overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)

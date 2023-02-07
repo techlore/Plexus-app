@@ -75,6 +75,7 @@
         <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
         <item name="android:windowEnterAnimation">@anim/fade_scale_in</item>
         <item name="android:windowExitAnimation">@anim/fade_scale_out</item>
+        <item name="android:backgroundDimAmount">0.50</item>
     </style>
 
     <!--#########################################################################################-->
