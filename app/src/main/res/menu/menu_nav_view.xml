@@ -39,7 +39,7 @@
         <item
             android:id="@+id/nav_fav"
             android:icon="@drawable/ic_fav_outline"
-            android:title="Favorites" />
+            android:title="@string/favorites" />
 
     </group>
 

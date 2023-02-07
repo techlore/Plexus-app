@@ -58,6 +58,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
         val name: TextView = itemView.findViewById(R.id.name)
         val packageName: TextView = itemView.findViewById(R.id.package_name)
         val version: TextView = itemView.findViewById(R.id.version)
+        val fav: ImageView = itemView.findViewById(R.id.fav)
         
         init {
             itemView.setOnClickListener(this)
@@ -103,12 +104,17 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
         
         holder.name.text = plexusData.name
         holder.packageName.text = plexusData.packageName
-        //holder.version.setText(plexusData.version);
+        //holder.version.text = plexusData.version
         
         /// Horizontally scrolling text
-        hScrollText(holder.name);
-        hScrollText(holder.packageName);
-        hScrollText(holder.version);
+        hScrollText(holder.name)
+        hScrollText(holder.packageName)
+        hScrollText(holder.version)
+        
+        holder.fav.setOnClickListener {
+            holder.fav.isSelected = ! holder.fav.isSelected
+        }
+        
     }
     
     override fun getItemCount(): Int {

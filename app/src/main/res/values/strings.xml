@@ -39,6 +39,7 @@
     <!--Nav view-->
     <string name="plexus_data">Plexus Data</string>
     <string name="installed_apps">Installed Apps</string>
+    <string name="favorites">Favorites</string>
     <string name="report_issue">Report an issue</string>
     <string name="contribute">Contribute</string>
     <string name="about">About</string>
