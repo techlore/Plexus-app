@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toStartOf="@id/fav"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_4"
         android:ellipsize="marquee"
         android:text="@string/app_name"
@@ -71,7 +71,7 @@
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintEnd_toStartOf="@id/fav"
         android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_2.5"
         android:ellipsize="marquee"
         android:text="@string/package_name"
@@ -106,16 +106,16 @@
         tools:ignore="ContentDescription"
         android:visibility="gone"/>
 
-    <ImageView
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/fav"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/margin_8"
         android:layout_marginTop="@dimen/margin_2.5"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:src="@drawable/ic_fav"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:button="@drawable/ic_fav"
+        app:buttonTint="@color/fav_icon_color"
         android:contentDescription="@string/favorites"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

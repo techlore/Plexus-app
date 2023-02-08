@@ -53,6 +53,7 @@ class InstalledAppsFragment :
     CoroutineScope {
     
     private val job = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -75,7 +76,10 @@ class InstalledAppsFragment :
         var installedAppsTempList: ArrayList<InstalledApp> = ArrayList()
         installedAppsFinalList = ArrayList()
         val playStoreInstallers: List<String?> = ArrayList(listOf("com.android.vending", "com.aurora.store"))
-        val installedAppItemAdapter = InstalledAppItemAdapter(installedAppsFinalList, this , this)
+        val installedAppItemAdapter = InstalledAppItemAdapter(installedAppsFinalList,
+                                                              this ,
+                                                              this,
+                                                              coroutineScope)
         
         /*########################################################################################*/
         

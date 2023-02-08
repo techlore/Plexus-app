@@ -29,16 +29,21 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.checkbox.MaterialCheckBox
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.InstalledApp
+import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import java.util.Locale
 import kotlin.collections.ArrayList
 
 class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp>,
                               private val clickListener: OnItemClickListener,
-                              private val longClickListener: OnItemLongCLickListener) :
+                              private val longClickListener: OnItemLongCLickListener,
+                              private val coroutineScope: CoroutineScope) :
     RecyclerView.Adapter<InstalledAppItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
     private val aListViewItemsFull: List<InstalledApp>
@@ -59,7 +64,7 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
         val packageName: TextView = itemView.findViewById(R.id.package_name)
         val installedVersion: TextView = itemView.findViewById(R.id.version)
         val versionMismatch: ImageView = itemView.findViewById(R.id.version_mismatch)
-        val fav: ImageView = itemView.findViewById(R.id.fav)
+        val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
             itemView.setOnClickListener(this)
@@ -99,7 +104,7 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
         val context = holder.itemView.context
         
         try {
-            holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(installedApp.packageName!!))
+            holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(installedApp.packageName))
             // Don't use GLIDE to load icons directly to ImageView
             // as there's a delay in displaying icons when fast scrolling
         }
@@ -117,15 +122,28 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
         holder.name.text = installedApp.name
         holder.packageName.text = installedApp.packageName
         holder.installedVersion.text = installedApp.installedVersion
+        holder.fav.isChecked = installedApp.isFav
         
         // Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
         hScrollText(holder.installedVersion)
-    
-        holder.fav.setOnClickListener {
-            holder.fav.isSelected = ! holder.fav.isSelected
+        
+        holder.fav.setOnCheckedChangeListener{ _, isChecked ->
+            installedApp.isFav = isChecked
+            coroutineScope.launch {
+                getDatabase(context).installedDataDao().update(installedApp)
+            }
         }
+        
+        /*holder.fav.setOnClickListener {
+            holder.fav.isSelected = ! holder.fav.isSelected
+            installedApp.isFav = holder.fav.isSelected
+            coroutineScope.launch {
+                getDatabase(context).installedDataDao().update(installedApp)
+            }
+            
+        }*/
     }
     
     override fun getItemCount(): Int {
@@ -146,7 +164,7 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
                         charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
                     for (installedApp in aListViewItemsFull) {
                         if (installedApp.name!!.lowercase(Locale.getDefault()).contains(searchString)
-                            || installedApp.packageName!!.lowercase(Locale.getDefault())
+                            || installedApp.packageName.lowercase(Locale.getDefault())
                                 .contains(searchString)) {
                             filteredList.add(installedApp)
                         }

@@ -56,6 +56,7 @@ class PlexusDataFragment :
     CoroutineScope {
     
     private val job = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -76,7 +77,10 @@ class PlexusDataFragment :
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
         plexusDataList = ArrayList()
-        val plexusDataItemAdapter = PlexusDataItemAdapter(plexusDataList, this, this)
+        val plexusDataItemAdapter = PlexusDataItemAdapter(plexusDataList,
+                                                          this,
+                                                          this,
+                                                          coroutineScope)
         
         /*########################################################################################*/
         

@@ -29,16 +29,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.checkbox.MaterialCheckBox
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.utils.DbUtils
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import java.util.Locale
 import kotlin.collections.ArrayList
 
 class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
                             private val clickListener: OnItemClickListener,
-                            private val longClickListener: OnItemLongCLickListener) :
+                            private val longClickListener: OnItemLongCLickListener,
+                            private val coroutineScope: CoroutineScope) :
     RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
     private val aListViewItemsFull: List<PlexusData>
@@ -58,7 +63,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
         val name: TextView = itemView.findViewById(R.id.name)
         val packageName: TextView = itemView.findViewById(R.id.package_name)
         val version: TextView = itemView.findViewById(R.id.version)
-        val fav: ImageView = itemView.findViewById(R.id.fav)
+        val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
             itemView.setOnClickListener(this)
@@ -105,14 +110,18 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
         holder.name.text = plexusData.name
         holder.packageName.text = plexusData.packageName
         //holder.version.text = plexusData.version
+        holder.fav.isChecked = plexusData.isFav
         
         /// Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
         hScrollText(holder.version)
-        
-        holder.fav.setOnClickListener {
-            holder.fav.isSelected = ! holder.fav.isSelected
+    
+        holder.fav.setOnCheckedChangeListener{ _, isChecked ->
+            plexusData.isFav = isChecked
+            coroutineScope.launch {
+                DbUtils.getDatabase(context).plexusDataDao().update(plexusData)
+            }
         }
         
     }
