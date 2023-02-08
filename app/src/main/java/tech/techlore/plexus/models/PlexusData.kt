@@ -23,15 +23,24 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import kotlinx.parcelize.Parcelize
+import tech.techlore.plexus.deserializer.PlexusDataDeserializer
 
 @Entity(tableName = "plexus_table")
 @Parcelize
+@JsonDeserialize(using = PlexusDataDeserializer::class)
 data class PlexusData(
     @JsonProperty("id")
-    val id: String,
+    var id: String,
     @JsonProperty("name")
     var name: String,
     @PrimaryKey @JsonProperty("package")
-    var packageName: String
-) : Parcelable
+    var packageName: String,
+    @Transient // Ignore serialization & deserialization of this field by Jackson
+    var isFav: Boolean
+) : Parcelable {
+    constructor() : this("", "", "", false)
+    // Secondary constructor with an empty argument list that initializes the fields with default values.
+    // This satisfies the requirement that entities and POJOs must have a usable public constructor.
+}

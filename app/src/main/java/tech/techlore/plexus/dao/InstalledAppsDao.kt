@@ -58,9 +58,6 @@ interface InstalledAppsDao {
         }
     }
     
-    @Query("DELETE FROM installed_table")
-    suspend fun deleteAll()
-    
     @Delete
     suspend fun delete(installedApp: InstalledApp)
     

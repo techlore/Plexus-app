@@ -47,7 +47,7 @@ class IntentUtils {
         }
     
         // App details activity
-        fun appDetailsActivity(activityFrom: Activity, packageName: String, fromFragment: String) {
+        fun startDetailsActivity(activityFrom: Activity, packageName: String, fromFragment: String) {
     
             activityFrom.startActivity(Intent(activityFrom, AppDetailsActivity::class.java)
                                            .putExtra("packageName", packageName)

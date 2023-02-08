@@ -36,10 +36,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.database.MainDatabase
-import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.models.InstalledApp
 import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.IntentUtils.Companion.share
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import kotlin.coroutines.CoroutineContext

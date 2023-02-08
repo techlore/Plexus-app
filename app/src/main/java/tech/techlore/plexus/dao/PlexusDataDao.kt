@@ -57,9 +57,6 @@ interface PlexusDataDao {
         }
     }
     
-    @Query("DELETE FROM plexus_table")
-    suspend fun deleteAll()
-    
     @Delete
     suspend fun delete(plexusData: PlexusData)
 }

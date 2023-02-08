@@ -21,9 +21,7 @@ package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -31,14 +29,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
-import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.models.InstalledApp
 import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
+import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsListFromDB
 import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataIntoDB
+import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataListFromDB
 import tech.techlore.plexus.utils.IntentUtils.Companion.sendListsIntent
-import tech.techlore.plexus.utils.ListUtils.Companion.getInstalledAppsList
-import tech.techlore.plexus.utils.ListUtils.Companion.getPlexusDataList
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import kotlin.coroutines.CoroutineContext
@@ -86,8 +84,8 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
                 val db = getDatabase(context)
                 plexusDataIntoDB(db.plexusDataDao())
                 installedAppsIntoDB(context, db.installedDataDao())
-                plexusDataList = getPlexusDataList(db.plexusDataDao())
-                installedAppsList = getInstalledAppsList(db.installedDataDao())
+                plexusDataList = plexusDataListFromDB(db.plexusDataDao())
+                installedAppsList = installedAppsListFromDB(db.installedDataDao())
                 sendListsIntent(context, MainActivity::class.java,
                                 plexusDataList, installedAppsList)
                 // Lists are sent through intent, because if they are not,

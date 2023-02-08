@@ -19,9 +19,7 @@
 
 package tech.techlore.plexus.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import tech.techlore.plexus.dao.InstalledAppsDao
 import tech.techlore.plexus.dao.PlexusDataDao
@@ -34,22 +32,4 @@ abstract class MainDatabase : RoomDatabase() {
     abstract fun plexusDataDao(): PlexusDataDao
     abstract fun installedDataDao(): InstalledAppsDao
     
-    companion object {
-        
-        @Volatile
-        private var INSTANCE: MainDatabase? = null
-        
-        fun getDatabase(context: Context): MainDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(context.applicationContext,
-                                                    MainDatabase::class.java,
-                                                    "main_database")
-                                    .build()
-                
-                INSTANCE = instance
-                instance
-            }
-        }
-        
-    }
 }

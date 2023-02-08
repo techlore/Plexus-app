@@ -34,15 +34,15 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter
-import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.PlexusData
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataIntoDB
-import tech.techlore.plexus.utils.IntentUtils.Companion.appDetailsActivity
+import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataListFromDB
+import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
-import tech.techlore.plexus.utils.ListUtils.Companion.getPlexusDataList
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
@@ -129,7 +129,7 @@ class PlexusDataFragment :
     // On click
     override fun onItemClick(position: Int) {
         val plexusData = plexusDataList[position]
-        appDetailsActivity(mainActivity, plexusData.packageName, "plexus")
+        startDetailsActivity(mainActivity, plexusData.packageName, "plexus")
     }
     
     // On long click
@@ -166,9 +166,9 @@ class PlexusDataFragment :
             if (hasNetwork(requireContext()) && hasInternet()) {
                 val db = getDatabase(requireContext())
                 plexusDataIntoDB(db.plexusDataDao())
-                mainActivity.dataList = getPlexusDataList(db.plexusDataDao())
-                fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                mainActivity.dataList = plexusDataListFromDB(db.plexusDataDao())
                 reloadFragment(parentFragmentManager, this@PlexusDataFragment)
+                fragmentBinding.swipeRefreshLayout.isRefreshing = false
             }
             else {
                 noNetworkDialog()

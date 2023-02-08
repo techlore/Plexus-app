@@ -24,8 +24,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import tech.techlore.plexus.dao.InstalledAppsDao
-import tech.techlore.plexus.dao.PlexusDataDao
+import tech.techlore.plexus.R
 import tech.techlore.plexus.models.InstalledApp
 import tech.techlore.plexus.models.PlexusData
 
@@ -66,15 +65,28 @@ class ListUtils {
             }
         }
     
-        suspend fun getPlexusDataList(plexusDataDao: PlexusDataDao): ArrayList<PlexusData> {
-            return withContext(Dispatchers.IO) {
-                plexusDataDao.getAll() as ArrayList<PlexusData>
+        // Plexus data status sort
+        fun plexusDataStatusSort(preferenceKey: Int, plexusData: PlexusData,
+                                 status: String, plexusDataList: ArrayList<PlexusData>) {
+        
+            when (preferenceKey) {
+                0, R.id.sort_not_tested -> if (status == "X") plexusDataList.add(plexusData)
+                R.id.sort_unusable -> if (status == "1") plexusDataList.add(plexusData)
+                R.id.sort_acceptable -> if (status == "2") plexusDataList.add(plexusData)
+                R.id.sort_good -> if (status == "3") plexusDataList.add(plexusData)
+                R.id.sort_perfect -> if (status == "4") plexusDataList.add(plexusData)
             }
         }
     
-        suspend fun getInstalledAppsList(installedAppsDao: InstalledAppsDao): ArrayList<InstalledApp> {
-            return withContext(Dispatchers.IO) {
-                installedAppsDao.getAll() as ArrayList<InstalledApp>
+        // Installed apps status sort
+        fun installedAppsStatusSort(preferenceKey: Int, installedApp: InstalledApp,
+                                    status: String, installedAppsList: ArrayList<InstalledApp>) {
+            when (preferenceKey) {
+                0, R.id.sort_not_tested -> if (status == "X") installedAppsList.add(installedApp)
+                R.id.sort_unusable -> if (status == "1") installedAppsList.add(installedApp)
+                R.id.sort_acceptable -> if (status == "2") installedAppsList.add(installedApp)
+                R.id.sort_good -> if (status == "3") installedAppsList.add(installedApp)
+                R.id.sort_perfect -> if (status == "4") installedAppsList.add(installedApp)
             }
         }
         

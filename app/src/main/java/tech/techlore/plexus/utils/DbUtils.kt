@@ -20,19 +20,39 @@
 package tech.techlore.plexus.utils
 
 import android.content.Context
+import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import tech.techlore.plexus.dao.InstalledAppsDao
 import tech.techlore.plexus.dao.PlexusDataDao
+import tech.techlore.plexus.database.MainDatabase
+import tech.techlore.plexus.models.InstalledApp
+import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.utils.ApiUtils.Companion.createService
+import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
 class DbUtils {
     
     companion object {
+    
+        @Volatile
+        private var INSTANCE: MainDatabase? = null
+    
+        fun getDatabase(context: Context): MainDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(context.applicationContext,
+                                                    MainDatabase::class.java,
+                                                    "main_database").build()
+            
+                INSTANCE = instance
+                instance
+            }
+        }
         
         suspend fun plexusDataIntoDB(plexusDataDao: PlexusDataDao) {
             return withContext(Dispatchers.IO) {
-                val call = ApiUtils.createService().getApplications()
+                val call = createService().getApplications()
                 val response = call.awaitResponse()
                 
                 if (response.isSuccessful) {
@@ -47,9 +67,39 @@ class DbUtils {
         
         suspend fun installedAppsIntoDB(context: Context, installedAppsDao: InstalledAppsDao) {
             return withContext(Dispatchers.IO) {
-                for (app in ListUtils.scannedInstalledAppsList(context)) {
-                    installedAppsDao.insertOrUpdate(app)
+    
+                val installedApps = scannedInstalledAppsList(context)
+                val databaseApps = installedAppsListFromDB(installedAppsDao)
+    
+                // Find uninstalled apps
+                val uninstalledApps = databaseApps.filterNot { databaseApp ->
+                    installedApps.any { installedApp ->
+                        installedApp.packageName == databaseApp.packageName
+                    }
                 }
+    
+                // Delete uninstalled apps from db
+                uninstalledApps.forEach {
+                    installedAppsDao.delete(it)
+                }
+    
+                // Insert/update new data
+                installedApps.forEach {
+                    installedAppsDao.insertOrUpdate(it)
+                }
+                
+            }
+        }
+    
+        suspend fun plexusDataListFromDB(plexusDataDao: PlexusDataDao): ArrayList<PlexusData> {
+            return withContext(Dispatchers.IO) {
+                plexusDataDao.getAll() as ArrayList<PlexusData>
+            }
+        }
+    
+        suspend fun installedAppsListFromDB(installedAppsDao: InstalledAppsDao): ArrayList<InstalledApp> {
+            return withContext(Dispatchers.IO) {
+                installedAppsDao.getAll() as ArrayList<InstalledApp>
             }
         }
         

@@ -28,19 +28,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter
-import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.InstalledApp
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
-import tech.techlore.plexus.utils.IntentUtils.Companion.appDetailsActivity
+import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsListFromDB
+import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
-import tech.techlore.plexus.utils.ListUtils.Companion.getInstalledAppsList
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
@@ -147,9 +148,9 @@ class InstalledAppsFragment :
                 val db = getDatabase(requireContext())
                 mainActivity.installedList.clear()
                 installedAppsIntoDB(requireContext(), db.installedDataDao())
-                mainActivity.installedList = getInstalledAppsList(db.installedDataDao())
-                fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                mainActivity.installedList = installedAppsListFromDB(db.installedDataDao())
                 reloadFragment(parentFragmentManager, this@InstalledAppsFragment)
+                fragmentBinding.swipeRefreshLayout.isRefreshing = false
             }
         }
     }
@@ -157,7 +158,7 @@ class InstalledAppsFragment :
     // On click
     override fun onItemClick(position: Int) {
         val installedApp = installedAppsFinalList[position]
-        appDetailsActivity(mainActivity, installedApp.packageName, "installed")
+        startDetailsActivity(mainActivity, installedApp.packageName, "installed")
     }
     
     // On long click
