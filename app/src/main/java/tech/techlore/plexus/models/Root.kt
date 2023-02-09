@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 class Root {
     
-    lateinit var data: ArrayList<PlexusData>
+    lateinit var data: ArrayList<MainData>
 
     @JsonProperty("page_number")
     var pageNumber = 0

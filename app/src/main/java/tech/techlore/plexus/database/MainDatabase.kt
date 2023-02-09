@@ -21,15 +21,12 @@ package tech.techlore.plexus.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import tech.techlore.plexus.dao.InstalledAppsDao
-import tech.techlore.plexus.dao.PlexusDataDao
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.dao.MainDataDao
+import tech.techlore.plexus.models.MainData
 
-@Database(entities = [PlexusData::class, InstalledApp::class], version = 1)
+@Database(entities = [MainData::class], version = 1)
 abstract class MainDatabase : RoomDatabase() {
     
-    abstract fun plexusDataDao(): PlexusDataDao
-    abstract fun installedDataDao(): InstalledAppsDao
+    abstract fun mainDataDao(): MainDataDao
     
 }

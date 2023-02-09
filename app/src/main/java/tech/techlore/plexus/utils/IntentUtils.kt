@@ -25,24 +25,24 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.fragments.main.InstalledAppsFragment
+import tech.techlore.plexus.fragments.main.PlexusDataFragment
+import tech.techlore.plexus.models.MainData
 
 class IntentUtils {
     
     companion object {
         // Send array list with intent
         fun sendListsIntent(activityFrom: Activity, activityTo: Class<*>,
-                            plexusDataList: ArrayList<PlexusData>, installedAppsList: ArrayList<InstalledApp>) {
+                            mainDataList: ArrayList<MainData>, installedAppsList: ArrayList<MainData>) {
             
             activityFrom.startActivity(Intent(activityFrom, activityTo)
-                                           .putParcelableArrayListExtra("plexusDataList", plexusDataList)
+                                           .putParcelableArrayListExtra("plexusDataList", mainDataList)
                                            .putParcelableArrayListExtra("installedAppsList", installedAppsList))
         }
     
@@ -53,13 +53,22 @@ class IntentUtils {
                                            .putExtra("packageName", packageName)
                                            .putExtra("fromFrag", fromFragment))
             
-            activityFrom.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement)
+            //activityFrom.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement)
         }
+        
+        fun refreshFragment(fragmentManager: FragmentManager) {
+            val currentFragment = fragmentManager.findFragmentById(R.id.activity_host_fragment)!!
+            var refreshFragment = currentFragment
     
-        // Refresh fragment
-        fun reloadFragment(fragmentManager: FragmentManager, fragment: Fragment) {
-            fragmentManager.beginTransaction().detach(fragment).commitNow()
-            fragmentManager.beginTransaction().attach(fragment).commitNow()
+            when (currentFragment) {
+                is PlexusDataFragment -> refreshFragment = PlexusDataFragment()
+                is InstalledAppsFragment -> refreshFragment = InstalledAppsFragment()
+                //else -> refreshFragment = FavoritesFragment()
+            }
+    
+            fragmentManager.beginTransaction()
+                .replace(R.id.activity_host_fragment, refreshFragment)
+                .commitNow()
         }
     
         // Open links

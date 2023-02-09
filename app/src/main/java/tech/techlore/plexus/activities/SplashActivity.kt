@@ -29,8 +29,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
 import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsListFromDB
@@ -46,8 +45,8 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
     
     private val job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
-    private lateinit var plexusDataList: ArrayList<PlexusData>
-    private lateinit var installedAppsList: ArrayList<InstalledApp>
+    private lateinit var mainDataList: ArrayList<MainData>
+    private lateinit var installedAppsList: ArrayList<MainData>
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,12 +81,12 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
             val context = this@SplashActivity
             if (hasNetwork(context) && hasInternet()) {
                 val db = getDatabase(context)
-                plexusDataIntoDB(db.plexusDataDao())
-                installedAppsIntoDB(context, db.installedDataDao())
-                plexusDataList = plexusDataListFromDB(db.plexusDataDao())
-                installedAppsList = installedAppsListFromDB(db.installedDataDao())
+                plexusDataIntoDB(db.mainDataDao())
+                installedAppsIntoDB(context, db.mainDataDao())
+                mainDataList = plexusDataListFromDB(db.mainDataDao())
+                installedAppsList = installedAppsListFromDB(db.mainDataDao())
                 sendListsIntent(context, MainActivity::class.java,
-                                plexusDataList, installedAppsList)
+                                mainDataList, installedAppsList)
                 // Lists are sent through intent, because if they are not,
                 // we have to get lists from db in recycler view fragment or main activity
                 // which causes slight delay for lists to show up.

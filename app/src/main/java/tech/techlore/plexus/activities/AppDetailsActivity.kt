@@ -33,12 +33,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.database.MainDatabase
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.IntentUtils.Companion.share
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
@@ -49,7 +49,7 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var activityBinding: ActivityAppDetailsBinding
-    private var nameString: String? = null
+    private lateinit var nameString: String
     private lateinit var packageNameString: String
     /*private lateinit val plexusVersionString: String
     private lateinit val dgStatusString: String
@@ -64,8 +64,8 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
         setContentView(activityBinding.root)
 
         val db = getDatabase(this)
-        var installedApp: InstalledApp? = null
-        var plexusData: PlexusData? = null
+        var installedApp: MainData
+        var mainData: MainData
         packageNameString = intent.getStringExtra("packageName")!!
     
         //plexusVersionString = intent.getStringExtra("plexusVersion");
@@ -86,10 +86,11 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
 
         if (intent.getStringExtra("fromFrag").equals("plexus")) {
     
-            launch(Dispatchers.IO) {
-                plexusData = getPlexusDataByPackage(db, packageNameString)
-            }.invokeOnCompletion {
-                nameString = plexusData?.name!!
+            runBlocking {
+                launch {
+                    mainData = getPlexusDataByPackage(db, packageNameString)
+                    nameString = mainData.name
+                }
             }
     
             requestBuilder = requestManager
@@ -103,11 +104,14 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
             //activityBinding.detailsVersion.setText(plexusVersionString);
         }
         else {
-            launch(Dispatchers.IO) {
-                installedApp = getInstalledAppByPackage(db, packageNameString)
-            }.invokeOnCompletion {
-                nameString = installedApp?.name!!
+            
+            runBlocking {
+                launch {
+                    installedApp = getInstalledAppByPackage(db, packageNameString)
+                    nameString = installedApp.name
+                }
             }
+            
             activityBinding.detailsVersion.visibility = View.GONE
             activityBinding.plexusText.visibility = View.VISIBLE
             activityBinding.detailsPlexusVersion.visibility = View.VISIBLE
@@ -158,7 +162,7 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
                                             activityBinding.appDetailsCoordinatorLayout,
                                             activityBinding.bottomAppBar)
 
-            R.id.menu_share -> share(this, nameString!!, packageNameString,
+            R.id.menu_share -> share(this, nameString, packageNameString,
                                     /*plexusVersionString,
                                         dgStatusString, mgStatusString,
                                         dgNotesString, mgNotesString,*/
@@ -172,15 +176,15 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
         return true
     }
     
-    private suspend fun getPlexusDataByPackage(database: MainDatabase, packageName: String): PlexusData {
+    private suspend fun getPlexusDataByPackage(database: MainDatabase, packageName: String): MainData {
         return withContext(Dispatchers.IO) {
-            database.plexusDataDao().getPlexusDataByPackage(packageName)!!
+            database.mainDataDao().getNotInstalledAppByPackage(packageName)!!
         }
     }
     
-    private suspend fun getInstalledAppByPackage(database: MainDatabase, packageName: String): InstalledApp {
+    private suspend fun getInstalledAppByPackage(database: MainDatabase, packageName: String): MainData {
         return withContext(Dispatchers.IO) {
-            database.installedDataDao().getInstalledAppByPackage(packageName)!!
+            database.mainDataDao().getInstalledAppByPackage(packageName)!!
         }
     }
 
@@ -188,6 +192,6 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
     override fun finish() {
         super.finish()
         job.cancel()
-        overridePendingTransition(0, R.anim.fade_scale_out)
+        //overridePendingTransition(android.R.anim.fade_out,android.R.anim.decelerate_interpolator)
     }
 }

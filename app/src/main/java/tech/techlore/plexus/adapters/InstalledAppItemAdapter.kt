@@ -34,19 +34,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.InstalledApp
+import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import java.util.Locale
 import kotlin.collections.ArrayList
 
-class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp>,
+class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainData>,
                               private val clickListener: OnItemClickListener,
                               private val longClickListener: OnItemLongCLickListener,
                               private val coroutineScope: CoroutineScope) :
     RecyclerView.Adapter<InstalledAppItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
-    private val aListViewItemsFull: List<InstalledApp>
+    private val aListViewItemsFull: List<MainData>
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -132,18 +132,10 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
             installedApp.isFav = isChecked
             coroutineScope.launch {
-                getDatabase(context).installedDataDao().update(installedApp)
+                getDatabase(context).mainDataDao().update(installedApp)
             }
         }
         
-        /*holder.fav.setOnClickListener {
-            holder.fav.isSelected = ! holder.fav.isSelected
-            installedApp.isFav = holder.fav.isSelected
-            coroutineScope.launch {
-                getDatabase(context).installedDataDao().update(installedApp)
-            }
-            
-        }*/
     }
     
     override fun getItemCount(): Int {
@@ -158,12 +150,12 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val filteredList: MutableList<InstalledApp> = ArrayList()
+                val filteredList: MutableList<MainData> = ArrayList()
                 if (charSequence.isNotEmpty()) {
                     val searchString =
                         charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
                     for (installedApp in aListViewItemsFull) {
-                        if (installedApp.name!!.lowercase(Locale.getDefault()).contains(searchString)
+                        if (installedApp.name.lowercase(Locale.getDefault()).contains(searchString)
                             || installedApp.packageName.lowercase(Locale.getDefault())
                                 .contains(searchString)) {
                             filteredList.add(installedApp)
@@ -178,7 +170,7 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
             @SuppressLint("NotifyDataSetChanged")
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 aListViewItems.clear()
-                aListViewItems.addAll((filterResults.values as ArrayList<InstalledApp>))
+                aListViewItems.addAll((filterResults.values as ArrayList<MainData>))
                 notifyDataSetChanged()
             }
         }
@@ -186,6 +178,6 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<InstalledApp
     
     // Fast scroll popup
     override fun getPopupText(position: Int): String {
-        return aListViewItems[position].name!!.substring(0, 1)
+        return aListViewItems[position].name.substring(0, 1)
     }
 }

@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.activities
 
-import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -29,13 +28,12 @@ import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.databinding.SearchViewBinding
 import tech.techlore.plexus.fragments.search.SearchDataFragment
 import tech.techlore.plexus.fragments.search.SearchInstalledFragment
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 
 class SearchActivity : AppCompatActivity() {
     
-    lateinit var dataList: ArrayList<PlexusData>
-    lateinit var installedList: ArrayList<InstalledApp>
+    lateinit var dataList: ArrayList<MainData>
+    lateinit var installedList: ArrayList<MainData>
     lateinit var searchViewBinding: SearchViewBinding
     
     public override fun onCreate(savedInstanceState: Bundle?) {

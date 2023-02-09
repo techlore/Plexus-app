@@ -26,7 +26,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -44,11 +43,10 @@ import tech.techlore.plexus.databinding.BottomSheetSortBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
 import tech.techlore.plexus.fragments.main.InstalledAppsFragment
 import tech.techlore.plexus.fragments.main.PlexusDataFragment
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
+import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
 
 class MainActivity : AppCompatActivity() {
     
@@ -59,8 +57,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragment: Fragment
     private lateinit var toolbarTitle: String
     private lateinit var preferenceManager: PreferenceManager
-    lateinit var dataList: ArrayList<PlexusData>
-    lateinit var installedList: ArrayList<InstalledApp>
+    lateinit var dataList: ArrayList<MainData>
+    lateinit var installedList: ArrayList<MainData>
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,8 +76,8 @@ class MainActivity : AppCompatActivity() {
         
         // Get lists from previous activity
         if (Build.VERSION.SDK_INT >= 33) {
-            dataList = intent.getParcelableArrayListExtra("plexusDataList", PlexusData::class.java)!!
-            installedList = intent.getParcelableArrayListExtra("installedAppsList", InstalledApp::class.java)!!
+            dataList = intent.getParcelableArrayListExtra("plexusDataList", MainData::class.java)!!
+            installedList = intent.getParcelableArrayListExtra("installedAppsList", MainData::class.java)!!
         }
         else {
             dataList = intent.getParcelableArrayListExtra("plexusDataList")!!
@@ -131,7 +129,8 @@ class MainActivity : AppCompatActivity() {
                     
                     when (clickedItem) {
     
-                        R.id.nav_plexus_data, R.id.nav_installed_apps -> displayFragment(fragment, checkedItem)
+                        R.id.nav_plexus_data,
+                        R.id.nav_installed_apps -> displayFragment(fragment, checkedItem)
                         
                         R.id.nav_report_issue -> openURL(this@MainActivity,
                                                          "https://github.com/techlore/Plexus-app/issues",
@@ -190,7 +189,7 @@ class MainActivity : AppCompatActivity() {
     }
     
     // Setup fragments
-    private fun displayFragment(fragment: Fragment, checkedItem: Int) {
+    fun displayFragment(fragment: Fragment, checkedItem: Int) {
         supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .replace(R.id.activity_host_fragment, fragment)
@@ -253,9 +252,11 @@ class MainActivity : AppCompatActivity() {
     
             R.id.menu_sort -> sortBottomSheet()
     
-            R.id.menu_all_apps, R.id.menu_play_apps, R.id.menu_non_play_apps -> {
+            R.id.menu_all_apps,
+            R.id.menu_play_apps,
+            R.id.menu_non_play_apps -> {
                 preferenceManager.setInt(PreferenceManager.FILTER_PREF, item.itemId)
-                reloadFragment(supportFragmentManager, fragment)
+                refreshFragment(supportFragmentManager)
             }
             
         }
@@ -335,8 +336,9 @@ class MainActivity : AppCompatActivity() {
                 preferenceManager.setInt(PreferenceManager.MG_STATUS_SORT_PREF,
                                             bottomSheetBinding.statusChipGroup.checkedChipId)
             }
+    
             bottomSheetDialog.dismiss()
-            reloadFragment(supportFragmentManager, fragment)
+            refreshFragment(supportFragmentManager)
         }
         
         // Cancel

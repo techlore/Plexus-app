@@ -23,19 +23,26 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 
 // This custom class modifies json deserialization by Jackson
-// because isFav field is not present in the json data
-class PlexusDataDeserializer : JsonDeserializer<PlexusData>() {
+// because some fields (ex: installedVersion, isFav etc) are not present in the json data
+class PlexusDataDeserializer : JsonDeserializer<MainData>() {
     
-    override fun deserialize(p: JsonParser?, ctxt: DeserializationContext?): PlexusData {
-        val jsonNode = p?.codec?.readTree<JsonNode>(p)
+    override fun deserialize(parser: JsonParser?, ctxt: DeserializationContext?): MainData {
+        
+        val jsonNode = parser!!.codec.readTree<JsonNode>(parser)!!
+        val id = jsonNode.get("id").asText()
+        val name = jsonNode.get("name").asText()
+        val packageName = jsonNode.get("package").asText()
     
-        val id = jsonNode?.get("id")?.asText()
-        val name = jsonNode?.get("name")?.asText()
-        val packageName = jsonNode?.get("package")?.asText()
-    
-        return PlexusData(id!!, name!!, packageName!!, false)
+        return MainData(id = id,
+                        name = name,
+                        packageName = packageName,
+                        installedVersion = "",
+                        installedFrom = "",
+                        isInPlexusData = true,
+                        isInstalled = false,
+                        isFav = false)
     }
 }

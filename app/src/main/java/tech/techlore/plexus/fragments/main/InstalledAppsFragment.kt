@@ -28,20 +28,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
-import tech.techlore.plexus.models.InstalledApp
+import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
 import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsListFromDB
+import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
@@ -58,7 +57,7 @@ class InstalledAppsFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var installedAppsFinalList: ArrayList<InstalledApp>
+    private lateinit var installedAppsFinalList: ArrayList<MainData>
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -73,7 +72,7 @@ class InstalledAppsFragment :
         
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        var installedAppsTempList: ArrayList<InstalledApp> = ArrayList()
+        var installedAppsTempList: ArrayList<MainData> = ArrayList()
         installedAppsFinalList = ArrayList()
         val playStoreInstallers: List<String?> = ArrayList(listOf("com.android.vending", "com.aurora.store"))
         val installedAppItemAdapter = InstalledAppItemAdapter(installedAppsFinalList,
@@ -128,12 +127,12 @@ class InstalledAppsFragment :
         // Alphabetical sort
         if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
             || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
-            installedAppsFinalList.sortWith { ai1: InstalledApp, ai2: InstalledApp ->
-                ai1.name!!.compareTo(ai2.name!!) } // A-Z
+            installedAppsFinalList.sortWith { ai1: MainData, ai2: MainData ->
+                ai1.name.compareTo(ai2.name) } // A-Z
         }
         else {
-            installedAppsFinalList.sortWith { ai1: InstalledApp, ai2: InstalledApp ->
-                ai2.name!!.compareTo(ai1.name!!) } // Z-A
+            installedAppsFinalList.sortWith { ai1: MainData, ai2: MainData ->
+                ai2.name.compareTo(ai1.name) } // Z-A
         }
         
         if (installedAppsFinalList.size == 0) {
@@ -150,11 +149,12 @@ class InstalledAppsFragment :
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener {
             launch {
                 val db = getDatabase(requireContext())
+                val plexusDataDao = db.mainDataDao()
                 mainActivity.installedList.clear()
-                installedAppsIntoDB(requireContext(), db.installedDataDao())
-                mainActivity.installedList = installedAppsListFromDB(db.installedDataDao())
-                reloadFragment(parentFragmentManager, this@InstalledAppsFragment)
+                installedAppsIntoDB(requireContext(), plexusDataDao)
+                mainActivity.installedList = installedAppsListFromDB(plexusDataDao)
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                refreshFragment(parentFragmentManager)
             }
         }
     }
@@ -169,7 +169,7 @@ class InstalledAppsFragment :
     override fun onItemLongCLick(position: Int) {
         val installedApp = installedAppsFinalList[position]
         longClickBottomSheet(mainActivity,
-                             installedApp.name!!, installedApp.packageName,  /*installedApp.getPlexusVersion(),
+                             installedApp.name, installedApp.packageName,  /*installedApp.getPlexusVersion(),
                                  installedApp.getDgRating(), installedApp.getMgRating(),
                                  installedApp.getDgNotes(), installedApp.getMgNotes(),*/
                              mainActivity.activityBinding.mainCoordinatorLayout,

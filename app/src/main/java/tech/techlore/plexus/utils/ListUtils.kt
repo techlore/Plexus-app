@@ -25,21 +25,20 @@ import android.content.pm.PackageManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 
 class ListUtils {
     
     companion object {
         
-        suspend fun scannedInstalledAppsList(context: Context): List<InstalledApp> {
+        suspend fun scannedInstalledAppsList(context: Context): List<MainData> {
             return withContext(Dispatchers.IO) {
                 val packageManager = context.packageManager
-                val installedAppsList = ArrayList<InstalledApp>()
+                val installedAppsList = ArrayList<MainData>()
     
                 for (appInfo in packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
         
-                    val installedApp = InstalledApp()
+                    val installedApp = MainData()
         
                     // No system apps
                     // Only scan for user installed apps
@@ -49,6 +48,7 @@ class ListUtils {
             
                         installedApp.name = appInfo.loadLabel(packageManager).toString()
                         installedApp.packageName = appInfo.packageName
+                        
                         try {
                             val packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0)
                             installedApp.installedVersion = packageInfo.versionName
@@ -56,7 +56,10 @@ class ListUtils {
                         catch (e: PackageManager.NameNotFoundException) {
                             e.printStackTrace()
                         }
-                        installedApp.installedFrom = packageManager.getInstallerPackageName(appInfo.packageName)
+                        
+                        installedApp.installedFrom = packageManager.getInstallerPackageName(appInfo.packageName).toString()
+                        
+                        installedApp.isInstalled = true
             
                         installedAppsList.add(installedApp)
                     }
@@ -65,28 +68,16 @@ class ListUtils {
             }
         }
     
-        // Plexus data status sort
-        fun plexusDataStatusSort(preferenceKey: Int, plexusData: PlexusData,
-                                 status: String, plexusDataList: ArrayList<PlexusData>) {
+        // Data status sort
+        fun statusSort(preferenceKey: Int, mainData: MainData,
+                       status: String, mainDataList: ArrayList<MainData>) {
         
             when (preferenceKey) {
-                0, R.id.sort_not_tested -> if (status == "X") plexusDataList.add(plexusData)
-                R.id.sort_unusable -> if (status == "1") plexusDataList.add(plexusData)
-                R.id.sort_acceptable -> if (status == "2") plexusDataList.add(plexusData)
-                R.id.sort_good -> if (status == "3") plexusDataList.add(plexusData)
-                R.id.sort_perfect -> if (status == "4") plexusDataList.add(plexusData)
-            }
-        }
-    
-        // Installed apps status sort
-        fun installedAppsStatusSort(preferenceKey: Int, installedApp: InstalledApp,
-                                    status: String, installedAppsList: ArrayList<InstalledApp>) {
-            when (preferenceKey) {
-                0, R.id.sort_not_tested -> if (status == "X") installedAppsList.add(installedApp)
-                R.id.sort_unusable -> if (status == "1") installedAppsList.add(installedApp)
-                R.id.sort_acceptable -> if (status == "2") installedAppsList.add(installedApp)
-                R.id.sort_good -> if (status == "3") installedAppsList.add(installedApp)
-                R.id.sort_perfect -> if (status == "4") installedAppsList.add(installedApp)
+                0, R.id.sort_not_tested -> if (status == "X") mainDataList.add(mainData)
+                R.id.sort_unusable -> if (status == "1") mainDataList.add(mainData)
+                R.id.sort_acceptable -> if (status == "2") mainDataList.add(mainData)
+                R.id.sort_good -> if (status == "3") mainDataList.add(mainData)
+                R.id.sort_perfect -> if (status == "4") mainDataList.add(mainData)
             }
         }
         

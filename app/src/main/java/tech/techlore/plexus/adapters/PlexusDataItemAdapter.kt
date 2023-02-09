@@ -20,6 +20,7 @@
 package tech.techlore.plexus.adapters
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,19 +35,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.utils.DbUtils
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import java.util.Locale
 import kotlin.collections.ArrayList
 
-class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
+class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
                             private val clickListener: OnItemClickListener,
                             private val longClickListener: OnItemLongCLickListener,
                             private val coroutineScope: CoroutineScope) :
     RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
-    private val aListViewItemsFull: List<PlexusData>
+    private val aListViewItemsFull: List<MainData>
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -100,12 +101,24 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
         val plexusData = aListViewItems[position]
-        val context = holder.itemView.context.applicationContext
+        val context = holder.itemView.context
         
-        Glide.with(context)
-            .load("")
-            .placeholder(R.drawable.ic_apk)
-            .into(holder.icon)
+        if (plexusData.isInstalled) {
+            try {
+                holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(plexusData.packageName))
+                // Don't use GLIDE to load icons directly to ImageView
+                // as there's a delay in displaying icons when fast scrolling
+            }
+            catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+            }
+        }
+        else {
+            Glide.with(context)
+                .load("")
+                .placeholder(R.drawable.ic_apk)
+                .into(holder.icon)
+        }
         
         holder.name.text = plexusData.name
         holder.packageName.text = plexusData.packageName
@@ -120,7 +133,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
             plexusData.isFav = isChecked
             coroutineScope.launch {
-                DbUtils.getDatabase(context).plexusDataDao().update(plexusData)
+                DbUtils.getDatabase(context).mainDataDao().update(plexusData)
             }
         }
         
@@ -138,7 +151,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val filteredList: ArrayList<PlexusData> = ArrayList()
+                val filteredList: ArrayList<MainData> = ArrayList()
                 if (charSequence.isNotEmpty()) {
                     val searchString =
                         charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
@@ -158,7 +171,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<PlexusData>,
             @SuppressLint("NotifyDataSetChanged")
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 aListViewItems.clear()
-                aListViewItems.addAll((filterResults.values as ArrayList<PlexusData>))
+                aListViewItems.addAll((filterResults.values as ArrayList<MainData>))
                 notifyDataSetChanged()
             }
         }

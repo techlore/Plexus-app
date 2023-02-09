@@ -36,13 +36,13 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataIntoDB
 import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataListFromDB
+import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import tech.techlore.plexus.utils.IntentUtils.Companion.reloadFragment
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
@@ -61,7 +61,7 @@ class PlexusDataFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var plexusDataList: ArrayList<PlexusData>
+    private lateinit var mainDataList: ArrayList<MainData>
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -76,8 +76,8 @@ class PlexusDataFragment :
         
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        plexusDataList = ArrayList()
-        val plexusDataItemAdapter = PlexusDataItemAdapter(plexusDataList,
+        mainDataList = ArrayList()
+        val plexusDataItemAdapter = PlexusDataItemAdapter(mainDataList,
                                                           this,
                                                           this,
                                                           coroutineScope)
@@ -90,7 +90,7 @@ class PlexusDataFragment :
         for (plexusData in mainActivity.dataList) {
             if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == 0
                 || preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_any_status) {
-                plexusDataList.add(plexusData)
+                mainDataList.add(plexusData)
             }
             //            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
 //
@@ -108,11 +108,11 @@ class PlexusDataFragment :
         // Alphabetical sort
         if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
             || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
-            plexusDataList.sortWith { ai1: PlexusData, ai2: PlexusData ->
+            mainDataList.sortWith { ai1: MainData, ai2: MainData ->
                 ai1.name.compareTo(ai2.name) } // A-Z
         }
         else {
-            plexusDataList.sortWith { ai1: PlexusData, ai2: PlexusData ->
+            mainDataList.sortWith { ai1: MainData, ai2: MainData ->
                 ai2.name.compareTo(ai1.name) } // Z-A
         }
         
@@ -132,13 +132,13 @@ class PlexusDataFragment :
     
     // On click
     override fun onItemClick(position: Int) {
-        val plexusData = plexusDataList[position]
+        val plexusData = mainDataList[position]
         startDetailsActivity(mainActivity, plexusData.packageName, "plexus")
     }
     
     // On long click
     override fun onItemLongCLick(position: Int) {
-        val plexusData = plexusDataList[position]
+        val plexusData = mainDataList[position]
         longClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName,  /*plexusData.version,
                                  plexusData.dgStatus, plexusData.mgStatus,
                                  plexusData.dgNotes, plexusData.mgNotes,*/
@@ -169,10 +169,10 @@ class PlexusDataFragment :
         launch {
             if (hasNetwork(requireContext()) && hasInternet()) {
                 val db = getDatabase(requireContext())
-                plexusDataIntoDB(db.plexusDataDao())
-                mainActivity.dataList = plexusDataListFromDB(db.plexusDataDao())
-                reloadFragment(parentFragmentManager, this@PlexusDataFragment)
+                plexusDataIntoDB(db.mainDataDao())
+                mainActivity.dataList = plexusDataListFromDB(db.mainDataDao())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                refreshFragment(parentFragmentManager)
             }
             else {
                 noNetworkDialog()

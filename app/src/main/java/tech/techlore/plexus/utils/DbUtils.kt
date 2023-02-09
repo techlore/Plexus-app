@@ -24,33 +24,31 @@ import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
-import tech.techlore.plexus.dao.InstalledAppsDao
-import tech.techlore.plexus.dao.PlexusDataDao
+import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.database.MainDatabase
-import tech.techlore.plexus.models.InstalledApp
-import tech.techlore.plexus.models.PlexusData
+import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.utils.ApiUtils.Companion.createService
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
 class DbUtils {
     
     companion object {
-    
+        
         @Volatile
         private var INSTANCE: MainDatabase? = null
-    
+        
         fun getDatabase(context: Context): MainDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(context.applicationContext,
                                                     MainDatabase::class.java,
                                                     "main_database").build()
-            
+                
                 INSTANCE = instance
                 instance
             }
         }
         
-        suspend fun plexusDataIntoDB(plexusDataDao: PlexusDataDao) {
+        suspend fun plexusDataIntoDB(mainDataDao: MainDataDao) {
             return withContext(Dispatchers.IO) {
                 val call = createService().getApplications()
                 val response = call.awaitResponse()
@@ -58,18 +56,18 @@ class DbUtils {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         for (data in it.data) {
-                            plexusDataDao.insertOrUpdate(data)
+                            mainDataDao.insertOrUpdatePlexusData(data)
                         }
                     }
                 }
             }
         }
         
-        suspend fun installedAppsIntoDB(context: Context, installedAppsDao: InstalledAppsDao) {
+        suspend fun installedAppsIntoDB(context: Context, mainDataDao: MainDataDao) {
             return withContext(Dispatchers.IO) {
     
                 val installedApps = scannedInstalledAppsList(context)
-                val databaseApps = installedAppsListFromDB(installedAppsDao)
+                val databaseApps = installedAppsListFromDB(mainDataDao)
     
                 // Find uninstalled apps
                 val uninstalledApps = databaseApps.filterNot { databaseApp ->
@@ -80,26 +78,33 @@ class DbUtils {
     
                 // Delete uninstalled apps from db
                 uninstalledApps.forEach {
-                    installedAppsDao.delete(it)
+                    if (!it.isInPlexusData) {
+                        mainDataDao.delete(it)
+                    }
+                    else {
+                        it.isInstalled = false
+                        it.installedVersion = ""
+                        it.installedFrom = ""
+                        mainDataDao.update(it)
+                    }
                 }
     
                 // Insert/update new data
                 installedApps.forEach {
-                    installedAppsDao.insertOrUpdate(it)
+                    mainDataDao.insertOrUpdateInstalledApps(it)
                 }
-                
             }
         }
-    
-        suspend fun plexusDataListFromDB(plexusDataDao: PlexusDataDao): ArrayList<PlexusData> {
+        
+        suspend fun plexusDataListFromDB(mainDataDao: MainDataDao): ArrayList<MainData> {
             return withContext(Dispatchers.IO) {
-                plexusDataDao.getAll() as ArrayList<PlexusData>
+                mainDataDao.getNotInstalledApps() as ArrayList<MainData>
             }
         }
-    
-        suspend fun installedAppsListFromDB(installedAppsDao: InstalledAppsDao): ArrayList<InstalledApp> {
+        
+        suspend fun installedAppsListFromDB(mainDataDao: MainDataDao): ArrayList<MainData> {
             return withContext(Dispatchers.IO) {
-                installedAppsDao.getAll() as ArrayList<InstalledApp>
+                mainDataDao.getInstalledApps() as ArrayList<MainData>
             }
         }
         
