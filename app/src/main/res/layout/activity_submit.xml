@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/submit_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    tools:context=".activities.SubmitActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+        android:layout_marginBottom="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/submit_app_icon"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_apk"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
+
+            <TextView
+                android:id="@+id/submit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_2.5"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                android:text="@string/app_name"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_22"/>
+
+            <TextView
+                android:id="@+id/submit_package_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_12"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                android:text="@string/package_name"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_17"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_4"
+                android:text="Status"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"
+                style="@style/MediumBoldText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/de_Googled"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/text_17"
+                style="@style/MediumBoldText"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/dg_chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_8"
+                app:chipSpacingHorizontal="@dimen/margin_10"
+                app:chipSpacingVertical="@dimen/margin_4"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/dg_not_tested"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    style="@style/NotTestedFilterChipTheme"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/dg_unusable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/BrokenFilterChipTheme"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/dg_acceptable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/BronzeFilterChipTheme"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/dg_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SilverFilterChipTheme"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/dg_perfect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/GoldFilterChipTheme"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!--#####################################################-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/microG"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/text_17"
+                style="@style/MediumBoldText"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/mg_chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_16"
+                app:chipSpacingHorizontal="@dimen/margin_10"
+                app:chipSpacingVertical="@dimen/margin_4"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/mg_not_tested"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    style="@style/NotTestedFilterChipTheme"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/mg_unusable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/BrokenFilterChipTheme"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/mg_acceptable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/BronzeFilterChipTheme"
+                    android:text="@string/bronze_title"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/mg_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SilverFilterChipTheme"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/mg_perfect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/GoldFilterChipTheme"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!--#####################################################-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_4"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:text="Notes"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"
+                style="@style/MediumBoldText"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dg_notes_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_4"
+                android:paddingBottom="@dimen/margin_4"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:textColorHint="@color/color_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dg_notes_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="4"
+                    android:hint="@string/de_Googled"
+                    android:gravity="top"
+                    android:textColor="@color/color_text_title"
+                    android:textSize="@dimen/text_16" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mg_notes_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_12"
+                android:paddingTop="@dimen/margin_4"
+                android:paddingBottom="@dimen/margin_4"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:textColorHint="@color/color_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mg_notes_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="4"
+                    android:hint="@string/microG"
+                    android:gravity="top"
+                    android:textColor="@color/color_text_title"
+                    android:textSize="@dimen/text_16" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/submit_bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom"
+        app:navigationIcon="@drawable/ic_close"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/submit_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/submit_bottom_app_bar"
+        android:text="Submit"
+        android:textSize="@dimen/text_16"
+        android:textColor="@color/fab_text_color"
+        app:icon="@drawable/ic_done"
+        app:iconTint="@color/fab_text_color"
+        android:backgroundTint="@color/fab_color"
+        android:contentDescription="Update/Submit" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

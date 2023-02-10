@@ -22,12 +22,12 @@
 <resources>
 
     <!--
-    ENSURE PROPER ENCODING OF CHARACTERS
+    Ensure proper encoding of characters
         ï = \u00EF
     -->
 
     <!--SPLASH ACTIVITY-->
-    <string name="fetching_data">Data ophalen</string>
+    <string name="retrieving_data">Data ophalen</string>
     <string name="scan_installed">Ge\u00EFnstalleerde apps scannen</string>
 
     <!--#########################################################################################-->
@@ -55,28 +55,28 @@
     <!--#########################################################################################-->
 
     <!--HELP ACTIVITY-->
-    <string name="what_ratings_mean">Wat betekenen de beoordelingen?</string>
-    <string name="not_tested">Niet getest</string>
-    <string name="unusable">Onbruikbaar</string>
-    <string name="acceptable">Aanvaardbaar</string>
-    <string name="good">Goed</string>
-    <string name="perfect">Perfect</string>
+    <string name="what_status_mean">Wat betekenen de beoordelingen?</string>
+    <string name="not_tested_title">Niet getest</string>
+    <string name="broken_subtitle">Onbruikbaar</string>
+    <string name="bronze_subtitle">Aanvaardbaar</string>
+    <string name="silver_subtitle">Goed</string>
+    <string name="gold_subtitle">Perfect</string>
     <string name="app_card_breakdown">Afbraak van applicatiekaart</string>
-    <string name="dg_rating">de-Googled beoordeling</string>
-    <string name="mg_rating">microG beoordeling</string>
-    <string name="application">Sollicitatie</string>
+    <string name="dg_status">de-Googled beoordeling</string>
+    <string name="mg_status">microG beoordeling</string>
+    <string name="app_name">Sollicitatie</string>
     <string name="package_name">Verpakkingsnaam</string>
     <string name="version">Versie</string>
 
     <!--#########################################################################################-->
 
     <!--SETTINGS ACTIVITY-->
-    <string name="theme_title">Thema</string>
-    <string name="report_issue_title">Een probleem melden</string>
+    <string name="theme">Thema</string>
+    <string name="report_issue">Een probleem melden</string>
     <string name="report_issue_subtitle">Een bug gevonden? Laat het ons weten</string>
-    <string name="contribute_title">Bijdrage leveren</string>
+    <string name="contribute">Bijdrage leveren</string>
     <string name="contribute_subtitle">De app of de bestaande gegevens verbeteren</string>
-    <string name="about_title">Over</string>
+    <string name="about">Over</string>
     <string name="about_subtitle">Versie, beleid en licenties</string>
 
     <!--ABOUT FRAGMENT-->
@@ -92,12 +92,12 @@
     <string name="dialog_subtitle">Maak verbinding met Wi-Fi of mobiele gegevens en probeer het opnieuw.
         Als u al verbonden bent, zorg er dan voor dat deze een internetverbinding heeft.</string>
     <string name="exit">Uitgang</string>
-    <string name="dialog_positive_button">Opnieuw proberen</string>
+    <string name="retry">Opnieuw proberen</string>
 
     <!--#########################################################################################-->
 
     <!--BOTTOM SHEETS-->
-    <string name="cancel_button">Annuleren</string>
+    <string name="cancel">Annuleren</string>
 
     <!--SORT-->
     <string name="alphabetical">Alfabetisch</string>

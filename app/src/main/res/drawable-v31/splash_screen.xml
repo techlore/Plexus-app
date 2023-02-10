@@ -19,5 +19,5 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/grey_900"/>
-    <item android:width="280dp" android:height="280dp" android:gravity="center" android:drawable="@drawable/ic_launcher_foreground"/>
+    <item android:width="285dp" android:height="285dp" android:gravity="center" android:drawable="@drawable/ic_launcher_foreground"/>
 </layer-list>

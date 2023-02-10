@@ -21,8 +21,8 @@
 
 <resources>
 
-    <!--BASE SPLASH THEME-->
-    <style name="BaseSplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!--Base splash style-->
+    <style name="BaseSplashStyle" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="backgroundColor">@color/grey_900</item>
         <item name="colorPrimaryDark">@color/grey_900</item>
@@ -30,82 +30,130 @@
 
     <!--#########################################################################################-->
 
-    <!--PARENT APP THEME-->
-    <style name="Base.Theme.Plexus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!--Base app style-->
+    <style name="BaseAppStyle" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorOnPrimary">@color/color_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/color_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/color_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorOnSecondary">@color/color_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/color_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/color_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/color_tertiary</item>
+        <item name="colorOnTertiary">@color/color_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/color_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/color_onTertiaryContainer</item>
+        <item name="colorError">@color/color_error</item>
+        <item name="colorErrorContainer">@color/color_errorContainer</item>
+        <item name="colorOnError">@color/color_onError</item>
+        <item name="colorOnErrorContainer">@color/color_onErrorContainer</item>
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorOnBackground">@color/color_onBackground</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnSurface">@color/color_onSurface</item>
+        <item name="colorSurfaceVariant">@color/color_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/color_onSurfaceVariant</item>
+        <item name="colorOutline">@color/color_outline</item>
+        <item name="colorOnSurfaceInverse">@color/color_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/color_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/color_inversePrimary</item>
+
         <item name="fontFamily">@font/roboto</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
+        <item name="snackbarStyle">@style/SnackbarStyle</item>
+        <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--BASE APP THEME-->
-    <style name="BaseAppTheme" parent="Base.Theme.Plexus">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/backgroundColor</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundColor">@color/backgroundColor</item>
-    </style>
-
-    <!--#########################################################################################-->
-
-    <!--DIALOG WIDTH-->
-    <style name="DialogTheme" parent="Theme.MaterialComponents.Dialog">
-        <item name="android:windowMinWidthMinor">87%</item>
-        <item name="android:backgroundDimAmount">0.5</item>
-    </style>
-
-    <!--DIALOG ANIMATION-->
-    <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/fade_scale_in</item>
-        <item name="android:windowExitAnimation">@anim/fade_scale_out</item>
-    </style>
-
-    <!--#########################################################################################-->
-
-    <!--MEDIUM BOLD TEXT STYLE-->
-    <style name="MediumBoldText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <!--Medium bold text style-->
+    <style name="MediumBoldText" parent="TextAppearance.Material3.ActionBar.Title">
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--TAB TEXT STYLE-->
-    <style name="TabText" parent="MediumBoldText">
-        <item name="android:textSize">@dimen/text_17</item>
+    <!--Nav view style-->
+    <style name="NavViewStyle" parent="Widget.Material3.NavigationView">
+        <item name="itemShapeFillColor">@color/nav_item_bg_color</item>
+        <item name="itemTextAppearance">@style/NavViewText</item>
+        <item name="itemIconSize">@dimen/margin_22</item>
+        <item name="itemIconTint">@color/nav_item_text_color</item>
+        <item name="itemTextColor">@color/nav_item_text_color</item>
     </style>
 
-    <!--#########################################################################################-->
-
-    <!--FILTER CHIP STYLE-->
-    <style name="FilterChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
-        <item name="checkedIconVisible">false</item>
-        <item name="chipBackgroundColor">@android:color/transparent</item>
-        <item name="chipSurfaceColor">@color/bottomSheetColor</item>
-        <item name="chipStrokeColor">@color/chip_color</item>
-        <item name="chipStrokeWidth">1dp</item>
-        <item name="android:textColor">@color/chip_text_color</item>
+    <!--Nav view items texts style-->
+    <style name="NavViewText" parent="MediumBoldText">
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--BASE BOTTOM SHEET STYLE-->
-    <style name="BaseBottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="android:backgroundDimAmount">0.5</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+    <!--Base filter chip style-->
+    <style name="BaseFilterChipStyle" parent="Widget.Material3.Chip.Filter">
+        <item name="chipSurfaceColor">@android:color/transparent</item>
+        <item name="chipStrokeColor">@android:color/transparent</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">@color/color_text_title</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="checkedIconTint">@color/color_text_title</item>
     </style>
 
-    <!--BOTTOM SHEET ANIMATION-->
-    <style name="BottomSheetAnimation">
-        <item name="android:windowEnterAnimation">@anim/fade_in_slide_from_bottom</item>
-        <item name="android:windowExitAnimation">@anim/fade_out_slide_to_bottom</item>
+    <!--#########################################################################################-->
+
+    <!--Base dialog style-->
+    <style name="BaseDialogStyle" parent="MaterialAlertDialog.Material3">
+        <item name="shapeAppearance">@style/DialogShapeStyle</item>
+        <item name="shapeAppearanceOverlay">@null</item>
     </style>
 
-    <!--MAKE ROOT VIEW OF BOTTOM SHEET TRANSPARENT FOR CUSTOM VIEW TO SHOW PROPERLY-->
-    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@android:color/transparent</item>
+    <!--Dialog title text-->
+    <style name="DialogTitleTextStyle" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/color_text_title</item>
+        <item name="android:textSize">@dimen/text_18</item>
+    </style>
+
+    <!--Dialog body text-->
+    <style name="DialogBodyTextStyle" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/color_text_title</item>
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <!--Dialog buttons-->
+    <style name="DialogButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <!--Dialog rounded corners-->
+    <style name="DialogShapeStyle" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">@dimen/margin_12</item>
+    </style>
+
+    <!--#########################################################################################-->
+
+    <!--Base bottom sheet style-->
+    <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/BottomSheetShapeStyle</item>
+    </style>
+
+    <!--Bottom sheet rounded corners-->
+    <style name="BottomSheetShapeStyle" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">@dimen/margin_12</item>
+    </style>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbar style-->
+    <style name="SnackbarStyle" parent="Widget.Material3.Snackbar">
+        <item name="android:backgroundTint">@color/color_snackbar_bg</item>
+    </style>
+
+    <!--Snackbar text style-->
+    <style name="SnackbarTextStyle" parent="Widget.Material3.Snackbar.TextView">
+        <item name="android:textColor">@color/color_snackbar_text</item>
     </style>
 
 </resources>

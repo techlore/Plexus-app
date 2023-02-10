@@ -21,19 +21,16 @@
 
 <resources>
 
-    <!--SPLASH DARK THEME-->
-    <style name="SplashTheme" parent="BaseSplashTheme">
+    <!--Splash dark theme-->
+    <style name="SplashTheme" parent="BaseSplashStyle">
         <item name="android:navigationBarColor">@color/grey_900</item>
     </style>
 
-    <!--APP DARK THEME-->
-    <style name="AppTheme" parent="BaseAppTheme">
-        <item name="android:navigationBarColor">@color/backgroundColor</item>
-    </style>
+    <!--#########################################################################################-->
 
-    <!--BOTTOM SHEET STYLE-->
-    <style name="CustomBottomSheetTheme" parent="BaseBottomSheetTheme">
-        <item name="android:navigationBarColor">@color/bottomSheetColor</item>
+    <!--App dark theme-->
+    <style name="AppTheme" parent="BaseAppStyle">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

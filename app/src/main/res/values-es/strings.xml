@@ -22,7 +22,7 @@
 <resources>
 
     <!--
-    ENSURE PROPER ENCODING OF CHARACTERS
+    Ensure proper encoding of characters
         á = \u00E1
         é = \u00E9
         í = \u00ED
@@ -31,7 +31,7 @@
     -->
 
     <!--SPLASH ACTIVITY-->
-    <string name="fetching_data">Recuperacion de datos</string>
+    <string name="retrieving_data">Recuperacion de datos</string>
     <string name="scan_installed">Escaneo de aplicaciones instaladas</string>
 
     <!--#########################################################################################-->
@@ -59,28 +59,28 @@
     <!--#########################################################################################-->
 
     <!--HELP ACTIVITY-->
-    <string name="what_ratings_mean">¿Qu\u00E9 significan las calificaciones?</string>
-    <string name="not_tested">No probado</string>
-    <string name="unusable">Inutilizable</string>
-    <string name="acceptable">Aceptable</string>
-    <string name="good">Buenos</string>
-    <string name="perfect">Perfecta</string>
+    <string name="what_status_mean">¿Qu\u00E9 significan las calificaciones?</string>
+    <string name="not_tested_title">No probado</string>
+    <string name="broken_subtitle">Inutilizable</string>
+    <string name="bronze_subtitle">Aceptable</string>
+    <string name="silver_subtitle">Buenos</string>
+    <string name="gold_subtitle">Perfecta</string>
     <string name="app_card_breakdown">Desglose de la tarjeta de aplicaci\u00F3n</string>
-    <string name="dg_rating">de-Googled clasificaci\u00F3n</string>
-    <string name="mg_rating">microG clasificaci\u00F3n</string>
-    <string name="application">Aplicaci\u00F3n</string>
+    <string name="dg_status">de-Googled clasificaci\u00F3n</string>
+    <string name="mg_status">microG clasificaci\u00F3n</string>
+    <string name="app_name">Aplicaci\u00F3n</string>
     <string name="package_name">Nombre del paquete</string>
     <string name="version">Versi\u00F3n</string>
 
     <!--#########################################################################################-->
 
     <!--SETTINGS ACTIVITY-->
-    <string name="theme_title">Tem\u00E1tica</string>
-    <string name="report_issue_title">Reportar un problema</string>
+    <string name="theme">Tem\u00E1tica</string>
+    <string name="report_issue">Reportar un problema</string>
     <string name="report_issue_subtitle">Encontrado un error? Haznos saber</string>
-    <string name="contribute_title">Contribuir</string>
+    <string name="contribute">Contribuir</string>
     <string name="contribute_subtitle">Mejorar la aplicaci\u00F3n o los datos existentes</string>
-    <string name="about_title">Acerca de</string>
+    <string name="about">Acerca de</string>
     <string name="about_subtitle">Versi\u00F3n, p\u00F3liza y licencias</string>
 
     <!--ABOUT FRAGMENT-->
@@ -96,12 +96,12 @@
     <string name="dialog_subtitle">Conéctese a datos Wi-Fi o m\u00F3viles y vuelva a intentarlo.
         Si ya est\u00E1 conectado, aseg\u00FArese de que tenga una conexi\u00F3n a internet.</string>
     <string name="exit">Salida</string>
-    <string name="dialog_positive_button">Rever</string>
+    <string name="retry">Rever</string>
 
     <!--#########################################################################################-->
 
     <!--BOTTOM SHEETS-->
-    <string name="cancel_button">Cancelar</string>
+    <string name="cancel">Cancelar</string>
 
     <!--SORT-->
     <string name="alphabetical">Alfab\u00E9tico</string>

@@ -19,17 +19,21 @@
 
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
-    compileSdk 31
+    namespace 'tech.techlore.plexus'
+    compileSdk 33
 
     defaultConfig {
         applicationId "tech.techlore.plexus"
         minSdk 23
-        targetSdk 31
-        versionCode 100
-        versionName "1.0.0"
+        targetSdk 33
+        versionCode 200
+        versionName "2.0.0"
     }
 
     buildTypes {
@@ -49,18 +53,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'com.google.android.material:material:1.7.0' // Lost design preview after upgrade to 1.8.0
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.11.1'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
-    implementation 'me.zhanghai.android.fastscroll:library:1.1.7'
-    implementation project(path: ':models')
-    implementation project(path: ':preferences')
-
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+    implementation 'androidx.room:room-runtime:2.5.0'
+    implementation 'androidx.room:room-ktx:2.5.0'
+    kapt 'androidx.room:room-compiler:2.5.0'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    kapt 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation project(path: ':FastScroll')
 }

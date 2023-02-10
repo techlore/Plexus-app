@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--
-  ~ Copyright (c) 2022 Techlore
-  ~
-  ~  This file is part of Plexus.
-  ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
-  ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="tech.techlore.plexus">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
@@ -32,50 +11,47 @@
     <application
         android:name=".appmanager.ApplicationManager"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/plexus"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--SPLASH ACTIVITY-->
+        <!-- Splash activity -->
         <activity
             android:name=".activities.SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!--MAIN ACTIVITY-->
+        <!-- Main activity -->
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"/>
 
-        <!--APP DETAILS ACTIVITY-->
+        <!-- App details activity -->
         <activity
             android:name=".activities.AppDetailsActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"/>
 
-        <!--SEARCH ACTIVITY-->
-        <activity android:name=".activities.SearchActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
-        <!--HELP ACTIVITY-->
+        <!-- Search activity -->
         <activity
-            android:name=".activities.HelpActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:name=".activities.SearchActivity"
+            android:configChanges="orientation|screenSize"/>
 
-        <!--SETTINGS ACTIVITY-->
+        <!--Submit Activity-->
+        <activity
+            android:name=".activities.SubmitActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!-- Settings activity -->
         <activity
             android:name=".activities.SettingsActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"/>
 
     </application>
 

@@ -21,23 +21,20 @@
 
 <resources>
 
-    <!--SPLASH LIGHT THEME-->
-    <style name="SplashTheme" parent="BaseSplashTheme">
+    <!--Splash light theme-->
+    <style name="SplashTheme" parent="BaseSplashStyle">
         <item name="android:navigationBarColor">@color/grey_900</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
-    <!--APP LIGHT THEME-->
-    <style name="AppTheme" parent="BaseAppTheme">
+    <!--#########################################################################################-->
+
+    <!--App light theme-->
+    <style name="AppTheme" parent="BaseAppStyle">
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/backgroundColor</item>
-    </style>
-
-    <!--BOTTOM SHEET STYLE-->
-    <style name="CustomBottomSheetTheme" parent="BaseBottomSheetTheme">
-        <item name="android:navigationBarColor">@color/bottomSheetColor</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

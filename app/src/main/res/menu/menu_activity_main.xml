@@ -23,8 +23,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--MAIN ACTIVITY MENU-->
-
     <item
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search"
@@ -32,28 +30,39 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/menu_overflow"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_overflow_menu"
-        android:title="@string/menu_more">
+        android:id="@+id/menu_sort"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/menu_sort"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_filter"
+        android:icon="@drawable/ic_filter"
+        android:title="Filter"
+        app:showAsAction="always">
+
         <menu>
+            <group
+                android:checkableBehavior="single">
 
-            <item
-                android:id="@+id/menu_sort"
-                android:icon="@drawable/ic_sort"
-                android:title="@string/menu_sort"/>
+                <item
+                    android:id="@+id/menu_all_apps"
+                    android:icon="@drawable/ic_installed_apps"
+                    android:title="All Apps"/>
 
-            <item
-                android:id="@+id/menu_help"
-                android:icon="@drawable/ic_help"
-                android:title="@string/menu_help"/>
+                <item
+                    android:id="@+id/menu_play_apps"
+                    android:icon="@drawable/ic_play_store"
+                    android:title="Play Store Apps"/>
 
-            <item
-                android:id="@+id/menu_settings"
-                android:icon="@drawable/ic_settings"
-                android:title="@string/menu_settings"/>
+                <item
+                    android:id="@+id/menu_non_play_apps"
+                    android:icon="@drawable/ic_apk"
+                    android:title="Other Apps"/>
 
+            </group>
         </menu>
+
     </item>
 
 </menu>

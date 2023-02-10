@@ -19,90 +19,74 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_10"
     android:layout_marginEnd="@dimen/margin_10"
     android:layout_marginTop="@dimen/margin_4"
     android:layout_marginBottom="@dimen/margin_6.5"
-    android:background="@drawable/shape_card_with_ripple"
+    android:paddingStart="@dimen/margin_8"
+    android:paddingEnd="@dimen/margin_8"
+    android:paddingTop="@dimen/margin_4"
+    android:paddingBottom="@dimen/margin_4"
+    android:background="@drawable/shape_ripple"
     tools:context=".adapters.PlexusDataItemAdapter">
 
-    <TextView
-        android:id="@+id/dg_rating"
-        style="@style/MediumBoldText"
-        android:layout_width="60dp"
-        android:layout_height="81dp"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/shape_bg_start"
-        android:backgroundTint="@color/ratingXColor"
-        android:gravity="center"
-        android:text="@string/x"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_22" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/margin_45"
+        android:layout_height="@dimen/margin_45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_apk"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
     <TextView
         android:id="@+id/name"
         style="@style/MediumBoldText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_10"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintEnd_toStartOf="@id/fav"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_4"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:layout_marginBottom="1.5dp"
-        android:layout_toStartOf="@id/mg_rating"
-        android:layout_toEndOf="@id/dg_rating"
         android:ellipsize="marquee"
-        android:text="@string/application"
+        android:text="@string/app_name"
         android:textAlignment="viewStart"
-        android:textColor="@color/textTitleColor"
-        android:textSize="@dimen/text_17" />
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_17"/>
 
     <TextView
         android:id="@+id/package_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_marginStart="@dimen/margin_10"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintEnd_toStartOf="@id/fav"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_2.5"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:layout_marginBottom="1.5dp"
-        android:layout_toStartOf="@id/mg_rating"
-        android:layout_toEndOf="@id/dg_rating"
         android:ellipsize="marquee"
         android:text="@string/package_name"
         android:textAlignment="viewStart"
-        android:textColor="@color/textTitleColor"
-        android:textSize="@dimen/text_16" />
-
-    <ImageView
-        android:id="@+id/version_mismatch"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/package_name"
-        android:layout_marginStart="@dimen/margin_10"
-        android:layout_marginTop="@dimen/margin_2.5"
-        android:layout_toEndOf="@id/dg_rating"
-        android:background="@drawable/ic_ver_mismatch"
-        tools:ignore="ContentDescription"
-        android:visibility="gone"/>
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_16"/>
 
     <TextView
         android:id="@+id/version"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/package_name"
-        android:layout_marginStart="@dimen/margin_10"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toBottomOf="@id/package_name"
         android:layout_marginTop="@dimen/margin_2.5"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:layout_marginBottom="@dimen/margin_6.5"
-        android:layout_toStartOf="@id/mg_rating"
-        android:layout_toEndOf="@id/version_mismatch"
+        android:layout_marginStart="@dimen/margin_16"
         android:ellipsize="marquee"
         android:text="@string/version"
         android:textAlignment="viewStart"
@@ -110,18 +94,28 @@
         android:textSize="@dimen/text_14"
         android:textStyle="normal" />
 
-    <TextView
-        android:id="@+id/mg_rating"
-        style="@style/MediumBoldText"
-        android:layout_width="60dp"
-        android:layout_height="81dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/shape_bg_end"
-        android:backgroundTint="@color/ratingXColor"
-        android:gravity="center"
-        android:text="@string/x"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_22" />
+    <ImageView
+        android:id="@+id/version_mismatch"
+        android:layout_width="@dimen/margin_20"
+        android:layout_height="@dimen/margin_20"
+        app:layout_constraintStart_toEndOf="@id/version"
+        app:layout_constraintTop_toBottomOf="@id/package_name"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_2.5"
+        android:src="@drawable/ic_ver_mismatch"
+        tools:ignore="ContentDescription"
+        android:visibility="gone"/>
 
-</RelativeLayout>
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_2.5"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:button="@drawable/ic_fav"
+        app:buttonTint="@color/fav_icon_color"
+        android:contentDescription="@string/favorites"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

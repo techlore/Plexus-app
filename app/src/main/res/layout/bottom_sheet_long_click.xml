@@ -19,7 +19,8 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="ContentDescription"
@@ -27,7 +28,6 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_12"
     android:paddingBottom="@dimen/margin_8"
-    android:background="@drawable/shape_bottom_sheet"
     android:layout_gravity="center"
     android:orientation="vertical">
 
@@ -49,7 +49,7 @@
         android:paddingBottom="@dimen/margin_16"
         android:text="@string/play_store"
         android:textAlignment="viewStart"
-        android:textColor="@color/textTitleColor"
+        android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         app:drawableStartCompat="@drawable/ic_play_store"
         android:drawablePadding="@dimen/margin_20"/>
@@ -69,11 +69,11 @@
         android:paddingBottom="@dimen/margin_16"
         android:text="@string/share"
         android:textAlignment="viewStart"
-        android:textColor="@color/textTitleColor"
+        android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         app:drawableStartCompat="@drawable/ic_share"
         android:drawablePadding="@dimen/margin_20"/>
 
-    <include layout="@layout/dialog_footer"/>
+    <include layout="@layout/bottom_sheet_footer"/>
 
 </LinearLayout>
