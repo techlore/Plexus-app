@@ -110,7 +110,7 @@
     <string name="done">OK</string>
 
     <!--THEME-->
-    <string name="system_default">Système</string>
+    <string name="system_default">Syst\u00E8me</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
 
@@ -122,6 +122,6 @@
 
     <!--TOASTS-->
     <string name="no_browsers">Aucun navigateur n\'est install\u00E9 sur cet appareil</string>
-    <string name="submit_success">Contribution envoyée avec succès</string>
+    <string name="submit_success">Contribution envoy\u00E9e avec succ\u00E8s</string>
 
 </resources>
