@@ -4602,10 +4602,10 @@
     "Application": "Ma Banque (Crédit Agricole)",
     "Package": "fr.creditagricole.androidapp",
     "Version": "30.1.0",
-    "DG_Rating": 4,
-    "MG_Rating": 4,
-    "DG_Notes": "Needs locked bootloader",
-    "MG_Notes": "Needs locked bootloader"
+    "DG_Rating": 3,
+    "MG_Rating": 3,
+    "DG_Notes": "Needs locked bootloader, Needs Play Services to enable SécuriPass",
+    "MG_Notes": "Needs locked bootloader (not fully tested, estimated)"
   },
   {
     "Application": "Magic Earth",
