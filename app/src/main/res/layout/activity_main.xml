@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -29,11 +29,14 @@
     android:background="@color/color_background"
     tools:context=".activities.MainActivity">
 
-    <include
-        layout="@layout/activity_host_fragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"/>
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"/>
 
     <View
         android:id="@+id/dim_bg"

@@ -27,7 +27,7 @@ import tech.techlore.plexus.models.MainData
 
 // This custom class modifies json deserialization by Jackson
 // because some fields (ex: installedVersion, isFav etc) are not present in the json data
-class PlexusDataDeserializer : JsonDeserializer<MainData>() {
+class MainDataDeserializer : JsonDeserializer<MainData>() {
     
     override fun deserialize(parser: JsonParser?, ctxt: DeserializationContext?): MainData {
         

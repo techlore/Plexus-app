@@ -25,11 +25,11 @@ import androidx.room.PrimaryKey
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import kotlinx.parcelize.Parcelize
-import tech.techlore.plexus.deserializer.PlexusDataDeserializer
+import tech.techlore.plexus.deserializer.MainDataDeserializer
 
 @Entity(tableName = "main_table")
 @Parcelize
-@JsonDeserialize(using = PlexusDataDeserializer::class)
+@JsonDeserialize(using = MainDataDeserializer::class)
 data class MainData(
     
     @JsonProperty("id")

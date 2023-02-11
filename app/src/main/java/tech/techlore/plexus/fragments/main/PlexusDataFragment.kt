@@ -172,7 +172,7 @@ class PlexusDataFragment :
                 plexusDataIntoDB(db.mainDataDao())
                 mainActivity.dataList = plexusDataListFromDB(db.mainDataDao())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                refreshFragment(parentFragmentManager)
+                refreshFragment(mainActivity.navController)
             }
             else {
                 noNetworkDialog()

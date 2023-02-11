@@ -30,8 +30,7 @@
 
         <!-- Main activity -->
         <activity
-            android:name=".activities.MainActivity"
-            android:configChanges="orientation|screenSize"/>
+            android:name=".activities.MainActivity"/>
 
         <!-- App details activity -->
         <activity

@@ -154,7 +154,7 @@ class InstalledAppsFragment :
                 installedAppsIntoDB(requireContext(), plexusDataDao)
                 mainActivity.installedList = installedAppsListFromDB(plexusDataDao)
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                refreshFragment(parentFragmentManager)
+                refreshFragment(mainActivity.navController)
             }
         }
     }
