@@ -27,7 +27,7 @@
     <!--#########################################################################################-->
 
     <!--Main activity-->
-    <string name="no_apps_found">No such apps found</string>
+    <string name="no_apps_found">No apps found</string>
 
     <!--Toolbar menu-->
     <string name="menu_search">Search</string>

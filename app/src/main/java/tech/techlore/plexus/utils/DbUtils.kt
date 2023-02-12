@@ -108,5 +108,11 @@ class DbUtils {
             }
         }
         
+        suspend fun favListFromDB(mainDataDao: MainDataDao): ArrayList<MainData> {
+            return withContext(Dispatchers.IO) {
+                mainDataDao.getFavApps() as ArrayList<MainData>
+            }
+        }
+        
     }
 }

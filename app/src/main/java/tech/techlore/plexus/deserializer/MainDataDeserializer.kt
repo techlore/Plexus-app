@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import tech.techlore.plexus.models.MainData
 
 // This custom class modifies json deserialization by Jackson
-// because some fields (ex: installedVersion, isFav etc) are not present in the json data
+// because some fields (ex: installedVersion, isFav etc.) are not present in the json data
 class MainDataDeserializer : JsonDeserializer<MainData>() {
     
     override fun deserialize(parser: JsonParser?, ctxt: DeserializationContext?): MainData {

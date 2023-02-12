@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -45,6 +45,9 @@ interface MainDataDao {
     
     @Query("SELECT * FROM main_table WHERE isInstalled = true")
     suspend fun getInstalledApps(): List<MainData>
+    
+    @Query("SELECT * FROM main_table WHERE isFav= true")
+    suspend fun getFavApps(): List<MainData>
     
     /*@Query("SELECT * FROM main_table")
     suspend fun getAll(): List<PlexusData>*/

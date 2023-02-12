@@ -36,12 +36,16 @@ class IntentUtils {
     
     companion object {
         // Send array list with intent
-        fun sendListsIntent(activityFrom: Activity, activityTo: Class<*>,
-                            mainDataList: ArrayList<MainData>, installedAppsList: ArrayList<MainData>) {
+        fun sendListsIntent(activityFrom: Activity,
+                            activityTo: Class<*>,
+                            mainDataList: ArrayList<MainData>,
+                            installedAppsList: ArrayList<MainData>,
+                            favList: ArrayList<MainData>) {
             
             activityFrom.startActivity(Intent(activityFrom, activityTo)
                                            .putParcelableArrayListExtra("plexusDataList", mainDataList)
-                                           .putParcelableArrayListExtra("installedAppsList", installedAppsList))
+                                           .putParcelableArrayListExtra("installedAppsList", installedAppsList)
+                                           .putParcelableArrayListExtra("favList", favList))
         }
     
         // App details activity
@@ -56,11 +60,7 @@ class IntentUtils {
     
         fun refreshFragment(navController: NavController) {
             val currentFragment = navController.currentDestination!!
-            when (currentFragment.id) {
-                R.id.plexusDataFragment -> navController.navigate(R.id.plexusDataFragment)
-                R.id.installedAppsFragment -> navController.navigate(R.id.installedAppsFragment)
-                R.id.favoritesFragment -> navController.navigate(R.id.favoritesFragment)
-            }
+            navController.navigate(currentFragment.id)
         }
     
         // Open links

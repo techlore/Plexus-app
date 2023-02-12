@@ -23,6 +23,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioGroup
@@ -30,6 +31,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.MenuProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -47,7 +49,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.SEL_ITEM
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MenuProvider {
     
     lateinit var activityBinding: ActivityMainBinding
     lateinit var bottomSheetBehavior: BottomSheetBehavior<CoordinatorLayout>
@@ -57,16 +59,18 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     lateinit var dataList: ArrayList<MainData>
     lateinit var installedList: ArrayList<MainData>
+    lateinit var favList: ArrayList<MainData>
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
+        addMenuProvider(this)
         
         preferenceManager = PreferenceManager(this)
         bottomSheetBehavior = BottomSheetBehavior.from(activityBinding.bottomNavContainer)
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         navController = navHostFragment.navController
     
         /*########################################################################################*/
@@ -79,10 +83,12 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 33) {
             dataList = intent.getParcelableArrayListExtra("plexusDataList", MainData::class.java)!!
             installedList = intent.getParcelableArrayListExtra("installedAppsList", MainData::class.java)!!
+            favList = intent.getParcelableArrayListExtra("favList", MainData::class.java)!!
         }
         else {
             dataList = intent.getParcelableArrayListExtra("plexusDataList")!!
             installedList = intent.getParcelableArrayListExtra("installedAppsList")!!
+            favList = intent.getParcelableArrayListExtra("favList")!!
         }
         
         // To set nav view item background, check selected item
@@ -240,7 +246,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_activity_main, menu)
         
@@ -257,25 +263,15 @@ class MainActivity : AppCompatActivity() {
                 menu.findItem(R.id.menu_non_play_apps).isChecked = true
             }
         }
-        else if (preferenceManager.getInt(SEL_ITEM) == R.id.nav_about) {
-            menu.findItem(R.id.menu_search).isVisible = false
-            menu.findItem(R.id.menu_sort).isVisible = false
-            menu.findItem(R.id.menu_filter).isVisible = false
-        }
-        else {
-            menu.findItem(R.id.menu_search).isVisible = true
-            menu.findItem(R.id.menu_sort).isVisible = true
-            menu.findItem(R.id.menu_filter).isVisible = false
-        }
-        return true
+        menu.findItem(R.id.menu_filter).isVisible = preferenceManager.getInt(SEL_ITEM) != R.id.nav_plexus_data
     }
     
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         
         // Search
         // Don't finish main activity,
         // Or else issues when getting list back from search activity
-        when (item.itemId) {
+        when (menuItem.itemId) {
             
             /*R.id.menu_search -> {
                 val searchIntent = Intent(this, SearchActivity::class.java)
@@ -297,7 +293,7 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_all_apps,
             R.id.menu_play_apps,
             R.id.menu_non_play_apps -> {
-                preferenceManager.setInt(PreferenceManager.FILTER_PREF, item.itemId)
+                preferenceManager.setInt(PreferenceManager.FILTER_PREF, menuItem.itemId)
                 refreshFragment(navController)
             }
             

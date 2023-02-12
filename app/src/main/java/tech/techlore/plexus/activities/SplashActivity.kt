@@ -21,8 +21,10 @@ package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +32,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.MainData
+import tech.techlore.plexus.utils.DbUtils.Companion.favListFromDB
 import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
 import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsListFromDB
@@ -45,8 +48,9 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
     
     private val job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
-    private lateinit var mainDataList: ArrayList<MainData>
+    private lateinit var plexusDataList: ArrayList<MainData>
     private lateinit var installedAppsList: ArrayList<MainData>
+    private lateinit var favList: ArrayList<MainData>
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +87,11 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
                 val db = getDatabase(context)
                 plexusDataIntoDB(db.mainDataDao())
                 installedAppsIntoDB(context, db.mainDataDao())
-                mainDataList = plexusDataListFromDB(db.mainDataDao())
+                plexusDataList = plexusDataListFromDB(db.mainDataDao())
                 installedAppsList = installedAppsListFromDB(db.mainDataDao())
+                favList = favListFromDB(db.mainDataDao())
                 sendListsIntent(context, MainActivity::class.java,
-                                mainDataList, installedAppsList)
+                                plexusDataList, installedAppsList, favList)
                 // Lists are sent through intent, because if they are not,
                 // we have to get lists from db in recycler view fragment or main activity
                 // which causes slight delay for lists to show up.

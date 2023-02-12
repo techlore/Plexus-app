@@ -37,16 +37,15 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.utils.DbUtils
-import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
-import java.util.Locale
+import java.util.*
 import kotlin.collections.ArrayList
 
-class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
-                            private val clickListener: OnItemClickListener,
-                            private val longClickListener: OnItemLongCLickListener,
-                            private val coroutineScope: CoroutineScope) :
-    RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
+class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainData>,
+                          private val clickListener: OnItemClickListener,
+                          private val longClickListener: OnItemLongCLickListener,
+                          private val coroutineScope: CoroutineScope) :
+    RecyclerView.Adapter<FavoriteItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
     private val aListViewItemsFull: List<MainData>
     
@@ -65,20 +64,21 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
         val name: TextView = itemView.findViewById(R.id.name)
         val packageName: TextView = itemView.findViewById(R.id.package_name)
         val version: TextView = itemView.findViewById(R.id.version)
+        val versionMismatch: ImageView = itemView.findViewById(R.id.version_mismatch)
         val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
         }
-    
+        
         override fun onClick(v: View?) {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 clickListener.onItemClick(position)
             }
         }
-    
+        
         override fun onLongClick(v: View?): Boolean {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
@@ -101,12 +101,12 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        val plexusData = aListViewItems[position]
+        val favorite = aListViewItems[position]
         val context = holder.itemView.context
-        
-        if (plexusData.isInstalled) {
+    
+        if (favorite.isInstalled) {
             try {
-                holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(plexusData.packageName))
+                holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(favorite.packageName))
                 // Don't use GLIDE to load icons directly to ImageView
                 // as there's a delay in displaying icons when fast scrolling
             }
@@ -121,20 +121,27 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
                 .into(holder.icon)
         }
         
-        holder.name.text = plexusData.name
-        holder.packageName.text = plexusData.packageName
-        //holder.version.text = plexusData.version
-        holder.fav.isChecked = plexusData.isFav
+        /*if (installedApp.installedVersion != installedApp.plexusVersion) {
+            holder.versionMismatch.visibility = View.VISIBLE
+        }
+        else {
+            holder.versionMismatch.visibility = View.GONE
+        }*/
         
-        /// Horizontally scrolling text
+        holder.name.text = favorite.name
+        holder.packageName.text = favorite.packageName
+        holder.version.text = favorite.installedVersion
+        holder.fav.isChecked = favorite.isFav
+        
+        // Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
         hScrollText(holder.version)
-    
+        
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
-            plexusData.isFav = isChecked
+            favorite.isFav = isChecked
             coroutineScope.launch {
-                getDatabase(context).mainDataDao().update(plexusData)
+                DbUtils.getDatabase(context).mainDataDao().update(favorite)
             }
         }
         
@@ -152,15 +159,15 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val filteredList: ArrayList<MainData> = ArrayList()
+                val filteredList: MutableList<MainData> = ArrayList()
                 if (charSequence.isNotEmpty()) {
                     val searchString =
                         charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
-                    for (plexusData in aListViewItemsFull) {
-                        if (plexusData.name.lowercase(Locale.getDefault()).contains(searchString)
-                            || plexusData.packageName.lowercase(Locale.getDefault())
+                    for (installedApp in aListViewItemsFull) {
+                        if (installedApp.name.lowercase(Locale.getDefault()).contains(searchString)
+                            || installedApp.packageName.lowercase(Locale.getDefault())
                                 .contains(searchString)) {
-                            filteredList.add(plexusData)
+                            filteredList.add(installedApp)
                         }
                     }
                 }
