@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -30,23 +30,11 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
-import tech.techlore.plexus.models.MainData
+import tech.techlore.plexus.models.main.MainData
 
 class IntentUtils {
     
     companion object {
-        // Send array list with intent
-        fun sendListsIntent(activityFrom: Activity,
-                            activityTo: Class<*>,
-                            mainDataList: ArrayList<MainData>,
-                            installedAppsList: ArrayList<MainData>,
-                            favList: ArrayList<MainData>) {
-            
-            activityFrom.startActivity(Intent(activityFrom, activityTo)
-                                           .putParcelableArrayListExtra("plexusDataList", mainDataList)
-                                           .putParcelableArrayListExtra("installedAppsList", installedAppsList)
-                                           .putParcelableArrayListExtra("favList", favList))
-        }
     
         // App details activity
         fun startDetailsActivity(activityFrom: Activity, packageName: String, fromFragment: String) {
@@ -60,7 +48,16 @@ class IntentUtils {
     
         fun refreshFragment(navController: NavController) {
             val currentFragment = navController.currentDestination!!
-            navController.navigate(currentFragment.id)
+            val action =
+                when(currentFragment.id) {
+                    R.id.plexusDataFragment -> R.id.action_plexusDataFragment_self
+        
+                    R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
+                    
+                    else -> R.id.action_favoritesFragment_self
+                }
+            
+            navController.navigate(action)
         }
     
         // Open links

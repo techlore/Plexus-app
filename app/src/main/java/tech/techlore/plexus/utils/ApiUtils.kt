@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -27,14 +27,14 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
-import tech.techlore.plexus.models.Application
-import tech.techlore.plexus.models.Root
+import tech.techlore.plexus.models.send.Application
+import tech.techlore.plexus.models.main.Root
 
 class ApiUtils {
     
     companion object {
     
-        private const val API_URL = "https://plexus.fly.dev/api/v1/"
+        private const val API_BASE_URL = "https://plexus.fly.dev/api/v1/"
     
         interface Api {
             @GET("applications")
@@ -47,7 +47,7 @@ class ApiUtils {
         
         fun createService(): Api {
             val retrofit = Retrofit.Builder()
-                .baseUrl(API_URL)
+                .baseUrl(API_BASE_URL)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build()
         

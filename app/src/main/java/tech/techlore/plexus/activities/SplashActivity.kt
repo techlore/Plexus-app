@@ -24,21 +24,13 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.MainData
-import tech.techlore.plexus.utils.DbUtils.Companion.favListFromDB
-import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
-import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
-import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsListFromDB
-import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataIntoDB
-import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataListFromDB
-import tech.techlore.plexus.utils.IntentUtils.Companion.sendListsIntent
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import kotlin.coroutines.CoroutineContext
@@ -48,9 +40,6 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
     
     private val job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
-    private lateinit var plexusDataList: ArrayList<MainData>
-    private lateinit var installedAppsList: ArrayList<MainData>
-    private lateinit var favList: ArrayList<MainData>
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,17 +73,10 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
         launch {
             val context = this@SplashActivity
             if (hasNetwork(context) && hasInternet()) {
-                val db = getDatabase(context)
-                plexusDataIntoDB(db.mainDataDao())
-                installedAppsIntoDB(context, db.mainDataDao())
-                plexusDataList = plexusDataListFromDB(db.mainDataDao())
-                installedAppsList = installedAppsListFromDB(db.mainDataDao())
-                favList = favListFromDB(db.mainDataDao())
-                sendListsIntent(context, MainActivity::class.java,
-                                plexusDataList, installedAppsList, favList)
-                // Lists are sent through intent, because if they are not,
-                // we have to get lists from db in recycler view fragment or main activity
-                // which causes slight delay for lists to show up.
+                val mainRepository = (applicationContext as ApplicationManager).mainRepository
+                mainRepository.plexusDataIntoDB()
+                mainRepository.installedAppsIntoDB(context)
+                startActivity(Intent(context, MainActivity::class.java))
                 finish()
             }
             else {

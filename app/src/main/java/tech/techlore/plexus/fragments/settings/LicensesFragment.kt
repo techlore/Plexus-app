@@ -82,7 +82,6 @@ class LicensesFragment : Fragment() {
     
     override fun onDestroyView() {
         super.onDestroyView()
-        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.about)
         _binding = null
     }
 }

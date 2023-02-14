@@ -28,17 +28,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
-import tech.techlore.plexus.models.MainData
+import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
-import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsIntoDB
-import tech.techlore.plexus.utils.DbUtils.Companion.installedAppsListFromDB
 import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
@@ -52,12 +51,13 @@ class InstalledAppsFragment :
     CoroutineScope {
     
     private val job = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var installedAppsFinalList: ArrayList<MainData>
+    private lateinit var mainInstalledList: ArrayList<MainDataMinimal>
+    private lateinit var installedAppsFinalList: ArrayList<MainDataMinimal>
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -72,13 +72,15 @@ class InstalledAppsFragment :
         
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        var installedAppsTempList: ArrayList<MainData> = ArrayList()
+        var installedAppsTempList: ArrayList<MainDataMinimal> = ArrayList()
         installedAppsFinalList = ArrayList()
         val playStoreInstallers: List<String?> = ArrayList(listOf("com.android.vending", "com.aurora.store"))
-        val installedAppItemAdapter = InstalledAppItemAdapter(installedAppsFinalList,
-                                                              this ,
-                                                              this,
-                                                              coroutineScope)
+        val repository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        runBlocking {
+            launch {
+                mainInstalledList = repository.miniInstalledAppsListFromDB()
+            }
+        }
         
         /*########################################################################################*/
         
@@ -87,17 +89,17 @@ class InstalledAppsFragment :
         // Filter based on installers (play store, aurora etc.)
         if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == 0
             || preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_all_apps) {
-            installedAppsTempList = mainActivity.installedList
+            installedAppsTempList = mainInstalledList
         }
         else if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_play_apps) {
-            for (installedApp in mainActivity.installedList) {
+            for (installedApp in mainInstalledList) {
                 if (playStoreInstallers.contains(installedApp.installedFrom)) {
                     installedAppsTempList.add(installedApp)
                 }
             }
         }
         else {
-            for (installedApp in mainActivity.installedList) {
+            for (installedApp in mainInstalledList) {
                 if (! playStoreInstallers.contains(installedApp.installedFrom)) {
                     installedAppsTempList.add(installedApp)
                 }
@@ -127,11 +129,11 @@ class InstalledAppsFragment :
         // Alphabetical sort
         if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
             || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
-            installedAppsFinalList.sortWith { ai1: MainData, ai2: MainData ->
+            installedAppsFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
                 ai1.name.compareTo(ai2.name) } // A-Z
         }
         else {
-            installedAppsFinalList.sortWith { ai1: MainData, ai2: MainData ->
+            installedAppsFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
                 ai2.name.compareTo(ai1.name) } // Z-A
         }
         
@@ -139,6 +141,10 @@ class InstalledAppsFragment :
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
+            val installedAppItemAdapter = InstalledAppItemAdapter(installedAppsFinalList,
+                                                                  this ,
+                                                                  this,
+                                                                  coroutineScope)
             fragmentBinding.recyclerView.adapter = installedAppItemAdapter
             FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
         }
@@ -148,11 +154,8 @@ class InstalledAppsFragment :
         fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener {
             launch {
-                val db = getDatabase(requireContext())
-                val plexusDataDao = db.mainDataDao()
-                mainActivity.installedList.clear()
-                installedAppsIntoDB(requireContext(), plexusDataDao)
-                mainActivity.installedList = installedAppsListFromDB(plexusDataDao)
+                val repository = (requireContext().applicationContext as ApplicationManager).mainRepository
+                repository.installedAppsIntoDB(requireContext())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 refreshFragment(mainActivity.navController)
             }

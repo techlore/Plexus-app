@@ -27,13 +27,16 @@ import androidx.fragment.app.Fragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.FavoriteItemAdapter
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
-import tech.techlore.plexus.models.MainData
+import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.utils.IntentUtils
 import tech.techlore.plexus.utils.UiUtils
@@ -46,17 +49,19 @@ class FavoritesFragment:
     CoroutineScope {
     
     private val job = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var favFinalList: ArrayList<MainData>
+    private lateinit var mainFavList: ArrayList<MainDataMinimal>
+    private lateinit var favFinalList: ArrayList<MainDataMinimal>
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true)
         _binding = RecyclerViewBinding.inflate(inflater, container, false)
         return fragmentBinding.root
     }
@@ -65,9 +70,15 @@ class FavoritesFragment:
         
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        var favTempList: ArrayList<MainData> = ArrayList()
+        var favTempList: ArrayList<MainDataMinimal> = ArrayList()
         favFinalList = ArrayList()
         val playStoreInstallers: List<String?> = ArrayList(listOf("com.android.vending", "com.aurora.store"))
+        val repository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        runBlocking {
+            launch {
+                mainFavList = repository.miniFavoritesListFromDB()
+            }
+        }
         val favItemAdapter = FavoriteItemAdapter(favFinalList,
                                                  this,
                                                  this,
@@ -80,17 +91,17 @@ class FavoritesFragment:
         // Filter based on installers (play store, aurora etc.)
         if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == 0
             || preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_all_apps) {
-            favTempList = mainActivity.favList
+            favTempList = mainFavList
         }
         else if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_play_apps) {
-            for (installedApp in mainActivity.favList) {
+            for (installedApp in mainFavList) {
                 if (playStoreInstallers.contains(installedApp.installedFrom)) {
                     favTempList.add(installedApp)
                 }
             }
         }
         else {
-            for (installedApp in mainActivity.favList) {
+            for (installedApp in mainFavList) {
                 if (! playStoreInstallers.contains(installedApp.installedFrom)) {
                     favTempList.add(installedApp)
                 }
@@ -120,11 +131,11 @@ class FavoritesFragment:
         // Alphabetical sort
         if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
             || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
-            favFinalList.sortWith { ai1: MainData, ai2: MainData ->
+            favFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
                 ai1.name.compareTo(ai2.name) } // A-Z
         }
         else {
-            favFinalList.sortWith { ai1: MainData, ai2: MainData ->
+            favFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
                 ai2.name.compareTo(ai1.name) } // Z-A
         }
         

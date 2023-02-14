@@ -47,6 +47,7 @@ class AboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val settingsActivity = requireActivity() as SettingsActivity
+        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.about)
         
         // Version
         try {
@@ -69,12 +70,7 @@ class AboutFragment : Fragment() {
         
         // Licenses
         fragmentBinding.licenses.setOnClickListener {
-                parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start,
-                                         R.anim.slide_from_start, R.anim.slide_to_end)
-                    .replace(R.id.activity_host_fragment, LicensesFragment())
-                    .addToBackStack(null)
-                    .commit()
+                settingsActivity.navController.navigate(R.id.action_aboutFragment_to_licensesFragment)
             }
         
         // View on GitHub

@@ -20,7 +20,6 @@
 package tech.techlore.plexus.adapters
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,20 +34,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.MainData
-import tech.techlore.plexus.utils.DbUtils
-import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
+import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import java.util.Locale
 import kotlin.collections.ArrayList
 
-class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
+class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
                             private val clickListener: OnItemClickListener,
                             private val longClickListener: OnItemLongCLickListener,
                             private val coroutineScope: CoroutineScope) :
     RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
-    private val aListViewItemsFull: List<MainData>
+    private val aListViewItemsFull: List<MainDataMinimal>
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -64,21 +62,21 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
         val icon: ImageView = itemView.findViewById(R.id.icon)
         val name: TextView = itemView.findViewById(R.id.name)
         val packageName: TextView = itemView.findViewById(R.id.package_name)
-        val version: TextView = itemView.findViewById(R.id.version)
+        //val version: TextView = itemView.findViewById(R.id.version)
         val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
         }
-    
+        
         override fun onClick(v: View?) {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 clickListener.onItemClick(position)
             }
         }
-    
+        
         override fun onLongClick(v: View?): Boolean {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
@@ -103,8 +101,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
         
         val plexusData = aListViewItems[position]
         val context = holder.itemView.context
-        
-        if (plexusData.isInstalled) {
+        /*if (plexusData.isInstalled) {
             try {
                 holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(plexusData.packageName))
                 // Don't use GLIDE to load icons directly to ImageView
@@ -114,12 +111,12 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
                 e.printStackTrace()
             }
         }
-        else {
-            Glide.with(context)
-                .load("")
-                .placeholder(R.drawable.ic_apk)
-                .into(holder.icon)
-        }
+        else {*/
+        Glide.with(context)
+            .load("")
+            .placeholder(R.drawable.ic_apk)
+            .into(holder.icon)
+        //}
         
         holder.name.text = plexusData.name
         holder.packageName.text = plexusData.packageName
@@ -129,12 +126,14 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
         /// Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
-        hScrollText(holder.version)
-    
+        //hScrollText(holder.version)
+        
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
             plexusData.isFav = isChecked
             coroutineScope.launch {
-                getDatabase(context).mainDataDao().update(plexusData)
+                (context.applicationContext as ApplicationManager)
+                    .miniRepository
+                    .update(plexusData)
             }
         }
         
@@ -152,7 +151,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val filteredList: ArrayList<MainData> = ArrayList()
+                val filteredList: ArrayList<MainDataMinimal> = ArrayList()
                 if (charSequence.isNotEmpty()) {
                     val searchString =
                         charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
@@ -172,7 +171,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainData>,
             @SuppressLint("NotifyDataSetChanged")
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 aListViewItems.clear()
-                aListViewItems.addAll((filterResults.values as ArrayList<MainData>))
+                aListViewItems.addAll((filterResults.values as ArrayList<MainDataMinimal>))
                 notifyDataSetChanged()
             }
         }

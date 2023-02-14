@@ -26,7 +26,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import tech.techlore.plexus.models.MainData
+import tech.techlore.plexus.models.main.MainData
 
 @Dao
 interface MainDataDao {
@@ -39,6 +39,9 @@ interface MainDataDao {
     
     @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled = true")
     fun getInstalledAppByPackage(packageName: String): MainData?
+    
+    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isFav = true")
+    fun getFavoriteAppByPackage(packageName: String): MainData?
     
     @Query("SELECT * FROM main_table WHERE isInstalled = false")
     suspend fun getNotInstalledApps(): List<MainData>
@@ -73,6 +76,7 @@ interface MainDataDao {
         }
     }
     
+    @Transaction
     suspend fun insertOrUpdateInstalledApps(mainData: MainData) {
         
         val existingApps = getAppByPackage(mainData.packageName)
@@ -86,6 +90,17 @@ interface MainDataDao {
             existingApps.packageName = mainData.packageName
             existingApps.installedVersion = mainData.installedVersion
             existingApps.isInstalled = mainData.isInstalled
+            update(existingApps)
+        }
+    }
+    
+    @Transaction
+    suspend fun updateFavApps(mainData: MainData) {
+        
+        val existingApps = getAppByPackage(mainData.packageName)
+        
+        if (existingApps != null) {
+            existingApps.isFav = mainData.isFav
             update(existingApps)
         }
     }

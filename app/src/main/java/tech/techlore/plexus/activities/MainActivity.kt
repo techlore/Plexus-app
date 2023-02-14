@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -43,7 +43,6 @@ import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
-import tech.techlore.plexus.models.MainData
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.SEL_ITEM
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
@@ -57,9 +56,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
-    lateinit var dataList: ArrayList<MainData>
-    lateinit var installedList: ArrayList<MainData>
-    lateinit var favList: ArrayList<MainData>
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,18 +74,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         setSupportActionBar(activityBinding.toolbarBottom)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
-        
-        // Get lists from previous activity
-        if (Build.VERSION.SDK_INT >= 33) {
-            dataList = intent.getParcelableArrayListExtra("plexusDataList", MainData::class.java)!!
-            installedList = intent.getParcelableArrayListExtra("installedAppsList", MainData::class.java)!!
-            favList = intent.getParcelableArrayListExtra("favList", MainData::class.java)!!
-        }
-        else {
-            dataList = intent.getParcelableArrayListExtra("plexusDataList")!!
-            installedList = intent.getParcelableArrayListExtra("installedAppsList")!!
-            favList = intent.getParcelableArrayListExtra("favList")!!
-        }
         
         // To set nav view item background, check selected item
         if (savedInstanceState == null) {
@@ -162,11 +146,11 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 
-                activityBinding.dimBg.alpha = slideOffset * 2 // Dim background on sliding up
+                activityBinding.dimBg.alpha = slideOffset * 2f // Dim background on sliding up
                 activityBinding.navView.setCheckedItem(preferenceManager.getInt(SEL_ITEM)) // Always sync checked item on slide
                 
                 // Hide toolbar title and menu on slide up
-                if (slideOffset > 0.03) {
+                if (slideOffset > 0.02) {
                     activityBinding.toolbarBottom.title = null
                     activityBinding.toolbarBottom.menu.clear()
                 }

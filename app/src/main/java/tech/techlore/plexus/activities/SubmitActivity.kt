@@ -35,7 +35,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
-import tech.techlore.plexus.models.Application
+import tech.techlore.plexus.models.send.Application
 import tech.techlore.plexus.utils.ApiUtils.Companion.createService
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork

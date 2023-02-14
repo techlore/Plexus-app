@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -23,6 +23,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivitySettingsBinding
 import tech.techlore.plexus.fragments.settings.AboutFragment
@@ -31,20 +33,25 @@ import tech.techlore.plexus.fragments.details.HelpFragment
 class SettingsActivity : AppCompatActivity() {
 
     lateinit var activityBinding: ActivitySettingsBinding
+    private lateinit var navHostFragment: NavHostFragment
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityBinding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
+    
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.settings_nav_host) as NavHostFragment
+        navController = navHostFragment.navController
 
         /*####################################################################################*/
         setSupportActionBar(activityBinding.toolbarBottom)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         activityBinding.toolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         
-        intent.extras?.let {
+        /*intent.extras?.let {
             displayFragment(it.getInt("frag"))
-        }
+        }*/
     }
 
     // Setup fragments

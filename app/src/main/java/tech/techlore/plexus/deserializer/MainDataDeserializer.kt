@@ -23,7 +23,7 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
-import tech.techlore.plexus.models.MainData
+import tech.techlore.plexus.models.main.MainData
 
 // This custom class modifies json deserialization by Jackson
 // because some fields (ex: installedVersion, isFav etc.) are not present in the json data

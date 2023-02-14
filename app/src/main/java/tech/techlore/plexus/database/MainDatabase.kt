@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -19,14 +19,33 @@
 
 package tech.techlore.plexus.database
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.CoroutineScope
 import tech.techlore.plexus.dao.MainDataDao
-import tech.techlore.plexus.models.MainData
+import tech.techlore.plexus.models.main.MainData
 
 @Database(entities = [MainData::class], version = 1)
 abstract class MainDatabase : RoomDatabase() {
     
     abstract fun mainDataDao(): MainDataDao
     
+    companion object {
+        
+        @Volatile
+        private var INSTANCE: MainDatabase? = null
+        
+        fun getDatabase(context: Context, scope: CoroutineScope): MainDatabase {
+            return INSTANCE ?: synchronized(this) {
+                Room.databaseBuilder(context.applicationContext,
+                                     MainDatabase::class.java,
+                                     "main_database.db")
+                    .build()
+                    .also { INSTANCE = it }
+            }
+        }
+        
+    }
 }

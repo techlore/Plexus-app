@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -17,16 +17,23 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models
+package tech.techlore.plexus.models.main
 
-// Req. for sending data to API
+import com.fasterxml.jackson.annotation.JsonProperty
 
-data class Application(
-    val name: String,
-    val packageName: String/*,
-    val version: String,
-    val dgStatus: String,
-    val mgStatus: String,
-    val dgNotes: String,
-    val mgNotes: String*/
-)
+class Root {
+    
+    lateinit var data: ArrayList<MainData>
+
+    @JsonProperty("page_number")
+    var pageNumber = 0
+
+    @JsonProperty("page_size")
+    var pageSize = 0
+
+    @JsonProperty("total_entries")
+    var totalEntries = 0
+
+    @JsonProperty("total_pages")
+    var totalPages = 0
+}

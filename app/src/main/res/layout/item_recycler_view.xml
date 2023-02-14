@@ -31,8 +31,8 @@
     android:layout_marginBottom="@dimen/margin_6.5"
     android:paddingStart="@dimen/margin_8"
     android:paddingEnd="@dimen/margin_8"
-    android:paddingTop="@dimen/margin_4"
-    android:paddingBottom="@dimen/margin_4"
+    android:paddingTop="@dimen/margin_8"
+    android:paddingBottom="@dimen/margin_8"
     android:background="@drawable/shape_ripple"
     tools:context=".adapters.PlexusDataItemAdapter">
 
@@ -41,8 +41,8 @@
         android:layout_width="@dimen/margin_45"
         android:layout_height="@dimen/margin_45"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/name"
+        app:layout_constraintBottom_toBottomOf="@id/package_name"
         android:src="@drawable/ic_apk"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
@@ -79,7 +79,7 @@
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"/>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,14 +104,15 @@
         android:layout_marginTop="@dimen/margin_2.5"
         android:src="@drawable/ic_ver_mismatch"
         tools:ignore="ContentDescription"
-        android:visibility="gone"/>
+        android:visibility="gone"/>-->
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/fav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/name"
+        app:layout_constraintBottom_toBottomOf="@id/name"
         android:layout_marginTop="@dimen/margin_2.5"
         android:layout_marginEnd="@dimen/margin_12"
         android:button="@drawable/ic_fav"

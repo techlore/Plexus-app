@@ -30,23 +30,21 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
-import tech.techlore.plexus.models.MainData
+import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
-import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataIntoDB
-import tech.techlore.plexus.utils.DbUtils.Companion.plexusDataListFromDB
 import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
-import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 
 class PlexusDataFragment :
@@ -56,12 +54,13 @@ class PlexusDataFragment :
     CoroutineScope {
     
     private val job = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var mainDataList: ArrayList<MainData>
+    private lateinit var mainPlexusDataList: ArrayList<MainDataMinimal>
+    private lateinit var plexusDataList: ArrayList<MainDataMinimal>
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -76,54 +75,59 @@ class PlexusDataFragment :
         
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        mainDataList = ArrayList()
-        val plexusDataItemAdapter = PlexusDataItemAdapter(mainDataList,
-                                                          this,
-                                                          this,
-                                                          coroutineScope)
+        plexusDataList = ArrayList()
+        val miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        runBlocking {
+            launch {
+                mainPlexusDataList = miniRepository.miniPlexusDataListFromDB()
+            }
+        }
         
         /*########################################################################################*/
         
         fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-        
+    
         // Status sort
-        for (plexusData in mainActivity.dataList) {
+        for (plexusData in mainPlexusDataList) {
             if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == 0
                 || preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_any_status) {
-                mainDataList.add(plexusData)
+                plexusDataList.add(plexusData)
             }
-            //            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
-//
-//                PlexusDataStatusSort(preferenceManager.getInt(DG_STATUS_SORT_PREF), plexusData,
-//                        plexusData.dgStatus, plexusDataList);
-//            }
-//            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_mg_status) {
-//
-//                PlexusDataStatusSort(preferenceManager.getInt(MG_STATUS_SORT_PREF), plexusData,
-//                        plexusData.mgStatus, plexusDataList);
-//            }
+            /*else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
+
+                PlexusDataStatusSort(preferenceManager.getInt(DG_STATUS_SORT_PREF), plexusData,
+                                     plexusData.dgStatus, plexusDataList);
+            }
+            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_mg_status) {
+
+                PlexusDataStatusSort(preferenceManager.getInt(MG_STATUS_SORT_PREF), plexusData,
+                                     plexusData.mgStatus, plexusDataList);
+            }*/
         }
-        
         
         // Alphabetical sort
         if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
             || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
-            mainDataList.sortWith { ai1: MainData, ai2: MainData ->
+            plexusDataList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
                 ai1.name.compareTo(ai2.name) } // A-Z
         }
         else {
-            mainDataList.sortWith { ai1: MainData, ai2: MainData ->
+            plexusDataList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
                 ai2.name.compareTo(ai1.name) } // Z-A
         }
-        
-        if (mainActivity.dataList.size == 0) {
+    
+        if (plexusDataList.size == 0) {
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
+            val plexusDataItemAdapter = PlexusDataItemAdapter(plexusDataList,
+                                                              this,
+                                                              this,
+                                                              coroutineScope)
             fragmentBinding.recyclerView.adapter = plexusDataItemAdapter
             FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
         }
-        
+    
         // Swipe refresh layout
         fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
         fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
@@ -132,13 +136,13 @@ class PlexusDataFragment :
     
     // On click
     override fun onItemClick(position: Int) {
-        val plexusData = mainDataList[position]
+        val plexusData = plexusDataList[position]
         startDetailsActivity(mainActivity, plexusData.packageName, "plexus")
     }
     
     // On long click
     override fun onItemLongCLick(position: Int) {
-        val plexusData = mainDataList[position]
+        val plexusData = plexusDataList[position]
         longClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName,  /*plexusData.version,
                                  plexusData.dgStatus, plexusData.mgStatus,
                                  plexusData.dgNotes, plexusData.mgNotes,*/
@@ -168,9 +172,8 @@ class PlexusDataFragment :
         
         launch {
             if (hasNetwork(requireContext()) && hasInternet()) {
-                val db = getDatabase(requireContext())
-                plexusDataIntoDB(db.mainDataDao())
-                mainActivity.dataList = plexusDataListFromDB(db.mainDataDao())
+                val repository = (requireContext().applicationContext as ApplicationManager).mainRepository
+                repository.plexusDataIntoDB()
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 refreshFragment(mainActivity.navController)
             }

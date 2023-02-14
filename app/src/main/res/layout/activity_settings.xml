@@ -29,11 +29,14 @@
     android:background="@color/color_background"
     tools:context=".activities.SettingsActivity">
 
-    <include
-        layout="@layout/activity_host_fragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/settings_nav_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"/>
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:navGraph="@navigation/settings_fragments_nav_graph"
+        app:defaultNavHost="true"/>
 
     <!--This is just here to provide bg color
         For some reason appbar layout doesn't show elevated color-->

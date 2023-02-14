@@ -34,19 +34,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.MainData
-import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
+import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import java.util.Locale
 import kotlin.collections.ArrayList
 
-class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainData>,
+class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
                               private val clickListener: OnItemClickListener,
                               private val longClickListener: OnItemLongCLickListener,
                               private val coroutineScope: CoroutineScope) :
     RecyclerView.Adapter<InstalledAppItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
-    private val aListViewItemsFull: List<MainData>
+    private val aListViewItemsFull: List<MainDataMinimal>
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -62,8 +62,8 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainData>,
         val icon: ImageView = itemView.findViewById(R.id.icon)
         val name: TextView = itemView.findViewById(R.id.name)
         val packageName: TextView = itemView.findViewById(R.id.package_name)
-        val installedVersion: TextView = itemView.findViewById(R.id.version)
-        val versionMismatch: ImageView = itemView.findViewById(R.id.version_mismatch)
+        //val installedVersion: TextView = itemView.findViewById(R.id.version)
+        //val versionMismatch: ImageView = itemView.findViewById(R.id.version_mismatch)
         val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
@@ -121,18 +121,20 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainData>,
         
         holder.name.text = installedApp.name
         holder.packageName.text = installedApp.packageName
-        holder.installedVersion.text = installedApp.installedVersion
+        //holder.installedVersion.text = installedApp.installedVersion
         holder.fav.isChecked = installedApp.isFav
         
         // Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
-        hScrollText(holder.installedVersion)
+        //hScrollText(holder.installedVersion)
         
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
             installedApp.isFav = isChecked
             coroutineScope.launch {
-                getDatabase(context).mainDataDao().update(installedApp)
+                (context.applicationContext as ApplicationManager)
+                    .miniRepository
+                    .update(installedApp)
             }
         }
         
@@ -150,7 +152,7 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainData>,
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val filteredList: MutableList<MainData> = ArrayList()
+                val filteredList: MutableList<MainDataMinimal> = ArrayList()
                 if (charSequence.isNotEmpty()) {
                     val searchString =
                         charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
@@ -170,7 +172,7 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainData>,
             @SuppressLint("NotifyDataSetChanged")
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 aListViewItems.clear()
-                aListViewItems.addAll((filterResults.values as ArrayList<MainData>))
+                aListViewItems.addAll((filterResults.values as ArrayList<MainDataMinimal>))
                 notifyDataSetChanged()
             }
         }

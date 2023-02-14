@@ -34,12 +34,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
-import tech.techlore.plexus.database.MainDatabase
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.models.MainData
-import tech.techlore.plexus.utils.DbUtils.Companion.getDatabase
+import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.utils.IntentUtils.Companion.share
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import kotlin.coroutines.CoroutineContext
@@ -63,7 +61,7 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
 
-        val db = getDatabase(this)
+        val repository = (applicationContext as ApplicationManager).mainRepository
         var installedApp: MainData
         var mainData: MainData
         packageNameString = intent.getStringExtra("packageName")!!
@@ -88,7 +86,7 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
     
             runBlocking {
                 launch {
-                    mainData = getPlexusDataByPackage(db, packageNameString)
+                    mainData = repository.getNotInstalledAppByPackage(packageNameString)!!/*getPlexusDataByPackage(db, packageNameString)*/
                     nameString = mainData.name
                 }
             }
@@ -107,7 +105,7 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
             
             runBlocking {
                 launch {
-                    installedApp = getInstalledAppByPackage(db, packageNameString)
+                    installedApp = repository.getInstalledAppByPackage(packageNameString)!!/*getInstalledAppByPackage(db, packageNameString)*/
                     nameString = installedApp.name
                 }
             }
@@ -176,7 +174,7 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
         return true
     }
     
-    private suspend fun getPlexusDataByPackage(database: MainDatabase, packageName: String): MainData {
+    /*private suspend fun getPlexusDataByPackage(database: MainDatabase, packageName: String): MainData {
         return withContext(Dispatchers.IO) {
             database.mainDataDao().getNotInstalledAppByPackage(packageName)!!
         }
@@ -186,7 +184,7 @@ class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
         return withContext(Dispatchers.IO) {
             database.mainDataDao().getInstalledAppByPackage(packageName)!!
         }
-    }
+    }*/
 
     // Set transition when finishing activity
     override fun finish() {
