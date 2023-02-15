@@ -20,17 +20,16 @@
 package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import kotlin.coroutines.CoroutineContext
@@ -50,24 +49,6 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
         retrieveData()
     }
     
-    private fun noNetworkDialog() {
-        MaterialAlertDialogBuilder(this, R.style.DialogTheme)
-            
-            .setTitle(R.string.dialog_title)
-            
-            .setMessage(R.string.dialog_subtitle)
-            
-            .setPositiveButton(R.string.retry) { _: DialogInterface?, _: Int ->
-                retrieveData() }
-                
-            .setNegativeButton(R.string.exit) { _: DialogInterface?, _: Int ->
-                finishAndRemoveTask() }
-                
-            .setCancelable(false)
-            
-            .show()
-    }
-    
     private fun retrieveData() {
     
         launch {
@@ -80,7 +61,14 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
                 finish()
             }
             else {
-                noNetworkDialog()
+                NoNetworkDialog(negativeButtonText = getString(R.string.exit),
+                                positiveButtonClickListener = {
+                                    retrieveData()
+                                },
+                                negativeButtonClickListener = {
+                                    finishAndRemoveTask()
+                                })
+                    .show(supportFragmentManager, "NoNetworkDialog")
             }
         }
     }

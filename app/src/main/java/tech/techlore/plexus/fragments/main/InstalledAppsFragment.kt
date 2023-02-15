@@ -35,12 +35,12 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.fragments.bottomsheets.LongClickBottomSheet
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
+import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 
@@ -171,12 +171,13 @@ class InstalledAppsFragment :
     // On long click
     override fun onItemLongCLick(position: Int) {
         val installedApp = installedAppsFinalList[position]
-        longClickBottomSheet(mainActivity,
+        LongClickBottomSheet(mainActivity,
                              installedApp.name, installedApp.packageName,  /*installedApp.getPlexusVersion(),
                                  installedApp.getDgRating(), installedApp.getMgRating(),
                                  installedApp.getDgNotes(), installedApp.getMgNotes(),*/
                              mainActivity.activityBinding.mainCoordinatorLayout,
                              mainActivity.activityBinding.bottomNavContainer)
+            .show(parentFragmentManager, "LongClickBottomSheet")
     }
     
     override fun onDestroyView() {

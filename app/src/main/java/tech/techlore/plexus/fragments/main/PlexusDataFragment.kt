@@ -19,13 +19,11 @@
 
 package tech.techlore.plexus.fragments.main
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -37,14 +35,15 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.PlexusDataItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.fragments.bottomsheets.LongClickBottomSheet
+import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.UiUtils.Companion.longClickBottomSheet
+import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import kotlin.coroutines.CoroutineContext
 
 class PlexusDataFragment :
@@ -143,29 +142,12 @@ class PlexusDataFragment :
     // On long click
     override fun onItemLongCLick(position: Int) {
         val plexusData = plexusDataList[position]
-        longClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName,  /*plexusData.version,
+        LongClickBottomSheet(mainActivity, plexusData.name, plexusData.packageName,  /*plexusData.version,
                                  plexusData.dgStatus, plexusData.mgStatus,
                                  plexusData.dgNotes, plexusData.mgNotes,*/
                              mainActivity.activityBinding.mainCoordinatorLayout,
                              mainActivity.activityBinding.bottomNavContainer)
-    }
-    
-    private fun noNetworkDialog() {
-        MaterialAlertDialogBuilder(requireContext(), R.style.DialogTheme)
-            
-            .setTitle(R.string.dialog_title)
-            
-            .setMessage(R.string.dialog_subtitle)
-            
-            .setPositiveButton(R.string.retry) { _: DialogInterface?, _: Int ->
-                refreshData() }
-                
-            .setNegativeButton(R.string.cancel) { _: DialogInterface?, _: Int ->
-                fragmentBinding.swipeRefreshLayout.isRefreshing = false }
-                
-            .setCancelable(false)
-            
-            .show()
+            .show(parentFragmentManager, "LongClickBottomSheet")
     }
     
     private fun refreshData() {
@@ -178,7 +160,14 @@ class PlexusDataFragment :
                 refreshFragment(mainActivity.navController)
             }
             else {
-                noNetworkDialog()
+                NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
+                                positiveButtonClickListener = {
+                                    refreshData()
+                                },
+                                negativeButtonClickListener = {
+                                    fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                                })
+                    .show(parentFragmentManager, "NoNetworkDialog")
             }
         }
     }

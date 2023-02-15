@@ -35,11 +35,11 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.FavoriteItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.fragments.bottomsheets.LongClickBottomSheet
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.utils.IntentUtils
-import tech.techlore.plexus.utils.UiUtils
 import kotlin.coroutines.CoroutineContext
 
 class FavoritesFragment:
@@ -173,12 +173,13 @@ class FavoritesFragment:
     // On long click
     override fun onItemLongCLick(position: Int) {
         val fav = favFinalList[position]
-        UiUtils.longClickBottomSheet(mainActivity,
+        LongClickBottomSheet(mainActivity,
                                      fav.name, fav.packageName,  /*installedApp.getPlexusVersion(),
                                  installedApp.getDgRating(), installedApp.getMgRating(),
                                  installedApp.getDgNotes(), installedApp.getMgNotes(),*/
                                      mainActivity.activityBinding.mainCoordinatorLayout,
                                      mainActivity.activityBinding.bottomNavContainer)
+            .show(parentFragmentManager, "LongClickBottomSheet")
     }
     
     override fun onDestroyView() {

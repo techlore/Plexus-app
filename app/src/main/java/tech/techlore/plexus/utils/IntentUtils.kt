@@ -25,12 +25,10 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.navigation.NavController
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
-import tech.techlore.plexus.models.main.MainData
 
 class IntentUtils {
     
@@ -44,20 +42,6 @@ class IntentUtils {
                                            .putExtra("fromFrag", fromFragment))
             
             //activityFrom.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement)
-        }
-    
-        fun refreshFragment(navController: NavController) {
-            val currentFragment = navController.currentDestination!!
-            val action =
-                when(currentFragment.id) {
-                    R.id.plexusDataFragment -> R.id.action_plexusDataFragment_self
-        
-                    R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
-                    
-                    else -> R.id.action_favoritesFragment_self
-                }
-            
-            navController.navigate(action)
         }
     
         // Open links
@@ -80,15 +64,15 @@ class IntentUtils {
                              String dgNotesString, String mgNotesString,*/
                   playStoreString: String) {
     
-            activity.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND)
-                                                            .setType("text/plain")
-                                                            .putExtra(Intent.EXTRA_TEXT,
-                                                                      """
-                                    ${activity.getString(R.string.app_name)}: $nameString
-                                    ${activity.getString(R.string.package_name)}: $packageNameString
-                                    ${activity.getString(R.string.play_store)}: $playStoreString
-                                                            """.trimIndent()),
-                                                            activity.getString(R.string.share)))
+            activity.startActivity(Intent.createChooser(
+                Intent(Intent.ACTION_SEND)
+                    .setType("text/plain")
+                    .putExtra(Intent.EXTRA_TEXT,
+                              """
+                              ${activity.getString(R.string.app_name)}: $nameString
+                              ${activity.getString(R.string.package_name)}: $packageNameString
+                              ${activity.getString(R.string.play_store)}: $playStoreString
+                              """.trimIndent()), activity.getString(R.string.share)))
         }
     }
 }

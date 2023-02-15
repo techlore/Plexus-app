@@ -20,33 +20,27 @@
 package tech.techlore.plexus.activities
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.RadioGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.MenuProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityMainBinding
-import tech.techlore.plexus.databinding.BottomSheetFooterBinding
-import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetSortBinding
-import tech.techlore.plexus.databinding.BottomSheetThemeBinding
+import tech.techlore.plexus.fragments.bottomsheets.SortBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.ThemeBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.SEL_ITEM
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
-import tech.techlore.plexus.utils.IntentUtils.Companion.refreshFragment
+import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
 class MainActivity : AppCompatActivity(), MenuProvider {
     
@@ -129,7 +123,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                                                          activityBinding.mainCoordinatorLayout,
                                                          activityBinding.bottomNavContainer)
                     
-                        R.id.nav_theme -> themeBottomSheet()
+                        R.id.nav_theme -> ThemeBottomSheet().show(supportFragmentManager, "ThemeBottomSheet")
                     
                         R.id.nav_about -> startActivity(Intent(this@MainActivity,
                                                                SettingsActivity::class.java)
@@ -272,7 +266,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
             }*/
     
-            R.id.menu_sort -> sortBottomSheet()
+            R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
     
             R.id.menu_all_apps,
             R.id.menu_play_apps,
@@ -286,161 +280,23 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         return true
     }
     
-    private fun sortBottomSheet() {
-        
-        val bottomSheetDialog = BottomSheetDialog(this)
-        val bottomSheetBinding = BottomSheetSortBinding.inflate(layoutInflater)
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        bottomSheetDialog.setContentView(bottomSheetBinding.root)
-        
-        headerBinding.bottomSheetTitle.setText(R.string.menu_sort)
-        
-        // Default alphabetical checked chip
-        if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0) {
-            preferenceManager.setInt(PreferenceManager.A_Z_SORT_PREF, R.id.sort_a_z)
-        }
-        bottomSheetBinding.alphabeticalChipGroup.check(preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF))
-        
-        // Status radio btn checked by default
-        if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == 0) {
-            preferenceManager.setInt(PreferenceManager.STATUS_RADIO_PREF, R.id.radio_any_status)
-        }
-        bottomSheetBinding.statusRadiogroup.check(preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF))
-        
-        // Status chip group visibility
-        if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_dg_status) {
-            bottomSheetBinding.statusChipGroup.visibility = View.VISIBLE
-            
-            // Default DG status checked chip
-            if (preferenceManager.getInt(PreferenceManager.DG_STATUS_SORT_PREF) == 0) {
-                preferenceManager.setInt(PreferenceManager.DG_STATUS_SORT_PREF,
-                                            R.id.sort_not_tested)
-            }
-            bottomSheetBinding.statusChipGroup.check(preferenceManager.getInt(PreferenceManager.DG_STATUS_SORT_PREF))
-        }
-        else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_mg_status) {
-            bottomSheetBinding.statusChipGroup.visibility = View.VISIBLE
-            
-            // Default MG status checked chip
-            if (preferenceManager.getInt(PreferenceManager.MG_STATUS_SORT_PREF) == 0) {
-                preferenceManager.setInt(PreferenceManager.MG_STATUS_SORT_PREF,
-                                            R.id.sort_not_tested)
-            }
-            bottomSheetBinding.statusChipGroup.check(preferenceManager.getInt(PreferenceManager.MG_STATUS_SORT_PREF))
-        }
-        else {
-            bottomSheetBinding.statusChipGroup.visibility = View.GONE
-        }
-        
-        // On selecting status radio btn
-        bottomSheetBinding.statusRadiogroup.setOnCheckedChangeListener { _: RadioGroup?, checkedId: Int ->
-            if (checkedId != R.id.radio_any_status) {
-                bottomSheetBinding.statusChipGroup.visibility = View.VISIBLE
-            }
-            else {
-                bottomSheetBinding.statusChipGroup.visibility = View.GONE
-            }
-        }
-        
-        // Done
-        footerBinding.positiveButton.text = getString(R.string.done)
-        footerBinding.positiveButton.setOnClickListener {
-            preferenceManager.setInt(PreferenceManager.A_Z_SORT_PREF,
-                                        bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
-            preferenceManager.setInt(PreferenceManager.STATUS_RADIO_PREF,
-                                        bottomSheetBinding.statusRadiogroup.checkedRadioButtonId)
-            if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_dg_status) {
-                preferenceManager.setInt(PreferenceManager.DG_STATUS_SORT_PREF,
-                                            bottomSheetBinding.statusChipGroup.checkedChipId)
-            }
-            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_mg_status) {
-                preferenceManager.setInt(PreferenceManager.MG_STATUS_SORT_PREF,
-                                            bottomSheetBinding.statusChipGroup.checkedChipId)
-            }
-    
-            bottomSheetDialog.dismiss()
-            refreshFragment(navController)
-        }
-        
-        // Cancel
-        footerBinding.negativeButton.setOnClickListener { bottomSheetDialog.cancel() }
-        bottomSheetDialog.show()
-    }
-    
-    private fun themeBottomSheet() {
-        val bottomSheetDialog = BottomSheetDialog(this)
-        val bottomSheetBinding = BottomSheetThemeBinding.inflate(layoutInflater)
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        bottomSheetDialog.setContentView(bottomSheetBinding.root)
-        
-        headerBinding.bottomSheetTitle.setText(R.string.theme)
-        
-        // Default checked radio btn
-        if (preferenceManager.getInt(PreferenceManager.THEME_PREF) == 0) {
-            if (Build.VERSION.SDK_INT >= 29) {
-                preferenceManager.setInt(PreferenceManager.THEME_PREF, R.id.sys_default)
-            }
-            else {
-                preferenceManager.setInt(PreferenceManager.THEME_PREF, R.id.light)
-            }
-        }
-        bottomSheetBinding.themeRadiogroup.check(preferenceManager.getInt(PreferenceManager.THEME_PREF))
-        
-        // Show system default option only on SDK 29 and above
-        if (Build.VERSION.SDK_INT >= 29) {
-            bottomSheetBinding.sysDefault.visibility = View.VISIBLE
-        }
-        else {
-            bottomSheetBinding.sysDefault.visibility = View.GONE
-        }
-        
-        // On selecting option
-        bottomSheetBinding.themeRadiogroup
-            .setOnCheckedChangeListener { _: RadioGroup?, checkedId: Int ->
-                
-                when (checkedId) {
-    
-                    R.id.sys_default ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-    
-                    R.id.light ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-    
-                    R.id.dark ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    
-                }
-                
-                preferenceManager.setInt(PreferenceManager.THEME_PREF, checkedId)
-                bottomSheetDialog.dismiss()
-                recreate()
-            }
-        footerBinding.positiveButton.visibility = View.GONE
-        
-        // Cancel
-        footerBinding.negativeButton.setOnClickListener {
-            bottomSheetDialog.cancel()
-        }
-        bottomSheetDialog.show()
-    }
-    
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            
-            if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            }
-            else if (navController.currentDestination!!.id != navController.graph.startDestinationId) {
-                clickedItem = R.id.nav_plexus_data
-                preferenceManager.setInt(SEL_ITEM, R.id.nav_plexus_data)
-                displayFragment(clickedItem)
-                activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
-            }
-            else {
-                finish()
+    
+            when {
+                
+                bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED ->
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    
+                navController.currentDestination!!.id != navController.graph.startDestinationId -> {
+                    clickedItem = R.id.nav_plexus_data
+                    preferenceManager.setInt(SEL_ITEM, R.id.nav_plexus_data)
+                    displayFragment(clickedItem)
+                    activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
+                }
+        
+                else -> finish()
             }
         }
     }

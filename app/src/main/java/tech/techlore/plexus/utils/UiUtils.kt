@@ -19,14 +19,9 @@
 
 package tech.techlore.plexus.utils
 
-import android.app.Activity
-import android.view.View
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import tech.techlore.plexus.databinding.BottomSheetFooterBinding
-import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetLongClickBinding
+import androidx.navigation.NavController
+import tech.techlore.plexus.R
 
 class UiUtils {
 
@@ -38,46 +33,19 @@ class UiUtils {
             textView.setSingleLine()
             textView.isSelected = true
         }
-
-        // Long click bottom sheet
-        fun longClickBottomSheet(
-            activity: Activity, nameString: String, packageNameString: String,  /*String plexusVersionString,
-            String dgRatingString, String mgRatingString, String dgNotesString, String mgNotesString,*/
-            coordinatorLayout: CoordinatorLayout, anchorView: View) {
-
-            val bottomSheetDialog = BottomSheetDialog(activity)
-            bottomSheetDialog.setCancelable(true)
-
-            val bottomSheetBinding = BottomSheetLongClickBinding.inflate(activity.layoutInflater)
-            val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-            val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-            bottomSheetDialog.setContentView(bottomSheetBinding.root)
-
-            val playStoreString = "https://play.google.com/store/apps/details?id=$packageNameString"
-            headerBinding.bottomSheetTitle.text = nameString
-
-            // Play store
-            bottomSheetBinding.playStore.setOnClickListener {
-                bottomSheetDialog.dismiss()
-                IntentUtils.openURL(activity, playStoreString, coordinatorLayout, anchorView)
-            }
-
-            // Share
-            bottomSheetBinding.share.setOnClickListener {
-                IntentUtils.share(
-                    activity,
-                    nameString, packageNameString,  /*plexusVersionString,
-                  dgRatingString, mgRatingString,
-                  dgNotesString, mgNotesString,*/
-                    playStoreString
-                )
-                bottomSheetDialog.dismiss()
-            }
-            footerBinding.positiveButton.visibility = View.GONE
-
-            // Cancel
-            footerBinding.negativeButton.setOnClickListener { bottomSheetDialog.cancel() }
-            bottomSheetDialog.show()
+    
+        fun refreshFragment(navController: NavController) {
+            val currentFragment = navController.currentDestination!!
+            val action =
+                when(currentFragment.id) {
+                    R.id.plexusDataFragment -> R.id.action_plexusDataFragment_self
+                
+                    R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
+                
+                    else -> R.id.action_favoritesFragment_self
+                }
+        
+            navController.navigate(action)
         }
     }
 }
