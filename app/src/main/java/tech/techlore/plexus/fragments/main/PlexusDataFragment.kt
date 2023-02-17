@@ -40,6 +40,8 @@ import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT_PREF
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO_PREF
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
@@ -58,7 +60,6 @@ class PlexusDataFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var mainPlexusDataList: ArrayList<MainDataMinimal>
     private lateinit var plexusDataList: ArrayList<MainDataMinimal>
     
     override fun onCreateView(inflater: LayoutInflater,
@@ -74,46 +75,17 @@ class PlexusDataFragment :
         
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        plexusDataList = ArrayList()
         val miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
         runBlocking {
             launch {
-                mainPlexusDataList = miniRepository.miniPlexusDataListFromDB()
+                plexusDataList =
+                    miniRepository.miniPlexusDataListFromDB(orderPref = preferenceManager.getInt(A_Z_SORT_PREF))
             }
         }
         
         /*########################################################################################*/
         
         fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-    
-        // Status sort
-        for (plexusData in mainPlexusDataList) {
-            if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == 0
-                || preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_any_status) {
-                plexusDataList.add(plexusData)
-            }
-            /*else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_dg_status) {
-
-                PlexusDataStatusSort(preferenceManager.getInt(DG_STATUS_SORT_PREF), plexusData,
-                                     plexusData.dgStatus, plexusDataList);
-            }
-            else if (preferenceManager.getInt(STATUS_RADIO_PREF) == R.id.radio_mg_status) {
-
-                PlexusDataStatusSort(preferenceManager.getInt(MG_STATUS_SORT_PREF), plexusData,
-                                     plexusData.mgStatus, plexusDataList);
-            }*/
-        }
-        
-        // Alphabetical sort
-        if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
-            || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
-            plexusDataList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
-                ai1.name.compareTo(ai2.name) } // A-Z
-        }
-        else {
-            plexusDataList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
-                ai2.name.compareTo(ai1.name) } // Z-A
-        }
     
         if (plexusDataList.size == 0) {
             fragmentBinding.emptyListViewStub.inflate()

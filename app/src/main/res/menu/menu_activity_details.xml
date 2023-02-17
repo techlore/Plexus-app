@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -26,13 +26,13 @@
     <item
         android:id="@+id/menu_play_store"
         android:icon="@drawable/ic_play_store"
-        android:title="@string/play_store"
+        android:title="@string/menu_play_store"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/menu_share"
         android:icon="@drawable/ic_share"
-        android:title="@string/share"
+        android:title="@string/menu_share"
         app:showAsAction="always"/>
 
     <item

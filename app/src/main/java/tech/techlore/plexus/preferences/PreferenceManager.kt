@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -20,11 +20,11 @@
 package tech.techlore.plexus.preferences
 
 import android.content.Context
-import android.content.SharedPreferences
 
 class PreferenceManager(context: Context) {
 
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences =
+        context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
 
     companion object {
         // Shared pref keys
@@ -37,18 +37,13 @@ class PreferenceManager(context: Context) {
         const val FILTER_PREF = "filter_pref"
     }
 
-    init {
-        sharedPreferences =
-            context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
-    }
-
     fun getInt(key: String): Int {
         return sharedPreferences.getInt(key, 0)
     }
 
-    fun setInt(key: String, integer: Int) {
+    fun setInt(key: String, value: Int) {
         val editor = sharedPreferences.edit()
-        editor.putInt(key, integer)
+        editor.putInt(key, value)
         editor.apply()
     }
 }

@@ -155,25 +155,25 @@
             style="@style/NotTestedFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/sort_unusable"
+            android:id="@+id/sort_broken"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/BrokenFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/sort_acceptable"
+            android:id="@+id/sort_bronze"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/BronzeFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/sort_good"
+            android:id="@+id/sort_silver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/SilverFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/sort_perfect"
+            android:id="@+id/sort_gold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/GoldFilterChipTheme"/>

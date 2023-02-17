@@ -50,8 +50,8 @@
     <!--APP DETAILS ACTIVITY-->
     <string name="notes">appunti</string>
     <string name="installed">Installate</string>
-    <string name="play_store">Play store</string>
-    <string name="share">Condividere</string>
+    <string name="menu_play_store">Play store</string>
+    <string name="menu_share">Condividere</string>
 
     <!--#########################################################################################-->
 

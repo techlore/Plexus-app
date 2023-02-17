@@ -49,8 +49,8 @@
     <!--APP DETAILS ACTIVITY-->
     <string name="notes">aantekeningen</string>
     <string name="installed">Ge\u00EFnstalleerde</string>
-    <string name="play_store">Play store</string>
-    <string name="share">Delen</string>
+    <string name="menu_play_store">Play store</string>
+    <string name="menu_share">Delen</string>
 
     <!--#########################################################################################-->
 

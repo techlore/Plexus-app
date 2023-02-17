@@ -39,6 +39,8 @@ import tech.techlore.plexus.fragments.bottomsheets.LongClickBottomSheet
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT_PREF
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER_PREF
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import kotlin.collections.ArrayList
@@ -56,8 +58,7 @@ class InstalledAppsFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var mainInstalledList: ArrayList<MainDataMinimal>
-    private lateinit var installedAppsFinalList: ArrayList<MainDataMinimal>
+    private lateinit var installedAppsList: ArrayList<MainDataMinimal>
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -72,13 +73,12 @@ class InstalledAppsFragment :
         
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        var installedAppsTempList: ArrayList<MainDataMinimal> = ArrayList()
-        installedAppsFinalList = ArrayList()
-        val playStoreInstallers: List<String?> = ArrayList(listOf("com.android.vending", "com.aurora.store"))
         val repository = (requireContext().applicationContext as ApplicationManager).miniRepository
         runBlocking {
             launch {
-                mainInstalledList = repository.miniInstalledAppsListFromDB()
+                installedAppsList =
+                    repository.miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER_PREF),
+                                                           orderPref = preferenceManager.getInt(A_Z_SORT_PREF))
             }
         }
         
@@ -86,62 +86,11 @@ class InstalledAppsFragment :
         
         fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
         
-        // Filter based on installers (play store, aurora etc.)
-        if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == 0
-            || preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_all_apps) {
-            installedAppsTempList = mainInstalledList
-        }
-        else if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_play_apps) {
-            for (installedApp in mainInstalledList) {
-                if (playStoreInstallers.contains(installedApp.installedFrom)) {
-                    installedAppsTempList.add(installedApp)
-                }
-            }
-        }
-        else {
-            for (installedApp in mainInstalledList) {
-                if (! playStoreInstallers.contains(installedApp.installedFrom)) {
-                    installedAppsTempList.add(installedApp)
-                }
-            }
-        }
-        
-        // Status sort
-        for (installedApp in installedAppsTempList) {
-            if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == 0
-                || preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_any_status) {
-                installedAppsFinalList.add(installedApp)
-            }
-            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_dg_status) {
-                /*installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.DG_STATUS_SORT_PREF),
-                                        installedApp,
-                                        installedApp.dgRating,
-                                        installedAppsFinalList)*/
-            }
-            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_mg_status) {
-                /*installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.MG_STATUS_SORT_PREF),
-                                        installedApp,
-                                        installedApp.mgRating,
-                                        installedAppsFinalList)*/
-            }
-        }
-        
-        // Alphabetical sort
-        if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
-            || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
-            installedAppsFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
-                ai1.name.compareTo(ai2.name) } // A-Z
-        }
-        else {
-            installedAppsFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
-                ai2.name.compareTo(ai1.name) } // Z-A
-        }
-        
-        if (installedAppsFinalList.size == 0) {
+        if (installedAppsList.size == 0) {
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
-            val installedAppItemAdapter = InstalledAppItemAdapter(installedAppsFinalList,
+            val installedAppItemAdapter = InstalledAppItemAdapter(installedAppsList,
                                                                   this ,
                                                                   this,
                                                                   coroutineScope)
@@ -154,8 +103,8 @@ class InstalledAppsFragment :
         fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener {
             launch {
-                val repository = (requireContext().applicationContext as ApplicationManager).mainRepository
-                repository.installedAppsIntoDB(requireContext())
+                val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
+                mainRepository.installedAppsIntoDB(requireContext())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 refreshFragment(mainActivity.navController)
             }
@@ -164,13 +113,13 @@ class InstalledAppsFragment :
     
     // On click
     override fun onItemClick(position: Int) {
-        val installedApp = installedAppsFinalList[position]
+        val installedApp = installedAppsList[position]
         startDetailsActivity(mainActivity, installedApp.packageName, "installed")
     }
     
     // On long click
     override fun onItemLongCLick(position: Int) {
-        val installedApp = installedAppsFinalList[position]
+        val installedApp = installedAppsList[position]
         LongClickBottomSheet(mainActivity,
                              installedApp.name, installedApp.packageName,  /*installedApp.getPlexusVersion(),
                                  installedApp.getDgRating(), installedApp.getMgRating(),

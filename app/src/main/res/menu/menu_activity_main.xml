@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -38,7 +38,7 @@
     <item
         android:id="@+id/menu_filter"
         android:icon="@drawable/ic_filter"
-        android:title="Filter"
+        android:title="@string/menu_filter"
         app:showAsAction="always">
 
         <menu>
@@ -48,17 +48,22 @@
                 <item
                     android:id="@+id/menu_all_apps"
                     android:icon="@drawable/ic_installed_apps"
-                    android:title="All Apps"/>
+                    android:title="@string/menu_all_apps"/>
 
                 <item
                     android:id="@+id/menu_play_apps"
                     android:icon="@drawable/ic_play_store"
-                    android:title="Play Store Apps"/>
+                    android:title="@string/menu_play_apps"/>
 
                 <item
-                    android:id="@+id/menu_non_play_apps"
+                    android:id="@+id/menu_fdroid_apps"
+                    android:icon="@drawable/ic_play_store"
+                    android:title="@string/menu_fdroid_apps"/>
+
+                <item
+                    android:id="@+id/menu_other_apps"
                     android:icon="@drawable/ic_apk"
-                    android:title="Other Apps"/>
+                    android:title="@string/menu_other_apps"/>
 
             </group>
         </menu>

@@ -71,8 +71,8 @@ class IntentUtils {
                               """
                               ${activity.getString(R.string.app_name)}: $nameString
                               ${activity.getString(R.string.package_name)}: $packageNameString
-                              ${activity.getString(R.string.play_store)}: $playStoreString
-                              """.trimIndent()), activity.getString(R.string.share)))
+                              ${activity.getString(R.string.menu_play_store)}: $playStoreString
+                              """.trimIndent()), activity.getString(R.string.menu_share)))
         }
     }
 }

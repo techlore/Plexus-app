@@ -56,8 +56,13 @@ class ListUtils {
                         catch (e: PackageManager.NameNotFoundException) {
                             e.printStackTrace()
                         }
-                        
-                        installedApp.installedFrom = packageManager.getInstallerPackageName(appInfo.packageName).toString()
+    
+                        installedApp.installedFrom =
+                            when(packageManager.getInstallerPackageName(appInfo.packageName).toString()) {
+                                "com.android.vending", "com.aurora.store" -> "googlePlay"
+                                "org.fdroid.fdroid" -> "fdroid"
+                                else -> "user"
+                            }
                         
                         installedApp.isInstalled = true
             
@@ -74,10 +79,10 @@ class ListUtils {
         
             when (preferenceKey) {
                 0, R.id.sort_not_tested -> if (status == "X") mainDataList.add(mainData)
-                R.id.sort_unusable -> if (status == "1") mainDataList.add(mainData)
-                R.id.sort_acceptable -> if (status == "2") mainDataList.add(mainData)
-                R.id.sort_good -> if (status == "3") mainDataList.add(mainData)
-                R.id.sort_perfect -> if (status == "4") mainDataList.add(mainData)
+                R.id.sort_broken -> if (status == "1") mainDataList.add(mainData)
+                R.id.sort_bronze -> if (status == "2") mainDataList.add(mainData)
+                R.id.sort_silver -> if (status == "3") mainDataList.add(mainData)
+                R.id.sort_gold -> if (status == "4") mainDataList.add(mainData)
             }
         }
         

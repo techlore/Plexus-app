@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 menu.findItem(R.id.menu_play_apps).isChecked = true
             }
             else {
-                menu.findItem(R.id.menu_non_play_apps).isChecked = true
+                menu.findItem(R.id.menu_other_apps).isChecked = true
             }
         }
         menu.findItem(R.id.menu_filter).isVisible = preferenceManager.getInt(SEL_ITEM) != R.id.nav_plexus_data
@@ -270,7 +270,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
             R.id.menu_all_apps,
             R.id.menu_play_apps,
-            R.id.menu_non_play_apps -> {
+            R.id.menu_other_apps -> {
                 preferenceManager.setInt(PreferenceManager.FILTER_PREF, menuItem.itemId)
                 refreshFragment(navController)
             }

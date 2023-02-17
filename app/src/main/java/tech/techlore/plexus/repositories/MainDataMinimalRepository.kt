@@ -21,6 +21,7 @@ package tech.techlore.plexus.repositories
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.minimal.MainDataMinimal
@@ -37,17 +38,58 @@ class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
         }
     }
     
-    suspend fun miniPlexusDataListFromDB(): ArrayList<MainDataMinimal> {
+    suspend fun miniPlexusDataListFromDB(orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
-            mainDataDao.getNotInstalledApps().map {
+            
+            /*val statusString =
+                when(status) {
+                    R.id.sort_broken -> "broken"
+                    R.id.sort_bronze -> "bronze"
+                    R.id.sort_silver -> "silver"
+                    R.id.sort_gold -> "gold"
+                    else -> "not_tested"
+                }*/
+            
+            val isAsc =
+                when(orderPref) {
+                    R.id.sort_z_a -> false
+                    else -> true
+                }
+            
+            mainDataDao.getSortedNotInstalledApps(isAsc).map {
                 mapToMinimalData(it)
             } as ArrayList<MainDataMinimal>
         }
     }
     
-    suspend fun miniInstalledAppsListFromDB(): ArrayList<MainDataMinimal> {
+    suspend fun miniInstalledAppsListFromDB(filterPref: Int,
+                                            orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
-            mainDataDao.getInstalledApps().map {
+            
+            val installedFrom =
+                when(filterPref) {
+                    R.id.menu_play_apps -> "googlePlay"
+                    R.id.menu_fdroid_apps -> "fdroid"
+                    R.id.menu_other_apps -> "user"
+                    else -> ""
+                }
+    
+            /*val statusString =
+                when(status) {
+                    R.id.sort_broken -> "broken"
+                    R.id.sort_bronze -> "bronze"
+                    R.id.sort_silver -> "silver"
+                    R.id.sort_gold -> "gold"
+                    else -> "not_tested"
+                }*/
+    
+            val isAsc =
+                when(orderPref) {
+                    R.id.sort_z_a -> false
+                    else -> true
+                }
+            
+            mainDataDao.getSortedInstalledApps(installedFrom, isAsc).map {
                 mapToMinimalData(it)
             } as ArrayList<MainDataMinimal>
         }
@@ -66,6 +108,14 @@ class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
         if (existingData != null) {
             existingData.isFav = mainDataMinimal.isFav
             mainDataDao.update(existingData)
+        }
+    }
+    
+    suspend fun miniInstalledListByInstaller(): ArrayList<MainDataMinimal> {
+        return withContext(Dispatchers.IO) {
+            mainDataDao.getFavApps().map {
+                mapToMinimalData(it)
+            } as ArrayList<MainDataMinimal>
         }
     }
 }

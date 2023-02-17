@@ -56,8 +56,8 @@
     <!--APP DETAILS ACTIVITY-->
     <string name="notes">Anmerkungen</string>
     <string name="installed">Installiert</string>
-    <string name="play_store">Play Store</string>
-    <string name="share">Teilen</string>
+    <string name="menu_play_store">Play Store</string>
+    <string name="menu_share">Teilen</string>
 
     <!--#########################################################################################-->
 

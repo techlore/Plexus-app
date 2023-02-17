@@ -31,35 +31,14 @@ import tech.techlore.plexus.models.main.MainData
 @Dao
 interface MainDataDao {
     
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName")
-    fun getAppByPackage(packageName: String): MainData?
-    
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled = false")
-    fun getNotInstalledAppByPackage(packageName: String): MainData?
-    
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled = true")
-    fun getInstalledAppByPackage(packageName: String): MainData?
-    
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isFav = true")
-    fun getFavoriteAppByPackage(packageName: String): MainData?
-    
-    @Query("SELECT * FROM main_table WHERE isInstalled = false")
-    suspend fun getNotInstalledApps(): List<MainData>
-    
-    @Query("SELECT * FROM main_table WHERE isInstalled = true")
-    suspend fun getInstalledApps(): List<MainData>
-    
-    @Query("SELECT * FROM main_table WHERE isFav= true")
-    suspend fun getFavApps(): List<MainData>
-    
-    /*@Query("SELECT * FROM main_table")
-    suspend fun getAll(): List<PlexusData>*/
-    
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(mainData: MainData)
     
     @Update
     suspend fun update(mainData: MainData)
+    
+    @Delete
+    suspend fun delete(mainData: MainData)
     
     @Transaction
     suspend fun insertOrUpdatePlexusData(mainData: MainData) {
@@ -86,10 +65,9 @@ interface MainDataDao {
             insert(mainData)
         }
         else {
-            existingApps.name = mainData.name
-            existingApps.packageName = mainData.packageName
             existingApps.installedVersion = mainData.installedVersion
             existingApps.isInstalled = mainData.isInstalled
+            existingApps.installedFrom = mainData.installedFrom
             update(existingApps)
         }
     }
@@ -105,6 +83,55 @@ interface MainDataDao {
         }
     }
     
-    @Delete
-    suspend fun delete(mainData: MainData)
+    @Query("SELECT * FROM main_table WHERE packageName = :packageName")
+    fun getAppByPackage(packageName: String): MainData?
+    
+    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled = false")
+    fun getNotInstalledAppByPackage(packageName: String): MainData?
+    
+    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled = true")
+    fun getInstalledAppByPackage(packageName: String): MainData?
+    
+    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isFav = true")
+    fun getFavoriteAppByPackage(packageName: String): MainData?
+    
+    @Query("SELECT * FROM main_table WHERE isInstalled = false")
+    suspend fun getNotInstalledApps(): List<MainData>
+    
+    @Query("SELECT * FROM main_table WHERE isInstalled = true")
+    suspend fun getInstalledApps(): List<MainData>
+    
+    @Query("SELECT * FROM main_table WHERE isFav = true")
+    suspend fun getFavApps(): List<MainData>
+    
+    @Query("""
+        SELECT * FROM main_table
+        WHERE isInstalled = false
+        ORDER BY
+        CASE WHEN :isAsc = 1 THEN name END ASC,
+        CASE WHEN :isAsc = 0 THEN name END DESC
+    """)
+    suspend fun getSortedNotInstalledApps(isAsc: Boolean): List<MainData>
+    
+    @Query("""
+        SELECT * FROM main_table
+        WHERE (installedFrom = :installedFrom OR :installedFrom = '')
+        AND isInstalled = true
+        ORDER BY
+        CASE WHEN :isAsc = 1 THEN name END ASC,
+        CASE WHEN :isAsc = 0 THEN name END DESC
+    """)
+    suspend fun getSortedInstalledApps(installedFrom: String, isAsc: Boolean): List<MainData>
+    
+    /*@Query("SELECT * FROM main_table")
+    suspend fun getAll(): List<PlexusData>*/
+    
+    /*@Query("SELECT * FROM main_table WHERE installedFrom = :installedFrom")
+    fun getInstalledAppsByInstaller(installers: List<String>): List<MainData>
+    
+    @Query("SELECT * FROM main_table WHERE dgStatus = :dgStatus")
+    fun getInstalledAppsByDGRating(): List<MainData>
+    
+    @Query("SELECT * FROM main_table ORDER BY name DESC")
+    fun getInstalledAppsByMGRating(): List<MainData>*/
 }
