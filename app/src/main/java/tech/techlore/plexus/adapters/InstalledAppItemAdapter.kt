@@ -28,6 +28,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +36,7 @@ import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import java.util.Locale
@@ -47,6 +49,11 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainDataMini
     RecyclerView.Adapter<InstalledAppItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
     private val aListViewItemsFull: List<MainDataMinimal>
+        /*set(value) {
+            val diffResult = DiffUtil.calculateDiff(MainDataMinimalDiffUtil(aListViewItems, value!!))
+            field = value
+            diffResult.dispatchUpdatesTo(this)
+        }*/
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -181,5 +188,13 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainDataMini
     // Fast scroll popup
     override fun getPopupText(position: Int): String {
         return aListViewItems[position].name.substring(0, 1)
+    }
+    
+    fun updateList(newList: ArrayList<MainDataMinimal>){
+        val diffCallback = MainDataMinimalDiffUtil(aListViewItems, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        diffResult.dispatchUpdatesTo(this)
+        aListViewItems.clear()
+        aListViewItems.addAll(newList)
     }
 }

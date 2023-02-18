@@ -33,6 +33,7 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter
+import tech.techlore.plexus.adapters.PlexusDataItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.fragments.bottomsheets.LongClickBottomSheet
@@ -41,6 +42,7 @@ import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT_PREF
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER_PREF
+import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import kotlin.collections.ArrayList
@@ -58,7 +60,10 @@ class InstalledAppsFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
+    private lateinit var installedAppItemAdapter: InstalledAppItemAdapter
     private lateinit var installedAppsList: ArrayList<MainDataMinimal>
+    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var miniRepository: MainDataMinimalRepository
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -71,13 +76,13 @@ class InstalledAppsFragment :
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val preferenceManager = PreferenceManager(requireContext())
+        preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        val repository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
         runBlocking {
             launch {
                 installedAppsList =
-                    repository.miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER_PREF),
+                    miniRepository.miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER_PREF),
                                                            orderPref = preferenceManager.getInt(A_Z_SORT_PREF))
             }
         }
@@ -90,7 +95,7 @@ class InstalledAppsFragment :
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
-            val installedAppItemAdapter = InstalledAppItemAdapter(installedAppsList,
+            installedAppItemAdapter = InstalledAppItemAdapter(installedAppsList,
                                                                   this ,
                                                                   this,
                                                                   coroutineScope)
@@ -106,7 +111,10 @@ class InstalledAppsFragment :
                 val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
                 mainRepository.installedAppsIntoDB(requireContext())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                refreshFragment(mainActivity.navController)
+                installedAppItemAdapter
+                    .updateList(miniRepository
+                                    .miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER_PREF),
+                                                                 orderPref = preferenceManager.getInt(A_Z_SORT_PREF)))
             }
         }
     }

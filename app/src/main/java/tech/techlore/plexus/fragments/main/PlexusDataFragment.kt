@@ -41,11 +41,10 @@ import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT_PREF
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO_PREF
+import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import kotlin.coroutines.CoroutineContext
 
 class PlexusDataFragment :
@@ -60,7 +59,10 @@ class PlexusDataFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
+    private lateinit var plexusDataItemAdapter: PlexusDataItemAdapter
     private lateinit var plexusDataList: ArrayList<MainDataMinimal>
+    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var miniRepository: MainDataMinimalRepository
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -73,9 +75,9 @@ class PlexusDataFragment :
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val preferenceManager = PreferenceManager(requireContext())
+        preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        val miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
         runBlocking {
             launch {
                 plexusDataList =
@@ -91,7 +93,7 @@ class PlexusDataFragment :
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
-            val plexusDataItemAdapter = PlexusDataItemAdapter(plexusDataList,
+            plexusDataItemAdapter = PlexusDataItemAdapter(plexusDataList,
                                                               this,
                                                               this,
                                                               coroutineScope)
@@ -128,8 +130,10 @@ class PlexusDataFragment :
             if (hasNetwork(requireContext()) && hasInternet()) {
                 val repository = (requireContext().applicationContext as ApplicationManager).mainRepository
                 repository.plexusDataIntoDB(requireContext())
+                plexusDataItemAdapter
+                    .updateList(miniRepository
+                                    .miniPlexusDataListFromDB(orderPref = preferenceManager.getInt(A_Z_SORT_PREF)))
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                refreshFragment(mainActivity.navController)
             }
             else {
                 NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
