@@ -31,6 +31,11 @@ class NoNetworkDialog(
     private val negativeButtonClickListener: () -> Unit
 ) : DialogFragment() {
     
+    override fun onStart() {
+        super.onStart()
+        dialog?.setCanceledOnTouchOutside(false) // .setCancelable(false) won't work in onCreateDialog
+    }
+    
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         
         return MaterialAlertDialogBuilder(requireContext(), R.style.DialogTheme)
@@ -46,8 +51,6 @@ class NoNetworkDialog(
             .setNegativeButton(negativeButtonText) { _, _ ->
                 negativeButtonClickListener.invoke()
             }
-            
-            .setCancelable(false)
             
             .create()
     }
