@@ -17,7 +17,7 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.repositories
+package tech.techlore.plexus.repositories.database
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

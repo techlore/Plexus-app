@@ -17,29 +17,24 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.main
+package tech.techlore.plexus.api
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.POST
+import tech.techlore.plexus.models.main.Root
+import tech.techlore.plexus.models.send.Application
 
-data class Root (
+interface ApiService {
     
-    @JsonProperty("data")
-    val data: ArrayList<MainData>,
-
-    @JsonProperty("page_number")
-    @JsonIgnore
-    val pageNumber: Int,
-
-    @JsonProperty("page_size")
-    @JsonIgnore
-    val pageSize: Int,
-
-    @JsonProperty("total_entries")
-    @JsonIgnore
-    val totalEntries: Int,
-
-    @JsonProperty("total_pages")
-    @JsonIgnore
-    val totalPages: Int
-)
+    @GET("applications")
+    fun getApplications(): Call<Root>
+    
+    @POST("applications")
+    @Headers("Content-Type: application/json")
+    fun sendApplication(@Body application: Application): Call<ResponseBody>
+    
+}

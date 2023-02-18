@@ -17,22 +17,24 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.repositories
+package tech.techlore.plexus.repositories.database
 
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
+import tech.techlore.plexus.api.ApiManager.Companion.getApi
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.main.MainData
-import tech.techlore.plexus.utils.ApiUtils.Companion.createService
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {
     
-    suspend fun plexusDataIntoDB() {
+    suspend fun plexusDataIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
-            val call = createService().getApplications()
+            val apiRepository = (context.applicationContext as ApplicationManager).apiRepository
+            val call = apiRepository.getApplications()
             val response = call.awaitResponse()
             
             if (response.isSuccessful) {

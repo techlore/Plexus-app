@@ -55,7 +55,7 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
             val context = this@SplashActivity
             if (hasNetwork(context) && hasInternet()) {
                 val mainRepository = (applicationContext as ApplicationManager).mainRepository
-                mainRepository.plexusDataIntoDB()
+                mainRepository.plexusDataIntoDB(context)
                 mainRepository.installedAppsIntoDB(context)
                 startActivity(Intent(context, MainActivity::class.java))
                 finish()

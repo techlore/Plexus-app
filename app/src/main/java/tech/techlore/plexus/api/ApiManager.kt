@@ -17,42 +17,26 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.utils
+package tech.techlore.plexus.api
 
-import okhttp3.ResponseBody
-import retrofit2.Call
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import tech.techlore.plexus.models.send.Application
-import tech.techlore.plexus.models.main.Root
 
-class ApiUtils {
+class ApiManager {
     
     companion object {
-    
-        private const val API_BASE_URL = "https://plexus.fly.dev/api/v1/"
-    
-        interface Api {
-            @GET("applications")
-            fun getApplications(): Call<Root>
-    
-            @POST("applications")
-            @Headers("Content-Type: application/json")
-            fun sendApplication(@Body application: Application): Call<ResponseBody>
-        }
         
-        fun createService(): Api {
+        private const val API_BASE_URL = "https://plexus.fly.dev/api/v1/"
+        
+        fun getApi(): ApiService {
             val retrofit = Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
-                .addConverterFactory(JacksonConverterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create(ObjectMapper().registerKotlinModule()))
                 .build()
-        
-            return retrofit.create(Api::class.java)
+            
+            return retrofit.create(ApiService::class.java)
         }
-        
     }
 }

@@ -127,7 +127,7 @@ class PlexusDataFragment :
         launch {
             if (hasNetwork(requireContext()) && hasInternet()) {
                 val repository = (requireContext().applicationContext as ApplicationManager).mainRepository
-                repository.plexusDataIntoDB()
+                repository.plexusDataIntoDB(requireContext())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 refreshFragment(mainActivity.navController)
             }

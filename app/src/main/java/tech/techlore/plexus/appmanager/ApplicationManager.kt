@@ -25,23 +25,24 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.elevation.SurfaceColors
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SplashActivity
+import tech.techlore.plexus.api.ApiManager.Companion.getApi
 import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME_PREF
-import tech.techlore.plexus.repositories.MainDataMinimalRepository
-import tech.techlore.plexus.repositories.MainDataRepository
+import tech.techlore.plexus.repositories.api.ApiRepository
+import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
+import tech.techlore.plexus.repositories.database.MainDataRepository
 
 class ApplicationManager : Application() {
     
-    private val applicationScope = CoroutineScope(SupervisorJob())
-    
     // Using by lazy so database and repositories are only created when they're needed
     // rather than when the application starts
-    private val database by lazy { getDatabase(this, applicationScope) }
+    private val apiService by lazy { getApi() }
+    private val database by lazy { getDatabase(this) }
+    
+    val apiRepository by lazy { ApiRepository(apiService) }
     val mainRepository by lazy { MainDataRepository(database.mainDataDao()) }
     val miniRepository by lazy { MainDataMinimalRepository(database.mainDataDao()) }
     

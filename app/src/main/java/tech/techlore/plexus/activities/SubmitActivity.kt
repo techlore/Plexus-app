@@ -34,9 +34,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
 import tech.techlore.plexus.models.send.Application
-import tech.techlore.plexus.utils.ApiUtils.Companion.createService
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import kotlin.coroutines.CoroutineContext
@@ -101,7 +101,8 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
             if (hasNetwork(this@SubmitActivity) && hasInternet()) {
                 val application = Application(name = nameString,
                                               packageName = packageNameString)
-                val call = createService().sendApplication(application)
+                val apiRepository = (applicationContext as ApplicationManager).apiRepository
+                val call = apiRepository.sendApplication(application)
                 call.enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                         // handle the response here

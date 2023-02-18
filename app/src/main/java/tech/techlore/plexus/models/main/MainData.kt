@@ -19,16 +19,13 @@
 
 package tech.techlore.plexus.models.main
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import kotlinx.parcelize.Parcelize
 import tech.techlore.plexus.deserializer.MainDataDeserializer
 
 @Entity(tableName = "main_table")
-@Parcelize
 @JsonDeserialize(using = MainDataDeserializer::class)
 data class MainData(
     
@@ -50,8 +47,8 @@ data class MainData(
     var isInstalled: Boolean,
     
     var isFav: Boolean
-    
-) : Parcelable {
+
+) {
     constructor() : this(id = "",
                          name = "",
                          packageName = "",

@@ -69,11 +69,15 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.7.0' // Lost design preview after upgrade to 1.8.0
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation project(path: ':FastScroll')
 
     // Navigation components
     implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    // Jackson kotlin module
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2'
 
     // Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -87,6 +91,4 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
-
-    implementation project(path: ':FastScroll')
 }

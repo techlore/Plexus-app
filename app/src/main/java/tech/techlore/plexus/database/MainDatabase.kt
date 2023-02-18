@@ -37,7 +37,7 @@ abstract class MainDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: MainDatabase? = null
         
-        fun getDatabase(context: Context, scope: CoroutineScope): MainDatabase {
+        fun getDatabase(context: Context): MainDatabase {
             return INSTANCE ?: synchronized(this) {
                 Room.databaseBuilder(context.applicationContext,
                                      MainDatabase::class.java,
