@@ -55,9 +55,9 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+        addMenuProvider(this)
         activityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-        addMenuProvider(this)
         
         preferenceManager = PreferenceManager(this)
         bottomSheetBehavior = BottomSheetBehavior.from(activityBinding.bottomNavContainer)
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                     
                         R.id.nav_about -> startActivity(Intent(this@MainActivity,
                                                                SettingsActivity::class.java)
-                                                            .putExtra("frag", clickedItem))
+                                                            .putExtra("frag", R.id.aboutFragment))
                     }
     
     

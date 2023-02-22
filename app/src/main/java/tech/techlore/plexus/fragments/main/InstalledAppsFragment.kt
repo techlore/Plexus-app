@@ -41,6 +41,7 @@ import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import kotlin.collections.ArrayList
@@ -80,7 +81,9 @@ class InstalledAppsFragment :
         runBlocking {
             launch {
                 installedAppsList =
-                    miniRepository.miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER),
+                    miniRepository.miniInstalledAppsListFromDB(context = requireContext(),
+                                                               filterPref = preferenceManager.getInt(FILTER),
+                                                               statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                                orderPref = preferenceManager.getInt(A_Z_SORT))
             }
         }
@@ -111,7 +114,9 @@ class InstalledAppsFragment :
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 installedAppItemAdapter
                     .updateList(miniRepository
-                                    .miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER),
+                                    .miniInstalledAppsListFromDB(context = requireContext(),
+                                                                 filterPref = preferenceManager.getInt(FILTER),
+                                                                 statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                                  orderPref = preferenceManager.getInt(A_Z_SORT)))
             }
         }

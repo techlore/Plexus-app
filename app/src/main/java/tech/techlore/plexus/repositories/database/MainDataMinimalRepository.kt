@@ -19,12 +19,16 @@
 
 package tech.techlore.plexus.repositories.database
 
+import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
 
 class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
     
@@ -38,33 +42,56 @@ class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
         }
     }
     
-    suspend fun miniPlexusDataListFromDB(orderPref: Int): ArrayList<MainDataMinimal> {
+    suspend fun miniPlexusDataListFromDB(context: Context,
+                                         statusRadioPref: Int,
+                                         orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
-            /*val statusString =
-                when(status) {
-                    R.id.sort_broken -> "broken"
-                    R.id.sort_bronze -> "bronze"
-                    R.id.sort_silver -> "silver"
-                    R.id.sort_gold -> "gold"
-                    else -> "not_tested"
-                }*/
+            val preferenceManager = PreferenceManager(context)
             
-            val isAsc =
-                when(orderPref) {
-                    R.id.sort_z_a -> false
-                    else -> true
+            val dgScore =
+                when (statusRadioPref) {
+                    R.id.radio_dg_status ->
+                        when (preferenceManager.getInt(DG_STATUS_SORT)) {
+                            R.id.sort_not_tested -> 0
+                            R.id.sort_broken -> 1
+                            R.id.sort_bronze -> 2
+                            R.id.sort_silver -> 3
+                            R.id.sort_gold -> 4
+                            else -> -1
+                        }
+                    else -> -1
                 }
             
-            mainDataDao.getSortedNotInstalledApps(isAsc).map {
+            val mgScore =
+                when (statusRadioPref) {
+                    R.id.radio_mg_status ->
+                        when (preferenceManager.getInt(MG_STATUS_SORT)) {
+                            R.id.sort_not_tested -> 0
+                            R.id.sort_broken -> 1
+                            R.id.sort_bronze -> 2
+                            R.id.sort_silver -> 3
+                            R.id.sort_gold -> 4
+                            else -> -1
+                        }
+                    else -> -1
+                }
+            
+            val isAsc = orderPref != R.id.sort_z_a
+            
+            mainDataDao.getSortedNotInstalledApps(dgScore, mgScore, isAsc).map {
                 mapToMinimalData(it)
             } as ArrayList<MainDataMinimal>
         }
     }
     
-    suspend fun miniInstalledAppsListFromDB(filterPref: Int,
+    suspend fun miniInstalledAppsListFromDB(context: Context,
+                                            filterPref: Int,
+                                            statusRadioPref: Int,
                                             orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
+    
+            val preferenceManager = PreferenceManager(context)
             
             val installedFrom =
                 when(filterPref) {
@@ -74,22 +101,37 @@ class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
                     else -> ""
                 }
     
-            /*val statusString =
-                when(status) {
-                    R.id.sort_broken -> "broken"
-                    R.id.sort_bronze -> "bronze"
-                    R.id.sort_silver -> "silver"
-                    R.id.sort_gold -> "gold"
-                    else -> "not_tested"
-                }*/
-    
-            val isAsc =
-                when(orderPref) {
-                    R.id.sort_z_a -> false
-                    else -> true
+            val dgScore =
+                when (statusRadioPref) {
+                    R.id.radio_dg_status ->
+                        when (preferenceManager.getInt(DG_STATUS_SORT)) {
+                            R.id.sort_not_tested -> 0
+                            R.id.sort_broken -> 1
+                            R.id.sort_bronze -> 2
+                            R.id.sort_silver -> 3
+                            R.id.sort_gold -> 4
+                            else -> -1
+                        }
+                    else -> -1
                 }
+    
+            val mgScore =
+                when (statusRadioPref) {
+                    R.id.radio_mg_status ->
+                        when (preferenceManager.getInt(MG_STATUS_SORT)) {
+                            R.id.sort_not_tested -> 0
+                            R.id.sort_broken -> 1
+                            R.id.sort_bronze -> 2
+                            R.id.sort_silver -> 3
+                            R.id.sort_gold -> 4
+                            else -> -1
+                        }
+                    else -> -1
+                }
+    
+            val isAsc = orderPref != R.id.sort_z_a
             
-            mainDataDao.getSortedInstalledApps(installedFrom, isAsc).map {
+            mainDataDao.getSortedInstalledApps(installedFrom, dgScore, mgScore, isAsc).map {
                 mapToMinimalData(it)
             } as ArrayList<MainDataMinimal>
         }

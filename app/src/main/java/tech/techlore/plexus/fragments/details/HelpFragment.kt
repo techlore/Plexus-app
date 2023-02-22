@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.SettingsActivity
 
 class HelpFragment : Fragment() {
     
@@ -33,6 +34,12 @@ class HelpFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_help, container, false)
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    
+        val settingsActivity = requireActivity() as SettingsActivity
+        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.menu_help)
     }
     
 }

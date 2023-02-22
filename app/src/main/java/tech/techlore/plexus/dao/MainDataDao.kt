@@ -51,6 +51,8 @@ interface MainDataDao {
         else {
             existingData.name = mainData.name
             existingData.packageName = mainData.packageName
+            existingData.dgScore = mainData.dgScore
+            existingData.mgScore = mainData.mgScore
             update(existingData)
         }
     }
@@ -58,17 +60,18 @@ interface MainDataDao {
     @Transaction
     suspend fun insertOrUpdateInstalledApps(mainData: MainData) {
         
-        val existingApps = getAppByPackage(mainData.packageName)
+        val existingApp = getAppByPackage(mainData.packageName)
         
-        if (existingApps == null) {
+        if (existingApp == null) {
             mainData.isInPlexusData = false
             insert(mainData)
         }
         else {
-            existingApps.installedVersion = mainData.installedVersion
-            existingApps.isInstalled = mainData.isInstalled
-            existingApps.installedFrom = mainData.installedFrom
-            update(existingApps)
+            existingApp.installedVersion = mainData.installedVersion
+            existingApp.installedBuild = mainData.installedBuild
+            existingApp.isInstalled = mainData.isInstalled
+            existingApp.installedFrom = mainData.installedFrom
+            update(existingApp)
         }
     }
     
@@ -107,21 +110,34 @@ interface MainDataDao {
     @Query("""
         SELECT * FROM main_table
         WHERE isInstalled = false
+        AND (dgScore = :dgScore OR :dgScore = -1)
+        AND (mgScore = :mgScore OR :mgScore = -1)
         ORDER BY
         CASE WHEN :isAsc = 1 THEN name END ASC,
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
-    suspend fun getSortedNotInstalledApps(isAsc: Boolean): List<MainData>
+    suspend fun getSortedNotInstalledApps(dgScore: Int,
+                                          mgScore: Int,
+                                          isAsc: Boolean): List<MainData>
+    // -1 is for ignoring the score when required,
+    // so it doesn't include it while filtering
     
     @Query("""
         SELECT * FROM main_table
-        WHERE (installedFrom = :installedFrom OR :installedFrom = '')
-        AND isInstalled = true
+        WHERE isInstalled = true
+        AND (installedFrom = :installedFrom OR :installedFrom = '')
+        AND (dgScore = :dgScore OR :dgScore = -1)
+        AND (mgScore = :mgScore OR :mgScore = -1)
         ORDER BY
         CASE WHEN :isAsc = 1 THEN name END ASC,
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
-    suspend fun getSortedInstalledApps(installedFrom: String, isAsc: Boolean): List<MainData>
+    suspend fun getSortedInstalledApps(installedFrom: String,
+                                       dgScore: Int,
+                                       mgScore: Int,
+                                       isAsc: Boolean): List<MainData>
+    // -1 is for ignoring the score when required,
+    // so it doesn't include it while filtering
     
     /*@Query("SELECT * FROM main_table")
     suspend fun getAll(): List<PlexusData>*/

@@ -20,59 +20,49 @@
 package tech.techlore.plexus.activities
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivitySettingsBinding
-import tech.techlore.plexus.fragments.settings.AboutFragment
-import tech.techlore.plexus.fragments.details.HelpFragment
 
 class SettingsActivity : AppCompatActivity() {
-
+    
     lateinit var activityBinding: ActivitySettingsBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-    
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.settings_nav_host) as NavHostFragment
+        
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.settings_nav_host) as NavHostFragment
         navController = navHostFragment.navController
-
+        
         /*####################################################################################*/
         setSupportActionBar(activityBinding.toolbarBottom)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        
         activityBinding.toolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         
-        /*intent.extras?.let {
-            displayFragment(it.getInt("frag"))
-        }*/
+        intent.extras?.let {
+            navController.navigate(it.getInt("frag"))
+        }
+    }
+    
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (navController.currentDestination?.id == R.id.licensesFragment) {
+                navController.navigate(R.id.action_licensesFragment_to_aboutFragment)
+            }
+            else {
+                finish()
+            }
+        }
     }
 
-    // Setup fragments
-    private fun displayFragment(intentValue: Int) {
-
-        val fragment: Fragment
-        val toolbarTitle: String
-
-        if (intentValue == R.id.menu_help) {
-            fragment = HelpFragment()
-            toolbarTitle = getString(R.string.menu_help)
-        }
-        else {
-            fragment = AboutFragment()
-            toolbarTitle = getString(R.string.about)
-        }
-
-        supportFragmentManager.beginTransaction()
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .replace(R.id.activity_host_fragment, fragment)
-            .commitNow()
-        activityBinding.toolbarBottom.title = toolbarTitle
-    }
 }

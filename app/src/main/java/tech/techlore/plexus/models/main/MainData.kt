@@ -43,6 +43,8 @@ data class MainData(
     
     var installedVersion: String = "",
     
+    var installedBuild: Int = 0,
+    
     var installedFrom: String = "",
     
     var isInPlexusData: Boolean = true,
@@ -51,4 +53,27 @@ data class MainData(
     
     var isFav: Boolean = false
 
-)
+) /*{
+    
+    val dgStatus: String
+        get() {
+            return when (dgScore) {
+                1 -> "broken"
+                2 -> "bronze"
+                3 -> "silver"
+                4 -> "gold"
+                else -> "notTested"
+            }
+        }
+    
+    val mgStatus: String
+        get() {
+            return when (mgScore) {
+                1 -> "broken"
+                2 -> "bronze"
+                3 -> "silver"
+                4 -> "gold"
+                else -> "notTested"
+            }
+        }
+}*/

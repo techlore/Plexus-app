@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -24,7 +24,7 @@
     <string name="plexus">Plexus</string>
 
     <string name="de_Googled">de-Googled</string>
-    <string name="microG">\u00B5 (microG)</string>
+    <string name="microG">microG</string>
 
     <string name="bottom_sheet_title">Bottom Sheet Title</string>
 
