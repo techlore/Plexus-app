@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -125,6 +125,7 @@
     <style name="DialogButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
         <item name="android:textColor">@color/color_primary</item>
         <item name="android:textSize">@dimen/text_16</item>
+        <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
     <!--Dialog rounded corners-->

@@ -33,50 +33,43 @@ class ListUtils {
         
         suspend fun scannedInstalledAppsList(context: Context): List<MainData> {
             return withContext(Dispatchers.IO) {
+                
                 val packageManager = context.packageManager
                 val installedAppsList = ArrayList<MainData>()
-    
-                for (appInfo in packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
-        
-                    val installedApp = MainData()
-        
+                
+                packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
                     // No system apps
                     // Only scan for user installed apps
                     // OR system apps updated by user
-                    if (appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 1
-                        || appInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0) {
-            
-                        installedApp.name = appInfo.loadLabel(packageManager).toString()
-                        installedApp.packageName = appInfo.packageName
+                    .filter {
+                        it.flags and ApplicationInfo.FLAG_SYSTEM != 1
+                        || it.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP !=0
+                    }
+                    .mapNotNull {
+                        val installedApp =
+                            MainData(name = it.loadLabel(packageManager).toString(),
+                                     packageName = it.packageName,
+                                     installedVersion =
+                                     packageManager.getPackageInfo(it.packageName, 0).versionName,
+                                     installedFrom =
+                                     when(packageManager.getInstallerPackageName(it.packageName)) {
+                                         "com.android.vending", "com.aurora.store" -> "googlePlay"
+                                         "org.fdroid.fdroid" -> "fdroid"
+                                         else -> "other"
+                                     },
+                                     isInstalled = true)
                         
-                        try {
-                            val packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0)
-                            installedApp.installedVersion = packageInfo.versionName
-                        }
-                        catch (e: PackageManager.NameNotFoundException) {
-                            e.printStackTrace()
-                        }
-    
-                        installedApp.installedFrom =
-                            when(packageManager.getInstallerPackageName(appInfo.packageName).toString()) {
-                                "com.android.vending", "com.aurora.store" -> "googlePlay"
-                                "org.fdroid.fdroid" -> "fdroid"
-                                else -> "user"
-                            }
-                        
-                        installedApp.isInstalled = true
-            
                         installedAppsList.add(installedApp)
                     }
-                }
+                
                 installedAppsList
             }
         }
-    
+        
         // Data status sort
         fun statusSort(preferenceKey: Int, mainData: MainData,
                        status: String, mainDataList: ArrayList<MainData>) {
-        
+            
             when (preferenceKey) {
                 0, R.id.sort_not_tested -> if (status == "X") mainDataList.add(mainData)
                 R.id.sort_broken -> if (status == "1") mainDataList.add(mainData)

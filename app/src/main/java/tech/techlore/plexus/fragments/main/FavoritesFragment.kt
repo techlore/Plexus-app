@@ -89,11 +89,11 @@ class FavoritesFragment:
         fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
         
         // Filter based on installers (play store, aurora etc.)
-        if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == 0
-            || preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_all_apps) {
+        if (preferenceManager.getInt(PreferenceManager.FILTER) == 0
+            || preferenceManager.getInt(PreferenceManager.FILTER) == R.id.menu_all_apps) {
             favTempList = mainFavList
         }
-        else if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_play_apps) {
+        else if (preferenceManager.getInt(PreferenceManager.FILTER) == R.id.menu_play_apps) {
             for (installedApp in mainFavList) {
                 if (playStoreInstallers.contains(installedApp.installedFrom)) {
                     favTempList.add(installedApp)
@@ -110,17 +110,17 @@ class FavoritesFragment:
         
         // Status sort
         for (installedApp in favTempList) {
-            if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == 0
-                || preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_any_status) {
+            if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == 0
+                || preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == R.id.radio_any_status) {
                 favFinalList.add(installedApp)
             }
-            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_dg_status) {
+            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == R.id.radio_dg_status) {
                 /*installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.DG_STATUS_SORT_PREF),
                                         installedApp,
                                         installedApp.dgRating,
                                         installedAppsFinalList)*/
             }
-            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO_PREF) == R.id.radio_mg_status) {
+            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == R.id.radio_mg_status) {
                 /*installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.MG_STATUS_SORT_PREF),
                                         installedApp,
                                         installedApp.mgRating,
@@ -129,8 +129,8 @@ class FavoritesFragment:
         }
         
         // Alphabetical sort
-        if (preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == 0
-            || preferenceManager.getInt(PreferenceManager.A_Z_SORT_PREF) == R.id.sort_a_z) {
+        if (preferenceManager.getInt(PreferenceManager.A_Z_SORT) == 0
+            || preferenceManager.getInt(PreferenceManager.A_Z_SORT) == R.id.sort_a_z) {
             favFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
                 ai1.name.compareTo(ai2.name) } // A-Z
         }

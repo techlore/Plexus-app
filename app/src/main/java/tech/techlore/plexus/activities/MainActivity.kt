@@ -38,6 +38,7 @@ import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.fragments.bottomsheets.SortBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.ThemeBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.SEL_ITEM
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
@@ -227,19 +228,13 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_activity_main, menu)
-        
+    
         if (preferenceManager.getInt(SEL_ITEM) == R.id.nav_installed_apps) {
             menu.findItem(R.id.menu_filter).isVisible = true
-            if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == 0
-                || preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_all_apps) {
-                menu.findItem(R.id.menu_all_apps).isChecked = true
+            if (preferenceManager.getInt(FILTER) == 0) {
+                preferenceManager.setInt(FILTER, R.id.menu_all_apps)
             }
-            else if (preferenceManager.getInt(PreferenceManager.FILTER_PREF) == R.id.menu_play_apps) {
-                menu.findItem(R.id.menu_play_apps).isChecked = true
-            }
-            else {
-                menu.findItem(R.id.menu_other_apps).isChecked = true
-            }
+            menu.findItem(preferenceManager.getInt(FILTER)).isChecked = true
         }
         menu.findItem(R.id.menu_filter).isVisible = preferenceManager.getInt(SEL_ITEM) != R.id.nav_plexus_data
     }
@@ -270,11 +265,12 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
             R.id.menu_all_apps,
             R.id.menu_play_apps,
+            R.id.menu_fdroid_apps,
             R.id.menu_other_apps -> {
-                preferenceManager.setInt(PreferenceManager.FILTER_PREF, menuItem.itemId)
+                preferenceManager.setInt(FILTER, menuItem.itemId)
                 refreshFragment(navController)
             }
-            
+    
         }
         
         return true

@@ -57,7 +57,7 @@
 
                 <item
                     android:id="@+id/menu_fdroid_apps"
-                    android:icon="@drawable/ic_play_store"
+                    android:icon="@drawable/ic_fdroid"
                     android:title="@string/menu_fdroid_apps"/>
 
                 <item

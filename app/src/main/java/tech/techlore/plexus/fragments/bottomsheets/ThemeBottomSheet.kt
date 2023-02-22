@@ -31,7 +31,7 @@ import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME_PREF
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 
 class ThemeBottomSheet : BottomSheetDialogFragment() {
     
@@ -48,15 +48,15 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         headerBinding.bottomSheetTitle.setText(R.string.theme)
         
         // Default checked radio btn
-        if (preferenceManager.getInt(THEME_PREF) == 0) {
+        if (preferenceManager.getInt(THEME) == 0) {
             if (Build.VERSION.SDK_INT >= 29) {
-                preferenceManager.setInt(THEME_PREF, R.id.sys_default)
+                preferenceManager.setInt(THEME, R.id.sys_default)
             }
             else {
-                preferenceManager.setInt(THEME_PREF, R.id.light)
+                preferenceManager.setInt(THEME, R.id.light)
             }
         }
-        bottomSheetBinding.themeRadiogroup.check(preferenceManager.getInt(THEME_PREF))
+        bottomSheetBinding.themeRadiogroup.check(preferenceManager.getInt(THEME))
         
         // Show system default option only on SDK 29 and above
         bottomSheetBinding.sysDefault.visibility = if (Build.VERSION.SDK_INT >= 29) View.VISIBLE else View.GONE
@@ -76,7 +76,7 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
     
-            preferenceManager.setInt(THEME_PREF, checkedId)
+            preferenceManager.setInt(THEME, checkedId)
             dismiss()
             requireActivity().recreate()
             

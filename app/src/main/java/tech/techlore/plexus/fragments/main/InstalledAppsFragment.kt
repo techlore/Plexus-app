@@ -33,18 +33,16 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.InstalledAppItemAdapter
-import tech.techlore.plexus.adapters.PlexusDataItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.fragments.bottomsheets.LongClickBottomSheet
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT_PREF
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER_PREF
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 
@@ -82,8 +80,8 @@ class InstalledAppsFragment :
         runBlocking {
             launch {
                 installedAppsList =
-                    miniRepository.miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER_PREF),
-                                                           orderPref = preferenceManager.getInt(A_Z_SORT_PREF))
+                    miniRepository.miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER),
+                                                               orderPref = preferenceManager.getInt(A_Z_SORT))
             }
         }
         
@@ -113,8 +111,8 @@ class InstalledAppsFragment :
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 installedAppItemAdapter
                     .updateList(miniRepository
-                                    .miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER_PREF),
-                                                                 orderPref = preferenceManager.getInt(A_Z_SORT_PREF)))
+                                    .miniInstalledAppsListFromDB(filterPref = preferenceManager.getInt(FILTER),
+                                                                 orderPref = preferenceManager.getInt(A_Z_SORT)))
             }
         }
     }

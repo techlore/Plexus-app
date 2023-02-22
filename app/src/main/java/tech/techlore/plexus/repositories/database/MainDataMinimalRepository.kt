@@ -70,7 +70,7 @@ class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
                 when(filterPref) {
                     R.id.menu_play_apps -> "googlePlay"
                     R.id.menu_fdroid_apps -> "fdroid"
-                    R.id.menu_other_apps -> "user"
+                    R.id.menu_other_apps -> "other"
                     else -> ""
                 }
     

@@ -40,7 +40,7 @@ import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT_PREF
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
@@ -81,7 +81,7 @@ class PlexusDataFragment :
         runBlocking {
             launch {
                 plexusDataList =
-                    miniRepository.miniPlexusDataListFromDB(orderPref = preferenceManager.getInt(A_Z_SORT_PREF))
+                    miniRepository.miniPlexusDataListFromDB(orderPref = preferenceManager.getInt(A_Z_SORT))
             }
         }
         
@@ -132,7 +132,7 @@ class PlexusDataFragment :
                 repository.plexusDataIntoDB(requireContext())
                 plexusDataItemAdapter
                     .updateList(miniRepository
-                                    .miniPlexusDataListFromDB(orderPref = preferenceManager.getInt(A_Z_SORT_PREF)))
+                                    .miniPlexusDataListFromDB(orderPref = preferenceManager.getInt(A_Z_SORT)))
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
             }
             else {

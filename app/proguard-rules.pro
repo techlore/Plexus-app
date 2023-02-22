@@ -41,6 +41,3 @@
 
 # Prevent minify from removing model classes
 -keep class tech.techlore.plexus.models.** { *; }
-
-# Prevent minify from removing deserializer class
--keep class tech.techlore.plexus.deserializer.** { *; }

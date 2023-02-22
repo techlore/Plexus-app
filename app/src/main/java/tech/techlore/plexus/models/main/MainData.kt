@@ -22,41 +22,33 @@ package tech.techlore.plexus.models.main
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import tech.techlore.plexus.deserializer.MainDataDeserializer
 
 @Entity(tableName = "main_table")
-@JsonDeserialize(using = MainDataDeserializer::class)
 data class MainData(
     
     @JsonProperty("id")
-    var id: String,
+    var id: String = "",
     
     @JsonProperty("name")
-    var name: String,
+    var name: String = "",
     
     @PrimaryKey @JsonProperty("package")
-    var packageName: String,
+    var packageName: String = "",
     
-    var installedVersion: String,
+    @JsonProperty("score")
+    var dgScore: Int = 0,
     
-    var installedFrom: String,
+    @JsonProperty("micro_g_score")
+    var mgScore: Int = 0,
     
-    var isInPlexusData: Boolean,
+    var installedVersion: String = "",
     
-    var isInstalled: Boolean,
+    var installedFrom: String = "",
     
-    var isFav: Boolean
+    var isInPlexusData: Boolean = true,
+    
+    var isInstalled: Boolean = false,
+    
+    var isFav: Boolean = false
 
-) {
-    constructor() : this(id = "",
-                         name = "",
-                         packageName = "",
-                         installedVersion = "",
-                         installedFrom = "",
-                         isInPlexusData = true,
-                         isInstalled = false,
-                         isFav = false)
-    // Secondary constructor with an empty argument list that initializes the fields with default values.
-    // This satisfies the requirement that entities and POJOs must have a usable public constructor.
-}
+)

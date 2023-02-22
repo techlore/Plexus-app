@@ -32,6 +32,7 @@
     <string name="z_a">Z-A</string>
 
     <string name="retrofit">Retrofit</string>
+    <string name="jackson">Jackson</string>
     <string name="fastscroll">AndroidFastScroll</string>
     <string name="md_icons">MaterialDesignIcons</string>
 
@@ -57,7 +58,7 @@
 \n
 \nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</string>
 
-    <string name="copyright_techlore">Copyright © 2022 Techlore</string>
+    <string name="copyright_techlore">Copyright © 2022-present Techlore</string>
     <string name="copyright_square">Copyright © 2013 Square, Inc.</string>
 
 </resources>
