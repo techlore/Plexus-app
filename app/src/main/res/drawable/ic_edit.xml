@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -20,5 +20,5 @@
 <vector android:height="24dp" android:tint="@color/color_enabled"
     android:viewportHeight="24" android:viewportWidth="24"
     android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="@android:color/white" android:pathData="M5,19H6.4L15.025,10.375L13.625,8.975L5,17.6ZM19.3,8.925 L15.05,4.725 16.45,3.325Q17.025,2.75 17.863,2.75Q18.7,2.75 19.275,3.325L20.675,4.725Q21.25,5.3 21.275,6.113Q21.3,6.925 20.725,7.5ZM4,21Q3.575,21 3.288,20.712Q3,20.425 3,20V17.175Q3,16.975 3.075,16.788Q3.15,16.6 3.3,16.45L13.6,6.15L17.85,10.4L7.55,20.7Q7.4,20.85 7.213,20.925Q7.025,21 6.825,21ZM14.325,9.675 L13.625,8.975 15.025,10.375Z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M5 19h1.4l8.625-8.625-1.4-1.4L5 17.6zM19.3 8.925l-4.25-4.2 1.4-1.4q0.575-0.575 1.413-0.575 0.837 0 1.412 0.575l1.4 1.4q0.575 0.575 0.6 1.388 0.025 0.812-0.55 1.387zM4 21q-0.425 0-0.712-0.288Q3 20.425 3 20v-2.825q0-0.2 0.075-0.387Q3.15 16.6 3.3 16.45l10.3-10.3 4.25 4.25-10.3 10.3q-0.15 0.15-0.337 0.225Q7.025 21 6.825 21zM14.325 9.675l-0.7-0.7 1.4 1.4z"/>
 </vector>
