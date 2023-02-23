@@ -24,21 +24,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_play_store"
-        android:icon="@drawable/ic_play_store"
-        android:title="@string/menu_play_store"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/menu_share"
-        android:icon="@drawable/ic_share"
-        android:title="@string/menu_share"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/menu_help"
         android:icon="@drawable/ic_help"
         android:title="@string/menu_help"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_more"
+        android:icon="@drawable/ic_overflow_menu"
+        android:title="@string/menu_more"
         app:showAsAction="always"/>
 
 </menu>

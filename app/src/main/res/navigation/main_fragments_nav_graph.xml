@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/plexusDataFragment"
         android:name="tech.techlore.plexus.fragments.main.PlexusDataFragment"
-        android:label="Plexus Data" >
+        android:label="@string/plexus_data" >
         <action
             android:id="@+id/action_plexusDataFragment_to_installedAppsFragment"
             app:destination="@id/installedAppsFragment"
@@ -55,7 +55,7 @@
     <fragment
         android:id="@+id/installedAppsFragment"
         android:name="tech.techlore.plexus.fragments.main.InstalledAppsFragment"
-        android:label="Installed Apps" >
+        android:label="@string/installed_apps" >
         <action
             android:id="@+id/action_installedAppsFragment_to_plexusDataFragment"
             app:destination="@id/plexusDataFragment"
@@ -82,7 +82,7 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="tech.techlore.plexus.fragments.main.FavoritesFragment"
-        android:label="Favorites" >
+        android:label="@string/favorites" >
         <action
             android:id="@+id/action_favoritesFragment_to_plexusDataFragment"
             app:destination="@id/plexusDataFragment"

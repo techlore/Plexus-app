@@ -56,9 +56,12 @@
     <string name="package_name">Package name</string>
     <string name="version">Version</string>
     <string name="installed">Installed</string>
+    <string name="not_available">Not available</string>
     <string name="notes">notes</string>
+
+    <!--Toolbar menu-->
     <string name="menu_help">Help</string>
-    <string name="menu_more">More</string>
+    <string name="menu_more">More options</string>
     <string name="update">Update</string>
 
     <!--Help fragment-->
@@ -73,8 +76,6 @@
     <string name="silver_subtitle">Almost everything works with minimal caveats</string>
     <string name="gold_title">Gold</string>
     <string name="gold_subtitle">Perfect or perfect-like experience</string>
-    <string name="dg_status">de-Googled status</string>
-    <string name="mg_status">microG status</string>
 
     <!--#########################################################################################-->
 
@@ -99,13 +100,12 @@
 
     <!--Bottom sheets-->
     <string name="cancel">Cancel</string>
-    <string name="dismiss">Dismiss</string>
+    <string name="done">Done</string>
 
     <!--Sort-->
     <string name="alphabetical">Alphabetical</string>
     <string name="status">Status</string>
     <string name="any">Any</string>
-    <string name="done">Done</string>
 
     <!--Theme-->
     <string name="system_default">System default</string>

@@ -55,6 +55,26 @@
         android:drawablePadding="@dimen/margin_20"/>
 
     <TextView
+        android:id="@+id/fdroid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_2.5"
+        android:layout_marginBottom="1dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingStart="@dimen/margin_20"
+        android:paddingTop="@dimen/margin_16"
+        android:paddingEnd="@dimen/margin_25"
+        android:paddingBottom="@dimen/margin_16"
+        android:text="@string/menu_fdroid"
+        android:textAlignment="viewStart"
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_16"
+        app:drawableStartCompat="@drawable/ic_fdroid"
+        android:drawablePadding="@dimen/margin_20"/>
+
+    <TextView
         android:id="@+id/share"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

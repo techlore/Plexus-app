@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -47,6 +47,11 @@
         <menu>
             <group android:checkableBehavior="single"
                 android:id="@+id/group_contribute">
+
+                <item
+                    android:id="@+id/nav_my_submissions"
+                    android:icon="@drawable/ic_my_submissions"
+                    android:title="@string/my_submissions"/>
 
                 <item
                     android:id="@+id/nav_report_issue"

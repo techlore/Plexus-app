@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -40,8 +40,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/details_app_icon"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="@dimen/margin_64"
+                android:layout_height="@dimen/margin_64"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +57,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/app_name"
@@ -71,33 +73,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_2.5"
-                android:layout_marginStart="@dimen/margin_17"
-                android:layout_marginEnd="@dimen/margin_17"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/package_name"
-                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_17"/>
 
             <TextView
-                android:id="@+id/details_version"
+                android:id="@+id/version_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/details_package_name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/margin_2.5"
-                android:layout_marginStart="@dimen/margin_17"
-                android:layout_marginEnd="@dimen/margin_17"
+                android:layout_marginTop="@dimen/margin_25"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/version"
-                android:textSize="@dimen/text_17"/>
+                android:textSize="@dimen/text_18"
+                style="@style/MediumBoldText"/>
 
             <TextView
                 android:id="@+id/plexus_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/details_version"
+                app:layout_constraintTop_toBottomOf="@id/version_text"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
                 android:layout_marginEnd="@dimen/margin_4"
                 android:paddingTop="@dimen/margin_4"
                 android:paddingBottom="@dimen/margin_4"
@@ -106,20 +107,18 @@
                 android:background="@drawable/shape_outline"
                 android:text="@string/plexus"
                 android:textColor="@color/color_primary"
-                android:textSize="@dimen/text_16"
-                android:visibility="gone"/>
+                android:textSize="@dimen/text_16"/>
 
             <TextView
                 android:id="@+id/details_plexus_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/details_version"
+                app:layout_constraintTop_toBottomOf="@id/version_text"
                 app:layout_constraintStart_toEndOf="@id/plexus_text"
                 android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_16"
                 android:text="@string/version"
-                android:textSize="@dimen/text_16"
-                android:visibility="gone"/>
+                android:textSize="@dimen/text_16"/>
 
             <TextView
                 android:id="@+id/installed_text"
@@ -136,8 +135,7 @@
                 android:background="@drawable/shape_outline"
                 android:text="@string/installed"
                 android:textColor="@color/color_primary"
-                android:textSize="@dimen/text_16"
-                android:visibility="gone"/>
+                android:textSize="@dimen/text_16"/>
 
             <TextView
                 android:id="@+id/details_installed_version"
@@ -148,8 +146,7 @@
                 android:layout_marginStart="@dimen/margin_12"
                 android:layout_marginTop="@dimen/margin_20"
                 android:text="@string/version"
-                android:textSize="@dimen/text_16"
-                android:visibility="gone"/>
+                android:textSize="@dimen/text_16"/>
 
             <View
                 android:id="@+id/card_outline"
@@ -176,9 +173,7 @@
                 android:text="@string/de_Googled"
                 android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_18"
-                style="@style/MediumBoldText"
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintTop_toBottomOf="@id/card_outline"/>
+                style="@style/MediumBoldText"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/details_dg_status"
@@ -188,8 +183,7 @@
                 app:layout_constraintTop_toTopOf="@id/card_outline"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_4"
-                android:clickable="false"
-                style="@style/BrokenFilterChipTheme"/>
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/dg_notes"
@@ -237,9 +231,8 @@
                 app:layout_constraintTop_toBottomOf="@id/divider"
                 app:layout_constraintStart_toEndOf="@id/mg_text"
                 android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_6.5"
-                android:clickable="false"
-                style="@style/GoldFilterChipTheme"/>
+                android:layout_marginTop="@dimen/margin_4"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/mg_notes"
@@ -265,7 +258,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_close"/>
+        app:navigationIcon="@drawable/ic_back"
+        app:menuAlignmentMode="auto"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -275,6 +269,6 @@
         android:src="@drawable/ic_edit"
         android:tintMode="@color/color_snackbar_text"
         android:backgroundTint="@color/color_fab"
-        android:contentDescription="Update/Submit" />
+        android:contentDescription="@string/update"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
