@@ -111,14 +111,16 @@ interface MainDataDao {
     @Query("""
         SELECT * FROM main_table
         WHERE NOT isInstalled
-        AND (dgScore = :dgScore OR :dgScore = -1)
-        AND (mgScore = :mgScore OR :mgScore = -1)
+        AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
+        AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
         CASE WHEN :isAsc = 1 THEN name END ASC,
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
-    suspend fun getSortedNotInstalledApps(dgScore: Int,
-                                          mgScore: Int,
+    suspend fun getSortedNotInstalledApps(dgScoreFrom: Double,
+                                          dgScoreTo: Double,
+                                          mgScoreFrom: Double,
+                                          mgScoreTo: Double,
                                           isAsc: Boolean): List<MainData>
     // -1 is for ignoring the score when required,
     // so it doesn't include it while filtering
@@ -127,15 +129,17 @@ interface MainDataDao {
         SELECT * FROM main_table
         WHERE isInstalled
         AND (installedFrom = :installedFrom OR :installedFrom = '')
-        AND (dgScore = :dgScore OR :dgScore = -1)
-        AND (mgScore = :mgScore OR :mgScore = -1)
+        AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
+        AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
         CASE WHEN :isAsc = 1 THEN name END ASC,
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
     suspend fun getSortedInstalledApps(installedFrom: String,
-                                       dgScore: Int,
-                                       mgScore: Int,
+                                       dgScoreFrom: Double,
+                                       dgScoreTo: Double,
+                                       mgScoreFrom: Double,
+                                       mgScoreTo: Double,
                                        isAsc: Boolean): List<MainData>
     // -1 is for ignoring the score when required,
     // so it doesn't include it while filtering
