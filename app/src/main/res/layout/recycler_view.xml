@@ -40,7 +40,7 @@
             android:clipToPadding="false"
             android:paddingTop="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_10"
-            tools:listitem="@layout/item_recycler_view"/>
+            tools:listitem="@layout/item_main_recycler_view"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -48,6 +48,6 @@
         android:id="@+id/empty_list_view_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/empty_list"/>
+        android:layout="@layout/empty_list_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

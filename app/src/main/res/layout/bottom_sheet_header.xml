@@ -35,7 +35,7 @@
         android:id="@+id/bottom_sheet_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="@dimen/margin_25"
         android:layout_marginTop="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/bottom_sheet_title"

@@ -19,21 +19,34 @@
 
 package tech.techlore.plexus.repositories.api
 
-import okhttp3.ResponseBody
 import retrofit2.Call
-import tech.techlore.plexus.api.ApiManager
 import tech.techlore.plexus.api.ApiService
-import tech.techlore.plexus.models.main.Root
-import tech.techlore.plexus.models.send.Application
+import tech.techlore.plexus.models.ratings.Ratings
+import tech.techlore.plexus.models.main.MainRoot
+import tech.techlore.plexus.models.ratings.RatingsRoot
+import tech.techlore.plexus.models.scores.DgScoreRoot
+import tech.techlore.plexus.models.scores.MgScoreRoot
 
 class ApiRepository(private val apiService: ApiService) {
     
-    fun getApplications(): Call<Root> {
-        return apiService.getApplications()
+    fun getApps(): Call<MainRoot> {
+        return apiService.getApps()
     }
     
-    fun sendApplication(application: Application): Call<ResponseBody> {
-        return apiService.sendApplication(application)
+    fun getDgScore(packageName: String): Call<DgScoreRoot> {
+        return apiService.getDgScore(packageName)
     }
+    
+    fun getMgScore(packageName: String): Call<MgScoreRoot> {
+        return apiService.getMgScore(packageName)
+    }
+    
+    fun getRatings(packageName: String): Call<RatingsRoot> {
+        return apiService.getRatings(packageName)
+    }
+    
+    /*fun sendApplication(rating: Rating): Call<ResponseBody> {
+        return apiService.updateRating(rating)
+    }*/
     
 }

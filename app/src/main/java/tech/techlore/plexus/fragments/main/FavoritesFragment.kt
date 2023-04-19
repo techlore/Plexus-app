@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -32,10 +32,9 @@ import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
-import tech.techlore.plexus.adapters.FavoriteItemAdapter
+import tech.techlore.plexus.adapters.main.FavoriteItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.fragments.bottomsheets.LongClickBottomSheet
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -45,7 +44,6 @@ import kotlin.coroutines.CoroutineContext
 class FavoritesFragment:
     Fragment(),
     FavoriteItemAdapter.OnItemClickListener,
-    FavoriteItemAdapter.OnItemLongCLickListener,
     CoroutineScope {
     
     private val job = Job()
@@ -80,7 +78,6 @@ class FavoritesFragment:
             }
         }
         val favItemAdapter = FavoriteItemAdapter(favFinalList,
-                                                 this,
                                                  this,
                                                  coroutineScope)
         
@@ -168,18 +165,6 @@ class FavoritesFragment:
     override fun onItemClick(position: Int) {
         val fav = favFinalList[position]
         IntentUtils.startDetailsActivity(mainActivity, fav.packageName, "installed")
-    }
-    
-    // On long click
-    override fun onItemLongCLick(position: Int) {
-        val fav = favFinalList[position]
-        LongClickBottomSheet(mainActivity,
-                                     fav.name, fav.packageName,  /*installedApp.getPlexusVersion(),
-                                 installedApp.getDgRating(), installedApp.getMgRating(),
-                                 installedApp.getDgNotes(), installedApp.getMgNotes(),*/
-                                     mainActivity.activityBinding.mainCoordinatorLayout,
-                                     mainActivity.activityBinding.bottomNavContainer)
-            .show(parentFragmentManager, "LongClickBottomSheet")
     }
     
     override fun onDestroyView() {

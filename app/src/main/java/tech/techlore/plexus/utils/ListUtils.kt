@@ -24,7 +24,6 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import tech.techlore.plexus.R
 import tech.techlore.plexus.models.main.MainData
 
 class ListUtils {
@@ -38,7 +37,6 @@ class ListUtils {
                 val installedAppsList = ArrayList<MainData>()
                 
                 packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-                    // No system apps
                     // Only scan for user installed apps
                     // OR system apps updated by user
                     .filter {
@@ -46,37 +44,26 @@ class ListUtils {
                         || it.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP !=0
                     }
                     .mapNotNull {
-                        val installedApp =
-                            MainData(name = it.loadLabel(packageManager).toString(),
-                                     packageName = it.packageName,
-                                     installedVersion =
-                                     packageManager.getPackageInfo(it.packageName, 0).versionName,
-                                     installedBuild = packageManager.getPackageInfo(it.packageName, 0).versionCode,
-                                     installedFrom =
-                                     when(packageManager.getInstallerPackageName(it.packageName)) {
-                                         "com.android.vending", "com.aurora.store" -> "googlePlay"
-                                         "org.fdroid.fdroid" -> "fdroid"
-                                         else -> "other"
-                                     },
-                                     isInstalled = true)
-                        
-                        installedAppsList.add(installedApp)
+                        if (!it.packageName.equals("tech.techlore.plexus")) {
+                            val installedApp =
+                                MainData(name = it.loadLabel(packageManager).toString(),
+                                         packageName = it.packageName,
+                                         installedVersion =
+                                         packageManager.getPackageInfo(it.packageName, 0).versionName,
+                                         installedBuild = packageManager.getPackageInfo(it.packageName, 0).versionCode,
+                                         installedFrom =
+                                         when(packageManager.getInstallerPackageName(it.packageName)) {
+                                             "com.android.vending", "com.aurora.store" -> "googlePlay"
+                                             "org.fdroid.fdroid" -> "fdroid"
+                                             else -> "other"
+                                         },
+                                         isInstalled = true)
+                            
+                            installedAppsList.add(installedApp)
+                        }
                     }
                 
                 installedAppsList
-            }
-        }
-        
-        // Data status sort
-        fun statusSort(preferenceKey: Int, mainData: MainData,
-                       status: String, mainDataList: ArrayList<MainData>) {
-            
-            when (preferenceKey) {
-                0, R.id.sort_not_tested -> if (status == "X") mainDataList.add(mainData)
-                R.id.sort_broken -> if (status == "1") mainDataList.add(mainData)
-                R.id.sort_bronze -> if (status == "2") mainDataList.add(mainData)
-                R.id.sort_silver -> if (status == "3") mainDataList.add(mainData)
-                R.id.sort_gold -> if (status == "4") mainDataList.add(mainData)
             }
         }
         

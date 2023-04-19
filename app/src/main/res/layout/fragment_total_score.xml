@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/dg_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dg_card_bottom_space"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:background="@drawable/shape_card"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dg_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/dg_card"
+        app:layout_constraintStart_toStartOf="@id/dg_card"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginStart="@dimen/margin_16"
+        android:text="@string/de_Googled"
+        android:textSize="@dimen/text_18"
+        android:textColor="@color/color_text_title"
+        style="@style/MediumBoldText"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dg_total_ratings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dg_text"
+        app:layout_constraintStart_toStartOf="@id/dg_card"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_16"
+        android:text="@string/total_ratings"
+        android:textSize="@dimen/text_17"
+        android:textColor="?attr/colorControlNormal"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/dg_circle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toBottomOf="@id/dg_total_ratings"
+        app:layout_constraintStart_toStartOf="@id/dg_card"
+        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        android:layout_marginTop="@dimen/margin_10"
+        android:padding="@dimen/margin_4"
+        app:strokeWidth="@dimen/margin_4"
+        app:strokeColor="@color/color_primary"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dg_total_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/dg_circle"
+        app:layout_constraintBottom_toBottomOf="@id/dg_circle"
+        app:layout_constraintStart_toStartOf="@id/dg_circle"
+        app:layout_constraintEnd_toEndOf="@id/dg_circle"
+        android:textSize="@dimen/text_20"
+        android:textColor="@color/color_text_title"/>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/dg_gold_text_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dg_total_score"
+        app:layout_constraintStart_toStartOf="@id/dg_card"
+        android:layout_marginTop="@dimen/margin_45"
+        android:layout_marginStart="@dimen/margin_16"
+        style="@style/GoldFilterChipTheme"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/dg_gold_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dg_gold_text_chip"
+        app:layout_constraintTop_toTopOf="@id/dg_gold_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/dg_gold_text_chip"
+        app:layout_constraintEnd_toStartOf="@id/dg_gold_percent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:trackCornerRadius="@dimen/margin_10"
+        app:trackThickness="@dimen/margin_10"
+        app:indicatorColor="@color/color_gold_status"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dg_gold_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/dg_gold_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/dg_gold_text_chip"
+        app:layout_constraintStart_toEndOf="@id/dg_gold_progress"
+        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/text_16"/>
+
+    <!--####################################################-->
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/dg_silver_text_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dg_gold_text_chip"
+        app:layout_constraintStart_toStartOf="@id/dg_card"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        style="@style/SilverFilterChipTheme"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/dg_silver_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dg_silver_text_chip"
+        app:layout_constraintTop_toTopOf="@id/dg_silver_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/dg_silver_text_chip"
+        app:layout_constraintEnd_toStartOf="@id/dg_silver_percent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:trackCornerRadius="@dimen/margin_10"
+        app:trackThickness="@dimen/margin_10"
+        app:indicatorColor="@color/color_silver_status"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dg_silver_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/dg_silver_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/dg_silver_text_chip"
+        app:layout_constraintStart_toEndOf="@id/dg_silver_progress"
+        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/text_16"/>
+
+    <!--####################################################-->
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/dg_bronze_text_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dg_silver_text_chip"
+        app:layout_constraintStart_toStartOf="@id/dg_card"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        style="@style/BronzeFilterChipTheme"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/dg_bronze_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dg_bronze_text_chip"
+        app:layout_constraintTop_toTopOf="@id/dg_bronze_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/dg_bronze_text_chip"
+        app:layout_constraintEnd_toStartOf="@id/dg_bronze_percent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:trackCornerRadius="@dimen/margin_10"
+        app:trackThickness="@dimen/margin_10"
+        app:indicatorColor="@color/color_bronze_status"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dg_bronze_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/dg_bronze_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/dg_bronze_text_chip"
+        app:layout_constraintStart_toEndOf="@id/dg_bronze_progress"
+        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/text_16"/>
+
+    <!--####################################################-->
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/dg_broken_text_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dg_bronze_text_chip"
+        app:layout_constraintStart_toStartOf="@id/dg_card"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        style="@style/BrokenFilterChipTheme"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/dg_broken_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dg_broken_text_chip"
+        app:layout_constraintTop_toTopOf="@id/dg_broken_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/dg_broken_text_chip"
+        app:layout_constraintEnd_toStartOf="@id/dg_broken_percent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:trackCornerRadius="@dimen/margin_10"
+        app:trackThickness="@dimen/margin_10"
+        app:indicatorColor="@color/color_broken_status"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dg_broken_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/dg_broken_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/dg_broken_text_chip"
+        app:layout_constraintStart_toEndOf="@id/dg_broken_progress"
+        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/text_16"/>
+
+    <!--####################################################-->
+
+    <Space
+        android:id="@+id/dg_card_bottom_space"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_12"
+        app:layout_constraintTop_toBottomOf="@id/dg_broken_text_chip"
+        app:layout_constraintStart_toStartOf="@id/dg_card"
+        app:layout_constraintEnd_toEndOf="@id/dg_card"/>
+
+    <!--####################################################-->
+    <!--####################################################-->
+
+    <View
+        android:id="@+id/mg_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/dg_card"
+        app:layout_constraintBottom_toBottomOf="@id/mg_card_bottom_space"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:background="@drawable/shape_card"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mg_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/mg_card"
+        app:layout_constraintStart_toStartOf="@id/mg_card"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginStart="@dimen/margin_16"
+        android:text="@string/microG"
+        android:textSize="@dimen/text_18"
+        android:textColor="@color/color_text_title"
+        style="@style/MediumBoldText"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mg_total_ratings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mg_text"
+        app:layout_constraintStart_toStartOf="@id/mg_card"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_16"
+        android:text="@string/total_ratings"
+        android:textSize="@dimen/text_17"
+        android:textColor="?attr/colorControlNormal"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/mg_circle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toBottomOf="@id/mg_total_ratings"
+        app:layout_constraintStart_toStartOf="@id/mg_card"
+        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        android:layout_marginTop="@dimen/margin_10"
+        android:padding="@dimen/margin_4"
+        app:strokeWidth="@dimen/margin_4"
+        app:strokeColor="@color/color_primary"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mg_total_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/mg_circle"
+        app:layout_constraintBottom_toBottomOf="@id/mg_circle"
+        app:layout_constraintStart_toStartOf="@id/mg_circle"
+        app:layout_constraintEnd_toEndOf="@id/mg_circle"
+        android:textSize="@dimen/text_20"
+        android:textColor="@color/color_text_title"/>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/mg_gold_text_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mg_total_score"
+        app:layout_constraintStart_toStartOf="@id/mg_card"
+        android:layout_marginTop="@dimen/margin_45"
+        android:layout_marginStart="@dimen/margin_16"
+        style="@style/GoldFilterChipTheme"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/mg_gold_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/mg_gold_text_chip"
+        app:layout_constraintTop_toTopOf="@id/mg_gold_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/mg_gold_text_chip"
+        app:layout_constraintEnd_toStartOf="@id/mg_gold_percent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:trackCornerRadius="@dimen/margin_10"
+        app:trackThickness="@dimen/margin_10"
+        app:indicatorColor="@color/color_gold_status"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mg_gold_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/mg_gold_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/mg_gold_text_chip"
+        app:layout_constraintStart_toEndOf="@id/mg_gold_progress"
+        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/text_16"/>
+
+    <!--####################################################-->
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/mg_silver_text_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mg_gold_text_chip"
+        app:layout_constraintStart_toStartOf="@id/mg_card"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        style="@style/SilverFilterChipTheme"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/mg_silver_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/mg_silver_text_chip"
+        app:layout_constraintTop_toTopOf="@id/mg_silver_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/mg_silver_text_chip"
+        app:layout_constraintEnd_toStartOf="@id/mg_silver_percent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:trackCornerRadius="@dimen/margin_10"
+        app:trackThickness="@dimen/margin_10"
+        app:indicatorColor="@color/color_silver_status"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mg_silver_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/mg_silver_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/mg_silver_text_chip"
+        app:layout_constraintStart_toEndOf="@id/mg_silver_progress"
+        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/text_16"/>
+
+    <!--####################################################-->
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/mg_bronze_text_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mg_silver_text_chip"
+        app:layout_constraintStart_toStartOf="@id/mg_card"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        style="@style/BronzeFilterChipTheme"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/mg_bronze_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/mg_bronze_text_chip"
+        app:layout_constraintTop_toTopOf="@id/mg_bronze_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/mg_bronze_text_chip"
+        app:layout_constraintEnd_toStartOf="@id/mg_bronze_percent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:trackCornerRadius="@dimen/margin_10"
+        app:trackThickness="@dimen/margin_10"
+        app:indicatorColor="@color/color_bronze_status"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mg_bronze_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/mg_bronze_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/mg_bronze_text_chip"
+        app:layout_constraintStart_toEndOf="@id/mg_bronze_progress"
+        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/text_16"/>
+
+    <!--####################################################-->
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/mg_broken_text_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mg_bronze_text_chip"
+        app:layout_constraintStart_toStartOf="@id/mg_card"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        style="@style/BrokenFilterChipTheme"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/mg_broken_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/mg_broken_text_chip"
+        app:layout_constraintTop_toTopOf="@id/mg_broken_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/mg_broken_text_chip"
+        app:layout_constraintEnd_toStartOf="@id/mg_broken_percent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:trackCornerRadius="@dimen/margin_10"
+        app:trackThickness="@dimen/margin_10"
+        app:indicatorColor="@color/color_broken_status"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mg_broken_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/mg_broken_text_chip"
+        app:layout_constraintBottom_toBottomOf="@id/mg_broken_text_chip"
+        app:layout_constraintStart_toEndOf="@id/mg_broken_progress"
+        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/text_16"/>
+
+    <Space
+        android:id="@+id/mg_card_bottom_space"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_25"
+        app:layout_constraintTop_toBottomOf="@id/mg_broken_text_chip"
+        app:layout_constraintStart_toStartOf="@id/mg_card"
+        app:layout_constraintEnd_toEndOf="@id/mg_card"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

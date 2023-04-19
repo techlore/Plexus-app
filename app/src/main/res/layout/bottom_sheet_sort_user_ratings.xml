@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_12"
+    android:paddingBottom="@dimen/margin_8"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <include
+        layout="@layout/bottom_sheet_header"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/version_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:hint="@string/version"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:text="@string/status"
+        style="@style/MediumBoldText"
+        android:textSize="@dimen/text_16"
+        android:textColor="?attr/colorControlNormal"/>
+
+    <RadioGroup
+        android:id="@+id/user_ratings_status_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_card">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/user_ratings_radio_any_status"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_40"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape_radio_btn_selector"
+            android:checked="true"
+            android:button="@android:color/transparent"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
+            android:text="@string/any"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/radio_btn_text_color"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/user_ratings_radio_dg_status"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_40"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape_radio_btn_selector"
+            android:button="@android:color/transparent"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
+            android:text="@string/de_Googled"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/radio_btn_text_color"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/user_ratings_radio_mg_status"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_40"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
+            android:layout_margin="@dimen/margin_4"
+            android:button="@android:color/transparent"
+            android:background="@drawable/shape_radio_btn_selector"
+            android:text="@string/microG"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/radio_btn_text_color"/>
+
+    </RadioGroup>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/user_ratings_status_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_4"
+        app:chipSpacingHorizontal="@dimen/margin_10"
+        app:chipSpacingVertical="@dimen/margin_4"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        android:visibility="gone">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/user_ratings_sort_not_tested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            style="@style/NotTestedFilterChipTheme"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/user_ratings_sort_broken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/BrokenFilterChipTheme"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/user_ratings_sort_bronze"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/BronzeFilterChipTheme"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/user_ratings_sort_silver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SilverFilterChipTheme"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/user_ratings_sort_gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GoldFilterChipTheme"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <include
+        layout="@layout/bottom_sheet_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"/>
+
+</LinearLayout>

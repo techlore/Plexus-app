@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,12 +27,11 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetLongClickBinding
+import tech.techlore.plexus.databinding.BottomSheetMoreOptionsBinding
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.IntentUtils.Companion.share
 
-class LongClickBottomSheet(
-    private val activity: Activity,
+class MoreOptionsBottomSheet(
     private val nameString: String,
     private val packageNameString: String,
     /*String plexusVersionString,
@@ -49,23 +47,29 @@ class LongClickBottomSheet(
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        val bottomSheetBinding = BottomSheetLongClickBinding.inflate(inflater, container, false)
+        val bottomSheetBinding = BottomSheetMoreOptionsBinding.inflate(inflater, container, false)
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        
         val playStoreString = "https://play.google.com/store/apps/details?id=$packageNameString"
+        val fdroidString = "https://f-droid.org/packages/$packageNameString/"
         
         headerBinding.bottomSheetTitle.text = nameString
         
         // Play store
         bottomSheetBinding.playStore.setOnClickListener {
             dismiss()
-            openURL(activity, playStoreString, coordinatorLayout, anchorView)
+            openURL(requireActivity(), playStoreString, coordinatorLayout, anchorView)
+        }
+        
+        // F-Droid
+        bottomSheetBinding.fdroid.setOnClickListener {
+            dismiss()
+            openURL(requireActivity(), fdroidString, coordinatorLayout, anchorView)
         }
         
         // Share
         bottomSheetBinding.share.setOnClickListener {
-            share(activity,
+            share(requireActivity(),
                   nameString,
                   packageNameString,
                 /*plexusVersionString,

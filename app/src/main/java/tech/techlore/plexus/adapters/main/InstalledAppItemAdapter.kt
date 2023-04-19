@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -17,7 +17,7 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.adapters
+package tech.techlore.plexus.adapters.main
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -28,24 +28,24 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.android.material.checkbox.MaterialCheckBox
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
-import java.util.*
+import java.util.Locale
 import kotlin.collections.ArrayList
 
-class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
-                          private val clickListener: OnItemClickListener,
-                          private val longClickListener: OnItemLongCLickListener,
-                          private val coroutineScope: CoroutineScope) :
-    RecyclerView.Adapter<FavoriteItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
+class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
+                              private val clickListener: OnItemClickListener,
+                              private val coroutineScope: CoroutineScope) :
+    RecyclerView.Adapter<InstalledAppItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
     private val aListViewItemsFull: List<MainDataMinimal>
     
@@ -53,38 +53,25 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         fun onItemClick(position: Int)
     }
     
-    interface OnItemLongCLickListener {
-        fun onItemLongCLick(position: Int)
-    }
-    
     inner class ListViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
         
         val icon: ImageView = itemView.findViewById(R.id.icon)
         val name: TextView = itemView.findViewById(R.id.name)
         val packageName: TextView = itemView.findViewById(R.id.package_name)
-        //val version: TextView = itemView.findViewById(R.id.version)
+        //val installedVersion: TextView = itemView.findViewById(R.id.version)
         //val versionMismatch: ImageView = itemView.findViewById(R.id.version_mismatch)
         val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
             itemView.setOnClickListener(this)
-            itemView.setOnLongClickListener(this)
         }
-        
+    
         override fun onClick(v: View?) {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 clickListener.onItemClick(position)
             }
-        }
-        
-        override fun onLongClick(v: View?): Boolean {
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                longClickListener.onItemLongCLick(position)
-            }
-            return true
         }
     }
     
@@ -95,30 +82,22 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_main_recycler_view, parent, false)
         )
     }
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        val favorite = aListViewItems[position]
+        val installedApp = aListViewItems[position]
         val context = holder.itemView.context
-    
-        if (favorite.isInstalled) {
-            try {
-                holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(favorite.packageName))
-                // Don't use GLIDE to load icons directly to ImageView
-                // as there's a delay in displaying icons when fast scrolling
-            }
-            catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }
+        
+        try {
+            holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(installedApp.packageName))
+            // Don't use GLIDE to load icons directly to ImageView
+            // as there's a delay in displaying icons when fast scrolling
         }
-        else {
-            Glide.with(context)
-                .load("")
-                .placeholder(R.drawable.ic_apk)
-                .into(holder.icon)
+        catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
         }
         
         /*if (installedApp.installedVersion != installedApp.plexusVersion) {
@@ -128,22 +107,22 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             holder.versionMismatch.visibility = View.GONE
         }*/
         
-        holder.name.text = favorite.name
-        holder.packageName.text = favorite.packageName
-        //holder.version.text = favorite.installedVersion
-        holder.fav.isChecked = favorite.isFav
+        holder.name.text = installedApp.name
+        holder.packageName.text = installedApp.packageName
+        //holder.installedVersion.text = installedApp.installedVersion
+        holder.fav.isChecked = installedApp.isFav
         
         // Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
-        //hScrollText(holder.version)
+        //hScrollText(holder.installedVersion)
         
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
-            favorite.isFav = isChecked
+            installedApp.isFav = isChecked
             coroutineScope.launch {
                 (context.applicationContext as ApplicationManager)
                     .miniRepository
-                    .update(favorite)
+                    .update(installedApp)
             }
         }
         
@@ -190,5 +169,13 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     // Fast scroll popup
     override fun getPopupText(position: Int): String {
         return aListViewItems[position].name.substring(0, 1)
+    }
+    
+    fun updateList(newList: ArrayList<MainDataMinimal>){
+        val diffCallback = MainDataMinimalDiffUtil(aListViewItems, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        diffResult.dispatchUpdatesTo(this)
+        aListViewItems.clear()
+        aListViewItems.addAll(newList)
     }
 }

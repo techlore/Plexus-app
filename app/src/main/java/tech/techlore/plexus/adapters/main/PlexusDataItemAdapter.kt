@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -17,7 +17,7 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.adapters
+package tech.techlore.plexus.adapters.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -44,7 +44,6 @@ import kotlin.collections.ArrayList
 
 class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
                             private val clickListener: OnItemClickListener,
-                            private val longClickListener: OnItemLongCLickListener,
                             private val coroutineScope: CoroutineScope) :
     RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
     
@@ -54,12 +53,8 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
         fun onItemClick(position: Int)
     }
     
-    interface OnItemLongCLickListener {
-        fun onItemLongCLick(position: Int)
-    }
-    
     inner class ListViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
         
         val icon: ImageView = itemView.findViewById(R.id.icon)
         val name: TextView = itemView.findViewById(R.id.name)
@@ -69,7 +64,6 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
         
         init {
             itemView.setOnClickListener(this)
-            itemView.setOnLongClickListener(this)
         }
         
         override fun onClick(v: View?) {
@@ -77,14 +71,6 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
             if (position != RecyclerView.NO_POSITION) {
                 clickListener.onItemClick(position)
             }
-        }
-        
-        override fun onLongClick(v: View?): Boolean {
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                longClickListener.onItemLongCLick(position)
-            }
-            return true
         }
     }
     
@@ -95,7 +81,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_recycler_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_main_recycler_view, parent, false)
         )
     }
     

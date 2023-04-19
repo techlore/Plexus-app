@@ -23,11 +23,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.CoroutineScope
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.main.MainData
 
-@Database(entities = [MainData::class], version = 1)
+@Database(entities = [MainData::class], version = 1, exportSchema = false)
 abstract class MainDatabase : RoomDatabase() {
     
     abstract fun mainDataDao(): MainDataDao

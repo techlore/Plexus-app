@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -19,146 +19,16 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<ScrollView
+<androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/licenses_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-    tools:context=".fragments.settings.LicensesFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/margin_12"
-        android:paddingBottom="@dimen/margin_20"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/plexus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_22"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/plexus"
-            android:textAlignment="viewStart"
-            android:textColor="@color/color_url"
-            android:textSize="@dimen/text_20" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:paddingStart="@dimen/margin_12"
-            android:paddingEnd="@dimen/margin_12"
-            android:paddingTop="@dimen/margin_12"
-            android:background="@color/color_grey_text_surface"
-            android:text="@string/copyright_techlore"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_16" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:padding="@dimen/margin_12"
-            android:background="@color/color_grey_text_surface"
-            android:text="@string/gpl_3_0_license"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_16" />
-
-        <TextView
-            android:id="@+id/retrofit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_22"
-            android:layout_marginTop="@dimen/margin_25"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/retrofit"
-            android:textAlignment="viewStart"
-            android:textColor="@color/color_url"
-            android:textSize="@dimen/text_20" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:paddingStart="@dimen/margin_12"
-            android:paddingEnd="@dimen/margin_12"
-            android:paddingTop="@dimen/margin_12"
-            android:background="@color/color_grey_text_surface"
-            android:text="@string/copyright_square"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_16" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:padding="@dimen/margin_12"
-            android:background="@color/color_grey_text_surface"
-            android:text="@string/apache_2_0_license"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_16" />
-
-        <TextView
-            android:id="@+id/fastscroll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_25"
-            android:layout_marginStart="@dimen/margin_22"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/fastscroll"
-            android:textAlignment="viewStart"
-            android:textColor="@color/color_url"
-            android:textSize="@dimen/text_20"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:padding="@dimen/margin_12"
-            android:background="@color/color_grey_text_surface"
-            android:text="@string/apache_2_0_license"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_16" />
-
-        <TextView
-            android:id="@+id/md_icons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_25"
-            android:layout_marginStart="@dimen/margin_22"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/md_icons"
-            android:textAlignment="viewStart"
-            android:textColor="@color/color_url"
-            android:textSize="@dimen/text_20"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:padding="@dimen/margin_12"
-            android:background="@color/color_grey_text_surface"
-            android:text="@string/apache_2_0_license"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_16" />
-
-    </LinearLayout>
-
-</ScrollView>
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    android:background="@color/color_background"
+    android:clipToPadding="false"
+    android:paddingTop="@dimen/margin_10"
+    android:paddingBottom="@dimen/margin_10"
+    tools:listitem="@layout/item_licenses_recycler_view"/>

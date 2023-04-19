@@ -19,15 +19,20 @@
 
 package tech.techlore.plexus.models.main
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonProperty
+import tech.techlore.plexus.converters.RatingsConverter
+import tech.techlore.plexus.converters.ScoreConverter
+import tech.techlore.plexus.models.ratings.Ratings
+import tech.techlore.plexus.models.scores.DgScore
+import tech.techlore.plexus.models.scores.MgScore
 
 @Entity(tableName = "main_table")
+@TypeConverters(value = [ScoreConverter::class, RatingsConverter::class])
 data class MainData(
-    
-    @JsonProperty("id")
-    var id: String = "",
     
     @JsonProperty("name")
     var name: String = "",
@@ -35,11 +40,13 @@ data class MainData(
     @PrimaryKey @JsonProperty("package")
     var packageName: String = "",
     
-    @JsonProperty("score")
-    var dgScore: Int = 0,
+    @Embedded
+    var dgScore: DgScore = DgScore(dgScore = 0.0, totalDgRatings = 0),
+
+    @Embedded
+    var mgScore: MgScore = MgScore(mgScore = 0.0, totalMgRatings = 0),
     
-    @JsonProperty("micro_g_score")
-    var mgScore: Int = 0,
+    var ratingsList: ArrayList<Ratings> = ArrayList(),
     
     var installedVersion: String = "",
     

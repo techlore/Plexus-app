@@ -51,8 +51,9 @@ interface MainDataDao {
         else {
             existingData.name = mainData.name
             existingData.packageName = mainData.packageName
-            existingData.dgScore = mainData.dgScore
-            existingData.mgScore = mainData.mgScore
+            existingData.dgScore.dgScore = mainData.dgScore.dgScore
+            existingData.mgScore.mgScore = mainData.mgScore.mgScore
+            existingData.ratingsList = mainData.ratingsList
             update(existingData)
         }
     }
@@ -89,27 +90,27 @@ interface MainDataDao {
     @Query("SELECT * FROM main_table WHERE packageName = :packageName")
     fun getAppByPackage(packageName: String): MainData?
     
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled = false")
+    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND NOT isInstalled")
     fun getNotInstalledAppByPackage(packageName: String): MainData?
     
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled = true")
+    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled")
     fun getInstalledAppByPackage(packageName: String): MainData?
     
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isFav = true")
+    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isFav")
     fun getFavoriteAppByPackage(packageName: String): MainData?
     
-    @Query("SELECT * FROM main_table WHERE isInstalled = false")
+    @Query("SELECT * FROM main_table WHERE NOT isInstalled")
     suspend fun getNotInstalledApps(): List<MainData>
     
-    @Query("SELECT * FROM main_table WHERE isInstalled = true")
+    @Query("SELECT * FROM main_table WHERE isInstalled")
     suspend fun getInstalledApps(): List<MainData>
     
-    @Query("SELECT * FROM main_table WHERE isFav = true")
+    @Query("SELECT * FROM main_table WHERE isFav")
     suspend fun getFavApps(): List<MainData>
     
     @Query("""
         SELECT * FROM main_table
-        WHERE isInstalled = false
+        WHERE NOT isInstalled
         AND (dgScore = :dgScore OR :dgScore = -1)
         AND (mgScore = :mgScore OR :mgScore = -1)
         ORDER BY
@@ -124,7 +125,7 @@ interface MainDataDao {
     
     @Query("""
         SELECT * FROM main_table
-        WHERE isInstalled = true
+        WHERE isInstalled
         AND (installedFrom = :installedFrom OR :installedFrom = '')
         AND (dgScore = :dgScore OR :dgScore = -1)
         AND (mgScore = :mgScore OR :mgScore = -1)

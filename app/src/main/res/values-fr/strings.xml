@@ -52,7 +52,7 @@
 
     <!--APP DETAILS ACTIVITY-->
     <string name="notes">Notes</string>
-    <string name="installed">Install\u00E9e</string>
+    <string name="installed_version">Install\u00E9e</string>
     <string name="menu_play_store">Play store</string>
     <string name="menu_share">Partager</string>
 

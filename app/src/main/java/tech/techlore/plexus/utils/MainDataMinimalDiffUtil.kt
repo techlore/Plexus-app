@@ -36,7 +36,7 @@ class MainDataMinimalDiffUtil(
     }
     
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return newList[newItemPosition].packageName === oldList[oldItemPosition].packageName
+        return newList[newItemPosition].packageName == oldList[oldItemPosition].packageName
     }
     
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

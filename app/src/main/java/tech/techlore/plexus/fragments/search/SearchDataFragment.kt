@@ -28,13 +28,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import tech.techlore.plexus.activities.SearchActivity
-import tech.techlore.plexus.adapters.PlexusDataItemAdapter
+import tech.techlore.plexus.adapters.main.PlexusDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 
 class SearchDataFragment :
     Fragment(),
-    PlexusDataItemAdapter.OnItemClickListener,
-    PlexusDataItemAdapter.OnItemLongCLickListener {
+    PlexusDataItemAdapter.OnItemClickListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -100,11 +99,6 @@ class SearchDataFragment :
     override fun onItemClick(position: Int) {
         //val plexusData = searchDataList[position]
         //appDetails(searchActivity, plexusData.name, plexusData.packageName, null)
-    }
-    
-    // On long click
-    override fun onItemLongCLick(position: Int) {
-        TODO("Not yet implemented")
     }
     
     override fun onDestroyView() {

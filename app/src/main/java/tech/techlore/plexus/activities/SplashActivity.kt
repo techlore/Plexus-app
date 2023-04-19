@@ -50,7 +50,7 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
     }
     
     private fun retrieveData() {
-    
+        
         launch {
             val context = this@SplashActivity
             if (hasNetwork(context) && hasInternet()) {
@@ -62,12 +62,8 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
             }
             else {
                 NoNetworkDialog(negativeButtonText = getString(R.string.exit),
-                                positiveButtonClickListener = {
-                                    retrieveData()
-                                },
-                                negativeButtonClickListener = {
-                                    finishAndRemoveTask()
-                                })
+                                positiveButtonClickListener = { retrieveData() },
+                                negativeButtonClickListener = { finishAndRemoveTask() })
                     .show(supportFragmentManager, "NoNetworkDialog")
             }
         }

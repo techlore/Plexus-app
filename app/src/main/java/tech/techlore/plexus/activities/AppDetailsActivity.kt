@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -19,16 +19,24 @@
 
 package tech.techlore.plexus.activities
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -37,159 +45,187 @@ import kotlinx.coroutines.runBlocking
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
+import tech.techlore.plexus.fragments.bottomsheets.FirstSubmissionBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
 import tech.techlore.plexus.models.main.MainData
-import tech.techlore.plexus.utils.IntentUtils.Companion.share
-import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
 import kotlin.coroutines.CoroutineContext
+import com.bumptech.glide.RequestBuilder as RequestBuilder1
 
-class AppDetailsActivity : AppCompatActivity(), CoroutineScope {
+class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     
     private val job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var activityBinding: ActivityAppDetailsBinding
-    private lateinit var nameString: String
-    private lateinit var packageNameString: String
-    /*private lateinit val plexusVersionString: String
-    private lateinit val dgStatusString: String
-    private lateinit val mgStatusString: String
-    private lateinit val dgNotesString: String
-    private lateinit val mgNotesString: String*/
-    private lateinit var playStoreString: String
-
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var navController: NavController
+    lateinit var app: MainData
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+        addMenuProvider(this)
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-
+        
+        val preferenceManager = PreferenceManager(this)
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.details_nav_host) as NavHostFragment
+        navController = navHostFragment.navController
         val repository = (applicationContext as ApplicationManager).mainRepository
-        var installedApp: MainData
-        var mainData: MainData
-        packageNameString = intent.getStringExtra("packageName")!!
-    
-        //plexusVersionString = intent.getStringExtra("plexusVersion");
-        //val installedVersionString = intent.getStringExtra("installedVersion")
-        /*dgStatusString = intent.getStringExtra("dgStatus");
-        mgStatusString = intent.getStringExtra("mgStatus");
-        dgNotesString = intent.getStringExtra("dgNotes");
-        mgNotesString = intent.getStringExtra("mgNotes");*/
-        playStoreString = "https://play.google.com/store/apps/details?id=$packageNameString"
         val requestManager = Glide.with(applicationContext)
-        val requestBuilder: RequestBuilder<Drawable>
-
+        val requestBuilder: RequestBuilder1<Drawable>
+        
         /*########################################################################################*/
-
+        
         setSupportActionBar(activityBinding.bottomAppBar)
-
         activityBinding.bottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
-
-        if (intent.getStringExtra("fromFrag").equals("plexus")) {
     
-            runBlocking {
-                launch {
-                    mainData = repository.getNotInstalledAppByPackage(packageNameString)!!/*getPlexusDataByPackage(db, packageNameString)*/
-                    nameString = mainData.name
-                }
+        runBlocking {
+            launch {
+                app = intent.getStringExtra("packageName")?.let { repository.getAppByPackage(it) } !!
             }
-    
-            requestBuilder = requestManager
-                .load("")
-                .placeholder(R.drawable.ic_apk)
-                .onlyRetrieveFromCache(true) // Image should always be in cache
-                                                 // since it's loaded in Plexus Data fragment
-    
-            activityBinding.fab.visibility = View.GONE
-    
-            //activityBinding.detailsVersion.setText(plexusVersionString);
+        }
+        
+        if (!app.isInstalled) {
+            requestBuilder =
+                requestManager
+                    .load("")
+                    .placeholder(R.drawable.ic_apk)
+                    .onlyRetrieveFromCache(true) // Image should always be in cache
+                                                    // since it's loaded in Plexus data fragment
         }
         else {
-            
-            runBlocking {
-                launch {
-                    installedApp = repository.getInstalledAppByPackage(packageNameString)!!/*getInstalledAppByPackage(db, packageNameString)*/
-                    nameString = installedApp.name
-                }
-            }
-            
-            activityBinding.detailsVersion.visibility = View.GONE
-            activityBinding.plexusText.visibility = View.VISIBLE
-            activityBinding.detailsPlexusVersion.visibility = View.VISIBLE
-            //activityBinding.detailsPlexusVersion.setText(plexusVersionString)
-            activityBinding.installedText.visibility = View.VISIBLE
-            activityBinding.detailsInstalledVersion.visibility = View.VISIBLE
-            //activityBinding.detailsInstalledVersion.text = installedVersionString
             requestBuilder =
                 try {
-                    requestManager.load(packageManager.getApplicationIcon(packageNameString))
+                    requestManager.load(packageManager.getApplicationIcon(app.packageName))
                 }
                 catch (e: PackageManager.NameNotFoundException) {
                     throw RuntimeException(e)
                 }
         }
-
-        requestBuilder.into(activityBinding.detailsAppIcon)
         
-        activityBinding.detailsName.text = nameString
-        activityBinding.detailsPackageName.text = packageNameString
-        /*activityBinding.dgNotes.setText(dgNotesString);
-        activityBinding.mgNotes.setText(mgNotesString);*/
-
+        requestBuilder.into(activityBinding.detailsAppIcon)
+        activityBinding.detailsName.text = app.name
+        activityBinding.detailsPackageName.text = app.packageName
+        /*activityBinding.detailsInstalledVersion.text = app.installedVersion.ifEmpty { getString(R.string.not_available) }
+        createStatusChip(this, app.dgScore, activityBinding.detailsDgStatus)
+        createStatusChip(this, app.mgScore, activityBinding.detailsMgStatus)*/
+        
+        // Radio group/buttons
+        activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
+            displayFragment(checkedId)
+        }
+        
         // FAB
-        activityBinding.fab.setOnClickListener {
-            startActivity(
-                Intent(this@AppDetailsActivity, SubmitActivity::class.java)
-                    .putExtra("name", nameString)
-                    .putExtra("packageName", packageNameString)
-            )
-            overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
+        if (!app.isInstalled){
+            activityBinding.fab.visibility = View.GONE
+        }
+        else {
+            activityBinding.fab.setOnClickListener {
+                if (preferenceManager.getBoolean(FIRST_SUBMISSION)) {
+                    FirstSubmissionBottomSheet(positiveButtonClickListener = { startSubmitActivity() })
+                        .show(supportFragmentManager, "FirstSubmissionBottomSheet")
+                }
+                else {
+                    startSubmitActivity()
+                }
+            }
         }
     }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu
-        // this adds items to the action bar if it is present.
+    
+    // Setup fragments
+    private fun displayFragment(checkedItem: Int) {
+        val currentFragment = navController.currentDestination!!
+        
+        val action: Int =
+            when (checkedItem) {
+                
+                R.id.radio_total_score -> R.id.action_userRatingsFragment_to_totalScoreFragment
+                
+                R.id.radio_user_ratings -> R.id.action_totalScoreFragment_to_userRatingsFragment
+                
+                else -> 0
+            }
+        
+        // java.lang.IllegalArgumentException:
+        // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
+        // Hence the second check
+        if (checkedItem != currentFragment.id && action != 0) {
+            navController.navigate(action)
+        }
+    }
+    
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_activity_details, menu)
-        return true
+    
+        menu.findItem(R.id.menu_sort_user_ratings).isVisible =
+            navController.currentDestination!!.id != navController.graph.startDestinationId
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when(item.itemId) {
-
-            // Play store URL
-            R.id.menu_play_store -> openURL(this, playStoreString,
-                                            activityBinding.appDetailsCoordinatorLayout,
-                                            activityBinding.bottomAppBar)
-
-            R.id.menu_share -> share(this, nameString, packageNameString,
-                                    /*plexusVersionString,
-                                        dgStatusString, mgStatusString,
-                                        dgNotesString, mgNotesString,*/
-                                    playStoreString)
-
+    
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when(menuItem.itemId) {
+            
             R.id.menu_help -> startActivity(Intent(this@AppDetailsActivity, SettingsActivity::class.java)
-                                            .putExtra("frag", R.id.menu_help))
-
+                                                .putExtra("frag", R.id.helpFragment))
+            
+            R.id.menu_sort_user_ratings -> SortUserRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+            
+            R.id.menu_more ->
+                MoreOptionsBottomSheet(app.name, app.packageName,  /*plexusData.version,
+                                 plexusData.dgStatus, plexusData.mgStatus,
+                                 plexusData.dgNotes, plexusData.mgNotes,*/
+                                       activityBinding.appDetailsCoordinatorLayout,
+                                       activityBinding.bottomAppBar)
+                    .show(supportFragmentManager, "MoreOptionsBottomSheet")
+            
         }
-
+        
         return true
     }
     
-    /*private suspend fun getPlexusDataByPackage(database: MainDatabase, packageName: String): MainData {
-        return withContext(Dispatchers.IO) {
-            database.mainDataDao().getNotInstalledAppByPackage(packageName)!!
-        }
+    private fun startSubmitActivity() {
+        Toast.makeText(this@AppDetailsActivity, "Success", Toast.LENGTH_SHORT).show()
+        /*val intent =
+                        Intent(this@AppDetailsActivity, SubmitActivity::class.java)
+                            .putExtra("name", app.name)
+                            .putExtra("packageName", app.packageName)
+                    
+                    if (preferenceManager.getBoolean(DEVICE_IS_MICROG)) {
+                        //intent.putExtra("", app.)
+                    }
+                    
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)*/
     }
     
-    private suspend fun getInstalledAppByPackage(database: MainDatabase, packageName: String): MainData {
-        return withContext(Dispatchers.IO) {
-            database.mainDataDao().getInstalledAppByPackage(packageName)!!
+    /*private fun createStatusChip(context: Context, score: Int, statusChip: Chip) {
+        
+        val (styleResId, stringResId) =
+            when (score) {
+                1 -> Pair(R.style.BrokenFilterChipTheme, R.string.broken_title)
+                2 -> Pair(R.style.BronzeFilterChipTheme, R.string.bronze_title)
+                3 -> Pair(R.style.SilverFilterChipTheme, R.string.silver_title)
+                4 -> Pair(R.style.GoldFilterChipTheme, R.string.gold_title)
+                else -> Pair(R.style.NotTestedFilterChipTheme, R.string.not_tested_title)
+            }
+        
+        statusChip.apply {
+            setChipDrawable(ChipDrawable.createFromAttributes(context, null, 0, styleResId))
+            text = context.getString(stringResId)
+            textAlignment = View.TEXT_ALIGNMENT_CENTER
+            textSize = 16F
         }
     }*/
-
-    // Set transition when finishing activity
+    
     override fun finish() {
         super.finish()
         job.cancel()
-        //overridePendingTransition(android.R.anim.fade_out,android.R.anim.decelerate_interpolator)
+    }
+    
+    // On back pressed
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() { finish() }
     }
 }

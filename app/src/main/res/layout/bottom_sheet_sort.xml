@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -90,12 +90,13 @@
         android:layout_marginTop="@dimen/margin_4"
         android:layout_marginBottom="@dimen/margin_4"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:background="@drawable/shape_card">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_any_status"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/margin_40"
             android:layout_margin="@dimen/margin_4"
             android:background="@drawable/shape_radio_btn_selector"
             android:checked="true"
@@ -109,7 +110,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_dg_status"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/margin_40"
             android:layout_margin="@dimen/margin_4"
             android:background="@drawable/shape_radio_btn_selector"
             android:button="@android:color/transparent"
@@ -122,7 +123,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_mg_status"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/margin_40"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
             android:layout_margin="@dimen/margin_4"

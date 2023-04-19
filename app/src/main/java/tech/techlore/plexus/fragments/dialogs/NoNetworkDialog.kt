@@ -20,7 +20,9 @@
 package tech.techlore.plexus.fragments.dialogs
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import tech.techlore.plexus.R
@@ -34,6 +36,14 @@ class NoNetworkDialog(
     override fun onStart() {
         super.onStart()
         dialog?.setCanceledOnTouchOutside(false) // .setCancelable(false) won't work in onCreateDialog
+        // Prevent dialog dismiss on back pressed
+        dialog?.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                // Do nothing
+                return@OnKeyListener true
+            }
+            false
+        })
     }
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

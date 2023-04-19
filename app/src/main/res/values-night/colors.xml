@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -54,6 +54,7 @@
     <color name="color_scrim">#000000</color>
 
     <color name="color_nav_item_bg">@color/color_secondaryContainer</color>
+    <color name="color_radio_selected_bg">@color/color_primaryContainer</color>
     <color name="color_fab">@color/color_primaryContainer</color>
     <color name="colorControlNormal">#BCBCBC</color>
     <color name="color_text_title">#FAFAFA</color>

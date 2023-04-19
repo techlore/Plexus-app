@@ -49,7 +49,7 @@
 
     <!--APP DETAILS ACTIVITY-->
     <string name="notes">appunti</string>
-    <string name="installed">Installate</string>
+    <string name="installed_version">Installate</string>
     <string name="menu_play_store">Play store</string>
     <string name="menu_share">Condividere</string>
 

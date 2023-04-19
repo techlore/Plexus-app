@@ -17,16 +17,19 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.send
+package tech.techlore.plexus.models.ratings
 
-// Req. for sending data to API
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
-data class Application(
-    val name: String,
-    val packageName: String/*,
-    val version: String,
-    val dgStatus: String,
-    val mgStatus: String,
-    val dgNotes: String,
-    val mgNotes: String*/
+data class RatingsRoot (
+    
+    @JsonProperty("data")
+    val ratingsData: ArrayList<Ratings>,
+    
+    @JsonProperty("meta")
+    @JsonIgnore
+    val meta: JsonNode
+    
 )

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -35,235 +35,141 @@
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
         android:layout_marginBottom="?attr/actionBarSize">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/submit_app_icon"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="@dimen/margin_64"
+                android:layout_height="@dimen/margin_64"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_gravity="center"
                 android:src="@drawable/ic_apk"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
             <TextView
                 android:id="@+id/submit_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/submit_app_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_2.5"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/app_name"
                 android:textColor="@color/color_text_title"
-                android:textSize="@dimen/text_22"/>
+                android:textSize="@dimen/text_22" />
 
             <TextView
                 android:id="@+id/submit_package_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_12"
-                android:paddingStart="@dimen/margin_16"
-                android:paddingEnd="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/submit_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_2.5"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/package_name"
-                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_17"/>
 
             <TextView
+                android:id="@+id/installed_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/submit_package_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_2.5"
                 android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_4"
-                android:text="Status"
-                android:textColor="@color/color_text_title"
-                android:textSize="@dimen/text_18"
-                style="@style/MediumBoldText"/>
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/installed_version"
+                android:textSize="@dimen/text_17"/>
 
             <TextView
+                android:id="@+id/google_lib_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/installed_version"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_20"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:text="@string/de_Googled"
-                android:textColor="?attr/colorControlNormal"
-                android:textSize="@dimen/text_17"
-                style="@style/MediumBoldText"/>
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/dg_chip_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_20"
-                android:layout_marginEnd="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_8"
-                app:chipSpacingHorizontal="@dimen/margin_10"
-                app:chipSpacingVertical="@dimen/margin_4"
-                app:singleSelection="true"
-                app:selectionRequired="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/dg_not_tested"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    style="@style/NotTestedFilterChipTheme"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/dg_unusable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/BrokenFilterChipTheme"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/dg_acceptable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/BronzeFilterChipTheme"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/dg_good"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/SilverFilterChipTheme"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/dg_perfect"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/GoldFilterChipTheme"/>
-
-            </com.google.android.material.chip.ChipGroup>
-
-            <!--#####################################################-->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginStart="@dimen/margin_20"
-                android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/microG"
-                android:textColor="?attr/colorControlNormal"
-                android:textSize="@dimen/text_17"
-                style="@style/MediumBoldText"/>
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/mg_chip_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_20"
-                android:layout_marginEnd="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_16"
-                app:chipSpacingHorizontal="@dimen/margin_10"
-                app:chipSpacingVertical="@dimen/margin_4"
-                app:singleSelection="true"
-                app:selectionRequired="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/mg_not_tested"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    style="@style/NotTestedFilterChipTheme"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/mg_unusable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/BrokenFilterChipTheme"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/mg_acceptable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/BronzeFilterChipTheme"
-                    android:text="@string/bronze_title"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/mg_good"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/SilverFilterChipTheme"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/mg_perfect"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/GoldFilterChipTheme"/>
-
-            </com.google.android.material.chip.ChipGroup>
-
-            <!--#####################################################-->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_4"
-                android:layout_marginBottom="@dimen/margin_10"
-                android:text="Notes"
                 android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"/>
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/submit_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/google_lib_text"
+                app:layout_constraintTop_toTopOf="@id/google_lib_text"
+                app:layout_constraintBottom_toBottomOf="@id/google_lib_text"
+                android:layout_marginStart="@dimen/margin_16"
+                style="@style/GoldInputChipTheme"/>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dg_notes_box"
+                android:id="@+id/submit_notes_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:paddingTop="@dimen/margin_4"
-                android:paddingBottom="@dimen/margin_4"
+                app:layout_constraintTop_toBottomOf="@id/google_lib_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="@dimen/margin_16"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:textColorHint="@color/color_hint">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/dg_notes_text"
+                    android:id="@+id/submit_notes_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minLines="4"
-                    android:hint="@string/de_Googled"
+                    android:hint="@string/notes"
                     android:gravity="top"
+                    android:text="@string/gold_title"
                     android:textColor="@color/color_text_title"
-                    android:textSize="@dimen/text_16" />
+                    android:textSize="@dimen/text_16"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/mg_notes_box"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/submit_btn"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_10"
-                android:layout_marginBottom="@dimen/margin_12"
-                android:paddingTop="@dimen/margin_4"
-                android:paddingBottom="@dimen/margin_4"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:textColorHint="@color/color_hint">
+                app:layout_constraintTop_toBottomOf="@id/submit_notes_box"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_25"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:backgroundTint="@color/fab_color"
+                android:text="@string/submit"
+                android:textSize="@dimen/text_16"
+                android:textColor="@color/btn_text_color"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/mg_notes_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minLines="4"
-                    android:hint="@string/microG"
-                    android:gravity="top"
-                    android:textColor="@color/color_text_title"
-                    android:textSize="@dimen/text_16" />
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/submit_notes_box"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_8"
+                app:indicatorSize="@dimen/margin_25"
+                app:trackThickness="3dp"
+                app:trackCornerRadius="@dimen/margin_20"
+                app:indicatorColor="@android:color/white"
+                android:indeterminateOnly="true"
+                android:visibility="gone"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
@@ -273,18 +179,5 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_close"/>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/submit_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/submit_bottom_app_bar"
-        android:text="Submit"
-        android:textSize="@dimen/text_16"
-        android:textColor="@color/fab_text_color"
-        app:icon="@drawable/ic_done"
-        app:iconTint="@color/fab_text_color"
-        android:backgroundTint="@color/fab_color"
-        android:contentDescription="Update/Submit" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

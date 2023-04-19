@@ -23,20 +23,13 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
-import tech.techlore.plexus.models.send.Application
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import kotlin.coroutines.CoroutineContext
@@ -71,7 +64,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         
         // FAB
         //activityBinding.submitFab.isEnabled = false // Temporary, will be removed
-        activityBinding.submitFab.setOnClickListener { submitData() }
+        activityBinding.submitBtn.setOnClickListener { submitData() }
     }
     
     override val coroutineContext: CoroutineContext
@@ -99,10 +92,10 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         
         launch {
             if (hasNetwork(this@SubmitActivity) && hasInternet()) {
-                val application = Application(name = nameString,
-                                              packageName = packageNameString)
+                /*val rating = Rating(name = "TestApp",
+                                    packageName = "com.testapp", )*/
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
-                val call = apiRepository.sendApplication(application)
+                /*val call = apiRepository.sendApplication(rating)
                 call.enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                         // handle the response here
@@ -118,7 +111,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                         // handle the failure here
                     }
-                })
+                })*/
             }
             else {
                 noNetworkDialog()

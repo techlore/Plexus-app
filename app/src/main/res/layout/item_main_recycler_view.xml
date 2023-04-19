@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -34,7 +34,7 @@
     android:paddingTop="@dimen/margin_8"
     android:paddingBottom="@dimen/margin_8"
     android:background="@drawable/shape_ripple"
-    tools:context=".adapters.PlexusDataItemAdapter">
+    tools:context=".adapters.main.PlexusDataItemAdapter">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/icon"

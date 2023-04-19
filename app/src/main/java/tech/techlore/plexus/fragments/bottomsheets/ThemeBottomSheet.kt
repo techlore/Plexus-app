@@ -42,7 +42,6 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         val bottomSheetBinding = BottomSheetThemeBinding.inflate(inflater, container, false)
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        
         val preferenceManager = PreferenceManager(requireContext())
         
         headerBinding.bottomSheetTitle.setText(R.string.theme)

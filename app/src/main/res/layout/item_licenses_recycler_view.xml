@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="@dimen/margin_10"
+    android:layout_marginEnd="@dimen/margin_10"
+    android:layout_marginTop="@dimen/margin_4"
+    android:layout_marginBottom="@dimen/margin_6.5"
+    android:paddingStart="@dimen/margin_8"
+    android:paddingEnd="@dimen/margin_8"
+    android:paddingTop="@dimen/margin_10"
+    android:paddingBottom="@dimen/margin_8"
+    android:background="@drawable/shape_card">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/license_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/plexus"
+        android:textAlignment="viewStart"
+        android:textColor="@color/color_url"
+        android:textSize="@dimen/text_20" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/license_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:paddingStart="@dimen/margin_10"
+        android:paddingEnd="@dimen/margin_8"
+        android:text="@string/gpl_3_0_license"
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_16" />
+
+</LinearLayout>

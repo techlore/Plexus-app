@@ -20,7 +20,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/color_tertiaryContainer"/>
+            <solid android:color="@color/color_radio_selected_bg"/>
             <corners android:radius="@dimen/margin_8"/>
         </shape>
     </item>

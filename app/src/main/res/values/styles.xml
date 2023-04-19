@@ -100,6 +100,19 @@
         <item name="checkedIconTint">@color/color_text_title</item>
     </style>
 
+    <!--Base input chip style-->
+    <style name="BaseInputChipStyle" parent="Widget.Material3.Chip.Input">
+        <item name="chipSurfaceColor">@android:color/transparent</item>
+        <item name="chipStrokeColor">@android:color/transparent</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">@color/color_text_title</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="chipIcon">@drawable/ic_edit</item>
+        <item name="chipIconTint">@color/color_text_title</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="closeIconVisible">false</item>
+    </style>
+
     <!--#########################################################################################-->
 
     <!--Base dialog style-->
@@ -123,7 +136,7 @@
 
     <!--Dialog buttons-->
     <style name="DialogButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textColor">@color/dialog_btn_text_color</item>
         <item name="android:textSize">@dimen/text_16</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>

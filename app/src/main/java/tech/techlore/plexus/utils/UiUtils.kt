@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -47,5 +47,15 @@ class UiUtils {
         
             navController.navigate(action)
         }
+        
+        /*fun mapScoreToStatusChip(score: Int): Int {
+            return when(score) {
+                1 -> R.id.
+                2 -> "bronze"
+                3 -> "silver"
+                4 -> "gold"
+                else -> "notTested"
+            }
+        }*/
     }
 }

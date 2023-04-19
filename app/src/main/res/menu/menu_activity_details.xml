@@ -30,6 +30,12 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/menu_sort_user_ratings"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/menu_sort"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/menu_more"
         android:icon="@drawable/ic_overflow_menu"
         android:title="@string/menu_more"

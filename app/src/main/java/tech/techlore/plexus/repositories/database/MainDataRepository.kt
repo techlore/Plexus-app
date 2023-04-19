@@ -23,10 +23,11 @@ import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
-import tech.techlore.plexus.api.ApiManager.Companion.getApi
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.models.scores.DgScore
+import tech.techlore.plexus.models.scores.MgScore
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {
@@ -34,13 +35,52 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
     suspend fun plexusDataIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
             val apiRepository = (context.applicationContext as ApplicationManager).apiRepository
-            val call = apiRepository.getApplications()
-            val response = call.awaitResponse()
+            val appsCall = apiRepository.getApps()
+            val appsResponse = appsCall.awaitResponse()
             
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    for (data in it.data) {
-                        mainDataDao.insertOrUpdatePlexusData(data)
+            if (appsResponse.isSuccessful) {
+                appsResponse.body()?.let { root ->
+                    for (mainData in root.mainData) {
+                        
+                        // De-googled score
+                        val dgScoreCall = apiRepository.getDgScore(mainData.packageName)
+                        val dgScoreResponse = dgScoreCall.awaitResponse()
+                        
+                        if (dgScoreResponse.isSuccessful) {
+                            dgScoreResponse.body()?.let { dgScoreRoot ->
+                                mainData.dgScore = DgScore(dgScoreRoot.dgScoreData.dgPkgName,
+                                                           dgScoreRoot.dgScoreData.dgDenominator,
+                                                           dgScoreRoot.dgScoreData.dgGoogleLib,
+                                                           dgScoreRoot.dgScoreData.dgScore,
+                                                           dgScoreRoot.dgScoreData.totalDgRatings)
+                            }
+                        }
+                        
+                        // MicroG score
+                        val mgScoreCall = apiRepository.getMgScore(mainData.packageName)
+                        val mgScoreResponse = mgScoreCall.awaitResponse()
+                        
+                        if (mgScoreResponse.isSuccessful) {
+                            mgScoreResponse.body()?.let { mgScoreRoot ->
+                                mainData.mgScore = MgScore(mgScoreRoot.mgScoreData.mgPkgName,
+                                                           mgScoreRoot.mgScoreData.mgDenominator,
+                                                           mgScoreRoot.mgScoreData.mgGoogleLib,
+                                                           mgScoreRoot.mgScoreData.mgScore,
+                                                           mgScoreRoot.mgScoreData.totalMgRatings)
+                            }
+                        }
+                        
+                        // Ratings
+                        val ratingsCall = apiRepository.getRatings(mainData.packageName)
+                        val ratingsResponse = ratingsCall.awaitResponse()
+                        
+                        if (ratingsResponse.isSuccessful) {
+                            ratingsResponse.body()?.let { ratingsRoot ->
+                                mainData.ratingsList = ratingsRoot.ratingsData
+                            }
+                        }
+                        
+                        mainDataDao.insertOrUpdatePlexusData(mainData)
                     }
                 }
             }
@@ -98,8 +138,10 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
         }
     }
     
-    fun getAppByPackage(packageName: String): MainData? {
-        return mainDataDao.getAppByPackage(packageName)
+    suspend fun getAppByPackage(packageName: String): MainData? {
+        return withContext(Dispatchers.IO){
+            mainDataDao.getAppByPackage (packageName)
+        }
     }
     
     fun getNotInstalledAppByPackage(packageName: String): MainData? {

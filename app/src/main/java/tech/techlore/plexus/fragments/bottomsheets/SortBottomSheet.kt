@@ -45,10 +45,9 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         val bottomSheetBinding = BottomSheetSortBinding.inflate(inflater, container, false)
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        
         val preferenceManager = PreferenceManager(requireContext())
     
-        headerBinding.bottomSheetTitle.setText(R.string.menu_sort)
+        headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
     
         // Default alphabetical checked chip
         if (preferenceManager.getInt(A_Z_SORT) == 0) {

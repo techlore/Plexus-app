@@ -64,6 +64,34 @@
         <item name="android:text">@string/gold_title</item>
     </style>
 
+    <!--Input chips theme-->
+    <style name="NotTestedInputChipTheme" parent="BaseInputChipStyle">
+        <item name="chipBackgroundColor">@android:color/transparent</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:text">@string/not_tested_title</item>
+    </style>
+
+    <style name="BrokenInputChipTheme" parent="BaseInputChipStyle">
+        <item name="chipBackgroundColor">@color/color_broken_status</item>
+        <item name="android:text">@string/broken_title</item>
+    </style>
+
+    <style name="BronzeInputChipTheme" parent="BaseInputChipStyle">
+        <item name="chipBackgroundColor">@color/color_bronze_status</item>
+        <item name="android:text">@string/bronze_title</item>
+    </style>
+
+    <style name="SilverInputChipTheme" parent="BaseInputChipStyle">
+        <item name="chipBackgroundColor">@color/color_silver_status</item>
+        <item name="android:text">@string/silver_title</item>
+    </style>
+
+    <style name="GoldInputChipTheme" parent="BaseInputChipStyle">
+        <item name="chipBackgroundColor">@color/color_gold_status</item>
+        <item name="android:text">@string/gold_title</item>
+    </style>
+
     <!--#########################################################################################-->
 
     <!--Dialog theme-->
