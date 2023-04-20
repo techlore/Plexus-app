@@ -44,7 +44,7 @@ class ApplicationManager : Application() {
     
     val apiRepository by lazy { ApiRepository(apiService) }
     val mainRepository by lazy { MainDataRepository(database.mainDataDao()) }
-    val miniRepository by lazy { MainDataMinimalRepository(database.mainDataDao()) }
+    val miniRepository by lazy { MainDataMinimalRepository(applicationContext, database.mainDataDao()) }
     
     
     override fun onCreate() {

@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.FragmentTotalScoreBinding
+import java.text.DecimalFormat
 
 class TotalScoreFragment : Fragment() {
     
@@ -69,8 +70,6 @@ class TotalScoreFragment : Fragment() {
             }
         }
         
-        
-        
         val dgGoldRatingsCount = ratingCounts["none" to "gold"] ?: 0
         val dgSilverRatingsCount = ratingCounts["none" to "silver"] ?: 0
         val dgBronzeRatingsCount = ratingCounts["none" to "bronze"] ?: 0
@@ -98,8 +97,8 @@ class TotalScoreFragment : Fragment() {
         setMgProgressAndPercent(mgGoldRatingsPercent, mgSilverRatingsPercent, mgBronzeRatingsPercent, mgBrokenRatingsPercent)
     }
     
-    private fun nextRange(current: String): String {
-        return when (current) {
+    private fun nextRange(currentRange: String): String {
+        return when (currentRange) {
             "gold" -> "gold"
             "silver" -> "gold"
             "bronze" -> "silver"
@@ -109,7 +108,11 @@ class TotalScoreFragment : Fragment() {
     }
     
     private fun calcPercent(ratingsCount: Int, totalRatings: Int): Double {
-        return if (totalRatings == 0) 0.0 else ((ratingsCount / totalRatings) * 100).toDouble()
+        return if (totalRatings == 0) 0.0 else {
+            DecimalFormat("#.#") // Limit result to 1 decimal place
+                .format((ratingsCount.toDouble() / totalRatings.toDouble()) * 100)
+                .toDouble()
+        }
     }
     
     @SuppressLint("SetTextI18n")

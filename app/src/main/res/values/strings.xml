@@ -35,7 +35,6 @@
     <string name="menu_filter">Filter</string>
     <string name="menu_all_apps">All apps</string>
     <string name="menu_play_apps">Google Play apps</string>
-    <string name="menu_fdroid_apps">F-Droid apps</string>
     <string name="menu_other_apps">Other apps</string>
 
     <!--Nav view-->
@@ -71,8 +70,7 @@
 
     <!--Help fragment-->
     <string name="what_status_mean">What do the status mean?</string>
-    <string name="not_tested_title">Not tested</string>
-    <string name="not_tested_subtitle">App has not been tested</string>
+    <string name="not_tested_subtitle">Not available, app has not been tested</string>
     <string name="broken_title">Broken</string>
     <string name="broken_subtitle">Unusable, mostly apps that fail to open</string>
     <string name="bronze_title">Bronze</string>
@@ -127,7 +125,7 @@
     <string name="menu_play_store">Google Play</string>
     <string name="menu_fdroid">F-Droid</string>
     <string name="menu_share">Share</string>
-    <string name="first_submission_title">Please select whether you have a de-googled or a microG device.
+    <string name="first_submission_title">Please select whether this is a de-googled or a microG device.
         \n\nAll your future submissions will take this selection into account, and it cannot be changed later.</string>
     <string name="proceed">Proceed</string>
 

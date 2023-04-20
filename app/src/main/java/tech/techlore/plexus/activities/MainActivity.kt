@@ -265,7 +265,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
             R.id.menu_all_apps,
             R.id.menu_play_apps,
-            R.id.menu_fdroid_apps,
             R.id.menu_other_apps -> {
                 preferenceManager.setInt(FILTER, menuItem.itemId)
                 refreshFragment(navController)

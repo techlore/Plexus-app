@@ -42,11 +42,11 @@
         android:layout_height="@dimen/margin_45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/name"
-        app:layout_constraintBottom_toBottomOf="@id/package_name"
+        app:layout_constraintBottom_toBottomOf="@id/dg_status"
         android:src="@drawable/ic_apk"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/name"
         style="@style/MediumBoldText"
         android:layout_width="0dp"
@@ -63,7 +63,7 @@
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_17"/>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/package_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -79,32 +79,49 @@
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"/>
 
-    <!--<TextView
-        android:id="@+id/version"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dg_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/package_name"
         app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toBottomOf="@id/package_name"
-        android:layout_marginTop="@dimen/margin_2.5"
         android:layout_marginStart="@dimen/margin_16"
-        android:ellipsize="marquee"
-        android:text="@string/version"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorControlNormal"
-        android:textSize="@dimen/text_14"
-        android:textStyle="normal" />
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_12"
+        android:gravity="center"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_12"
+        android:paddingTop="@dimen/margin_4"
+        android:paddingBottom="@dimen/margin_4"
+        android:background="@drawable/shape_outline"
+        android:drawableStart="@drawable/ic_apk"
+        android:drawablePadding="@dimen/margin_8"
+        android:text="@string/not_tested_title"
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_16"
+        style="@style/MediumBoldText"/>
 
-    <ImageView
-        android:id="@+id/version_mismatch"
-        android:layout_width="@dimen/margin_20"
-        android:layout_height="@dimen/margin_20"
-        app:layout_constraintStart_toEndOf="@id/version"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mg_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/package_name"
-        android:layout_marginStart="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_2.5"
-        android:src="@drawable/ic_ver_mismatch"
-        tools:ignore="ContentDescription"
-        android:visibility="gone"/>-->
+        app:layout_constraintStart_toEndOf="@id/dg_status"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_12"
+        android:gravity="center"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_12"
+        android:paddingTop="@dimen/margin_4"
+        android:paddingBottom="@dimen/margin_4"
+        android:background="@drawable/shape_outline"
+        android:drawableStart="@drawable/ic_microg"
+        android:drawablePadding="@dimen/margin_6.5"
+        android:text="@string/not_tested_title"
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_16"
+        style="@style/MediumBoldText"/>
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/fav"

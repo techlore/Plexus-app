@@ -29,16 +29,20 @@ import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
+import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreToStatus
 
-class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
+class MainDataMinimalRepository(private val context: Context, private val mainDataDao: MainDataDao) {
     
     private suspend fun mapToMinimalData(mainData: MainData): MainDataMinimal {
         return withContext(Dispatchers.IO) {
-            MainDataMinimal(mainData.name,
-                            mainData.packageName,
-                            mainData.installedFrom,
-                            mainData.isInstalled,
-                            mainData.isFav)
+            
+            MainDataMinimal(name = mainData.name,
+                            packageName = mainData.packageName,
+                            installedFrom = mainData.installedFrom,
+                            dgStatus = mapScoreToStatus(context, mainData.dgScore.dgScore),
+                            mgStatus = mapScoreToStatus(context, mainData.mgScore.mgScore),
+                            isInstalled = mainData.isInstalled,
+                            isFav = mainData.isFav)
         }
     }
     
@@ -48,33 +52,21 @@ class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
         return withContext(Dispatchers.IO) {
             
             val preferenceManager = PreferenceManager(context)
-            
+    
             val (dgScoreFrom, dgScoreTo) =
-                when (statusRadioPref) {
-                    R.id.radio_dg_status ->
-                        when (preferenceManager.getInt(DG_STATUS_SORT)) {
-                            R.id.sort_not_tested -> Pair(0.0,0.0)
-                            R.id.sort_broken -> Pair(1.0,1.9)
-                            R.id.sort_bronze -> Pair(2.0,2.9)
-                            R.id.sort_silver -> Pair(3.0,3.9)
-                            R.id.sort_gold -> Pair(4.0,4.0)
-                            else -> Pair(-1.0,-1.0)
-                        }
-                    else -> Pair(-1.0,-1.0)
+                if (statusRadioPref == R.id.radio_dg_status) {
+                    getScoreRange(preferenceManager, DG_STATUS_SORT)
                 }
-            
+                else {
+                    Pair(-1.0, -1.0)
+                }
+    
             val (mgScoreFrom, mgScoreTo) =
-                when (statusRadioPref) {
-                    R.id.radio_mg_status ->
-                        when (preferenceManager.getInt(MG_STATUS_SORT)) {
-                            R.id.sort_not_tested -> Pair(0.0,0.0)
-                            R.id.sort_broken -> Pair(1.0,1.9)
-                            R.id.sort_bronze -> Pair(2.0,2.9)
-                            R.id.sort_silver -> Pair(3.0,3.9)
-                            R.id.sort_gold -> Pair(4.0,4.0)
-                            else -> Pair(-1.0,-1.0)
-                        }
-                    else -> Pair(-1.0,-1.0)
+                if (statusRadioPref == R.id.radio_mg_status) {
+                    getScoreRange(preferenceManager, MG_STATUS_SORT)
+                }
+                else {
+                    Pair(-1.0, -1.0)
                 }
             
             val isAsc = orderPref != R.id.sort_z_a
@@ -94,45 +86,32 @@ class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
                                             statusRadioPref: Int,
                                             orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
-    
+            
             val preferenceManager = PreferenceManager(context)
             
             val installedFrom =
                 when(filterPref) {
                     R.id.menu_play_apps -> "googlePlay"
-                    R.id.menu_fdroid_apps -> "fdroid"
                     R.id.menu_other_apps -> "other"
                     else -> ""
                 }
-    
+            
             val (dgScoreFrom, dgScoreTo) =
-                when (statusRadioPref) {
-                    R.id.radio_dg_status ->
-                        when (preferenceManager.getInt(DG_STATUS_SORT)) {
-                            R.id.sort_not_tested -> Pair(0.0,0.0)
-                            R.id.sort_broken -> Pair(1.0,1.9)
-                            R.id.sort_bronze -> Pair(2.0,2.9)
-                            R.id.sort_silver -> Pair(3.0,3.9)
-                            R.id.sort_gold -> Pair(4.0,4.0)
-                            else -> Pair(-1.0,-1.0)
-                        }
-                    else -> Pair(-1.0,-1.0)
+                if (statusRadioPref == R.id.radio_dg_status) {
+                    getScoreRange(preferenceManager, DG_STATUS_SORT)
                 }
-    
+                else {
+                    Pair(-1.0, -1.0)
+                }
+            
             val (mgScoreFrom, mgScoreTo) =
-                when (statusRadioPref) {
-                    R.id.radio_mg_status ->
-                        when (preferenceManager.getInt(MG_STATUS_SORT)) {
-                            R.id.sort_not_tested -> Pair(0.0,0.0)
-                            R.id.sort_broken -> Pair(1.0,1.9)
-                            R.id.sort_bronze -> Pair(2.0,2.9)
-                            R.id.sort_silver -> Pair(3.0,3.9)
-                            R.id.sort_gold -> Pair(4.0,4.0)
-                            else -> Pair(-1.0,-1.0)
-                        }
-                    else -> Pair(-1.0,-1.0)
+                if (statusRadioPref == R.id.radio_mg_status) {
+                    getScoreRange(preferenceManager, MG_STATUS_SORT)
                 }
-    
+                else {
+                    Pair(-1.0, -1.0)
+                }
+            
             val isAsc = orderPref != R.id.sort_z_a
             
             mainDataDao.getSortedInstalledApps(installedFrom,
@@ -143,6 +122,17 @@ class MainDataMinimalRepository(private val mainDataDao: MainDataDao) {
                                                isAsc).map {
                 mapToMinimalData(it)
             } as ArrayList<MainDataMinimal>
+        }
+    }
+    
+    private fun getScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Double, Double> {
+        return when (preferenceManager.getInt(sortKey)) {
+            R.id.sort_not_tested -> Pair(0.0, 0.0)
+            R.id.sort_broken -> Pair(1.0, 1.9)
+            R.id.sort_bronze -> Pair(2.0, 2.9)
+            R.id.sort_silver -> Pair(3.0, 3.9)
+            R.id.sort_gold -> Pair(4.0, 4.0)
+            else -> Pair(-1.0, -1.0)
         }
     }
     

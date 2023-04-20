@@ -21,6 +21,7 @@ package tech.techlore.plexus.adapters.main
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
@@ -39,6 +41,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusToBgColor
 import java.util.Locale
 import kotlin.collections.ArrayList
 
@@ -59,8 +62,8 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainDataMini
         val icon: ImageView = itemView.findViewById(R.id.icon)
         val name: TextView = itemView.findViewById(R.id.name)
         val packageName: TextView = itemView.findViewById(R.id.package_name)
-        //val installedVersion: TextView = itemView.findViewById(R.id.version)
-        //val versionMismatch: ImageView = itemView.findViewById(R.id.version_mismatch)
+        val dgStatus: MaterialTextView = itemView.findViewById(R.id.dg_status)
+        val mgStatus: MaterialTextView = itemView.findViewById(R.id.mg_status)
         val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
@@ -100,22 +103,19 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainDataMini
             e.printStackTrace()
         }
         
-        /*if (installedApp.installedVersion != installedApp.plexusVersion) {
-            holder.versionMismatch.visibility = View.VISIBLE
-        }
-        else {
-            holder.versionMismatch.visibility = View.GONE
-        }*/
-        
         holder.name.text = installedApp.name
         holder.packageName.text = installedApp.packageName
-        //holder.installedVersion.text = installedApp.installedVersion
+        holder.dgStatus.text = installedApp.dgStatus
+        holder.dgStatus.backgroundTintList =
+            mapStatusToBgColor(context, installedApp.dgStatus)?.let { ColorStateList.valueOf(it) }
+        holder.mgStatus.text = installedApp.mgStatus
+        holder.mgStatus.backgroundTintList =
+            mapStatusToBgColor(context, installedApp.mgStatus)?.let { ColorStateList.valueOf(it) }
         holder.fav.isChecked = installedApp.isFav
         
         // Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
-        //hScrollText(holder.installedVersion)
         
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
             installedApp.isFav = isChecked

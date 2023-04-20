@@ -55,7 +55,7 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
         timer = object : CountDownTimer(10000, 1000) {
             
             override fun onTick(millisUntilFinished: Long) {
-                remSecs = (millisUntilFinished / 1000).toInt()
+                remSecs = (millisUntilFinished / 1000).toInt() + 1 // Show 10s..1s instead of 9s..0s
                 val positiveBtnText = ("${getString(R.string.proceed)} ${remSecs}s")
                 footerBinding.positiveButton.text = positiveBtnText
             }

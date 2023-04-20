@@ -20,17 +20,18 @@
 package tech.techlore.plexus.adapters.main
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.PopupTextProvider
@@ -39,6 +40,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusToBgColor
 import java.util.Locale
 import kotlin.collections.ArrayList
 
@@ -57,9 +59,10 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         
         val icon: ImageView = itemView.findViewById(R.id.icon)
-        val name: TextView = itemView.findViewById(R.id.name)
-        val packageName: TextView = itemView.findViewById(R.id.package_name)
-        //val version: TextView = itemView.findViewById(R.id.version)
+        val name: MaterialTextView = itemView.findViewById(R.id.name)
+        val packageName: MaterialTextView = itemView.findViewById(R.id.package_name)
+        val dgStatus: MaterialTextView = itemView.findViewById(R.id.dg_status)
+        val mgStatus: MaterialTextView = itemView.findViewById(R.id.mg_status)
         val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
@@ -108,13 +111,17 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
         
         holder.name.text = plexusData.name
         holder.packageName.text = plexusData.packageName
-        //holder.version.text = plexusData.version
+        holder.dgStatus.text = plexusData.dgStatus
+        holder.dgStatus.backgroundTintList =
+            mapStatusToBgColor(context, plexusData.dgStatus)?.let { ColorStateList.valueOf(it) }
+        holder.mgStatus.text = plexusData.mgStatus
+        holder.mgStatus.backgroundTintList =
+            mapStatusToBgColor(context, plexusData.mgStatus)?.let { ColorStateList.valueOf(it) }
         holder.fav.isChecked = plexusData.isFav
         
         /// Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
-        //hScrollText(holder.version)
         
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
             plexusData.isFav = isChecked

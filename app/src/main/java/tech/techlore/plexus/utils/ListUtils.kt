@@ -54,7 +54,6 @@ class ListUtils {
                                          installedFrom =
                                          when(packageManager.getInstallerPackageName(it.packageName)) {
                                              "com.android.vending", "com.aurora.store" -> "googlePlay"
-                                             "org.fdroid.fdroid" -> "fdroid"
                                              else -> "other"
                                          },
                                          isInstalled = true)

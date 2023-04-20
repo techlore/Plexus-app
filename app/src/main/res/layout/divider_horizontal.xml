@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -19,9 +19,8 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<View
+<com.google.android.material.divider.MaterialDivider
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/divider"
     android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/color_divider" />
+    android:layout_height="1dp"/>

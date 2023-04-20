@@ -56,11 +56,6 @@
                     android:title="@string/menu_play_apps"/>
 
                 <item
-                    android:id="@+id/menu_fdroid_apps"
-                    android:icon="@drawable/ic_fdroid"
-                    android:title="@string/menu_fdroid_apps"/>
-
-                <item
                     android:id="@+id/menu_other_apps"
                     android:icon="@drawable/ic_apk"
                     android:title="@string/menu_other_apps"/>
