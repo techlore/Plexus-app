@@ -53,10 +53,10 @@ class TotalScoreFragment : Fragment() {
         val totalDgRatings = detailsActivity.app.dgScore.totalDgRatings
         val totalMgRatings = detailsActivity.app.mgScore.totalMgRatings
         
-        val ratingRanges = mapOf("gold" to 4.0,
-                                 "silver" to 3.0,
-                                 "bronze" to 2.0,
-                                 "broken" to 1.0)
+        val ratingRanges = mapOf("gold" to 4.0f,
+                                 "silver" to 3.0f,
+                                 "bronze" to 2.0f,
+                                 "broken" to 1.0f)
         
         val ratingCounts = mutableMapOf<Pair<String?, String>, Int>()
         for (library in listOf("none", "microG")) {
@@ -107,19 +107,19 @@ class TotalScoreFragment : Fragment() {
         }
     }
     
-    private fun calcPercent(ratingsCount: Int, totalRatings: Int): Double {
-        return if (totalRatings == 0) 0.0 else {
+    private fun calcPercent(ratingsCount: Int, totalRatings: Int): Float {
+        return if (totalRatings == 0) 0.0f else {
             DecimalFormat("#.#") // Limit result to 1 decimal place
-                .format((ratingsCount.toDouble() / totalRatings.toDouble()) * 100)
-                .toDouble()
+                .format((ratingsCount.toFloat() / totalRatings.toFloat()) * 100)
+                .toFloat()
         }
     }
     
     @SuppressLint("SetTextI18n")
-    private fun setDgProgressAndPercent(dgGoldRatingsPercent: Double,
-                                        dgSilverRatingsPercent: Double,
-                                        dgBronzeRatingsPercent: Double,
-                                        dgBrokenRatingsPercent: Double) {
+    private fun setDgProgressAndPercent(dgGoldRatingsPercent: Float,
+                                        dgSilverRatingsPercent: Float,
+                                        dgBronzeRatingsPercent: Float,
+                                        dgBrokenRatingsPercent: Float) {
         fragmentBinding.dgGoldProgress.progress = dgGoldRatingsPercent.toInt()
         fragmentBinding.dgGoldPercent.text = "${dgGoldRatingsPercent}%"
         fragmentBinding.dgSilverProgress.progress = dgSilverRatingsPercent.toInt()
@@ -131,10 +131,10 @@ class TotalScoreFragment : Fragment() {
     }
     
     @SuppressLint("SetTextI18n")
-    private fun setMgProgressAndPercent(mgGoldRatingsPercent: Double,
-                                        mgSilverRatingsPercent: Double,
-                                        mgBronzeRatingsPercent: Double,
-                                        mgBrokenRatingsPercent: Double) {
+    private fun setMgProgressAndPercent(mgGoldRatingsPercent: Float,
+                                        mgSilverRatingsPercent: Float,
+                                        mgBronzeRatingsPercent: Float,
+                                        mgBrokenRatingsPercent: Float) {
         fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()
         fragmentBinding.mgGoldPercent.text = "${mgGoldRatingsPercent}%"
         fragmentBinding.mgSilverProgress.progress = mgSilverRatingsPercent.toInt()

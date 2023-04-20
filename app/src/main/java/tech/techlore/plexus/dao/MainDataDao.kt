@@ -117,10 +117,10 @@ interface MainDataDao {
         CASE WHEN :isAsc = 1 THEN name END ASC,
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
-    suspend fun getSortedNotInstalledApps(dgScoreFrom: Double,
-                                          dgScoreTo: Double,
-                                          mgScoreFrom: Double,
-                                          mgScoreTo: Double,
+    suspend fun getSortedNotInstalledApps(dgScoreFrom: Float,
+                                          dgScoreTo: Float,
+                                          mgScoreFrom: Float,
+                                          mgScoreTo: Float,
                                           isAsc: Boolean): List<MainData>
     // -1 is for ignoring the score when required,
     // so it doesn't include it while filtering
@@ -136,10 +136,10 @@ interface MainDataDao {
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
     suspend fun getSortedInstalledApps(installedFrom: String,
-                                       dgScoreFrom: Double,
-                                       dgScoreTo: Double,
-                                       mgScoreFrom: Double,
-                                       mgScoreTo: Double,
+                                       dgScoreFrom: Float,
+                                       dgScoreTo: Float,
+                                       mgScoreFrom: Float,
+                                       mgScoreTo: Float,
                                        isAsc: Boolean): List<MainData>
     // -1 is for ignoring the score when required,
     // so it doesn't include it while filtering

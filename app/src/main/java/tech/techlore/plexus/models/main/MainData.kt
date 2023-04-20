@@ -41,10 +41,10 @@ data class MainData(
     var packageName: String = "",
     
     @Embedded
-    var dgScore: DgScore = DgScore(dgScore = 0.0, totalDgRatings = 0),
+    var dgScore: DgScore = DgScore(dgScore = 0.0f, totalDgRatings = 0),
 
     @Embedded
-    var mgScore: MgScore = MgScore(mgScore = 0.0, totalMgRatings = 0),
+    var mgScore: MgScore = MgScore(mgScore = 0.0f, totalMgRatings = 0),
     
     var ratingsList: ArrayList<Ratings> = ArrayList(),
     

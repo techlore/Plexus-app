@@ -37,7 +37,7 @@ data class DgScore(
     var dgGoogleLib: String? = null,
     
     @JsonProperty("numerator")
-    var dgScore: Double = 0.0,
+    var dgScore: Float = 0.0f,
     
     @JsonProperty("total_count")
     var totalDgRatings: Int = 0

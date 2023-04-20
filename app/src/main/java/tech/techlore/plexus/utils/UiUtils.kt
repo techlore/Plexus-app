@@ -49,12 +49,12 @@ class UiUtils {
             navController.navigate(action)
         }
     
-        fun mapScoreToStatus(context: Context, score: Double): String {
+        fun mapScoreToStatus(context: Context, score: Float): String {
             return when(score) {
-                0.0 -> context.getString(R.string.not_tested_title)
-                in 1.0..1.9 -> context.getString(R.string.broken_title)
-                in 2.0..2.9 -> context.getString(R.string.bronze_title)
-                in 3.0..3.9 -> context.getString(R.string.silver_title)
+                0.0f -> context.getString(R.string.not_tested_title)
+                in 1.0f..1.9f -> context.getString(R.string.broken_title)
+                in 2.0f..2.9f -> context.getString(R.string.bronze_title)
+                in 3.0f..3.9f -> context.getString(R.string.silver_title)
                 else -> context.getString(R.string.gold_title)
             }
         }

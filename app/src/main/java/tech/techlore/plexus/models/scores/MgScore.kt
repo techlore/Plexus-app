@@ -37,7 +37,7 @@ data class MgScore (
     var mgGoogleLib: String? = null,
     
     @JsonProperty("numerator")
-    var mgScore: Double = 0.0,
+    var mgScore: Float = 0.0f,
     
     @JsonProperty("total_count")
     var totalMgRatings: Int = 0

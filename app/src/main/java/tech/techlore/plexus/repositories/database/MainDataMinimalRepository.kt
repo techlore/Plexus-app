@@ -58,7 +58,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     getScoreRange(preferenceManager, DG_STATUS_SORT)
                 }
                 else {
-                    Pair(-1.0, -1.0)
+                    Pair(-1.0f, -1.0f)
                 }
     
             val (mgScoreFrom, mgScoreTo) =
@@ -66,7 +66,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     getScoreRange(preferenceManager, MG_STATUS_SORT)
                 }
                 else {
-                    Pair(-1.0, -1.0)
+                    Pair(-1.0f, -1.0f)
                 }
             
             val isAsc = orderPref != R.id.sort_z_a
@@ -101,7 +101,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     getScoreRange(preferenceManager, DG_STATUS_SORT)
                 }
                 else {
-                    Pair(-1.0, -1.0)
+                    Pair(-1.0f, -1.0f)
                 }
             
             val (mgScoreFrom, mgScoreTo) =
@@ -109,7 +109,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     getScoreRange(preferenceManager, MG_STATUS_SORT)
                 }
                 else {
-                    Pair(-1.0, -1.0)
+                    Pair(-1.0f, -1.0f)
                 }
             
             val isAsc = orderPref != R.id.sort_z_a
@@ -125,14 +125,14 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    private fun getScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Double, Double> {
+    private fun getScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Float, Float> {
         return when (preferenceManager.getInt(sortKey)) {
-            R.id.sort_not_tested -> Pair(0.0, 0.0)
-            R.id.sort_broken -> Pair(1.0, 1.9)
-            R.id.sort_bronze -> Pair(2.0, 2.9)
-            R.id.sort_silver -> Pair(3.0, 3.9)
-            R.id.sort_gold -> Pair(4.0, 4.0)
-            else -> Pair(-1.0, -1.0)
+            R.id.sort_not_tested -> Pair(0.0f, 0.0f)
+            R.id.sort_broken -> Pair(1.0f, 1.9f)
+            R.id.sort_bronze -> Pair(2.0f, 2.9f)
+            R.id.sort_silver -> Pair(3.0f, 3.9f)
+            R.id.sort_gold -> Pair(4.0f, 4.0f)
+            else -> Pair(-1.0f, -1.0f)
         }
     }
     
