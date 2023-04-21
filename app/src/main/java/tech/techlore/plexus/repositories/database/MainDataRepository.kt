@@ -26,6 +26,7 @@ import retrofit2.awaitResponse
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.models.ratings.Ratings
 import tech.techlore.plexus.models.scores.DgScore
 import tech.techlore.plexus.models.scores.MgScore
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList

@@ -19,7 +19,7 @@
 
 package tech.techlore.plexus.activities
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
@@ -35,8 +35,6 @@ import androidx.core.view.MenuProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -49,6 +47,7 @@ import tech.techlore.plexus.fragments.bottomsheets.FirstSubmissionBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
 import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.models.ratings.Ratings
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
 import kotlin.coroutines.CoroutineContext
@@ -60,9 +59,16 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
-    private lateinit var navController: NavController
+    lateinit var navController: NavController
     lateinit var app: MainData
+    lateinit var ratingsList: ArrayList<Ratings>
+    lateinit var differentVersionsList: List<String>
+    var selectedVersionString: String? = null
+    var statusRadio = R.id.user_ratings_radio_any_status
+    var dgStatusSort = 0
+    var mgStatusSort = 0
     
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -73,6 +79,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         val preferenceManager = PreferenceManager(this)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.details_nav_host) as NavHostFragment
         navController = navHostFragment.navController
+        selectedVersionString = getString(R.string.any)
         val repository = (applicationContext as ApplicationManager).mainRepository
         val requestManager = Glide.with(applicationContext)
         val requestBuilder: RequestBuilder1<Drawable>
@@ -88,6 +95,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
             }
         }
         
+        // Icon
         if (!app.isInstalled) {
             requestBuilder =
                 requestManager
@@ -109,9 +117,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         requestBuilder.into(activityBinding.detailsAppIcon)
         activityBinding.detailsName.text = app.name
         activityBinding.detailsPackageName.text = app.packageName
-        /*activityBinding.detailsInstalledVersion.text = app.installedVersion.ifEmpty { getString(R.string.not_available) }
-        createStatusChip(this, app.dgScore, activityBinding.detailsDgStatus)
-        createStatusChip(this, app.mgScore, activityBinding.detailsMgStatus)*/
+        activityBinding.detailsInstalledVersion.text = "${getString(R.string.installed)}: " +
+                                                       app.installedVersion.ifEmpty { getString(R.string.not_tested_title) }
         
         // Radio group/buttons
         activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
@@ -133,6 +140,16 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
                 }
             }
         }
+    
+        // Get different versions from ratings list
+        // and store them in a separate list
+        ratingsList = app.ratingsList
+        val uniqueVersions = HashSet<String>()
+        for (ratings in ratingsList) {
+            uniqueVersions.add(ratings.version!!)
+        }
+        differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
+        
     }
     
     // Setup fragments
@@ -199,25 +216,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)*/
     }
-    
-    /*private fun createStatusChip(context: Context, score: Int, statusChip: Chip) {
-        
-        val (styleResId, stringResId) =
-            when (score) {
-                1 -> Pair(R.style.BrokenFilterChipTheme, R.string.broken_title)
-                2 -> Pair(R.style.BronzeFilterChipTheme, R.string.bronze_title)
-                3 -> Pair(R.style.SilverFilterChipTheme, R.string.silver_title)
-                4 -> Pair(R.style.GoldFilterChipTheme, R.string.gold_title)
-                else -> Pair(R.style.NotTestedFilterChipTheme, R.string.not_tested_title)
-            }
-        
-        statusChip.apply {
-            setChipDrawable(ChipDrawable.createFromAttributes(context, null, 0, styleResId))
-            text = context.getString(stringResId)
-            textAlignment = View.TEXT_ALIGNMENT_CENTER
-            textSize = 16F
-        }
-    }*/
     
     override fun finish() {
         super.finish()

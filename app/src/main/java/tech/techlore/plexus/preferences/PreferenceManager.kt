@@ -32,9 +32,6 @@ class PreferenceManager(context: Context) {
         const val DG_STATUS_SORT = "dg_status_sort"
         const val MG_STATUS_SORT = "mg_status_sort"
         const val FILTER = "filter"
-        const val USER_RATINGS_STATUS_RADIO = "user_ratings_status_radio"
-        const val USER_RATINGS_DG_STATUS_SORT = "dg_status_sort"
-        const val USER_RATINGS_MG_STATUS_SORT = "mg_status_sort"
         const val FIRST_SUBMISSION = "first_submission"
         const val DEVICE_IS_MICROG = "device_is_microg"
     }

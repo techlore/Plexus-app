@@ -23,6 +23,7 @@
 
     <!--Splash activity -->
     <string name="retrieving_data">Retrieving data</string>
+    <string name="scan_installed">Scanning installed apps</string>
 
     <!--#########################################################################################-->
 
@@ -55,7 +56,7 @@
     <string name="package_name">Package name</string>
     <string name="total_score">Total score</string>
     <string name="user_ratings">User ratings</string>
-    <string name="installed_version">Installed version</string>
+    <string name="installed">Installed</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Help</string>
@@ -67,6 +68,7 @@
 
     <!--User ratings fragment-->
     <string name="notes">notes</string>
+    <string name="no_ratings_found">No ratings available</string>
 
     <!--Help fragment-->
     <string name="what_status_mean">What do the status mean?</string>

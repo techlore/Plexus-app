@@ -48,7 +48,7 @@
                 android:src="@drawable/ic_apk"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/details_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,24 +60,37 @@
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/app_name"
                 android:textColor="@color/color_text_title"
-                android:textSize="@dimen/text_22" />
+                android:textSize="@dimen/text_20"
+                style="@style/MediumBoldText"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/details_package_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_2.5"
+                android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/package_name"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/details_installed_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:text="@string/installed"
                 android:textSize="@dimen/text_17"/>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/details_nav_host"
-                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 app:navGraph="@navigation/details_fragments_nav_graph"
                 app:defaultNavHost="true"/>
 
@@ -98,7 +111,7 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="70dp"
         android:layout_marginTop="@dimen/margin_16"
-        android:background="@drawable/shape_card"
+        android:background="@drawable/shape_outline"
         android:orientation="horizontal">
 
         <com.google.android.material.radiobutton.MaterialRadioButton

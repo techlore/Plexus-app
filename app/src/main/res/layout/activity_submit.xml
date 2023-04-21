@@ -77,7 +77,8 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/package_name"
-                android:textSize="@dimen/text_17"/>
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"/>
 
             <TextView
                 android:id="@+id/installed_version"
@@ -89,7 +90,7 @@
                 android:layout_marginTop="@dimen/margin_2.5"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
-                android:text="@string/installed_version"
+                android:text="@string/installed"
                 android:textSize="@dimen/text_17"/>
 
             <TextView

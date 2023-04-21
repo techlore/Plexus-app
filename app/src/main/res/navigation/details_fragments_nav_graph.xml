@@ -39,5 +39,8 @@
         <action
             android:id="@+id/action_userRatingsFragment_to_totalScoreFragment"
             app:destination="@id/totalScoreFragment" />
+        <action
+            android:id="@+id/action_userRatingsFragment_self"
+            app:destination="@id/userRatingsFragment" />
     </fragment>
 </navigation>

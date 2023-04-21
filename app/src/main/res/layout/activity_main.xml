@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="3dp"
-        app:behavior_peekHeight="?attr/actionBarSize"
+        app:behavior_peekHeight="@dimen/margin_75"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <LinearLayout
@@ -60,7 +60,7 @@
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/margin_75"
                 app:elevation="0dp">
 
                 <com.google.android.material.appbar.MaterialToolbar

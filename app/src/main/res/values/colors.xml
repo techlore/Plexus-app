@@ -55,7 +55,7 @@
     <color name="color_scrim">#000000</color>
 
     <color name="color_nav_item_bg">#5674C4</color>
-    <color name="color_radio_selected_bg">#DAE1FF</color>
+    <color name="color_radio_selected_bg">#C8D3FF</color>
     <color name="color_fab">@color/color_primary</color>
     <color name="colorControlNormal">#747474</color>
     <color name="color_text_title">@color/grey_800</color>

@@ -23,58 +23,63 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortUserRatingsBinding
-import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.USER_RATINGS_DG_STATUS_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.USER_RATINGS_MG_STATUS_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.USER_RATINGS_STATUS_RADIO
+
 
 class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
+        
         val bottomSheetBinding = BottomSheetSortUserRatingsBinding.inflate(inflater, container, false)
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val preferenceManager = PreferenceManager(requireContext())
-    
+        val detailsActivity = requireActivity() as AppDetailsActivity
+        var tmpSelVerString: String? = null
+        
         headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
-    
+        
+        // Version dropdown
+        bottomSheetBinding.versionDropdownMenu.setText(detailsActivity.selectedVersionString)
+        val adapter = ArrayAdapter(requireContext(),
+                                   R.layout.item_version_dropdown_menu,
+                                   detailsActivity.differentVersionsList)
+        bottomSheetBinding.versionDropdownMenu.setAdapter(adapter)
+        
         // Status radio btn checked by default
-        if (preferenceManager.getInt(USER_RATINGS_STATUS_RADIO) == 0) {
-            preferenceManager.setInt(USER_RATINGS_STATUS_RADIO, R.id.user_ratings_radio_any_status)
-        }
-        bottomSheetBinding.userRatingsStatusRadiogroup.check(preferenceManager.getInt(USER_RATINGS_STATUS_RADIO))
-    
+        bottomSheetBinding.userRatingsStatusRadiogroup.check(detailsActivity.statusRadio)
+        
         // Status chip group visibility
-        if (preferenceManager.getInt(USER_RATINGS_STATUS_RADIO) == R.id.user_ratings_radio_dg_status) {
-            bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
-        
-            // Default DG status checked chip
-            if (preferenceManager.getInt(USER_RATINGS_DG_STATUS_SORT) == 0) {
-                preferenceManager.setInt(USER_RATINGS_DG_STATUS_SORT, R.id.user_ratings_sort_not_tested)
+        when (detailsActivity.statusRadio) {
+            R.id.user_ratings_radio_dg_status -> {
+                bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
+                
+                // Default DG status checked chip
+                bottomSheetBinding.userRatingsStatusChipGroup.check(detailsActivity.dgStatusSort)
             }
-            bottomSheetBinding.userRatingsStatusChipGroup.check(preferenceManager.getInt(USER_RATINGS_DG_STATUS_SORT))
-        }
-        else if (preferenceManager.getInt(USER_RATINGS_STATUS_RADIO) == R.id.user_ratings_radio_mg_status) {
-            bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
-        
-            // Default MG status checked chip
-            if (preferenceManager.getInt(USER_RATINGS_MG_STATUS_SORT) == 0) {
-                preferenceManager.setInt(USER_RATINGS_MG_STATUS_SORT, R.id.user_ratings_sort_not_tested)
+            R.id.user_ratings_radio_mg_status -> {
+                bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
+                
+                // Default MG status checked chip
+                bottomSheetBinding.userRatingsStatusChipGroup.check(detailsActivity.mgStatusSort)
             }
-            bottomSheetBinding.userRatingsStatusChipGroup.check(preferenceManager.getInt(USER_RATINGS_MG_STATUS_SORT))
+            else -> bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.GONE
         }
-        else {
-            bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.GONE
-        }
-    
+        
+        // On selecting item in version dropdown
+        bottomSheetBinding.versionDropdownMenu.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
+                tmpSelVerString = parent.getItemAtPosition(position) as String
+            }
+        
         // On selecting status radio btn
         bottomSheetBinding.userRatingsStatusRadiogroup.setOnCheckedChangeListener { _, checkedId: Int ->
             if (checkedId != R.id.user_ratings_radio_any_status) {
@@ -84,30 +89,28 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
                 bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.GONE
             }
         }
-    
+        
         // Done
         footerBinding.positiveButton.text = getString(R.string.done)
         footerBinding.positiveButton.setOnClickListener {
-            /*preferenceManager.setInt(PreferenceManager.A_Z_SORT,
-                                     bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
-            preferenceManager.setInt(PreferenceManager.STATUS_RADIO,
-                                     bottomSheetBinding.statusRadiogroup.checkedRadioButtonId)
-            if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == R.id.radio_dg_status) {
-                preferenceManager.setInt(PreferenceManager.DG_STATUS_SORT,
-                                         bottomSheetBinding.statusChipGroup.checkedChipId)
+            if (!tmpSelVerString.isNullOrEmpty()) {
+                detailsActivity.selectedVersionString = tmpSelVerString
             }
-            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == R.id.radio_mg_status) {
-                preferenceManager.setInt(PreferenceManager.MG_STATUS_SORT,
-                                         bottomSheetBinding.statusChipGroup.checkedChipId)
+            detailsActivity.statusRadio = bottomSheetBinding.userRatingsStatusRadiogroup.checkedRadioButtonId
+            if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status) {
+                detailsActivity.dgStatusSort = bottomSheetBinding.userRatingsStatusChipGroup.checkedChipId
             }
-        
+            else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status) {
+                detailsActivity.mgStatusSort = bottomSheetBinding.userRatingsStatusChipGroup.checkedChipId
+            }
+            
             dismiss()
-            UiUtils.refreshFragment(navController)*/
+            detailsActivity.navController.navigate(R.id.action_userRatingsFragment_self)
         }
-    
+        
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }
-    
+        
         return bottomSheetBinding.root
     }
 }

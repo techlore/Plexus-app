@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -19,23 +19,11 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout
+<com.google.android.material.textview.MaterialTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:layout_gravity="center">
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/empty_list_view_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_apps_found"
-        android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"
-        app:drawableTopCompat="@drawable/ic_empty_list"
-        android:drawablePadding="@dimen/margin_10"/>
-
-</LinearLayout>
+    android:padding="16dp"
+    android:ellipsize="marquee"
+    android:maxLines="1"
+    android:textSize="@dimen/text_16"/>
