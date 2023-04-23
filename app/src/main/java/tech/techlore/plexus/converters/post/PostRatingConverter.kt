@@ -17,26 +17,24 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.api
+package tech.techlore.plexus.converters.post
 
+import androidx.room.TypeConverter
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
+import tech.techlore.plexus.models.post.PostRating
 
-class ApiManager {
+object PostRatingConverter {
     
-    companion object {
-        
-        private const val API_BASE_URL = "https://plexus.fly.dev/api/v1/"
-        
-        fun apiBuilder(): ApiService {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(JacksonConverterFactory.create(ObjectMapper().registerKotlinModule()))
-                .build()
-            
-            return retrofit.create(ApiService::class.java)
-        }
+    private val objectMapper = ObjectMapper()
+    
+    @TypeConverter
+    fun fromPostRating(json: String): PostRating {
+        return objectMapper.readValue(json, PostRating::class.java)
     }
+    
+    @TypeConverter
+    fun toPostRating(postRating: PostRating): String {
+        return objectMapper.writeValueAsString(postRating)
+    }
+    
 }

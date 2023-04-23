@@ -19,6 +19,7 @@
 
 package tech.techlore.plexus.adapters.details
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
@@ -26,9 +27,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.ratings.Ratings
+import tech.techlore.plexus.models.get.ratings.Rating
 
-class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Ratings>) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
+class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
@@ -64,7 +65,7 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Ratings>) : 
             }
         
         val (statusString, backgroundTint) =
-            when(rating.ratingsScore!!.ratingsScore) {
+            when(rating.ratingScore!!.ratingScore) {
                 1 -> Pair(context.getString(R.string.broken_title),
                           context.resources.getColor(R.color.color_broken_status, context.theme))
                 2 -> Pair(context.getString(R.string.bronze_title),
@@ -76,10 +77,15 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Ratings>) : 
             }
         holder.status.text = statusString
         holder.status.backgroundTintList = ColorStateList.valueOf(backgroundTint)
+        @SuppressLint("SetTextI18n")
+        holder.version.text = "${context.getString(R.string.version)}: ${rating.version}"
         
-        val versionString = "${context.getString(R.string.version)}: ${rating.version}"
-        holder.version.text = versionString
-        holder.note.text = rating.note
+        if (!rating.note.isNullOrEmpty()) {
+            holder.note.text = rating.note
+        }
+        else {
+            holder.note.visibility = View.GONE
+        }
         
     }
     

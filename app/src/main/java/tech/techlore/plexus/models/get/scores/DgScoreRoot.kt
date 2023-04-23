@@ -17,7 +17,7 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.scores
+package tech.techlore.plexus.models.get.scores
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

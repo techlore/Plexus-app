@@ -58,7 +58,7 @@
                 android:layout_marginEnd="@dimen/margin_16"
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
-                android:text="@string/app_name"
+                android:text="@string/app"
                 android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_20"
                 style="@style/MediumBoldText"/>
@@ -159,6 +159,6 @@
         android:src="@drawable/ic_edit"
         android:tintMode="@color/color_snackbar_text"
         android:backgroundTint="@color/color_fab"
-        android:contentDescription="@string/update"/>
+        android:contentDescription="@string/new_submission"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

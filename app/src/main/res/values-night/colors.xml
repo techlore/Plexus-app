@@ -56,7 +56,7 @@
     <color name="color_nav_item_bg">@color/color_secondaryContainer</color>
     <color name="color_radio_selected_bg">@color/color_primaryContainer</color>
     <color name="color_fab">@color/color_primaryContainer</color>
-    <color name="colorControlNormal">#BCBCBC</color>
+    <color name="color_control_normal">#BCBCBC</color>
     <color name="color_text_title">#FAFAFA</color>
     <color name="color_enabled">#B8B8BD</color>
     <color name="color_disabled">#3F3F47</color>

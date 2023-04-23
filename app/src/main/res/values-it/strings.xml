@@ -65,7 +65,7 @@
     <string name="app_card_breakdown">Bruccol della scheda dell\'applicazione</string>
     <string name="dg_status">de-Googled valutazione</string>
     <string name="mg_status">microG valutazione</string>
-    <string name="app_name">Applicazione</string>
+    <string name="app">Applicazione</string>
     <string name="package_name">Nome del pacchetto</string>
     <string name="version">Versione</string>
 

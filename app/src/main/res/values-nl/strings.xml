@@ -64,7 +64,7 @@
     <string name="app_card_breakdown">Afbraak van applicatiekaart</string>
     <string name="dg_status">de-Googled beoordeling</string>
     <string name="mg_status">microG beoordeling</string>
-    <string name="app_name">Sollicitatie</string>
+    <string name="app">Sollicitatie</string>
     <string name="package_name">Verpakkingsnaam</string>
     <string name="version">Versie</string>
 

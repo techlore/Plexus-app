@@ -58,7 +58,7 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_4"
         android:ellipsize="marquee"
-        android:text="@string/app_name"
+        android:text="@string/app"
         android:textAlignment="viewStart"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_17"/>

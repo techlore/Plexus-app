@@ -17,24 +17,19 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.converters
+package tech.techlore.plexus.models.get.ratings
 
-import androidx.room.TypeConverter
-import com.fasterxml.jackson.databind.ObjectMapper
-import tech.techlore.plexus.models.ratings.RatingsScore
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
-object RatingsScoreConverter {
+data class RatingsRoot (
     
-    private val objectMapper = ObjectMapper()
+    @JsonProperty("data")
+    val ratingsData: ArrayList<Rating>,
     
-    @TypeConverter
-    fun fromRatingsScore(json: String): RatingsScore {
-        return objectMapper.readValue(json, RatingsScore::class.java)
-    }
+    @JsonProperty("meta")
+    @JsonIgnore
+    val meta: JsonNode
     
-    @TypeConverter
-    fun toRatingsScore(ratingsScore: RatingsScore): String {
-        return objectMapper.writeValueAsString(ratingsScore)
-    }
-    
-}
+)

@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.elevation.SurfaceColors
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SplashActivity
-import tech.techlore.plexus.api.ApiManager.Companion.getApi
+import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
 import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
@@ -39,7 +39,7 @@ class ApplicationManager : Application() {
     
     // Using by lazy so database and repositories are only created when they're needed
     // rather than when the application starts
-    private val apiService by lazy { getApi() }
+    private val apiService by lazy { apiBuilder() }
     private val database by lazy { getDatabase(this) }
     
     val apiRepository by lazy { ApiRepository(apiService) }

@@ -28,7 +28,7 @@ import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.databinding.SearchViewBinding
 import tech.techlore.plexus.fragments.search.SearchDataFragment
 import tech.techlore.plexus.fragments.search.SearchInstalledFragment
-import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.models.get.main.MainData
 
 class SearchActivity : AppCompatActivity() {
     

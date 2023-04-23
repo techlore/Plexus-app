@@ -68,7 +68,7 @@
     <string name="app_card_breakdown">R\u00E9partition de la carte d\'application</string>
     <string name="dg_status">\u00E9valuation sans Google (de-Googled)</string>
     <string name="mg_status">\u00E9valuation avec microG</string>
-    <string name="app_name">Application</string>
+    <string name="app">Application</string>
     <string name="package_name">Nom du paquet</string>
     <string name="version">Version</string>
 

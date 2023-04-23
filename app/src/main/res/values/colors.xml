@@ -57,13 +57,13 @@
     <color name="color_nav_item_bg">#5674C4</color>
     <color name="color_radio_selected_bg">#C8D3FF</color>
     <color name="color_fab">@color/color_primary</color>
-    <color name="colorControlNormal">#747474</color>
+    <color name="color_control_normal">#747474</color>
     <color name="color_text_title">@color/grey_800</color>
     <color name="color_enabled">#606163</color>
     <color name="color_disabled">#D4D3DD</color>
     <color name="color_text_disabled">#8D8D95</color>
     <color name="color_hint">#B2B2B2</color>
-    <color name="color_card_stroke">#E0E0E0</color>
+    <color name="color_card_stroke">#D6D6D6</color>
     <color name="color_grey_text_surface">#EBEBEB</color>
     <color name="color_scrollbar">#B8B8B8</color>
     <color name="color_divider">#DBDCE0</color>

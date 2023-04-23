@@ -71,7 +71,7 @@
     <string name="app_card_breakdown">Aufschl\u00FCsselung f\u00FCr Anwendungskarten</string>
     <string name="dg_rating">de-Googled Bewertung</string>
     <string name="mg_rating">microG Bewertung</string>
-    <string name="app_name">App</string>
+    <string name="app">App</string>
     <string name="package_name">Paketname</string>
     <string name="version">Version</string>
 

@@ -48,23 +48,22 @@ class TotalScoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val detailsActivity = requireActivity() as AppDetailsActivity
-        val dgScoreString = "${detailsActivity.app.dgScore.dgScore}/4"
-        val mgScoreString = "${detailsActivity.app.mgScore.mgScore}/4"
         val totalDgRatings = detailsActivity.app.dgScore.totalDgRatings
         val totalMgRatings = detailsActivity.app.mgScore.totalMgRatings
         
-        val ratingRanges = mapOf("gold" to 4.0f,
+        val ratingRanges = mapOf("limit_reached" to 4.1f, // Dummy range, check nextRange()
+                                 "gold" to 4.0f,
                                  "silver" to 3.0f,
                                  "bronze" to 2.0f,
                                  "broken" to 1.0f)
         
         val ratingCounts = mutableMapOf<Pair<String?, String>, Int>()
-        for (library in listOf("none", "microG")) {
+        for (library in listOf("none", "micro_g")) {
             for ((range, value) in ratingRanges) {
                 val count = detailsActivity.app.ratingsList.count {
                     it.googleLib == library
-                    && it.ratingsScore!!.ratingsScore >= value
-                    && it.ratingsScore!!.ratingsScore < ratingRanges[nextRange(range)]!!
+                    && it.ratingScore!!.ratingScore >= value
+                    && it.ratingScore!!.ratingScore < ratingRanges[nextRange(range)]!!
                 }
                 ratingCounts[library to range] = count
             }
@@ -74,10 +73,10 @@ class TotalScoreFragment : Fragment() {
         val dgSilverRatingsCount = ratingCounts["none" to "silver"] ?: 0
         val dgBronzeRatingsCount = ratingCounts["none" to "bronze"] ?: 0
         val dgBrokenRatingsCount = ratingCounts["none" to "broken"] ?: 0
-        val mgGoldRatingsCount = ratingCounts["microG" to "gold"] ?: 0
-        val mgSilverRatingsCount = ratingCounts["microG" to "silver"] ?: 0
-        val mgBronzeRatingsCount = ratingCounts["microG" to "bronze"] ?: 0
-        val mgBrokenRatingsCount = ratingCounts["microG" to "broken"] ?: 0
+        val mgGoldRatingsCount = ratingCounts["micro_g" to "gold"] ?: 0
+        val mgSilverRatingsCount = ratingCounts["micro_g" to "silver"] ?: 0
+        val mgBronzeRatingsCount = ratingCounts["micro_g" to "bronze"] ?: 0
+        val mgBrokenRatingsCount = ratingCounts["micro_g" to "broken"] ?: 0
         
         val dgGoldRatingsPercent = calcPercent(dgGoldRatingsCount, totalDgRatings)
         val dgSilverRatingsPercent = calcPercent(dgSilverRatingsCount, totalDgRatings)
@@ -88,18 +87,18 @@ class TotalScoreFragment : Fragment() {
         val mgBronzeRatingsPercent = calcPercent(mgBronzeRatingsCount, totalMgRatings)
         val mgBrokenRatingsPercent = calcPercent(mgBrokenRatingsCount, totalMgRatings)
         
-        fragmentBinding.dgTotalScore.text = dgScoreString
+        fragmentBinding.dgAvgScore.text = "${detailsActivity.app.dgScore.dgScore}/4"
         fragmentBinding.dgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalDgRatings"
         setDgProgressAndPercent(dgGoldRatingsPercent, dgSilverRatingsPercent, dgBronzeRatingsPercent, dgBrokenRatingsPercent)
         
-        fragmentBinding.mgTotalScore.text = mgScoreString
+        fragmentBinding.mgAvgScore.text = "${detailsActivity.app.mgScore.mgScore}/4"
         fragmentBinding.mgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalMgRatings"
         setMgProgressAndPercent(mgGoldRatingsPercent, mgSilverRatingsPercent, mgBronzeRatingsPercent, mgBrokenRatingsPercent)
     }
     
     private fun nextRange(currentRange: String): String {
         return when (currentRange) {
-            "gold" -> "gold"
+            "gold" -> "limit_reached" // "limit_reached" is used to know that real range has reached "gold"
             "silver" -> "gold"
             "bronze" -> "silver"
             "broken" -> "bronze"

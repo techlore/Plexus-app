@@ -28,7 +28,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
@@ -46,10 +45,11 @@ import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.fragments.bottomsheets.FirstSubmissionBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
-import tech.techlore.plexus.models.main.MainData
-import tech.techlore.plexus.models.ratings.Ratings
+import tech.techlore.plexus.models.get.main.MainData
+import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
+import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreToStatusString
 import kotlin.coroutines.CoroutineContext
 import com.bumptech.glide.RequestBuilder as RequestBuilder1
 
@@ -60,15 +60,15 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     private lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
+    private lateinit var preferenceManager: PreferenceManager
     lateinit var app: MainData
-    lateinit var ratingsList: ArrayList<Ratings>
+    lateinit var ratingsList: ArrayList<Rating>
     lateinit var differentVersionsList: List<String>
     var selectedVersionString: String? = null
     var statusRadio = R.id.user_ratings_radio_any_status
     var dgStatusSort = 0
     var mgStatusSort = 0
     
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -76,7 +76,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        val preferenceManager = PreferenceManager(this)
+        preferenceManager = PreferenceManager(this)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.details_nav_host) as NavHostFragment
         navController = navHostFragment.navController
         selectedVersionString = getString(R.string.any)
@@ -88,7 +88,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         
         setSupportActionBar(activityBinding.bottomAppBar)
         activityBinding.bottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
-    
+        
         runBlocking {
             launch {
                 app = intent.getStringExtra("packageName")?.let { repository.getAppByPackage(it) } !!
@@ -102,7 +102,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
                     .load("")
                     .placeholder(R.drawable.ic_apk)
                     .onlyRetrieveFromCache(true) // Image should always be in cache
-                                                    // since it's loaded in Plexus data fragment
+            // since it's loaded in Plexus data fragment
         }
         else {
             requestBuilder =
@@ -117,6 +117,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         requestBuilder.into(activityBinding.detailsAppIcon)
         activityBinding.detailsName.text = app.name
         activityBinding.detailsPackageName.text = app.packageName
+        @SuppressLint("SetTextI18n")
         activityBinding.detailsInstalledVersion.text = "${getString(R.string.installed)}: " +
                                                        app.installedVersion.ifEmpty { getString(R.string.not_tested_title) }
         
@@ -140,7 +141,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
                 }
             }
         }
-    
+        
         // Get different versions from ratings list
         // and store them in a separate list
         ratingsList = app.ratingsList
@@ -176,7 +177,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_activity_details, menu)
-    
+        
         menu.findItem(R.id.menu_sort_user_ratings).isVisible =
             navController.currentDestination!!.id != navController.graph.startDestinationId
     }
@@ -190,9 +191,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
             R.id.menu_sort_user_ratings -> SortUserRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
             
             R.id.menu_more ->
-                MoreOptionsBottomSheet(app.name, app.packageName,  /*plexusData.version,
-                                 plexusData.dgStatus, plexusData.mgStatus,
-                                 plexusData.dgNotes, plexusData.mgNotes,*/
+                MoreOptionsBottomSheet(app.name, app.packageName,
+                                       mapScoreToStatusString(this@AppDetailsActivity, app.dgScore.dgScore),
+                                       mapScoreToStatusString(this@AppDetailsActivity, app.mgScore.mgScore),
                                        activityBinding.appDetailsCoordinatorLayout,
                                        activityBinding.bottomAppBar)
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
@@ -203,18 +204,16 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     }
     
     private fun startSubmitActivity() {
-        Toast.makeText(this@AppDetailsActivity, "Success", Toast.LENGTH_SHORT).show()
-        /*val intent =
-                        Intent(this@AppDetailsActivity, SubmitActivity::class.java)
-                            .putExtra("name", app.name)
-                            .putExtra("packageName", app.packageName)
-                    
-                    if (preferenceManager.getBoolean(DEVICE_IS_MICROG)) {
-                        //intent.putExtra("", app.)
-                    }
-                    
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)*/
+        val intent =
+            Intent(this@AppDetailsActivity, SubmitActivity::class.java)
+                .putExtra("name", app.name)
+                .putExtra("packageName", app.packageName)
+                .putExtra("installedVersion", app.installedVersion)
+                .putExtra("installedBuild", app.installedBuild)
+                .putExtra("isInPlexusData", app.isInPlexusData)
+        
+        startActivity(intent)
+        overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
     }
     
     override fun finish() {

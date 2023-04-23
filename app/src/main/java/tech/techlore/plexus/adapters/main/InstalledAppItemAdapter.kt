@@ -41,7 +41,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
-import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusToBgColor
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToBgColor
 import java.util.Locale
 import kotlin.collections.ArrayList
 
@@ -80,7 +80,6 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainDataMini
     
     init {
         aListViewItemsFull = ArrayList(aListViewItems)
-        setHasStableIds(true)
     }
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -107,10 +106,10 @@ class InstalledAppItemAdapter(private val aListViewItems: ArrayList<MainDataMini
         holder.packageName.text = installedApp.packageName
         holder.dgStatus.text = installedApp.dgStatus
         holder.dgStatus.backgroundTintList =
-            mapStatusToBgColor(context, installedApp.dgStatus)?.let { ColorStateList.valueOf(it) }
+            mapStatusStringToBgColor(context, installedApp.dgStatus)?.let { ColorStateList.valueOf(it) }
         holder.mgStatus.text = installedApp.mgStatus
         holder.mgStatus.backgroundTintList =
-            mapStatusToBgColor(context, installedApp.mgStatus)?.let { ColorStateList.valueOf(it) }
+            mapStatusStringToBgColor(context, installedApp.mgStatus)?.let { ColorStateList.valueOf(it) }
         holder.fav.isChecked = installedApp.isFav
         
         // Horizontally scrolling text

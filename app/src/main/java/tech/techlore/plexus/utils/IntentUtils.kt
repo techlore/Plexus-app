@@ -59,19 +59,21 @@ class IntentUtils {
         }
     
         // Share
-        fun share(activity: Activity, nameString: String, packageNameString: String, /*String plexusVersionString,
-                             String dgStatusString, String mgStatusString,
-                             String dgNotesString, String mgNotesString,*/
-                  playStoreString: String) {
+        fun share(activity: Activity, nameString: String, packageNameString: String,
+                  dgStatusString: String, mgStatusString: String,
+                  playStoreString: String, fdroidString: String) {
     
             activity.startActivity(Intent.createChooser(
                 Intent(Intent.ACTION_SEND)
                     .setType("text/plain")
                     .putExtra(Intent.EXTRA_TEXT,
                               """
-                              ${activity.getString(R.string.app_name)}: $nameString
+                              ${activity.getString(R.string.app)}: $nameString
                               ${activity.getString(R.string.package_name)}: $packageNameString
+                              ${activity.getString(R.string.de_Googled)}: $dgStatusString
+                              ${activity.getString(R.string.microG)}: $mgStatusString
                               ${activity.getString(R.string.menu_play_store)}: $playStoreString
+                              ${activity.getString(R.string.menu_fdroid)}: $fdroidString
                               """.trimIndent()), activity.getString(R.string.menu_share)))
         }
     }

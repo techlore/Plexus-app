@@ -29,7 +29,8 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.adapters.details.UserRatingsItemAdapter
 import tech.techlore.plexus.databinding.FragmentUserRatingsBinding
-import tech.techlore.plexus.models.ratings.Ratings
+import tech.techlore.plexus.models.get.ratings.Rating
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
 
 class UserRatingsFragment : Fragment() {
     
@@ -57,7 +58,7 @@ class UserRatingsFragment : Fragment() {
             sortedRatingsList =
                 sortedRatingsList.filter { ratings ->
                     ratings.version == detailsActivity.selectedVersionString
-                } as ArrayList<Ratings>
+                } as ArrayList<Rating>
         }
         
         if (detailsActivity.statusRadio != R.id.user_ratings_radio_any_status) {
@@ -65,21 +66,21 @@ class UserRatingsFragment : Fragment() {
             sortedRatingsList =
                 sortedRatingsList.filter { ratings ->
                     ratings.googleLib == googleLib
-                } as ArrayList<Ratings>
+                } as ArrayList<Rating>
             
             if (detailsActivity.dgStatusSort != 0) {
                 dgScore = mapStatusChipToRatingScore(detailsActivity.dgStatusSort)
                 sortedRatingsList =
                     sortedRatingsList.filter { ratings ->
-                        ratings.ratingsScore!!.ratingsScore == dgScore
-                    } as ArrayList<Ratings>
+                        ratings.ratingScore!!.ratingScore == dgScore
+                    } as ArrayList<Rating>
             }
             else if (detailsActivity.mgStatusSort != 0) {
                 mgScore = mapStatusChipToRatingScore(detailsActivity.mgStatusSort)
                 sortedRatingsList =
                     sortedRatingsList.filter { ratings ->
-                        ratings.ratingsScore!!.ratingsScore == mgScore
-                    } as ArrayList<Ratings>
+                        ratings.ratingScore!!.ratingScore == mgScore
+                    } as ArrayList<Rating>
             }
         }
         
@@ -94,16 +95,6 @@ class UserRatingsFragment : Fragment() {
             fragmentBinding.userRatingsRv.adapter = userRatingsItemAdapter
         }
         
-    }
-    
-    private fun mapStatusChipToRatingScore(statusChipId: Int): Int {
-        return when (statusChipId) {
-            R.id.user_ratings_sort_not_tested -> 0
-            R.id.user_ratings_sort_broken -> 1
-            R.id.user_ratings_sort_bronze -> 2
-            R.id.user_ratings_sort_silver -> 3
-            else -> 4
-        }
     }
     
     override fun onDestroyView() {

@@ -17,18 +17,14 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.ratings
+package tech.techlore.plexus.models.post
 
-import com.fasterxml.jackson.annotation.JsonIgnore
+import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonProperty
+import tech.techlore.plexus.converters.post.PostAppConverter
 
-data class RatingsScore (
-    
-    @JsonProperty("numerator")
-    var ratingsScore: Int = 0,
-    
-    @JsonProperty("denominator")
-    @JsonIgnore
-    var ratingsDenominator: Int = 0
-
+@TypeConverters(PostAppConverter::class)
+data class PostAppRoot(
+    @JsonProperty("app")
+    var postApp: PostApp
 )

@@ -49,7 +49,7 @@ class UiUtils {
             navController.navigate(action)
         }
     
-        fun mapScoreToStatus(context: Context, score: Float): String {
+        fun mapScoreToStatusString(context: Context, score: Float): String {
             return when(score) {
                 0.0f -> context.getString(R.string.not_tested_title)
                 in 1.0f..1.9f -> context.getString(R.string.broken_title)
@@ -59,13 +59,23 @@ class UiUtils {
             }
         }
         
-        fun mapStatusToBgColor(context: Context, status: String): Int? {
+        fun mapStatusStringToBgColor(context: Context, status: String): Int? {
             return when(status) {
                 context.getString(R.string.not_tested_title) -> null // No background tint. Only show outline
                 context.getString(R.string.broken_title) -> context.resources.getColor(R.color.color_broken_status, context.theme)
                 context.getString(R.string.bronze_title) -> context.resources.getColor(R.color.color_bronze_status, context.theme)
                 context.getString(R.string.silver_title) -> context.resources.getColor(R.color.color_silver_status, context.theme)
                 else -> context.resources.getColor(R.color.color_gold_status, context.theme)
+            }
+        }
+    
+        fun mapStatusChipToRatingScore(statusChipId: Int): Int {
+            return when (statusChipId) {
+                R.id.user_ratings_sort_not_tested -> 0
+                R.id.user_ratings_sort_broken, R.id.submit_broken -> 1
+                R.id.user_ratings_sort_bronze, R.id.submit_bronze -> 2
+                R.id.user_ratings_sort_silver, R.id.submit_silver -> 3
+                else -> 4
             }
         }
         

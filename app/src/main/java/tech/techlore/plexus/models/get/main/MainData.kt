@@ -17,18 +17,18 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.main
+package tech.techlore.plexus.models.get.main
 
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.RatingsConverter
-import tech.techlore.plexus.converters.ScoreConverter
-import tech.techlore.plexus.models.ratings.Ratings
-import tech.techlore.plexus.models.scores.DgScore
-import tech.techlore.plexus.models.scores.MgScore
+import tech.techlore.plexus.converters.get.RatingsConverter
+import tech.techlore.plexus.converters.get.ScoreConverter
+import tech.techlore.plexus.models.get.ratings.Rating
+import tech.techlore.plexus.models.get.scores.DgScore
+import tech.techlore.plexus.models.get.scores.MgScore
 
 @Entity(tableName = "main_table")
 @TypeConverters(value = [ScoreConverter::class, RatingsConverter::class])
@@ -42,11 +42,11 @@ data class MainData(
     
     @Embedded
     var dgScore: DgScore = DgScore(dgScore = 0.0f, totalDgRatings = 0),
-
+    
     @Embedded
     var mgScore: MgScore = MgScore(mgScore = 0.0f, totalMgRatings = 0),
     
-    var ratingsList: ArrayList<Ratings> = ArrayList(),
+    var ratingsList: ArrayList<Rating> = ArrayList(),
     
     var installedVersion: String = "",
     
@@ -60,27 +60,4 @@ data class MainData(
     
     var isFav: Boolean = false
 
-) /*{
-    
-    val dgStatus: String
-        get() {
-            return when (dgScore) {
-                1 -> "broken"
-                2 -> "bronze"
-                3 -> "silver"
-                4 -> "gold"
-                else -> "notTested"
-            }
-        }
-    
-    val mgStatus: String
-        get() {
-            return when (mgScore) {
-                1 -> "broken"
-                2 -> "bronze"
-                3 -> "silver"
-                4 -> "gold"
-                else -> "notTested"
-            }
-        }
-}*/
+)

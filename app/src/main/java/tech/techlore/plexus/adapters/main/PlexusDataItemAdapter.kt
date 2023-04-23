@@ -40,7 +40,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
-import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusToBgColor
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToBgColor
 import java.util.Locale
 import kotlin.collections.ArrayList
 
@@ -79,7 +79,6 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
     
     init {
         aListViewItemsFull = ArrayList(aListViewItems)
-        setHasStableIds(true)
     }
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -113,10 +112,10 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
         holder.packageName.text = plexusData.packageName
         holder.dgStatus.text = plexusData.dgStatus
         holder.dgStatus.backgroundTintList =
-            mapStatusToBgColor(context, plexusData.dgStatus)?.let { ColorStateList.valueOf(it) }
+            mapStatusStringToBgColor(context, plexusData.dgStatus)?.let { ColorStateList.valueOf(it) }
         holder.mgStatus.text = plexusData.mgStatus
         holder.mgStatus.backgroundTintList =
-            mapStatusToBgColor(context, plexusData.mgStatus)?.let { ColorStateList.valueOf(it) }
+            mapStatusStringToBgColor(context, plexusData.mgStatus)?.let { ColorStateList.valueOf(it) }
         holder.fav.isChecked = plexusData.isFav
         
         /// Horizontally scrolling text

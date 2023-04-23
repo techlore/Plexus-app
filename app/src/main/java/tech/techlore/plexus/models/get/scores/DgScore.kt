@@ -17,39 +17,29 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.ratings
+package tech.techlore.plexus.models.get.scores
 
-import androidx.room.Embedded
-import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.RatingsScoreConverter
 
-//@Entity(tableName = "ratings_table")
-@TypeConverters(RatingsScoreConverter::class)
-data class Ratings(
+data class DgScore(
     
-    @JsonProperty("id")
-    var id: String? = null,
-
     @JsonProperty("app_package")
     @JsonIgnore
-    var packageName: String? = null,
-    
-    @JsonProperty("app_build_number")
-    var buildNumber: Int = 0,
-    
-    @JsonProperty("app_version")
-    var version: String? = null,
-    
-    @JsonProperty("google_lib")
-    var googleLib: String? = null,
-    
-    @JsonProperty("score")
-    @Embedded
-    var ratingsScore: RatingsScore? = null,
-    
-    @JsonProperty("notes")
-    var note: String? = null
+    var dgPkgName: String? = null,
 
+    @JsonProperty("denominator")
+    @JsonIgnore
+    var dgDenominator: Int = 0,
+
+    @JsonProperty("google_lib")
+    @JsonIgnore
+    var dgGoogleLib: String? = null,
+    
+    @JsonProperty("numerator")
+    var dgScore: Float = 0.0f,
+    
+    @JsonProperty("total_count")
+    var totalDgRatings: Int = 0
+    
 )

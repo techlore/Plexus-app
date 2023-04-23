@@ -17,19 +17,24 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.ratings
+package tech.techlore.plexus.models.post
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.JsonNode
 
-data class RatingsRoot (
+data class PostRating(
     
-    @JsonProperty("data")
-    val ratingsData: ArrayList<Ratings>,
+    @JsonProperty("app_version")
+    var version: String,
+
+    @JsonProperty("app_build_number")
+    var buildNumber: Int,
     
-    @JsonProperty("meta")
-    @JsonIgnore
-    val meta: JsonNode
+    @JsonProperty("google_lib")
+    var googleLib: String,
     
+    @JsonProperty("score")
+    var score: Int,
+    
+    @JsonProperty("notes")
+    var notes: String,
 )

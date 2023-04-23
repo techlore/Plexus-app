@@ -17,36 +17,24 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.converters
+package tech.techlore.plexus.converters.post
 
 import androidx.room.TypeConverter
-import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
-import tech.techlore.plexus.models.ratings.Ratings
-import tech.techlore.plexus.models.scores.DgScore
-import tech.techlore.plexus.models.scores.MgScore
+import tech.techlore.plexus.models.post.PostApp
 
-object ScoreConverter {
+object PostAppConverter {
     
     private val objectMapper = ObjectMapper()
     
     @TypeConverter
-    fun fromDgScore(json: String): DgScore {
-        return objectMapper.readValue(json, DgScore::class.java)
+    fun fromPostRating(json: String): PostApp {
+        return objectMapper.readValue(json, PostApp::class.java)
     }
     
     @TypeConverter
-    fun toDgScore(dgScore: DgScore): String {
-        return objectMapper.writeValueAsString(dgScore)
+    fun toPostRating(postApp: PostApp): String {
+        return objectMapper.writeValueAsString(postApp)
     }
     
-    @TypeConverter
-    fun fromMgScore(json: String): MgScore {
-        return objectMapper.readValue(json, MgScore::class.java)
-    }
-    
-    @TypeConverter
-    fun toMgScore(mgScore: MgScore): String {
-        return objectMapper.writeValueAsString(mgScore)
-    }
 }

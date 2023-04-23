@@ -26,7 +26,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.models.get.main.MainData
 
 @Dao
 interface MainDataDao {
@@ -52,7 +52,9 @@ interface MainDataDao {
             existingData.name = mainData.name
             existingData.packageName = mainData.packageName
             existingData.dgScore.dgScore = mainData.dgScore.dgScore
+            existingData.dgScore.totalDgRatings = mainData.dgScore.totalDgRatings
             existingData.mgScore.mgScore = mainData.mgScore.mgScore
+            existingData.mgScore.totalMgRatings = mainData.mgScore.totalMgRatings
             existingData.ratingsList = mainData.ratingsList
             update(existingData)
         }
@@ -90,18 +92,6 @@ interface MainDataDao {
     @Query("SELECT * FROM main_table WHERE packageName = :packageName")
     fun getAppByPackage(packageName: String): MainData?
     
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND NOT isInstalled")
-    fun getNotInstalledAppByPackage(packageName: String): MainData?
-    
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isInstalled")
-    fun getInstalledAppByPackage(packageName: String): MainData?
-    
-    @Query("SELECT * FROM main_table WHERE packageName = :packageName AND isFav")
-    fun getFavoriteAppByPackage(packageName: String): MainData?
-    
-    @Query("SELECT * FROM main_table WHERE NOT isInstalled")
-    suspend fun getNotInstalledApps(): List<MainData>
-    
     @Query("SELECT * FROM main_table WHERE isInstalled")
     suspend fun getInstalledApps(): List<MainData>
     
@@ -110,18 +100,18 @@ interface MainDataDao {
     
     @Query("""
         SELECT * FROM main_table
-        WHERE NOT isInstalled
+        WHERE isInPlexusData
         AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
         CASE WHEN :isAsc = 1 THEN name END ASC,
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
-    suspend fun getSortedNotInstalledApps(dgScoreFrom: Float,
-                                          dgScoreTo: Float,
-                                          mgScoreFrom: Float,
-                                          mgScoreTo: Float,
-                                          isAsc: Boolean): List<MainData>
+    suspend fun getSortedPlexusDataApps(dgScoreFrom: Float,
+                                        dgScoreTo: Float,
+                                        mgScoreFrom: Float,
+                                        mgScoreTo: Float,
+                                        isAsc: Boolean): List<MainData>
     // -1 is for ignoring the score when required,
     // so it doesn't include it while filtering
     
@@ -144,15 +134,4 @@ interface MainDataDao {
     // -1 is for ignoring the score when required,
     // so it doesn't include it while filtering
     
-    /*@Query("SELECT * FROM main_table")
-    suspend fun getAll(): List<PlexusData>*/
-    
-    /*@Query("SELECT * FROM main_table WHERE installedFrom = :installedFrom")
-    fun getInstalledAppsByInstaller(installers: List<String>): List<MainData>
-    
-    @Query("SELECT * FROM main_table WHERE dgStatus = :dgStatus")
-    fun getInstalledAppsByDGRating(): List<MainData>
-    
-    @Query("SELECT * FROM main_table ORDER BY name DESC")
-    fun getInstalledAppsByMGRating(): List<MainData>*/
 }

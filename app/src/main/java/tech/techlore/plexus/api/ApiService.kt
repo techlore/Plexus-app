@@ -19,17 +19,19 @@
 
 package tech.techlore.plexus.api
 
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
-import tech.techlore.plexus.models.main.MainRoot
-import tech.techlore.plexus.models.ratings.Ratings
-import tech.techlore.plexus.models.ratings.RatingsRoot
-import tech.techlore.plexus.models.scores.DgScoreRoot
-import tech.techlore.plexus.models.scores.MgScoreRoot
+import tech.techlore.plexus.models.get.main.MainRoot
+import tech.techlore.plexus.models.get.ratings.RatingsRoot
+import tech.techlore.plexus.models.get.scores.DgScoreRoot
+import tech.techlore.plexus.models.get.scores.MgScoreRoot
+import tech.techlore.plexus.models.post.PostAppRoot
+import tech.techlore.plexus.models.post.PostRatingRoot
 
 interface ApiService {
     
@@ -45,8 +47,12 @@ interface ApiService {
     @GET("apps/{packageName}/ratings")
     fun getRatings(@Path("packageName") packageName: String): Call<RatingsRoot>
     
-    /*@POST("apps/{packageName}/ratings")
+    @POST("apps")
     @Headers("Content-Type: application/json")
-    fun updateRating(@Path("packageName") packageName: String, @Body ratings: Ratings): Call<Ratings>*/
+    fun postApp(@Body postAppRoot: PostAppRoot): Call<ResponseBody>
+    
+    @POST("apps/{packageName}/ratings")
+    @Headers("Content-Type: application/json")
+    fun postRating(@Path("packageName") packageName: String, @Body postRatingRoot: PostRatingRoot): Call<ResponseBody>
     
 }

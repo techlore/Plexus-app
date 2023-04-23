@@ -41,7 +41,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
-import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusToBgColor
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToBgColor
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -114,10 +114,10 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         holder.packageName.text = favorite.packageName
         holder.dgStatus.text = favorite.dgStatus
         holder.dgStatus.backgroundTintList =
-            mapStatusToBgColor(context, favorite.dgStatus)?.let { ColorStateList.valueOf(it) }
+            mapStatusStringToBgColor(context, favorite.dgStatus)?.let { ColorStateList.valueOf(it) }
         holder.mgStatus.text = favorite.mgStatus
         holder.mgStatus.backgroundTintList =
-            mapStatusToBgColor(context, favorite.mgStatus)?.let { ColorStateList.valueOf(it) }
+            mapStatusStringToBgColor(context, favorite.mgStatus)?.let { ColorStateList.valueOf(it) }
         holder.fav.isChecked = favorite.isFav
         
         // Horizontally scrolling text

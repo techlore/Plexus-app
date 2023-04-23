@@ -19,32 +19,52 @@
 
 package tech.techlore.plexus.activities
 
-import android.content.DialogInterface
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
+import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
+import tech.techlore.plexus.models.post.PostApp
+import tech.techlore.plexus.models.post.PostAppRoot
+import tech.techlore.plexus.models.post.PostRating
+import tech.techlore.plexus.models.post.PostRatingRoot
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MICROG
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
 import kotlin.coroutines.CoroutineContext
 
 class SubmitActivity : AppCompatActivity(), CoroutineScope {
     
-    private lateinit var activityBinding: ActivitySubmitBinding
     private val job = Job()
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
+    private lateinit var activityBinding: ActivitySubmitBinding
+    private var wait = 0
     private lateinit var nameString: String
     private lateinit var packageNameString: String
-    /*private lateinit var plexusVersionString: String
-    private lateinit var dgStatusString: String
-    private lateinit var mgStatusString: String
-    private lateinit var dgNotesString: String
-    private lateinit var mgNotesString: String*/
+    private lateinit var installedVersion: String
+    private var installedVersionBuild = 0
+    private var isInPlexusData = true
+    private var isMicrog = false
+    private val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
+    // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
+    // while still allowing real words like notification, committee etc.
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +73,10 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         
         nameString = intent.getStringExtra("name")!!
         packageNameString = intent.getStringExtra("packageName")!!
+        installedVersion = intent.getStringExtra("installedVersion")!!
+        installedVersionBuild = intent.getIntExtra("installedVersionBuild", 0)
+        isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
+        isMicrog = PreferenceManager(this).getBoolean(DEVICE_IS_MICROG)
         
         /*########################################################################################*/
         
@@ -61,62 +85,137 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         
         activityBinding.submitName.text = nameString
         activityBinding.submitPackageName.text = packageNameString
+        @SuppressLint("SetTextI18n")
+        activityBinding.submitInstalledVersion.text = "${getString(R.string.installed)}: ${installedVersion.ifEmpty { getString(R.string.not_tested_title) }}"
+        activityBinding.dgMgText.text = if (isMicrog) getString(R.string.microG) else getString(R.string.de_Googled)
+        
+        // Notes
+        activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} ${getString(R.string.optional)}"
+        activityBinding.submitNotesText.addTextChangedListener(object : TextWatcher {
+            
+            var delayTimer: CountDownTimer? = null
+            
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                
+                // Introduce a subtle delay
+                // so text is checked after typing is finished
+                if (delayTimer != null) {
+                    delayTimer!!.cancel()
+                }
+                
+                delayTimer = object : CountDownTimer(300, 100) {
+                    
+                    override fun onTick(millisUntilFinished: Long) {}
+                    
+                    // On timer finish, perform task
+                    override fun onFinish() {
+                        wait = 0
+                        val text = activityBinding.submitNotesText.text.toString()
+                        
+                        activityBinding.submitFab.isEnabled =
+                            text.isEmpty()
+                            || ((text.length > 4)
+                                && text.length <= 300
+                                && regexPattern.matches(text))
+                    }
+                    
+                }.start()
+            }
+            
+            override fun afterTextChanged(s: Editable?) {}
+        })
         
         // FAB
-        //activityBinding.submitFab.isEnabled = false // Temporary, will be removed
-        activityBinding.submitBtn.setOnClickListener { submitData() }
-    }
-    
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-    
-    private fun noNetworkDialog() {
-        MaterialAlertDialogBuilder(this, R.style.DialogTheme)
-            
-            .setTitle(R.string.dialog_title)
-            
-            .setMessage(R.string.dialog_subtitle)
-            
-            .setPositiveButton(R.string.retry) { _: DialogInterface, _: Int ->
-                submitData() }
-            
-            .setNegativeButton(R.string.cancel) { dialog: DialogInterface, _: Int ->
-                dialog.dismiss() }
-            
-            .setCancelable(false)
-            
-            .show()
+        activityBinding.submitFab.setOnClickListener { submitData() }
     }
     
     private fun submitData() {
         
         launch {
+            activityBinding.submitFab.isEnabled = false
+            
             if (hasNetwork(this@SubmitActivity) && hasInternet()) {
-                /*val rating = Rating(name = "TestApp",
-                                    packageName = "com.testapp", )*/
+                
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
-                /*val call = apiRepository.sendApplication(rating)
-                call.enqueue(object : Callback<ResponseBody> {
-                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                        // handle the response here
-                        if (response.isSuccessful) {
-                            Snackbar.make(activityBinding.submitCoordinatorLayout,
-                                          getString(R.string.submit_success),
-                                          BaseTransientBottomBar.LENGTH_SHORT)
-                                .setAnchorView(activityBinding.submitBottomAppBar) // Above FAB, bottom bar etc.
-                                .show()
-                        }
-                    }
-        
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        // handle the failure here
-                    }
-                })*/
+                
+                val rating = PostRating(version = installedVersion,
+                                        buildNumber = installedVersionBuild,
+                                        googleLib = if (isMicrog) "micro_g" else "none",
+                                        score = mapStatusChipToRatingScore(activityBinding.submitStatusChipGroup.checkedChipId),
+                                        notes= activityBinding.submitNotesText.text.toString())
+                
+                val postRatingRoot = PostRatingRoot(rating)
+                val postRatingCall = apiRepository.postRating(packageNameString, postRatingRoot)
+                
+                if (!isInPlexusData) {
+                    val app = PostApp(name = nameString, packageName = packageNameString)
+                    val postAppRoot = PostAppRoot(app)
+                    val postAppCall = apiRepository.postApp(postAppRoot)
+                    postApp(postAppCall, postRatingCall)
+                }
+                else {
+                    postRating(postRatingCall)
+                }
             }
             else {
-                noNetworkDialog()
+                NoNetworkDialog(negativeButtonText = getString(R.string.exit),
+                                positiveButtonClickListener = { submitData() },
+                                negativeButtonClickListener = {})
+                    .show(supportFragmentManager, "NoNetworkDialog")
             }
+            
+            activityBinding.submitFab.isEnabled = true
         }
+    }
+    
+    private fun postApp(postAppCall: Call<ResponseBody>, postRatingCall: Call<ResponseBody>) {
+        postAppCall.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful || response.code() == 422) {
+                    // Request was successful or app already exists
+                    postRating(postRatingCall)
+                }
+                else {
+                    // Request failed
+                    showSnackbar("${getString(R.string.submit_error)}: ${response.code()}")
+                }
+            }
+            
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                // Request failed due to network issues
+                showSnackbar(getString(R.string.submit_failure))
+            }
+        })
+    }
+    
+    private fun postRating(postRatingCall: Call<ResponseBody>) {
+        postRatingCall.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    // Request was successful
+                    showSnackbar(getString(R.string.submit_success))
+                }
+                else {
+                    // Request failed
+                    showSnackbar("${getString(R.string.submit_error)}: ${response.code()}")
+                }
+            }
+            
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                // Request failed due to network issues
+                showSnackbar(getString(R.string.submit_failure))
+            }
+        })
+    }
+    
+    private fun showSnackbar(errorMessage: String) {
+        Snackbar.make(activityBinding.submitCoordinatorLayout,
+                      errorMessage,
+                      BaseTransientBottomBar.LENGTH_SHORT)
+            .setAnchorView(activityBinding.submitBottomAppBar) // Above FAB, bottom bar etc.
+            .show()
     }
     
     // Set transition when finishing activity

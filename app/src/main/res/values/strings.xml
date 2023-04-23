@@ -52,8 +52,8 @@
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="app_name">App name</string>
-    <string name="package_name">Package name</string>
+    <string name="app">App</string>
+    <string name="package_name">Package</string>
     <string name="total_score">Total score</string>
     <string name="user_ratings">User ratings</string>
     <string name="installed">Installed</string>
@@ -61,13 +61,13 @@
     <!--Toolbar menu-->
     <string name="menu_help">Help</string>
     <string name="menu_more">More options</string>
-    <string name="update">Update</string>
+    <string name="new_submission">New submission</string>
 
     <!--Total score fragment-->
     <string name="total_ratings">Total ratings</string>
 
     <!--User ratings fragment-->
-    <string name="notes">notes</string>
+    <string name="notes">Notes</string>
     <string name="no_ratings_found">No ratings available</string>
 
     <!--Help fragment-->
@@ -85,6 +85,7 @@
     <!--#########################################################################################-->
 
     <!--Submit activity-->
+    <string name="optional">(optional)</string>
     <string name="submit">Submit</string>
 
     <!--#########################################################################################-->
@@ -133,8 +134,10 @@
 
     <!--#########################################################################################-->
 
-    <!--Snackbar-->
+    <!--Snackbars-->
     <string name="no_browsers">No browsers installed on this device</string>
     <string name="submit_success">Data submitted successfully</string>
+    <string name="submit_error">Error while submitting data</string>
+    <string name="submit_failure">Failed to submit data due to network issues</string>
 
 </resources>

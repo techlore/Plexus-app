@@ -17,29 +17,18 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.scores
+package tech.techlore.plexus.models.get.ratings
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class MgScore (
+data class RatingScore (
     
-    @JsonProperty("app_package")
-    @JsonIgnore
-    var mgPkgName: String? = null,
+    @JsonProperty("numerator")
+    var ratingScore: Int = 0,
     
     @JsonProperty("denominator")
     @JsonIgnore
-    var mgDenominator: Int = 0,
-    
-    @JsonProperty("google_lib")
-    @JsonIgnore
-    var mgGoogleLib: String? = null,
-    
-    @JsonProperty("numerator")
-    var mgScore: Float = 0.0f,
-    
-    @JsonProperty("total_count")
-    var totalMgRatings: Int = 0
+    var ratingsDenominator: Int = 0
 
 )

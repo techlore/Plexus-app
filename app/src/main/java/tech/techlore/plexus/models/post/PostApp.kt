@@ -17,25 +17,16 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.converters
+package tech.techlore.plexus.models.post
 
-import androidx.room.TypeConverter
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
-import tech.techlore.plexus.models.ratings.Ratings
+import com.fasterxml.jackson.annotation.JsonProperty
 
-object RatingsConverter {
+data class PostApp(
     
-    private val objectMapper = ObjectMapper()
+    @JsonProperty("name")
+    var name: String,
     
-    @TypeConverter
-    fun fromRatings(ratings: ArrayList<Ratings>): String {
-        return objectMapper.writeValueAsString(ratings)
-    }
+    @JsonProperty("package")
+    var packageName: String
     
-    @TypeConverter
-    fun toRatings(ratingsString: String): ArrayList<Ratings> {
-        return objectMapper.readValue(ratingsString, object : TypeReference<ArrayList<Ratings>>() {})
-    }
-    
-}
+)

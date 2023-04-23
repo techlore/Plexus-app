@@ -34,11 +34,8 @@ import tech.techlore.plexus.utils.IntentUtils.Companion.share
 class MoreOptionsBottomSheet(
     private val nameString: String,
     private val packageNameString: String,
-    /*String plexusVersionString,
-    String dgRatingString,
-    String mgRatingString,
-    String dgNotesString,
-    String mgNotesString,*/
+    private val dgStatus: String,
+    private val mgStatus: String,
     private val coordinatorLayout: CoordinatorLayout,
     private val anchorView: View
 ) : BottomSheetDialogFragment() {
@@ -72,12 +69,10 @@ class MoreOptionsBottomSheet(
             share(requireActivity(),
                   nameString,
                   packageNameString,
-                /*plexusVersionString,
-                  dgRatingString,
-                  mgRatingString,
-                  dgNotesString,
-                  mgNotesString,*/
-                  playStoreString)
+                  dgStatus,
+                  mgStatus,
+                  playStoreString,
+                  fdroidString)
             
             dismiss()
         }

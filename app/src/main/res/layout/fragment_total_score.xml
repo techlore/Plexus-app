@@ -77,7 +77,7 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_total_score"
+        android:id="@+id/dg_avg_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/dg_circle"
@@ -91,7 +91,7 @@
         android:id="@+id/dg_gold_text_chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dg_total_score"
+        app:layout_constraintTop_toBottomOf="@id/dg_avg_score"
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_45"
         android:layout_marginStart="@dimen/margin_16"
@@ -299,7 +299,7 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_total_score"
+        android:id="@+id/mg_avg_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/mg_circle"
@@ -313,7 +313,7 @@
         android:id="@+id/mg_gold_text_chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mg_total_score"
+        app:layout_constraintTop_toBottomOf="@id/mg_avg_score"
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_45"
         android:layout_marginStart="@dimen/margin_16"

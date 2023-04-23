@@ -67,7 +67,7 @@
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/version"
-            android:textColor="@color/colorControlNormal"
+            android:textColor="@color/color_control_normal"
             android:textSize="@dimen/text_17" />
 
         <include

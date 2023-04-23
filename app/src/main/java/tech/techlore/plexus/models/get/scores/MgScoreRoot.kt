@@ -17,19 +17,13 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.main
+package tech.techlore.plexus.models.get.scores
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.JsonNode
 
-data class MainRoot (
+data class MgScoreRoot (
     
     @JsonProperty("data")
-    val mainData: ArrayList<MainData>,
-    
-    @JsonProperty("meta")
-    @JsonIgnore
-    val meta: JsonNode
-    
+    var mgScoreData: MgScore
+
 )

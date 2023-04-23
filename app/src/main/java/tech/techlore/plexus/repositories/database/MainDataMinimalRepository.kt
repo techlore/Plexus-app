@@ -24,12 +24,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MainDataDao
-import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.models.get.main.MainData
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
-import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreToStatus
+import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreToStatusString
 
 class MainDataMinimalRepository(private val context: Context, private val mainDataDao: MainDataDao) {
     
@@ -39,8 +39,8 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             MainDataMinimal(name = mainData.name,
                             packageName = mainData.packageName,
                             installedFrom = mainData.installedFrom,
-                            dgStatus = mapScoreToStatus(context, mainData.dgScore.dgScore),
-                            mgStatus = mapScoreToStatus(context, mainData.mgScore.mgScore),
+                            dgStatus = mapScoreToStatusString(context, mainData.dgScore.dgScore),
+                            mgStatus = mapScoreToStatusString(context, mainData.mgScore.mgScore),
                             isInstalled = mainData.isInstalled,
                             isFav = mainData.isFav)
         }
@@ -71,11 +71,11 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             val isAsc = orderPref != R.id.sort_z_a
             
-            mainDataDao.getSortedNotInstalledApps(dgScoreFrom,
-                                                  dgScoreTo,
-                                                  mgScoreFrom,
-                                                  mgScoreTo,
-                                                  isAsc).map {
+            mainDataDao.getSortedPlexusDataApps(dgScoreFrom,
+                                                dgScoreTo,
+                                                mgScoreFrom,
+                                                mgScoreTo,
+                                                isAsc).map {
                 mapToMinimalData(it)
             } as ArrayList<MainDataMinimal>
         }
@@ -149,14 +149,6 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         if (existingData != null) {
             existingData.isFav = mainDataMinimal.isFav
             mainDataDao.update(existingData)
-        }
-    }
-    
-    suspend fun miniInstalledListByInstaller(): ArrayList<MainDataMinimal> {
-        return withContext(Dispatchers.IO) {
-            mainDataDao.getFavApps().map {
-                mapToMinimalData(it)
-            } as ArrayList<MainDataMinimal>
         }
     }
 }
