@@ -19,14 +19,11 @@
 
 package tech.techlore.plexus.adapters.main
 
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -42,15 +39,12 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToBgColor
-import java.util.*
 import kotlin.collections.ArrayList
 
 class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
                           private val clickListener: OnItemClickListener,
                           private val coroutineScope: CoroutineScope) :
-    RecyclerView.Adapter<FavoriteItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
-    
-    private val aListViewItemsFull: List<MainDataMinimal>
+    RecyclerView.Adapter<FavoriteItemAdapter.ListViewHolder>(), PopupTextProvider {
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -76,10 +70,6 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
                 clickListener.onItemClick(position)
             }
         }
-    }
-    
-    init {
-        aListViewItemsFull = ArrayList(aListViewItems)
     }
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -127,7 +117,7 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
             favorite.isFav = isChecked
             coroutineScope.launch {
-                (context.applicationContext as ApplicationManager).miniRepository.update(favorite)
+                (context.applicationContext as ApplicationManager).miniRepository.updateFav(favorite)
             }
             coroutineScope.launch(Dispatchers.Main) {
                 aListViewItems.removeAt(position)
@@ -143,36 +133,6 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     
     override fun getItemViewType(position: Int): Int {
         return position
-    }
-    
-    // Req. for search
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val filteredList: MutableList<MainDataMinimal> = ArrayList()
-                if (charSequence.isNotEmpty()) {
-                    val searchString =
-                        charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
-                    for (installedApp in aListViewItemsFull) {
-                        if (installedApp.name.lowercase(Locale.getDefault()).contains(searchString)
-                            || installedApp.packageName.lowercase(Locale.getDefault())
-                                .contains(searchString)) {
-                            filteredList.add(installedApp)
-                        }
-                    }
-                }
-                val filterResults = FilterResults()
-                filterResults.values = filteredList
-                return filterResults
-            }
-            
-            @SuppressLint("NotifyDataSetChanged")
-            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                aListViewItems.clear()
-                aListViewItems.addAll((filterResults.values as ArrayList<MainDataMinimal>))
-                notifyDataSetChanged()
-            }
-        }
     }
     
     // Fast scroll popup

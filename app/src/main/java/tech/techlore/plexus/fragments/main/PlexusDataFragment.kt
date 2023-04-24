@@ -32,7 +32,7 @@ import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
-import tech.techlore.plexus.adapters.main.PlexusDataItemAdapter
+import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
@@ -49,7 +49,7 @@ import kotlin.coroutines.CoroutineContext
 
 class PlexusDataFragment :
     Fragment(),
-    PlexusDataItemAdapter.OnItemClickListener,
+    MainDataItemAdapter.OnItemClickListener,
     CoroutineScope {
     
     private val job = Job()
@@ -58,7 +58,7 @@ class PlexusDataFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var plexusDataItemAdapter: PlexusDataItemAdapter
+    private lateinit var plexusDataItemAdapter: MainDataItemAdapter
     private lateinit var plexusDataList: ArrayList<MainDataMinimal>
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var miniRepository: MainDataMinimalRepository
@@ -94,9 +94,9 @@ class PlexusDataFragment :
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
-            plexusDataItemAdapter = PlexusDataItemAdapter(plexusDataList,
-                                                              this,
-                                                              coroutineScope)
+            plexusDataItemAdapter = MainDataItemAdapter(plexusDataList,
+                                                        this,
+                                                        coroutineScope)
             fragmentBinding.recyclerView.adapter = plexusDataItemAdapter
             FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
         }

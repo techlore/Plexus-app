@@ -242,25 +242,12 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         
-        // Search
-        // Don't finish main activity,
-        // Or else issues when getting list back from search activity
         when (menuItem.itemId) {
             
-            /*R.id.menu_search -> {
-                val searchIntent = Intent(this, SearchActivity::class.java)
-                searchIntent.putExtra("from", checkedItem)
-    
-                // If from Plexus Data, give Plexus Data list
-                if (checkedItem == R.id.nav_plexus_data) {
-                    searchIntent.putExtra("plexusDataList", checkedItem)
-                }
-                else {
-                    searchIntent.putExtra("installedAppsList", checkedItem)
-                }
-                startActivity(searchIntent)
+            R.id.menu_search -> {
+                startActivity(Intent(this, SearchActivity::class.java))
                 overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
-            }*/
+            }
     
             R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
     

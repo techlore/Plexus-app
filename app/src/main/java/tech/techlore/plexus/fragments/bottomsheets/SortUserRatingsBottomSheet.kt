@@ -31,6 +31,7 @@ import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortUserRatingsBinding
+import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
 
 class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
@@ -105,7 +106,7 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
             }
             
             dismiss()
-            detailsActivity.navController.navigate(R.id.action_userRatingsFragment_self)
+            refreshFragment(detailsActivity.navController)
         }
         
         // Cancel

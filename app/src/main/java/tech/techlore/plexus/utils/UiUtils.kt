@@ -47,7 +47,9 @@ class UiUtils {
                     
                     R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
                     
-                    else -> R.id.action_favoritesFragment_self
+                    R.id.favoritesFragment -> R.id.action_favoritesFragment_self
+                    
+                    else -> R.id.action_userRatingsFragment_self
                 }
             
             navController.navigate(action)
@@ -83,8 +85,8 @@ class UiUtils {
             }
         }
         
-        fun showSnackbar(coordinatorLayout: CoordinatorLayout, errorMessage: String, anchorView: View?) {
-            Snackbar.make(coordinatorLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT)
+        fun showSnackbar(coordinatorLayout: CoordinatorLayout, message: String, anchorView: View?) {
+            Snackbar.make(coordinatorLayout, message, BaseTransientBottomBar.LENGTH_SHORT)
                 .setAnchorView(anchorView) // Above FAB, bottom bar etc.
                 .show()
         }

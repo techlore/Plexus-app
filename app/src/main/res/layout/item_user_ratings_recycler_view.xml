@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_6.5"
+        android:layout_marginTop="@dimen/margin_8"
         android:text="@string/notes"
         android:textAlignment="viewStart"
         android:textColor="@color/color_control_normal"

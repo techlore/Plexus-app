@@ -32,7 +32,7 @@ import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
-import tech.techlore.plexus.adapters.main.InstalledAppItemAdapter
+import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
@@ -48,7 +48,7 @@ import kotlin.coroutines.CoroutineContext
 
 class InstalledAppsFragment :
     Fragment(),
-    InstalledAppItemAdapter.OnItemClickListener,
+    MainDataItemAdapter.OnItemClickListener,
     CoroutineScope {
     
     private val job = Job()
@@ -57,7 +57,7 @@ class InstalledAppsFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var installedAppItemAdapter: InstalledAppItemAdapter
+    private lateinit var installedAppItemAdapter: MainDataItemAdapter
     private lateinit var installedAppsList: ArrayList<MainDataMinimal>
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var miniRepository: MainDataMinimalRepository
@@ -94,9 +94,9 @@ class InstalledAppsFragment :
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
-            installedAppItemAdapter = InstalledAppItemAdapter(installedAppsList,
-                                                                  this,
-                                                                  coroutineScope)
+            installedAppItemAdapter = MainDataItemAdapter(installedAppsList,
+                                                          this,
+                                                          coroutineScope)
             fragmentBinding.recyclerView.adapter = installedAppItemAdapter
             FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
         }

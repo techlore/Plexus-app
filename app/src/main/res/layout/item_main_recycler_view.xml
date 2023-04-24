@@ -34,7 +34,7 @@
     android:paddingTop="@dimen/margin_8"
     android:paddingBottom="@dimen/margin_8"
     android:background="@drawable/shape_ripple"
-    tools:context=".adapters.main.PlexusDataItemAdapter">
+    tools:context=".adapters.main.MainDataItemAdapter">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/icon"

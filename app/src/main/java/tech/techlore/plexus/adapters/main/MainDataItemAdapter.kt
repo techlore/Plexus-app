@@ -19,13 +19,11 @@
 
 package tech.techlore.plexus.adapters.main
 
-import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -41,15 +39,12 @@ import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToBgColor
-import java.util.Locale
 import kotlin.collections.ArrayList
 
-class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
-                            private val clickListener: OnItemClickListener,
-                            private val coroutineScope: CoroutineScope) :
-    RecyclerView.Adapter<PlexusDataItemAdapter.ListViewHolder>(), Filterable, PopupTextProvider {
-    
-    private val aListViewItemsFull: List<MainDataMinimal>
+class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
+                          private val clickListener: OnItemClickListener,
+                          private val coroutineScope: CoroutineScope) :
+    RecyclerView.Adapter<MainDataItemAdapter.ListViewHolder>(), PopupTextProvider {
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -77,10 +72,6 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
         }
     }
     
-    init {
-        aListViewItemsFull = ArrayList(aListViewItems)
-    }
-    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         return ListViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_main_recycler_view, parent, false)
@@ -91,7 +82,8 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
         
         val plexusData = aListViewItems[position]
         val context = holder.itemView.context
-        /*if (plexusData.isInstalled) {
+        
+        if (plexusData.isInstalled) {
             try {
                 holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(plexusData.packageName))
                 // Don't use GLIDE to load icons directly to ImageView
@@ -101,12 +93,12 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
                 e.printStackTrace()
             }
         }
-        else {*/
+        else {
         Glide.with(context)
             .load("")
             .placeholder(R.drawable.ic_apk)
             .into(holder.icon)
-        //}
+        }
         
         holder.name.text = plexusData.name
         holder.packageName.text = plexusData.packageName
@@ -127,7 +119,7 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
             coroutineScope.launch {
                 (context.applicationContext as ApplicationManager)
                     .miniRepository
-                    .update(plexusData)
+                    .updateFav(plexusData)
             }
         }
         
@@ -139,36 +131,6 @@ class PlexusDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinima
     
     override fun getItemViewType(position: Int): Int {
         return position
-    }
-    
-    // Req. for search
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val filteredList: ArrayList<MainDataMinimal> = ArrayList()
-                if (charSequence.isNotEmpty()) {
-                    val searchString =
-                        charSequence.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
-                    for (plexusData in aListViewItemsFull) {
-                        if (plexusData.name.lowercase(Locale.getDefault()).contains(searchString)
-                            || plexusData.packageName.lowercase(Locale.getDefault())
-                                .contains(searchString)) {
-                            filteredList.add(plexusData)
-                        }
-                    }
-                }
-                val filterResults = FilterResults()
-                filterResults.values = filteredList
-                return filterResults
-            }
-            
-            @SuppressLint("NotifyDataSetChanged")
-            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                aListViewItems.clear()
-                aListViewItems.addAll((filterResults.values as ArrayList<MainDataMinimal>))
-                notifyDataSetChanged()
-            }
-        }
     }
     
     // Fast scroll popup

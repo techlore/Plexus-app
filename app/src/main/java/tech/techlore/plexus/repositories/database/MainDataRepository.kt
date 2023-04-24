@@ -28,7 +28,6 @@ import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.main.MainData
 import tech.techlore.plexus.models.get.scores.DgScore
 import tech.techlore.plexus.models.get.scores.MgScore
-import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {
@@ -127,11 +126,13 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
         }
     }
     
-    suspend fun update(mainData: MainData) {
-        val existingData = mainDataDao.getAppByPackage(mainData.packageName)
-        if (existingData != null) {
-            existingData.isInPlexusData = mainData.isInPlexusData
-            mainDataDao.update(existingData)
+    suspend fun updateIsInPlexusData(mainData: MainData) {
+        return withContext(Dispatchers.IO) {
+            val existingData = mainDataDao.getAppByPackage(mainData.packageName)
+            if (existingData != null) {
+                existingData.isInPlexusData = mainData.isInPlexusData
+                mainDataDao.update(existingData)
+            }
         }
     }
 }

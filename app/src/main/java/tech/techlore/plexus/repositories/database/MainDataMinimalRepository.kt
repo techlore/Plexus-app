@@ -168,11 +168,22 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    suspend fun update(mainDataMinimal: MainDataMinimal) {
-        val existingData = mainDataDao.getAppByPackage(mainDataMinimal.packageName)
-        if (existingData != null) {
-            existingData.isFav = mainDataMinimal.isFav
-            mainDataDao.update(existingData)
+    suspend fun updateFav(mainDataMinimal: MainDataMinimal) {
+        return withContext(Dispatchers.IO) {
+            val existingData = mainDataDao.getAppByPackage(mainDataMinimal.packageName)
+            if (existingData != null) {
+                existingData.isFav = mainDataMinimal.isFav
+                mainDataDao.update(existingData)
+            }
+        }
+    }
+    
+    suspend fun searchFromDb(searchQuery: String): ArrayList<MainDataMinimal> {
+        return withContext(Dispatchers.IO) {
+            mainDataDao
+                .searchFromDb(searchQuery)
+                .map { mapToMinimalData(it) }
+                    as ArrayList<MainDataMinimal>
         }
     }
 }

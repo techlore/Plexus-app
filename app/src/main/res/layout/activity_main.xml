@@ -34,7 +34,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginBottom="@dimen/margin_75"
         app:navGraph="@navigation/main_fragments_nav_graph"
         app:defaultNavHost="true"/>
 
@@ -71,15 +71,7 @@
                     app:contentInsetStartWithNavigation="0dp"
                     android:paddingStart="@dimen/margin_2.5"
                     android:paddingEnd="@dimen/margin_2.5"
-                    app:titleTextColor="@color/color_text_title">
-
-                    <ViewStub
-                        android:id="@+id/search_view_stub"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout="@layout/search_view"/>
-
-                </com.google.android.material.appbar.MaterialToolbar>
+                    app:titleTextColor="@color/color_text_title"/>
 
             </com.google.android.material.appbar.AppBarLayout>
 

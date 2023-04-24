@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -20,86 +20,96 @@
 package tech.techlore.plexus.activities
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import androidx.appcompat.widget.SearchView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
-import tech.techlore.plexus.databinding.ActivityMainBinding
-import tech.techlore.plexus.databinding.SearchViewBinding
-import tech.techlore.plexus.fragments.search.SearchDataFragment
-import tech.techlore.plexus.fragments.search.SearchInstalledFragment
-import tech.techlore.plexus.models.get.main.MainData
+import tech.techlore.plexus.adapters.main.MainDataItemAdapter
+import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.databinding.ActivitySearchBinding
+import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
+import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity :
+    AppCompatActivity(),
+    MainDataItemAdapter.OnItemClickListener {
     
-    lateinit var dataList: ArrayList<MainData>
-    lateinit var installedList: ArrayList<MainData>
-    lateinit var searchViewBinding: SearchViewBinding
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private lateinit var mainDataItemAdapter: MainDataItemAdapter
+    private lateinit var searchDataList: ArrayList<MainDataMinimal>
+    private lateinit var miniRepository: MainDataMinimalRepository
+    private var delayTimer: CountDownTimer? = null
     
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val activityBinding = ActivityMainBinding.inflate(layoutInflater)
+        val activityBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-        
-        searchViewBinding = SearchViewBinding.bind(activityBinding.searchViewStub.inflate())
+    
+        miniRepository = (applicationContext as ApplicationManager).miniRepository
+        searchDataList = ArrayList()
         
         /*###########################################################################################*/
         
         // Bottom toolbar as actionbar
-        setSupportActionBar(activityBinding.toolbarBottom)
-        activityBinding.toolbarBottom.setNavigationIcon(R.drawable.ic_back)
-        activityBinding.toolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        setSupportActionBar(activityBinding.searchToolbarBottom)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        activityBinding.searchToolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+    
+        // Perform search
+        activityBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
         
-        // Nav view bottom sheet
-        BottomSheetBehavior.from(activityBinding.bottomNavContainer).isDraggable = false
+            override fun onQueryTextSubmit(searchString: String): Boolean {
+                return true
+            }
         
-        // Default fragment
-        if (savedInstanceState == null) {
+            override fun onQueryTextChange(searchString: String): Boolean {
+                if (delayTimer != null) {
+                    delayTimer !!.cancel()
+                }
             
-            if (intent.extras!!.getInt("from") == R.id.nav_plexus_data) {
+                // Search with a subtle delay
+                delayTimer = object : CountDownTimer(350, 150) {
                 
-                /*dataList =
-                    if (Build.VERSION.SDK_INT >= 33) {
-                        intent.getParcelableArrayListExtra("plexusDataList", PlexusData::class.java)!!
-                    }
-                    else {
-                        intent.getParcelableArrayListExtra("plexusDataList")!!
-                    }*/
+                    override fun onTick(millisUntilFinished: Long) {}
                 
-                displayFragment("Search Data")
-            }
-            else {
-    
-                /*installedList =
-                    if (Build.VERSION.SDK_INT >= 33) {
-                        intent.getParcelableArrayListExtra("installedAppsList", InstalledApp::class.java)!!
+                    override fun onFinish() {
+                        if (searchString.isNotEmpty()) {
+                                runBlocking {
+                                    launch {
+                                        searchDataList =
+                                            miniRepository.searchFromDb(searchString)
+                                    }
+                                }
+                                mainDataItemAdapter = MainDataItemAdapter(searchDataList,
+                                                                          this@SearchActivity,
+                                                                          coroutineScope)
+                                activityBinding.searchRv.adapter = mainDataItemAdapter
+                                FastScrollerBuilder(activityBinding.searchRv).useMd2Style().build() // Fast scroll
+                            }
+                        else {
+                            activityBinding.searchRv.adapter = null
+                        }
                     }
-                    else {
-                        intent.getParcelableArrayListExtra("installedAppsList")!!
-                    }*/
-                displayFragment("Search Installed")
+                }.start()
+            
+                return true
             }
-        }
+        })
     }
     
-    // SETUP FRAGMENTS
-    private fun displayFragment(fragmentName: String) {
-        val fragment: Fragment
-        val transaction = supportFragmentManager.beginTransaction()
-        
-        if (fragmentName == "Search Data") {
-            searchViewBinding.searchView.queryHint = "${resources.getString(R.string.menu_search)} ${resources.getString(R.string.plexus_data)}"
-            fragment = SearchDataFragment()
-        }
-        else {
-            searchViewBinding.searchView.queryHint = "${resources.getString(R.string.menu_search)} ${resources.getString(R.string.installed_apps)}"
-            fragment = SearchInstalledFragment()
-        }
-        
-        transaction.replace(R.id.activity_host_fragment, fragment).commit()
+    // On click
+    override fun onItemClick(position: Int) {
+        val searchData = searchDataList[position]
+        startDetailsActivity(this@SearchActivity, searchData.packageName)
     }
     
-    // SET TRANSITION WHEN FINISHING ACTIVITY
+    // Set transition when finishing activity
     override fun finish() {
         super.finish()
         overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)

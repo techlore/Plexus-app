@@ -160,7 +160,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                         val mainRepository = (applicationContext as ApplicationManager).mainRepository
                         currentApp = mainRepository.getAppByPackage(packageNameString)!!
                         currentApp.isInPlexusData = true
-                        mainRepository.update(currentApp)
+                        mainRepository.updateIsInPlexusData(currentApp)
                         postRating(postRatingCall)
                     }
                 }
