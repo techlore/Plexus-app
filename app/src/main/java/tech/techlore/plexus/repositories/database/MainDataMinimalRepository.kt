@@ -52,7 +52,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         return withContext(Dispatchers.IO) {
             
             val preferenceManager = PreferenceManager(context)
-    
+            
             val (dgScoreFrom, dgScoreTo) =
                 if (statusRadioPref == R.id.radio_dg_status) {
                     getScoreRange(preferenceManager, DG_STATUS_SORT)
@@ -60,7 +60,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                 else {
                     Pair(-1.0f, -1.0f)
                 }
-    
+            
             val (mgScoreFrom, mgScoreTo) =
                 if (statusRadioPref == R.id.radio_mg_status) {
                     getScoreRange(preferenceManager, MG_STATUS_SORT)
@@ -71,13 +71,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             val isAsc = orderPref != R.id.sort_z_a
             
-            mainDataDao.getSortedPlexusDataApps(dgScoreFrom,
-                                                dgScoreTo,
-                                                mgScoreFrom,
-                                                mgScoreTo,
-                                                isAsc).map {
-                mapToMinimalData(it)
-            } as ArrayList<MainDataMinimal>
+            mainDataDao
+                .getSortedPlexusDataApps(dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
+                .map { mapToMinimalData(it) }
+                    as ArrayList<MainDataMinimal>
         }
     }
     
@@ -114,14 +111,49 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             val isAsc = orderPref != R.id.sort_z_a
             
-            mainDataDao.getSortedInstalledApps(installedFrom,
-                                               dgScoreFrom,
-                                               dgScoreTo,
-                                               mgScoreFrom,
-                                               mgScoreTo,
-                                               isAsc).map {
-                mapToMinimalData(it)
-            } as ArrayList<MainDataMinimal>
+            mainDataDao
+                .getSortedInstalledApps(installedFrom, dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
+                .map { mapToMinimalData(it) }
+                    as ArrayList<MainDataMinimal>
+        }
+    }
+    
+    suspend fun miniFavoritesListFromDB(context: Context,
+                                        filterPref: Int,
+                                        statusRadioPref: Int,
+                                        orderPref: Int): ArrayList<MainDataMinimal> {
+        return withContext(Dispatchers.IO) {
+            
+            val preferenceManager = PreferenceManager(context)
+            
+            val installedFrom =
+                when(filterPref) {
+                    R.id.menu_play_apps -> "googlePlay"
+                    R.id.menu_other_apps -> "other"
+                    else -> ""
+                }
+            
+            val (dgScoreFrom, dgScoreTo) =
+                if (statusRadioPref == R.id.radio_dg_status) {
+                    getScoreRange(preferenceManager, DG_STATUS_SORT)
+                }
+                else {
+                    Pair(-1.0f, -1.0f)
+                }
+            
+            val (mgScoreFrom, mgScoreTo) =
+                if (statusRadioPref == R.id.radio_mg_status) {
+                    getScoreRange(preferenceManager, MG_STATUS_SORT)
+                }
+                else {
+                    Pair(-1.0f, -1.0f)
+                }
+            
+            val isAsc = orderPref != R.id.sort_z_a
+            
+            mainDataDao.getSortedFavApps(installedFrom, dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
+                .map { mapToMinimalData(it) }
+                    as ArrayList<MainDataMinimal>
         }
     }
     
@@ -133,14 +165,6 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             R.id.sort_silver -> Pair(3.0f, 3.9f)
             R.id.sort_gold -> Pair(4.0f, 4.0f)
             else -> Pair(-1.0f, -1.0f)
-        }
-    }
-    
-    suspend fun miniFavoritesListFromDB(): ArrayList<MainDataMinimal> {
-        return withContext(Dispatchers.IO) {
-            mainDataDao.getFavApps().map {
-                mapToMinimalData(it)
-            } as ArrayList<MainDataMinimal>
         }
     }
     

@@ -122,7 +122,7 @@ class InstalledAppsFragment :
     // On click
     override fun onItemClick(position: Int) {
         val installedApp = installedAppsList[position]
-        startDetailsActivity(mainActivity, installedApp.packageName, "installed")
+        startDetailsActivity(mainActivity, installedApp.packageName)
     }
     
     override fun onDestroyView() {

@@ -37,6 +37,8 @@
     <string name="jackson">Jackson</string>
     <string name="fastscroll">AndroidFastScroll</string>
     <string name="md_icons">MaterialDesignIcons</string>
+    <string name="fdroid_icon">F-Droid icon</string>
+    <string name="microG_icon">microG icon</string>
 
     <string name="copyright_techlore">Copyright © 2022-present Techlore</string>
     <string name="copyright_square">Copyright © 2013 Square, Inc.</string>

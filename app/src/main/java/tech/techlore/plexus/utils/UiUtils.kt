@@ -20,35 +20,39 @@
 package tech.techlore.plexus.utils
 
 import android.content.Context
+import android.view.View
 import android.widget.TextView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavController
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import tech.techlore.plexus.R
 
 class UiUtils {
-
+    
     companion object {
-
+        
         // Horizontally scroll text,
         // if text is too long
         fun hScrollText(textView: TextView) {
             textView.setSingleLine()
             textView.isSelected = true
         }
-    
+        
         fun refreshFragment(navController: NavController) {
             val currentFragment = navController.currentDestination!!
             val action =
                 when(currentFragment.id) {
                     R.id.plexusDataFragment -> R.id.action_plexusDataFragment_self
-                
+                    
                     R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
-                
+                    
                     else -> R.id.action_favoritesFragment_self
                 }
-        
+            
             navController.navigate(action)
         }
-    
+        
         fun mapScoreToStatusString(context: Context, score: Float): String {
             return when(score) {
                 0.0f -> context.getString(R.string.not_tested_title)
@@ -68,7 +72,7 @@ class UiUtils {
                 else -> context.resources.getColor(R.color.color_gold_status, context.theme)
             }
         }
-    
+        
         fun mapStatusChipToRatingScore(statusChipId: Int): Int {
             return when (statusChipId) {
                 R.id.user_ratings_sort_not_tested -> 0
@@ -77,6 +81,12 @@ class UiUtils {
                 R.id.user_ratings_sort_silver, R.id.submit_silver -> 3
                 else -> 4
             }
+        }
+        
+        fun showSnackbar(coordinatorLayout: CoordinatorLayout, errorMessage: String, anchorView: View?) {
+            Snackbar.make(coordinatorLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT)
+                .setAnchorView(anchorView) // Above FAB, bottom bar etc.
+                .show()
         }
         
     }

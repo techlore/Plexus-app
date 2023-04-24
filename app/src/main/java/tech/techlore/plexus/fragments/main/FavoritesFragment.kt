@@ -38,7 +38,7 @@ import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.utils.IntentUtils
+import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import kotlin.coroutines.CoroutineContext
 
 class FavoritesFragment:
@@ -52,8 +52,7 @@ class FavoritesFragment:
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var mainFavList: ArrayList<MainDataMinimal>
-    private lateinit var favFinalList: ArrayList<MainDataMinimal>
+    private lateinit var favList: ArrayList<MainDataMinimal>
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -68,78 +67,28 @@ class FavoritesFragment:
         
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        var favTempList: ArrayList<MainDataMinimal> = ArrayList()
-        favFinalList = ArrayList()
-        val playStoreInstallers: List<String?> = ArrayList(listOf("com.android.vending", "com.aurora.store"))
-        val repository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        val miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
         runBlocking {
             launch {
-                mainFavList = repository.miniFavoritesListFromDB()
+                favList =
+                    miniRepository.miniFavoritesListFromDB(context = requireContext(),
+                                                           filterPref = preferenceManager.getInt(PreferenceManager.FILTER),
+                                                           statusRadioPref = preferenceManager.getInt(PreferenceManager.STATUS_RADIO),
+                                                           orderPref = preferenceManager.getInt(PreferenceManager.A_Z_SORT))
             }
         }
-        val favItemAdapter = FavoriteItemAdapter(favFinalList,
-                                                 this,
-                                                 coroutineScope)
         
         /*########################################################################################*/
         
         fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
         
-        // Filter based on installers (play store, aurora etc.)
-        if (preferenceManager.getInt(PreferenceManager.FILTER) == 0
-            || preferenceManager.getInt(PreferenceManager.FILTER) == R.id.menu_all_apps) {
-            favTempList = mainFavList
-        }
-        else if (preferenceManager.getInt(PreferenceManager.FILTER) == R.id.menu_play_apps) {
-            for (installedApp in mainFavList) {
-                if (playStoreInstallers.contains(installedApp.installedFrom)) {
-                    favTempList.add(installedApp)
-                }
-            }
-        }
-        else {
-            for (installedApp in mainFavList) {
-                if (! playStoreInstallers.contains(installedApp.installedFrom)) {
-                    favTempList.add(installedApp)
-                }
-            }
-        }
-        
-        // Status sort
-        for (installedApp in favTempList) {
-            if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == 0
-                || preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == R.id.radio_any_status) {
-                favFinalList.add(installedApp)
-            }
-            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == R.id.radio_dg_status) {
-                /*installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.DG_STATUS_SORT_PREF),
-                                        installedApp,
-                                        installedApp.dgRating,
-                                        installedAppsFinalList)*/
-            }
-            else if (preferenceManager.getInt(PreferenceManager.STATUS_RADIO) == R.id.radio_mg_status) {
-                /*installedAppsStatusSort(preferenceManager.getInt(PreferenceManager.MG_STATUS_SORT_PREF),
-                                        installedApp,
-                                        installedApp.mgRating,
-                                        installedAppsFinalList)*/
-            }
-        }
-        
-        // Alphabetical sort
-        if (preferenceManager.getInt(PreferenceManager.A_Z_SORT) == 0
-            || preferenceManager.getInt(PreferenceManager.A_Z_SORT) == R.id.sort_a_z) {
-            favFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
-                ai1.name.compareTo(ai2.name) } // A-Z
-        }
-        else {
-            favFinalList.sortWith { ai1: MainDataMinimal, ai2: MainDataMinimal ->
-                ai2.name.compareTo(ai1.name) } // Z-A
-        }
-        
-        if (favFinalList.size == 0) {
+        if (favList.size == 0) {
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
+            val favItemAdapter = FavoriteItemAdapter(favList,
+                                                     this,
+                                                     coroutineScope)
             fragmentBinding.recyclerView.adapter = favItemAdapter
             FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
         }
@@ -148,23 +97,12 @@ class FavoritesFragment:
         fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(
             R.color.color_background, requireContext().theme))
         fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
-        /*fragmentBinding.swipeRefreshLayout.setOnRefreshListener {
-            launch {
-                val db = DbUtils.getDatabase(requireContext())
-                val plexusDataDao = db.mainDataDao()
-                mainActivity.installedList.clear()
-                DbUtils.installedAppsIntoDB(requireContext(), plexusDataDao)
-                mainActivity.installedList = DbUtils.installedAppsListFromDB(plexusDataDao)
-                fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                IntentUtils.refreshFragment(mainActivity.navController)
-            }
-        }*/
     }
     
     // On click
     override fun onItemClick(position: Int) {
-        val fav = favFinalList[position]
-        IntentUtils.startDetailsActivity(mainActivity, fav.packageName, "installed")
+        val fav = favList[position]
+        startDetailsActivity(mainActivity, fav.packageName)
     }
     
     override fun onDestroyView() {

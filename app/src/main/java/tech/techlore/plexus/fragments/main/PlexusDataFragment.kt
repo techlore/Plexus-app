@@ -110,7 +110,7 @@ class PlexusDataFragment :
     // On click
     override fun onItemClick(position: Int) {
         val plexusData = plexusDataList[position]
-        startDetailsActivity(mainActivity, plexusData.packageName, "plexus")
+        startDetailsActivity(mainActivity, plexusData.packageName)
     }
     
     private fun refreshData() {

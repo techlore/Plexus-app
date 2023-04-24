@@ -29,19 +29,17 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
+import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
 class IntentUtils {
     
     companion object {
     
         // App details activity
-        fun startDetailsActivity(activityFrom: Activity, packageName: String, fromFragment: String) {
+        fun startDetailsActivity(activityFrom: Activity, packageName: String) {
     
             activityFrom.startActivity(Intent(activityFrom, AppDetailsActivity::class.java)
-                                           .putExtra("packageName", packageName)
-                                           .putExtra("fromFrag", fromFragment))
-            
-            //activityFrom.overridePendingTransition(R.anim.fade_scale_in, R.anim.no_movement)
+                                           .putExtra("packageName", packageName))
         }
     
         // Open links
@@ -50,11 +48,7 @@ class IntentUtils {
                 activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL)))
             } // If no browser installed, show snackbar
             catch (e: ActivityNotFoundException) {
-                Snackbar.make(coordinatorLayout,
-                              R.string.no_browsers,
-                              BaseTransientBottomBar.LENGTH_SHORT)
-                    .setAnchorView(anchorView) // Above FAB, bottom bar etc.
-                    .show()
+                showSnackbar(coordinatorLayout, activity.getString(R.string.no_browsers), anchorView)
             }
         }
     

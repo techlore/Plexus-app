@@ -229,7 +229,8 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_activity_main, menu)
     
-        if (preferenceManager.getInt(SEL_ITEM) == R.id.nav_installed_apps) {
+        if (preferenceManager.getInt(SEL_ITEM) == R.id.nav_installed_apps
+            || preferenceManager.getInt(SEL_ITEM) == R.id.nav_fav) {
             menu.findItem(R.id.menu_filter).isVisible = true
             if (preferenceManager.getInt(FILTER) == 0) {
                 preferenceManager.setInt(FILTER, R.id.menu_all_apps)

@@ -68,7 +68,7 @@
 
     <!--User ratings fragment-->
     <string name="notes">Notes</string>
-    <string name="no_ratings_found">No ratings available</string>
+    <string name="no_ratings_available">No ratings available</string>
 
     <!--Help fragment-->
     <string name="what_status_mean">What do the status mean?</string>
@@ -85,7 +85,7 @@
     <!--#########################################################################################-->
 
     <!--Submit activity-->
-    <string name="optional">(optional)</string>
+    <string name="optional">optional</string>
     <string name="submit">Submit</string>
 
     <!--#########################################################################################-->

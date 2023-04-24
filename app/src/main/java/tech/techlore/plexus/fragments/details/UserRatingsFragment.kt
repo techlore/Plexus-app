@@ -88,7 +88,7 @@ class UserRatingsFragment : Fragment() {
             fragmentBinding.emptyRatingsListViewStub.inflate()
             val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
             emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
-            emptyListView.text = requireContext().getString(R.string.no_ratings_found)
+            emptyListView.text = requireContext().getString(R.string.no_ratings_available)
         }
         else {
             val userRatingsItemAdapter = UserRatingsItemAdapter(sortedRatingsList)

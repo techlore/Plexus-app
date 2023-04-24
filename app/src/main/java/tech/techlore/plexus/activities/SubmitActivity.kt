@@ -25,8 +25,6 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -39,6 +37,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
 import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
+import tech.techlore.plexus.models.get.main.MainData
 import tech.techlore.plexus.models.post.PostApp
 import tech.techlore.plexus.models.post.PostAppRoot
 import tech.techlore.plexus.models.post.PostRating
@@ -48,6 +47,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MI
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
+import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.coroutines.CoroutineContext
 
 class SubmitActivity : AppCompatActivity(), CoroutineScope {
@@ -55,16 +55,17 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var activityBinding: ActivitySubmitBinding
-    private var wait = 0
+    private lateinit var currentApp: MainData
     private lateinit var nameString: String
     private lateinit var packageNameString: String
     private lateinit var installedVersion: String
     private var installedVersionBuild = 0
     private var isInPlexusData = true
     private var isMicrog = false
+    private var appCreated = false
     private val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
     // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
-    // while still allowing real words like notification, committee etc.
+    // while still allowing real words like coffee, committee etc.
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +91,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         activityBinding.dgMgText.text = if (isMicrog) getString(R.string.microG) else getString(R.string.de_Googled)
         
         // Notes
-        activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} ${getString(R.string.optional)}"
+        activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
         activityBinding.submitNotesText.addTextChangedListener(object : TextWatcher {
             
             var delayTimer: CountDownTimer? = null
@@ -111,7 +112,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                     
                     // On timer finish, perform task
                     override fun onFinish() {
-                        wait = 0
                         val text = activityBinding.submitNotesText.text.toString()
                         
                         activityBinding.submitFab.isEnabled =
@@ -128,14 +128,15 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         })
         
         // FAB
-        activityBinding.submitFab.setOnClickListener { submitData() }
+        activityBinding.submitFab.setOnClickListener {
+            activityBinding.submitFab.isEnabled = false
+            submitData()
+        }
     }
     
     private fun submitData() {
         
         launch {
-            activityBinding.submitFab.isEnabled = false
-            
             if (hasNetwork(this@SubmitActivity) && hasInternet()) {
                 
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
@@ -153,7 +154,15 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                     val app = PostApp(name = nameString, packageName = packageNameString)
                     val postAppRoot = PostAppRoot(app)
                     val postAppCall = apiRepository.postApp(postAppRoot)
-                    postApp(postAppCall, postRatingCall)
+                    postApp(postAppCall)
+                    if (appCreated) {
+                        isInPlexusData = true
+                        val mainRepository = (applicationContext as ApplicationManager).mainRepository
+                        currentApp = mainRepository.getAppByPackage(packageNameString)!!
+                        currentApp.isInPlexusData = true
+                        mainRepository.update(currentApp)
+                        postRating(postRatingCall)
+                    }
                 }
                 else {
                     postRating(postRatingCall)
@@ -170,22 +179,26 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         }
     }
     
-    private fun postApp(postAppCall: Call<ResponseBody>, postRatingCall: Call<ResponseBody>) {
+    private fun postApp(postAppCall: Call<ResponseBody>) {
         postAppCall.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful || response.code() == 422) {
                     // Request was successful or app already exists
-                    postRating(postRatingCall)
+                    appCreated = true
                 }
                 else {
                     // Request failed
-                    showSnackbar("${getString(R.string.submit_error)}: ${response.code()}")
+                    showSnackbar(activityBinding.submitCoordinatorLayout,
+                                 "${getString(R.string.submit_error)}: ${response.code()}",
+                                 activityBinding.submitBottomAppBar)
                 }
             }
             
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 // Request failed due to network issues
-                showSnackbar(getString(R.string.submit_failure))
+                showSnackbar(activityBinding.submitCoordinatorLayout,
+                             getString(R.string.submit_failure),
+                             activityBinding.submitBottomAppBar)
             }
         })
     }
@@ -195,27 +208,25 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     // Request was successful
-                    showSnackbar(getString(R.string.submit_success))
+                    showSnackbar(activityBinding.submitCoordinatorLayout,
+                                 getString(R.string.submit_success),
+                                 activityBinding.submitBottomAppBar)
                 }
                 else {
                     // Request failed
-                    showSnackbar("${getString(R.string.submit_error)}: ${response.code()}")
+                    showSnackbar(activityBinding.submitCoordinatorLayout,
+                                 "${getString(R.string.submit_error)}: ${response.code()}",
+                                 activityBinding.submitBottomAppBar)
                 }
             }
             
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 // Request failed due to network issues
-                showSnackbar(getString(R.string.submit_failure))
+                showSnackbar(activityBinding.submitCoordinatorLayout,
+                             getString(R.string.submit_failure),
+                             activityBinding.submitBottomAppBar)
             }
         })
-    }
-    
-    private fun showSnackbar(errorMessage: String) {
-        Snackbar.make(activityBinding.submitCoordinatorLayout,
-                      errorMessage,
-                      BaseTransientBottomBar.LENGTH_SHORT)
-            .setAnchorView(activityBinding.submitBottomAppBar) // Above FAB, bottom bar etc.
-            .show()
     }
     
     // Set transition when finishing activity
