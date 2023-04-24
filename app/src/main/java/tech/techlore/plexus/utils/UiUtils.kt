@@ -77,7 +77,6 @@ class UiUtils {
         
         fun mapStatusChipToRatingScore(statusChipId: Int): Int {
             return when (statusChipId) {
-                R.id.user_ratings_sort_not_tested -> 0
                 R.id.user_ratings_sort_broken, R.id.submit_broken -> 1
                 R.id.user_ratings_sort_bronze, R.id.submit_bronze -> 2
                 R.id.user_ratings_sort_silver, R.id.submit_silver -> 3

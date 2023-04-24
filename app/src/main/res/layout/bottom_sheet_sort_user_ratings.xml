@@ -127,10 +127,11 @@
         android:visibility="gone">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/user_ratings_sort_not_tested"
+            android:id="@+id/user_ratings_sort_any"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:text="@string/any"
             style="@style/NotTestedFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip

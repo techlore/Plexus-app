@@ -67,15 +67,17 @@ class UserRatingsFragment : Fragment() {
                 sortedRatingsList.filter { ratings ->
                     ratings.googleLib == googleLib
                 } as ArrayList<Rating>
-            
-            if (detailsActivity.dgStatusSort != 0) {
+    
+            if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status
+                && detailsActivity.dgStatusSort != R.id.user_ratings_sort_any) {
                 dgScore = mapStatusChipToRatingScore(detailsActivity.dgStatusSort)
                 sortedRatingsList =
                     sortedRatingsList.filter { ratings ->
                         ratings.ratingScore!!.ratingScore == dgScore
                     } as ArrayList<Rating>
             }
-            else if (detailsActivity.mgStatusSort != 0) {
+            else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status
+                     && detailsActivity.mgStatusSort != R.id.user_ratings_sort_any) {
                 mgScore = mapStatusChipToRatingScore(detailsActivity.mgStatusSort)
                 sortedRatingsList =
                     sortedRatingsList.filter { ratings ->
