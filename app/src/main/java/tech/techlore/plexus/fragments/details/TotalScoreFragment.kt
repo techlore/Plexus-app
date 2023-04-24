@@ -87,11 +87,11 @@ class TotalScoreFragment : Fragment() {
         val mgBronzeRatingsPercent = calcPercent(mgBronzeRatingsCount, totalMgRatings)
         val mgBrokenRatingsPercent = calcPercent(mgBrokenRatingsCount, totalMgRatings)
         
-        fragmentBinding.dgAvgScore.text = "${detailsActivity.app.dgScore.dgScore}/4"
+        fragmentBinding.dgAvgScore.text = "${removeZeroDecimalFromScore(detailsActivity.app.dgScore.dgScore)}/4"
         fragmentBinding.dgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalDgRatings"
         setDgProgressAndPercent(dgGoldRatingsPercent, dgSilverRatingsPercent, dgBronzeRatingsPercent, dgBrokenRatingsPercent)
         
-        fragmentBinding.mgAvgScore.text = "${detailsActivity.app.mgScore.mgScore}/4"
+        fragmentBinding.mgAvgScore.text = "${removeZeroDecimalFromScore(detailsActivity.app.mgScore.mgScore)}/4"
         fragmentBinding.mgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalMgRatings"
         setMgProgressAndPercent(mgGoldRatingsPercent, mgSilverRatingsPercent, mgBronzeRatingsPercent, mgBrokenRatingsPercent)
     }
@@ -104,6 +104,10 @@ class TotalScoreFragment : Fragment() {
             "broken" -> "bronze"
             else -> error("Invalid rating range")
         }
+    }
+    
+    private fun removeZeroDecimalFromScore(avgScore: Float): String {
+        return avgScore.toString().removeSuffix(".0")
     }
     
     private fun calcPercent(ratingsCount: Int, totalRatings: Int): Float {
@@ -120,13 +124,13 @@ class TotalScoreFragment : Fragment() {
                                         dgBronzeRatingsPercent: Float,
                                         dgBrokenRatingsPercent: Float) {
         fragmentBinding.dgGoldProgress.progress = dgGoldRatingsPercent.toInt()
-        fragmentBinding.dgGoldPercent.text = "${dgGoldRatingsPercent}%"
+        fragmentBinding.dgGoldPercent.text = "${removeZeroDecimalFromScore(dgGoldRatingsPercent)}%"
         fragmentBinding.dgSilverProgress.progress = dgSilverRatingsPercent.toInt()
-        fragmentBinding.dgSilverPercent.text = "${dgSilverRatingsPercent}%"
+        fragmentBinding.dgSilverPercent.text = "${removeZeroDecimalFromScore(dgSilverRatingsPercent)}%"
         fragmentBinding.dgBronzeProgress.progress = dgBronzeRatingsPercent.toInt()
-        fragmentBinding.dgBronzePercent.text = "${dgBronzeRatingsPercent}%"
+        fragmentBinding.dgBronzePercent.text = "${removeZeroDecimalFromScore(dgBronzeRatingsPercent)}%"
         fragmentBinding.dgBrokenProgress.progress = dgBrokenRatingsPercent.toInt()
-        fragmentBinding.dgBrokenPercent.text = "${dgBrokenRatingsPercent}%"
+        fragmentBinding.dgBrokenPercent.text = "${removeZeroDecimalFromScore(dgBrokenRatingsPercent)}%"
     }
     
     @SuppressLint("SetTextI18n")
@@ -135,13 +139,13 @@ class TotalScoreFragment : Fragment() {
                                         mgBronzeRatingsPercent: Float,
                                         mgBrokenRatingsPercent: Float) {
         fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()
-        fragmentBinding.mgGoldPercent.text = "${mgGoldRatingsPercent}%"
+        fragmentBinding.mgGoldPercent.text = "${removeZeroDecimalFromScore(mgGoldRatingsPercent)}%"
         fragmentBinding.mgSilverProgress.progress = mgSilverRatingsPercent.toInt()
-        fragmentBinding.mgSilverPercent.text = "${mgSilverRatingsPercent}%"
+        fragmentBinding.mgSilverPercent.text = "${removeZeroDecimalFromScore(mgSilverRatingsPercent)}%"
         fragmentBinding.mgBronzeProgress.progress = mgBronzeRatingsPercent.toInt()
-        fragmentBinding.mgBronzePercent.text = "${mgBronzeRatingsPercent}%"
+        fragmentBinding.mgBronzePercent.text = "${removeZeroDecimalFromScore(mgBronzeRatingsPercent)}%"
         fragmentBinding.mgBrokenProgress.progress = mgBrokenRatingsPercent.toInt()
-        fragmentBinding.mgBrokenPercent.text = "${mgBrokenRatingsPercent}%"
+        fragmentBinding.mgBrokenPercent.text = "${removeZeroDecimalFromScore(mgBrokenRatingsPercent)}%"
     }
     
     override fun onDestroyView() {

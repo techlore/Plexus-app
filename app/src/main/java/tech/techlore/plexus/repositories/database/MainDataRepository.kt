@@ -48,10 +48,14 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                         
                         if (dgScoreResponse.isSuccessful) {
                             dgScoreResponse.body()?.let { dgScoreRoot ->
+                                // Convert 2 decimal places to 1
+                                // without rounding off
+                                val scoreString = dgScoreRoot.dgScoreData.dgScore.toString()
+                                val truncatedScore = scoreString.substring(0, scoreString.indexOf(".") + 2).toFloat()
                                 mainData.dgScore = DgScore(dgScoreRoot.dgScoreData.dgPkgName,
                                                            dgScoreRoot.dgScoreData.dgDenominator,
                                                            dgScoreRoot.dgScoreData.dgGoogleLib,
-                                                           dgScoreRoot.dgScoreData.dgScore,
+                                                           truncatedScore,
                                                            dgScoreRoot.dgScoreData.totalDgRatings)
                             }
                         }
@@ -62,10 +66,14 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                         
                         if (mgScoreResponse.isSuccessful) {
                             mgScoreResponse.body()?.let { mgScoreRoot ->
+                                // Convert 2 decimal places to 1
+                                // without rounding off
+                                val scoreString = mgScoreRoot.mgScoreData.mgScore.toString()
+                                val truncatedScore = scoreString.substring(0, scoreString.indexOf(".") + 2).toFloat()
                                 mainData.mgScore = MgScore(mgScoreRoot.mgScoreData.mgPkgName,
                                                            mgScoreRoot.mgScoreData.mgDenominator,
                                                            mgScoreRoot.mgScoreData.mgGoogleLib,
-                                                           mgScoreRoot.mgScoreData.mgScore,
+                                                           truncatedScore,
                                                            mgScoreRoot.mgScoreData.totalMgRatings)
                             }
                         }
