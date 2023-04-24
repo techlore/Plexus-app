@@ -69,12 +69,21 @@ class LicensesFragment : Fragment() {
             add(License(getString(R.string.fastscroll),
                         getString(R.string.apache_2_0_license),
                         "https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE"))
-    
             
             // Material Design Icons
             add(License(getString(R.string.md_icons),
                         getString(R.string.apache_2_0_license),
                         "https://github.com/Templarian/MaterialDesign/blob/master/LICENSE"))
+    
+            // F-Droid icon
+            add(License(getString(R.string.fdroid_icon),
+                        getString(R.string.cc_3_0_license),
+                        "https://f-droid.org/en/about/"))
+    
+            // microG icon
+            add(License(getString(R.string.microG_icon),
+                        getString(R.string.apache_2_0_license),
+                        "https://microg.org/"))
         }
         
         licenseAdapter = LicenseItemAdapter(licenseList)

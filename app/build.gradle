@@ -76,7 +76,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     // Jackson kotlin module
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0'
 
     // Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

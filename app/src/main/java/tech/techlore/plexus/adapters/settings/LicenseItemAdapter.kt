@@ -38,10 +38,6 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>) : Recyc
         
     }
     
-    init {
-        setHasStableIds(true)
-    }
-    
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): LicenseItemAdapter.ListViewHolder {
         return ListViewHolder(
@@ -66,6 +62,6 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>) : Recyc
     }
     
     override fun getItemCount(): Int {
-        return aListViewItems.size-1 // First item was being shown again as the last item, hence size-1
+        return aListViewItems.size
     }
 }
