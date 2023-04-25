@@ -79,7 +79,8 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     }
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        
+    
+        holder.fav.setOnCheckedChangeListener(null)
         val favorite = aListViewItems[position]
         val context = holder.itemView.context
     
@@ -119,11 +120,14 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             coroutineScope.launch {
                 (context.applicationContext as ApplicationManager).miniRepository.updateFav(favorite)
             }
-            coroutineScope.launch(Dispatchers.Main) {
-                val currentPosition = holder.bindingAdapterPosition
-                aListViewItems.removeAt(currentPosition)
-                notifyItemRemoved(currentPosition)
-                notifyItemRangeChanged(currentPosition, aListViewItems.size - currentPosition)
+            
+            val currentPosition = holder.bindingAdapterPosition
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                coroutineScope.launch(Dispatchers.Main) {
+                    aListViewItems.removeAt(currentPosition)
+                    notifyItemRemoved(currentPosition)
+                    notifyItemRangeChanged(currentPosition, aListViewItems.size - currentPosition)
+                }
             }
         }
         
