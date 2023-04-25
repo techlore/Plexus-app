@@ -24,12 +24,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import tech.techlore.plexus.dao.MainDataDao
+import tech.techlore.plexus.dao.MyRatingsDao
 import tech.techlore.plexus.models.get.main.MainData
+import tech.techlore.plexus.models.myratings.MyRating
 
-@Database(entities = [MainData::class], version = 1, exportSchema = false)
+@Database(entities = [MainData::class, MyRating::class], version = 1, exportSchema = false)
 abstract class MainDatabase : RoomDatabase() {
     
     abstract fun mainDataDao(): MainDataDao
+    abstract fun myRatingsDao(): MyRatingsDao
     
     companion object {
         

@@ -34,17 +34,18 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
+import tech.techlore.plexus.repositories.database.MyRatingsRepository
 
 class ApplicationManager : Application() {
     
     // Using by lazy so database and repositories are only created when they're needed
-    // rather than when the application starts
     private val apiService by lazy { apiBuilder() }
     private val database by lazy { getDatabase(this) }
     
     val apiRepository by lazy { ApiRepository(apiService) }
     val mainRepository by lazy { MainDataRepository(database.mainDataDao()) }
     val miniRepository by lazy { MainDataMinimalRepository(applicationContext, database.mainDataDao()) }
+    val myRatingsRepository by lazy { MyRatingsRepository(database.myRatingsDao()) }
     
     
     override fun onCreate() {

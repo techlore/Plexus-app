@@ -29,15 +29,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
 import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.models.get.main.MainData
+import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.models.post.PostApp
 import tech.techlore.plexus.models.post.PostAppRoot
 import tech.techlore.plexus.models.post.PostRating
@@ -61,8 +62,10 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var installedVersion: String
     private var installedVersionBuild = 0
     private var isInPlexusData = true
-    private var isMicrog = false
+    private var isMicroG = false
     private var appCreated = false
+    private var ratingCreated = false
+    private var postedRatingId: String? = null
     private val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
     // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
     // while still allowing real words like coffee, committee etc.
@@ -77,7 +80,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         installedVersion = intent.getStringExtra("installedVersion")!!
         installedVersionBuild = intent.getIntExtra("installedVersionBuild", 0)
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
-        isMicrog = PreferenceManager(this).getBoolean(DEVICE_IS_MICROG)
+        isMicroG = PreferenceManager(this).getBoolean(DEVICE_IS_MICROG)
         
         /*########################################################################################*/
         
@@ -88,7 +91,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         activityBinding.submitPackageName.text = packageNameString
         @SuppressLint("SetTextI18n")
         activityBinding.submitInstalledVersion.text = "${getString(R.string.installed)}: ${installedVersion.ifEmpty { getString(R.string.not_tested_title) }}"
-        activityBinding.dgMgText.text = if (isMicrog) getString(R.string.microG) else getString(R.string.de_Googled)
+        activityBinding.dgMgText.text = if (isMicroG) getString(R.string.microG) else getString(R.string.de_Googled)
         
         // Notes
         activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
@@ -143,7 +146,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 
                 val rating = PostRating(version = installedVersion,
                                         buildNumber = installedVersionBuild,
-                                        googleLib = if (isMicrog) "micro_g" else "none",
+                                        googleLib = if (isMicroG) "micro_g" else "none",
                                         score = mapStatusChipToRatingScore(activityBinding.submitStatusChipGroup.checkedChipId),
                                         notes= activityBinding.submitNotesText.text.toString())
                 
@@ -167,6 +170,13 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 else {
                     postRating(postRatingCall)
                 }
+                
+                if (ratingCreated && !postedRatingId.isNullOrBlank()) {
+                    updateRatingInDb(rating)
+                    showSnackbar(activityBinding.submitCoordinatorLayout,
+                                 getString(R.string.submit_success),
+                                 activityBinding.submitBottomAppBar)
+                }
             }
             else {
                 NoNetworkDialog(negativeButtonText = getString(R.string.exit),
@@ -174,59 +184,57 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                                 negativeButtonClickListener = {})
                     .show(supportFragmentManager, "NoNetworkDialog")
             }
-            
+        }
+    }
+    
+    private suspend fun postApp(postAppCall: Call<ResponseBody>) {
+        val response = withContext(Dispatchers.IO) {
+            postAppCall.execute()
+        }
+        if (response.isSuccessful || response.code() == 422) {
+            // Request was successful or app already exists
+            appCreated = true
+        }
+        else {
+            // Request failed
+            showSnackbar(activityBinding.submitCoordinatorLayout,
+                         "${getString(R.string.submit_error)}: ${response.code()}",
+                         activityBinding.submitBottomAppBar)
             activityBinding.submitFab.isEnabled = true
         }
     }
     
-    private fun postApp(postAppCall: Call<ResponseBody>) {
-        postAppCall.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful || response.code() == 422) {
-                    // Request was successful or app already exists
-                    appCreated = true
-                }
-                else {
-                    // Request failed
-                    showSnackbar(activityBinding.submitCoordinatorLayout,
-                                 "${getString(R.string.submit_error)}: ${response.code()}",
-                                 activityBinding.submitBottomAppBar)
-                }
-            }
-            
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                // Request failed due to network issues
-                showSnackbar(activityBinding.submitCoordinatorLayout,
-                             getString(R.string.submit_failure),
-                             activityBinding.submitBottomAppBar)
-            }
-        })
+    private suspend fun postRating(postRatingCall: Call<ResponseBody>) {
+        val response = withContext(Dispatchers.IO) {
+            postRatingCall.execute()
+        }
+        if (response.isSuccessful) {
+            // Request was successful
+            ratingCreated = true
+            val responseBody = response.body()!!.string()
+            val jsonObject = JSONObject(responseBody)
+            val dataObject = jsonObject.getJSONObject("data")
+            postedRatingId = dataObject.getString("id")
+        }
+        else {
+            // Request failed
+            showSnackbar(activityBinding.submitCoordinatorLayout,
+                         "${getString(R.string.submit_error)}: ${response.code()}",
+                         activityBinding.submitBottomAppBar)
+            activityBinding.submitFab.isEnabled = true
+        }
     }
     
-    private fun postRating(postRatingCall: Call<ResponseBody>) {
-        postRatingCall.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    // Request was successful
-                    showSnackbar(activityBinding.submitCoordinatorLayout,
-                                 getString(R.string.submit_success),
-                                 activityBinding.submitBottomAppBar)
-                }
-                else {
-                    // Request failed
-                    showSnackbar(activityBinding.submitCoordinatorLayout,
-                                 "${getString(R.string.submit_error)}: ${response.code()}",
-                                 activityBinding.submitBottomAppBar)
-                }
-            }
-            
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                // Request failed due to network issues
-                showSnackbar(activityBinding.submitCoordinatorLayout,
-                             getString(R.string.submit_failure),
-                             activityBinding.submitBottomAppBar)
-            }
-        })
+    private suspend fun updateRatingInDb(rating: PostRating) {
+        val myRatingsRepository = (applicationContext as ApplicationManager).myRatingsRepository
+        val myRating = MyRating(id = postedRatingId!!,
+                                packageName = packageNameString,
+                                version = rating.version,
+                                buildNumber = rating.buildNumber,
+                                googleLib = rating.googleLib,
+                                ratingScore = rating.score,
+                                notes = rating.notes)
+        myRatingsRepository.insertOrUpdateMyRatings(myRating)
     }
     
     // Set transition when finishing activity

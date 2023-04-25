@@ -33,14 +33,15 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
+import tech.techlore.plexus.adapters.main.MyRatingItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
-import tech.techlore.plexus.utils.IntentUtils
+import tech.techlore.plexus.repositories.database.MyRatingsRepository
+import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils
 import kotlin.coroutines.CoroutineContext
 
@@ -50,15 +51,14 @@ class MyRatingsFragment :
     CoroutineScope {
     
     private val job = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var plexusDataItemAdapter: MainDataItemAdapter
-    private lateinit var plexusDataList: ArrayList<MainDataMinimal>
+    private lateinit var myRatingItemAdapter: MyRatingItemAdapter
+    private lateinit var myRatingsList: ArrayList<MyRating>
     private lateinit var preferenceManager: PreferenceManager
-    private lateinit var miniRepository: MainDataMinimalRepository
+    private lateinit var myRatingsRepository: MyRatingsRepository
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -73,15 +73,10 @@ class MyRatingsFragment :
         
         preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
         runBlocking {
             launch {
-                plexusDataList =
-                    miniRepository.miniPlexusDataListFromDB(context = requireContext(),
-                                                            statusRadioPref = preferenceManager.getInt(
-                                                                PreferenceManager.STATUS_RADIO),
-                                                            orderPref = preferenceManager.getInt(
-                                                                PreferenceManager.A_Z_SORT))
+                myRatingsList = myRatingsRepository.getSortedMyRatings()
             }
         }
         
@@ -89,14 +84,12 @@ class MyRatingsFragment :
         
         fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
         
-        if (plexusDataList.size == 0) {
+        if (myRatingsList.size == 0) {
             fragmentBinding.emptyListViewStub.inflate()
         }
         else {
-            plexusDataItemAdapter = MainDataItemAdapter(plexusDataList,
-                                                        this,
-                                                        coroutineScope)
-            fragmentBinding.recyclerView.adapter = plexusDataItemAdapter
+            myRatingItemAdapter = MyRatingItemAdapter(myRatingsList)
+            fragmentBinding.recyclerView.adapter = myRatingItemAdapter
             FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
         }
         
@@ -109,23 +102,15 @@ class MyRatingsFragment :
     
     // On click
     override fun onItemClick(position: Int) {
-        val plexusData = plexusDataList[position]
-        IntentUtils.startDetailsActivity(mainActivity, plexusData.packageName)
+        val myRating = myRatingsList[position]
+        startDetailsActivity(mainActivity, myRating.packageName!!)
     }
     
     private fun refreshData() {
         
         launch {
             if (NetworkUtils.hasNetwork(requireContext()) && NetworkUtils.hasInternet()) {
-                val repository = (requireContext().applicationContext as ApplicationManager).mainRepository
-                repository.plexusDataIntoDB(requireContext())
-                plexusDataItemAdapter
-                    .updateList(miniRepository
-                                    .miniPlexusDataListFromDB(context = requireContext(),
-                                                              statusRadioPref = preferenceManager.getInt(
-                                                                  PreferenceManager.STATUS_RADIO),
-                                                              orderPref = preferenceManager.getInt(
-                                                                  PreferenceManager.A_Z_SORT)))
+                myRatingItemAdapter.updateList(myRatingsRepository.getSortedMyRatings())
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
             }
             else {

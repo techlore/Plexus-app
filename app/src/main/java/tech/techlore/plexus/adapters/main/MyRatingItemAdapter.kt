@@ -17,19 +17,23 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.adapters.details
+package tech.techlore.plexus.adapters.main
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.get.ratings.Rating
+import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
+import tech.techlore.plexus.utils.MyRatingDiffUtil
 
-class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
+class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : RecyclerView.Adapter<MyRatingItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
@@ -41,19 +45,19 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
     }
     
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): UserRatingsItemAdapter.ListViewHolder {
+                                    viewType: Int): MyRatingItemAdapter.ListViewHolder {
         return ListViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_user_ratings_recycler_view, parent, false)
         )
     }
     
-    override fun onBindViewHolder(holder: UserRatingsItemAdapter.ListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyRatingItemAdapter.ListViewHolder, position: Int) {
         
-        val rating = aListViewItems[position]
+        val myRating = aListViewItems[position]
         val context = holder.itemView.context
         
         holder.dgMgText.text =
-            if (rating.googleLib.equals("none")) {
+            if (myRating.googleLib.equals("none")) {
                 context.getString(R.string.de_Googled)
             }
             else {
@@ -61,7 +65,7 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
             }
         
         val (statusString, backgroundTint) =
-            when(rating.ratingScore!!.ratingScore) {
+            when(myRating.ratingScore) {
                 1 -> Pair(context.getString(R.string.broken_title),
                           context.resources.getColor(R.color.color_broken_status, context.theme))
                 2 -> Pair(context.getString(R.string.bronze_title),
@@ -74,10 +78,10 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
         holder.status.text = statusString
         holder.status.backgroundTintList = ColorStateList.valueOf(backgroundTint)
         @SuppressLint("SetTextI18n")
-        holder.version.text = "${context.getString(R.string.version)}: ${rating.version}"
+        holder.version.text = "${context.getString(R.string.version)}: ${myRating.version}"
         
-        if (!rating.note.isNullOrEmpty()) {
-            holder.note.text = rating.note
+        if (!myRating.notes.isNullOrEmpty()) {
+            holder.note.text = myRating.notes
         }
         else {
             holder.note.visibility = View.GONE
@@ -87,5 +91,13 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
     
     override fun getItemCount(): Int {
         return aListViewItems.size
+    }
+    
+    fun updateList(newList: ArrayList<MyRating>){
+        val diffCallback = MyRatingDiffUtil(aListViewItems, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        diffResult.dispatchUpdatesTo(this)
+        aListViewItems.clear()
+        aListViewItems.addAll(newList)
     }
 }

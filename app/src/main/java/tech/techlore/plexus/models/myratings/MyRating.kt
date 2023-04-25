@@ -19,20 +19,15 @@
 
 package tech.techlore.plexus.models.myratings
 
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.TypeConverters
-import com.fasterxml.jackson.annotation.JsonIgnore
+import androidx.room.PrimaryKey
 import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.get.RatingScoreConverter
-import tech.techlore.plexus.models.get.ratings.RatingScore
 
-@Entity(tableName = "my_ratings")
-@TypeConverters(RatingScoreConverter::class)
+@Entity(tableName = "my_ratings_table")
 data class MyRating(
     
-    @JsonProperty("id")
-    var id: String? = null,
+    @PrimaryKey @JsonProperty("id")
+    var id: String,
     
     @JsonProperty("app_package")
     var packageName: String? = null,
@@ -47,10 +42,9 @@ data class MyRating(
     var googleLib: String? = null,
     
     @JsonProperty("score")
-    @Embedded
-    var ratingScore: RatingScore? = null,
+    var ratingScore: Int = 0,
     
     @JsonProperty("notes")
-    var note: String? = null
+    var notes: String? = null
 
 )

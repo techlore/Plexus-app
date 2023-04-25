@@ -50,12 +50,12 @@ interface MainDataDao {
         }
         else {
             existingData.name = mainData.name
-            existingData.packageName = mainData.packageName
             existingData.dgScore.dgScore = mainData.dgScore.dgScore
             existingData.dgScore.totalDgRatings = mainData.dgScore.totalDgRatings
             existingData.mgScore.mgScore = mainData.mgScore.mgScore
             existingData.mgScore.totalMgRatings = mainData.mgScore.totalMgRatings
             existingData.ratingsList = mainData.ratingsList
+            existingData.isInPlexusData = mainData.isInPlexusData
             update(existingData)
         }
     }
