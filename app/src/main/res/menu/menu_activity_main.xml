@@ -27,7 +27,7 @@
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search"
         android:title="@string/menu_search"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/menu_sort"
@@ -39,7 +39,7 @@
         android:id="@+id/menu_filter"
         android:icon="@drawable/ic_filter"
         android:title="@string/menu_filter"
-        app:showAsAction="always">
+        app:showAsAction="never">
 
         <menu>
             <group
@@ -64,5 +64,11 @@
         </menu>
 
     </item>
+
+    <item
+        android:id="@+id/main_menu_help"
+        android:icon="@drawable/ic_help"
+        android:title="@string/menu_help"
+        app:showAsAction="ifRoom"/>
 
 </menu>

@@ -49,6 +49,8 @@ class UiUtils {
                     
                     R.id.favoritesFragment -> R.id.action_favoritesFragment_self
                     
+                    R.id.myRatingsFragment -> R.id.action_myRatingsFragment_self
+                    
                     else -> R.id.action_userRatingsFragment_self
                 }
             

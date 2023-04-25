@@ -27,20 +27,28 @@
     <fragment
         android:id="@+id/totalScoreFragment"
         android:name="tech.techlore.plexus.fragments.details.TotalScoreFragment"
-        android:label="TotalScoreFragment" >
+        android:label="@string/total_score" >
         <action
             android:id="@+id/action_totalScoreFragment_to_userRatingsFragment"
-            app:destination="@id/userRatingsFragment" />
+            app:destination="@id/userRatingsFragment"
+            app:enterAnim="@anim/slide_from_end"
+            app:exitAnim="@anim/slide_to_start"/>
     </fragment>
     <fragment
         android:id="@+id/userRatingsFragment"
         android:name="tech.techlore.plexus.fragments.details.UserRatingsFragment"
-        android:label="UserRatingsFragment" >
+        android:label="@string/user_ratings" >
         <action
             android:id="@+id/action_userRatingsFragment_to_totalScoreFragment"
-            app:destination="@id/totalScoreFragment" />
+            app:destination="@id/totalScoreFragment"
+            app:enterAnim="@anim/slide_from_start"
+            app:exitAnim="@anim/slide_to_end"/>
         <action
             android:id="@+id/action_userRatingsFragment_self"
-            app:destination="@id/userRatingsFragment" />
+            app:destination="@id/userRatingsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
     </fragment>
 </navigation>

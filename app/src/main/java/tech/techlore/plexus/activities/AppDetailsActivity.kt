@@ -185,7 +185,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when(menuItem.itemId) {
             
-            R.id.menu_help -> startActivity(Intent(this@AppDetailsActivity, SettingsActivity::class.java)
+            R.id.details_menu_help -> startActivity(Intent(this@AppDetailsActivity, SettingsActivity::class.java)
                                                 .putExtra("frag", R.id.helpFragment))
             
             R.id.menu_sort_user_ratings -> SortUserRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")

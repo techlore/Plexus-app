@@ -87,11 +87,11 @@ class TotalScoreFragment : Fragment() {
         val mgBronzeRatingsPercent = calcPercent(mgBronzeRatingsCount, totalMgRatings)
         val mgBrokenRatingsPercent = calcPercent(mgBrokenRatingsCount, totalMgRatings)
         
-        fragmentBinding.dgAvgScore.text = "${removeZeroDecimalFromScore(detailsActivity.app.dgScore.dgScore)}/4"
+        fragmentBinding.dgAvgScore.text = "${removeDotZeroFromFloat(detailsActivity.app.dgScore.dgScore)}/4"
         fragmentBinding.dgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalDgRatings"
         setDgProgressAndPercent(dgGoldRatingsPercent, dgSilverRatingsPercent, dgBronzeRatingsPercent, dgBrokenRatingsPercent)
         
-        fragmentBinding.mgAvgScore.text = "${removeZeroDecimalFromScore(detailsActivity.app.mgScore.mgScore)}/4"
+        fragmentBinding.mgAvgScore.text = "${removeDotZeroFromFloat(detailsActivity.app.mgScore.mgScore)}/4"
         fragmentBinding.mgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalMgRatings"
         setMgProgressAndPercent(mgGoldRatingsPercent, mgSilverRatingsPercent, mgBronzeRatingsPercent, mgBrokenRatingsPercent)
     }
@@ -106,7 +106,7 @@ class TotalScoreFragment : Fragment() {
         }
     }
     
-    private fun removeZeroDecimalFromScore(avgScore: Float): String {
+    private fun removeDotZeroFromFloat(avgScore: Float): String {
         return avgScore.toString().removeSuffix(".0")
     }
     
@@ -124,13 +124,13 @@ class TotalScoreFragment : Fragment() {
                                         dgBronzeRatingsPercent: Float,
                                         dgBrokenRatingsPercent: Float) {
         fragmentBinding.dgGoldProgress.progress = dgGoldRatingsPercent.toInt()
-        fragmentBinding.dgGoldPercent.text = "${removeZeroDecimalFromScore(dgGoldRatingsPercent)}%"
+        fragmentBinding.dgGoldPercent.text = "${removeDotZeroFromFloat(dgGoldRatingsPercent)}%"
         fragmentBinding.dgSilverProgress.progress = dgSilverRatingsPercent.toInt()
-        fragmentBinding.dgSilverPercent.text = "${removeZeroDecimalFromScore(dgSilverRatingsPercent)}%"
+        fragmentBinding.dgSilverPercent.text = "${removeDotZeroFromFloat(dgSilverRatingsPercent)}%"
         fragmentBinding.dgBronzeProgress.progress = dgBronzeRatingsPercent.toInt()
-        fragmentBinding.dgBronzePercent.text = "${removeZeroDecimalFromScore(dgBronzeRatingsPercent)}%"
+        fragmentBinding.dgBronzePercent.text = "${removeDotZeroFromFloat(dgBronzeRatingsPercent)}%"
         fragmentBinding.dgBrokenProgress.progress = dgBrokenRatingsPercent.toInt()
-        fragmentBinding.dgBrokenPercent.text = "${removeZeroDecimalFromScore(dgBrokenRatingsPercent)}%"
+        fragmentBinding.dgBrokenPercent.text = "${removeDotZeroFromFloat(dgBrokenRatingsPercent)}%"
     }
     
     @SuppressLint("SetTextI18n")
@@ -139,18 +139,17 @@ class TotalScoreFragment : Fragment() {
                                         mgBronzeRatingsPercent: Float,
                                         mgBrokenRatingsPercent: Float) {
         fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()
-        fragmentBinding.mgGoldPercent.text = "${removeZeroDecimalFromScore(mgGoldRatingsPercent)}%"
+        fragmentBinding.mgGoldPercent.text = "${removeDotZeroFromFloat(mgGoldRatingsPercent)}%"
         fragmentBinding.mgSilverProgress.progress = mgSilverRatingsPercent.toInt()
-        fragmentBinding.mgSilverPercent.text = "${removeZeroDecimalFromScore(mgSilverRatingsPercent)}%"
+        fragmentBinding.mgSilverPercent.text = "${removeDotZeroFromFloat(mgSilverRatingsPercent)}%"
         fragmentBinding.mgBronzeProgress.progress = mgBronzeRatingsPercent.toInt()
-        fragmentBinding.mgBronzePercent.text = "${removeZeroDecimalFromScore(mgBronzeRatingsPercent)}%"
+        fragmentBinding.mgBronzePercent.text = "${removeDotZeroFromFloat(mgBronzeRatingsPercent)}%"
         fragmentBinding.mgBrokenProgress.progress = mgBrokenRatingsPercent.toInt()
-        fragmentBinding.mgBrokenPercent.text = "${removeZeroDecimalFromScore(mgBrokenRatingsPercent)}%"
+        fragmentBinding.mgBrokenPercent.text = "${removeDotZeroFromFloat(mgBrokenRatingsPercent)}%"
     }
     
     override fun onDestroyView() {
         super.onDestroyView()
-        //job.cancel()
         _binding = null
     }
     

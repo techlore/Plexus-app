@@ -49,9 +49,9 @@
                 android:id="@+id/group_contribute">
 
                 <item
-                    android:id="@+id/nav_my_submissions"
-                    android:icon="@drawable/ic_my_submissions"
-                    android:title="@string/my_submissions"/>
+                    android:id="@+id/nav_my_ratings"
+                    android:icon="@drawable/ic_my_ratings"
+                    android:title="@string/my_ratings"/>
 
                 <item
                     android:id="@+id/nav_report_issue"

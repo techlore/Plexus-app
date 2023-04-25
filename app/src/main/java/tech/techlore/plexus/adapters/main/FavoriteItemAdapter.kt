@@ -120,8 +120,10 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
                 (context.applicationContext as ApplicationManager).miniRepository.updateFav(favorite)
             }
             coroutineScope.launch(Dispatchers.Main) {
-                aListViewItems.removeAt(position)
-                notifyItemRemoved(position)
+                val currentPosition = holder.bindingAdapterPosition
+                aListViewItems.removeAt(currentPosition)
+                notifyItemRemoved(currentPosition)
+                notifyItemRangeChanged(currentPosition, aListViewItems.size - currentPosition)
             }
         }
         

@@ -21,12 +21,14 @@ package tech.techlore.plexus.activities
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
@@ -50,7 +52,7 @@ class SearchActivity :
         super.onCreate(savedInstanceState)
         val activityBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-    
+        
         miniRepository = (applicationContext as ApplicationManager).miniRepository
         searchDataList = ArrayList()
         
@@ -60,44 +62,51 @@ class SearchActivity :
         setSupportActionBar(activityBinding.searchToolbarBottom)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         activityBinding.searchToolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
-    
+        
         // Perform search
         activityBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-        
+            
             override fun onQueryTextSubmit(searchString: String): Boolean {
                 return true
             }
-        
+            
             override fun onQueryTextChange(searchString: String): Boolean {
                 if (delayTimer != null) {
                     delayTimer !!.cancel()
                 }
-            
+                
                 // Search with a subtle delay
                 delayTimer = object : CountDownTimer(350, 150) {
-                
+                    
                     override fun onTick(millisUntilFinished: Long) {}
-                
+                    
                     override fun onFinish() {
                         if (searchString.isNotEmpty()) {
-                                runBlocking {
-                                    launch {
-                                        searchDataList =
-                                            miniRepository.searchFromDb(searchString)
+                            coroutineScope.launch {
+                                searchDataList = miniRepository.searchFromDb(searchString)
+                                withContext(Dispatchers.Main) {
+                                    if (searchDataList.isEmpty()) {
+                                        activityBinding.searchRv.adapter = null
+                                        activityBinding.emptySearchView.visibility = View.VISIBLE
+                                    }
+                                    else {
+                                        activityBinding.emptySearchView.visibility = View.GONE
+                                        mainDataItemAdapter = MainDataItemAdapter(searchDataList,
+                                                                                  this@SearchActivity,
+                                                                                  coroutineScope)
+                                        activityBinding.searchRv.adapter = mainDataItemAdapter
+                                        FastScrollerBuilder(activityBinding.searchRv).useMd2Style().build() // Fast scroll
                                     }
                                 }
-                                mainDataItemAdapter = MainDataItemAdapter(searchDataList,
-                                                                          this@SearchActivity,
-                                                                          coroutineScope)
-                                activityBinding.searchRv.adapter = mainDataItemAdapter
-                                FastScrollerBuilder(activityBinding.searchRv).useMd2Style().build() // Fast scroll
                             }
+                        }
                         else {
                             activityBinding.searchRv.adapter = null
+                            activityBinding.emptySearchView.visibility = View.GONE
                         }
                     }
                 }.start()
-            
+                
                 return true
             }
         })
@@ -109,9 +118,9 @@ class SearchActivity :
         startDetailsActivity(this@SearchActivity, searchData.packageName)
     }
     
-    // Set transition when finishing activity
     override fun finish() {
         super.finish()
+        coroutineScope.cancel()
         overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
     }
 }

@@ -24,7 +24,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_background">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_rv"
@@ -33,10 +34,20 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:background="@color/color_background"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:paddingTop="@dimen/margin_10"
-        android:paddingBottom="@dimen/margin_10"
         android:clipToPadding="false"
         tools:listitem="@layout/item_main_recycler_view" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/empty_search_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/no_apps_found"
+        android:textSize="@dimen/text_17"
+        android:textColor="?attr/colorControlNormal"
+        app:drawableTopCompat="@drawable/ic_empty_list"
+        android:drawablePadding="@dimen/margin_10"
+        android:visibility="gone"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
