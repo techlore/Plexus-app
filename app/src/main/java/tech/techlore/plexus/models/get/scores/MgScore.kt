@@ -19,27 +19,7 @@
 
 package tech.techlore.plexus.models.get.scores
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-
 data class MgScore (
-    
-    @JsonProperty("app_package")
-    @JsonIgnore
-    var mgPkgName: String? = null,
-    
-    @JsonProperty("denominator")
-    @JsonIgnore
-    var mgDenominator: Int = 0,
-    
-    @JsonProperty("google_lib")
-    @JsonIgnore
-    var mgGoogleLib: String? = null,
-    
-    @JsonProperty("numerator")
     var mgScore: Float = 0.0f,
-    
-    @JsonProperty("total_count")
     var totalMgRatings: Int = 0
-
 )

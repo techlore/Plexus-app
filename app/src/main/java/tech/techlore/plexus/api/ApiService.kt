@@ -26,10 +26,9 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
+import tech.techlore.plexus.models.get.scores.ScoresRoot
 import tech.techlore.plexus.models.get.main.MainRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
-import tech.techlore.plexus.models.get.scores.DgScoreRoot
-import tech.techlore.plexus.models.get.scores.MgScoreRoot
 import tech.techlore.plexus.models.post.PostAppRoot
 import tech.techlore.plexus.models.post.PostRatingRoot
 
@@ -38,11 +37,8 @@ interface ApiService {
     @GET("apps")
     fun getApps(): Call<MainRoot>
     
-    @GET("apps/{packageName}/scores/none")
-    fun getDgScore(@Path("packageName") packageName: String): Call<DgScoreRoot>
-    
-    @GET("apps/{packageName}/scores/micro_g")
-    fun getMgScore(@Path("packageName") packageName: String): Call<MgScoreRoot>
+    @GET("apps/{packageName}/scores")
+    fun getScores(@Path("packageName") packageName: String): Call<ScoresRoot>
     
     @GET("apps/{packageName}/ratings")
     fun getRatings(@Path("packageName") packageName: String): Call<RatingsRoot>

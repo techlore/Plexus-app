@@ -21,9 +21,9 @@ package tech.techlore.plexus.models.get.scores
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class DgScoreRoot (
+data class ScoresRoot(
     
     @JsonProperty("data")
-    var dgScoreData: DgScore
-
+    val scoreData: List<Score>
+    
 )

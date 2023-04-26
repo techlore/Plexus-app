@@ -42,39 +42,22 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                 appsResponse.body()?.let { root ->
                     for (mainData in root.mainData) {
                         
-                        // De-googled score
-                        val dgScoreCall = apiRepository.getDgScore(mainData.packageName)
-                        val dgScoreResponse = dgScoreCall.awaitResponse()
+                        val scoresCall = apiRepository.getScores(mainData.packageName)
+                        val scoresResponse = scoresCall.awaitResponse()
                         
-                        if (dgScoreResponse.isSuccessful) {
-                            dgScoreResponse.body()?.let { dgScoreRoot ->
-                                // Convert 2 decimal places to 1
-                                // without rounding off
-                                val scoreString = dgScoreRoot.dgScoreData.dgScore.toString()
-                                val truncatedScore = scoreString.substring(0, scoreString.indexOf(".") + 2).toFloat()
-                                mainData.dgScore = DgScore(dgScoreRoot.dgScoreData.dgPkgName,
-                                                           dgScoreRoot.dgScoreData.dgDenominator,
-                                                           dgScoreRoot.dgScoreData.dgGoogleLib,
-                                                           truncatedScore,
-                                                           dgScoreRoot.dgScoreData.totalDgRatings)
-                            }
-                        }
-                        
-                        // MicroG score
-                        val mgScoreCall = apiRepository.getMgScore(mainData.packageName)
-                        val mgScoreResponse = mgScoreCall.awaitResponse()
-                        
-                        if (mgScoreResponse.isSuccessful) {
-                            mgScoreResponse.body()?.let { mgScoreRoot ->
-                                // Convert 2 decimal places to 1
-                                // without rounding off
-                                val scoreString = mgScoreRoot.mgScoreData.mgScore.toString()
-                                val truncatedScore = scoreString.substring(0, scoreString.indexOf(".") + 2).toFloat()
-                                mainData.mgScore = MgScore(mgScoreRoot.mgScoreData.mgPkgName,
-                                                           mgScoreRoot.mgScoreData.mgDenominator,
-                                                           mgScoreRoot.mgScoreData.mgGoogleLib,
-                                                           truncatedScore,
-                                                           mgScoreRoot.mgScoreData.totalMgRatings)
+                        if (scoresResponse.isSuccessful) {
+                            scoresResponse.body()?.let { scoresRoot ->
+    
+                                // De-googled score
+                                val dgScoreString = scoresRoot.scoreData[0].score.toString()
+                                val truncatedDgScore = dgScoreString.substring(0, dgScoreString.indexOf(".") + 2).toFloat()
+                                mainData.dgScore = DgScore(truncatedDgScore, scoresRoot.scoreData[0].totalRatings)
+    
+                                // MicroG score
+                                val mgScoreString = scoresRoot.scoreData[1].score.toString()
+                                val truncatedMgScore = mgScoreString.substring(0, mgScoreString.indexOf(".") + 2).toFloat()
+                                mainData.mgScore = MgScore(truncatedMgScore, scoresRoot.scoreData[1].totalRatings)
+                                
                             }
                         }
                         

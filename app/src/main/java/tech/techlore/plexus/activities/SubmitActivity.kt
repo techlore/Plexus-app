@@ -66,9 +66,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
     private var appCreated = false
     private var ratingCreated = false
     private var postedRatingId: String? = null
-    private val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
-    // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
-    // while still allowing real words like coffee, committee etc.
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +78,9 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         installedVersionBuild = intent.getIntExtra("installedVersionBuild", 0)
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
         isMicroG = PreferenceManager(this).getBoolean(DEVICE_IS_MICROG)
+        val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
+        // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
+        // while still allowing real words like coffee, committee etc.
         val blockedWords = resources.getStringArray(R.array.blocked_words)
         val blockedWordsPattern = blockedWords.joinToString("|") { Regex.escape(it) }
         val blockedWordsRegex =
