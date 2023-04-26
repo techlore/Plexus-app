@@ -29,7 +29,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.FavoriteItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
@@ -89,9 +88,7 @@ class FavoritesFragment:
         }
         
         // Swipe refresh layout
-        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(
-            R.color.color_background, requireContext().theme))
-        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
+        fragmentBinding.swipeRefreshLayout.isEnabled = false
     }
     
     // On click

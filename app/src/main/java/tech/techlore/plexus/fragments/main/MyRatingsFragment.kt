@@ -24,34 +24,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.adapters.main.MyRatingItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import tech.techlore.plexus.utils.NetworkUtils
-import kotlin.coroutines.CoroutineContext
 
 class MyRatingsFragment :
     Fragment(),
-    MainDataItemAdapter.OnItemClickListener,
-    CoroutineScope {
+    MainDataItemAdapter.OnItemClickListener {
     
-    private val job = Job()
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
@@ -94,10 +84,7 @@ class MyRatingsFragment :
         }
         
         // Swipe refresh layout
-        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(
-            R.color.color_background, requireContext().theme))
-        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
-        fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshData() }
+        fragmentBinding.swipeRefreshLayout.isEnabled = false
     }
     
     // On click
@@ -106,27 +93,8 @@ class MyRatingsFragment :
         startDetailsActivity(mainActivity, myRating.packageName!!)
     }
     
-    private fun refreshData() {
-        
-        launch {
-            if (NetworkUtils.hasNetwork(requireContext()) && NetworkUtils.hasInternet()) {
-                myRatingItemAdapter.updateList(myRatingsRepository.getSortedMyRatings())
-                fragmentBinding.swipeRefreshLayout.isRefreshing = false
-            }
-            else {
-                NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
-                                positiveButtonClickListener = { refreshData() },
-                                negativeButtonClickListener = {
-                                    fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                                })
-                    .show(parentFragmentManager, "NoNetworkDialog")
-            }
-        }
-    }
-    
     override fun onDestroyView() {
         super.onDestroyView()
-        job.cancel()
         _binding = null
     }
 }

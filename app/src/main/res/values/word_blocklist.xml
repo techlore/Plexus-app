@@ -1,0 +1,2441 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+<string-array name="blocked_words">
+    <item>ahole</item>
+    <item>anus</item>
+    <item>asholes</item>
+    <item>ass</item>
+    <item>Ass Monkey</item>
+    <item>Assface</item>
+    <item>asshole</item>
+    <item>assholz</item>
+    <item>asswipe</item>
+    <item>azzhole</item>
+    <item>bassterds</item>
+    <item>bastard</item>
+    <item>basterds</item>
+    <item>basterdz</item>
+    <item>Biatch</item>
+    <item>bitch</item>
+    <item>blowjob</item>
+    <item>Blow Job</item>
+    <item>boffing</item>
+    <item>butthole</item>
+    <item>buttwipe</item>
+    <item>cock</item>
+    <item>cok</item>
+    <item>Carpet Muncher</item>
+    <item>cawk</item>
+    <item>cawks</item>
+    <item>Clit</item>
+    <item>cnts</item>
+    <item>cntz</item>
+    <item>cockhead</item>
+    <item>cock-head</item>
+    <item>CockSucker</item>
+    <item>cock-sucker</item>
+    <item>crap</item>
+    <item>cum</item>
+    <item>cunt</item>
+    <item>dick</item>
+    <item>dildo</item>
+    <item>dilldo</item>
+    <item>dominatricks</item>
+    <item>dominatrics</item>
+    <item>dominatrix</item>
+    <item>dyke</item>
+    <item>enema</item>
+    <item>f u c k</item>
+    <item>f u c k e r</item>
+    <item>fag</item>
+    <item>fag1t</item>
+    <item>faget</item>
+    <item>fagg1t</item>
+    <item>faggit</item>
+    <item>faggot</item>
+    <item>fagg0t</item>
+    <item>fagit</item>
+    <item>fags</item>
+    <item>fagz</item>
+    <item>faig</item>
+    <item>faigs</item>
+    <item>fart</item>
+    <item>flipping the bird</item>
+    <item>fuck</item>
+    <item>fucker</item>
+    <item>fuckin</item>
+    <item>fucking</item>
+    <item>fucks</item>
+    <item>Fudge Packer</item>
+    <item>fuk</item>
+    <item>Fukah</item>
+    <item>Fuken</item>
+    <item>fuker</item>
+    <item>Fukin</item>
+    <item>Fukk</item>
+    <item>Fukkah</item>
+    <item>Fukken</item>
+    <item>Fukker</item>
+    <item>Fukkin</item>
+    <item>g00k</item>
+    <item>God-damned</item>
+    <item>h00r</item>
+    <item>h0ar</item>
+    <item>h0re</item>
+    <item>hells</item>
+    <item>hoar</item>
+    <item>hoor</item>
+    <item>hoore</item>
+    <item>jackoff</item>
+    <item>jap</item>
+    <item>japs</item>
+    <item>jerk-off</item>
+    <item>jisim</item>
+    <item>jiss</item>
+    <item>jizm</item>
+    <item>jizz</item>
+    <item>knob</item>
+    <item>knobs</item>
+    <item>knobz</item>
+    <item>kunt</item>
+    <item>kunts</item>
+    <item>kuntz</item>
+    <item>Lezzian</item>
+    <item>Lipshits</item>
+    <item>Lipshitz</item>
+    <item>masochist</item>
+    <item>masokist</item>
+    <item>massterbait</item>
+    <item>masstrbait</item>
+    <item>masstrbate</item>
+    <item>masterbaiter</item>
+    <item>masterbate</item>
+    <item>masterbates</item>
+    <item>Motha Fucker</item>
+    <item>Motha Fuker</item>
+    <item>Motha Fukkah</item>
+    <item>Motha Fukker</item>
+    <item>Mother Fucker</item>
+    <item>Mother Fukah</item>
+    <item>Mother Fuker</item>
+    <item>Mother Fukkah</item>
+    <item>Mother Fukker</item>
+    <item>mother-fucker</item>
+    <item>Mutha Fucker</item>
+    <item>Mutha Fukah</item>
+    <item>Mutha Fuker</item>
+    <item>Mutha Fukkah</item>
+    <item>Mutha Fukker</item>
+    <item>n1gr</item>
+    <item>nastt</item>
+    <item>nigger</item>
+    <item>nigur</item>
+    <item>niiger</item>
+    <item>niigr</item>
+    <item>orafis</item>
+    <item>orgasim</item>
+    <item>orgasm</item>
+    <item>orgasum</item>
+    <item>oriface</item>
+    <item>orifice</item>
+    <item>orifiss</item>
+    <item>packi</item>
+    <item>packie</item>
+    <item>packy</item>
+    <item>paki</item>
+    <item>pakie</item>
+    <item>paky</item>
+    <item>pecker</item>
+    <item>peeenus</item>
+    <item>peeenusss</item>
+    <item>peenus</item>
+    <item>peinus</item>
+    <item>pen1s</item>
+    <item>penas</item>
+    <item>penis</item>
+    <item>penis-breath</item>
+    <item>penus</item>
+    <item>penuus</item>
+    <item>Phuc</item>
+    <item>Phuck</item>
+    <item>Phuk</item>
+    <item>Phuker</item>
+    <item>Phukker</item>
+    <item>polac</item>
+    <item>polack</item>
+    <item>polak</item>
+    <item>Poonani</item>
+    <item>pr1c</item>
+    <item>pr1ck</item>
+    <item>pr1k</item>
+    <item>pusse</item>
+    <item>pussee</item>
+    <item>pussy</item>
+    <item>puuke</item>
+    <item>puuker</item>
+    <item>qweir</item>
+    <item>recktum</item>
+    <item>rectum</item>
+    <item>retard</item>
+    <item>sadist</item>
+    <item>scank</item>
+    <item>schlong</item>
+    <item>screwing</item>
+    <item>semen</item>
+    <item>sex</item>
+    <item>sexy</item>
+    <item>Sh!t</item>
+    <item>sh1t</item>
+    <item>sh1ter</item>
+    <item>sh1ts</item>
+    <item>sh1tter</item>
+    <item>sh1tz</item>
+    <item>shit</item>
+    <item>shits</item>
+    <item>shitter</item>
+    <item>Shitty</item>
+    <item>Shity</item>
+    <item>shitz</item>
+    <item>Shyt</item>
+    <item>Shyte</item>
+    <item>Shytty</item>
+    <item>Shyty</item>
+    <item>skanck</item>
+    <item>skank</item>
+    <item>skankee</item>
+    <item>skankey</item>
+    <item>skanks</item>
+    <item>Skanky</item>
+    <item>slag</item>
+    <item>slut</item>
+    <item>sluts</item>
+    <item>Slutty</item>
+    <item>slutz</item>
+    <item>son-of-a-bitch</item>
+    <item>tit</item>
+    <item>turd</item>
+    <item>va1jina</item>
+    <item>vag1na</item>
+    <item>vagiina</item>
+    <item>vagina</item>
+    <item>vaj1na</item>
+    <item>vajina</item>
+    <item>vullva</item>
+    <item>vulva</item>
+    <item>w0p</item>
+    <item>wh00r</item>
+    <item>wh0re</item>
+    <item>whore</item>
+    <item>xrated</item>
+    <item>xxx</item>
+    <item>b!+ch</item>
+    <item>clit</item>
+    <item>arschloch</item>
+    <item>b!tch</item>
+    <item>b17ch</item>
+    <item>b1tch</item>
+    <item>bi+ch</item>
+    <item>boiolas</item>
+    <item>buceta</item>
+    <item>c0ck</item>
+    <item>chink</item>
+    <item>cipa</item>
+    <item>clits</item>
+    <item>dirsa</item>
+    <item>ejakulate</item>
+    <item>fatass</item>
+    <item>fcuk</item>
+    <item>fux0r</item>
+    <item>hoer</item>
+    <item>hore</item>
+    <item>jism</item>
+    <item>kawk</item>
+    <item>l3itch</item>
+    <item>l3i+ch</item>
+    <item>masturbate</item>
+    <item>masterbat*</item>
+    <item>masterbat3</item>
+    <item>motherfucker</item>
+    <item>s.o.b.</item>
+    <item>mofo</item>
+    <item>nazi</item>
+    <item>nigga</item>
+    <item>nutsack</item>
+    <item>phuck</item>
+    <item>pimpis</item>
+    <item>scrotum</item>
+    <item>sh!t</item>
+    <item>shemale</item>
+    <item>shi+</item>
+    <item>sh!+</item>
+    <item>smut</item>
+    <item>teets</item>
+    <item>tits</item>
+    <item>boobs</item>
+    <item>b00bs</item>
+    <item>teez</item>
+    <item>testical</item>
+    <item>testicle</item>
+    <item>titt</item>
+    <item>w00se</item>
+    <item>wank</item>
+    <item>whoar</item>
+    <item>*damn</item>
+    <item>*dyke</item>
+    <item>*fuck*</item>
+    <item>*shit*</item>
+    <item>amcik</item>
+    <item>andskota</item>
+    <item>arse*</item>
+    <item>assrammer</item>
+    <item>ayir</item>
+    <item>bi7ch</item>
+    <item>bitch*</item>
+    <item>bollock*</item>
+    <item>breasts</item>
+    <item>butt-pirate</item>
+    <item>cabron</item>
+    <item>cazzo</item>
+    <item>chraa</item>
+    <item>chuj</item>
+    <item>Cock*</item>
+    <item>cunt*</item>
+    <item>d4mn</item>
+    <item>daygo</item>
+    <item>dego</item>
+    <item>dick*</item>
+    <item>dike*</item>
+    <item>dupa</item>
+    <item>dziwka</item>
+    <item>ejackulate</item>
+    <item>Ekrem*</item>
+    <item>Ekto</item>
+    <item>enculer</item>
+    <item>faen</item>
+    <item>fag*</item>
+    <item>fanculo</item>
+    <item>fanny</item>
+    <item>feces</item>
+    <item>feg</item>
+    <item>Felcher</item>
+    <item>ficken</item>
+    <item>fitt*</item>
+    <item>Flikker</item>
+    <item>foreskin</item>
+    <item>Fotze</item>
+    <item>Fu(*</item>
+    <item>fuk*</item>
+    <item>futkretzn</item>
+    <item>gook</item>
+    <item>guiena</item>
+    <item>h0r</item>
+    <item>h4x0r</item>
+    <item>hell</item>
+    <item>helvete</item>
+    <item>hoer*</item>
+    <item>honkey</item>
+    <item>Huevon</item>
+    <item>hui</item>
+    <item>injun</item>
+    <item>kanker*</item>
+    <item>kike</item>
+    <item>klootzak</item>
+    <item>kraut</item>
+    <item>knulle</item>
+    <item>kuk</item>
+    <item>kuksuger</item>
+    <item>Kurac</item>
+    <item>kurwa</item>
+    <item>kusi*</item>
+    <item>kyrpa*</item>
+    <item>lesbo</item>
+    <item>mamhoon</item>
+    <item>masturbat*</item>
+    <item>merd*</item>
+    <item>mibun</item>
+    <item>monkleigh</item>
+    <item>mouliewop</item>
+    <item>muie</item>
+    <item>mulkku</item>
+    <item>muschi</item>
+    <item>nazis</item>
+    <item>nepesaurio</item>
+    <item>nigger*</item>
+    <item>orospu</item>
+    <item>paska*</item>
+    <item>perse</item>
+    <item>picka</item>
+    <item>pierdol*</item>
+    <item>pillu*</item>
+    <item>pimmel</item>
+    <item>piss*</item>
+    <item>pizda</item>
+    <item>poontsee</item>
+    <item>poop</item>
+    <item>porn</item>
+    <item>p0rn</item>
+    <item>pr0n</item>
+    <item>preteen</item>
+    <item>pula</item>
+    <item>pule</item>
+    <item>puta</item>
+    <item>puto</item>
+    <item>qahbeh</item>
+    <item>queef*</item>
+    <item>rautenberg</item>
+    <item>schaffer</item>
+    <item>scheiss*</item>
+    <item>schlampe</item>
+    <item>schmuck</item>
+    <item>screw</item>
+    <item>sh!t*</item>
+    <item>sharmuta</item>
+    <item>sharmute</item>
+    <item>shipal</item>
+    <item>shiz</item>
+    <item>skribz</item>
+    <item>skurwysyn</item>
+    <item>sphencter</item>
+    <item>spic</item>
+    <item>spierdalaj</item>
+    <item>splooge</item>
+    <item>suka</item>
+    <item>b00b*</item>
+    <item>testicle*</item>
+    <item>titt*</item>
+    <item>twat</item>
+    <item>vittu</item>
+    <item>wank*</item>
+    <item>wetback*</item>
+    <item>wichser</item>
+    <item>wop*</item>
+    <item>yed</item>
+    <item>zabourah</item>
+    <item>arse</item>
+    <item>arsehole</item>
+    <item>as useful as tits on a bull</item>
+    <item>balls</item>
+    <item>beaver</item>
+    <item>beef curtains</item>
+    <item>bell</item>
+    <item>bellend</item>
+    <item>bent</item>
+    <item>berk</item>
+    <item>bint</item>
+    <item>blighter</item>
+    <item>blimey</item>
+    <item>blimey o\'reilly</item>
+    <item>bloodclaat</item>
+    <item>bloody</item>
+    <item>bloody hell</item>
+    <item>blooming</item>
+    <item>bollocks</item>
+    <item>bonk</item>
+    <item>bugger</item>
+    <item>bugger me</item>
+    <item>bugger off</item>
+    <item>built like a brick shit-house</item>
+    <item>bukkake</item>
+    <item>bullshit</item>
+    <item>cack</item>
+    <item>cad</item>
+    <item>chav</item>
+    <item>cheese eating surrender monkey</item>
+    <item>choad</item>
+    <item>chuffer</item>
+    <item>clunge</item>
+    <item>cobblers</item>
+    <item>cock cheese</item>
+    <item>cock jockey</item>
+    <item>cock-up</item>
+    <item>cocksucker</item>
+    <item>cockwomble</item>
+    <item>codger</item>
+    <item>cor blimey</item>
+    <item>corey</item>
+    <item>cow</item>
+    <item>crikey</item>
+    <item>daft</item>
+    <item>daft cow</item>
+    <item>damn</item>
+    <item>dickhead</item>
+    <item>did he bollocks!</item>
+    <item>did i fuck as like!</item>
+    <item>dodgy</item>
+    <item>duffer</item>
+    <item>feck</item>
+    <item>flaps</item>
+    <item>fuck me sideways!</item>
+    <item>fucking cunt</item>
+    <item>fucktard</item>
+    <item>gash</item>
+    <item>ginger</item>
+    <item>git</item>
+    <item>gob shite</item>
+    <item>goddam</item>
+    <item>gorblimey</item>
+    <item>gordon bennett</item>
+    <item>gormless</item>
+    <item>he’s a knob</item>
+    <item>hobknocker</item>
+    <item>I\'d rather snort my own cum</item>
+    <item>jesus christ</item>
+    <item>knobber</item>
+    <item>knobend</item>
+    <item>knobhead</item>
+    <item>ligger</item>
+    <item>like fucking a dying man\'s handshake</item>
+    <item>mad as a hatter</item>
+    <item>manky</item>
+    <item>minge</item>
+    <item>minger</item>
+    <item>minging</item>
+    <item>munter</item>
+    <item>muppet</item>
+    <item>naff</item>
+    <item>nitwit</item>
+    <item>nonce</item>
+    <item>numpty</item>
+    <item>nutter</item>
+    <item>off their rocker</item>
+    <item>penguin</item>
+    <item>pillock</item>
+    <item>pish</item>
+    <item>piss off</item>
+    <item>piss-flaps</item>
+    <item>pissed</item>
+    <item>pissed off</item>
+    <item>play the five-fingered flute</item>
+    <item>plonker</item>
+    <item>ponce</item>
+    <item>poof</item>
+    <item>pouf</item>
+    <item>poxy</item>
+    <item>prat</item>
+    <item>prick</item>
+    <item>prickteaser</item>
+    <item>punani</item>
+    <item>punny</item>
+    <item>randy</item>
+    <item>rapey</item>
+    <item>rat arsed</item>
+    <item>rotter</item>
+    <item>rubbish</item>
+    <item>scrubber</item>
+    <item>shag</item>
+    <item>shite</item>
+    <item>shitfaced</item>
+    <item>slapper</item>
+    <item>snatch</item>
+    <item>sod</item>
+    <item>sod-off</item>
+    <item>son of a bitch</item>
+    <item>spunk</item>
+    <item>stick it up your arse!</item>
+    <item>swine</item>
+    <item>taking the piss</item>
+    <item>tart</item>
+    <item>toff</item>
+    <item>tosser</item>
+    <item>trollop</item>
+    <item>tuss</item>
+    <item>twonk</item>
+    <item>u fukin wanker</item>
+    <item>wally</item>
+    <item>wanker</item>
+    <item>wankstain</item>
+    <item>wazzack</item>
+    <item>2 girls 1 cup</item>
+    <item>2g1c</item>
+    <item>4r5e</item>
+    <item>5h1t</item>
+    <item>5hit</item>
+    <item>a55</item>
+    <item>a_s_s</item>
+    <item>acrotomophilia</item>
+    <item>alabama hot pocket</item>
+    <item>alaskan pipeline</item>
+    <item>anal</item>
+    <item>anilingus</item>
+    <item>apeshit</item>
+    <item>ar5e</item>
+    <item>arrse</item>
+    <item>ass-fucker</item>
+    <item>ass-hat</item>
+    <item>ass-pirate</item>
+    <item>assbag</item>
+    <item>assbandit</item>
+    <item>assbanger</item>
+    <item>assbite</item>
+    <item>assclown</item>
+    <item>asscock</item>
+    <item>asscracker</item>
+    <item>asses</item>
+    <item>assface</item>
+    <item>assfucker</item>
+    <item>assfukka</item>
+    <item>assgoblin</item>
+    <item>asshat</item>
+    <item>asshead</item>
+    <item>assholes</item>
+    <item>asshopper</item>
+    <item>assjacker</item>
+    <item>asslick</item>
+    <item>asslicker</item>
+    <item>assmonkey</item>
+    <item>assmunch</item>
+    <item>assmuncher</item>
+    <item>asspirate</item>
+    <item>assshole</item>
+    <item>asssucker</item>
+    <item>asswad</item>
+    <item>asswhole</item>
+    <item>auto erotic</item>
+    <item>autoerotic</item>
+    <item>babeland</item>
+    <item>baby batter</item>
+    <item>baby juice</item>
+    <item>ball gag</item>
+    <item>ball gravy</item>
+    <item>ball kicking</item>
+    <item>ball licking</item>
+    <item>ball sack</item>
+    <item>ball sucking</item>
+    <item>ballbag</item>
+    <item>ballsack</item>
+    <item>bampot</item>
+    <item>bangbros</item>
+    <item>bareback</item>
+    <item>barely legal</item>
+    <item>barenaked</item>
+    <item>bastardo</item>
+    <item>bastinado</item>
+    <item>bbw</item>
+    <item>bdsm</item>
+    <item>beaner</item>
+    <item>beaners</item>
+    <item>beastial</item>
+    <item>beastiality</item>
+    <item>beastility</item>
+    <item>beaver cleaver</item>
+    <item>beaver lips</item>
+    <item>bestial</item>
+    <item>bestiality</item>
+    <item>biatch</item>
+    <item>big black</item>
+    <item>big breasts</item>
+    <item>big knockers</item>
+    <item>big tits</item>
+    <item>bimbos</item>
+    <item>birdlock</item>
+    <item>bitcher</item>
+    <item>bitchers</item>
+    <item>bitches</item>
+    <item>bitchin</item>
+    <item>bitching</item>
+    <item>black cock</item>
+    <item>blonde action</item>
+    <item>blonde on blonde action</item>
+    <item>blow job</item>
+    <item>blow your load</item>
+    <item>blowjobs</item>
+    <item>blue waffle</item>
+    <item>blumpkin</item>
+    <item>bollock</item>
+    <item>bollok</item>
+    <item>bollox</item>
+    <item>bondage</item>
+    <item>boner</item>
+    <item>boob</item>
+    <item>boobie</item>
+    <item>booobs</item>
+    <item>boooobs</item>
+    <item>booooobs</item>
+    <item>booooooobs</item>
+    <item>booty call</item>
+    <item>brown showers</item>
+    <item>brunette action</item>
+    <item>bulldyke</item>
+    <item>bullet vibe</item>
+    <item>bum</item>
+    <item>bung hole</item>
+    <item>bunghole</item>
+    <item>bunny fucker</item>
+    <item>busty</item>
+    <item>butt</item>
+    <item>buttcheeks</item>
+    <item>buttmunch</item>
+    <item>buttplug</item>
+    <item>c0cksucker</item>
+    <item>camel toe</item>
+    <item>camgirl</item>
+    <item>camslut</item>
+    <item>camwhore</item>
+    <item>carpet muncher</item>
+    <item>carpetmuncher</item>
+    <item>chinc</item>
+    <item>chocolate rosebuds</item>
+    <item>chode</item>
+    <item>circlejerk</item>
+    <item>cl1t</item>
+    <item>cleveland steamer</item>
+    <item>clitface</item>
+    <item>clitoris</item>
+    <item>clover clamps</item>
+    <item>clusterfuck</item>
+    <item>cnut</item>
+    <item>cockbite</item>
+    <item>cockburger</item>
+    <item>cockface</item>
+    <item>cockjockey</item>
+    <item>cockknoker</item>
+    <item>cockmaster</item>
+    <item>cockmongler</item>
+    <item>cockmongruel</item>
+    <item>cockmonkey</item>
+    <item>cockmunch</item>
+    <item>cockmuncher</item>
+    <item>cocknose</item>
+    <item>cocknugget</item>
+    <item>cocks</item>
+    <item>cockshit</item>
+    <item>cocksmith</item>
+    <item>cocksmoker</item>
+    <item>cocksuck</item>
+    <item>cocksucked</item>
+    <item>cocksucking</item>
+    <item>cocksucks</item>
+    <item>cocksuka</item>
+    <item>cocksukka</item>
+    <item>cokmuncher</item>
+    <item>coksucka</item>
+    <item>coochie</item>
+    <item>coochy</item>
+    <item>coon</item>
+    <item>coons</item>
+    <item>cooter</item>
+    <item>coprolagnia</item>
+    <item>coprophilia</item>
+    <item>cornhole</item>
+    <item>cox</item>
+    <item>creampie</item>
+    <item>cumbubble</item>
+    <item>cumdumpster</item>
+    <item>cumguzzler</item>
+    <item>cumjockey</item>
+    <item>cummer</item>
+    <item>cumming</item>
+    <item>cums</item>
+    <item>cumshot</item>
+    <item>cumslut</item>
+    <item>cumtart</item>
+    <item>cunilingus</item>
+    <item>cunillingus</item>
+    <item>cunnie</item>
+    <item>cunnilingus</item>
+    <item>cuntface</item>
+    <item>cunthole</item>
+    <item>cuntlick</item>
+    <item>cuntlicker</item>
+    <item>cuntlicking</item>
+    <item>cuntrag</item>
+    <item>cunts</item>
+    <item>cyalis</item>
+    <item>cyberfuc</item>
+    <item>cyberfuck</item>
+    <item>cyberfucked</item>
+    <item>cyberfucker</item>
+    <item>cyberfuckers</item>
+    <item>cyberfucking</item>
+    <item>d1ck</item>
+    <item>dammit</item>
+    <item>darkie</item>
+    <item>date rape</item>
+    <item>daterape</item>
+    <item>deep throat</item>
+    <item>deepthroat</item>
+    <item>dendrophilia</item>
+    <item>dickbag</item>
+    <item>dickbeater</item>
+    <item>dickface</item>
+    <item>dickhole</item>
+    <item>dickjuice</item>
+    <item>dickmilk</item>
+    <item>dickmonger</item>
+    <item>dickslap</item>
+    <item>dicksucker</item>
+    <item>dickwad</item>
+    <item>dickweasel</item>
+    <item>dickweed</item>
+    <item>dickwod</item>
+    <item>dike</item>
+    <item>dildos</item>
+    <item>dingleberries</item>
+    <item>dingleberry</item>
+    <item>dink</item>
+    <item>dinks</item>
+    <item>dipshit</item>
+    <item>dirty pillows</item>
+    <item>dirty sanchez</item>
+    <item>dlck</item>
+    <item>dog style</item>
+    <item>dog-fucker</item>
+    <item>doggie style</item>
+    <item>doggiestyle</item>
+    <item>doggin</item>
+    <item>dogging</item>
+    <item>doggy style</item>
+    <item>doggystyle</item>
+    <item>dolcett</item>
+    <item>domination</item>
+    <item>dommes</item>
+    <item>donkey punch</item>
+    <item>donkeyribber</item>
+    <item>doochbag</item>
+    <item>dookie</item>
+    <item>doosh</item>
+    <item>double dong</item>
+    <item>double penetration</item>
+    <item>douche</item>
+    <item>douchebag</item>
+    <item>dp action</item>
+    <item>dry hump</item>
+    <item>duche</item>
+    <item>dumbshit</item>
+    <item>dumshit</item>
+    <item>dvda</item>
+    <item>eat my ass</item>
+    <item>ecchi</item>
+    <item>ejaculate</item>
+    <item>ejaculated</item>
+    <item>ejaculates</item>
+    <item>ejaculating</item>
+    <item>ejaculatings</item>
+    <item>ejaculation</item>
+    <item>erotic</item>
+    <item>erotism</item>
+    <item>escort</item>
+    <item>eunuch</item>
+    <item>f4nny</item>
+    <item>f_u_c_k</item>
+    <item>fagbag</item>
+    <item>fagg</item>
+    <item>fagging</item>
+    <item>faggitt</item>
+    <item>faggs</item>
+    <item>fagot</item>
+    <item>fagots</item>
+    <item>fagtard</item>
+    <item>fannyflaps</item>
+    <item>fannyfucker</item>
+    <item>fanyy</item>
+    <item>farted</item>
+    <item>farting</item>
+    <item>farty</item>
+    <item>fcuker</item>
+    <item>fcuking</item>
+    <item>fecal</item>
+    <item>fecker</item>
+    <item>felatio</item>
+    <item>felch</item>
+    <item>felching</item>
+    <item>fellate</item>
+    <item>fellatio</item>
+    <item>feltch</item>
+    <item>female squirting</item>
+    <item>femdom</item>
+    <item>figging</item>
+    <item>fingerbang</item>
+    <item>fingerfuck</item>
+    <item>fingerfucked</item>
+    <item>fingerfucker</item>
+    <item>fingerfuckers</item>
+    <item>fingerfucking</item>
+    <item>fingerfucks</item>
+    <item>fingering</item>
+    <item>fistfuck</item>
+    <item>fistfucked</item>
+    <item>fistfucker</item>
+    <item>fistfuckers</item>
+    <item>fistfucking</item>
+    <item>fistfuckings</item>
+    <item>fistfucks</item>
+    <item>fisting</item>
+    <item>flamer</item>
+    <item>flange</item>
+    <item>fook</item>
+    <item>fooker</item>
+    <item>foot fetish</item>
+    <item>footjob</item>
+    <item>frotting</item>
+    <item>fuck buttons</item>
+    <item>fucka</item>
+    <item>fucked</item>
+    <item>fuckers</item>
+    <item>fuckhead</item>
+    <item>fuckheads</item>
+    <item>fuckings</item>
+    <item>fuckingshitmotherfucker</item>
+    <item>fuckme</item>
+    <item>fucktards</item>
+    <item>fuckwhit</item>
+    <item>fuckwit</item>
+    <item>fudge packer</item>
+    <item>fudgepacker</item>
+    <item>fukker</item>
+    <item>fukkin</item>
+    <item>fuks</item>
+    <item>fukwhit</item>
+    <item>fukwit</item>
+    <item>futanari</item>
+    <item>fux</item>
+    <item>g-spot</item>
+    <item>gang bang</item>
+    <item>gangbang</item>
+    <item>gangbanged</item>
+    <item>gangbangs</item>
+    <item>gay sex</item>
+    <item>gayass</item>
+    <item>gaybob</item>
+    <item>gaydo</item>
+    <item>gaylord</item>
+    <item>gaysex</item>
+    <item>gaytard</item>
+    <item>gaywad</item>
+    <item>genitals</item>
+    <item>giant cock</item>
+    <item>girl on</item>
+    <item>girl on top</item>
+    <item>girls gone wild</item>
+    <item>goatcx</item>
+    <item>goatse</item>
+    <item>god damn</item>
+    <item>god-dam</item>
+    <item>god-damned</item>
+    <item>goddamn</item>
+    <item>goddamned</item>
+    <item>gokkun</item>
+    <item>golden shower</item>
+    <item>goo girl</item>
+    <item>gooch</item>
+    <item>goodpoop</item>
+    <item>goregasm</item>
+    <item>gringo</item>
+    <item>grope</item>
+    <item>group sex</item>
+    <item>guido</item>
+    <item>guro</item>
+    <item>hand job</item>
+    <item>handjob</item>
+    <item>hard core</item>
+    <item>hardcore</item>
+    <item>hardcoresex</item>
+    <item>heeb</item>
+    <item>hentai</item>
+    <item>heshe</item>
+    <item>ho</item>
+    <item>hoare</item>
+    <item>hoe</item>
+    <item>homo</item>
+    <item>homoerotic</item>
+    <item>honky</item>
+    <item>hooker</item>
+    <item>horniest</item>
+    <item>horny</item>
+    <item>hot carl</item>
+    <item>hot chick</item>
+    <item>hotsex</item>
+    <item>how to kill</item>
+    <item>how to murder</item>
+    <item>huge fat</item>
+    <item>humping</item>
+    <item>incest</item>
+    <item>intercourse</item>
+    <item>jack off</item>
+    <item>jack-off</item>
+    <item>jackass</item>
+    <item>jail bait</item>
+    <item>jailbait</item>
+    <item>jelly donut</item>
+    <item>jerk off</item>
+    <item>jigaboo</item>
+    <item>jiggaboo</item>
+    <item>jiggerboo</item>
+    <item>jiz</item>
+    <item>juggs</item>
+    <item>kinbaku</item>
+    <item>kinkster</item>
+    <item>kinky</item>
+    <item>kiunt</item>
+    <item>knobbing</item>
+    <item>knobead</item>
+    <item>knobed</item>
+    <item>knobjocky</item>
+    <item>knobjokey</item>
+    <item>kock</item>
+    <item>kondum</item>
+    <item>kondums</item>
+    <item>kooch</item>
+    <item>kootch</item>
+    <item>kum</item>
+    <item>kumer</item>
+    <item>kummer</item>
+    <item>kumming</item>
+    <item>kums</item>
+    <item>kunilingus</item>
+    <item>kyke</item>
+    <item>labia</item>
+    <item>leather restraint</item>
+    <item>leather straight jacket</item>
+    <item>lemon party</item>
+    <item>lezzie</item>
+    <item>lmfao</item>
+    <item>lolita</item>
+    <item>lovemaking</item>
+    <item>lust</item>
+    <item>lusting</item>
+    <item>m0f0</item>
+    <item>m0fo</item>
+    <item>m45terbate</item>
+    <item>ma5terb8</item>
+    <item>ma5terbate</item>
+    <item>make me come</item>
+    <item>male squirting</item>
+    <item>master-bate</item>
+    <item>masterb8</item>
+    <item>masterbation</item>
+    <item>masterbations</item>
+    <item>menage a trois</item>
+    <item>milf</item>
+    <item>missionary position</item>
+    <item>mo-fo</item>
+    <item>mof0</item>
+    <item>mothafuck</item>
+    <item>mothafucka</item>
+    <item>mothafuckas</item>
+    <item>mothafuckaz</item>
+    <item>mothafucked</item>
+    <item>mothafucker</item>
+    <item>mothafuckers</item>
+    <item>mothafuckin</item>
+    <item>mothafucking</item>
+    <item>mothafuckings</item>
+    <item>mothafucks</item>
+    <item>mother fucker</item>
+    <item>motherfuck</item>
+    <item>motherfucked</item>
+    <item>motherfuckers</item>
+    <item>motherfuckin</item>
+    <item>motherfucking</item>
+    <item>motherfuckings</item>
+    <item>motherfuckka</item>
+    <item>motherfucks</item>
+    <item>mound of venus</item>
+    <item>mr hands</item>
+    <item>muff</item>
+    <item>muff diver</item>
+    <item>muffdiver</item>
+    <item>muffdiving</item>
+    <item>mutha</item>
+    <item>muthafecker</item>
+    <item>muthafuckker</item>
+    <item>muther</item>
+    <item>mutherfucker</item>
+    <item>n1gga</item>
+    <item>n1gger</item>
+    <item>nambla</item>
+    <item>nawashi</item>
+    <item>negro</item>
+    <item>neonazi</item>
+    <item>nig nog</item>
+    <item>nigg3r</item>
+    <item>nigg4h</item>
+    <item>niggah</item>
+    <item>niggas</item>
+    <item>niggaz</item>
+    <item>niggers</item>
+    <item>niglet</item>
+    <item>nimphomania</item>
+    <item>nipple</item>
+    <item>nipples</item>
+    <item>nob</item>
+    <item>nob jokey</item>
+    <item>nobhead</item>
+    <item>nobjocky</item>
+    <item>nobjokey</item>
+    <item>nsfw images</item>
+    <item>nude</item>
+    <item>nudity</item>
+    <item>numbnuts</item>
+    <item>nympho</item>
+    <item>nymphomania</item>
+    <item>octopussy</item>
+    <item>omorashi</item>
+    <item>one cup two girls</item>
+    <item>one guy one jar</item>
+    <item>orgasims</item>
+    <item>orgasms</item>
+    <item>orgy</item>
+    <item>paedophile</item>
+    <item>panooch</item>
+    <item>panties</item>
+    <item>panty</item>
+    <item>pawn</item>
+    <item>peckerhead</item>
+    <item>pedobear</item>
+    <item>pedophile</item>
+    <item>pegging</item>
+    <item>penisfucker</item>
+    <item>phone sex</item>
+    <item>phonesex</item>
+    <item>phuk</item>
+    <item>phuked</item>
+    <item>phuking</item>
+    <item>phukked</item>
+    <item>phukking</item>
+    <item>phuks</item>
+    <item>phuq</item>
+    <item>piece of shit</item>
+    <item>pigfucker</item>
+    <item>pis</item>
+    <item>pises</item>
+    <item>pisin</item>
+    <item>pising</item>
+    <item>pisof</item>
+    <item>piss</item>
+    <item>piss pig</item>
+    <item>pisser</item>
+    <item>pissers</item>
+    <item>pisses</item>
+    <item>pissflap</item>
+    <item>pissflaps</item>
+    <item>pissin</item>
+    <item>pissing</item>
+    <item>pissoff</item>
+    <item>pisspig</item>
+    <item>playboy</item>
+    <item>pleasure chest</item>
+    <item>pole smoker</item>
+    <item>polesmoker</item>
+    <item>pollock</item>
+    <item>ponyplay</item>
+    <item>poo</item>
+    <item>poon</item>
+    <item>poonani</item>
+    <item>poonany</item>
+    <item>poontang</item>
+    <item>poop chute</item>
+    <item>poopchute</item>
+    <item>porno</item>
+    <item>pornography</item>
+    <item>pornos</item>
+    <item>pricks</item>
+    <item>prince albert piercing</item>
+    <item>pron</item>
+    <item>pthc</item>
+    <item>pube</item>
+    <item>pubes</item>
+    <item>punanny</item>
+    <item>punany</item>
+    <item>punta</item>
+    <item>pusies</item>
+    <item>pussi</item>
+    <item>pussies</item>
+    <item>pussylicking</item>
+    <item>pussys</item>
+    <item>pusy</item>
+    <item>queaf</item>
+    <item>queef</item>
+    <item>queerbait</item>
+    <item>queerhole</item>
+    <item>quim</item>
+    <item>raghead</item>
+    <item>raging boner</item>
+    <item>rape</item>
+    <item>raping</item>
+    <item>rapist</item>
+    <item>renob</item>
+    <item>reverse cowgirl</item>
+    <item>rimjaw</item>
+    <item>rimjob</item>
+    <item>rimming</item>
+    <item>rosy palm</item>
+    <item>rosy palm and her 5 sisters</item>
+    <item>ruski</item>
+    <item>rusty trombone</item>
+    <item>s hit</item>
+    <item>s_h_i_t</item>
+    <item>sadism</item>
+    <item>santorum</item>
+    <item>scat</item>
+    <item>scissoring</item>
+    <item>scroat</item>
+    <item>scrote</item>
+    <item>sexo</item>
+    <item>shagger</item>
+    <item>shaggin</item>
+    <item>shagging</item>
+    <item>shaved beaver</item>
+    <item>shaved pussy</item>
+    <item>shibari</item>
+    <item>shit-ass</item>
+    <item>shit-bag</item>
+    <item>shit-bagger</item>
+    <item>shit-brain</item>
+    <item>shit-breath</item>
+    <item>shit-cunt</item>
+    <item>shit-dick</item>
+    <item>shit-eating</item>
+    <item>shit-face</item>
+    <item>shit-faced</item>
+    <item>shit-fit</item>
+    <item>shit-head</item>
+    <item>shit-heel</item>
+    <item>shit-hole</item>
+    <item>shit-house</item>
+    <item>shit-load</item>
+    <item>shit-pot</item>
+    <item>shit-spitter</item>
+    <item>shit-stain</item>
+    <item>shitass</item>
+    <item>shitbag</item>
+    <item>shitbagger</item>
+    <item>shitblimp</item>
+    <item>shitbrain</item>
+    <item>shitbreath</item>
+    <item>shitcunt</item>
+    <item>shitdick</item>
+    <item>shiteating</item>
+    <item>shited</item>
+    <item>shitey</item>
+    <item>shitface</item>
+    <item>shitfit</item>
+    <item>shitfuck</item>
+    <item>shitfull</item>
+    <item>shithead</item>
+    <item>shitheel</item>
+    <item>shithole</item>
+    <item>shithouse</item>
+    <item>shiting</item>
+    <item>shitings</item>
+    <item>shitload</item>
+    <item>shitpot</item>
+    <item>shitspitter</item>
+    <item>shitstain</item>
+    <item>shitted</item>
+    <item>shitters</item>
+    <item>shittiest</item>
+    <item>shitting</item>
+    <item>shittings</item>
+    <item>shitty</item>
+    <item>shity</item>
+    <item>shiznit</item>
+    <item>shota</item>
+    <item>shrimping</item>
+    <item>skeet</item>
+    <item>slanteye</item>
+    <item>slutbag</item>
+    <item>smeg</item>
+    <item>smegma</item>
+    <item>snowballing</item>
+    <item>sodomize</item>
+    <item>sodomy</item>
+    <item>spac</item>
+    <item>spick</item>
+    <item>splooge moose</item>
+    <item>spooge</item>
+    <item>spread legs</item>
+    <item>strap on</item>
+    <item>strapon</item>
+    <item>strappado</item>
+    <item>strip club</item>
+    <item>style doggy</item>
+    <item>suck</item>
+    <item>sucks</item>
+    <item>suicide girls</item>
+    <item>sultry women</item>
+    <item>swastika</item>
+    <item>swinger</item>
+    <item>t1tt1e5</item>
+    <item>t1tties</item>
+    <item>tainted love</item>
+    <item>tard</item>
+    <item>taste my</item>
+    <item>tea bagging</item>
+    <item>threesome</item>
+    <item>throating</item>
+    <item>thundercunt</item>
+    <item>tied up</item>
+    <item>tight white</item>
+    <item>titfuck</item>
+    <item>tittie5</item>
+    <item>tittiefucker</item>
+    <item>titties</item>
+    <item>titty</item>
+    <item>tittyfuck</item>
+    <item>tittywank</item>
+    <item>titwank</item>
+    <item>tongue in a</item>
+    <item>topless</item>
+    <item>towelhead</item>
+    <item>tranny</item>
+    <item>tribadism</item>
+    <item>tub girl</item>
+    <item>tubgirl</item>
+    <item>tushy</item>
+    <item>tw4t</item>
+    <item>twathead</item>
+    <item>twatlips</item>
+    <item>twatty</item>
+    <item>twink</item>
+    <item>twinkie</item>
+    <item>two girls one cup</item>
+    <item>twunt</item>
+    <item>twunter</item>
+    <item>undressing</item>
+    <item>upskirt</item>
+    <item>urethra play</item>
+    <item>urophilia</item>
+    <item>v14gra</item>
+    <item>v1gra</item>
+    <item>va-j-j</item>
+    <item>vag</item>
+    <item>venus mound</item>
+    <item>viagra</item>
+    <item>vibrator</item>
+    <item>violet wand</item>
+    <item>vjayjay</item>
+    <item>vorarephilia</item>
+    <item>voyeur</item>
+    <item>wang</item>
+    <item>wanky</item>
+    <item>wet dream</item>
+    <item>wetback</item>
+    <item>white power</item>
+    <item>willies</item>
+    <item>willy</item>
+    <item>wrapping men</item>
+    <item>wrinkled starfish</item>
+    <item>xx</item>
+    <item>yaoi</item>
+    <item>yellow showers</item>
+    <item>yiffy</item>
+    <item>zoophilia</item>
+    <item>🖕</item>
+    <item>abschaum</item>
+    <item>affenschwanz</item>
+    <item>ah du schwein</item>
+    <item>alter muschi</item>
+    <item>alter wichser</item>
+    <item>am blitz geleckt haben</item>
+    <item>analritter</item>
+    <item>arsch</item>
+    <item>arschficker</item>
+    <item>arschfotze</item>
+    <item>arschgeige</item>
+    <item>arschgesicht</item>
+    <item>arschkeks</item>
+    <item>arschkriecher</item>
+    <item>arschlecker</item>
+    <item>auberfeiger</item>
+    <item>aufgeilen</item>
+    <item>backpfeifengesicht</item>
+    <item>bimbo</item>
+    <item>blöde gans</item>
+    <item>blöde stinkpot</item>
+    <item>blödmann</item>
+    <item>blödsinn</item>
+    <item>bloede kuh</item>
+    <item>blutige sau</item>
+    <item>blvde fotze</item>
+    <item>bonze</item>
+    <item>bratze</item>
+    <item>bruchbude</item>
+    <item>bumsen</item>
+    <item>das arschloch</item>
+    <item>das ist mir scheißegal</item>
+    <item>das miststück</item>
+    <item>das schwein</item>
+    <item>depp</item>
+    <item>der dreckskerl</item>
+    <item>der fotzenlecker</item>
+    <item>der mist</item>
+    <item>der mistkerl</item>
+    <item>der wichser</item>
+    <item>die drecksau</item>
+    <item>die sau</item>
+    <item>die verarsche</item>
+    <item>dödel</item>
+    <item>donnerwetter</item>
+    <item>dreckige hure</item>
+    <item>drecksack</item>
+    <item>drecksau</item>
+    <item>dreckskerl</item>
+    <item>drecksnest</item>
+    <item>du bastard</item>
+    <item>du blöde kuh</item>
+    <item>du fickfehler</item>
+    <item>du hurensohn</item>
+    <item>du Hurensohn</item>
+    <item>du kannst mich mal</item>
+    <item>du sau</item>
+    <item>du schwein</item>
+    <item>du weichei</item>
+    <item>dummbatz</item>
+    <item>dumme</item>
+    <item>dumme kuh</item>
+    <item>dumme nuss</item>
+    <item>dummkopf</item>
+    <item>dumpfbacke</item>
+    <item>erarschen</item>
+    <item>fahr zur holle</item>
+    <item>feigling</item>
+    <item>fick</item>
+    <item>fick deine mutter</item>
+    <item>fick dich</item>
+    <item>fick dich arschloch</item>
+    <item>fick dich in knie</item>
+    <item>ficke</item>
+    <item>ficker</item>
+    <item>filzlaus</item>
+    <item>flachwichser</item>
+    <item>flittchen</item>
+    <item>fotze</item>
+    <item>fratze</item>
+    <item>geh zum teufel</item>
+    <item>gottverdammt</item>
+    <item>hackfresse</item>
+    <item>halt deinen mund</item>
+    <item>halt die fotze</item>
+    <item>halt die klappe</item>
+    <item>hat jemand dir ins gehirn geschissen</item>
+    <item>hirnrissig</item>
+    <item>hosenscheisser</item>
+    <item>huhrensohn</item>
+    <item>hure</item>
+    <item>huren</item>
+    <item>huren sohn</item>
+    <item>hurensohn</item>
+    <item>ich ficke deine mutter</item>
+    <item>ich ficke deine schwester</item>
+    <item>ich hasse dich</item>
+    <item>ich will dich ficken</item>
+    <item>ich will ficken</item>
+    <item>idiot</item>
+    <item>ische</item>
+    <item>kackbratze</item>
+    <item>kacke</item>
+    <item>kacken</item>
+    <item>kackwurst</item>
+    <item>kampflesbe</item>
+    <item>kanake</item>
+    <item>kimme</item>
+    <item>klugscheißer</item>
+    <item>küss meinen arsch</item>
+    <item>lech mien arsch</item>
+    <item>leck mich</item>
+    <item>leck mich am arsch</item>
+    <item>lesbe</item>
+    <item>lick</item>
+    <item>lms</item>
+    <item>lümmel</item>
+    <item>lusche</item>
+    <item>lutsch mein’ schwanz</item>
+    <item>lutsch’ meine eier</item>
+    <item>lutschen</item>
+    <item>mist</item>
+    <item>miststück</item>
+    <item>möpse</item>
+    <item>morgenlatte</item>
+    <item>möse</item>
+    <item>mufti</item>
+    <item>muschi lecker</item>
+    <item>mutterficker</item>
+    <item>nackt</item>
+    <item>neger</item>
+    <item>nippel</item>
+    <item>nutte</item>
+    <item>ohne scheiß</item>
+    <item>onanieren</item>
+    <item>orgasmus</item>
+    <item>penner</item>
+    <item>pimpern</item>
+    <item>pinkeln</item>
+    <item>pisse</item>
+    <item>pissen</item>
+    <item>popel</item>
+    <item>poppen</item>
+    <item>puff</item>
+    <item>quatsch</item>
+    <item>reudig</item>
+    <item>rosette</item>
+    <item>saugen</item>
+    <item>schabracke</item>
+    <item>scheiss</item>
+    <item>scheissdreck</item>
+    <item>scheisse</item>
+    <item>scheiße</item>
+    <item>scheissekopf</item>
+    <item>scheissen</item>
+    <item>scheisser</item>
+    <item>scheisskerl</item>
+    <item>scheisskopf</item>
+    <item>schiesser</item>
+    <item>schnackeln</item>
+    <item>schnoodle noodle</item>
+    <item>schwanz</item>
+    <item>schwanzlutscher</item>
+    <item>schweinebacke</item>
+    <item>schweinehund</item>
+    <item>schwuchtel</item>
+    <item>schwuchtl</item>
+    <item>shaisa</item>
+    <item>sheisse</item>
+    <item>sohn einer hündin</item>
+    <item>spasti</item>
+    <item>spießig</item>
+    <item>spinnen</item>
+    <item>spinner</item>
+    <item>spinnst</item>
+    <item>teufel</item>
+    <item>tittchen</item>
+    <item>titten</item>
+    <item>trottel</item>
+    <item>verdammt</item>
+    <item>verdammte scheiße</item>
+    <item>verdammter</item>
+    <item>verdammter Scheiß</item>
+    <item>verfluchter</item>
+    <item>verpiss dich</item>
+    <item>verrückter mann</item>
+    <item>vögeln</item>
+    <item>vollidiot</item>
+    <item>vollpfosten</item>
+    <item>vollscheißen</item>
+    <item>volltrottel</item>
+    <item>was zum teufel</item>
+    <item>was zur hölle</item>
+    <item>weichei</item>
+    <item>wichse</item>
+    <item>wichsen</item>
+    <item>witzbold</item>
+    <item>zicke</item>
+    <item>zur holle mit dir</item>
+    <item>a tomar por saco</item>
+    <item>anda a cagar</item>
+    <item>apestar</item>
+    <item>basura</item>
+    <item>bicho</item>
+    <item>burro</item>
+    <item>cacorro</item>
+    <item>cagar</item>
+    <item>calientapollas</item>
+    <item>capullo</item>
+    <item>cara de culo</item>
+    <item>cara de monda</item>
+    <item>carajo</item>
+    <item>chapero</item>
+    <item>chichi</item>
+    <item>chimba</item>
+    <item>chingar</item>
+    <item>chocho</item>
+    <item>chupar</item>
+    <item>cipote</item>
+    <item>coger</item>
+    <item>cojonazos</item>
+    <item>cojones</item>
+    <item>come mierda y muere</item>
+    <item>culiao</item>
+    <item>culo</item>
+    <item>de puta madre</item>
+    <item>follar</item>
+    <item>forro</item>
+    <item>gilipollas</item>
+    <item>gonorrea</item>
+    <item>guarra</item>
+    <item>hijo de perra</item>
+    <item>hijo de puta</item>
+    <item>hijueputa</item>
+    <item>hostia</item>
+    <item>huevo</item>
+    <item>huevos</item>
+    <item>idiota</item>
+    <item>jode</item>
+    <item>joder</item>
+    <item>joto</item>
+    <item>la concha de tu madre</item>
+    <item>la hostia</item>
+    <item>lame botas</item>
+    <item>loco</item>
+    <item>los cojones</item>
+    <item>maldito</item>
+    <item>malparido</item>
+    <item>mamahuevo</item>
+    <item>marica</item>
+    <item>maricon</item>
+    <item>mariconazo</item>
+    <item>mariquita</item>
+    <item>me cago en la hostia</item>
+    <item>me cago en ti</item>
+    <item>mierda</item>
+    <item>mongolo</item>
+    <item>nabo</item>
+    <item>no me jodas</item>
+    <item>no seas gilipollas</item>
+    <item>pajero</item>
+    <item>payaso</item>
+    <item>pelos de los huevos</item>
+    <item>pelotas</item>
+    <item>pelotudo</item>
+    <item>pendejo</item>
+    <item>percanta</item>
+    <item>perro</item>
+    <item>pichacorta</item>
+    <item>pinche</item>
+    <item>piruja</item>
+    <item>polla</item>
+    <item>pollas en vinagre</item>
+    <item>Puta madre</item>
+    <item>que te den</item>
+    <item>que te jodan</item>
+    <item>rabo</item>
+    <item>raja</item>
+    <item>soplapollas</item>
+    <item>tarado</item>
+    <item>tonto</item>
+    <item>tonto del culo</item>
+    <item>tontopollas</item>
+    <item>trompada</item>
+    <item>un putero</item>
+    <item>verga</item>
+    <item>vete a la mierda</item>
+    <item>vete a la verga</item>
+    <item>vete al demonio</item>
+    <item>vete al infierno</item>
+    <item>zorra</item>
+    <item>zunga</item>
+    <item>a pecorina</item>
+    <item>abcdiet</item>
+    <item>accidenti</item>
+    <item>accidenti </item>
+    <item>affanculo</item>
+    <item>alla cazzo di cane</item>
+    <item>alla pecorina</item>
+    <item>allupato</item>
+    <item>amico del cazzo</item>
+    <item>ammucchiata</item>
+    <item>anabootcampdiet</item>
+    <item>anale</item>
+    <item>andare a puttane</item>
+    <item>arrapato</item>
+    <item>arrusa</item>
+    <item>arruso</item>
+    <item>assatanato</item>
+    <item>avere la faccia come il culo</item>
+    <item>bacha ma culo</item>
+    <item>bafangu chooch</item>
+    <item>bagasce</item>
+    <item>bagascia</item>
+    <item>bagascione</item>
+    <item>bagassa</item>
+    <item>bagnarsi</item>
+    <item>baldracca</item>
+    <item>baldraccacce</item>
+    <item>baldraccaccia</item>
+    <item>baldracche</item>
+    <item>baldraccona</item>
+    <item>baldraccone</item>
+    <item>balle</item>
+    <item>bariledimerda</item>
+    <item>bastardacce</item>
+    <item>bastardacci</item>
+    <item>bastardaccia</item>
+    <item>bastardaccio</item>
+    <item>bastardamadonna</item>
+    <item>bastarde</item>
+    <item>bastardi</item>
+    <item>bastardona</item>
+    <item>bastardone</item>
+    <item>bastardoni</item>
+    <item>battere</item>
+    <item>battona</item>
+    <item>battone</item>
+    <item>bbwpit</item>
+    <item>belino</item>
+    <item>biga</item>
+    <item>bimbominkia</item>
+    <item>bocchinara</item>
+    <item>bocchinare</item>
+    <item>bocchinari</item>
+    <item>bocchinaro</item>
+    <item>bocchini</item>
+    <item>bocchino</item>
+    <item>bofilo</item>
+    <item>boiata</item>
+    <item>bordello</item>
+    <item>brinca</item>
+    <item>brutto cornuto</item>
+    <item>brutto figlio di puttana bastardo</item>
+    <item>brutto stronzo</item>
+    <item>bucaiolo</item>
+    <item>budellodidio</item>
+    <item>buona donna</item>
+    <item>busone</item>
+    <item>bustadipiscio</item>
+    <item>cacaminchia</item>
+    <item>cacare</item>
+    <item>cacasotto</item>
+    <item>cacata</item>
+    <item>cacca</item>
+    <item>caciocappella</item>
+    <item>cadavere</item>
+    <item>cagacazzo</item>
+    <item>cagaminchia</item>
+    <item>cagare</item>
+    <item>cagasotto</item>
+    <item>cagata</item>
+    <item>cagna</item>
+    <item>cammello</item>
+    <item>canacciodidio</item>
+    <item>canagliadidio</item>
+    <item>caned\'allah</item>
+    <item>caned\'eva</item>
+    <item>canedidio</item>
+    <item>cappella</item>
+    <item>carciofo</item>
+    <item>carogna</item>
+    <item>caronya</item>
+    <item>casci</item>
+    <item>cavolate</item>
+    <item>cavolo</item>
+    <item>cazzacci</item>
+    <item>cazzaccio</item>
+    <item>cazzaro</item>
+    <item>cazzata</item>
+    <item>cazzate</item>
+    <item>cazzetti</item>
+    <item>cazzetto</item>
+    <item>cazzi</item>
+    <item>cazzimma</item>
+    <item>cazzissimo</item>
+    <item>cazzo di merda</item>
+    <item>cazzo in culo</item>
+    <item>cazzo madre di dio</item>
+    <item>cazzo si</item>
+    <item>cazzona</item>
+    <item>cazzone</item>
+    <item>cazzoni</item>
+    <item>cazzuta</item>
+    <item>cazzute</item>
+    <item>cazzuti</item>
+    <item>cazzutissimo</item>
+    <item>cazzuto</item>
+    <item>ce l hai piccolo</item>
+    <item>ce un cibirut</item>
+    <item>cesso</item>
+    <item>che cavolo</item>
+    <item>che cavolo.</item>
+    <item>che cazzo</item>
+    <item>che cazzo fai?</item>
+    <item>che cazzo ne so</item>
+    <item>che culo</item>
+    <item>che due coglioni</item>
+    <item>che due palle</item>
+    <item>che palle</item>
+    <item>che te pozzino ammazza</item>
+    <item>checca</item>
+    <item>checche</item>
+    <item>chi cazzo sei tu?</item>
+    <item>chiappa</item>
+    <item>chiavare</item>
+    <item>chiavata</item>
+    <item>chiavate</item>
+    <item>chiavatona</item>
+    <item>chiavatone</item>
+    <item>chissenefrega</item>
+    <item>chissenefrega?</item>
+    <item>ci sei cascato come una pirla</item>
+    <item>ciolla</item>
+    <item>ciolle</item>
+    <item>ciornia</item>
+    <item>ciospo</item>
+    <item>ciucciamelo</item>
+    <item>ciucciami il cazzo</item>
+    <item>ciucciapalle</item>
+    <item>cogliona</item>
+    <item>coglionaggine</item>
+    <item>coglionare</item>
+    <item>coglionata</item>
+    <item>coglionate</item>
+    <item>coglionatore</item>
+    <item>coglionatrice</item>
+    <item>coglionatura</item>
+    <item>coglionature</item>
+    <item>coglionazzi</item>
+    <item>coglionazzo</item>
+    <item>coglioncelli</item>
+    <item>coglioncello</item>
+    <item>coglioncini</item>
+    <item>coglioncino</item>
+    <item>coglione</item>
+    <item>coglioneria</item>
+    <item>coglionerie</item>
+    <item>coglioni</item>
+    <item>col cavolo</item>
+    <item>coprofago</item>
+    <item>coprofilo</item>
+    <item>cornuti</item>
+    <item>cornuto</item>
+    <item>cornutoilpapa</item>
+    <item>cozza</item>
+    <item>cozzo</item>
+    <item>credoana</item>
+    <item>cretinetti</item>
+    <item>cretino</item>
+    <item>cristod\'undio</item>
+    <item>cristodecapitato</item>
+    <item>cristoincroce</item>
+    <item>culattina</item>
+    <item>culattone</item>
+    <item>culattoni</item>
+    <item>culi</item>
+    <item>culona</item>
+    <item>culone</item>
+    <item>curnut</item>
+    <item>dare un calcio nel culo a qualcuno</item>
+    <item>deficiente</item>
+    <item>di merda</item>
+    <item>dietaabc</item>
+    <item>dietaana</item>
+    <item>dietaanabootcamp</item>
+    <item>dietabootcamp</item>
+    <item>dietadell\'abc</item>
+    <item>dio bastardo</item>
+    <item>dio boia</item>
+    <item>dio cane</item>
+    <item>dio cangurello</item>
+    <item>dio dannato</item>
+    <item>dio fa</item>
+    <item>dio Fottuto</item>
+    <item>dio infame</item>
+    <item>dio lupo</item>
+    <item>dio maiale</item>
+    <item>dio merda</item>
+    <item>dio merdoso</item>
+    <item>dio mona</item>
+    <item>dio poj</item>
+    <item>dio povero</item>
+    <item>dio santo</item>
+    <item>dio schifoso</item>
+    <item>dio serpente</item>
+    <item>dio sorcio</item>
+    <item>dio stronzo</item>
+    <item>dio verme</item>
+    <item>dio zozzo</item>
+    <item>diobastardo</item>
+    <item>diobestia</item>
+    <item>diobestiazza</item>
+    <item>dioboia</item>
+    <item>diocan</item>
+    <item>diocane</item>
+    <item>diocannaiolo</item>
+    <item>diocapra</item>
+    <item>diocoglione</item>
+    <item>diocomunista</item>
+    <item>diocrasto</item>
+    <item>diocristo</item>
+    <item>dioculattone</item>
+    <item>diofarabutto</item>
+    <item>diofascista</item>
+    <item>diofinocchio</item>
+    <item>dioflagellato</item>
+    <item>dioimpestato</item>
+    <item>dioimpiccato</item>
+    <item>dioladro</item>
+    <item>diolebbroso</item>
+    <item>diolobotomizzato</item>
+    <item>diolurido</item>
+    <item>diomaiale</item>
+    <item>diomaledetto</item>
+    <item>diomerda</item>
+    <item>diominchione</item>
+    <item>dionegro</item>
+    <item>dioporco</item>
+    <item>diopoveraccio</item>
+    <item>diopovero</item>
+    <item>diorotto</item>
+    <item>diorottoinculo</item>
+    <item>diorutto</item>
+    <item>diosbudellato</item>
+    <item>dioschifoso</item>
+    <item>dioseppellito</item>
+    <item>dioserpente</item>
+    <item>diostracane</item>
+    <item>diostramerda</item>
+    <item>diostronzo</item>
+    <item>diosventrato</item>
+    <item>dioverme</item>
+    <item>ditalini</item>
+    <item>ditalino</item>
+    <item>dito al</item>
+    <item>dove cazzo vai?</item>
+    <item>duro</item>
+    <item>e che cazzo</item>
+    <item>essere un culo</item>
+    <item>fa cagare</item>
+    <item>fa schifo</item>
+    <item>faccia a culo</item>
+    <item>faccia di culo</item>
+    <item>faccia di merda</item>
+    <item>facciadaculo</item>
+    <item>facciadimerda</item>
+    <item>fare una sega</item>
+    <item>fare una`</item>
+    <item>fatti i cazzi tuoi</item>
+    <item>fatti una pugnetta</item>
+    <item>fava</item>
+    <item>femminuccia</item>
+    <item>fica</item>
+    <item>ficata</item>
+    <item>ficate</item>
+    <item>fiche</item>
+    <item>fichetta</item>
+    <item>fichette</item>
+    <item>fichetti</item>
+    <item>fichetto</item>
+    <item>ficona</item>
+    <item>ficone</item>
+    <item>figa</item>
+    <item>figata</item>
+    <item>figate</item>
+    <item>fighe</item>
+    <item>fighetta</item>
+    <item>fighette</item>
+    <item>fighetti</item>
+    <item>fighetto</item>
+    <item>figliadicane</item>
+    <item>figliadimignotta</item>
+    <item>figliadiputtana</item>
+    <item>figliaditroia</item>
+    <item>figlidicani</item>
+    <item>figlidimignotta</item>
+    <item>figlidiputtana</item>
+    <item>figliditroia</item>
+    <item>figliedicani</item>
+    <item>figliedimignotta</item>
+    <item>figliediputtana</item>
+    <item>figlieditroia</item>
+    <item>figlio di buona donna</item>
+    <item>figlio di mignotta</item>
+    <item>figlio di puttana</item>
+    <item>figlio di troia</item>
+    <item>figlio un cane</item>
+    <item>figliodicane</item>
+    <item>figliodimignotta</item>
+    <item>figliodiputtana</item>
+    <item>figlioditroia</item>
+    <item>figona</item>
+    <item>figone</item>
+    <item>figoni</item>
+    <item>figura di merda</item>
+    <item>finocchi</item>
+    <item>finocchio</item>
+    <item>fongoul</item>
+    <item>formaggio</item>
+    <item>fottere</item>
+    <item>fottersi</item>
+    <item>fottiti</item>
+    <item>fottuta</item>
+    <item>fottute</item>
+    <item>fottuti</item>
+    <item>fottutissima</item>
+    <item>fottutissime</item>
+    <item>fottutissimi</item>
+    <item>fottutissimo</item>
+    <item>fottuto</item>
+    <item>fracicone</item>
+    <item>frega un cazzo</item>
+    <item>fregna</item>
+    <item>frocetto</item>
+    <item>froci</item>
+    <item>frociara</item>
+    <item>frociaro</item>
+    <item>frociarola</item>
+    <item>frociarolo</item>
+    <item>frocio</item>
+    <item>frocione</item>
+    <item>frocioni</item>
+    <item>frocissimo</item>
+    <item>froscio</item>
+    <item>fumato il cervello</item>
+    <item>fuori come un balcone</item>
+    <item>garibaldi</item>
+    <item>gnocca</item>
+    <item>gnocche</item>
+    <item>goldone</item>
+    <item>gran  disgraziato</item>
+    <item>grilletto</item>
+    <item>guanto</item>
+    <item>guardone</item>
+    <item>heyyyyy</item>
+    <item>i coglioni</item>
+    <item>incazzare</item>
+    <item>incazzarsi</item>
+    <item>incazzata</item>
+    <item>incazzate</item>
+    <item>incazzati</item>
+    <item>incazzatissima</item>
+    <item>incazzatissime</item>
+    <item>incazzatissimi</item>
+    <item>incazzatissimo</item>
+    <item>incazzato</item>
+    <item>incazzato nero</item>
+    <item>incoglionirsi</item>
+    <item>inculare</item>
+    <item>inculata</item>
+    <item>inculate</item>
+    <item>infrociato</item>
+    <item>ingoio</item>
+    <item>intro culo di mammata</item>
+    <item>ir budello di tu ma </item>
+    <item>l\'arte bolognese</item>
+    <item>latrin</item>
+    <item>leccacazzi</item>
+    <item>leccaculi</item>
+    <item>leccaculo</item>
+    <item>leccafica</item>
+    <item>leccafiga</item>
+    <item>leccafighe</item>
+    <item>leccami il culo</item>
+    <item>leccami la figa</item>
+    <item>leccapalle</item>
+    <item>lecchino</item>
+    <item>levati dai coglioni</item>
+    <item>li mortacci tua</item>
+    <item>lofare</item>
+    <item>loffa</item>
+    <item>loffare</item>
+    <item>lumaca</item>
+    <item>ma  va te ne a fanculo</item>
+    <item>Madonna</item>
+    <item>Madonna avvelenata</item>
+    <item>Madonna bastarda</item>
+    <item>Madonna bocchinara</item>
+    <item>Madonna impalata</item>
+    <item>Madonna infiammata</item>
+    <item>Madonna maiala</item>
+    <item>Madonna mignotta</item>
+    <item>Madonna puttana</item>
+    <item>madonna santa</item>
+    <item>Madonna schifosa</item>
+    <item>Madonna strega</item>
+    <item>Madonna svergognata</item>
+    <item>Madonna troia</item>
+    <item>Madonna zoccola</item>
+    <item>madonnaassassinata</item>
+    <item>madonnacane</item>
+    <item>madonnaimpestata</item>
+    <item>madonnaisterica</item>
+    <item>madonnalurida</item>
+    <item>madonnamaiala</item>
+    <item>madonnamongoloide</item>
+    <item>madonnanegra</item>
+    <item>madonnaputtana</item>
+    <item>madonnaschiava</item>
+    <item>madonnastregaccia</item>
+    <item>madonnasudicia</item>
+    <item>madonnasuicida</item>
+    <item>madonnasurgelata</item>
+    <item>madonnatroia</item>
+    <item>madonnaviolentata</item>
+    <item>mafankulo</item>
+    <item>maiala</item>
+    <item>manache</item>
+    <item>mangia la minchia</item>
+    <item>mangia merda</item>
+    <item>mangia merde e morte</item>
+    <item>manico</item>
+    <item>mannaggia</item>
+    <item>mannaggia tua</item>
+    <item>mannaggiacristo</item>
+    <item>mannaggiadio</item>
+    <item>mannaggiailbattesimo</item>
+    <item>mannaggiailclero</item>
+    <item>mannaggiaisanti</item>
+    <item>mannaggial\'arcangelo</item>
+    <item>mannaggialabibbia</item>
+    <item>mannaggialadiocesi</item>
+    <item>mannaggialamadonna</item>
+    <item>mannaggialaputtana</item>
+    <item>mannaggiapadrepio</item>
+    <item>mannaggiasangiuseppe</item>
+    <item>merda</item>
+    <item>merdacce</item>
+    <item>merdaccia</item>
+    <item>merdamalcagata</item>
+    <item>merdata</item>
+    <item>merdate</item>
+    <item>merde</item>
+    <item>merdina</item>
+    <item>merdine</item>
+    <item>merdolina</item>
+    <item>merdoline</item>
+    <item>merdona</item>
+    <item>merdone</item>
+    <item>merdosa</item>
+    <item>merdose</item>
+    <item>merdosi</item>
+    <item>merdoso</item>
+    <item>mezza sega</item>
+    <item>mezzasega</item>
+    <item>mezzeseghe</item>
+    <item>mi stai facendo incazzare</item>
+    <item>micio</item>
+    <item>mignotta</item>
+    <item>mignotte</item>
+    <item>minchia</item>
+    <item>minchiadura</item>
+    <item>minchiaduro</item>
+    <item>minchiata</item>
+    <item>minchiate</item>
+    <item>minchie</item>
+    <item>minchione</item>
+    <item>minchioni</item>
+    <item>miserabili pezzo di merda</item>
+    <item>mona</item>
+    <item>mone</item>
+    <item>mongoloide</item>
+    <item>monta</item>
+    <item>montare</item>
+    <item>mortacci tua</item>
+    <item>mussa</item>
+    <item>nave scuola</item>
+    <item>negra</item>
+    <item>negraccia</item>
+    <item>negraccio</item>
+    <item>negrona</item>
+    <item>negrone</item>
+    <item>nel culo</item>
+    <item>nerchia</item>
+    <item>nessuno mi unfungulo</item>
+    <item>non hai capito una sega</item>
+    <item>non me ne importa</item>
+    <item>non mi rompere i coglioni</item>
+    <item>nudo</item>
+    <item>oddio</item>
+    <item>padulo</item>
+    <item>palle</item>
+    <item>palloso</item>
+    <item>patacca</item>
+    <item>patonza</item>
+    <item>patonze</item>
+    <item>pecorina</item>
+    <item>pesce</item>
+    <item>pezzo di merda</item>
+    <item>picio</item>
+    <item>pigliacazzi</item>
+    <item>pigliainculo</item>
+    <item>pincare</item>
+    <item>pinnolone</item>
+    <item>pipa</item>
+    <item>pippone</item>
+    <item>pirla</item>
+    <item>pisciare</item>
+    <item>pisciasotto</item>
+    <item>pisciata</item>
+    <item>pisciatina</item>
+    <item>pisciato</item>
+    <item>pisciatona</item>
+    <item>piscio</item>
+    <item>pisciona</item>
+    <item>piscione</item>
+    <item>piscioni</item>
+    <item>pisello</item>
+    <item>pistola</item>
+    <item>pistolotto</item>
+    <item>pomiciare</item>
+    <item>pompa</item>
+    <item>pompinara</item>
+    <item>pompinare</item>
+    <item>pompinari</item>
+    <item>pompinaro</item>
+    <item>pompini</item>
+    <item>pompino</item>
+    <item>porca</item>
+    <item>porca madonna</item>
+    <item>porca miseria</item>
+    <item>porca paletta</item>
+    <item>porca puttana</item>
+    <item>porca troia</item>
+    <item>porca vacca</item>
+    <item>porcamadonna</item>
+    <item>porcaputtana</item>
+    <item>porco</item>
+    <item>porco cane</item>
+    <item>porco dio</item>
+    <item>porco due</item>
+    <item>porco giuda</item>
+    <item>porco Iddio</item>
+    <item>porco zio</item>
+    <item>porcodidio</item>
+    <item>porcodio</item>
+    <item>porcoilclero</item>
+    <item>porcoilsignore</item>
+    <item>posso leccare il tua figa?</item>
+    <item>potta</item>
+    <item>prendere per il culo</item>
+    <item>prete</item>
+    <item>pro-ana</item>
+    <item>pro-anoressia</item>
+    <item>pro-bulimia</item>
+    <item>pro-ed</item>
+    <item>pro-ednos</item>
+    <item>pro-mia</item>
+    <item>proana</item>
+    <item>proanoressia</item>
+    <item>probulimia</item>
+    <item>proed</item>
+    <item>proednos</item>
+    <item>promia</item>
+    <item>pugnetta</item>
+    <item>pugnette</item>
+    <item>puppa</item>
+    <item>puppamela</item>
+    <item>puppamelo</item>
+    <item>puppami</item>
+    <item>puppare</item>
+    <item>puppe</item>
+    <item>puttana</item>
+    <item>puttana la Madonna</item>
+    <item>puttanacce</item>
+    <item>puttanaccia</item>
+    <item>puttanaeva</item>
+    <item>puttanaio</item>
+    <item>puttanamadonna</item>
+    <item>puttanata</item>
+    <item>puttanate</item>
+    <item>puttane</item>
+    <item>puttanella</item>
+    <item>puttanelle</item>
+    <item>puttaniere</item>
+    <item>puttanieri</item>
+    <item>puttano</item>
+    <item>puttanona</item>
+    <item>puttanone</item>
+    <item>quaglia</item>
+    <item>quando cazzo torni?</item>
+    <item>raspone</item>
+    <item>rasponi</item>
+    <item>recchione</item>
+    <item>regina</item>
+    <item>ricchione</item>
+    <item>ricchioni</item>
+    <item>rincoglionire</item>
+    <item>rincoglionito</item>
+    <item>rizzacazzi</item>
+    <item>rizzarsi</item>
+    <item>rompere i miei coglioni</item>
+    <item>rompere il culo a qualcuno</item>
+    <item>rompiballe</item>
+    <item>rompicazzi</item>
+    <item>rompicazzo</item>
+    <item>rompicoglioni</item>
+    <item>rompipalle</item>
+    <item>rotta in culo</item>
+    <item>rottinculo</item>
+    <item>rotto nel culo</item>
+    <item>ruffiano</item>
+    <item>santo cazzo madre di cristo</item>
+    <item>sbattere</item>
+    <item>sbattersi</item>
+    <item>sbocchinare</item>
+    <item>sbocchinato</item>
+    <item>sbocchiniamolo</item>
+    <item>sbora</item>
+    <item>sborra</item>
+    <item>sborrare</item>
+    <item>sborrata</item>
+    <item>sborrate</item>
+    <item>sborrato</item>
+    <item>sborratona</item>
+    <item>sborro</item>
+    <item>sborrone</item>
+    <item>sbrodolata</item>
+    <item>sburra</item>
+    <item>sburrare</item>
+    <item>sburro</item>
+    <item>scassacazzo</item>
+    <item>scassacoglioni</item>
+    <item>scassaminchia</item>
+    <item>scazzare</item>
+    <item>scazzata</item>
+    <item>scazzate</item>
+    <item>scazzati</item>
+    <item>scazzato</item>
+    <item>schifoso</item>
+    <item>scopare</item>
+    <item>scopata</item>
+    <item>scopate</item>
+    <item>scoregge</item>
+    <item>scoreggia</item>
+    <item>scorreggiare</item>
+    <item>scungio</item>
+    <item>secchione</item>
+    <item>sega</item>
+    <item>segaiolo</item>
+    <item>segars</item>
+    <item>seghe</item>
+    <item>segone</item>
+    <item>sei diventato pazza?</item>
+    <item>sei diventato pazzo?</item>
+    <item>sei duro come il muro</item>
+    <item>sei impazzita?</item>
+    <item>sei impazzito?</item>
+    <item>sei pazza?</item>
+    <item>sei pazzo?</item>
+    <item>sei scemo</item>
+    <item>sei stupido</item>
+    <item>sei un cretino</item>
+    <item>sei un deficiente</item>
+    <item>sei un idiota</item>
+    <item>sei un rompicoglioni</item>
+    <item>sei una sfigata</item>
+    <item>sei una testa di cazzo</item>
+    <item>sei uno stronzo</item>
+    <item>sembri un peni</item>
+    <item>sfacim e merde</item>
+    <item>sfiga</item>
+    <item>sfigati</item>
+    <item>sfigato</item>
+    <item>signorebastardo</item>
+    <item>slinguare</item>
+    <item>slinguata</item>
+    <item>smandrappata</item>
+    <item>smerdare</item>
+    <item>soccia</item>
+    <item>socmel</item>
+    <item>sorca</item>
+    <item>spagnola</item>
+    <item>spompinare</item>
+    <item>spompinata</item>
+    <item>spompinato</item>
+    <item>spompiniamolo</item>
+    <item>sputtanare</item>
+    <item>sta puttana</item>
+    <item>sti cazza</item>
+    <item>sticchio</item>
+    <item>stronza</item>
+    <item>stronzata</item>
+    <item>stronzate</item>
+    <item>stronzetta</item>
+    <item>stronzette</item>
+    <item>stronzetti</item>
+    <item>stronzetto</item>
+    <item>stronzi</item>
+    <item>stronzina</item>
+    <item>stronzine</item>
+    <item>stronzini</item>
+    <item>stronzino</item>
+    <item>stronzino/a</item>
+    <item>stronzo</item>
+    <item>stronzo/a</item>
+    <item>stronzoli</item>
+    <item>stronzolo</item>
+    <item>stronzomalcagato</item>
+    <item>stronzona</item>
+    <item>stronzone</item>
+    <item>stronzoni</item>
+    <item>strunzo</item>
+    <item>suca!</item>
+    <item>succhiacazzi</item>
+    <item>succhiamelo</item>
+    <item>succhiami</item>
+    <item>succhiaminchia</item>
+    <item>succhiapalle</item>
+    <item>succhione</item>
+    <item>sveltina</item>
+    <item>sverginare</item>
+    <item>tarzanelli</item>
+    <item>tarzanello</item>
+    <item>tenere qualcuno per le palle</item>
+    <item>terrone</item>
+    <item>testa di cazzo</item>
+    <item>testa di cazzo.</item>
+    <item>testa di minchia</item>
+    <item>tetta</item>
+    <item>tette</item>
+    <item>tettina</item>
+    <item>tettine</item>
+    <item>tettona</item>
+    <item>tettone</item>
+    <item>thinspiration</item>
+    <item>thinspo</item>
+    <item>ti ammazzo</item>
+    <item>ti corro in culo</item>
+    <item>ti sei bevuto</item>
+    <item>tirare</item>
+    <item>topa</item>
+    <item>troia</item>
+    <item>troiacce</item>
+    <item>troiaccia</item>
+    <item>troiamadonna</item>
+    <item>troie</item>
+    <item>troietta</item>
+    <item>troiette</item>
+    <item>troio</item>
+    <item>troiona</item>
+    <item>troioncella</item>
+    <item>troioncelle</item>
+    <item>troione</item>
+    <item>trombare</item>
+    <item>trombata</item>
+    <item>trombatona</item>
+    <item>tu ma  piscia in piedi</item>
+    <item>tu piezza di merda</item>
+    <item>tua mamma bocchinara</item>
+    <item>uccello</item>
+    <item>un pompino</item>
+    <item>va  a cacare</item>
+    <item>va  a farti fottere</item>
+    <item>vacca</item>
+    <item>vaccamadonna</item>
+    <item>vada a bordo</item>
+    <item>vaffanculo</item>
+    <item>vaffonculo</item>
+    <item>vai a cacare</item>
+    <item>vai a cagare</item>
+    <item>vai a farti fottere</item>
+    <item>vai a farti fottere, puttana</item>
+    <item>vai a quel paese</item>
+    <item>Vai a vendere il culo</item>
+    <item>vai all inferno</item>
+    <item>vangare</item>
+    <item>vattela a pigliare in culo</item>
+    <item>venire</item>
+    <item>zinne</item>
+    <item>zio cantante</item>
+    <item>zoccola</item>
+    <item>zoccole</item>
+    <item>zuia</item>
+</string-array>
+</resources>

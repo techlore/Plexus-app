@@ -81,6 +81,10 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         installedVersionBuild = intent.getIntExtra("installedVersionBuild", 0)
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
         isMicroG = PreferenceManager(this).getBoolean(DEVICE_IS_MICROG)
+        val blockedWords = resources.getStringArray(R.array.blocked_words)
+        val blockedWordsPattern = blockedWords.joinToString("|") { Regex.escape(it) }
+        val blockedWordsRegex =
+            "(?i)\\b($blockedWordsPattern)\\b".toRegex(setOf(RegexOption.IGNORE_CASE))// *next regex meme goes here*
         
         /*########################################################################################*/
         
@@ -117,10 +121,14 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                     override fun onFinish() {
                         val text = activityBinding.submitNotesText.text.toString()
                         
+                        // Check for blocked words
+                        val hasBlockedWord = blockedWordsRegex.find(text) != null
+                        
                         activityBinding.submitFab.isEnabled =
                             text.isEmpty()
                             || ((text.length > 4)
                                 && text.length <= 300
+                                && !hasBlockedWord
                                 && regexPattern.matches(text))
                     }
                     
