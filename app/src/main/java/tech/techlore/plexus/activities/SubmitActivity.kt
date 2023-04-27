@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import org.json.JSONObject
+import org.jsoup.Jsoup
 import retrofit2.Call
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
@@ -162,7 +163,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 val postRatingCall = apiRepository.postRating(packageNameString, postRatingRoot)
                 
                 if (!isInPlexusData) {
-                    val app = PostApp(name = nameString, packageName = packageNameString)
+                    val app = PostApp(name = nameString, packageName = packageNameString, iconUrl = getIconUrl())
                     val postAppRoot = PostAppRoot(app)
                     val postAppCall = apiRepository.postApp(postAppRoot)
                     postApp(postAppCall)
@@ -231,6 +232,16 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                          activityBinding.submitBottomAppBar)
             activityBinding.submitFab.isEnabled = true
         }
+    }
+    
+    private suspend fun getIconUrl(): String {
+        val document = withContext(Dispatchers.IO) {
+            Jsoup.connect("https://play.google.com/store/apps/details?id=$packageNameString")
+                .get()
+        }
+        val element = document.selectFirst("meta[content^=https://play-lh]")
+        return element!!.attr("content")
+        
     }
     
     private suspend fun updateRatingInDb(rating: PostRating) {

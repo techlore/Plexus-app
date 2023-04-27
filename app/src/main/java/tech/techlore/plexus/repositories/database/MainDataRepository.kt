@@ -26,8 +26,6 @@ import retrofit2.awaitResponse
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.main.MainData
-import tech.techlore.plexus.models.get.scores.DgScore
-import tech.techlore.plexus.models.get.scores.MgScore
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {
@@ -42,6 +40,8 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                 appsResponse.body()?.let { root ->
                     for (mainData in root.mainData) {
                         
+                        mainData.iconUrl += "=w64-h64" // Store 64x64 icon url only as 512x512 is not needed
+                        
                         val scoresCall = apiRepository.getScores(mainData.packageName)
                         val scoresResponse = scoresCall.awaitResponse()
                         
@@ -49,14 +49,18 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                             scoresResponse.body()?.let { scoresRoot ->
     
                                 // De-googled score
+                                // 1 decimal place without rounding off
                                 val dgScoreString = scoresRoot.scoreData[0].score.toString()
                                 val truncatedDgScore = dgScoreString.substring(0, dgScoreString.indexOf(".") + 2).toFloat()
-                                mainData.dgScore = DgScore(truncatedDgScore, scoresRoot.scoreData[0].totalRatings)
+                                mainData.dgScore = truncatedDgScore
+                                mainData.totalDgRatings = scoresRoot.scoreData[0].totalRatings
     
                                 // MicroG score
+                                // 1 decimal place without rounding off
                                 val mgScoreString = scoresRoot.scoreData[1].score.toString()
                                 val truncatedMgScore = mgScoreString.substring(0, mgScoreString.indexOf(".") + 2).toFloat()
-                                mainData.mgScore = MgScore(truncatedMgScore, scoresRoot.scoreData[1].totalRatings)
+                                mainData.mgScore = truncatedMgScore
+                                mainData.totalMgRatings = scoresRoot.scoreData[1].totalRatings
                                 
                             }
                         }

@@ -22,7 +22,6 @@ package tech.techlore.plexus.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -34,6 +33,8 @@ import androidx.core.view.MenuProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -51,7 +52,6 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreToStatusString
 import kotlin.coroutines.CoroutineContext
-import com.bumptech.glide.RequestBuilder as RequestBuilder1
 
 class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     
@@ -81,9 +81,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         navController = navHostFragment.navController
         selectedVersionString = getString(R.string.any)
         val repository = (applicationContext as ApplicationManager).mainRepository
+        val requestOptions =
+            RequestOptions()
+                .placeholder(R.drawable.ic_apk) // Placeholder image
+                .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
+                .override(64, 64) // Resize the image to 64x64 pixels
+                .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
         val requestManager = Glide.with(applicationContext)
-        val requestBuilder: RequestBuilder1<Drawable>
-        
+    
         /*########################################################################################*/
         
         setSupportActionBar(activityBinding.bottomAppBar)
@@ -96,23 +101,20 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         }
         
         // Icon
-        if (!app.isInstalled) {
-            requestBuilder =
+        val requestBuilder =
+            if (!app.isInstalled) {
                 requestManager
-                    .load("")
-                    .placeholder(R.drawable.ic_apk)
-                    .onlyRetrieveFromCache(true) // Image should always be in cache
-            // since it's loaded in Plexus data fragment
-        }
-        else {
-            requestBuilder =
+                    .load(app.iconUrl)
+                    .apply(requestOptions)
+            }
+            else {
                 try {
                     requestManager.load(packageManager.getApplicationIcon(app.packageName))
                 }
                 catch (e: PackageManager.NameNotFoundException) {
                     throw RuntimeException(e)
                 }
-        }
+            }
         
         requestBuilder.into(activityBinding.detailsAppIcon)
         activityBinding.detailsName.text = app.name
@@ -186,14 +188,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         when(menuItem.itemId) {
             
             R.id.details_menu_help -> startActivity(Intent(this@AppDetailsActivity, SettingsActivity::class.java)
-                                                .putExtra("frag", R.id.helpFragment))
+                                                        .putExtra("frag", R.id.helpFragment))
             
             R.id.menu_sort_user_ratings -> SortUserRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
             
             R.id.menu_more ->
                 MoreOptionsBottomSheet(app.name, app.packageName,
-                                       mapScoreToStatusString(this@AppDetailsActivity, app.dgScore.dgScore),
-                                       mapScoreToStatusString(this@AppDetailsActivity, app.mgScore.mgScore),
+                                       mapScoreToStatusString(this@AppDetailsActivity, app.dgScore),
+                                       mapScoreToStatusString(this@AppDetailsActivity, app.mgScore),
                                        activityBinding.appDetailsCoordinatorLayout,
                                        activityBinding.bottomAppBar)
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")

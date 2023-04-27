@@ -48,8 +48,8 @@ class TotalScoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val detailsActivity = requireActivity() as AppDetailsActivity
-        val totalDgRatings = detailsActivity.app.dgScore.totalDgRatings
-        val totalMgRatings = detailsActivity.app.mgScore.totalMgRatings
+        val totalDgRatings = detailsActivity.app.totalDgRatings
+        val totalMgRatings = detailsActivity.app.totalMgRatings
         
         val ratingRanges = mapOf("limit_reached" to 4.1f, // Dummy range, check nextRange()
                                  "gold" to 4.0f,
@@ -87,11 +87,11 @@ class TotalScoreFragment : Fragment() {
         val mgBronzeRatingsPercent = calcPercent(mgBronzeRatingsCount, totalMgRatings)
         val mgBrokenRatingsPercent = calcPercent(mgBrokenRatingsCount, totalMgRatings)
         
-        fragmentBinding.dgAvgScore.text = "${removeDotZeroFromFloat(detailsActivity.app.dgScore.dgScore)}/4"
+        fragmentBinding.dgAvgScore.text = "${removeDotZeroFromFloat(detailsActivity.app.dgScore)}/4"
         fragmentBinding.dgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalDgRatings"
         setDgProgressAndPercent(dgGoldRatingsPercent, dgSilverRatingsPercent, dgBronzeRatingsPercent, dgBrokenRatingsPercent)
         
-        fragmentBinding.mgAvgScore.text = "${removeDotZeroFromFloat(detailsActivity.app.mgScore.mgScore)}/4"
+        fragmentBinding.mgAvgScore.text = "${removeDotZeroFromFloat(detailsActivity.app.mgScore)}/4"
         fragmentBinding.mgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalMgRatings"
         setMgProgressAndPercent(mgGoldRatingsPercent, mgSilverRatingsPercent, mgBronzeRatingsPercent, mgBrokenRatingsPercent)
     }

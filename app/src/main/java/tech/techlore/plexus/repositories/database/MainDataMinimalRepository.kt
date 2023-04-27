@@ -38,9 +38,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             MainDataMinimal(name = mainData.name,
                             packageName = mainData.packageName,
+                            iconUrl = mainData.iconUrl,
                             installedFrom = mainData.installedFrom,
-                            dgStatus = mapScoreToStatusString(context, mainData.dgScore.dgScore),
-                            mgStatus = mapScoreToStatusString(context, mainData.mgScore.mgScore),
+                            dgStatus = mapScoreToStatusString(context, mainData.dgScore),
+                            mgStatus = mapScoreToStatusString(context, mainData.mgScore),
                             isInstalled = mainData.isInstalled,
                             isFav = mainData.isFav)
         }

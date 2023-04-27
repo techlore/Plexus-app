@@ -22,7 +22,7 @@ package tech.techlore.plexus.utils
 import androidx.recyclerview.widget.DiffUtil
 import tech.techlore.plexus.models.myratings.MyRating
 
-class MyRatingDiffUtil(
+class MyRatingsDiffUtil(
     private val oldList: List<MyRating>,
     private val newList: List<MyRating>
 ) : DiffUtil.Callback() {

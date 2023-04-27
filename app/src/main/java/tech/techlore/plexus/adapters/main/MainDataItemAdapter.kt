@@ -28,6 +28,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
@@ -80,12 +82,12 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        val plexusData = aListViewItems[position]
+        val mainDataMinimal = aListViewItems[position]
         val context = holder.itemView.context
         
-        if (plexusData.isInstalled) {
+        if (mainDataMinimal.isInstalled) {
             try {
-                holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(plexusData.packageName))
+                holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(mainDataMinimal.packageName))
                 // Don't use GLIDE to load icons directly to ImageView
                 // as there's a delay in displaying icons when fast scrolling
             }
@@ -94,32 +96,43 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             }
         }
         else {
-        Glide.with(context)
-            .load("")
-            .placeholder(R.drawable.ic_apk)
-            .into(holder.icon)
+            val requestOptions =
+                RequestOptions()
+                    .placeholder(R.drawable.ic_apk) // Placeholder icon
+                    .override(48, 48) // Resize the image to 48x48 pixels
+                    .centerCrop() // Center-crop the image to fill the ImageView
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
+            
+            Glide.with(context)
+                .load(mainDataMinimal.iconUrl)
+                .apply(requestOptions)
+                .into(holder.icon)
+            /*Glide.with(context)
+                .load(mainDataMinimal.iconUrl)
+                .placeholder(R.drawable.ic_apk)
+                .into(holder.icon)*/
         }
         
-        holder.name.text = plexusData.name
-        holder.packageName.text = plexusData.packageName
-        holder.dgStatus.text = plexusData.dgStatus
+        holder.name.text = mainDataMinimal.name
+        holder.packageName.text = mainDataMinimal.packageName
+        holder.dgStatus.text = mainDataMinimal.dgStatus
         holder.dgStatus.backgroundTintList =
-            mapStatusStringToBgColor(context, plexusData.dgStatus)?.let { ColorStateList.valueOf(it) }
-        holder.mgStatus.text = plexusData.mgStatus
+            mapStatusStringToBgColor(context, mainDataMinimal.dgStatus)?.let { ColorStateList.valueOf(it) }
+        holder.mgStatus.text = mainDataMinimal.mgStatus
         holder.mgStatus.backgroundTintList =
-            mapStatusStringToBgColor(context, plexusData.mgStatus)?.let { ColorStateList.valueOf(it) }
-        holder.fav.isChecked = plexusData.isFav
+            mapStatusStringToBgColor(context, mainDataMinimal.mgStatus)?.let { ColorStateList.valueOf(it) }
+        holder.fav.isChecked = mainDataMinimal.isFav
         
         /// Horizontally scrolling text
         hScrollText(holder.name)
         hScrollText(holder.packageName)
         
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
-            plexusData.isFav = isChecked
+            mainDataMinimal.isFav = isChecked
             coroutineScope.launch {
                 (context.applicationContext as ApplicationManager)
                     .miniRepository
-                    .updateFav(plexusData)
+                    .updateFav(mainDataMinimal)
             }
         }
         

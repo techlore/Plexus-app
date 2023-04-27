@@ -27,6 +27,9 @@ data class PostApp(
     var name: String,
     
     @JsonProperty("package")
-    var packageName: String
+    var packageName: String,
+    
+    @JsonProperty("icon_url")
+    var iconUrl: String
     
 )

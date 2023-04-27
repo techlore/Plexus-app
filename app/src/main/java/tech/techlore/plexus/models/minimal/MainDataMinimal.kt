@@ -22,6 +22,7 @@ package tech.techlore.plexus.models.minimal
 data class MainDataMinimal(
     val name: String,
     val packageName: String,
+    val iconUrl: String,
     val dgStatus: String,
     val mgStatus: String,
     val installedFrom: String,

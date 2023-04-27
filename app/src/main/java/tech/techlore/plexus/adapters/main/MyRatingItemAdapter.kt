@@ -28,10 +28,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.models.myratings.MyRating
-import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
-import tech.techlore.plexus.utils.MyRatingDiffUtil
+import tech.techlore.plexus.utils.MyRatingsDiffUtil
 
 class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : RecyclerView.Adapter<MyRatingItemAdapter.ListViewHolder>() {
     
@@ -94,7 +92,7 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
     }
     
     fun updateList(newList: ArrayList<MyRating>){
-        val diffCallback = MyRatingDiffUtil(aListViewItems, newList)
+        val diffCallback = MyRatingsDiffUtil(aListViewItems, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         diffResult.dispatchUpdatesTo(this)
         aListViewItems.clear()

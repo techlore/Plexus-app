@@ -28,6 +28,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
@@ -79,11 +81,11 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     }
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-    
+        
         holder.fav.setOnCheckedChangeListener(null)
         val favorite = aListViewItems[position]
         val context = holder.itemView.context
-    
+        
         if (favorite.isInstalled) {
             try {
                 holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(favorite.packageName))
@@ -95,10 +97,21 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             }
         }
         else {
+            val requestOptions =
+                RequestOptions()
+                    .placeholder(R.drawable.ic_apk) // Placeholder icon
+                    .override(48, 48) // Resize the image to 48x48 pixels
+                    .centerCrop() // Center-crop the image to fill the ImageView
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
+            
             Glide.with(context)
+                .load(favorite.iconUrl)
+                .apply(requestOptions)
+                .into(holder.icon)
+            /*Glide.with(context)
                 .load("")
                 .placeholder(R.drawable.ic_apk)
-                .into(holder.icon)
+                .into(holder.icon)*/
         }
         
         holder.name.text = favorite.name
