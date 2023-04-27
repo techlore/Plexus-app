@@ -22,15 +22,14 @@ package tech.techlore.plexus.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
-import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.databinding.ActivitySplashBinding
 import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
@@ -48,11 +47,12 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         activityBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-        //setContentView(R.layout.activity_splash)
         
         /*########################################################################################*/
         
-        retrieveData()
+        lifecycleScope.launch {
+            retrieveData()
+        }
     }
     
     private fun retrieveData() {
@@ -78,7 +78,6 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
     
     override fun finish() {
         super.finish()
-        job.cancel()
         overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start)
     }
 }

@@ -24,10 +24,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.FavoriteItemAdapter
@@ -37,12 +38,15 @@ import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
+import kotlin.coroutines.CoroutineContext
 
 class FavoritesFragment:
     Fragment(),
-    FavoriteItemAdapter.OnItemClickListener {
+    FavoriteItemAdapter.OnItemClickListener,
+    CoroutineScope {
     
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val job = Job()
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
@@ -62,33 +66,32 @@ class FavoritesFragment:
         val preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
         val miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
-        runBlocking {
-            launch {
-                favList =
-                    miniRepository.miniFavoritesListFromDB(context = requireContext(),
-                                                           filterPref = preferenceManager.getInt(PreferenceManager.FILTER),
-                                                           statusRadioPref = preferenceManager.getInt(PreferenceManager.STATUS_RADIO),
-                                                           orderPref = preferenceManager.getInt(PreferenceManager.A_Z_SORT))
-            }
-        }
-        
+    
         /*########################################################################################*/
         
-        fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-        
-        if (favList.size == 0) {
-            fragmentBinding.emptyListViewStub.inflate()
+        lifecycleScope.launch {
+            favList =
+                miniRepository.miniFavoritesListFromDB(context = requireContext(),
+                                                       filterPref = preferenceManager.getInt(PreferenceManager.FILTER),
+                                                       statusRadioPref = preferenceManager.getInt(PreferenceManager.STATUS_RADIO),
+                                                       orderPref = preferenceManager.getInt(PreferenceManager.A_Z_SORT))
+    
+            fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
+    
+            if (favList.size == 0) {
+                fragmentBinding.emptyListViewStub.inflate()
+            }
+            else {
+                val favItemAdapter = FavoriteItemAdapter(favList,
+                                                         this@FavoritesFragment,
+                                                         lifecycleScope)
+                fragmentBinding.recyclerView.adapter = favItemAdapter
+                FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
+            }
+    
+            // Swipe refresh layout
+            fragmentBinding.swipeRefreshLayout.isEnabled = false
         }
-        else {
-            val favItemAdapter = FavoriteItemAdapter(favList,
-                                                     this,
-                                                     coroutineScope)
-            fragmentBinding.recyclerView.adapter = favItemAdapter
-            FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
-        }
-        
-        // Swipe refresh layout
-        fragmentBinding.swipeRefreshLayout.isEnabled = false
     }
     
     // On click

@@ -44,8 +44,6 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                             mainData.iconUrl += "=w128-h128" // Store 128x128 icon url only as 512x512 is not needed
                         } ?: ""
                         
-                        //mainData.iconUrl += "=w128-h128"
-                        
                         val scoresCall = apiRepository.getScores(mainData.packageName)
                         val scoresResponse = scoresCall.awaitResponse()
                         
@@ -66,16 +64,6 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                                 mainData.mgScore = truncatedMgScore
                                 mainData.totalMgRatings = scoresRoot.scoreData[1].totalRatings
                                 
-                            }
-                        }
-                        
-                        // Ratings
-                        val ratingsCall = apiRepository.getRatings(mainData.packageName)
-                        val ratingsResponse = ratingsCall.awaitResponse()
-                        
-                        if (ratingsResponse.isSuccessful) {
-                            ratingsResponse.body()?.let { ratingsRoot ->
-                                mainData.ratingsList = ratingsRoot.ratingsData
                             }
                         }
                         
@@ -122,6 +110,12 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
     suspend fun getAppByPackage(packageName: String): MainData? {
         return withContext(Dispatchers.IO){
             mainDataDao.getAppByPackage (packageName)
+        }
+    }
+    
+    suspend fun insertOrUpdatePlexusData(mainData: MainData) {
+        return withContext(Dispatchers.IO){
+            mainDataDao.insertOrUpdatePlexusData(mainData)
         }
     }
     

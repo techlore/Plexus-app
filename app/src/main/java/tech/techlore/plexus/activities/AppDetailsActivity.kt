@@ -30,6 +30,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
@@ -40,6 +41,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
@@ -62,8 +64,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     lateinit var navController: NavController
     private lateinit var preferenceManager: PreferenceManager
     lateinit var app: MainData
-    lateinit var ratingsList: ArrayList<Rating>
-    lateinit var differentVersionsList: List<String>
+    var ratingsList = ArrayList<Rating>()
+    private var ratingsRetrieved = false
+    var differentVersionsList = listOf<String>()
     var selectedVersionString: String? = null
     var statusRadio = R.id.user_ratings_radio_any_status
     var dgStatusSort = 0
@@ -92,65 +95,81 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         
         setSupportActionBar(activityBinding.bottomAppBar)
         activityBinding.bottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+    
+        // Disable radio group until ratings list is retrieved
+        activityBinding.detailsRadiogroup.isEnabled = false
         
         runBlocking {
             launch {
                 app = intent.getStringExtra("packageName")?.let { repository.getAppByPackage(it) } !!
             }
         }
-        
-        // Icon
-        val requestBuilder =
-            if (!app.isInstalled) {
-                requestManager
-                    .load(app.iconUrl)
-                    .apply(requestOptions)
-            }
-            else {
-                try {
-                    requestManager.load(packageManager.getApplicationIcon(app.packageName))
-                }
-                catch (e: PackageManager.NameNotFoundException) {
-                    throw RuntimeException(e)
-                }
-            }
-        
-        requestBuilder.into(activityBinding.detailsAppIcon)
-        activityBinding.detailsName.text = app.name
-        activityBinding.detailsPackageName.text = app.packageName
-        @SuppressLint("SetTextI18n")
-        activityBinding.detailsInstalledVersion.text = "${getString(R.string.installed)}: " +
-                                                       app.installedVersion.ifEmpty { getString(R.string.not_tested_title) }
-        
-        // Radio group/buttons
-        activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
-            displayFragment(checkedId)
-        }
-        
-        // FAB
-        if (!app.isInstalled){
-            activityBinding.fab.visibility = View.GONE
-        }
-        else {
-            activityBinding.fab.setOnClickListener {
-                if (preferenceManager.getBoolean(FIRST_SUBMISSION)) {
-                    FirstSubmissionBottomSheet(positiveButtonClickListener = { startSubmitActivity() })
-                        .show(supportFragmentManager, "FirstSubmissionBottomSheet")
+    
+        lifecycleScope.launch {
+    
+            // Icon
+            val requestBuilder =
+                if (!app.isInstalled) {
+                    requestManager
+                        .load(app.iconUrl)
+                        .apply(requestOptions)
                 }
                 else {
-                    startSubmitActivity()
+                    try {
+                        requestManager.load(packageManager.getApplicationIcon(app.packageName))
+                    }
+                    catch (e: PackageManager.NameNotFoundException) {
+                        throw RuntimeException(e)
+                    }
+                }
+    
+            requestBuilder.into(activityBinding.detailsAppIcon)
+            activityBinding.detailsName.text = app.name
+            activityBinding.detailsPackageName.text = app.packageName
+            @SuppressLint("SetTextI18n")
+            activityBinding.detailsInstalledVersion.text = "${getString(R.string.installed)}: " +
+                                                           app.installedVersion.ifEmpty { getString(R.string.not_tested_title) }
+    
+            // Radio group/buttons
+            activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
+                displayFragment(checkedId)
+            }
+    
+            // FAB
+            if (!app.isInstalled){
+                activityBinding.fab.visibility = View.GONE
+            }
+            else {
+                activityBinding.fab.setOnClickListener {
+                    if (preferenceManager.getBoolean(FIRST_SUBMISSION)) {
+                        FirstSubmissionBottomSheet(positiveButtonClickListener = { startSubmitActivity() })
+                            .show(supportFragmentManager, "FirstSubmissionBottomSheet")
+                    }
+                    else {
+                        startSubmitActivity()
+                    }
                 }
             }
-        }
+    
+            // Only retrieve ratings list if not done already
+            if (!ratingsRetrieved) {
+                val apiRepository = (applicationContext as ApplicationManager).apiRepository
+                val ratingsCall = apiRepository.getRatings(app.packageName)
+                val ratingsResponse = ratingsCall.awaitResponse()
         
-        // Get different versions from ratings list
-        // and store them in a separate list
-        ratingsList = app.ratingsList
-        val uniqueVersions = HashSet<String>()
-        for (ratings in ratingsList) {
-            uniqueVersions.add(ratings.version!!)
+                if (ratingsResponse.isSuccessful) {
+                    ratingsResponse.body()?.let { ratingsRoot ->
+                        app.ratingsList = ratingsRoot.ratingsData
+                        ratingsList = ratingsRoot.ratingsData
+                    }
+                }
+        
+                repository.insertOrUpdatePlexusData(app)
+                ratingsRetrieved = true
+                displayFragment(10)
+                activityBinding.detailsRadiogroup.isEnabled = true
+            }
         }
-        differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
         
     }
     
@@ -160,6 +179,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         
         val action: Int =
             when (checkedItem) {
+                
+                10 -> R.id.action_fragmentProgressBar_to_totalScoreFragment
                 
                 R.id.radio_total_score -> R.id.action_userRatingsFragment_to_totalScoreFragment
                 
@@ -180,7 +201,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         menuInflater.inflate(R.menu.menu_activity_details, menu)
         
         menu.findItem(R.id.menu_sort_user_ratings).isVisible =
-            navController.currentDestination!!.id != navController.graph.startDestinationId
+            navController.currentDestination!!.id == R.id.userRatingsFragment
     }
     
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -219,7 +240,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
     
     override fun finish() {
         super.finish()
-        job.cancel()
     }
     
     // On back pressed

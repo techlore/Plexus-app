@@ -25,9 +25,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
@@ -67,37 +67,37 @@ class MyRatingsFragment :
         preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
         myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
-        runBlocking {
-            launch {
-                myRatingsList = myRatingsRepository.getSortedMyRatings()
-            }
-        }
-        
+    
         /*########################################################################################*/
         
-        fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-        
-        if (myRatingsList.size == 0) {
-            fragmentBinding.emptyListViewStub.inflate()
-            val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
-            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_no_ratings)
-            emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-            emptyListView.text = requireContext().getString(R.string.no_ratings_available)
+        lifecycleScope.launch{
+            myRatingsList = myRatingsRepository.getSortedMyRatings()
+    
+            fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
+    
+            if (myRatingsList.size == 0) {
+                fragmentBinding.emptyListViewStub.inflate()
+                val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
+                val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_no_ratings)
+                emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+                emptyListView.text = requireContext().getString(R.string.no_ratings_available)
+            }
+            else {
+                myRatingItemAdapter = MyRatingItemAdapter(myRatingsList)
+                fragmentBinding.recyclerView.adapter = myRatingItemAdapter
+                FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
+            }
+    
+            // Swipe refresh layout
+            fragmentBinding.swipeRefreshLayout.isEnabled = false
         }
-        else {
-            myRatingItemAdapter = MyRatingItemAdapter(myRatingsList)
-            fragmentBinding.recyclerView.adapter = myRatingItemAdapter
-            FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
-        }
         
-        // Swipe refresh layout
-        fragmentBinding.swipeRefreshLayout.isEnabled = false
     }
     
     // On click
     override fun onItemClick(position: Int) {
         val myRating = myRatingsList[position]
-        startDetailsActivity(mainActivity, myRating.packageName!!)
+        startDetailsActivity(mainActivity, myRating.packageName)
     }
     
     override fun onDestroyView() {

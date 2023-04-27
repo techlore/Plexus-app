@@ -22,7 +22,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/details_fragments_nav_graph"
-    app:startDestination="@id/totalScoreFragment">
+    app:startDestination="@id/fragmentProgressBar">
+
+    <fragment
+        android:id="@+id/fragmentProgressBar"
+        android:name="tech.techlore.plexus.fragments.details.FragmentProgressBar"
+        android:label="FragmentProgressBar" >
+        <action
+            android:id="@+id/action_fragmentProgressBar_to_totalScoreFragment"
+            app:destination="@id/totalScoreFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/totalScoreFragment"
@@ -34,6 +43,7 @@
             app:enterAnim="@anim/slide_from_end"
             app:exitAnim="@anim/slide_to_start"/>
     </fragment>
+
     <fragment
         android:id="@+id/userRatingsFragment"
         android:name="tech.techlore.plexus.fragments.details.UserRatingsFragment"
@@ -51,4 +61,5 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"/>
     </fragment>
+
 </navigation>

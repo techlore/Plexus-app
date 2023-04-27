@@ -63,6 +63,9 @@
     <string name="menu_more">More options</string>
     <string name="new_submission">New submission</string>
 
+    <!--Progress bar fragment-->
+    <string name="retrieving_ratings">Retrieving ratings</string>
+
     <!--Total score fragment-->
     <string name="total_ratings">Total ratings</string>
 

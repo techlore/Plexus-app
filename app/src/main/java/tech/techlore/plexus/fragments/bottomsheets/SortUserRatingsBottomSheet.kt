@@ -33,7 +33,6 @@ import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortUserRatingsBinding
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
-
 class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
     
     override fun onCreateView(inflater: LayoutInflater,

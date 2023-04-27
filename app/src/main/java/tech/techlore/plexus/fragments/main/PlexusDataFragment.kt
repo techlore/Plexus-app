@@ -24,11 +24,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
@@ -53,7 +53,6 @@ class PlexusDataFragment :
     CoroutineScope {
     
     private val job = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -77,34 +76,33 @@ class PlexusDataFragment :
         preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
         miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
-        runBlocking {
-            launch {
-                plexusDataList =
-                    miniRepository.miniPlexusDataListFromDB(context = requireContext(),
-                                                            statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
-                                                            orderPref = preferenceManager.getInt(A_Z_SORT))
-            }
-        }
-        
+    
         /*########################################################################################*/
         
-        fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
+        lifecycleScope.launch{
+            plexusDataList =
+                miniRepository.miniPlexusDataListFromDB(context = requireContext(),
+                                                        statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                        orderPref = preferenceManager.getInt(A_Z_SORT))
     
-        if (plexusDataList.size == 0) {
-            fragmentBinding.emptyListViewStub.inflate()
-        }
-        else {
-            plexusDataItemAdapter = MainDataItemAdapter(plexusDataList,
-                                                        this,
-                                                        coroutineScope)
-            fragmentBinding.recyclerView.adapter = plexusDataItemAdapter
-            FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
-        }
+            fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
     
-        // Swipe refresh layout
-        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
-        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
-        fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshData() }
+            if (plexusDataList.size == 0) {
+                fragmentBinding.emptyListViewStub.inflate()
+            }
+            else {
+                plexusDataItemAdapter = MainDataItemAdapter(plexusDataList,
+                                                            this@PlexusDataFragment,
+                                                            lifecycleScope)
+                fragmentBinding.recyclerView.adapter = plexusDataItemAdapter
+                FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
+            }
+    
+            // Swipe refresh layout
+            fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
+            fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
+            fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshData() }
+        }
     }
     
     // On click
@@ -139,7 +137,6 @@ class PlexusDataFragment :
     
     override fun onDestroyView() {
         super.onDestroyView()
-        job.cancel()
         _binding = null
     }
 }

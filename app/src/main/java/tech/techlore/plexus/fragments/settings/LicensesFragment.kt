@@ -70,6 +70,11 @@ class LicensesFragment : Fragment() {
                         getString(R.string.apache_2_0_license),
                         "https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE"))
             
+            // jsoup
+            add(License(getString(R.string.jsoup),
+                        "${getString(R.string.copyright_jsoup)}\n\n${getString(R.string.mit_license)}",
+                        "https://github.com/jhy/jsoup/blob/master/LICENSE"))
+            
             // Material Design Icons
             add(License(getString(R.string.md_icons),
                         getString(R.string.apache_2_0_license),

@@ -53,6 +53,16 @@ class UserRatingsFragment : Fragment() {
         val googleLib: String
         val dgScore: Int
         val mgScore: Int
+    
+        // Get different versions from ratings list
+        // and store them in a separate list
+        if (detailsActivity.differentVersionsList.isEmpty()){
+            val uniqueVersions = HashSet<String>()
+            for (ratings in sortedRatingsList) {
+                uniqueVersions.add(ratings.version!!)
+            }
+            detailsActivity.differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
+        }
         
         if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
             sortedRatingsList =
@@ -96,7 +106,6 @@ class UserRatingsFragment : Fragment() {
             val userRatingsItemAdapter = UserRatingsItemAdapter(sortedRatingsList)
             fragmentBinding.userRatingsRv.adapter = userRatingsItemAdapter
         }
-        
     }
     
     override fun onDestroyView() {

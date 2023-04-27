@@ -24,11 +24,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
@@ -52,7 +52,6 @@ class InstalledAppsFragment :
     CoroutineScope {
     
     private val job = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -76,46 +75,47 @@ class InstalledAppsFragment :
         preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
         miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
-        runBlocking {
-            launch {
-                installedAppsList =
-                    miniRepository.miniInstalledAppsListFromDB(context = requireContext(),
-                                                               filterPref = preferenceManager.getInt(FILTER),
-                                                               statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
-                                                               orderPref = preferenceManager.getInt(A_Z_SORT))
-            }
-        }
         
         /*########################################################################################*/
         
-        fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-        
-        if (installedAppsList.size == 0) {
-            fragmentBinding.emptyListViewStub.inflate()
-        }
-        else {
-            installedAppItemAdapter = MainDataItemAdapter(installedAppsList,
-                                                          this,
-                                                          coroutineScope)
-            fragmentBinding.recyclerView.adapter = installedAppItemAdapter
-            FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
-        }
-        
-        // Swipe refresh layout
-        fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
-        fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
-        fragmentBinding.swipeRefreshLayout.setOnRefreshListener {
-            launch {
-                val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
-                mainRepository.installedAppsIntoDB(requireContext())
-                fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                installedAppItemAdapter
-                    .updateList(miniRepository
-                                    .miniInstalledAppsListFromDB(context = requireContext(),
-                                                                 filterPref = preferenceManager.getInt(FILTER),
-                                                                 statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
-                                                                 orderPref = preferenceManager.getInt(A_Z_SORT)))
+        lifecycleScope.launch {
+            installedAppsList =
+                miniRepository.miniInstalledAppsListFromDB(context = requireContext(),
+                                                           filterPref = preferenceManager.getInt(FILTER),
+                                                           statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                           orderPref = preferenceManager.getInt(A_Z_SORT))
+            
+            fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
+            
+            if (installedAppsList.size == 0) {
+                fragmentBinding.emptyListViewStub.inflate()
             }
+            else {
+                installedAppItemAdapter = MainDataItemAdapter(installedAppsList,
+                                                              this@InstalledAppsFragment,
+                                                              lifecycleScope)
+                fragmentBinding.recyclerView.adapter = installedAppItemAdapter
+                FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
+            }
+            
+            // Swipe refresh layout
+            fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
+            fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
+            fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshInstalledApps() }
+        }
+    }
+    
+    private fun refreshInstalledApps() {
+        launch {
+            val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
+            mainRepository.installedAppsIntoDB(requireContext())
+            fragmentBinding.swipeRefreshLayout.isRefreshing = false
+            installedAppItemAdapter
+                .updateList(miniRepository
+                                .miniInstalledAppsListFromDB(context = requireContext(),
+                                                             filterPref = preferenceManager.getInt(FILTER),
+                                                             statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                             orderPref = preferenceManager.getInt(A_Z_SORT)))
         }
     }
     
@@ -127,7 +127,6 @@ class InstalledAppsFragment :
     
     override fun onDestroyView() {
         super.onDestroyView()
-        job.cancel()
         _binding = null
     }
     

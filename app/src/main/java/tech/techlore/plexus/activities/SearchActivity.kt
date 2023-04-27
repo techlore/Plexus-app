@@ -24,11 +24,11 @@ import android.os.CountDownTimer
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
@@ -37,12 +37,15 @@ import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
+import kotlin.coroutines.CoroutineContext
 
 class SearchActivity :
     AppCompatActivity(),
-    MainDataItemAdapter.OnItemClickListener {
+    MainDataItemAdapter.OnItemClickListener,
+    CoroutineScope {
     
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val job = Job()
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var mainDataItemAdapter: MainDataItemAdapter
     private lateinit var searchDataList: ArrayList<MainDataMinimal>
     private lateinit var miniRepository: MainDataMinimalRepository
@@ -82,21 +85,19 @@ class SearchActivity :
                     
                     override fun onFinish() {
                         if (searchString.isNotEmpty()) {
-                            coroutineScope.launch {
+                            lifecycleScope.launch {
                                 searchDataList = miniRepository.searchFromDb(searchString)
-                                withContext(Dispatchers.Main) {
-                                    if (searchDataList.isEmpty()) {
-                                        activityBinding.searchRv.adapter = null
-                                        activityBinding.emptySearchView.visibility = View.VISIBLE
-                                    }
-                                    else {
-                                        activityBinding.emptySearchView.visibility = View.GONE
-                                        mainDataItemAdapter = MainDataItemAdapter(searchDataList,
-                                                                                  this@SearchActivity,
-                                                                                  coroutineScope)
-                                        activityBinding.searchRv.adapter = mainDataItemAdapter
-                                        FastScrollerBuilder(activityBinding.searchRv).useMd2Style().build() // Fast scroll
-                                    }
+                                if (searchDataList.isEmpty()) {
+                                    activityBinding.searchRv.adapter = null
+                                    activityBinding.emptySearchView.visibility = View.VISIBLE
+                                }
+                                else {
+                                    activityBinding.emptySearchView.visibility = View.GONE
+                                    mainDataItemAdapter = MainDataItemAdapter(searchDataList,
+                                                                              this@SearchActivity,
+                                                                              lifecycleScope)
+                                    activityBinding.searchRv.adapter = mainDataItemAdapter
+                                    FastScrollerBuilder(activityBinding.searchRv).useMd2Style().build() // Fast scroll
                                 }
                             }
                         }
@@ -120,7 +121,6 @@ class SearchActivity :
     
     override fun finish() {
         super.finish()
-        coroutineScope.cancel()
         overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
     }
 }

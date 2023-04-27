@@ -25,7 +25,6 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -84,7 +83,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
     //@SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivitySubmitBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
@@ -113,7 +111,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         /*########################################################################################*/
         
         setSupportActionBar(activityBinding.submitBottomAppBar)
-        activityBinding.submitBottomAppBar.setNavigationOnClickListener { onBackPressedCallback.isEnabled = true }
+        activityBinding.submitBottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         
         activityBinding.submitName.text = nameString
         activityBinding.submitPackageName.text = packageNameString
@@ -165,7 +163,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         // FAB
         activityBinding.submitFab.setOnClickListener {
             activityBinding.submitFab.isEnabled = false
-            onBackPressedCallback.isEnabled = false
             snackbar.show()
             submitData()
         }
@@ -208,7 +205,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 
                 if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                     updateMyRatingInDb(rating)
-                    onBackPressedCallback.isEnabled = true
                     submitSnackbar(getString(R.string.submit_success))
                 }
             }
@@ -233,7 +229,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
             // Request failed
             submitSnackbar("${getString(R.string.submit_error)}: ${response.code()}")
             activityBinding.submitFab.isEnabled = true
-            onBackPressedCallback.isEnabled = true
         }
     }
     
@@ -253,7 +248,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
             // Request failed
             submitSnackbar("${getString(R.string.submit_error)}: ${response.code()}")
             activityBinding.submitFab.isEnabled = true
-            onBackPressedCallback.isEnabled = true
         }
     }
     
@@ -305,11 +299,5 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         super.finish()
         job.cancel()
         overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
-    }
-    
-    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            this@SubmitActivity.onBackPressedDispatcher.onBackPressed()
-        }
     }
 }
