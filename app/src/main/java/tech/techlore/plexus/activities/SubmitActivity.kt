@@ -24,7 +24,11 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,6 +36,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import org.json.JSONObject
+import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import retrofit2.Call
 import tech.techlore.plexus.R
@@ -49,7 +54,6 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MI
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
-import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.coroutines.CoroutineContext
 
 class SubmitActivity : AppCompatActivity(), CoroutineScope {
@@ -64,12 +68,23 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
     private var installedVersionBuild = 0
     private var isInPlexusData = true
     private var isMicroG = false
+    private lateinit var snackbar: Snackbar
     private var appCreated = false
     private var ratingCreated = false
     private var postedRatingId: String? = null
+    private var iconUrl: String? = null
     
+    // This is to disable snackbar swipe
+    private inner class NoSwipeBehavior : BaseTransientBottomBar.Behavior() {
+        override fun canSwipeDismissView(child: View): Boolean {
+            return false
+        }
+    }
+    
+    //@SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivitySubmitBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
@@ -86,11 +101,19 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         val blockedWordsPattern = blockedWords.joinToString("|") { Regex.escape(it) }
         val blockedWordsRegex =
             "(?i)\\b($blockedWordsPattern)\\b".toRegex(setOf(RegexOption.IGNORE_CASE))// *next regex meme goes here*
+    
+        snackbar =
+            Snackbar
+                .make(activityBinding.submitCoordinatorLayout,
+                                     getString(R.string.please_wait),
+                                     Snackbar.LENGTH_INDEFINITE)
+                .setAnchorView(activityBinding.submitBottomAppBar)
+                .setBehavior(NoSwipeBehavior())
         
         /*########################################################################################*/
         
         setSupportActionBar(activityBinding.submitBottomAppBar)
-        activityBinding.submitBottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        activityBinding.submitBottomAppBar.setNavigationOnClickListener { onBackPressedCallback.isEnabled = true }
         
         activityBinding.submitName.text = nameString
         activityBinding.submitPackageName.text = packageNameString
@@ -142,6 +165,8 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         // FAB
         activityBinding.submitFab.setOnClickListener {
             activityBinding.submitFab.isEnabled = false
+            onBackPressedCallback.isEnabled = false
+            snackbar.show()
             submitData()
         }
     }
@@ -163,7 +188,8 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 val postRatingCall = apiRepository.postRating(packageNameString, postRatingRoot)
                 
                 if (!isInPlexusData) {
-                    val app = PostApp(name = nameString, packageName = packageNameString, iconUrl = getIconUrl())
+                    getIconUrl()
+                    val app = PostApp(name = nameString, packageName = packageNameString, iconUrl = iconUrl)
                     val postAppRoot = PostAppRoot(app)
                     val postAppCall = apiRepository.postApp(postAppRoot)
                     postApp(postAppCall)
@@ -181,10 +207,9 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 }
                 
                 if (ratingCreated && !postedRatingId.isNullOrBlank()) {
-                    updateRatingInDb(rating)
-                    showSnackbar(activityBinding.submitCoordinatorLayout,
-                                 getString(R.string.submit_success),
-                                 activityBinding.submitBottomAppBar)
+                    updateMyRatingInDb(rating)
+                    onBackPressedCallback.isEnabled = true
+                    submitSnackbar(getString(R.string.submit_success))
                 }
             }
             else {
@@ -206,10 +231,9 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         }
         else {
             // Request failed
-            showSnackbar(activityBinding.submitCoordinatorLayout,
-                         "${getString(R.string.submit_error)}: ${response.code()}",
-                         activityBinding.submitBottomAppBar)
+            submitSnackbar("${getString(R.string.submit_error)}: ${response.code()}")
             activityBinding.submitFab.isEnabled = true
+            onBackPressedCallback.isEnabled = true
         }
     }
     
@@ -223,31 +247,43 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
             val responseBody = response.body()!!.string()
             val jsonObject = JSONObject(responseBody)
             val dataObject = jsonObject.getJSONObject("data")
-            postedRatingId = dataObject.getString("id")
+            postedRatingId = dataObject.getString("id") // Store id of the posted rating
         }
         else {
             // Request failed
-            showSnackbar(activityBinding.submitCoordinatorLayout,
-                         "${getString(R.string.submit_error)}: ${response.code()}",
-                         activityBinding.submitBottomAppBar)
+            submitSnackbar("${getString(R.string.submit_error)}: ${response.code()}")
             activityBinding.submitFab.isEnabled = true
+            onBackPressedCallback.isEnabled = true
         }
     }
     
-    private suspend fun getIconUrl(): String {
-        val document = withContext(Dispatchers.IO) {
-            Jsoup.connect("https://play.google.com/store/apps/details?id=$packageNameString")
-                .get()
+    private suspend fun getIconUrl(): String? {
+        val document =
+            try {
+                withContext(Dispatchers.IO) {
+                    Jsoup.connect("https://play.google.com/store/apps/details?id=$packageNameString").get()
+                }
+            }
+            catch (e: HttpStatusException) {
+                // Handle 404 error
+                null
+            }
+    
+        if (document != null) {
+            val element = document.selectFirst("meta[content^=https://play-lh]")
+            iconUrl = element?.attr("content")
         }
-        val element = document.selectFirst("meta[content^=https://play-lh]")
-        return element!!.attr("content")
+    
+        return iconUrl
         
     }
     
-    private suspend fun updateRatingInDb(rating: PostRating) {
+    private suspend fun updateMyRatingInDb(rating: PostRating) {
         val myRatingsRepository = (applicationContext as ApplicationManager).myRatingsRepository
         val myRating = MyRating(id = postedRatingId!!,
+                                name = nameString,
                                 packageName = packageNameString,
+                                iconUrl = iconUrl,
                                 version = rating.version,
                                 buildNumber = rating.buildNumber,
                                 googleLib = rating.googleLib,
@@ -256,10 +292,24 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         myRatingsRepository.insertOrUpdateMyRatings(myRating)
     }
     
+    private fun submitSnackbar(message: String) {
+        snackbar.setText(message)
+        snackbar.duration = BaseTransientBottomBar.LENGTH_SHORT
+        snackbar.setAction(getString(R.string.done)) {
+            finish()
+        }
+    }
+    
     // Set transition when finishing activity
     override fun finish() {
         super.finish()
         job.cancel()
         overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+    }
+    
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            this@SubmitActivity.onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

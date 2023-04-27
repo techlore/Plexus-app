@@ -20,32 +20,37 @@
 package tech.techlore.plexus.adapters.main
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.myratings.MyRating
-import tech.techlore.plexus.utils.MyRatingsDiffUtil
 
 class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : RecyclerView.Adapter<MyRatingItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
-        val dgMgText: MaterialTextView = itemView.findViewById(R.id.ratings_dg_mg_text)
-        val status: MaterialTextView = itemView.findViewById(R.id.ratings_status)
-        val version: MaterialTextView = itemView.findViewById(R.id.ratings_version)
-        val note: MaterialTextView = itemView.findViewById(R.id.ratings_note)
+        val icon: ShapeableImageView = itemView.findViewById(R.id.my_ratings_icon)
+        val name: MaterialTextView = itemView.findViewById(R.id.my_ratings_name)
+        val version: MaterialTextView = itemView.findViewById(R.id.my_ratings_version)
+        val note: MaterialTextView = itemView.findViewById(R.id.my_ratings_note)
+        val status: MaterialTextView = itemView.findViewById(R.id.my_ratings_status)
         
     }
     
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): MyRatingItemAdapter.ListViewHolder {
         return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_user_ratings_recycler_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_my_ratings_recycler_view, parent, false)
         )
     }
     
@@ -53,15 +58,47 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         
         val myRating = aListViewItems[position]
         val context = holder.itemView.context
-        
-        holder.dgMgText.text =
-            if (myRating.googleLib.equals("none")) {
-                context.getString(R.string.de_Googled)
+    
+        if (myRating.isInstalled) {
+            try {
+                holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(myRating.packageName))
+                // Don't use GLIDE to load icons directly to ImageView
+                // as there's a delay in displaying icons when fast scrolling
             }
-            else {
-                context.getString(R.string.microG)
+            catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
             }
+        }
+        else {
+            val requestOptions =
+                RequestOptions()
+                    .placeholder(R.drawable.ic_apk) // Placeholder icon
+                    .centerCrop() // Center-crop the image to fill the ImageView
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
         
+            Glide.with(context)
+                .load(myRating.iconUrl)
+                .apply(requestOptions)
+                .into(holder.icon)
+        }
+        
+        holder.name.text = myRating.name
+        @SuppressLint("SetTextI18n")
+        holder.version.text = "${context.getString(R.string.version)}: ${myRating.version}"
+        
+        if (!myRating.notes.isNullOrEmpty()) {
+            holder.note.text = myRating.notes
+        }
+        else {
+            holder.note.visibility = View.GONE
+        }
+    
+        val statusIcon =
+            when(myRating.googleLib) {
+                "none" -> ContextCompat.getDrawable(context, R.drawable.ic_apk)
+                else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
+            }
+    
         val (statusString, backgroundTint) =
             when(myRating.ratingScore) {
                 1 -> Pair(context.getString(R.string.broken_title),
@@ -73,29 +110,14 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
                 else -> Pair(context.getString(R.string.gold_title),
                              context.resources.getColor(R.color.color_gold_status, context.theme))
             }
+        
+        holder.status.setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
         holder.status.text = statusString
         holder.status.backgroundTintList = ColorStateList.valueOf(backgroundTint)
-        @SuppressLint("SetTextI18n")
-        holder.version.text = "${context.getString(R.string.version)}: ${myRating.version}"
-        
-        if (!myRating.notes.isNullOrEmpty()) {
-            holder.note.text = myRating.notes
-        }
-        else {
-            holder.note.visibility = View.GONE
-        }
         
     }
     
     override fun getItemCount(): Int {
         return aListViewItems.size
-    }
-    
-    fun updateList(newList: ArrayList<MyRating>){
-        val diffCallback = MyRatingsDiffUtil(aListViewItems, newList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        diffResult.dispatchUpdatesTo(this)
-        aListViewItems.clear()
-        aListViewItems.addAll(newList)
     }
 }

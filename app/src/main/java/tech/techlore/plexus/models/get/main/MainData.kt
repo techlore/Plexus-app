@@ -37,7 +37,7 @@ data class MainData(
     var packageName: String = "",
     
     @JsonProperty("icon_url")
-    var iconUrl: String = "",
+    var iconUrl: String? = null,
     
     var dgScore: Float = 0.0f,
     

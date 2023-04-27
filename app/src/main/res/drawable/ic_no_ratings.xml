@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -19,23 +19,14 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout
+<vector
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:layout_gravity="center">
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/empty_list_view_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_apps_found"
-        android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"
-        app:drawableTopCompat="@drawable/ic_no_apps"
-        android:drawablePadding="@dimen/margin_10"/>
-
-</LinearLayout>
+    android:width="70dp"
+    android:height="70dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960"
+    android:tint="@color/color_enabled">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M420 560h260q17 0 28.5-11.5T720 520q0-17-11.5-28.5T680 480H500l-80 80zm-160 0h62q8 0 15-3.5t13-8.5l224-222q6-6 6-15t-6-15l-70-70q-6-6-15-6t-15 6L252 450q-5 6-8.5 13t-3.5 15v62q0 8 6 14t14 6zM80 783V160q0-33 23.5-56.5T160 80h640q33 0 56.5 23.5T880 160v480q0 33-23.5 56.5T800 720H240l-92 92q-19 19-43.5 8.5T80 783zm80-96l47-47h593V160H160v527zm0-527v527-527z"/>
+</vector>

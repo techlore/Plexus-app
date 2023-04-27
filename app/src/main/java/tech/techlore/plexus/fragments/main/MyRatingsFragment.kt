@@ -23,10 +23,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.adapters.main.MyRatingItemAdapter
@@ -76,6 +79,10 @@ class MyRatingsFragment :
         
         if (myRatingsList.size == 0) {
             fragmentBinding.emptyListViewStub.inflate()
+            val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_no_ratings)
+            emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+            emptyListView.text = requireContext().getString(R.string.no_ratings_available)
         }
         else {
             myRatingItemAdapter = MyRatingItemAdapter(myRatingsList)

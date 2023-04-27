@@ -30,6 +30,6 @@ data class PostApp(
     var packageName: String,
     
     @JsonProperty("icon_url")
-    var iconUrl: String
+    var iconUrl: String? = null
     
 )

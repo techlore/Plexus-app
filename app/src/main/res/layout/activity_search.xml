@@ -45,7 +45,7 @@
         android:text="@string/no_apps_found"
         android:textSize="@dimen/text_17"
         android:textColor="?attr/colorControlNormal"
-        app:drawableTopCompat="@drawable/ic_empty_list"
+        app:drawableTopCompat="@drawable/ic_no_apps"
         android:drawablePadding="@dimen/margin_10"
         android:visibility="gone"/>
 

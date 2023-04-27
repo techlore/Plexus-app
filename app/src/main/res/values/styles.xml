@@ -63,6 +63,7 @@
         <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
         <item name="snackbarStyle">@style/SnackbarStyle</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
+        <item name="snackbarButtonStyle">@style/SnackbarButtonStyle</item>
     </style>
 
     <!--#########################################################################################-->
@@ -168,6 +169,10 @@
     <!--Snackbar text style-->
     <style name="SnackbarTextStyle" parent="Widget.Material3.Snackbar.TextView">
         <item name="android:textColor">@color/color_snackbar_text</item>
+    </style>
+
+    <style name="SnackbarButtonStyle" parent="Widget.Material3.Button.TextButton.Snackbar">
+        <item name="android:textColor">#B3C5FF</item>
     </style>
 
 </resources>

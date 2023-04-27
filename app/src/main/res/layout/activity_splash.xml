@@ -39,7 +39,7 @@
         app:indicatorColor="#B3C5FF"
         android:indeterminateOnly="true"/>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/progress_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

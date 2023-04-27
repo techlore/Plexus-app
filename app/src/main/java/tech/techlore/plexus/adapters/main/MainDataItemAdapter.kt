@@ -99,7 +99,6 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             val requestOptions =
                 RequestOptions()
                     .placeholder(R.drawable.ic_apk) // Placeholder icon
-                    .override(48, 48) // Resize the image to 48x48 pixels
                     .centerCrop() // Center-crop the image to fill the ImageView
                     .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
             
@@ -107,10 +106,6 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
                 .load(mainDataMinimal.iconUrl)
                 .apply(requestOptions)
                 .into(holder.icon)
-            /*Glide.with(context)
-                .load(mainDataMinimal.iconUrl)
-                .placeholder(R.drawable.ic_apk)
-                .into(holder.icon)*/
         }
         
         holder.name.text = mainDataMinimal.name

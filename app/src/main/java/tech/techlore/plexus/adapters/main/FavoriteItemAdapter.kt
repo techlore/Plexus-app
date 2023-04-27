@@ -100,7 +100,6 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             val requestOptions =
                 RequestOptions()
                     .placeholder(R.drawable.ic_apk) // Placeholder icon
-                    .override(48, 48) // Resize the image to 48x48 pixels
                     .centerCrop() // Center-crop the image to fill the ImageView
                     .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
             
@@ -108,10 +107,6 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
                 .load(favorite.iconUrl)
                 .apply(requestOptions)
                 .into(holder.icon)
-            /*Glide.with(context)
-                .load("")
-                .placeholder(R.drawable.ic_apk)
-                .into(holder.icon)*/
         }
         
         holder.name.text = favorite.name

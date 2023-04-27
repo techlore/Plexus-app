@@ -136,6 +136,7 @@
 
     <!--Snackbars-->
     <string name="no_browsers">No browsers installed on this device</string>
+    <string name="please_wait">Please wait, submitting data …</string>
     <string name="submit_success">Data submitted successfully</string>
     <string name="submit_error">Error while submitting data</string>
     <string name="submit_failure">Failed to submit data due to network issues</string>

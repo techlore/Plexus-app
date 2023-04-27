@@ -85,7 +85,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
             RequestOptions()
                 .placeholder(R.drawable.ic_apk) // Placeholder image
                 .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
-                .override(64, 64) // Resize the image to 64x64 pixels
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
         val requestManager = Glide.with(applicationContext)
     

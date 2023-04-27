@@ -26,25 +26,25 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @Entity(tableName = "my_ratings_table")
 data class MyRating(
     
-    @PrimaryKey @JsonProperty("id")
+    @PrimaryKey
     var id: String,
     
-    @JsonProperty("app_package")
-    var packageName: String? = null,
+    var name: String? = null,
     
-    @JsonProperty("app_version")
+    var packageName: String,
+    
+    var iconUrl: String? = null,
+    
     var version: String? = null,
     
-    @JsonProperty("app_build_number")
     var buildNumber: Int = 0,
     
-    @JsonProperty("google_lib")
+    var isInstalled: Boolean = true,
+    
     var googleLib: String? = null,
     
-    @JsonProperty("score")
     var ratingScore: Int = 0,
     
-    @JsonProperty("notes")
     var notes: String? = null
 
 )

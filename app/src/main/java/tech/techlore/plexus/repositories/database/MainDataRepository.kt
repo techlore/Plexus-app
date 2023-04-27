@@ -39,8 +39,12 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
             if (appsResponse.isSuccessful) {
                 appsResponse.body()?.let { root ->
                     for (mainData in root.mainData) {
+    
+                        mainData.iconUrl?.let {
+                            mainData.iconUrl += "=w128-h128" // Store 128x128 icon url only as 512x512 is not needed
+                        } ?: ""
                         
-                        mainData.iconUrl += "=w64-h64" // Store 64x64 icon url only as 512x512 is not needed
+                        //mainData.iconUrl += "=w128-h128"
                         
                         val scoresCall = apiRepository.getScores(mainData.packageName)
                         val scoresResponse = scoresCall.awaitResponse()
