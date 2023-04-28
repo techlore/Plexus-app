@@ -41,3 +41,10 @@
 
 # Prevent minify from removing model classes
 -keep class tech.techlore.plexus.models.** { *; }
+
+# Prevent minify from removing retrofit2
+-keepattributes Signature
+-keepattributes Exceptions
+-keep class retrofit2.** { *; }
+-keep interface retrofit2.** { *; }
+-dontwarn retrofit2.**

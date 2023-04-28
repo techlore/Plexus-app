@@ -35,7 +35,9 @@ object RatingsConverter {
     
     @TypeConverter
     fun toRatings(ratingsString: String): ArrayList<Rating> {
-        return objectMapper.readValue(ratingsString, object : TypeReference<ArrayList<Rating>>() {})
+        val typeFactory = objectMapper.typeFactory
+        val listType = typeFactory.constructCollectionType(ArrayList::class.java, Rating::class.java)
+        return objectMapper.readValue(ratingsString, listType)
     }
     
 }
