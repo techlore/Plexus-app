@@ -29,7 +29,8 @@ import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
-import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreToStatusString
+import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToScoreRange
 
 class MainDataMinimalRepository(private val context: Context, private val mainDataDao: MainDataDao) {
     
@@ -40,8 +41,8 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                             packageName = mainData.packageName,
                             iconUrl = mainData.iconUrl ?: "",
                             installedFrom = mainData.installedFrom,
-                            dgStatus = mapScoreToStatusString(context, mainData.dgScore),
-                            mgStatus = mapScoreToStatusString(context, mainData.mgScore),
+                            dgStatus = mapScoreRangeToStatusString(context, mainData.dgScore),
+                            mgStatus = mapScoreRangeToStatusString(context, mainData.mgScore),
                             isInstalled = mainData.isInstalled,
                             isFav = mainData.isFav)
         }
@@ -55,20 +56,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             val preferenceManager = PreferenceManager(context)
             
             val (dgScoreFrom, dgScoreTo) =
-                if (statusRadioPref == R.id.radio_dg_status) {
-                    getScoreRange(preferenceManager, DG_STATUS_SORT)
-                }
-                else {
-                    Pair(-1.0f, -1.0f)
-                }
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_dg_status, DG_STATUS_SORT)
             
             val (mgScoreFrom, mgScoreTo) =
-                if (statusRadioPref == R.id.radio_mg_status) {
-                    getScoreRange(preferenceManager, MG_STATUS_SORT)
-                }
-                else {
-                    Pair(-1.0f, -1.0f)
-                }
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_mg_status, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sort_z_a
             
@@ -93,22 +84,12 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     R.id.menu_other_apps -> "other"
                     else -> ""
                 }
-            
+    
             val (dgScoreFrom, dgScoreTo) =
-                if (statusRadioPref == R.id.radio_dg_status) {
-                    getScoreRange(preferenceManager, DG_STATUS_SORT)
-                }
-                else {
-                    Pair(-1.0f, -1.0f)
-                }
-            
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_dg_status, DG_STATUS_SORT)
+    
             val (mgScoreFrom, mgScoreTo) =
-                if (statusRadioPref == R.id.radio_mg_status) {
-                    getScoreRange(preferenceManager, MG_STATUS_SORT)
-                }
-                else {
-                    Pair(-1.0f, -1.0f)
-                }
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_mg_status, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sort_z_a
             
@@ -133,22 +114,12 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     R.id.menu_other_apps -> "other"
                     else -> ""
                 }
-            
+    
             val (dgScoreFrom, dgScoreTo) =
-                if (statusRadioPref == R.id.radio_dg_status) {
-                    getScoreRange(preferenceManager, DG_STATUS_SORT)
-                }
-                else {
-                    Pair(-1.0f, -1.0f)
-                }
-            
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_dg_status, DG_STATUS_SORT)
+    
             val (mgScoreFrom, mgScoreTo) =
-                if (statusRadioPref == R.id.radio_mg_status) {
-                    getScoreRange(preferenceManager, MG_STATUS_SORT)
-                }
-                else {
-                    Pair(-1.0f, -1.0f)
-                }
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_mg_status, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sort_z_a
             
@@ -158,14 +129,14 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    private fun getScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Float, Float> {
-        return when (preferenceManager.getInt(sortKey)) {
-            R.id.sort_not_tested -> Pair(0.0f, 0.0f)
-            R.id.sort_broken -> Pair(1.0f, 1.9f)
-            R.id.sort_bronze -> Pair(2.0f, 2.9f)
-            R.id.sort_silver -> Pair(3.0f, 3.9f)
-            R.id.sort_gold -> Pair(4.0f, 4.0f)
-            else -> Pair(-1.0f, -1.0f)
+    private fun getScoreRange(preferenceManager: PreferenceManager,
+                              statusRadioPref: Int,
+                              radioBtnId: Int,
+                              sortKey: String): Pair<Float, Float> {
+        return if (statusRadioPref == radioBtnId) {
+            mapStatusChipToScoreRange(preferenceManager, sortKey)
+        } else {
+            Pair(-1.0f, -1.0f)
         }
     }
     

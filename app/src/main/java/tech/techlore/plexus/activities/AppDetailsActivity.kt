@@ -36,9 +36,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import retrofit2.awaitResponse
@@ -52,13 +49,10 @@ import tech.techlore.plexus.models.get.main.MainData
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
-import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreToStatusString
-import kotlin.coroutines.CoroutineContext
+import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 
-class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
+class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
-    private val job = Job()
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
@@ -181,6 +175,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
             when (checkedItem) {
                 
                 10 -> R.id.action_fragmentProgressBar_to_totalScoreFragment
+                // 10 is just a custom number
+                // to let the nav controller navigate from
+                // progress bar fragment to total score fragment
                 
                 R.id.radio_total_score -> R.id.action_userRatingsFragment_to_totalScoreFragment
                 
@@ -214,8 +211,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
             
             R.id.menu_more ->
                 MoreOptionsBottomSheet(app.name, app.packageName,
-                                       mapScoreToStatusString(this@AppDetailsActivity, app.dgScore),
-                                       mapScoreToStatusString(this@AppDetailsActivity, app.mgScore),
+                                       mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore),
+                                       mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore),
                                        activityBinding.appDetailsCoordinatorLayout,
                                        activityBinding.bottomAppBar)
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
@@ -236,10 +233,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider, CoroutineScope {
         
         startActivity(intent)
         overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
-    }
-    
-    override fun finish() {
-        super.finish()
     }
     
     // On back pressed

@@ -47,7 +47,7 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = PreferenceManager(requireContext())
         
-        headerBinding.bottomSheetTitle.visibility = View.GONE
+        headerBinding.bottomSheetTitle.text = getString(R.string.new_submission)
         
         // Proceed
         footerBinding.positiveButton.text = getString(R.string.proceed)

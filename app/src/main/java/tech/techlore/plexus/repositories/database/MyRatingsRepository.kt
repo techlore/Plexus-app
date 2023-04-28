@@ -19,25 +19,17 @@
 
 package tech.techlore.plexus.repositories.database
 
+import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MyRatingsDao
 import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
 import java.util.ArrayList
 
 class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
-    
-    suspend fun getRatingById(id: String): MyRating? {
-        return withContext(Dispatchers.IO){
-            ratingsDao.getRatingById(id)
-        }
-    }
-    
-    suspend fun getRatingByPackage(packageName: String): MyRating? {
-        return withContext(Dispatchers.IO){
-            ratingsDao.getRatingByPackage(packageName)
-        }
-    }
     
     suspend fun insertOrUpdateMyRatings(myRating: MyRating) {
         return withContext(Dispatchers.IO){
@@ -45,9 +37,21 @@ class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
         }
     }
     
-    suspend fun getSortedMyRatings(): ArrayList<MyRating> {
+    suspend fun getSortedMyRatings(statusRadioPref: Int,
+                                   statusChipPref: Int,
+                                   orderPref: Int): ArrayList<MyRating> {
         return withContext(Dispatchers.IO) {
-            ratingsDao.getSortedMyRatings() as ArrayList<MyRating>
+    
+            val (googleLib, ratingScore) =
+                when(statusRadioPref) {
+                    R.id.my_ratings_radio_dg_status -> Pair("none", mapStatusChipToRatingScore(statusChipPref))
+                    R.id.my_ratings_radio_mg_status -> Pair("micro_g", mapStatusChipToRatingScore(statusChipPref))
+                    else -> Pair("", -1)
+                }
+    
+            val isAsc = orderPref != R.id.my_ratings_sort_z_a
+            
+            ratingsDao.getSortedMyRatings(googleLib, ratingScore, isAsc) as ArrayList<MyRating>
         }
     }
     

@@ -25,9 +25,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
@@ -37,15 +34,11 @@ import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import kotlin.coroutines.CoroutineContext
 
 class SearchActivity :
     AppCompatActivity(),
-    MainDataItemAdapter.OnItemClickListener,
-    CoroutineScope {
+    MainDataItemAdapter.OnItemClickListener {
     
-    private val job = Job()
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var mainDataItemAdapter: MainDataItemAdapter
     private lateinit var searchDataList: ArrayList<MainDataMinimal>
     private lateinit var miniRepository: MainDataMinimalRepository

@@ -61,7 +61,18 @@ interface MyRatingsDao {
         }
     }
     
-    @Query("SELECT * FROM my_ratings_table")
-    suspend fun getSortedMyRatings(): List<MyRating>
+    @Query("""
+        SELECT * FROM my_ratings_table
+        WHERE (googleLib = :googleLib OR :googleLib = '')
+        AND (ratingScore == :ratingScore OR :ratingScore = -1)
+        ORDER BY
+        CASE WHEN :isAsc = 1 THEN name END ASC,
+        CASE WHEN :isAsc = 0 THEN name END DESC
+    """)
+    suspend fun getSortedMyRatings(googleLib: String,
+                                   ratingScore: Int,
+                                   isAsc: Boolean): List<MyRating>
+    // -1 is for ignoring the score when required,
+    // so it doesn't include it while filtering
     
 }

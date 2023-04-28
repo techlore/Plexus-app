@@ -24,9 +24,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
@@ -34,14 +31,11 @@ import tech.techlore.plexus.databinding.ActivitySplashBinding
 import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import kotlin.coroutines.CoroutineContext
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity : AppCompatActivity(), CoroutineScope {
+class SplashActivity : AppCompatActivity() {
     
     lateinit var activityBinding: ActivitySplashBinding
-    private val job = Job()
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +51,7 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
     
     private fun retrieveData() {
         
-        launch {
+        lifecycleScope.launch{
             val context = this@SplashActivity
             if (hasNetwork(context) && hasInternet()) {
                 val mainRepository = (applicationContext as ApplicationManager).mainRepository

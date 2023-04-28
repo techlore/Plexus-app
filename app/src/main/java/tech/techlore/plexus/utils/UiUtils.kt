@@ -27,6 +27,7 @@ import androidx.navigation.NavController
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import tech.techlore.plexus.R
+import tech.techlore.plexus.preferences.PreferenceManager
 
 class UiUtils {
     
@@ -56,8 +57,19 @@ class UiUtils {
             
             navController.navigate(action)
         }
+    
+        fun mapStatusChipToScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Float, Float> {
+            return when (preferenceManager.getInt(sortKey)) {
+                R.id.sort_not_tested -> Pair(0.0f, 0.0f)
+                R.id.sort_broken -> Pair(1.0f, 1.9f)
+                R.id.sort_bronze -> Pair(2.0f, 2.9f)
+                R.id.sort_silver -> Pair(3.0f, 3.9f)
+                R.id.sort_gold -> Pair(4.0f, 4.0f)
+                else -> Pair(-1.0f, -1.0f)
+            }
+        }
         
-        fun mapScoreToStatusString(context: Context, score: Float): String {
+        fun mapScoreRangeToStatusString(context: Context, score: Float): String {
             return when(score) {
                 0.0f -> context.getString(R.string.not_tested_title)
                 in 1.0f..1.9f -> context.getString(R.string.broken_title)
@@ -79,9 +91,10 @@ class UiUtils {
         
         fun mapStatusChipToRatingScore(statusChipId: Int): Int {
             return when (statusChipId) {
-                R.id.user_ratings_sort_broken, R.id.submit_broken -> 1
-                R.id.user_ratings_sort_bronze, R.id.submit_bronze -> 2
-                R.id.user_ratings_sort_silver, R.id.submit_silver -> 3
+                R.id.my_ratings_sort_any -> -1
+                R.id.my_ratings_sort_broken, R.id.user_ratings_sort_broken, R.id.submit_broken -> 1
+                R.id.my_ratings_sort_bronze, R.id.user_ratings_sort_bronze, R.id.submit_bronze -> 2
+                R.id.my_ratings_sort_silver, R.id.user_ratings_sort_silver, R.id.submit_silver -> 3
                 else -> 4
             }
         }

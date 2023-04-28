@@ -150,7 +150,11 @@ interface MainDataDao {
     // -1 is for ignoring the score when required,
     // so it doesn't include it while filtering
     
-    @Query("SELECT * FROM main_table WHERE name LIKE '%' || :searchQuery || '%' OR packageName LIKE '%' || :searchQuery || '%'")
+    @Query("""
+        SELECT * FROM main_table
+        WHERE name LIKE '%' || :searchQuery || '%' OR packageName LIKE '%' || :searchQuery || '%'
+        ORDER BY name ASC
+    """)
     suspend fun searchFromDb(searchQuery: String): List<MainData>
     
 }

@@ -50,14 +50,14 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                         if (scoresResponse.isSuccessful) {
                             scoresResponse.body()?.let { scoresRoot ->
     
-                                // De-googled score
+                                // de-Googled score
                                 // 1 decimal place without rounding off
                                 val dgScoreString = scoresRoot.scoreData[0].score.toString()
                                 val truncatedDgScore = dgScoreString.substring(0, dgScoreString.indexOf(".") + 2).toFloat()
                                 mainData.dgScore = truncatedDgScore
                                 mainData.totalDgRatings = scoresRoot.scoreData[0].totalRatings
     
-                                // MicroG score
+                                // microG score
                                 // 1 decimal place without rounding off
                                 val mgScoreString = scoresRoot.scoreData[1].score.toString()
                                 val truncatedMgScore = mgScoreString.substring(0, mgScoreString.indexOf(".") + 2).toFloat()

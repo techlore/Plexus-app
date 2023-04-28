@@ -25,9 +25,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
@@ -44,15 +41,11 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import kotlin.collections.ArrayList
-import kotlin.coroutines.CoroutineContext
 
 class InstalledAppsFragment :
     Fragment(),
-    MainDataItemAdapter.OnItemClickListener,
-    CoroutineScope {
+    MainDataItemAdapter.OnItemClickListener {
     
-    private val job = Job()
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
@@ -87,7 +80,7 @@ class InstalledAppsFragment :
             
             fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
             
-            if (installedAppsList.size == 0) {
+            if (installedAppsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
             }
             else {
@@ -106,7 +99,7 @@ class InstalledAppsFragment :
     }
     
     private fun refreshInstalledApps() {
-        launch {
+        lifecycleScope.launch {
             val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
             mainRepository.installedAppsIntoDB(requireContext())
             fragmentBinding.swipeRefreshLayout.isRefreshing = false

@@ -36,6 +36,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.fragments.bottomsheets.SortBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.SortMyRatingsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.ThemeBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER
@@ -267,7 +268,14 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
             }
             
-            R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
+            R.id.menu_sort -> {
+                if (navController.currentDestination!!.id == R.id.myRatingsFragment) {
+                    SortMyRatingsBottomSheet(navController).show(supportFragmentManager, "SortMyRatingsBottomSheet")
+                }
+                else {
+                    SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
+                }
+            }
             
             R.id.menu_all_apps,
             R.id.menu_play_apps,

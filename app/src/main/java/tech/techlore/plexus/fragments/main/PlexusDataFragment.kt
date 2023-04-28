@@ -25,9 +25,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
@@ -45,15 +42,11 @@ import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import kotlin.coroutines.CoroutineContext
 
 class PlexusDataFragment :
     Fragment(),
-    MainDataItemAdapter.OnItemClickListener,
-    CoroutineScope {
+    MainDataItemAdapter.OnItemClickListener {
     
-    private val job = Job()
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
@@ -87,7 +80,7 @@ class PlexusDataFragment :
     
             fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
     
-            if (plexusDataList.size == 0) {
+            if (plexusDataList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
             }
             else {
@@ -113,7 +106,7 @@ class PlexusDataFragment :
     
     private fun refreshData() {
         
-        launch {
+        lifecycleScope.launch{
             if (hasNetwork(requireContext()) && hasInternet()) {
                 val repository = (requireContext().applicationContext as ApplicationManager).mainRepository
                 repository.plexusDataIntoDB(requireContext())
