@@ -31,7 +31,7 @@ class PreferenceManager(context: Context) {
         const val STATUS_RADIO = "status_radio"
         const val DG_STATUS_SORT = "dg_status_sort"
         const val MG_STATUS_SORT = "mg_status_sort"
-        const val FILTER = "filter"
+        const val INSTALLED_FROM_SORT = "installed_from_sort"
         const val MY_RATINGS_A_Z_SORT = "my_ratings_a_z_sort"
         const val MY_RATINGS_STATUS_RADIO = "my_ratings_status_radio"
         const val MY_RATINGS_STATUS_CHIP = "my_ratings_dg_status_chip"

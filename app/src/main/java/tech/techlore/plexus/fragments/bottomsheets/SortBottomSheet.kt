@@ -32,6 +32,7 @@ import tech.techlore.plexus.databinding.BottomSheetSortBinding
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
@@ -54,6 +55,17 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             preferenceManager.setInt(A_Z_SORT, R.id.sort_a_z)
         }
         bottomSheetBinding.alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT))
+        
+        // Installed from chip group
+        val isInstalledAppsFragment = navController.currentDestination!!.id == R.id.installedAppsFragment
+        if (isInstalledAppsFragment) {
+            bottomSheetBinding.sortInstalledFromText.visibility = View.VISIBLE
+            bottomSheetBinding.installedFromChipGroup.visibility = View.VISIBLE
+            if (preferenceManager.getInt(INSTALLED_FROM_SORT) == 0) {
+                preferenceManager.setInt(INSTALLED_FROM_SORT, R.id.sort_installed_any)
+            }
+            bottomSheetBinding.installedFromChipGroup.check(preferenceManager.getInt(INSTALLED_FROM_SORT))
+        }
     
         // Status radio btn checked by default
         if (preferenceManager.getInt(STATUS_RADIO) == 0) {
@@ -101,6 +113,8 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         footerBinding.positiveButton.setOnClickListener {
             preferenceManager.setInt(A_Z_SORT,
                                      bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
+            if (isInstalledAppsFragment) preferenceManager.setInt(INSTALLED_FROM_SORT,
+                                                                  bottomSheetBinding.installedFromChipGroup.checkedChipId)
             preferenceManager.setInt(STATUS_RADIO,
                                      bottomSheetBinding.statusRadiogroup.checkedRadioButtonId)
             if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_dg_status) {

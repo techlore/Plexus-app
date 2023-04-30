@@ -65,7 +65,7 @@ class FavoritesFragment:
         lifecycleScope.launch{
             favList =
                 miniRepository.miniFavoritesListFromDB(context = requireContext(),
-                                                       filterPref = preferenceManager.getInt(PreferenceManager.FILTER),
+                                                       installedFromPref = preferenceManager.getInt(PreferenceManager.INSTALLED_FROM_SORT),
                                                        statusRadioPref = preferenceManager.getInt(PreferenceManager.STATUS_RADIO),
                                                        orderPref = preferenceManager.getInt(PreferenceManager.A_Z_SORT))
     

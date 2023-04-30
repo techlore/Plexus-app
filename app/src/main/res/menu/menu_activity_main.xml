@@ -36,39 +36,9 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/menu_filter"
-        android:icon="@drawable/ic_filter"
-        android:title="@string/menu_filter"
-        app:showAsAction="never">
-
-        <menu>
-            <group
-                android:checkableBehavior="single">
-
-                <item
-                    android:id="@+id/menu_all_apps"
-                    android:icon="@drawable/ic_installed_apps"
-                    android:title="@string/menu_all_apps"/>
-
-                <item
-                    android:id="@+id/menu_play_apps"
-                    android:icon="@drawable/ic_play_store"
-                    android:title="@string/menu_play_apps"/>
-
-                <item
-                    android:id="@+id/menu_other_apps"
-                    android:icon="@drawable/ic_apk"
-                    android:title="@string/menu_other_apps"/>
-
-            </group>
-        </menu>
-
-    </item>
-
-    <item
         android:id="@+id/main_menu_help"
         android:icon="@drawable/ic_help"
         android:title="@string/menu_help"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 
 </menu>

@@ -53,7 +53,7 @@
     <!--APP DETAILS ACTIVITY-->
     <string name="notes">notas</string>
     <string name="installed_version">Instaladas</string>
-    <string name="menu_play_store">Play store</string>
+    <string name="google_play">Play store</string>
     <string name="menu_share">Cuota</string>
 
     <!--#########################################################################################-->

@@ -36,7 +36,7 @@ import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
@@ -74,7 +74,7 @@ class InstalledAppsFragment :
         lifecycleScope.launch {
             installedAppsList =
                 miniRepository.miniInstalledAppsListFromDB(context = requireContext(),
-                                                           filterPref = preferenceManager.getInt(FILTER),
+                                                           installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                            statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                            orderPref = preferenceManager.getInt(A_Z_SORT))
             
@@ -106,7 +106,7 @@ class InstalledAppsFragment :
             installedAppItemAdapter
                 .updateList(miniRepository
                                 .miniInstalledAppsListFromDB(context = requireContext(),
-                                                             filterPref = preferenceManager.getInt(FILTER),
+                                                             installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                              statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                              orderPref = preferenceManager.getInt(A_Z_SORT)))
         }

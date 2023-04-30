@@ -71,7 +71,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
     }
     
     suspend fun miniInstalledAppsListFromDB(context: Context,
-                                            filterPref: Int,
+                                            installedFromPref: Int,
                                             statusRadioPref: Int,
                                             orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
@@ -79,9 +79,9 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             val preferenceManager = PreferenceManager(context)
             
             val installedFrom =
-                when(filterPref) {
-                    R.id.menu_play_apps -> "googlePlay"
-                    R.id.menu_other_apps -> "other"
+                when(installedFromPref) {
+                    R.id.sort_installed_google_play -> "googlePlay"
+                    R.id.sort_installed_other -> "other"
                     else -> ""
                 }
     
@@ -101,7 +101,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
     }
     
     suspend fun miniFavoritesListFromDB(context: Context,
-                                        filterPref: Int,
+                                        installedFromPref: Int,
                                         statusRadioPref: Int,
                                         orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
@@ -109,9 +109,9 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             val preferenceManager = PreferenceManager(context)
             
             val installedFrom =
-                when(filterPref) {
-                    R.id.menu_play_apps -> "googlePlay"
-                    R.id.menu_other_apps -> "other"
+                when(installedFromPref) {
+                    R.id.sort_installed_google_play -> "googlePlay"
+                    R.id.sort_installed_other -> "other"
                     else -> ""
                 }
     

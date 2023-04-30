@@ -25,8 +25,6 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
@@ -66,7 +64,7 @@ class IntentUtils {
                               ${activity.getString(R.string.package_name)}: $packageNameString
                               ${activity.getString(R.string.de_Googled)}: $dgStatusString
                               ${activity.getString(R.string.microG)}: $mgStatusString
-                              ${activity.getString(R.string.menu_play_store)}: $playStoreString
+                              ${activity.getString(R.string.google_play)}: $playStoreString
                               ${activity.getString(R.string.menu_fdroid)}: $fdroidString
                               """.trimIndent()), activity.getString(R.string.menu_share)))
         }

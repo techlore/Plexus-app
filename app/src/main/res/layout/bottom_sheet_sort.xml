@@ -73,6 +73,56 @@
     </com.google.android.material.chip.ChipGroup>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/sort_installed_from_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:text="@string/installed_from"
+        style="@style/MediumBoldText"
+        android:textSize="@dimen/text_16"
+        android:textColor="?attr/colorControlNormal"
+        android:visibility="gone"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/installed_from_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_8"
+        app:chipSpacingHorizontal="@dimen/margin_10"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        android:visibility="gone">
+
+        <com.google.android.material.chip.Chip
+            android:checked="true"
+            android:id="@+id/sort_installed_any"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NotTestedFilterChipTheme"
+            android:text="@string/any"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_installed_google_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NotTestedFilterChipTheme"
+            android:text="@string/google_play"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sort_installed_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NotTestedFilterChipTheme"
+            android:text="@string/other"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12"

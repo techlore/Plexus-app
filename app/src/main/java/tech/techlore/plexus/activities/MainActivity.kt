@@ -39,10 +39,8 @@ import tech.techlore.plexus.fragments.bottomsheets.SortBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortMyRatingsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.ThemeBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FILTER
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.SEL_ITEM
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
-import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
 class MainActivity : AppCompatActivity(), MenuProvider {
     
@@ -247,16 +245,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         
         menu.findItem(R.id.menu_search).isVisible = preferenceManager.getInt(SEL_ITEM) != R.id.nav_my_ratings
         
-        menu.findItem(R.id.menu_filter).isVisible =
-            (preferenceManager.getInt(SEL_ITEM) == R.id.nav_installed_apps
-             || preferenceManager.getInt(SEL_ITEM) == R.id.nav_fav)
-    
-        if (menu.findItem(R.id.menu_filter).isVisible) {
-            if (preferenceManager.getInt(FILTER) == 0) {
-                preferenceManager.setInt(FILTER, R.id.menu_all_apps)
-            }
-            menu.findItem(preferenceManager.getInt(FILTER)).isChecked = true
-        }
     }
     
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -275,13 +263,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 else {
                     SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
                 }
-            }
-            
-            R.id.menu_all_apps,
-            R.id.menu_play_apps,
-            R.id.menu_other_apps -> {
-                preferenceManager.setInt(FILTER, menuItem.itemId)
-                refreshFragment(navController)
             }
             
             R.id.main_menu_help -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java)
