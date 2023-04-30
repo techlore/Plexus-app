@@ -57,7 +57,8 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         bottomSheetBinding.alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT))
         
         // Installed from chip group
-        val isInstalledAppsFragment = navController.currentDestination!!.id == R.id.installedAppsFragment
+        val isInstalledAppsFragment =
+            navController.currentDestination!!.id in setOf(R.id.installedAppsFragment, R.id.favoritesFragment)
         if (isInstalledAppsFragment) {
             bottomSheetBinding.sortInstalledFromText.visibility = View.VISIBLE
             bottomSheetBinding.installedFromChipGroup.visibility = View.VISIBLE
