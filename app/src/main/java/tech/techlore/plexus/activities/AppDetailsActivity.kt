@@ -78,12 +78,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         navController = navHostFragment.navController
         selectedVersionString = getString(R.string.any)
         val repository = (applicationContext as ApplicationManager).mainRepository
+        val requestManager = Glide.with(this)
         val requestOptions =
             RequestOptions()
                 .placeholder(R.drawable.ic_apk) // Placeholder image
                 .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
-                .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
-        val requestManager = Glide.with(applicationContext)
+                .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
     
         /*########################################################################################*/
         
@@ -106,11 +106,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 if (!app.isInstalled) {
                     requestManager
                         .load(app.iconUrl)
+                        .onlyRetrieveFromCache(true) // Icon should always be in cache
                         .apply(requestOptions)
                 }
                 else {
                     try {
-                        requestManager.load(packageManager.getApplicationIcon(app.packageName))
+                        requestManager
+                            .load(packageManager.getApplicationIcon(app.packageName))
+                            .apply(requestOptions)
                     }
                     catch (e: PackageManager.NameNotFoundException) {
                         throw RuntimeException(e)

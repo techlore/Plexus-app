@@ -51,7 +51,7 @@
         android:textAlignment="viewStart"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
-        app:drawableStartCompat="@drawable/ic_play_store"
+        app:drawableStartCompat="@drawable/ic_google_play"
         android:drawablePadding="@dimen/margin_20"/>
 
     <TextView

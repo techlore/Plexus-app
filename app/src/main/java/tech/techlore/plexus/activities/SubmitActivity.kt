@@ -20,17 +20,17 @@
 package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
@@ -53,12 +53,9 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MI
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
-import kotlin.coroutines.CoroutineContext
 
-class SubmitActivity : AppCompatActivity(), CoroutineScope {
+class SubmitActivity : AppCompatActivity() {
     
-    private val job = Job()
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
     private lateinit var activityBinding: ActivitySubmitBinding
     private lateinit var currentApp: MainData
     private lateinit var nameString: String
@@ -80,7 +77,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         }
     }
     
-    //@SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityBinding = ActivitySubmitBinding.inflate(layoutInflater)
@@ -99,12 +95,12 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         val blockedWordsPattern = blockedWords.joinToString("|") { Regex.escape(it) }
         val blockedWordsRegex =
             "(?i)\\b($blockedWordsPattern)\\b".toRegex(setOf(RegexOption.IGNORE_CASE))// *next regex meme goes here*
-    
+        
         snackbar =
             Snackbar
                 .make(activityBinding.submitCoordinatorLayout,
-                                     getString(R.string.please_wait),
-                                     Snackbar.LENGTH_INDEFINITE)
+                      getString(R.string.please_wait),
+                      Snackbar.LENGTH_INDEFINITE)
                 .setAnchorView(activityBinding.submitBottomAppBar)
                 .setBehavior(NoSwipeBehavior())
         
@@ -112,6 +108,14 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         
         setSupportActionBar(activityBinding.submitBottomAppBar)
         activityBinding.submitBottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        
+        // Icon
+        try{
+            activityBinding.submitAppIcon.setImageDrawable(packageManager.getApplicationIcon(packageNameString))
+        }
+        catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
         
         activityBinding.submitName.text = nameString
         activityBinding.submitPackageName.text = packageNameString
@@ -161,6 +165,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
         })
         
         // FAB
+        
         activityBinding.submitFab.setOnClickListener {
             activityBinding.submitFab.isEnabled = false
             snackbar.show()
@@ -170,7 +175,7 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
     
     private fun submitData() {
         
-        launch {
+        lifecycleScope.launch {
             if (hasNetwork(this@SubmitActivity) && hasInternet()) {
                 
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
@@ -262,12 +267,12 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
                 // Handle 404 error
                 null
             }
-    
+        
         if (document != null) {
             val element = document.selectFirst("meta[content^=https://play-lh]")
             iconUrl = element?.attr("content")
         }
-    
+        
         return iconUrl
         
     }
@@ -297,7 +302,6 @@ class SubmitActivity : AppCompatActivity(), CoroutineScope {
     // Set transition when finishing activity
     override fun finish() {
         super.finish()
-        job.cancel()
         overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
     }
 }

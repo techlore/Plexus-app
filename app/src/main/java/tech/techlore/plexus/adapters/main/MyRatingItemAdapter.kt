@@ -73,11 +73,13 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
             val requestOptions =
                 RequestOptions()
                     .placeholder(R.drawable.ic_apk) // Placeholder icon
+                    .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
                     .centerCrop() // Center-crop the image to fill the ImageView
-                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
         
             Glide.with(context)
                 .load(myRating.iconUrl)
+                .onlyRetrieveFromCache(true) // Icon should always be in cache
                 .apply(requestOptions)
                 .into(holder.icon)
         }

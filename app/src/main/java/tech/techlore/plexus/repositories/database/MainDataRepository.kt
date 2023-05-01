@@ -20,6 +20,8 @@
 package tech.techlore.plexus.repositories.database
 
 import android.content.Context
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
@@ -38,11 +40,18 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
             
             if (appsResponse.isSuccessful) {
                 appsResponse.body()?.let { root ->
+                    val requestManager = Glide.with(context)
                     for (mainData in root.mainData) {
     
                         mainData.iconUrl?.let {
                             mainData.iconUrl += "=w128-h128" // Store 128x128 icon url only as 512x512 is not needed
                         } ?: ""
+    
+                        // Preload icon into cache
+                        requestManager
+                            .load(mainData.iconUrl)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
+                            .preload()
                         
                         val scoresCall = apiRepository.getScores(mainData.packageName)
                         val scoresResponse = scoresCall.awaitResponse()
