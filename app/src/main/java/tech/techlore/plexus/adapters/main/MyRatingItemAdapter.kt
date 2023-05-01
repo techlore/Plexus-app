@@ -21,7 +21,6 @@ package tech.techlore.plexus.adapters.main
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +33,7 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.utils.UiUtils.Companion.mapRatingScoreToStatusTextStyle
 
 class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : RecyclerView.Adapter<MyRatingItemAdapter.ListViewHolder>() {
     
@@ -42,7 +42,7 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         val icon: ShapeableImageView = itemView.findViewById(R.id.my_ratings_icon)
         val name: MaterialTextView = itemView.findViewById(R.id.my_ratings_name)
         val version: MaterialTextView = itemView.findViewById(R.id.my_ratings_version)
-        val note: MaterialTextView = itemView.findViewById(R.id.my_ratings_note)
+        val notes: MaterialTextView = itemView.findViewById(R.id.my_ratings_notes)
         val status: MaterialTextView = itemView.findViewById(R.id.my_ratings_status)
         
     }
@@ -89,10 +89,10 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         holder.version.text = "${context.getString(R.string.version)}: ${myRating.version}"
         
         if (!myRating.notes.isNullOrEmpty()) {
-            holder.note.text = myRating.notes
+            holder.notes.text = myRating.notes
         }
         else {
-            holder.note.visibility = View.GONE
+            holder.notes.visibility = View.GONE
         }
     
         val statusIcon =
@@ -100,22 +100,9 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
                 "none" -> ContextCompat.getDrawable(context, R.drawable.ic_apk)
                 else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
             }
-    
-        val (statusString, backgroundTint) =
-            when(myRating.ratingScore) {
-                1 -> Pair(context.getString(R.string.broken_title),
-                          context.resources.getColor(R.color.color_broken_status, context.theme))
-                2 -> Pair(context.getString(R.string.bronze_title),
-                          context.resources.getColor(R.color.color_bronze_status, context.theme))
-                3 -> Pair(context.getString(R.string.silver_title),
-                          context.resources.getColor(R.color.color_silver_status, context.theme))
-                else -> Pair(context.getString(R.string.gold_title),
-                             context.resources.getColor(R.color.color_gold_status, context.theme))
-            }
         
         holder.status.setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
-        holder.status.text = statusString
-        holder.status.backgroundTintList = ColorStateList.valueOf(backgroundTint)
+        mapRatingScoreToStatusTextStyle(context, myRating.ratingScore, holder.status)
         
     }
     

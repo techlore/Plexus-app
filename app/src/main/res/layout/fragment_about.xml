@@ -36,23 +36,14 @@
         android:paddingBottom="@dimen/margin_25">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="@dimen/margin_12"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="@dimen/margin_16"
             android:layout_gravity="center"
             android:background="@color/grey_800"
             android:src="@drawable/ic_launcher_foreground"
             android:scaleType="center"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
-
-        <!--<ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginTop="@dimen/margin_12"
-            android:layout_gravity="center"
-            android:background="@drawable/shape_bg_circle"
-            android:backgroundTint="@color/grey_800"
-            android:src="@drawable/ic_launcher_foreground" />-->
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/app_name"
@@ -60,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_2.5"
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"

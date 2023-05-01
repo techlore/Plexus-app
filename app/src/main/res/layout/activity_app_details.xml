@@ -84,7 +84,8 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/installed"
-                android:textSize="@dimen/text_17"/>
+                android:textSize="@dimen/text_17"
+                android:textColor="@color/color_control_normal"/>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/details_nav_host"

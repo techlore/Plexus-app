@@ -103,6 +103,18 @@
 
     <!--#########################################################################################-->
 
+    <!--Base chip like text view style-->
+    <style name="BaseChipLikeTextViewStyle" parent="MediumBoldText">
+        <item name="android:paddingStart">@dimen/margin_16</item>
+        <item name="android:paddingEnd">@dimen/margin_16</item>
+        <item name="android:background">@drawable/shape_card</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_text_title</item>
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <!--#########################################################################################-->
+
     <!--Base dialog style-->
     <style name="BaseDialogStyle" parent="MaterialAlertDialog.Material3">
         <item name="shapeAppearance">@style/DialogShapeStyle</item>

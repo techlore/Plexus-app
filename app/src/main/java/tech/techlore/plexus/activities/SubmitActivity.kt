@@ -264,13 +264,32 @@ class SubmitActivity : AppCompatActivity() {
                 }
             }
             catch (e: HttpStatusException) {
-                // Handle 404 error
-                null
+                // If 404 error from Google Play,
+                // then try connecting to F-Droid
+                try {
+                    withContext(Dispatchers.IO) {
+                        Jsoup.connect("https://f-droid.org/en/packages/$packageNameString").get()
+                    }
+                }
+                catch (e: HttpStatusException) {
+                    null
+                }
             }
         
         if (document != null) {
-            val element = document.selectFirst("meta[content^=https://play-lh]")
-            iconUrl = element?.attr("content")
+            val element = document.selectFirst("meta[property=og:image]")
+            val url = element?.attr("content")
+            // Sometimes on F-Droid when original icon of the app is not provided,
+            // we get F-Droid logo as the icon.
+            // Example: Fennec (https://f-droid.org/en/packages/org.mozilla.fennec_fdroid)
+            // When this happens, assign iconUrl to null
+            iconUrl =
+                if (url?.startsWith("https://f-droid.org/assets/fdroid-logo") == true) {
+                    null
+                }
+                else {
+                    url
+                }
         }
         
         return iconUrl

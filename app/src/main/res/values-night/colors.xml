@@ -69,9 +69,10 @@
     <color name="color_drag_handle">#606165</color>
     <color name="color_url">#42A5F5</color>
 
-    <color name="color_broken_status">#BA1A20</color>
-    <color name="color_bronze_status">#9C432F</color>
-    <color name="color_silver_status">#7E949F</color>
-    <color name="color_gold_status">#EEC209</color>
+    <!--Status colors-->
+    <color name="color_broken_status">#E62E2E</color>
+    <color name="color_bronze_status">#B05A3C</color>
+    <color name="color_silver_status">#A9A9A9</color>
+    <color name="color_gold_status">#FFBF00</color>
 
 </resources>

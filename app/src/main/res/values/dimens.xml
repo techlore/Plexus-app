@@ -25,6 +25,7 @@
     <dimen name="margin_45">45dp</dimen>
     <dimen name="margin_40">40dp</dimen>
     <dimen name="margin_35">35dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
     <dimen name="margin_25">25dp</dimen>
     <dimen name="margin_22">22dp</dimen>
     <dimen name="margin_20">20dp</dimen>

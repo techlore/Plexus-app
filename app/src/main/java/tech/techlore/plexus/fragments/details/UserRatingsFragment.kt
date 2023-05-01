@@ -24,7 +24,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textview.MaterialTextView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.adapters.details.UserRatingsItemAdapter
@@ -48,63 +52,71 @@ class UserRatingsFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val detailsActivity = requireActivity() as AppDetailsActivity
-        var sortedRatingsList = detailsActivity.ratingsList
-        val googleLib: String
-        val dgScore: Int
-        val mgScore: Int
+        lifecycleScope.launch(Dispatchers.Default) {
     
-        // Get different versions from ratings list
-        // and store them in a separate list
-        if (detailsActivity.differentVersionsList.isEmpty()){
-            val uniqueVersions = HashSet<String>()
-            for (ratings in sortedRatingsList) {
-                uniqueVersions.add(ratings.version!!)
+            // Perform sorting in default dispatcher
+            // which is optimized for CPU intensive tasks
+            val detailsActivity = requireActivity() as AppDetailsActivity
+            var sortedRatingsList = detailsActivity.ratingsList
+            val googleLib: String
+            val dgScore: Int
+            val mgScore: Int
+    
+            // Get different versions from ratings list
+            // and store them in a separate list
+            if (detailsActivity.differentVersionsList.isEmpty()){
+                val uniqueVersions = HashSet<String>()
+                for (ratings in sortedRatingsList) {
+                    uniqueVersions.add(ratings.version!!)
+                }
+                detailsActivity.differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
             }
-            detailsActivity.differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
-        }
-        
-        if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
-            sortedRatingsList =
-                sortedRatingsList.filter { ratings ->
-                    ratings.version == detailsActivity.selectedVersionString
-                } as ArrayList<Rating>
-        }
-        
-        if (detailsActivity.statusRadio != R.id.user_ratings_radio_any_status) {
-            googleLib = if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status) "none" else "micro_g"
-            sortedRatingsList =
-                sortedRatingsList.filter { ratings ->
-                    ratings.googleLib == googleLib
-                } as ArrayList<Rating>
     
-            if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status
-                && detailsActivity.dgStatusSort != R.id.user_ratings_sort_any) {
-                dgScore = mapStatusChipToRatingScore(detailsActivity.dgStatusSort)
+            if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
                 sortedRatingsList =
                     sortedRatingsList.filter { ratings ->
-                        ratings.ratingScore!!.ratingScore == dgScore
+                        ratings.version == detailsActivity.selectedVersionString
                     } as ArrayList<Rating>
             }
-            else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status
-                     && detailsActivity.mgStatusSort != R.id.user_ratings_sort_any) {
-                mgScore = mapStatusChipToRatingScore(detailsActivity.mgStatusSort)
+    
+            if (detailsActivity.statusRadio != R.id.user_ratings_radio_any_status) {
+                googleLib = if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status) "none" else "micro_g"
                 sortedRatingsList =
                     sortedRatingsList.filter { ratings ->
-                        ratings.ratingScore!!.ratingScore == mgScore
+                        ratings.googleLib == googleLib
                     } as ArrayList<Rating>
-            }
-        }
         
-        if (sortedRatingsList.isEmpty()) {
-            fragmentBinding.emptyRatingsListViewStub.inflate()
-            val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
-            emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
-            emptyListView.text = requireContext().getString(R.string.no_ratings_available)
-        }
-        else {
-            val userRatingsItemAdapter = UserRatingsItemAdapter(sortedRatingsList)
-            fragmentBinding.userRatingsRv.adapter = userRatingsItemAdapter
+                if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status
+                    && detailsActivity.dgStatusSort != R.id.user_ratings_sort_any) {
+                    dgScore = mapStatusChipToRatingScore(detailsActivity.dgStatusSort)
+                    sortedRatingsList =
+                        sortedRatingsList.filter { ratings ->
+                            ratings.ratingScore!!.ratingScore == dgScore
+                        } as ArrayList<Rating>
+                }
+                else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status
+                         && detailsActivity.mgStatusSort != R.id.user_ratings_sort_any) {
+                    mgScore = mapStatusChipToRatingScore(detailsActivity.mgStatusSort)
+                    sortedRatingsList =
+                        sortedRatingsList.filter { ratings ->
+                            ratings.ratingScore!!.ratingScore == mgScore
+                        } as ArrayList<Rating>
+                }
+            }
+    
+            // Update UI with all results
+            withContext(Dispatchers.Main) {
+                if (sortedRatingsList.isEmpty()) {
+                    fragmentBinding.emptyRatingsListViewStub.inflate()
+                    val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
+                    emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
+                    emptyListView.text = requireContext().getString(R.string.no_ratings_available)
+                }
+                else {
+                    val userRatingsItemAdapter = UserRatingsItemAdapter(sortedRatingsList)
+                    fragmentBinding.userRatingsRv.adapter = userRatingsItemAdapter
+                }
+            }
         }
     }
     

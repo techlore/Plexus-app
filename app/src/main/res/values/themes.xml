@@ -66,6 +66,29 @@
 
     <!--#########################################################################################-->
 
+    <!--Status text themes-->
+    <style name="BrokenTextTheme" parent="BaseChipLikeTextViewStyle">
+        <item name="android:text">@string/broken_title</item>
+        <item name="backgroundTint">@color/color_broken_status</item>
+    </style>
+
+    <style name="SilverTextTheme" parent="BaseChipLikeTextViewStyle">
+        <item name="android:text">@string/silver_title</item>
+        <item name="backgroundTint">@color/color_silver_status</item>
+    </style>
+
+    <style name="BronzeTextTheme" parent="BaseChipLikeTextViewStyle">
+        <item name="android:text">@string/bronze_title</item>
+        <item name="backgroundTint">@color/color_bronze_status</item>
+    </style>
+
+    <style name="GoldTextTheme" parent="BaseChipLikeTextViewStyle">
+        <item name="android:text">@string/gold_title</item>
+        <item name="backgroundTint">@color/color_gold_status</item>
+    </style>
+
+    <!--#########################################################################################-->
+
     <!--Dialog theme-->
     <style name="DialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="alertDialogStyle">@style/BaseDialogStyle</item>

@@ -80,12 +80,19 @@ interface MainDataDao {
     
     @Transaction
     suspend fun updateFavApps(mainData: MainData) {
-        
-        val existingApps = getAppByPackage(mainData.packageName)
-        
-        if (existingApps != null) {
-            existingApps.isFav = mainData.isFav
-            update(existingApps)
+        val existingApp = getAppByPackage(mainData.packageName)
+        if (existingApp != null) {
+            existingApp.isFav = mainData.isFav
+            update(existingApp)
+        }
+    }
+    
+    @Transaction
+    suspend fun updateIsInPlexusData(mainData: MainData) {
+        val existingData = getAppByPackage(mainData.packageName)
+        if (existingData != null) {
+            existingData.isInPlexusData = mainData.isInPlexusData
+            update(existingData)
         }
     }
     

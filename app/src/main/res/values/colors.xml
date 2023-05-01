@@ -70,6 +70,7 @@
     <color name="color_drag_handle">#C0C1C3</color>
     <color name="color_url">#1976D2</color>
 
+    <!--Status colors-->
     <color name="color_broken_status">#FF8980</color>
     <color name="color_bronze_status">#BBAB74</color>
     <color name="color_silver_status">#B4CAD5</color>

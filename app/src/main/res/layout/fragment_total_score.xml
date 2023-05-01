@@ -90,22 +90,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dg_gold_text_chip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/dg_avg_score"
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_45"
         android:layout_marginStart="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_12"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/color_gold_status"
-        android:text="@string/gold_title"
-        android:textAlignment="center"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/GoldTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/dg_gold_progress"
@@ -137,22 +127,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dg_silver_text_chip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/dg_gold_text_chip"
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_12"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/color_silver_status"
-        android:text="@string/silver_title"
-        android:textAlignment="center"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/SilverTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/dg_silver_progress"
@@ -184,22 +164,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dg_bronze_text_chip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/dg_silver_text_chip"
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_12"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/color_bronze_status"
-        android:text="@string/bronze_title"
-        android:textAlignment="center"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/BronzeTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/dg_bronze_progress"
@@ -231,22 +201,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dg_broken_text_chip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/dg_bronze_text_chip"
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_12"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/color_broken_status"
-        android:text="@string/broken_title"
-        android:textAlignment="center"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/BrokenTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/dg_broken_progress"
@@ -352,22 +312,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mg_gold_text_chip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/mg_avg_score"
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_45"
         android:layout_marginStart="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_12"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/color_gold_status"
-        android:text="@string/gold_title"
-        android:textAlignment="center"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/GoldTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/mg_gold_progress"
@@ -399,22 +349,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mg_silver_text_chip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/mg_gold_text_chip"
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_12"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/color_silver_status"
-        android:text="@string/silver_title"
-        android:textAlignment="center"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/SilverTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/mg_silver_progress"
@@ -446,22 +386,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mg_bronze_text_chip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/mg_silver_text_chip"
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_12"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/color_bronze_status"
-        android:text="@string/bronze_title"
-        android:textAlignment="center"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/BronzeTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/mg_bronze_progress"
@@ -493,22 +423,12 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mg_broken_text_chip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/mg_bronze_text_chip"
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_12"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/color_broken_status"
-        android:text="@string/broken_title"
-        android:textAlignment="center"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/BrokenTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/mg_broken_progress"

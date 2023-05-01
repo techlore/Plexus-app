@@ -44,14 +44,12 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                     for (mainData in root.mainData) {
     
                         mainData.iconUrl?.let {
-                            mainData.iconUrl += "=w128-h128" // Store 128x128 icon url only as 512x512 is not needed
+                            // Preload icon into cache
+                            requestManager
+                                .load(mainData.iconUrl)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
+                                .preload()
                         } ?: ""
-    
-                        // Preload icon into cache
-                        requestManager
-                            .load(mainData.iconUrl)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
-                            .preload()
                         
                         val scoresCall = apiRepository.getScores(mainData.packageName)
                         val scoresResponse = scoresCall.awaitResponse()
@@ -130,11 +128,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
     
     suspend fun updateIsInPlexusData(mainData: MainData) {
         return withContext(Dispatchers.IO) {
-            val existingData = mainDataDao.getAppByPackage(mainData.packageName)
-            if (existingData != null) {
-                existingData.isInPlexusData = mainData.isInPlexusData
-                mainDataDao.update(existingData)
-            }
+            mainDataDao.updateIsInPlexusData(mainData)
         }
     }
 }

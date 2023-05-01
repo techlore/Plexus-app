@@ -20,12 +20,14 @@
 package tech.techlore.plexus.utils
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavController
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.preferences.PreferenceManager
 
@@ -97,6 +99,23 @@ class UiUtils {
                 R.id.my_ratings_sort_silver, R.id.user_ratings_sort_silver, R.id.submit_silver -> 3
                 else -> 4
             }
+        }
+    
+        fun mapRatingScoreToStatusTextStyle(context: Context, ratingScore: Int, textView: MaterialTextView) {
+            val (statusString, backgroundTint) =
+                when(ratingScore) {
+                    1 -> Pair(context.getString(R.string.broken_title),
+                              context.resources.getColor(R.color.color_broken_status, context.theme))
+                    2 -> Pair(context.getString(R.string.bronze_title),
+                              context.resources.getColor(R.color.color_bronze_status, context.theme))
+                    3 -> Pair(context.getString(R.string.silver_title),
+                              context.resources.getColor(R.color.color_silver_status, context.theme))
+                    else -> Pair(context.getString(R.string.gold_title),
+                                 context.resources.getColor(R.color.color_gold_status, context.theme))
+                }
+        
+            textView.text = statusString
+            textView.backgroundTintList = ColorStateList.valueOf(backgroundTint)
         }
         
         fun showSnackbar(coordinatorLayout: CoordinatorLayout, message: String, anchorView: View?) {

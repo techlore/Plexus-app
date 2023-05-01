@@ -20,7 +20,6 @@
 package tech.techlore.plexus.adapters.details
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.get.ratings.Rating
+import tech.techlore.plexus.utils.UiUtils.Companion.mapRatingScoreToStatusTextStyle
 
 class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
     
@@ -60,19 +60,7 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
                 context.getString(R.string.microG)
             }
         
-        val (statusString, backgroundTint) =
-            when(rating.ratingScore!!.ratingScore) {
-                1 -> Pair(context.getString(R.string.broken_title),
-                          context.resources.getColor(R.color.color_broken_status, context.theme))
-                2 -> Pair(context.getString(R.string.bronze_title),
-                          context.resources.getColor(R.color.color_bronze_status, context.theme))
-                3 -> Pair(context.getString(R.string.silver_title),
-                          context.resources.getColor(R.color.color_silver_status, context.theme))
-                else -> Pair(context.getString(R.string.gold_title),
-                             context.resources.getColor(R.color.color_gold_status, context.theme))
-            }
-        holder.status.text = statusString
-        holder.status.backgroundTintList = ColorStateList.valueOf(backgroundTint)
+        mapRatingScoreToStatusTextStyle(context, rating.ratingScore!!.ratingScore, holder.status)
         @SuppressLint("SetTextI18n")
         holder.version.text = "${context.getString(R.string.version)}: ${rating.version}"
         

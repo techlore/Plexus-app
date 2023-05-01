@@ -83,6 +83,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             RequestOptions()
                 .placeholder(R.drawable.ic_apk) // Placeholder image
                 .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
+                .centerCrop() // Center-crop the image to fill the ImageView
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
     
         /*########################################################################################*/

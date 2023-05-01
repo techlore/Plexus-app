@@ -80,7 +80,7 @@
         android:textSize="@dimen/text_17"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/my_ratings_note"
+        android:id="@+id/my_ratings_notes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/my_ratings_version"
@@ -97,23 +97,16 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/my_ratings_status"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/my_ratings_note"
+        android:layout_height="@dimen/margin_32"
+        app:layout_constraintTop_toBottomOf="@id/my_ratings_notes"
         app:layout_constraintStart_toEndOf="@id/my_ratings_icon"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_8"
-        android:gravity="center"
         android:paddingStart="@dimen/margin_8"
-        android:paddingEnd="@dimen/margin_12"
-        android:paddingTop="@dimen/margin_4"
-        android:paddingBottom="@dimen/margin_4"
-        android:background="@drawable/shape_outline"
+        android:paddingEnd="@dimen/margin_16"
         android:drawableStart="@drawable/ic_apk"
         android:drawablePadding="@dimen/margin_8"
-        android:text="@string/not_tested_title"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/GoldTextTheme"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

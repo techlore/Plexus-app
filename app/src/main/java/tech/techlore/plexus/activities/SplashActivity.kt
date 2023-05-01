@@ -44,9 +44,7 @@ class SplashActivity : AppCompatActivity() {
         
         /*########################################################################################*/
         
-        lifecycleScope.launch {
-            retrieveData()
-        }
+        retrieveData()
     }
     
     private fun retrieveData() {
