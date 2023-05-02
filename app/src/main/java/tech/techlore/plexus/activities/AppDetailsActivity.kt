@@ -60,6 +60,17 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     lateinit var app: MainData
     var ratingsList = ArrayList<Rating>()
     private var ratingsRetrieved = false
+    var totalScoreCalculated = false
+    var dgGoldRatingsPercent = 0.0f
+    var dgSilverRatingsPercent = 0.0f
+    var dgBronzeRatingsPercent = 0.0f
+    var dgBrokenRatingsPercent = 0.0f
+    var mgGoldRatingsPercent = 0.0f
+    var mgSilverRatingsPercent = 0.0f
+    var mgBronzeRatingsPercent = 0.0f
+    var mgBrokenRatingsPercent = 0.0f
+    var sortedRatingsList = ArrayList<Rating>()
+    var ratingsListSorted = false
     var differentVersionsList = listOf<String>()
     var selectedVersionString: String? = null
     var statusRadio = R.id.user_ratings_radio_any_status
@@ -157,12 +168,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         
                 if (ratingsResponse.isSuccessful) {
                     ratingsResponse.body()?.let { ratingsRoot ->
-                        app.ratingsList = ratingsRoot.ratingsData
                         ratingsList = ratingsRoot.ratingsData
+                        // No need to store the ratings list in database, as:
+                        // 1. It's not used anywhere else, except details activity
+                        // 2. We're already fetching latest ratings everytime in details activity
                     }
                 }
-        
-                repository.insertOrUpdatePlexusData(app)
+                
                 ratingsRetrieved = true
                 displayFragment(10)
                 activityBinding.detailsRadiogroup.isEnabled = true

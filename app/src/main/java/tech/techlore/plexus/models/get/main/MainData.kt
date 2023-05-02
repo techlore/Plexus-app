@@ -21,13 +21,9 @@ package tech.techlore.plexus.models.get.main
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.get.RatingsConverter
-import tech.techlore.plexus.models.get.ratings.Rating
 
 @Entity(tableName = "main_table")
-@TypeConverters(value = [RatingsConverter::class])
 data class MainData(
     
     @JsonProperty("name")
@@ -46,8 +42,6 @@ data class MainData(
     var mgScore: Float = 0.0f,
     
     var totalMgRatings: Int = 0,
-    
-    var ratingsList: ArrayList<Rating> = ArrayList(),
     
     var installedVersion: String = "",
     

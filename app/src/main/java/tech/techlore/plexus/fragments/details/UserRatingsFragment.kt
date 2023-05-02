@@ -53,11 +53,10 @@ class UserRatingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         lifecycleScope.launch(Dispatchers.Default) {
-    
             // Perform sorting in default dispatcher
             // which is optimized for CPU intensive tasks
             val detailsActivity = requireActivity() as AppDetailsActivity
-            var sortedRatingsList = detailsActivity.ratingsList
+            detailsActivity.sortedRatingsList = detailsActivity.ratingsList
             val googleLib: String
             val dgScore: Int
             val mgScore: Int
@@ -66,54 +65,61 @@ class UserRatingsFragment : Fragment() {
             // and store them in a separate list
             if (detailsActivity.differentVersionsList.isEmpty()){
                 val uniqueVersions = HashSet<String>()
-                for (ratings in sortedRatingsList) {
+                detailsActivity.sortedRatingsList.forEach { ratings ->
                     uniqueVersions.add(ratings.version!!)
                 }
                 detailsActivity.differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
             }
     
-            if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
-                sortedRatingsList =
-                    sortedRatingsList.filter { ratings ->
-                        ratings.version == detailsActivity.selectedVersionString
-                    } as ArrayList<Rating>
-            }
+            // Only perform sorting if it was not done already
+            // This will prevent sorting
+            // everytime user switches from total score fragment to this one
+            if (!detailsActivity.ratingsListSorted) {
+                if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
+                    detailsActivity.sortedRatingsList =
+                        detailsActivity.sortedRatingsList.filter { ratings ->
+                            ratings.version == detailsActivity.selectedVersionString
+                        } as ArrayList<Rating>
+                }
     
-            if (detailsActivity.statusRadio != R.id.user_ratings_radio_any_status) {
-                googleLib = if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status) "none" else "micro_g"
-                sortedRatingsList =
-                    sortedRatingsList.filter { ratings ->
-                        ratings.googleLib == googleLib
-                    } as ArrayList<Rating>
+                if (detailsActivity.statusRadio != R.id.user_ratings_radio_any_status) {
+                    googleLib = if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status) "none" else "micro_g"
+                    detailsActivity.sortedRatingsList =
+                        detailsActivity.sortedRatingsList.filter { ratings ->
+                            ratings.googleLib == googleLib
+                        } as ArrayList<Rating>
         
-                if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status
-                    && detailsActivity.dgStatusSort != R.id.user_ratings_sort_any) {
-                    dgScore = mapStatusChipToRatingScore(detailsActivity.dgStatusSort)
-                    sortedRatingsList =
-                        sortedRatingsList.filter { ratings ->
-                            ratings.ratingScore!!.ratingScore == dgScore
-                        } as ArrayList<Rating>
+                    if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status
+                        && detailsActivity.dgStatusSort != R.id.user_ratings_sort_any) {
+                        dgScore = mapStatusChipToRatingScore(detailsActivity.dgStatusSort)
+                        detailsActivity.sortedRatingsList =
+                            detailsActivity.sortedRatingsList.filter { ratings ->
+                                ratings.ratingScore!!.ratingScore == dgScore
+                            } as ArrayList<Rating>
+                    }
+                    else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status
+                             && detailsActivity.mgStatusSort != R.id.user_ratings_sort_any) {
+                        mgScore = mapStatusChipToRatingScore(detailsActivity.mgStatusSort)
+                        detailsActivity.sortedRatingsList =
+                            detailsActivity.sortedRatingsList.filter { ratings ->
+                                ratings.ratingScore!!.ratingScore == mgScore
+                            } as ArrayList<Rating>
+                    }
                 }
-                else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status
-                         && detailsActivity.mgStatusSort != R.id.user_ratings_sort_any) {
-                    mgScore = mapStatusChipToRatingScore(detailsActivity.mgStatusSort)
-                    sortedRatingsList =
-                        sortedRatingsList.filter { ratings ->
-                            ratings.ratingScore!!.ratingScore == mgScore
-                        } as ArrayList<Rating>
-                }
+                
+                detailsActivity.ratingsListSorted = true
             }
     
             // Update UI with all results
             withContext(Dispatchers.Main) {
-                if (sortedRatingsList.isEmpty()) {
+                if (detailsActivity.sortedRatingsList.isEmpty()) {
                     fragmentBinding.emptyRatingsListViewStub.inflate()
                     val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
                     emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
                     emptyListView.text = requireContext().getString(R.string.no_ratings_available)
                 }
                 else {
-                    val userRatingsItemAdapter = UserRatingsItemAdapter(sortedRatingsList)
+                    val userRatingsItemAdapter = UserRatingsItemAdapter(detailsActivity.sortedRatingsList)
                     fragmentBinding.userRatingsRv.adapter = userRatingsItemAdapter
                 }
             }

@@ -54,7 +54,6 @@ interface MainDataDao {
             existingData.totalDgRatings = mainData.totalDgRatings
             existingData.mgScore = mainData.mgScore
             existingData.totalMgRatings = mainData.totalMgRatings
-            existingData.ratingsList = mainData.ratingsList
             existingData.isInPlexusData = mainData.isInPlexusData
             update(existingData)
         }
