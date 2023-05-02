@@ -45,10 +45,13 @@ import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.fragments.bottomsheets.FirstSubmissionBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
+import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.models.get.main.MainData
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
+import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
+import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 
 class AppDetailsActivity : AppCompatActivity(), MenuProvider {
@@ -162,10 +165,20 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
             // Only retrieve ratings list if not done already
             if (!ratingsRetrieved) {
+                retrieveRatings()
+            }
+        }
+        
+    }
+    
+    private fun retrieveRatings() {
+        
+        lifecycleScope.launch {
+            if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
                 val ratingsCall = apiRepository.getRatings(app.packageName)
                 val ratingsResponse = ratingsCall.awaitResponse()
-        
+    
                 if (ratingsResponse.isSuccessful) {
                     ratingsResponse.body()?.let { ratingsRoot ->
                         ratingsList = ratingsRoot.ratingsData
@@ -174,13 +187,18 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         // 2. We're already fetching latest ratings everytime in details activity
                     }
                 }
-                
+    
                 ratingsRetrieved = true
                 displayFragment(10)
                 activityBinding.detailsRadiogroup.isEnabled = true
             }
+            else {
+                NoNetworkDialog(negativeButtonText = getString(R.string.exit),
+                                positiveButtonClickListener = { retrieveRatings() },
+                                negativeButtonClickListener = { finish() })
+                    .show(supportFragmentManager, "NoNetworkDialog")
+            }
         }
-        
     }
     
     // Setup fragments

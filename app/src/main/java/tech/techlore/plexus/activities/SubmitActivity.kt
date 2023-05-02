@@ -165,10 +165,7 @@ class SubmitActivity : AppCompatActivity() {
         })
         
         // FAB
-        
         activityBinding.submitFab.setOnClickListener {
-            activityBinding.submitFab.isEnabled = false
-            snackbar.show()
             submitData()
         }
     }
@@ -177,6 +174,9 @@ class SubmitActivity : AppCompatActivity() {
         
         lifecycleScope.launch {
             if (hasNetwork(this@SubmitActivity) && hasInternet()) {
+    
+                activityBinding.submitFab.isEnabled = false
+                snackbar.show()
                 
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
                 
@@ -214,7 +214,7 @@ class SubmitActivity : AppCompatActivity() {
                 }
             }
             else {
-                NoNetworkDialog(negativeButtonText = getString(R.string.exit),
+                NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
                                 positiveButtonClickListener = { submitData() },
                                 negativeButtonClickListener = {})
                     .show(supportFragmentManager, "NoNetworkDialog")
