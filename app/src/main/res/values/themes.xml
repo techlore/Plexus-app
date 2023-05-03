@@ -41,7 +41,7 @@
         <item name="chipBackgroundColor">@android:color/transparent</item>
         <item name="chipStrokeColor">@color/chip_stroke_color</item>
         <item name="chipStrokeWidth">1dp</item>
-        <item name="android:text">@string/not_tested_title</item>
+        <item name="android:text">@string/na</item>
     </style>
 
     <style name="BrokenFilterChipTheme" parent="BaseFilterChipStyle">

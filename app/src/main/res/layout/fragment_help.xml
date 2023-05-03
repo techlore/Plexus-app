@@ -25,7 +25,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-    tools:context=".fragments.details.HelpFragment">
+    tools:context=".fragments.settings.HelpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,18 +45,20 @@
             android:textSize="@dimen/text_20"
             style="@style/MediumBoldText"/>
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/margin_32"
+            android:layout_marginTop="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_4"
-            android:clickable="false"
-            style="@style/NotTestedFilterChipTheme"/>
+            android:text="@string/na"
+            style="@style/BaseChipLikeTextViewStyle"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/not_tested_subtitle"
             android:textColor="?attr/colorControlNormal"
@@ -64,19 +66,19 @@
 
         <include layout="@layout/divider_horizontal"/>
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/margin_32"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_4"
-            android:clickable="false"
-            style="@style/BrokenFilterChipTheme"/>
+            style="@style/BrokenTextTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/broken_subtitle"
             android:textColor="?attr/colorControlNormal"
@@ -84,19 +86,19 @@
 
         <include layout="@layout/divider_horizontal"/>
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/margin_32"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_4"
-            android:clickable="false"
-            style="@style/BronzeFilterChipTheme"/>
+            style="@style/BronzeTextTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/bronze_subtitle"
             android:textColor="?attr/colorControlNormal"
@@ -104,19 +106,19 @@
 
         <include layout="@layout/divider_horizontal"/>
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/margin_32"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_4"
-            android:clickable="false"
-            style="@style/SilverFilterChipTheme"/>
+            style="@style/SilverTextTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/silver_subtitle"
             android:textColor="?attr/colorControlNormal"
@@ -124,19 +126,19 @@
 
         <include layout="@layout/divider_horizontal"/>
 
-        <com.google.android.material.chip.Chip
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/margin_32"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_4"
-            android:clickable="false"
-            style="@style/GoldFilterChipTheme"/>
+            style="@style/GoldTextTheme"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/gold_subtitle"
             android:textColor="?attr/colorControlNormal"

@@ -140,7 +140,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             activityBinding.detailsPackageName.text = app.packageName
             @SuppressLint("SetTextI18n")
             activityBinding.detailsInstalledVersion.text = "${getString(R.string.installed)}: " +
-                                                           app.installedVersion.ifEmpty { getString(R.string.not_tested_title) }
+                                                           app.installedVersion.ifEmpty { getString(R.string.na) }
     
             // Radio group/buttons
             activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
@@ -193,7 +193,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 activityBinding.detailsRadiogroup.isEnabled = true
             }
             else {
-                NoNetworkDialog(negativeButtonText = getString(R.string.exit),
+                NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
                                 positiveButtonClickListener = { retrieveRatings() },
                                 negativeButtonClickListener = { finish() })
                     .show(supportFragmentManager, "NoNetworkDialog")

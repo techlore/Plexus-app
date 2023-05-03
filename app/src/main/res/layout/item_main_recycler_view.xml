@@ -94,7 +94,7 @@
         android:background="@drawable/shape_outline"
         android:drawableStart="@drawable/ic_apk"
         android:drawablePadding="@dimen/margin_8"
-        android:text="@string/not_tested_title"
+        android:text="@string/na"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         style="@style/MediumBoldText"/>
@@ -114,7 +114,7 @@
         android:background="@drawable/shape_outline"
         android:drawableStart="@drawable/ic_microg"
         android:drawablePadding="@dimen/margin_8"
-        android:text="@string/not_tested_title"
+        android:text="@string/na"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         style="@style/MediumBoldText"/>

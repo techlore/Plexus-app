@@ -50,9 +50,9 @@ class NoNetworkDialog(
         
         return MaterialAlertDialogBuilder(requireContext(), R.style.DialogTheme)
             
-            .setTitle(R.string.dialog_title)
+            .setTitle(R.string.no_network_title)
             
-            .setMessage(R.string.dialog_subtitle)
+            .setMessage(R.string.no_network_subtitle)
             
             .setPositiveButton(R.string.retry) { _, _ ->
                 positiveButtonClickListener.invoke()

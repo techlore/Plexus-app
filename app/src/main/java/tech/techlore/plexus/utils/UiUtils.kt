@@ -73,7 +73,7 @@ class UiUtils {
         
         fun mapScoreRangeToStatusString(context: Context, score: Float): String {
             return when(score) {
-                0.0f -> context.getString(R.string.not_tested_title)
+                0.0f -> context.getString(R.string.na)
                 in 1.0f..1.9f -> context.getString(R.string.broken_title)
                 in 2.0f..2.9f -> context.getString(R.string.bronze_title)
                 in 3.0f..3.9f -> context.getString(R.string.silver_title)
@@ -83,7 +83,7 @@ class UiUtils {
         
         fun mapStatusStringToBgColor(context: Context, status: String): Int? {
             return when(status) {
-                context.getString(R.string.not_tested_title) -> null // No background tint. Only show outline
+                context.getString(R.string.na) -> null // No background tint. Only show outline
                 context.getString(R.string.broken_title) -> context.resources.getColor(R.color.color_broken_status, context.theme)
                 context.getString(R.string.bronze_title) -> context.resources.getColor(R.color.color_bronze_status, context.theme)
                 context.getString(R.string.silver_title) -> context.resources.getColor(R.color.color_silver_status, context.theme)

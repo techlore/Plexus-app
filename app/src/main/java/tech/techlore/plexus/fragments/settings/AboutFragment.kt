@@ -25,6 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import tech.techlore.plexus.BuildConfig
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SettingsActivity
 import tech.techlore.plexus.databinding.FragmentAboutBinding
@@ -51,9 +52,7 @@ class AboutFragment : Fragment() {
         
         // Version
         try {
-            version = ("${getString(R.string.version)}: ${requireContext().packageManager
-                                        .getPackageInfo(requireContext().packageName, 0)
-                                        .versionName}")
+            version = ("${getString(R.string.version)}: ${BuildConfig.VERSION_NAME}")
         }
         catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()

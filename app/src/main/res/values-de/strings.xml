@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -25,6 +25,7 @@
     Ensure proper encoding of characters
         ä = \u00E4
         ß = \u00DF
+        ö = \u00F6
         ü = \u00FC
         Ü = \u00DC
     -->
@@ -33,60 +34,78 @@
     Use the informal "du" for translations
     -->
 
-    <!--SPLASH ACTIVITY-->
+    <!--Splash activity-->
     <string name="retrieving_data">Daten abrufen</string>
-    <string name="scan_installed">Installierte Apps scannen</string>
+    <string name="scan_installed">Installierte apps scannen</string>
 
     <!--#########################################################################################-->
 
-    <!--MAIN ACTIVITY-->
-    <string name="plexus_data">Plexus Daten</string>
-    <string name="installed_apps">Installierte Apps</string>
-    <string name="no_apps_found">Keine solchen Apps gefunden</string>
+    <!--Main activity-->
+    <string name="no_apps_found">Keine  apps gefunden</string>
+    <string name="no_ratings_available">Keine bewertungen vorhanden</string>
 
-    <!--TOOLBAR MENU-->
+    <!--Toolbar menu-->
     <string name="menu_search">Suche</string>
     <string name="menu_sort">Sortieren</string>
-    <string name="menu_more">Mehr</string>
-    <string name="menu_help">Hilfe</string>
+
+    <!--Nav view-->
+    <string name="plexus_data">Plexus daten</string>
+    <string name="installed_apps">Installierte apps</string>
+    <string name="favorites">Favoriten</string>
+    <string name="contribute">Beitragen</string>
+    <string name="my_ratings">Meine bewertungen</string>
+    <string name="report_issue">Ein problem melden</string>
     <string name="menu_settings">Einstellungen</string>
+    <string name="theme">Thema</string>
+    <string name="about">\u00DCber</string>
 
     <!--#########################################################################################-->
 
-    <!--APP DETAILS ACTIVITY-->
-    <string name="notes">Anmerkungen</string>
-    <string name="installed_version">Installiert</string>
-    <string name="google_play">Play Store</string>
-    <string name="menu_share">Teilen</string>
-
-    <!--#########################################################################################-->
-
-    <!--HELP ACTIVITY-->
-    <string name="what_ratings_mean">Was bedeuten die Bewertungen?</string>
-    <string name="not_tested">Nicht getestet</string>
-    <string name="unusable">Unbrauchbar</string>
-    <string name="acceptable">Akzeptabel</string>
-    <string name="good">Gut</string>
-    <string name="perfect">Perfekt</string>
-    <string name="app_card_breakdown">Aufschl\u00FCsselung f\u00FCr Anwendungskarten</string>
-    <string name="dg_rating">de-Googled Bewertung</string>
-    <string name="mg_rating">microG Bewertung</string>
+    <!--App details activity-->
     <string name="app">App</string>
     <string name="package_name">Paketname</string>
-    <string name="version">Version</string>
+    <string name="total_score">Gesamtpunktzahl</string>
+    <string name="user_ratings">Benutzer bewertungen</string>
+    <string name="installed">Installierte</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_help">Hilfe</string>
+    <string name="menu_more">Mehr optionen</string>
+    <string name="new_submission">Neue vorlage</string>
+
+    <!--Progress bar fragment-->
+    <string name="retrieving_ratings">Bewertungen abrufen</string>
+
+    <!--Total score fragment-->
+    <string name="total_ratings">Gesamtbewertung</string>
+
+    <!--User ratings fragment-->
+    <string name="notes">Anmerkungen</string>
 
     <!--#########################################################################################-->
 
-    <!--SETTINGS ACTIVITY-->
-    <string name="theme">Thema</string>
-    <string name="report_issue">Ein Problem melden</string>
-    <string name="report_issue_subtitle">Einen Fehler gefunden? Lass\' es uns wissen</string>
-    <string name="contribute">Beitragen</string>
-    <string name="contribute_subtitle">Verbessert die App oder die vorhandenen Daten</string>
-    <string name="about">\u00DCber</string>
-    <string name="about_subtitle">Version, Richtlinien und Lizenzen</string>
+    <!--Submit activity-->
+    <string name="optional">optional</string>
+    <string name="submit">Einreichen</string>
 
-    <!--ABOUT FRAGMENT-->
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+
+    <!--Help fragment-->
+    <string name="what_status_mean">Was bedeutet der status?</string>
+    <string name="not_tested_subtitle">Nicht verf\u00FCgbar, die anwendung wurde nicht getestet</string>
+    <string name="broken_title">Zerbrochen</string>
+    <string name="broken_subtitle">Unbrauchbare, meist nicht zu \u00F6ffnende anwendungen</string>
+    <string name="bronze_title">Bronze</string>
+    <string name="bronze_subtitle">Akzeptabel, aber mit fehlender oder defekter funktionalit\u00E4t</string>
+    <string name="silver_title">Silber</string>
+    <string name="silver_subtitle">Fast alles funktioniert mit minimalen abstrichen</string>
+    <string name="gold_title">Gold</string>
+    <string name="gold_subtitle">Perfekte oder perfekt-\u00E4hnliche erfahrung</string>
+
+    <!--About fragment-->
+    <string name="version">Version</string>
     <string name="privacy_policy">Datenschutzbestimmungen</string>
     <string name="licenses">Lizenzen</string>
     <string name="view_on_github">Auf GitHub anschauen</string>
@@ -94,36 +113,43 @@
 
     <!--#########################################################################################-->
 
-    <!--DIALOGS-->
-    <string name="dialog_title">Kein Netzwerk/Internet</string>
-    <string name="dialog_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
+    <!--Dialogs-->
+    <string name="no_network_title">Kein Netzwerk/Internet</string>
+    <string name="no_network_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
         Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
     <string name="exit">Ausgang</string>
     <string name="retry">Wiederholen</string>
 
     <!--#########################################################################################-->
 
-    <!--BOTTOM SHEETS-->
+    <!--Bottom sheets-->
     <string name="cancel">Abbrechen</string>
-
-    <!--SORT-->
-    <string name="alphabetical">Alphabetisch</string>
-    <string name="rating">Bewertung</string>
-    <string name="any">Alle</string>
     <string name="done">Anwenden</string>
 
-    <!--THEME-->
+    <!--Sort-->
+    <string name="alphabetical">Alphabetisch</string>
+    <string name="installed_from">Installiert von</string>
+    <string name="any">Jede</string>
+    <string name="other">Andere</string>
+    <string name="status">Status</string>
+
+    <!--Theme-->
     <string name="system_default">Systemvorgabe</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
 
-    <!--CONTRIBUTE-->
-    <string name="read_guidelines">Lest die Richtlinien</string>
-    <string name="pull_req">Sende uns einen Pull Request</string>
+    <!--App details activity-->
+    <string name="menu_share">Teilen</string>
+    <string name="first_submission_title">Bitte w\u00E4hlen sie aus, ob es sich um ein de-Googled oder ein microG-Ger\u00E4t handelt.
+        \n\nBei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
+    <string name="proceed">Weiter</string>
 
     <!--#########################################################################################-->
 
-    <!--TOASTS-->
+    <!--Snackbars-->
     <string name="no_browsers">Es ist kein Browser auf diesem Ger\u00E4t installiert</string>
+    <string name="please_wait">Bitte warten, daten \u00FCbermitteln …</string>
+    <string name="submit_success">Daten erfolgreich \u00FCbermittelt</string>
+    <string name="submit_error">Fehler bei der \u00FCbermittlung von daten</string>
 
 </resources>

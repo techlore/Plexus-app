@@ -34,7 +34,6 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_STATUS_CHIP
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_STATUS_RADIO
-import tech.techlore.plexus.utils.UiUtils
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
 class SortMyRatingsBottomSheet(private val navController: NavController) : BottomSheetDialogFragment() {

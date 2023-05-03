@@ -67,7 +67,7 @@
         android:paddingTop="@dimen/margin_16"
         android:paddingEnd="@dimen/margin_25"
         android:paddingBottom="@dimen/margin_16"
-        android:text="@string/menu_fdroid"
+        android:text="@string/fdroid"
         android:textAlignment="viewStart"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"

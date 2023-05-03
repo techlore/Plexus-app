@@ -65,7 +65,7 @@ class IntentUtils {
                               ${activity.getString(R.string.de_Googled)}: $dgStatusString
                               ${activity.getString(R.string.microG)}: $mgStatusString
                               ${activity.getString(R.string.google_play)}: $playStoreString
-                              ${activity.getString(R.string.menu_fdroid)}: $fdroidString
+                              ${activity.getString(R.string.fdroid)}: $fdroidString
                               """.trimIndent()), activity.getString(R.string.menu_share)))
         }
     }

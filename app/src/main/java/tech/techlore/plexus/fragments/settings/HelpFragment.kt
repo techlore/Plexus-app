@@ -17,7 +17,7 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.details
+package tech.techlore.plexus.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater

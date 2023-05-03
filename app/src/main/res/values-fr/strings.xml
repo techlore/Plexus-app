@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -30,60 +30,78 @@
         É = \u00C9
     -->
 
-    <!--SPLASH ACTIVITY-->
+    <!--Splash activity-->
     <string name="retrieving_data">R\u00E9cup\u00E9ration des donn\u00E9es</string>
     <string name="scan_installed">Analyse des applications install\u00E9es</string>
 
     <!--#########################################################################################-->
 
-    <!--MAIN ACTIVITY-->
-    <string name="plexus_data">Donn\u00E9s Plexus</string>
-    <string name="installed_apps">Applications Install\u00E9es</string>
-    <string name="no_apps_found">Aucune application corespondante trouv\u00E9e</string>
+    <!--Main activity-->
+    <string name="no_apps_found">Aucune application trouv\u00E9e</string>
+    <string name="no_ratings_available">Pas d\'\u00E9valuation disponible</string>
 
-    <!--TOOLBAR MENU-->
+    <!--Toolbar menu-->
     <string name="menu_search">Recherche</string>
     <string name="menu_sort">Trier</string>
-    <string name="menu_more">Plus</string>
-    <string name="menu_help">Aider</string>
+
+    <!--Nav view-->
+    <string name="plexus_data">Donn\u00E9s Plexus</string>
+    <string name="installed_apps">Applications Install\u00E9es</string>
+    <string name="favorites">Favoris</string>
+    <string name="contribute">Contribuer</string>
+    <string name="my_ratings">Mes appr\u00E9ciations</string>
+    <string name="report_issue">Signaler un probl\u00E8me</string>
     <string name="menu_settings">R\u00E9glages</string>
+    <string name="theme">Th\u00E8me</string>
+    <string name="about">A propos</string>
 
     <!--#########################################################################################-->
 
-    <!--APP DETAILS ACTIVITY-->
-    <string name="notes">Notes</string>
-    <string name="installed_version">Install\u00E9e</string>
-    <string name="google_play">Play store</string>
-    <string name="menu_share">Partager</string>
-
-    <!--#########################################################################################-->
-
-    <!--HELP ACTIVITY-->
-    <string name="what_status_mean">Qu\'est-ce que les \u00E9valuations signifient?</string>
-    <string name="not_tested_title">Non test\u00E9</string>
-    <string name="broken_subtitle">Inutilisable</string>
-    <string name="bronze_subtitle">Acceptable</string>
-    <string name="silver_subtitle">Bon</string>
-    <string name="gold_subtitle">Parfait</string>
-    <string name="app_card_breakdown">R\u00E9partition de la carte d\'application</string>
-    <string name="dg_status">\u00E9valuation sans Google (de-Googled)</string>
-    <string name="mg_status">\u00E9valuation avec microG</string>
+    <!--App details activity-->
     <string name="app">Application</string>
     <string name="package_name">Nom du paquet</string>
-    <string name="version">Version</string>
+    <string name="total_score">Score total</string>
+    <string name="user_ratings">\u00C9valuations des utilisateurs</string>
+    <string name="installed">Install\u00E9</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_help">Aider</string>
+    <string name="menu_more">Plus d\'options</string>
+    <string name="new_submission">Nouvelle soumission</string>
+
+    <!--Progress bar fragment-->
+    <string name="retrieving_ratings">R\u00E9cup\u00E9ration des classements</string>
+
+    <!--Total score fragment-->
+    <string name="total_ratings">Notations totales</string>
+
+    <!--User ratings fragment-->
+    <string name="notes">Notes</string>
 
     <!--#########################################################################################-->
 
-    <!--SETTINGS ACTIVITY-->
-    <string name="theme">Th\u00E8me</string>
-    <string name="report_issue">Signaler un probl\u00E8me</string>
-    <string name="report_issue_subtitle">Vous avez trouv\u00E9 un bug? Faites le nous savoir</string>
-    <string name="contribute">Contribuer</string>
-    <string name="contribute_subtitle">Am\u00E9liorer l\'application ou les donn\u00E9es existantes</string>
-    <string name="about">A propos</string>
-    <string name="about_subtitle">Version, politique et licenses</string>
+    <!--Submit activity-->
+    <string name="optional">facultatif</string>
+    <string name="submit">Soumettre</string>
 
-    <!--ABOUT FRAGMENT-->
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+
+    <!--Help fragment-->
+    <string name="what_status_mean">Que signifient les statuts ?</string>
+    <string name="not_tested_subtitle">Non disponible, l\'application n\'a pas \u00E9t\u00E9 test\u00E9e</string>
+    <string name="broken_title">Bris\u00E9</string>
+    <string name="broken_subtitle">Inutilisable, principalement des applications qui ne s\'ouvrent pas</string>
+    <string name="bronze_title">Bronze</string>
+    <string name="bronze_subtitle">Acceptable</string>
+    <string name="silver_title">Acceptable mais avec des fonctionnalit\u00E9s manquantes ou cass\u00E9es</string>
+    <string name="silver_subtitle">Presque tout fonctionne avec un minimum de r\u00E9serves</string>
+    <string name="gold_title">L\'or</string>
+    <string name="gold_subtitle">Exp\u00E9rience parfaite ou similaire \u00E0 une exp\u00E9rience parfaite</string>
+
+    <!--About fragment-->
+    <string name="version">Version</string>
     <string name="privacy_policy">Politique de confidentialit\u00E9</string>
     <string name="licenses">Licenses</string>
     <string name="view_on_github">Voir sur GitHub</string>
@@ -91,37 +109,43 @@
 
     <!--#########################################################################################-->
 
-    <!--DIALOGS-->
-    <string name="dialog_title">Pas de R\u00E9seau/Internet</string>
-    <string name="dialog_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es mobiles et r\u00E9essayez.
+    <!--Dialogs-->
+    <string name="no_network_title">Pas de R\u00E9seau/Internet</string>
+    <string name="no_network_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es mobiles et r\u00E9essayez.
         Si vous \u00EAtes d\u00E9j\u00E0 connect\u00E9, assurez-vous qu\'il a une connexion internet.</string>
     <string name="exit">Fermer</string>
-    <string name="retry">Réessayer</string>
+    <string name="retry">R\u00E9essayer</string>
 
     <!--#########################################################################################-->
 
-    <!--BOTTOM SHEETS-->
+    <!--Bottom sheets-->
     <string name="cancel">Annuler</string>
-
-    <!--SORT-->
-    <string name="alphabetical">Alphab\u00E9tique</string>
-    <string name="rating">\u00C9valuation</string>
-    <string name="any">Toutes</string>
     <string name="done">OK</string>
 
-    <!--THEME-->
+    <!--Sort-->
+    <string name="alphabetical">Alphab\u00E9tique</string>
+    <string name="installed_from">Install\u00E9 \u00E0 partir de</string>
+    <string name="any">Toutes</string>
+    <string name="other">Autres</string>
+    <string name="status">Statut</string>
+
+    <!--Theme-->
     <string name="system_default">Syst\u00E8me</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
 
-    <!--CONTRIBUTE-->
-    <string name="read_guidelines">Lire les directives contributives</string>
-    <string name="pull_req">Soumettre une Pull-Request</string>
+    <!--App details activity-->
+    <string name="menu_share">Partager</string>
+    <string name="first_submission_title">Veuillez indiquer s\'il s\'agit d\'un dispositif de-Googled ou d\'un dispositif microG.
+        \n\nToutes vos futures soumissions tiendront compte de cette s\u00E9lection, qui ne pourra pas \u00EAtre modifi\u00E9e ult\u00E9rieurement.</string>
+    <string name="proceed">Proc\u00E9der</string>
 
     <!--#########################################################################################-->
 
-    <!--TOASTS-->
+    <!--Snackbars-->
     <string name="no_browsers">Aucun navigateur n\'est install\u00E9 sur cet appareil</string>
-    <string name="submit_success">Contribution envoy\u00E9e avec succ\u00E8s</string>
+    <string name="please_wait">Veuillez patienter, l\'envoi des donn\u00E9es …</string>
+    <string name="submit_success">Donn\u00E9es transmises avec succ\u00E8s</string>
+    <string name="submit_error">Erreur lors de la transmission des donn\u00E9es</string>
 
 </resources>

@@ -120,7 +120,7 @@ class SubmitActivity : AppCompatActivity() {
         activityBinding.submitName.text = nameString
         activityBinding.submitPackageName.text = packageNameString
         @SuppressLint("SetTextI18n")
-        activityBinding.submitInstalledVersion.text = "${getString(R.string.installed)}: ${installedVersion.ifEmpty { getString(R.string.not_tested_title) }}"
+        activityBinding.submitInstalledVersion.text = "${getString(R.string.installed)}: ${installedVersion.ifEmpty { getString(R.string.na) }}"
         activityBinding.dgMgText.text = if (isMicroG) getString(R.string.microG) else getString(R.string.de_Googled)
         
         // Notes

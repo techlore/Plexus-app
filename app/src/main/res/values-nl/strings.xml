@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -26,60 +26,78 @@
         ï = \u00EF
     -->
 
-    <!--SPLASH ACTIVITY-->
+    <!--Splash activity-->
     <string name="retrieving_data">Data ophalen</string>
     <string name="scan_installed">Ge\u00EFnstalleerde apps scannen</string>
 
     <!--#########################################################################################-->
 
-    <!--MAIN ACTIVITY-->
-    <string name="plexus_data">Plexus Gegeven</string>
-    <string name="installed_apps">Ge\u00EFnstalleerde Apps</string>
-    <string name="no_apps_found">Zulke apps zijn niet gevonden</string>
+    <!--Main activity-->
+    <string name="no_apps_found">Apps zijn niet gevonden</string>
+    <string name="no_ratings_available">Geen beoordelingen beschikbaar</string>
 
-    <!--TOOLBAR MENU-->
+    <!--Toolbar menu-->
     <string name="menu_search">Zoekopdracht</string>
     <string name="menu_sort">Soort</string>
-    <string name="menu_more">Meer</string>
-    <string name="menu_help">Helpen</string>
+
+    <!--Nav view-->
+    <string name="plexus_data">Plexus gegeven</string>
+    <string name="installed_apps">Ge\u00EFnstalleerde apps</string>
+    <string name="favorites">Favorieten</string>
+    <string name="contribute">Bijdrage leveren</string>
+    <string name="my_ratings">Mijn beoordelingen</string>
+    <string name="report_issue">Een probleem melden</string>
     <string name="menu_settings">Instellingen</string>
+    <string name="theme">Thema</string>
+    <string name="about">Over</string>
 
     <!--#########################################################################################-->
 
-    <!--APP DETAILS ACTIVITY-->
-    <string name="notes">aantekeningen</string>
-    <string name="installed_version">Ge\u00EFnstalleerde</string>
-    <string name="google_play">Play store</string>
-    <string name="menu_share">Delen</string>
-
-    <!--#########################################################################################-->
-
-    <!--HELP ACTIVITY-->
-    <string name="what_status_mean">Wat betekenen de beoordelingen?</string>
-    <string name="not_tested_title">Niet getest</string>
-    <string name="broken_subtitle">Onbruikbaar</string>
-    <string name="bronze_subtitle">Aanvaardbaar</string>
-    <string name="silver_subtitle">Goed</string>
-    <string name="gold_subtitle">Perfect</string>
-    <string name="app_card_breakdown">Afbraak van applicatiekaart</string>
-    <string name="dg_status">de-Googled beoordeling</string>
-    <string name="mg_status">microG beoordeling</string>
+    <!--App details activity-->
     <string name="app">Sollicitatie</string>
     <string name="package_name">Verpakkingsnaam</string>
-    <string name="version">Versie</string>
+    <string name="total_score">Totale score</string>
+    <string name="user_ratings">Beoordelingen van gebruikers</string>
+    <string name="installed">Ge\u00EFnstalleerd</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_help">Helpen</string>
+    <string name="menu_more">Meer opties</string>
+    <string name="new_submission">Nieuwe indiening</string>
+
+    <!--Progress bar fragment-->
+    <string name="retrieving_ratings">Ratings ophalen</string>
+
+    <!--Total score fragment-->
+    <string name="total_ratings">Totaal aantal beoordelingen</string>
+
+    <!--User ratings fragment-->
+    <string name="notes">Aantekeningen</string>
 
     <!--#########################################################################################-->
 
-    <!--SETTINGS ACTIVITY-->
-    <string name="theme">Thema</string>
-    <string name="report_issue">Een probleem melden</string>
-    <string name="report_issue_subtitle">Een bug gevonden? Laat het ons weten</string>
-    <string name="contribute">Bijdrage leveren</string>
-    <string name="contribute_subtitle">De app of de bestaande gegevens verbeteren</string>
-    <string name="about">Over</string>
-    <string name="about_subtitle">Versie, beleid en licenties</string>
+    <!--Submit activity-->
+    <string name="optional">optionele</string>
+    <string name="submit">Dien in</string>
 
-    <!--ABOUT FRAGMENT-->
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+
+    <!--Help fragment-->
+    <string name="what_status_mean">Wat betekent de status?</string>
+    <string name="not_tested_subtitle">Niet beschikbaar, app is niet getest</string>
+    <string name="broken_title">Gebroken</string>
+    <string name="broken_subtitle">Onbruikbaar, meestal apps die niet openen</string>
+    <string name="bronze_title">Brons</string>
+    <string name="bronze_subtitle">Aanvaardbaar, maar met ontbrekende of gebroken functionaliteit</string>
+    <string name="silver_title">Zilver</string>
+    <string name="silver_subtitle">Bijna alles werkt met minimale beperkingen</string>
+    <string name="gold_title">Goud</string>
+    <string name="gold_subtitle">Perfecte of perfect lijkende ervaring</string>
+
+    <!--About fragment-->
+    <string name="version">Versie</string>
     <string name="privacy_policy">Privacybeleid</string>
     <string name="licenses">Licenties</string>
     <string name="view_on_github">Bekijk op GitHub</string>
@@ -87,36 +105,43 @@
 
     <!--#########################################################################################-->
 
-    <!--DIALOGS-->
-    <string name="dialog_title">Geen Netwerk/Internet</string>
-    <string name="dialog_subtitle">Maak verbinding met Wi-Fi of mobiele gegevens en probeer het opnieuw.
+    <!--Dialogs-->
+    <string name="no_network_title">Geen Netwerk/Internet</string>
+    <string name="no_network_subtitle">Maak verbinding met Wi-Fi of mobiele gegevens en probeer het opnieuw.
         Als u al verbonden bent, zorg er dan voor dat deze een internetverbinding heeft.</string>
     <string name="exit">Uitgang</string>
     <string name="retry">Opnieuw proberen</string>
 
     <!--#########################################################################################-->
 
-    <!--BOTTOM SHEETS-->
+    <!--Bottom sheets-->
     <string name="cancel">Annuleren</string>
-
-    <!--SORT-->
-    <string name="alphabetical">Alfabetisch</string>
-    <string name="rating">Beoordeling</string>
-    <string name="any">Ieder</string>
     <string name="done">Klaar</string>
 
-    <!--THEME-->
+    <!--Sort-->
+    <string name="alphabetical">Alfabetisch</string>
+    <string name="installed_from">Ge\u00EFnstalleerd van</string>
+    <string name="any">Ieder</string>
+    <string name="other">Andere</string>
+    <string name="status">Status</string>
+
+    <!--Theme-->
     <string name="system_default">Systeemfout</string>
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
 
-    <!--CONTRIBUTE-->
-    <string name="read_guidelines">Lees bijdragende richtlijnen</string>
-    <string name="pull_req">Dien een pull aanvraag in</string>
+    <!--App details activity-->
+    <string name="menu_share">Delen</string>
+    <string name="first_submission_title">Selecteer of dit een de-Googled of een microG-toestel is.
+        \n\nAl uw toekomstige inzendingen zullen rekening houden met deze selectie, die later niet kan worden gewijzigd.</string>
+    <string name="proceed">Ga verder</string>
 
     <!--#########################################################################################-->
 
-    <!--TOASTS-->
+    <!--Snackbars-->
     <string name="no_browsers">Geen browsers ge\u00EFnstalleerd op dit apparaat</string>
+    <string name="please_wait">Wacht even, het indienen van gegevens …</string>
+    <string name="submit_success">Gegevens succesvol ingediend</string>
+    <string name="submit_error">Fout bij het indienen van gegevens</string>
 
 </resources>

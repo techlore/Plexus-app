@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/helpFragment"
-        android:name="tech.techlore.plexus.fragments.details.HelpFragment"
+        android:name="tech.techlore.plexus.fragments.settings.HelpFragment"
         android:label="@string/menu_help"
         tools:layout="@layout/fragment_help" />
 </navigation>

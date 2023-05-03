@@ -64,6 +64,13 @@ class LicensesFragment : Fragment() {
             add(License(getString(R.string.retrofit),
                         "${getString(R.string.copyright_square)}\n\n${getString(R.string.apache_2_0_license)}",
                         "https://github.com/square/retrofit/blob/master/LICENSE.txt"))
+            
+            // Glide
+            add(License(getString(R.string.glide),
+                        getString(R.string.glide_license,
+                                  getString(R.string.apache_2_0_license),
+                                  getString(R.string.mit_license)),
+                        "https://github.com/bumptech/glide/blob/master/LICENSE"))
     
             // FastScroll
             add(License(getString(R.string.fastscroll),

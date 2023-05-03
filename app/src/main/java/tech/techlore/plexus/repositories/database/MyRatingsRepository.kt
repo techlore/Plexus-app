@@ -19,13 +19,11 @@
 
 package tech.techlore.plexus.repositories.database
 
-import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MyRatingsDao
 import tech.techlore.plexus.models.myratings.MyRating
-import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
 import java.util.ArrayList
 
