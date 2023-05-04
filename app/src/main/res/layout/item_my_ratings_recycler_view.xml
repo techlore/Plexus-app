@@ -105,7 +105,7 @@
         android:layout_marginTop="@dimen/margin_8"
         android:paddingStart="@dimen/margin_8"
         android:paddingEnd="@dimen/margin_16"
-        android:drawableStart="@drawable/ic_apk"
+        android:drawableStart="@drawable/ic_degoogled"
         android:drawablePadding="@dimen/margin_8"
         style="@style/GoldTextTheme"/>
 

@@ -92,7 +92,7 @@
         android:paddingEnd="@dimen/margin_16"
         android:gravity="center"
         android:background="@drawable/shape_outline"
-        android:drawableStart="@drawable/ic_apk"
+        android:drawableStart="@drawable/ic_degoogled"
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/na"
         android:textColor="@color/color_text_title"

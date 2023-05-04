@@ -97,7 +97,7 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
     
         val statusIcon =
             when(myRating.googleLib) {
-                "none" -> ContextCompat.getDrawable(context, R.drawable.ic_apk)
+                "none" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
                 else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
             }
         
