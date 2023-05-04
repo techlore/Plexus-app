@@ -106,7 +106,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         activityBinding.bottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
     
         // Disable radio group until ratings list is retrieved
-        activityBinding.detailsRadiogroup.isEnabled = false
+        activityBinding.detailsRadiogroup.visibility = View.GONE
         
         runBlocking {
             launch {
@@ -190,7 +190,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
                 ratingsRetrieved = true
                 displayFragment(10)
-                activityBinding.detailsRadiogroup.isEnabled = true
+                activityBinding.detailsRadiogroup.visibility = View.VISIBLE
             }
             else {
                 NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
