@@ -24,6 +24,7 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -91,7 +92,7 @@ class UiUtils {
             }
         }
         
-        fun mapStatusChipToRatingScore(statusChipId: Int): Int {
+        fun mapStatusChipIdToRatingScore(statusChipId: Int): Int {
             return when (statusChipId) {
                 R.id.my_ratings_sort_any -> -1
                 R.id.my_ratings_sort_broken, R.id.user_ratings_sort_broken, R.id.submit_broken -> 1
@@ -116,6 +117,17 @@ class UiUtils {
         
             textView.text = statusString
             textView.backgroundTintList = ColorStateList.valueOf(backgroundTint)
+        }
+        
+        fun statusTextViewIcon(context: Context, googleLib: String, textView: MaterialTextView) {
+            val statusIcon =
+                when (googleLib) {
+                    "none" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
+                    else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
+                }
+    
+            textView.setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
+            
         }
         
         fun showSnackbar(coordinatorLayout: CoordinatorLayout, message: String, anchorView: View?) {

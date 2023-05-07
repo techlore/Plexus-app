@@ -24,7 +24,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import tech.techlore.plexus.models.get.main.MainData
+import tech.techlore.plexus.models.main.MainData
 
 class ListUtils {
     

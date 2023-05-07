@@ -61,7 +61,7 @@
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/total_ratings"
         android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="@color/color_control_normal"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/dg_circle"
@@ -95,6 +95,10 @@
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_45"
         android:layout_marginStart="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:drawableStart="@drawable/ic_degoogled"
+        android:drawablePadding="@dimen/margin_8"
         style="@style/GoldTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -132,6 +136,10 @@
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:drawableStart="@drawable/ic_degoogled"
+        android:drawablePadding="@dimen/margin_8"
         style="@style/SilverTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -169,6 +177,10 @@
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:drawableStart="@drawable/ic_degoogled"
+        android:drawablePadding="@dimen/margin_8"
         style="@style/BronzeTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -206,6 +218,10 @@
         app:layout_constraintStart_toStartOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:drawableStart="@drawable/ic_degoogled"
+        android:drawablePadding="@dimen/margin_8"
         style="@style/BrokenTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -283,7 +299,7 @@
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/total_ratings"
         android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="@color/color_control_normal"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/mg_circle"
@@ -317,6 +333,10 @@
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_45"
         android:layout_marginStart="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:drawableStart="@drawable/ic_microg"
+        android:drawablePadding="@dimen/margin_8"
         style="@style/GoldTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -354,6 +374,10 @@
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:drawableStart="@drawable/ic_microg"
+        android:drawablePadding="@dimen/margin_8"
         style="@style/SilverTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -391,6 +415,10 @@
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:drawableStart="@drawable/ic_microg"
+        android:drawablePadding="@dimen/margin_8"
         style="@style/BronzeTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -428,6 +456,10 @@
         app:layout_constraintStart_toStartOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_22"
         android:layout_marginStart="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:drawableStart="@drawable/ic_microg"
+        android:drawablePadding="@dimen/margin_8"
         style="@style/BrokenTextTheme"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator

@@ -42,7 +42,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
 import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
-import tech.techlore.plexus.models.get.main.MainData
+import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.models.post.PostApp
 import tech.techlore.plexus.models.post.PostAppRoot
@@ -52,7 +52,7 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MICROG
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
 class SubmitActivity : AppCompatActivity() {
     
@@ -85,7 +85,7 @@ class SubmitActivity : AppCompatActivity() {
         nameString = intent.getStringExtra("name")!!
         packageNameString = intent.getStringExtra("packageName")!!
         installedVersion = intent.getStringExtra("installedVersion")!!
-        installedVersionBuild = intent.getIntExtra("installedVersionBuild", 0)
+        installedVersionBuild = intent.getIntExtra("installedBuild", 0)
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
         isMicroG = PreferenceManager(this).getBoolean(DEVICE_IS_MICROG)
         val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
@@ -183,7 +183,7 @@ class SubmitActivity : AppCompatActivity() {
                 val rating = PostRating(version = installedVersion,
                                         buildNumber = installedVersionBuild,
                                         googleLib = if (isMicroG) "micro_g" else "none",
-                                        score = mapStatusChipToRatingScore(activityBinding.submitStatusChipGroup.checkedChipId),
+                                        score = mapStatusChipIdToRatingScore(activityBinding.submitStatusChipGroup.checkedChipId),
                                         notes= activityBinding.submitNotesText.text.toString())
                 
                 val postRatingRoot = PostRatingRoot(rating)

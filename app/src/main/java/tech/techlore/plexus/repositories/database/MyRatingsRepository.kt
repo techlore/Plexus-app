@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MyRatingsDao
 import tech.techlore.plexus.models.myratings.MyRating
-import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import java.util.ArrayList
 
 class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
@@ -42,8 +42,8 @@ class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
     
             val (googleLib, ratingScore) =
                 when(statusRadioPref) {
-                    R.id.my_ratings_radio_dg_status -> Pair("none", mapStatusChipToRatingScore(statusChipPref))
-                    R.id.my_ratings_radio_mg_status -> Pair("micro_g", mapStatusChipToRatingScore(statusChipPref))
+                    R.id.my_ratings_radio_dg_status -> Pair("none", mapStatusChipIdToRatingScore(statusChipPref))
+                    R.id.my_ratings_radio_mg_status -> Pair("micro_g", mapStatusChipIdToRatingScore(statusChipPref))
                     else -> Pair("", -1)
                 }
     

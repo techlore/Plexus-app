@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
     lateinit var activityBinding: ActivityMainBinding
     lateinit var bottomSheetBehavior: BottomSheetBehavior<CoordinatorLayout>
-    private var clickedItem = 0
+    var clickedItem = 0
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController

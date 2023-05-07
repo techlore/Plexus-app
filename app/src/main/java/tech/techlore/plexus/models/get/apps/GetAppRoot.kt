@@ -17,13 +17,19 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.get.scores
+package tech.techlore.plexus.models.get.apps
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
-data class ScoresRoot(
+data class GetAppRoot (
     
     @JsonProperty("data")
-    val scoreData: List<Score>
+    val appData: ArrayList<GetApp>,
+    
+    @JsonProperty("meta")
+    @JsonIgnore
+    val meta: JsonNode
     
 )

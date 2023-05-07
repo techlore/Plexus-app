@@ -42,7 +42,10 @@
 
     <!--Main activity-->
     <string name="no_apps_found">Keine  apps gefunden</string>
+
+    <!--My ratings fragment-->
     <string name="no_ratings_available">Keine bewertungen vorhanden</string>
+    <string name="submit_first_rating">Tippen sie auf \u002B um ihre erste bewertung abzugeben</string>
 
     <!--Toolbar menu-->
     <string name="menu_search">Suche</string>
@@ -103,6 +106,7 @@
     <string name="silver_subtitle">Fast alles funktioniert mit minimalen abstrichen</string>
     <string name="gold_title">Gold</string>
     <string name="gold_subtitle">Perfekte oder perfekt-\u00E4hnliche erfahrung</string>
+    <string name="what_icons_mean">Was bedeuten die icons?</string>
 
     <!--About fragment-->
     <string name="version">Version</string>
@@ -140,13 +144,14 @@
 
     <!--App details activity-->
     <string name="menu_share">Teilen</string>
-    <string name="first_submission_title">Bitte w\u00E4hlen sie aus, ob es sich um ein de-Googled oder ein microG-Ger\u00E4t handelt.
+    <string name="first_submission_desc">Bitte w\u00E4hlen sie aus, ob es sich um ein de-Googled oder ein microG-Ger\u00E4t handelt.
         \n\nBei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
     <string name="proceed">Weiter</string>
 
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="install_app_to_submit">Installieren sie die app um eine bewertung abzugeben</string>
     <string name="no_browsers">Es ist kein Browser auf diesem Ger\u00E4t installiert</string>
     <string name="please_wait">Bitte warten, daten \u00FCbermitteln …</string>
     <string name="submit_success">Daten erfolgreich \u00FCbermittelt</string>

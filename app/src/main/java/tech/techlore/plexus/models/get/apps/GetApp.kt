@@ -17,42 +17,26 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.get.main
+package tech.techlore.plexus.models.get.apps
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonProperty
+import tech.techlore.plexus.converters.get.ScoreConverter
+import tech.techlore.plexus.models.get.scores.Score
 
-@Entity(tableName = "main_table")
-data class MainData(
+@TypeConverters(ScoreConverter::class)
+data class GetApp(
     
     @JsonProperty("name")
-    var name: String = "",
+    val name: String,
     
-    @PrimaryKey @JsonProperty("package")
-    var packageName: String = "",
+    @JsonProperty("package")
+    val packageName: String,
     
     @JsonProperty("icon_url")
     var iconUrl: String? = null,
-    
-    var dgScore: Float = 0.0f,
-    
-    var totalDgRatings: Int = 0,
-    
-    var mgScore: Float = 0.0f,
-    
-    var totalMgRatings: Int = 0,
-    
-    var installedVersion: String = "",
-    
-    var installedBuild: Int = 0,
-    
-    var installedFrom: String = "",
-    
-    var isInPlexusData: Boolean = true,
-    
-    var isInstalled: Boolean = false,
-    
-    var isFav: Boolean = false
 
+    @JsonProperty("scores")
+    val scores: ArrayList<Score>
+    
 )

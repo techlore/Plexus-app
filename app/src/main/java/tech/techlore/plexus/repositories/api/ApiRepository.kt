@@ -22,20 +22,15 @@ package tech.techlore.plexus.repositories.api
 import okhttp3.ResponseBody
 import retrofit2.Call
 import tech.techlore.plexus.api.ApiService
-import tech.techlore.plexus.models.get.scores.ScoresRoot
-import tech.techlore.plexus.models.get.main.MainRoot
+import tech.techlore.plexus.models.get.apps.GetAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
 import tech.techlore.plexus.models.post.PostAppRoot
 import tech.techlore.plexus.models.post.PostRatingRoot
 
 class ApiRepository(private val apiService: ApiService) {
     
-    fun getApps(): Call<MainRoot> {
-        return apiService.getApps()
-    }
-    
-    fun getScores(packageName: String): Call<ScoresRoot> {
-        return apiService.getScores(packageName)
+    fun getAppsWithScores(): Call<GetAppRoot> {
+        return apiService.getAppsWithScores()
     }
     
     fun getRatings(packageName: String): Call<RatingsRoot> {

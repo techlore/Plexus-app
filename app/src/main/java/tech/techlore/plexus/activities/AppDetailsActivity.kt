@@ -26,10 +26,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -46,13 +46,14 @@ import tech.techlore.plexus.fragments.bottomsheets.FirstSubmissionBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
 import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
-import tech.techlore.plexus.models.get.main.MainData
+import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
+import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
 class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
@@ -104,9 +105,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         
         setSupportActionBar(activityBinding.bottomAppBar)
         activityBinding.bottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
-    
-        // Disable radio group until ratings list is retrieved
-        activityBinding.detailsRadiogroup.visibility = View.GONE
         
         runBlocking {
             launch {
@@ -148,18 +146,18 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             }
     
             // FAB
-            if (!app.isInstalled){
-                activityBinding.fab.visibility = View.GONE
-            }
-            else {
-                activityBinding.fab.setOnClickListener {
-                    if (preferenceManager.getBoolean(FIRST_SUBMISSION)) {
+            activityBinding.fab.setOnClickListener {
+                when {
+                    !app.isInstalled ->
+                        showSnackbar(activityBinding.detailsCoordLayout,
+                                     getString(R.string.install_app_to_submit),
+                                     activityBinding.bottomAppBarRadio)
+        
+                    preferenceManager.getBoolean(FIRST_SUBMISSION) ->
                         FirstSubmissionBottomSheet(positiveButtonClickListener = { startSubmitActivity() })
                             .show(supportFragmentManager, "FirstSubmissionBottomSheet")
-                    }
-                    else {
-                        startSubmitActivity()
-                    }
+        
+                    else -> startSubmitActivity()
                 }
             }
     
@@ -190,7 +188,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
                 ratingsRetrieved = true
                 displayFragment(10)
-                activityBinding.detailsRadiogroup.visibility = View.VISIBLE
+                activityBinding.detailsRadiogroup.isVisible = true
             }
             else {
                 NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
@@ -247,8 +245,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 MoreOptionsBottomSheet(app.name, app.packageName,
                                        mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore),
                                        mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore),
-                                       activityBinding.appDetailsCoordinatorLayout,
-                                       activityBinding.bottomAppBar)
+                                       activityBinding.detailsCoordLayout,
+                                       activityBinding.bottomAppBarRadio)
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
             
         }

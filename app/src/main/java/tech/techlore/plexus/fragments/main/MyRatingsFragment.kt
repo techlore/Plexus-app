@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textview.MaterialTextView
@@ -38,6 +39,7 @@ import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_STATUS_CHIP
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_STATUS_RADIO
@@ -70,29 +72,45 @@ class MyRatingsFragment :
         preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
         myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
-    
+        
         /*########################################################################################*/
         
         lifecycleScope.launch{
             myRatingsList = myRatingsRepository.getSortedMyRatings(statusRadioPref = preferenceManager.getInt(MY_RATINGS_STATUS_RADIO),
                                                                    statusChipPref = preferenceManager.getInt(MY_RATINGS_STATUS_CHIP),
                                                                    orderPref = preferenceManager.getInt(MY_RATINGS_A_Z_SORT))
-    
+            
             fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-    
+            
             if (myRatingsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
                 val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
                 val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_my_ratings)
                 emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-                emptyListView.text = requireContext().getString(R.string.no_ratings_available)
+                emptyListView.text =
+                    if (preferenceManager.getBoolean(FIRST_SUBMISSION)) {
+                        getString(R.string.no_ratings_available) +
+                        "\n\n" +
+                        getString(R.string.submit_first_rating)
+                    }
+                    else {
+                        getString(R.string.no_ratings_available)
+                    }
             }
             else {
                 myRatingItemAdapter = MyRatingItemAdapter(myRatingsList)
                 fragmentBinding.recyclerView.adapter = myRatingItemAdapter
                 FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
             }
-    
+            
+            // New rating fab
+            fragmentBinding.newRatingFab.isVisible = true
+            fragmentBinding.newRatingFab.setOnClickListener {
+                preferenceManager.setInt(PreferenceManager.SEL_ITEM, R.id.nav_installed_apps)
+                mainActivity.clickedItem = R.id.nav_installed_apps
+                mainActivity.displayFragment(mainActivity.clickedItem)
+            }
+            
             // Swipe refresh layout
             fragmentBinding.swipeRefreshLayout.isEnabled = false
         }

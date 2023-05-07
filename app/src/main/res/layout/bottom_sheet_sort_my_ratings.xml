@@ -24,6 +24,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="@dimen/margin_12"
     android:paddingBottom="@dimen/margin_8"
     android:orientation="vertical"
@@ -41,7 +42,7 @@
         android:text="@string/alphabetical"
         style="@style/MediumBoldText"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="@color/color_control_normal"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/my_ratings_alphabetical_chip_group"
@@ -81,7 +82,7 @@
         android:text="@string/status"
         style="@style/MediumBoldText"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="@color/color_control_normal"/>
 
     <RadioGroup
         android:id="@+id/my_ratings_status_radiogroup"
@@ -146,7 +147,8 @@
         app:chipSpacingVertical="@dimen/margin_4"
         app:singleSelection="true"
         app:selectionRequired="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/my_ratings_sort_any"

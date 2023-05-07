@@ -72,6 +72,11 @@ class InstalledAppsFragment :
         /*########################################################################################*/
         
         lifecycleScope.launch {
+            
+            // Forcefully set toolbar title
+            // to avoid issues when navigating from "My ratings" using fab
+            mainActivity.activityBinding.toolbarBottom.title = getString(R.string.installed_apps)
+            
             installedAppsList =
                 miniRepository.miniInstalledAppsListFromDB(context = requireContext(),
                                                            installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),

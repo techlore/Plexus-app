@@ -57,7 +57,7 @@
     <color name="color_nav_item_bg">#5674C4</color>
     <color name="color_radio_selected_bg">#C8D3FF</color>
     <color name="color_fab">@color/color_primary</color>
-    <color name="color_control_normal">#747474</color>
+    <color name="color_control_normal">#5E5E5E</color>
     <color name="color_text_title">@color/grey_800</color>
     <color name="color_enabled">#606163</color>
     <color name="color_disabled">#D4D3DD</color>

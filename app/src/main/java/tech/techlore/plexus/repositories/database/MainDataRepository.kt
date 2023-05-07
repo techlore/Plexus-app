@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
-import tech.techlore.plexus.models.get.main.MainData
+import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {
@@ -35,46 +35,40 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
     suspend fun plexusDataIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
             val apiRepository = (context.applicationContext as ApplicationManager).apiRepository
-            val appsCall = apiRepository.getApps()
+            val appsCall = apiRepository.getAppsWithScores()
             val appsResponse = appsCall.awaitResponse()
             
             if (appsResponse.isSuccessful) {
                 appsResponse.body()?.let { root ->
                     val requestManager = Glide.with(context)
-                    for (mainData in root.mainData) {
+                    for (appData in root.appData) {
     
-                        mainData.iconUrl?.let {
+                        appData.iconUrl?.let {
                             // Preload icon into cache
                             requestManager
-                                .load(mainData.iconUrl)
+                                .load(appData.iconUrl)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
                                 .preload()
-                        } ?: ""
-                        
-                        val scoresCall = apiRepository.getScores(mainData.packageName)
-                        val scoresResponse = scoresCall.awaitResponse()
-                        
-                        if (scoresResponse.isSuccessful) {
-                            scoresResponse.body()?.let { scoresRoot ->
-    
-                                // de-Googled score
-                                // 1 decimal place without rounding off
-                                val dgScoreString = scoresRoot.scoreData[0].score.toString()
-                                val truncatedDgScore = dgScoreString.substring(0, dgScoreString.indexOf(".") + 2).toFloat()
-                                mainData.dgScore = truncatedDgScore
-                                mainData.totalDgRatings = scoresRoot.scoreData[0].totalRatings
-    
-                                // microG score
-                                // 1 decimal place without rounding off
-                                val mgScoreString = scoresRoot.scoreData[1].score.toString()
-                                val truncatedMgScore = mgScoreString.substring(0, mgScoreString.indexOf(".") + 2).toFloat()
-                                mainData.mgScore = truncatedMgScore
-                                mainData.totalMgRatings = scoresRoot.scoreData[1].totalRatings
-                                
-                            }
                         }
-                        
-                        mainDataDao.insertOrUpdatePlexusData(mainData)
+    
+                        // de-Googled score
+                        // 1 decimal place without rounding off
+                        val dgScoreString = appData.scores[1].score.toString()
+                        val truncatedDgScore = dgScoreString.substring(0, dgScoreString.indexOf(".") + 2).toFloat()
+    
+                        // microG score
+                        // 1 decimal place without rounding off
+                        val mgScoreString = appData.scores[0].score.toString()
+                        val truncatedMgScore = mgScoreString.substring(0, mgScoreString.indexOf(".") + 2).toFloat()
+    
+                        mainDataDao
+                            .insertOrUpdatePlexusData(MainData(name = appData.name,
+                                                               packageName = appData.packageName,
+                                                               iconUrl = appData.iconUrl ?: "",
+                                                               dgScore = truncatedDgScore,
+                                                               totalDgRatings = appData.scores[1].totalRatings,
+                                                               mgScore = truncatedMgScore,
+                                                               totalMgRatings = appData.scores[0].totalRatings))
                     }
                 }
             }

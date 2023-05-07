@@ -28,15 +28,15 @@ import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.utils.UiUtils.Companion.mapRatingScoreToStatusTextStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.statusTextViewIcon
 
 class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
-        val dgMgText: MaterialTextView = itemView.findViewById(R.id.ratings_dg_mg_text)
         val status: MaterialTextView = itemView.findViewById(R.id.ratings_status)
         val version: MaterialTextView = itemView.findViewById(R.id.ratings_version)
-        val note: MaterialTextView = itemView.findViewById(R.id.ratings_note)
+        val note: MaterialTextView = itemView.findViewById(R.id.ratings_notes)
         
     }
     
@@ -52,24 +52,20 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
         val rating = aListViewItems[position]
         val context = holder.itemView.context
         
-        holder.dgMgText.text =
-            if (rating.googleLib.equals("none")) {
-                context.getString(R.string.de_Googled)
-            }
-            else {
-                context.getString(R.string.microG)
-            }
-        
-        mapRatingScoreToStatusTextStyle(context, rating.ratingScore!!.ratingScore, holder.status)
         @SuppressLint("SetTextI18n")
         holder.version.text = "${context.getString(R.string.version)}: ${rating.version}"
         
+        // Notes
         if (!rating.note.isNullOrEmpty()) {
             holder.note.text = rating.note
         }
         else {
             holder.note.visibility = View.GONE
         }
+    
+        // Status
+        statusTextViewIcon(context, rating.googleLib!!, holder.status)
+        mapRatingScoreToStatusTextStyle(context, rating.ratingScore!!.ratingScore, holder.status)
         
     }
     

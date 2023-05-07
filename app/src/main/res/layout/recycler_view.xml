@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -47,6 +47,21 @@
             tools:listitem="@layout/item_main_recycler_view"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/new_rating_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:src="@drawable/ic_new"
+        android:tintMode="@color/color_snackbar_text"
+        app:backgroundTint="@color/color_fab"
+        android:contentDescription="@string/new_submission"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <ViewStub
         android:id="@+id/empty_list_view_stub"

@@ -34,7 +34,7 @@ import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.adapters.details.UserRatingsItemAdapter
 import tech.techlore.plexus.databinding.FragmentUserRatingsBinding
 import tech.techlore.plexus.models.get.ratings.Rating
-import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToRatingScore
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
 class UserRatingsFragment : Fragment() {
     
@@ -91,7 +91,7 @@ class UserRatingsFragment : Fragment() {
         
                     if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status
                         && detailsActivity.dgStatusSort != R.id.user_ratings_sort_any) {
-                        dgScore = mapStatusChipToRatingScore(detailsActivity.dgStatusSort)
+                        dgScore = mapStatusChipIdToRatingScore(detailsActivity.dgStatusSort)
                         detailsActivity.sortedRatingsList =
                             detailsActivity.sortedRatingsList.filter { ratings ->
                                 ratings.ratingScore!!.ratingScore == dgScore
@@ -99,7 +99,7 @@ class UserRatingsFragment : Fragment() {
                     }
                     else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status
                              && detailsActivity.mgStatusSort != R.id.user_ratings_sort_any) {
-                        mgScore = mapStatusChipToRatingScore(detailsActivity.mgStatusSort)
+                        mgScore = mapStatusChipIdToRatingScore(detailsActivity.mgStatusSort)
                         detailsActivity.sortedRatingsList =
                             detailsActivity.sortedRatingsList.filter { ratings ->
                                 ratings.ratingScore!!.ratingScore == mgScore

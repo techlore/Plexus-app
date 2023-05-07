@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -33,8 +33,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_apps_found"
+        android:gravity="center"
         android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="@color/color_control_normal"
         app:drawableTopCompat="@drawable/ic_no_apps"
         android:drawablePadding="@dimen/margin_10"/>
 

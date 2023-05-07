@@ -17,19 +17,39 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.get.main
+package tech.techlore.plexus.models.main
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.JsonNode
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class MainRoot (
+@Entity(tableName = "main_table")
+data class MainData(
     
-    @JsonProperty("data")
-    val mainData: ArrayList<MainData>,
+    var name: String = "",
     
-    @JsonProperty("meta")
-    @JsonIgnore
-    val meta: JsonNode
+    @PrimaryKey
+    var packageName: String = "",
     
+    var iconUrl: String? = null,
+    
+    var dgScore: Float = 0.0f,
+    
+    var totalDgRatings: Int = 0,
+    
+    var mgScore: Float = 0.0f,
+    
+    var totalMgRatings: Int = 0,
+    
+    var installedVersion: String = "",
+    
+    var installedBuild: Int = 0,
+    
+    var installedFrom: String = "",
+    
+    var isInPlexusData: Boolean = true,
+    
+    var isInstalled: Boolean = false,
+    
+    var isFav: Boolean = false
+
 )

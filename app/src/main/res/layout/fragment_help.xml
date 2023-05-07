@@ -34,12 +34,12 @@
         android:layout_margin="@dimen/margin_16"
         android:paddingBottom="@dimen/margin_35">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_4"
             android:layout_marginEnd="@dimen/margin_4"
-            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/what_status_mean"
             android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_20"
@@ -48,12 +48,12 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_32"
-            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginStart="@dimen/margin_4"
             android:text="@string/na"
             style="@style/BaseChipLikeTextViewStyle"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
@@ -61,8 +61,8 @@
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/not_tested_subtitle"
-            android:textColor="?attr/colorControlNormal"
-            android:textSize="@dimen/text_16" />
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
 
         <include layout="@layout/divider_horizontal"/>
 
@@ -73,7 +73,7 @@
             android:layout_marginStart="@dimen/margin_4"
             style="@style/BrokenTextTheme"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
@@ -81,8 +81,8 @@
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/broken_subtitle"
-            android:textColor="?attr/colorControlNormal"
-            android:textSize="@dimen/text_16" />
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
 
         <include layout="@layout/divider_horizontal"/>
 
@@ -93,7 +93,7 @@
             android:layout_marginStart="@dimen/margin_4"
             style="@style/BronzeTextTheme"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
@@ -101,8 +101,8 @@
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/bronze_subtitle"
-            android:textColor="?attr/colorControlNormal"
-            android:textSize="@dimen/text_16" />
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
 
         <include layout="@layout/divider_horizontal"/>
 
@@ -113,7 +113,7 @@
             android:layout_marginStart="@dimen/margin_4"
             style="@style/SilverTextTheme"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
@@ -121,8 +121,8 @@
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/silver_subtitle"
-            android:textColor="?attr/colorControlNormal"
-            android:textSize="@dimen/text_16" />
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
 
         <include layout="@layout/divider_horizontal"/>
 
@@ -133,7 +133,7 @@
             android:layout_marginStart="@dimen/margin_4"
             style="@style/GoldTextTheme"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
@@ -141,8 +141,48 @@
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/gold_subtitle"
-            android:textColor="?attr/colorControlNormal"
-            android:textSize="@dimen/text_16" />
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
+
+        <include layout="@layout/divider_horizontal"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/what_icons_mean"
+            android:textColor="@color/color_text_title"
+            android:textSize="@dimen/text_20"
+            style="@style/MediumBoldText"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:drawableStart="@drawable/ic_degoogled"
+            android:drawablePadding="@dimen/margin_8"
+            android:text="@string/de_Googled"
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:drawableStart="@drawable/ic_microg"
+            android:drawablePadding="@dimen/margin_8"
+            android:text="@string/microG"
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
 
     </LinearLayout>
 

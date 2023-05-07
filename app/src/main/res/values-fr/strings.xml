@@ -28,6 +28,7 @@
         é = \u00E9
         ê = \u00EA
         É = \u00C9
+        ô = \u00F4
     -->
 
     <!--Splash activity-->
@@ -38,7 +39,10 @@
 
     <!--Main activity-->
     <string name="no_apps_found">Aucune application trouv\u00E9e</string>
+
+    <!--My ratings fragment-->
     <string name="no_ratings_available">Pas d\'\u00E9valuation disponible</string>
+    <string name="submit_first_rating">Appuyez sur \u002B pour soumettre votre premi\u00E8re \u00E9valuation</string>
 
     <!--Toolbar menu-->
     <string name="menu_search">Recherche</string>
@@ -89,7 +93,7 @@
     <!--Settings activity-->
 
     <!--Help fragment-->
-    <string name="what_status_mean">Que signifient les statuts ?</string>
+    <string name="what_status_mean">Que signifient les statuts?</string>
     <string name="not_tested_subtitle">Non disponible, l\'application n\'a pas \u00E9t\u00E9 test\u00E9e</string>
     <string name="broken_title">Bris\u00E9</string>
     <string name="broken_subtitle">Inutilisable, principalement des applications qui ne s\'ouvrent pas</string>
@@ -99,6 +103,7 @@
     <string name="silver_subtitle">Presque tout fonctionne avec un minimum de r\u00E9serves</string>
     <string name="gold_title">L\'or</string>
     <string name="gold_subtitle">Exp\u00E9rience parfaite ou similaire \u00E0 une exp\u00E9rience parfaite</string>
+    <string name="what_icons_mean">Que signifient les ic\u00F4nes?</string>
 
     <!--About fragment-->
     <string name="version">Version</string>
@@ -136,13 +141,14 @@
 
     <!--App details activity-->
     <string name="menu_share">Partager</string>
-    <string name="first_submission_title">Veuillez indiquer s\'il s\'agit d\'un dispositif de-Googled ou d\'un dispositif microG.
+    <string name="first_submission_desc">Veuillez indiquer s\'il s\'agit d\'un dispositif de-Googled ou d\'un dispositif microG.
         \n\nToutes vos futures soumissions tiendront compte de cette s\u00E9lection, qui ne pourra pas \u00EAtre modifi\u00E9e ult\u00E9rieurement.</string>
     <string name="proceed">Proc\u00E9der</string>
 
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="install_app_to_submit">Installer l\'app pour soumettre une \u00E9valuation</string>
     <string name="no_browsers">Aucun navigateur n\'est install\u00E9 sur cet appareil</string>
     <string name="please_wait">Veuillez patienter, l\'envoi des donn\u00E9es …</string>
     <string name="submit_success">Donn\u00E9es transmises avec succ\u00E8s</string>

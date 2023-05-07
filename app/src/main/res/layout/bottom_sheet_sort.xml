@@ -24,6 +24,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="@dimen/margin_12"
     android:paddingBottom="@dimen/margin_8"
     android:orientation="vertical"
@@ -41,7 +42,7 @@
         android:text="@string/alphabetical"
         style="@style/MediumBoldText"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="@color/color_control_normal"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/alphabetical_chip_group"
@@ -82,8 +83,9 @@
         android:text="@string/installed_from"
         style="@style/MediumBoldText"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"
-        android:visibility="gone"/>
+        android:textColor="@color/color_control_normal"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/installed_from_chip_group"
@@ -96,13 +98,14 @@
         app:chipSpacingHorizontal="@dimen/margin_10"
         app:singleSelection="true"
         app:selectionRequired="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <com.google.android.material.chip.Chip
-            android:checked="true"
             android:id="@+id/sort_installed_any"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             style="@style/NotTestedFilterChipTheme"
             android:text="@string/any"/>
 
@@ -131,7 +134,7 @@
         android:text="@string/status"
         style="@style/MediumBoldText"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="@color/color_control_normal"/>
 
     <RadioGroup
         android:id="@+id/status_radiogroup"
@@ -196,7 +199,8 @@
         app:chipSpacingVertical="@dimen/margin_4"
         app:singleSelection="true"
         app:selectionRequired="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sort_not_tested"

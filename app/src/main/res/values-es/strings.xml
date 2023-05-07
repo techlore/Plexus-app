@@ -38,7 +38,10 @@
 
     <!--Main activity-->
     <string name="no_apps_found">No se han encontrado apps</string>
+
+    <!--My ratings fragment-->
     <string name="no_ratings_available">No hay valoraciones disponibles</string>
+    <string name="submit_first_rating">Pulse + para enviar su primera valoraci\u00F3n</string>
 
     <!--Toolbar menu-->
     <string name="menu_search">B\u00F9squeda</string>
@@ -99,6 +102,7 @@
     <string name="silver_subtitle">Casi todo funciona con las m\u00EDnimas salvedades</string>
     <string name="gold_title">Oro</string>
     <string name="gold_subtitle">Experiencia perfecta o similar</string>
+    <string name="what_icons_mean">¿Qu\u00E9 significan los iconos?</string>
 
     <!--About fragment-->
     <string name="version">Versi\u00F3n</string>
@@ -136,13 +140,14 @@
 
     <!--App details activity-->
     <string name="menu_share">Cuota</string>
-    <string name="first_submission_title">Por favor, seleccione si se trata de un dispositivo de-Googled o microG.
+    <string name="first_submission_desc">Por favor, seleccione si se trata de un dispositivo de-Googled o microG.
         \n\nTodos sus env\u00EDos futuros tendr\u00E1n en cuenta esta selecci\u00F3n, y no se podr\u00E1 cambiar posteriormente.</string>
     <string name="proceed">Proceda</string>
 
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="install_app_to_submit">Instale la app para enviar la valoraci\u00F3n</string>
     <string name="no_browsers">No hay navegadores instalados en este dispositivo</string>
     <string name="please_wait">Por favor espere, enviando datos …</string>
     <string name="submit_success">Datos enviados correctamente</string>

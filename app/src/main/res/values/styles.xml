@@ -168,6 +168,7 @@
     <!--Snackbar text style-->
     <style name="SnackbarTextStyle" parent="Widget.Material3.Snackbar.TextView">
         <item name="android:textColor">@color/color_snackbar_text</item>
+        <item name="android:textSize">@dimen/text_15</item>
     </style>
 
     <style name="SnackbarButtonStyle" parent="Widget.Material3.Button.TextButton.Snackbar">

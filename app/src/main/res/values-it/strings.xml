@@ -36,7 +36,10 @@
 
     <!--Main activity-->
     <string name="no_apps_found">Nessuna app trovata</string>
+
+    <!--My ratings fragment-->
     <string name="no_ratings_available">Nessuna valutazione disponibile</string>
+    <string name="submit_first_rating">Toccare \u002B per inviare la prima valutazione</string>
 
     <!--Toolbar menu-->
     <string name="menu_search">Ricerca</string>
@@ -97,6 +100,7 @@
     <string name="silver_subtitle">Funziona quasi tutto, con minimi accorgimenti</string>
     <string name="gold_title">Oro</string>
     <string name="gold_subtitle">Esperienza perfetta o simile alla perfezione</string>
+    <string name="what_icons_mean">Cosa significano le icone?</string>
 
     <!--About fragment-->
     <string name="version">Versione</string>
@@ -134,13 +138,14 @@
 
     <!--App details activity-->
     <string name="menu_share">Condividere</string>
-    <string name="first_submission_title">Selezionare se si tratta di un dispositivo de-Googled o microG.
+    <string name="first_submission_desc">Selezionare se si tratta di un dispositivo de-Googled o microG.
         \n\nTutti i futuri invii terranno conto di questa selezione, che non potr\u00E0 essere modificata in seguito.</string>
     <string name="proceed">Procedere</string>
 
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="install_app_to_submit">Installare l\'app per inviare la valutazione</string>
     <string name="no_browsers">Nessun browser installato sul dispositivo</string>
     <string name="please_wait">Si prega di attendere, l\'invio dei dati …</string>
     <string name="submit_success">Dati inviati con successo</string>

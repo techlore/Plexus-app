@@ -29,7 +29,10 @@
 
     <!--Main activity-->
     <string name="no_apps_found">No apps found</string>
+
+    <!--My ratings fragment-->
     <string name="no_ratings_available">No ratings available</string>
+    <string name="submit_first_rating">Tap \u002B to submit your first rating</string>
 
     <!--Toolbar menu-->
     <string name="menu_search">Search</string>
@@ -69,6 +72,16 @@
     <!--User ratings fragment-->
     <string name="notes">Notes</string>
 
+    <!--#########################################################################################-->
+
+    <!--Submit activity-->
+    <string name="optional">optional</string>
+    <string name="submit">Submit</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+
     <!--Help fragment-->
     <string name="what_status_mean">What do the status mean?</string>
     <string name="not_tested_subtitle">Not available, app has not been tested</string>
@@ -80,16 +93,7 @@
     <string name="silver_subtitle">Almost everything works with minimal caveats</string>
     <string name="gold_title">Gold</string>
     <string name="gold_subtitle">Perfect or perfect-like experience</string>
-
-    <!--#########################################################################################-->
-
-    <!--Submit activity-->
-    <string name="optional">optional</string>
-    <string name="submit">Submit</string>
-
-    <!--#########################################################################################-->
-
-    <!--Settings activity-->
+    <string name="what_icons_mean">What do the icons mean?</string>
 
     <!--About fragment-->
     <string name="version">Version</string>
@@ -127,13 +131,14 @@
 
     <!--App details activity-->
     <string name="menu_share">Share</string>
-    <string name="first_submission_title">Please select whether this is a de-Googled or a microG device.
-        \n\nAll your future submissions will take consider this selection, and it cannot be changed later.</string>
+    <string name="first_submission_desc">Please select whether this is a de-Googled or a microG device.
+        \n\nAll your future submissions will consider this selection, and it cannot be changed later.</string>
     <string name="proceed">Proceed</string>
 
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="install_app_to_submit">Install the app to submit rating</string>
     <string name="no_browsers">No browsers installed on this device</string>
     <string name="please_wait">Please wait, submitting data …</string>
     <string name="submit_success">Data submitted successfully</string>

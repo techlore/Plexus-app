@@ -17,25 +17,26 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.get.scores
+package tech.techlore.plexus.converters.get
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
+import androidx.room.TypeConverter
+import com.fasterxml.jackson.databind.ObjectMapper
+import tech.techlore.plexus.models.get.scores.Score
 
-data class Score(
+object ScoreConverter {
     
-    @JsonProperty("denominator")
-    @JsonIgnore
-    var dgDenominator: Int = 0,
+    private val objectMapper = ObjectMapper()
     
-    @JsonProperty("google_lib")
-    @JsonIgnore
-    var dgGoogleLib: String? = null,
+    @TypeConverter
+    fun fromScore(scores: ArrayList<Score>): String {
+        return objectMapper.writeValueAsString(scores)
+    }
     
-    @JsonProperty("numerator")
-    var score: Float = 0.0f,
+    @TypeConverter
+    fun toScore(scoresString: String): ArrayList<Score> {
+        val typeFactory = objectMapper.typeFactory
+        val listType = typeFactory.constructCollectionType(ArrayList::class.java, Score::class.java)
+        return objectMapper.readValue(scoresString, listType)
+    }
     
-    @JsonProperty("total_count")
-    var totalRatings: Int = 0
-
-)
+}

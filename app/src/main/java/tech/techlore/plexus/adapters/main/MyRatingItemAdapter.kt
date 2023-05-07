@@ -24,7 +24,6 @@ import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -34,6 +33,7 @@ import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.utils.UiUtils.Companion.mapRatingScoreToStatusTextStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.statusTextViewIcon
 
 class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : RecyclerView.Adapter<MyRatingItemAdapter.ListViewHolder>() {
     
@@ -88,20 +88,16 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         @SuppressLint("SetTextI18n")
         holder.version.text = "${context.getString(R.string.version)}: ${myRating.version}"
         
+        // Notes
         if (!myRating.notes.isNullOrEmpty()) {
             holder.notes.text = myRating.notes
         }
         else {
             holder.notes.visibility = View.GONE
         }
-    
-        val statusIcon =
-            when(myRating.googleLib) {
-                "none" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
-                else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
-            }
         
-        holder.status.setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
+        // Status
+        statusTextViewIcon(context, myRating.googleLib!!, holder.status)
         mapRatingScoreToStatusTextStyle(context, myRating.ratingScore, holder.status)
         
     }
