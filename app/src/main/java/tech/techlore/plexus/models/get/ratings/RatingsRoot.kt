@@ -19,9 +19,8 @@
 
 package tech.techlore.plexus.models.get.ratings
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.JsonNode
+import tech.techlore.plexus.models.get.common.Meta
 
 data class RatingsRoot (
     
@@ -29,7 +28,6 @@ data class RatingsRoot (
     val ratingsData: ArrayList<Rating>,
     
     @JsonProperty("meta")
-    @JsonIgnore
-    val meta: JsonNode
+    val meta: Meta
     
 )

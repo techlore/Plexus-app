@@ -21,12 +21,17 @@ package tech.techlore.plexus.repositories.database
 
 import android.content.Context
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
+import tech.techlore.plexus.models.get.apps.GetAppRoot
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
@@ -35,43 +40,74 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
     suspend fun plexusDataIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
             val apiRepository = (context.applicationContext as ApplicationManager).apiRepository
-            val appsCall = apiRepository.getAppsWithScores()
+            val appsCall = apiRepository.getAppsWithScores(pageNumber = 1)
             val appsResponse = appsCall.awaitResponse()
+            val requestManager = Glide.with(context)
             
             if (appsResponse.isSuccessful) {
-                appsResponse.body()?.let { root ->
-                    val requestManager = Glide.with(context)
-                    for (appData in root.appData) {
-    
-                        appData.iconUrl?.let {
-                            // Preload icon into cache
-                            requestManager
-                                .load(appData.iconUrl)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
-                                .preload()
+                appsResponse.body()?.let { getAppRoot ->
+                    
+                    // Insert/update all apps in db
+                    onRequestSuccessful(getAppRoot, requestManager)
+                    
+                    // Retrieve remaining apps in parallel
+                    if (getAppRoot.meta.totalPages > 1) {
+                        val requests = mutableListOf<Deferred<Unit>>()
+                        for (pageNumber in 2 .. getAppRoot.meta.totalPages) {
+                            val request = async {
+                                val remAppsCall = apiRepository.getAppsWithScores(pageNumber)
+                                val remAppsResponse = remAppsCall.awaitResponse()
+                                if (remAppsResponse.isSuccessful) {
+                                    remAppsResponse.body()?.let { root ->
+                                        onRequestSuccessful(root, requestManager)
+                                    }
+                                }
+                
+                            }
+                            requests.add(request)
                         }
-    
-                        // de-Googled score
-                        // 1 decimal place without rounding off
-                        val dgScoreString = appData.scores[1].score.toString()
-                        val truncatedDgScore = dgScoreString.substring(0, dgScoreString.indexOf(".") + 2).toFloat()
-    
-                        // microG score
-                        // 1 decimal place without rounding off
-                        val mgScoreString = appData.scores[0].score.toString()
-                        val truncatedMgScore = mgScoreString.substring(0, mgScoreString.indexOf(".") + 2).toFloat()
-    
-                        mainDataDao
-                            .insertOrUpdatePlexusData(MainData(name = appData.name,
-                                                               packageName = appData.packageName,
-                                                               iconUrl = appData.iconUrl ?: "",
-                                                               dgScore = truncatedDgScore,
-                                                               totalDgRatings = appData.scores[1].totalRatings,
-                                                               mgScore = truncatedMgScore,
-                                                               totalMgRatings = appData.scores[0].totalRatings))
+        
+                        // Wait for all requests to complete
+                        requests.awaitAll()
                     }
                 }
             }
+        }
+    }
+    
+    private suspend fun onRequestSuccessful(getAppRoot: GetAppRoot,
+                                            glideRequestManager: RequestManager) {
+        // Insert/update all apps in db
+        for (appData in getAppRoot.appData) {
+            
+            appData.iconUrl?.let {
+                // Preload icon into cache
+                glideRequestManager
+                    .load(appData.iconUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
+                    .preload()
+            }
+            
+            // de-Googled score
+            // 1 decimal place without rounding off
+            val dgScoreString = appData.scores[1].score.toString()
+            val truncatedDgScore =
+                dgScoreString.substring(0, dgScoreString.indexOf(".") + 2).toFloat()
+            
+            // microG score
+            // 1 decimal place without rounding off
+            val mgScoreString = appData.scores[0].score.toString()
+            val truncatedMgScore =
+                mgScoreString.substring(0, mgScoreString.indexOf(".") + 2).toFloat()
+            
+            mainDataDao
+                .insertOrUpdatePlexusData(MainData(name = appData.name,
+                                                   packageName = appData.packageName,
+                                                   iconUrl = appData.iconUrl ?: "",
+                                                   dgScore = truncatedDgScore,
+                                                   totalDgRatings = appData.scores[1].totalRatings,
+                                                   mgScore = truncatedMgScore,
+                                                   totalMgRatings = appData.scores[0].totalRatings))
         }
     }
     

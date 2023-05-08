@@ -36,6 +36,9 @@ import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import retrofit2.awaitResponse
@@ -174,7 +177,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         lifecycleScope.launch {
             if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
-                val ratingsCall = apiRepository.getRatings(app.packageName)
+                val ratingsCall = apiRepository.getRatings(packageName = app.packageName, pageNumber = 1)
                 val ratingsResponse = ratingsCall.awaitResponse()
     
                 if (ratingsResponse.isSuccessful) {
@@ -182,7 +185,26 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         ratingsList = ratingsRoot.ratingsData
                         // No need to store the ratings list in database, as:
                         // 1. It's not used anywhere else, except details activity
-                        // 2. We're already fetching latest ratings everytime in details activity
+                        // 2. We're already retrieving latest ratings everytime in details activity
+        
+                        // Retrieve remaining ratings in parallel
+                        if (ratingsRoot.meta.totalPages > 1) {
+                            val requests = mutableListOf<Deferred<Unit>>()
+                            for (pageNumber in 2..ratingsRoot.meta.totalPages) {
+                                val request = async {
+                                    val remRatingsCall = apiRepository.getRatings(app.packageName, pageNumber)
+                                    val remRatingsResponse = remRatingsCall.awaitResponse()
+                                    if (remRatingsResponse.isSuccessful) {
+                                        remRatingsResponse.body()?.let { root ->
+                                            ratingsList = root.ratingsData
+                                        }
+                                    }
+                                }
+                                requests.add(request)
+                            }
+                            // Wait for all requests to complete
+                            requests.awaitAll()
+                        }
                     }
                 }
     

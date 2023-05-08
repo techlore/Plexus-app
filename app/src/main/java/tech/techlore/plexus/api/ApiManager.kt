@@ -21,6 +21,8 @@ package tech.techlore.plexus.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import okhttp3.Dispatcher
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
@@ -30,9 +32,20 @@ class ApiManager {
         
         private const val API_BASE_URL = "https://plexus.fly.dev/api/v1/"
         
+        private val okHttpClient =
+            OkHttpClient.Builder()
+                .dispatcher(
+                    Dispatcher().apply {
+                        maxRequests = 15 // Max number of concurrent requests (default is 64)
+                    }
+                )
+                .build()
+        
+        
         fun apiBuilder(): ApiService {
             val retrofit = Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(JacksonConverterFactory.create(ObjectMapper().registerKotlinModule()))
                 .build()
             

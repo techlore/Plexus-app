@@ -17,17 +17,26 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.get.apps
+package tech.techlore.plexus.models.get.common
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.models.get.common.Meta
 
-data class GetAppRoot (
+data class Meta(
     
-    @JsonProperty("data")
-    val appData: ArrayList<GetApp>,
+    @JsonProperty("limit")
+    @JsonIgnore
+    val limit: Int,
     
-    @JsonProperty("meta")
-    val meta: Meta
+    @JsonProperty("page_number")
+    @JsonIgnore
+    val pageNumber: Int,
+    
+    @JsonProperty("total_count")
+    @JsonIgnore
+    val totalCount: Int,
+    
+    @JsonProperty("total_pages")
+    val totalPages: Int
     
 )

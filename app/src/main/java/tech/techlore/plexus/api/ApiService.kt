@@ -26,6 +26,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 import tech.techlore.plexus.models.get.apps.GetAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
 import tech.techlore.plexus.models.post.PostAppRoot
@@ -33,11 +34,12 @@ import tech.techlore.plexus.models.post.PostRatingRoot
 
 interface ApiService {
     
-    @GET("apps?scores=true")
-    fun getAppsWithScores(): Call<GetAppRoot>
+    @GET("apps?scores=true&limit=200")
+    fun getAppsWithScores(@Query("page") pageNumber: Int): Call<GetAppRoot>
     
-    @GET("apps/{packageName}/ratings")
-    fun getRatings(@Path("packageName") packageName: String): Call<RatingsRoot>
+    @GET("apps/{packageName}/ratings?limit=200")
+    fun getRatings(@Path("packageName") packageName: String,
+                   @Query("page") pageNumber: Int): Call<RatingsRoot>
     
     @POST("apps")
     @Headers("Content-Type: application/json")

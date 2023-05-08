@@ -127,9 +127,7 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         holder.fav.setOnCheckedChangeListener{ _, isChecked ->
             mainDataMinimal.isFav = isChecked
             coroutineScope.launch {
-                (context.applicationContext as ApplicationManager)
-                    .miniRepository
-                    .updateFav(mainDataMinimal)
+                (context.applicationContext as ApplicationManager).miniRepository.updateFav(mainDataMinimal)
             }
         }
         
