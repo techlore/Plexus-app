@@ -89,16 +89,28 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
             }
             
             // de-Googled score
-            // 1 decimal place without rounding off
-            val dgScoreString = appData.scores[1].score.toString()
+            val dgScore = appData.scores[1].score
             val truncatedDgScore =
-                dgScoreString.substring(0, dgScoreString.indexOf(".") + 2).toFloat()
+                if ("%.2f".format(dgScore) != "%.1f".format(dgScore)) {
+                    "%.1f".format(dgScore).toFloat()
+                    // If score is 2 decimal places,
+                    // convert to 1 decimal place without rounding off
+                }
+                else {
+                    dgScore
+                }
             
             // microG score
-            // 1 decimal place without rounding off
-            val mgScoreString = appData.scores[0].score.toString()
+            val mgScore = appData.scores[0].score
             val truncatedMgScore =
-                mgScoreString.substring(0, mgScoreString.indexOf(".") + 2).toFloat()
+                if ("%.2f".format(mgScore) != "%.1f".format(mgScore)) {
+                    "%.1f".format(mgScore).toFloat()
+                    // If score is 2 decimal places,
+                    // convert to 1 decimal place without rounding off
+                }
+                else {
+                    mgScore
+                }
             
             mainDataDao
                 .insertOrUpdatePlexusData(MainData(name = appData.name,

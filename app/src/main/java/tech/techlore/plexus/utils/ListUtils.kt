@@ -41,10 +41,15 @@ class ListUtils {
                     // OR system apps updated by user
                     .filter {
                         it.flags and ApplicationInfo.FLAG_SYSTEM != 1
-                        || it.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP !=0
+                        || it.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
                     }
                     .mapNotNull {
-                        if (!it.packageName.equals("tech.techlore.plexus")) {
+                        if (it.packageName !in setOf("tech.techlore.plexus",
+                                                     "com.android.vending",
+                                                     "com.google.android.gms",
+                                                     "com.google.android.gsf",
+                                                     "org.microg.gms.droidguard",
+                                                     "org.microg.unifiednlp")){
                             val installedApp =
                                 MainData(name = it.loadLabel(packageManager).toString(),
                                          packageName = it.packageName,

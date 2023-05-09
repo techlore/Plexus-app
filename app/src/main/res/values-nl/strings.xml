@@ -45,9 +45,9 @@
 
     <!--Nav view-->
     <string name="plexus_data">Plexus gegeven</string>
-    <string name="installed_apps">Ge\u00EFnstalleerde apps</string>
     <string name="favorites">Favorieten</string>
     <string name="contribute">Bijdrage leveren</string>
+    <string name="submit_rating">Beoordeling indienen</string>
     <string name="my_ratings">Mijn beoordelingen</string>
     <string name="report_issue">Een probleem melden</string>
     <string name="menu_settings">Instellingen</string>

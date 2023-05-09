@@ -49,9 +49,9 @@
 
     <!--Nav view-->
     <string name="plexus_data">Plexus datos</string>
-    <string name="installed_apps">Apps instaladas</string>
     <string name="favorites">Favoritos</string>
     <string name="contribute">Contribuir</string>
+    <string name="submit_rating">Enviar valoraci\u00F3n</string>
     <string name="my_ratings">Mis valoraciones</string>
     <string name="report_issue">Reportar un problema</string>
     <string name="menu_settings">Ajustes</string>

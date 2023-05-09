@@ -50,10 +50,10 @@
 
     <!--Nav view-->
     <string name="plexus_data">Donn\u00E9s Plexus</string>
-    <string name="installed_apps">Applications Install\u00E9es</string>
     <string name="favorites">Favoris</string>
     <string name="contribute">Contribuer</string>
-    <string name="my_ratings">Mes appr\u00E9ciations</string>
+    <string name="submit_rating">Soumettre une \u00E9valuation</string>
+    <string name="my_ratings">Mes \u00E9valuations</string>
     <string name="report_issue">Signaler un probl\u00E8me</string>
     <string name="menu_settings">R\u00E9glages</string>
     <string name="theme">Th\u00E8me</string>

@@ -32,7 +32,6 @@ import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.FragmentTotalScoreBinding
-import java.text.DecimalFormat
 
 class TotalScoreFragment : Fragment() {
     
@@ -137,7 +136,7 @@ class TotalScoreFragment : Fragment() {
     
     private fun calcPercent(ratingsCount: Int, totalRatings: Int): Float {
         return if (totalRatings == 0) 0.0f else {
-            DecimalFormat("#.#") // Limit result to 1 decimal place
+            "%.1f" // Limit result to 1 decimal place without rounding off
                 .format((ratingsCount.toFloat() / totalRatings.toFloat()) * 100)
                 .toFloat()
         }

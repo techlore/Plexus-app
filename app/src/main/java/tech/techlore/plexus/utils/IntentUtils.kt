@@ -44,7 +44,8 @@ class IntentUtils {
         fun openURL(activity: Activity, URL: String, coordinatorLayout: CoordinatorLayout, anchorView: View?) {
             try {
                 activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL)))
-            } // If no browser installed, show snackbar
+            }
+            // If no browser installed, show snackbar
             catch (e: ActivityNotFoundException) {
                 showSnackbar(coordinatorLayout, activity.getString(R.string.no_browsers), anchorView)
             }

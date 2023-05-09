@@ -83,12 +83,12 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                     preferenceManager.setInt(SEL_ITEM, R.id.nav_plexus_data)
                 }
                 
-                R.id.nav_installed_apps -> {
-                    preferenceManager.setInt(SEL_ITEM, R.id.nav_installed_apps)
-                }
-                
                 R.id.nav_fav -> {
                     preferenceManager.setInt(SEL_ITEM, R.id.nav_fav)
+                }
+    
+                R.id.nav_submit_rating -> {
+                    preferenceManager.setInt(SEL_ITEM, R.id.nav_submit_rating)
                 }
                 
                 R.id.nav_my_ratings -> {
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                     
                     when (clickedItem) {
                         
-                        R.id.nav_plexus_data, R.id.nav_installed_apps, R.id.nav_fav, R.id.nav_my_ratings -> {
+                        R.id.nav_plexus_data, R.id.nav_fav, R.id.nav_submit_rating, R.id.nav_my_ratings -> {
                             displayFragment(clickedItem)
                             activityBinding.toolbarBottom.title =
                                 navController.currentDestination !!.label.toString()
@@ -197,13 +197,21 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 
                 R.id.nav_plexus_data ->
                     when (currentFragment.id) {
-                        R.id.installedAppsFragment -> R.id.action_installedAppsFragment_to_plexusDataFragment
+                        R.id.submitRatingFragment -> R.id.action_submitRatingFragment_to_plexusDataFragment
                         R.id.favoritesFragment -> R.id.action_favoritesFragment_to_plexusDataFragment
                         R.id.myRatingsFragment -> R.id.action_myRatingsFragment_to_plexusDataFragment
                         else -> 0
                     }
                 
-                R.id.nav_installed_apps ->
+                R.id.nav_fav ->
+                    when (currentFragment.id) {
+                        R.id.plexusDataFragment -> R.id.action_plexusDataFragment_to_favoritesFragment
+                        R.id.submitRatingFragment -> R.id.action_submitRatingFragment_to_favoritesFragment
+                        R.id.myRatingsFragment -> R.id.action_myRatingsFragment_to_favoritesFragment
+                        else -> 0
+                    }
+    
+                R.id.nav_submit_rating ->
                     when (currentFragment.id) {
                         R.id.plexusDataFragment -> R.id.action_plexusDataFragment_to_installedAppsFragment
                         R.id.favoritesFragment -> R.id.action_favoritesFragment_to_installedAppsFragment
@@ -211,18 +219,10 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                         else -> 0
                     }
                 
-                R.id.nav_fav ->
-                    when (currentFragment.id) {
-                        R.id.plexusDataFragment -> R.id.action_plexusDataFragment_to_favoritesFragment
-                        R.id.installedAppsFragment -> R.id.action_installedAppsFragment_to_favoritesFragment
-                        R.id.myRatingsFragment -> R.id.action_myRatingsFragment_to_favoritesFragment
-                        else -> 0
-                    }
-                
                 R.id.nav_my_ratings ->
                     when(currentFragment.id) {
                         R.id.plexusDataFragment -> R.id.action_plexusDataFragment_to_myRatingsFragment
-                        R.id.installedAppsFragment -> R.id.action_installedAppsFragment_to_myRatingsFragment
+                        R.id.submitRatingFragment -> R.id.action_submitRatingFragment_to_myRatingsFragment
                         R.id.favoritesFragment -> R.id.action_favoritesFragment_to_myRatingsFragment
                         else -> 0
                     }

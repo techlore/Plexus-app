@@ -34,10 +34,10 @@ import tech.techlore.plexus.models.post.PostRatingRoot
 
 interface ApiService {
     
-    @GET("apps?scores=true&limit=200")
+    @GET("apps?scores=true&limit=150")
     fun getAppsWithScores(@Query("page") pageNumber: Int): Call<GetAppRoot>
     
-    @GET("apps/{packageName}/ratings?limit=200")
+    @GET("apps/{packageName}/ratings?limit=150")
     fun getRatings(@Path("packageName") packageName: String,
                    @Query("page") pageNumber: Int): Call<RatingsRoot>
     

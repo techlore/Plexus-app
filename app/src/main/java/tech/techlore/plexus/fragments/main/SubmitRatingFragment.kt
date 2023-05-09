@@ -42,7 +42,7 @@ import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import kotlin.collections.ArrayList
 
-class InstalledAppsFragment :
+class SubmitRatingFragment :
     Fragment(),
     MainDataItemAdapter.OnItemClickListener {
     
@@ -75,7 +75,7 @@ class InstalledAppsFragment :
             
             // Forcefully set toolbar title
             // to avoid issues when navigating from "My ratings" using fab
-            mainActivity.activityBinding.toolbarBottom.title = getString(R.string.installed_apps)
+            mainActivity.activityBinding.toolbarBottom.title = getString(R.string.submit_rating)
             
             installedAppsList =
                 miniRepository.miniInstalledAppsListFromDB(context = requireContext(),
@@ -90,7 +90,7 @@ class InstalledAppsFragment :
             }
             else {
                 installedAppItemAdapter = MainDataItemAdapter(installedAppsList,
-                                                              this@InstalledAppsFragment,
+                                                              this@SubmitRatingFragment,
                                                               lifecycleScope)
                 fragmentBinding.recyclerView.adapter = installedAppItemAdapter
                 FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
