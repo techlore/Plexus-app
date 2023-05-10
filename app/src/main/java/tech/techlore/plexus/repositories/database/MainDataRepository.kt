@@ -31,8 +31,10 @@ import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
-import tech.techlore.plexus.models.get.apps.GetAppRoot
+import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.utils.DbUtils.Companion.truncatedDgScore
+import tech.techlore.plexus.utils.DbUtils.Companion.truncatedMgScore
 import tech.techlore.plexus.utils.ListUtils.Companion.scannedInstalledAppsList
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {
@@ -45,15 +47,15 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
             val requestManager = Glide.with(context)
             
             if (appsResponse.isSuccessful) {
-                appsResponse.body()?.let { getAppRoot ->
+                appsResponse.body()?.let { getAppsRoot ->
                     
                     // Insert/update all apps in db
-                    onRequestSuccessful(getAppRoot, requestManager)
+                    onRequestSuccessful(getAppsRoot, requestManager)
                     
                     // Retrieve remaining apps in parallel
-                    if (getAppRoot.meta.totalPages > 1) {
+                    if (getAppsRoot.meta.totalPages > 1) {
                         val requests = mutableListOf<Deferred<Unit>>()
-                        for (pageNumber in 2 .. getAppRoot.meta.totalPages) {
+                        for (pageNumber in 2 .. getAppsRoot.meta.totalPages) {
                             val request = async {
                                 val remAppsCall = apiRepository.getAppsWithScores(pageNumber)
                                 val remAppsResponse = remAppsCall.awaitResponse()
@@ -75,10 +77,10 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
         }
     }
     
-    private suspend fun onRequestSuccessful(getAppRoot: GetAppRoot,
+    private suspend fun onRequestSuccessful(getAppsRoot: GetAppsRoot,
                                             glideRequestManager: RequestManager) {
         // Insert/update all apps in db
-        for (appData in getAppRoot.appData) {
+        for (appData in getAppsRoot.appData) {
             
             appData.iconUrl?.let {
                 // Preload icon into cache
@@ -88,37 +90,13 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                     .preload()
             }
             
-            // de-Googled score
-            val dgScore = appData.scores[1].score
-            val truncatedDgScore =
-                if ("%.2f".format(dgScore) != "%.1f".format(dgScore)) {
-                    "%.1f".format(dgScore).toFloat()
-                    // If score is 2 decimal places,
-                    // convert to 1 decimal place without rounding off
-                }
-                else {
-                    dgScore
-                }
-            
-            // microG score
-            val mgScore = appData.scores[0].score
-            val truncatedMgScore =
-                if ("%.2f".format(mgScore) != "%.1f".format(mgScore)) {
-                    "%.1f".format(mgScore).toFloat()
-                    // If score is 2 decimal places,
-                    // convert to 1 decimal place without rounding off
-                }
-                else {
-                    mgScore
-                }
-            
             mainDataDao
                 .insertOrUpdatePlexusData(MainData(name = appData.name,
                                                    packageName = appData.packageName,
                                                    iconUrl = appData.iconUrl ?: "",
-                                                   dgScore = truncatedDgScore,
+                                                   dgScore = truncatedDgScore(appData.scores[1].score),
                                                    totalDgRatings = appData.scores[1].totalRatings,
-                                                   mgScore = truncatedMgScore,
+                                                   mgScore = truncatedMgScore(appData.scores[0].score),
                                                    totalMgRatings = appData.scores[0].totalRatings))
         }
     }
@@ -159,6 +137,12 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
     suspend fun getAppByPackage(packageName: String): MainData? {
         return withContext(Dispatchers.IO){
             mainDataDao.getAppByPackage (packageName)
+        }
+    }
+    
+    suspend fun insertOrUpdatePlexusData(mainData: MainData) {
+        return withContext(Dispatchers.IO) {
+            mainDataDao.insertOrUpdatePlexusData(mainData)
         }
     }
     

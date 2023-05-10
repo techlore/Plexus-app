@@ -100,10 +100,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    suspend fun miniFavoritesListFromDB(context: Context,
-                                        installedFromPref: Int,
-                                        statusRadioPref: Int,
-                                        orderPref: Int): ArrayList<MainDataMinimal> {
+    suspend fun miniFavListFromDB(context: Context,
+                                  installedFromPref: Int,
+                                  statusRadioPref: Int,
+                                  orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
             val preferenceManager = PreferenceManager(context)

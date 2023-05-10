@@ -277,15 +277,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     }
     
     private fun startSubmitActivity() {
-        val intent =
-            Intent(this@AppDetailsActivity, SubmitActivity::class.java)
-                .putExtra("name", app.name)
-                .putExtra("packageName", app.packageName)
-                .putExtra("installedVersion", app.installedVersion)
-                .putExtra("installedBuild", app.installedBuild)
-                .putExtra("isInPlexusData", app.isInPlexusData)
-        
-        startActivity(intent)
+        startActivity(Intent(this@AppDetailsActivity, SubmitActivity::class.java)
+                          .putExtra("name", app.name)
+                          .putExtra("packageName", app.packageName)
+                          .putExtra("installedVersion", app.installedVersion)
+                          .putExtra("installedBuild", app.installedBuild)
+                          .putExtra("isInPlexusData", app.isInPlexusData))
+        finish()
         overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
     }
     

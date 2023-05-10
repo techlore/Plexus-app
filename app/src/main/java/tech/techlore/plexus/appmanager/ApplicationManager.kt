@@ -30,6 +30,7 @@ import tech.techlore.plexus.activities.SplashActivity
 import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
 import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.SUBMIT_SUCCESSFUL
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
@@ -52,6 +53,10 @@ class ApplicationManager : Application() {
         super.onCreate()
 
         val preferenceManager = PreferenceManager(this)
+        
+        if (!preferenceManager.getBoolean(SUBMIT_SUCCESSFUL)) {
+            preferenceManager.setBoolean(SUBMIT_SUCCESSFUL, false)
+        }
 
         // Theme
         when (preferenceManager.getInt(THEME)) {

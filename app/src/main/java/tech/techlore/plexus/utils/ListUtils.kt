@@ -50,20 +50,19 @@ class ListUtils {
                                                      "com.google.android.gsf",
                                                      "org.microg.gms.droidguard",
                                                      "org.microg.unifiednlp")){
-                            val installedApp =
-                                MainData(name = it.loadLabel(packageManager).toString(),
-                                         packageName = it.packageName,
-                                         installedVersion =
-                                         packageManager.getPackageInfo(it.packageName, 0).versionName,
-                                         installedBuild = packageManager.getPackageInfo(it.packageName, 0).versionCode,
-                                         installedFrom =
-                                         when(packageManager.getInstallerPackageName(it.packageName)) {
-                                             "com.android.vending", "com.aurora.store" -> "googlePlay"
-                                             else -> "other"
-                                         },
-                                         isInstalled = true)
-                            
-                            installedAppsList.add(installedApp)
+    
+                            installedAppsList
+                                .add(MainData(name = it.loadLabel(packageManager).toString(),
+                                              packageName = it.packageName,
+                                              installedVersion =
+                                              packageManager.getPackageInfo(it.packageName, 0).versionName,
+                                              installedBuild = packageManager.getPackageInfo(it.packageName, 0).versionCode,
+                                              installedFrom =
+                                              when(packageManager.getInstallerPackageName(it.packageName)) {
+                                                  "com.android.vending", "com.aurora.store" -> "googlePlay"
+                                                  else -> "other"
+                                              },
+                                              isInstalled = true))
                         }
                     }
                 

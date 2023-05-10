@@ -38,6 +38,7 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.SUBMIT_SUCCESSFUL
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import kotlin.collections.ArrayList
@@ -103,6 +104,27 @@ class SubmitRatingFragment :
         }
     }
     
+    override fun onResume() {
+        super.onResume()
+        if (preferenceManager.getBoolean(SUBMIT_SUCCESSFUL)) {
+            lifecycleScope.launch {
+                installedAppItemAdapter
+                    .updateList(miniRepository
+                                    .miniInstalledAppsListFromDB(context = requireContext(),
+                                                                 installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
+                                                                 statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                                 orderPref = preferenceManager.getInt(A_Z_SORT)))
+                preferenceManager.setBoolean(SUBMIT_SUCCESSFUL, false)
+            }
+        }
+    }
+    
+    // On click
+    override fun onItemClick(position: Int) {
+        val installedApp = installedAppsList[position]
+        startDetailsActivity(mainActivity, installedApp.packageName)
+    }
+    
     private fun refreshInstalledApps() {
         lifecycleScope.launch {
             val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
@@ -115,12 +137,6 @@ class SubmitRatingFragment :
                                                              statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                              orderPref = preferenceManager.getInt(A_Z_SORT)))
         }
-    }
-    
-    // On click
-    override fun onItemClick(position: Int) {
-        val installedApp = installedAppsList[position]
-        startDetailsActivity(mainActivity, installedApp.packageName)
     }
     
     override fun onDestroyView() {

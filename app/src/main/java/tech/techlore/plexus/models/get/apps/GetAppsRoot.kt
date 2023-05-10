@@ -22,7 +22,7 @@ package tech.techlore.plexus.models.get.apps
 import com.fasterxml.jackson.annotation.JsonProperty
 import tech.techlore.plexus.models.get.common.Meta
 
-data class GetAppRoot (
+data class GetAppsRoot (
     
     @JsonProperty("data")
     val appData: ArrayList<GetApp>,

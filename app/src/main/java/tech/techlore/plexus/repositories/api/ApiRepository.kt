@@ -22,15 +22,20 @@ package tech.techlore.plexus.repositories.api
 import okhttp3.ResponseBody
 import retrofit2.Call
 import tech.techlore.plexus.api.ApiService
-import tech.techlore.plexus.models.get.apps.GetAppRoot
+import tech.techlore.plexus.models.get.apps.GetAppsRoot
+import tech.techlore.plexus.models.get.apps.GetSingleAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
 import tech.techlore.plexus.models.post.PostAppRoot
 import tech.techlore.plexus.models.post.PostRatingRoot
 
 class ApiRepository(private val apiService: ApiService) {
     
-    fun getAppsWithScores(pageNumber: Int): Call<GetAppRoot> {
+    fun getAppsWithScores(pageNumber: Int): Call<GetAppsRoot> {
         return apiService.getAppsWithScores(pageNumber)
+    }
+    
+    fun getSingleAppWithScores(packageName: String): Call<GetSingleAppRoot> {
+        return apiService.getSingleAppWithScores(packageName)
     }
     
     fun getRatings(packageName: String, pageNumber: Int): Call<RatingsRoot> {

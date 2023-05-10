@@ -34,6 +34,11 @@ import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.SUBMIT_SUCCESSFUL
+import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
 class FavoritesFragment:
@@ -43,7 +48,10 @@ class FavoritesFragment:
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
+    private lateinit var favItemAdapter: FavoriteItemAdapter
     private lateinit var favList: ArrayList<MainDataMinimal>
+    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var miniRepository: MainDataMinimalRepository
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -56,18 +64,18 @@ class FavoritesFragment:
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val preferenceManager = PreferenceManager(requireContext())
+        preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        val miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
     
         /*########################################################################################*/
         
         lifecycleScope.launch{
             favList =
-                miniRepository.miniFavoritesListFromDB(context = requireContext(),
-                                                       installedFromPref = preferenceManager.getInt(PreferenceManager.INSTALLED_FROM_SORT),
-                                                       statusRadioPref = preferenceManager.getInt(PreferenceManager.STATUS_RADIO),
-                                                       orderPref = preferenceManager.getInt(PreferenceManager.A_Z_SORT))
+                miniRepository.miniFavListFromDB(context = requireContext(),
+                                                 installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
+                                                 statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                 orderPref = preferenceManager.getInt(A_Z_SORT))
     
             fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
     
@@ -75,15 +83,30 @@ class FavoritesFragment:
                 fragmentBinding.emptyListViewStub.inflate()
             }
             else {
-                val favItemAdapter = FavoriteItemAdapter(favList,
-                                                         this@FavoritesFragment,
-                                                         lifecycleScope)
+                favItemAdapter = FavoriteItemAdapter(favList,
+                                                     this@FavoritesFragment,
+                                                     lifecycleScope)
                 fragmentBinding.recyclerView.adapter = favItemAdapter
                 FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
             }
     
             // Swipe refresh layout
             fragmentBinding.swipeRefreshLayout.isEnabled = false
+        }
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        if (preferenceManager.getBoolean(SUBMIT_SUCCESSFUL)) {
+            lifecycleScope.launch{
+                favItemAdapter
+                    .updateList(miniRepository
+                                    .miniFavListFromDB(context = requireContext(),
+                                                       installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
+                                                       statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                       orderPref = preferenceManager.getInt(A_Z_SORT)))
+                preferenceManager.setBoolean(SUBMIT_SUCCESSFUL, false)
+            }
         }
     }
     

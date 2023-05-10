@@ -38,6 +38,7 @@ import org.json.JSONObject
 import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import retrofit2.Call
+import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
@@ -50,6 +51,9 @@ import tech.techlore.plexus.models.post.PostRating
 import tech.techlore.plexus.models.post.PostRatingRoot
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MICROG
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.SUBMIT_SUCCESSFUL
+import tech.techlore.plexus.utils.DbUtils.Companion.truncatedDgScore
+import tech.techlore.plexus.utils.DbUtils.Companion.truncatedMgScore
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
@@ -152,8 +156,7 @@ class SubmitActivity : AppCompatActivity() {
                         
                         activityBinding.submitFab.isEnabled =
                             text.isEmpty()
-                            || ((text.length > 4)
-                                && text.length <= 300
+                            || (text.length in 5..300
                                 && !hasBlockedWord
                                 && regexPattern.matches(text))
                     }
@@ -179,6 +182,7 @@ class SubmitActivity : AppCompatActivity() {
                 snackbar.show()
                 
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
+                val mainRepository = (applicationContext as ApplicationManager).mainRepository
                 
                 val rating = PostRating(version = installedVersion,
                                         buildNumber = installedVersionBuild,
@@ -197,7 +201,6 @@ class SubmitActivity : AppCompatActivity() {
                     postApp(postAppCall)
                     if (appCreated) {
                         isInPlexusData = true
-                        val mainRepository = (applicationContext as ApplicationManager).mainRepository
                         currentApp = mainRepository.getAppByPackage(packageNameString)!!
                         currentApp.isInPlexusData = true
                         mainRepository.updateIsInPlexusData(currentApp)
@@ -210,6 +213,22 @@ class SubmitActivity : AppCompatActivity() {
                 
                 if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                     updateMyRatingInDb(rating)
+                    val singleAppCall = apiRepository.getSingleAppWithScores(packageNameString)
+                    val singleAppResponse = singleAppCall.awaitResponse()
+                    if (singleAppResponse.isSuccessful) {
+                        singleAppResponse.body()?.let { getSingleAppRoot ->
+                            val appData = getSingleAppRoot.appData
+                            mainRepository
+                                .insertOrUpdatePlexusData(MainData(name = appData.name,
+                                                                   packageName = appData.packageName,
+                                                                   iconUrl = appData.iconUrl ?: "",
+                                                                   dgScore = truncatedDgScore(appData.scores[1].score),
+                                                                   totalDgRatings = appData.scores[1].totalRatings,
+                                                                   mgScore = truncatedMgScore(appData.scores[0].score),
+                                                                   totalMgRatings = appData.scores[0].totalRatings))
+                        }
+                    }
+                    PreferenceManager(this@SubmitActivity).setBoolean(SUBMIT_SUCCESSFUL, true)
                     submitSnackbar(getString(R.string.submit_success))
                 }
             }

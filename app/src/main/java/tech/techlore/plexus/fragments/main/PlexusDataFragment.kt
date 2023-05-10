@@ -38,6 +38,7 @@ import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.SUBMIT_SUCCESSFUL
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
@@ -98,6 +99,20 @@ class PlexusDataFragment :
         }
     }
     
+    override fun onResume() {
+        super.onResume()
+        if (preferenceManager.getBoolean(SUBMIT_SUCCESSFUL)) {
+            lifecycleScope.launch{
+                plexusDataItemAdapter
+                    .updateList(miniRepository
+                                    .miniPlexusDataListFromDB(context = requireContext(),
+                                                              statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                              orderPref = preferenceManager.getInt(A_Z_SORT)))
+                preferenceManager.setBoolean(SUBMIT_SUCCESSFUL, false)
+            }
+        }
+    }
+    
     // On click
     override fun onItemClick(position: Int) {
         val plexusData = plexusDataList[position]
@@ -108,8 +123,8 @@ class PlexusDataFragment :
         
         lifecycleScope.launch{
             if (hasNetwork(requireContext()) && hasInternet()) {
-                val repository = (requireContext().applicationContext as ApplicationManager).mainRepository
-                repository.plexusDataIntoDB(requireContext())
+                val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
+                mainRepository.plexusDataIntoDB(requireContext())
                 plexusDataItemAdapter
                     .updateList(miniRepository
                                     .miniPlexusDataListFromDB(context = requireContext(),

@@ -26,6 +26,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -39,6 +40,7 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToBgColor
 import kotlin.collections.ArrayList
@@ -154,5 +156,13 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     // Fast scroll popup
     override fun getPopupText(position: Int): String {
         return aListViewItems[position].name.substring(0, 1)
+    }
+    
+    fun updateList(newList: ArrayList<MainDataMinimal>){
+        val diffCallback = MainDataMinimalDiffUtil(aListViewItems, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        diffResult.dispatchUpdatesTo(this)
+        aListViewItems.clear()
+        aListViewItems.addAll(newList)
     }
 }
