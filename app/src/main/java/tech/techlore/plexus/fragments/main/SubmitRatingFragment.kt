@@ -38,7 +38,6 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.SUBMIT_SUCCESSFUL
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import kotlin.collections.ArrayList
@@ -49,6 +48,7 @@ class SubmitRatingFragment :
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
+    private lateinit var appManager: ApplicationManager
     private lateinit var mainActivity: MainActivity
     private lateinit var installedAppItemAdapter: MainDataItemAdapter
     private lateinit var installedAppsList: ArrayList<MainDataMinimal>
@@ -67,8 +67,9 @@ class SubmitRatingFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         preferenceManager = PreferenceManager(requireContext())
+        appManager = requireContext().applicationContext as ApplicationManager
         mainActivity = requireActivity() as MainActivity
-        miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        miniRepository = appManager.miniRepository
         
         /*########################################################################################*/
         
@@ -106,7 +107,7 @@ class SubmitRatingFragment :
     
     override fun onResume() {
         super.onResume()
-        if (preferenceManager.getBoolean(SUBMIT_SUCCESSFUL)) {
+        if (appManager.submitSuccessful) {
             lifecycleScope.launch {
                 installedAppItemAdapter
                     .updateList(miniRepository
@@ -114,7 +115,7 @@ class SubmitRatingFragment :
                                                                  installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                                  statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                                  orderPref = preferenceManager.getInt(A_Z_SORT)))
-                preferenceManager.setBoolean(SUBMIT_SUCCESSFUL, false)
+                appManager.submitSuccessful = false
             }
         }
     }
@@ -127,7 +128,7 @@ class SubmitRatingFragment :
     
     private fun refreshInstalledApps() {
         lifecycleScope.launch {
-            val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
+            val mainRepository = appManager.mainRepository
             mainRepository.installedAppsIntoDB(requireContext())
             fragmentBinding.swipeRefreshLayout.isRefreshing = false
             installedAppItemAdapter

@@ -145,13 +145,16 @@
         \n\nToutes vos futures soumissions tiendront compte de cette s\u00E9lection, qui ne pourra pas \u00EAtre modifi\u00E9e ult\u00E9rieurement.</string>
     <string name="proceed">Proc\u00E9der</string>
 
+    <!--Submit-->
+    <string name="wait_submitting_data">Veuillez patienter, l\'envoi des donn\u00E9es …</string>
+    <string name="submit_success">Soumis avec succ\u00E8s</string>
+    <string name="submit_error">Erreur lors de la transmission des donn\u00E9es</string>
+    <string name="thanks_for_submitting">Merci de soumettre des données et d\'aider la communaut\u00E9.</string>
+
     <!--#########################################################################################-->
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Installer l\'app pour soumettre une \u00E9valuation</string>
     <string name="no_browsers">Aucun navigateur n\'est install\u00E9 sur cet appareil</string>
-    <string name="please_wait">Veuillez patienter, l\'envoi des donn\u00E9es …</string>
-    <string name="submit_success">Donn\u00E9es transmises avec succ\u00E8s</string>
-    <string name="submit_error">Erreur lors de la transmission des donn\u00E9es</string>
 
 </resources>

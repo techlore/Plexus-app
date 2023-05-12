@@ -145,10 +145,4 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
             mainDataDao.insertOrUpdatePlexusData(mainData)
         }
     }
-    
-    suspend fun updateIsInPlexusData(mainData: MainData) {
-        return withContext(Dispatchers.IO) {
-            mainDataDao.updateIsInPlexusData(mainData)
-        }
-    }
 }

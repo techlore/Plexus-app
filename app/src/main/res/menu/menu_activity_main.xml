@@ -39,6 +39,6 @@
         android:id="@+id/main_menu_help"
         android:icon="@drawable/ic_help"
         android:title="@string/menu_help"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
 </menu>

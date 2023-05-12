@@ -135,13 +135,16 @@
         \n\nAll your future submissions will consider this selection, and it cannot be changed later.</string>
     <string name="proceed">Proceed</string>
 
+    <!--Submit-->
+    <string name="wait_submitting_data">Please wait, submitting data …</string>
+    <string name="submit_success">Submitted successfully</string>
+    <string name="submit_error">Error while submitting data</string>
+    <string name="thanks_for_submitting">Thank you for submitting data and helping the community.</string>
+
     <!--#########################################################################################-->
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Install the app to submit rating</string>
     <string name="no_browsers">No browsers installed on this device</string>
-    <string name="please_wait">Please wait, submitting data …</string>
-    <string name="submit_success">Data submitted successfully</string>
-    <string name="submit_error">Error while submitting data</string>
 
 </resources>

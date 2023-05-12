@@ -40,6 +40,44 @@
             android:layout_marginStart="@dimen/margin_4"
             android:layout_marginEnd="@dimen/margin_4"
             android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/what_icons_mean"
+            android:textColor="@color/color_text_title"
+            android:textSize="@dimen/text_20"
+            style="@style/MediumBoldText"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:drawableStart="@drawable/ic_degoogled"
+            android:drawablePadding="@dimen/margin_8"
+            android:text="@string/de_Googled"
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:drawableStart="@drawable/ic_microg"
+            android:drawablePadding="@dimen/margin_8"
+            android:text="@string/microG"
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/what_status_mean"
             android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_20"
@@ -141,46 +179,6 @@
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/gold_subtitle"
-            android:textColor="@color/color_control_normal"
-            android:textSize="@dimen/text_17" />
-
-        <include layout="@layout/divider_horizontal"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_4"
-            android:layout_marginEnd="@dimen/margin_4"
-            android:layout_marginTop="@dimen/margin_20"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:text="@string/what_icons_mean"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_20"
-            style="@style/MediumBoldText"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8"
-            android:layout_marginEnd="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:drawableStart="@drawable/ic_degoogled"
-            android:drawablePadding="@dimen/margin_8"
-            android:text="@string/de_Googled"
-            android:textColor="@color/color_control_normal"
-            android:textSize="@dimen/text_17" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8"
-            android:layout_marginEnd="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:drawableStart="@drawable/ic_microg"
-            android:drawablePadding="@dimen/margin_8"
-            android:text="@string/microG"
             android:textColor="@color/color_control_normal"
             android:textSize="@dimen/text_17" />
 

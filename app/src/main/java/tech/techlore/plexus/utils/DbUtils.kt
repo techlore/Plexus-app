@@ -24,33 +24,13 @@ class DbUtils {
     companion object {
         
         fun truncatedDgScore(dgScore: Float): Float {
-            val truncatedDgScore = ((dgScore * 10.0f).toInt().toFloat()) / 10.0f
-            val finalScore =
-                if (dgScore != truncatedDgScore) {
-                    truncatedDgScore
-                    // If score is 2 decimal places,
-                    // convert to 1 decimal place without rounding off
-                }
-                else {
-                    dgScore
-                }
-    
-            return finalScore
+            // Convert to 1 decimal place without rounding off
+            return ((dgScore * 10.0f).toInt().toFloat()) / 10.0f
         }
-    
-        fun truncatedMgScore(mgScore: Float): Float {
-            val truncatedMgScore = ((mgScore * 10.0f).toInt().toFloat()) / 10.0f
-            val finalScore =
-                if (mgScore != truncatedMgScore) {
-                    truncatedMgScore
-                    // If score is 2 decimal places,
-                    // convert to 1 decimal place without rounding off
-                }
-                else {
-                    mgScore
-                }
         
-            return finalScore
+        fun truncatedMgScore(mgScore: Float): Float {
+            // Convert to 1 decimal place without rounding off
+            return ((mgScore * 10.0f).toInt().toFloat()) / 10.0f
         }
         
     }

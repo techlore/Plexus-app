@@ -140,13 +140,16 @@
         \n\nAl uw toekomstige inzendingen zullen rekening houden met deze selectie, die later niet kan worden gewijzigd.</string>
     <string name="proceed">Ga verder</string>
 
+    <!--Submit-->
+    <string name="wait_submitting_data">Wacht even, het indienen van gegevens …</string>
+    <string name="submit_success">Succesvol ingediend</string>
+    <string name="submit_error">Fout bij het indienen van gegevens</string>
+    <string name="thanks_for_submitting">Dank u voor het indienen van gegevens en het helpen van de gemeenschap.</string>
+
     <!--#########################################################################################-->
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Installeer de app om een beoordeling in te dienen</string>
     <string name="no_browsers">Geen browsers ge\u00EFnstalleerd op dit apparaat</string>
-    <string name="please_wait">Wacht even, het indienen van gegevens …</string>
-    <string name="submit_success">Gegevens succesvol ingediend</string>
-    <string name="submit_error">Fout bij het indienen van gegevens</string>
 
 </resources>

@@ -74,7 +74,7 @@ class UserRatingsFragment : Fragment() {
             // Only perform sorting if it was not done already
             // This will prevent sorting
             // everytime user switches from total score fragment to this one
-            if (!detailsActivity.ratingsListSorted) {
+            if (!detailsActivity.listIsSorted) {
                 if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
                     detailsActivity.sortedRatingsList =
                         detailsActivity.sortedRatingsList.filter { ratings ->
@@ -107,7 +107,7 @@ class UserRatingsFragment : Fragment() {
                     }
                 }
                 
-                detailsActivity.ratingsListSorted = true
+                detailsActivity.listIsSorted = true
             }
     
             // Update UI with all results

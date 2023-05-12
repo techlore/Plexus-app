@@ -104,7 +104,7 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
                 detailsActivity.mgStatusSort = bottomSheetBinding.userRatingsStatusChipGroup.checkedChipId
             }
             
-            detailsActivity.ratingsListSorted = false // Set this to false so list is sorted on fragment refresh
+            detailsActivity.listIsSorted = false // Set to false so list is sorted on fragment refresh
             
             dismiss()
             refreshFragment(detailsActivity.navController)

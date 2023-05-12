@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -23,8 +23,8 @@
 
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/margin_8"/>
-            <solid android:color="@color/color_surfaceVariant"/>
+            <corners android:radius="@dimen/margin_12"/>
+            <solid android:color="?colorControlHighlight"/>
         </shape>
     </item>
 

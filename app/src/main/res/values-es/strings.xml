@@ -144,13 +144,16 @@
         \n\nTodos sus env\u00EDos futuros tendr\u00E1n en cuenta esta selecci\u00F3n, y no se podr\u00E1 cambiar posteriormente.</string>
     <string name="proceed">Proceda</string>
 
+    <!--Submit-->
+    <string name="wait_submitting_data">Por favor espere, enviando datos …</string>
+    <string name="submit_success">Enviado correctamente</string>
+    <string name="submit_error">Error al enviar los datos</string>
+    <string name="thanks_for_submitting">Gracias por enviar datos y ayudar a la comunidad.</string>
+
     <!--#########################################################################################-->
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Instale la app para enviar la valoraci\u00F3n</string>
     <string name="no_browsers">No hay navegadores instalados en este dispositivo</string>
-    <string name="please_wait">Por favor espere, enviando datos …</string>
-    <string name="submit_success">Datos enviados correctamente</string>
-    <string name="submit_error">Error al enviar los datos</string>
 
 </resources>

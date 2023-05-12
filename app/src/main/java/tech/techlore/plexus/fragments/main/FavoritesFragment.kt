@@ -37,7 +37,6 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.SUBMIT_SUCCESSFUL
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
@@ -47,6 +46,7 @@ class FavoritesFragment:
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
+    private lateinit var appManager: ApplicationManager
     private lateinit var mainActivity: MainActivity
     private lateinit var favItemAdapter: FavoriteItemAdapter
     private lateinit var favList: ArrayList<MainDataMinimal>
@@ -65,8 +65,9 @@ class FavoritesFragment:
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         preferenceManager = PreferenceManager(requireContext())
+        appManager = requireContext().applicationContext as ApplicationManager
         mainActivity = requireActivity() as MainActivity
-        miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        miniRepository = appManager.miniRepository
     
         /*########################################################################################*/
         
@@ -97,7 +98,7 @@ class FavoritesFragment:
     
     override fun onResume() {
         super.onResume()
-        if (preferenceManager.getBoolean(SUBMIT_SUCCESSFUL)) {
+        if (appManager.submitSuccessful) {
             lifecycleScope.launch{
                 favItemAdapter
                     .updateList(miniRepository
@@ -105,7 +106,7 @@ class FavoritesFragment:
                                                        installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                        statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                        orderPref = preferenceManager.getInt(A_Z_SORT)))
-                preferenceManager.setBoolean(SUBMIT_SUCCESSFUL, false)
+                appManager.submitSuccessful = false
             }
         }
     }

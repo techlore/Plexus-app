@@ -142,13 +142,16 @@
         \n\nTutti i futuri invii terranno conto di questa selezione, che non potr\u00E0 essere modificata in seguito.</string>
     <string name="proceed">Procedere</string>
 
+    <!--Submit-->
+    <string name="wait_submitting_data">Si prega di attendere, l\'invio dei dati …</string>
+    <string name="submit_success">Inviato con successo</string>
+    <string name="submit_error">Errore durante l\'invio dei dati</string>
+    <string name="thanks_for_submitting">Grazie per aver inviato i dati e per aver aiutato la comunit\u00E0.</string>
+
     <!--#########################################################################################-->
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Installare l\'app per inviare la valutazione</string>
     <string name="no_browsers">Nessun browser installato sul dispositivo</string>
-    <string name="please_wait">Si prega di attendere, l\'invio dei dati …</string>
-    <string name="submit_success">Dati inviati con successo</string>
-    <string name="submit_error">Errore durante l\'invio dei dati</string>
 
 </resources>

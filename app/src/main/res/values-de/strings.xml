@@ -148,13 +148,16 @@
         \n\nBei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
     <string name="proceed">Weiter</string>
 
+    <!--Submit-->
+    <string name="wait_submitting_data">Bitte warten, daten \u00FCbermitteln …</string>
+    <string name="submit_success">Erfolgreich eingereicht</string>
+    <string name="submit_error">Fehler bei der \u00FCbermittlung von daten</string>
+    <string name="thanks_for_submitting">Wir danken ihnen f\u00FCr die \u00FCbermittlung von daten und die helfen der gemeinschaft.</string>
+
     <!--#########################################################################################-->
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Installieren sie die app um eine bewertung abzugeben</string>
     <string name="no_browsers">Es ist kein Browser auf diesem Ger\u00E4t installiert</string>
-    <string name="please_wait">Bitte warten, daten \u00FCbermitteln …</string>
-    <string name="submit_success">Daten erfolgreich \u00FCbermittelt</string>
-    <string name="submit_error">Fehler bei der \u00FCbermittlung von daten</string>
 
 </resources>

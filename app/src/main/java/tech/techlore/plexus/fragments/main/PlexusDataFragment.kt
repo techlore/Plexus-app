@@ -38,7 +38,6 @@ import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.SUBMIT_SUCCESSFUL
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
@@ -50,6 +49,7 @@ class PlexusDataFragment :
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
+    private lateinit var appManager: ApplicationManager
     private lateinit var mainActivity: MainActivity
     private lateinit var plexusDataItemAdapter: MainDataItemAdapter
     private lateinit var plexusDataList: ArrayList<MainDataMinimal>
@@ -68,8 +68,9 @@ class PlexusDataFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         preferenceManager = PreferenceManager(requireContext())
+        appManager = requireContext().applicationContext as ApplicationManager
         mainActivity = requireActivity() as MainActivity
-        miniRepository = (requireContext().applicationContext as ApplicationManager).miniRepository
+        miniRepository = appManager.miniRepository
     
         /*########################################################################################*/
         
@@ -101,14 +102,14 @@ class PlexusDataFragment :
     
     override fun onResume() {
         super.onResume()
-        if (preferenceManager.getBoolean(SUBMIT_SUCCESSFUL)) {
+        if (appManager.submitSuccessful) {
             lifecycleScope.launch{
                 plexusDataItemAdapter
                     .updateList(miniRepository
                                     .miniPlexusDataListFromDB(context = requireContext(),
                                                               statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                               orderPref = preferenceManager.getInt(A_Z_SORT)))
-                preferenceManager.setBoolean(SUBMIT_SUCCESSFUL, false)
+                appManager.submitSuccessful = false
             }
         }
     }
@@ -123,7 +124,7 @@ class PlexusDataFragment :
         
         lifecycleScope.launch{
             if (hasNetwork(requireContext()) && hasInternet()) {
-                val mainRepository = (requireContext().applicationContext as ApplicationManager).mainRepository
+                val mainRepository = appManager.mainRepository
                 mainRepository.plexusDataIntoDB(requireContext())
                 plexusDataItemAdapter
                     .updateList(miniRepository

@@ -37,7 +37,6 @@ class PreferenceManager(context: Context) {
         const val MY_RATINGS_STATUS_CHIP = "my_ratings_dg_status_chip"
         const val FIRST_SUBMISSION = "first_submission"
         const val DEVICE_IS_MICROG = "device_is_microg"
-        const val SUBMIT_SUCCESSFUL = "submit_successful"
     }
 
     private val sharedPreferences =

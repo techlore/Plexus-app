@@ -86,15 +86,6 @@ interface MainDataDao {
         }
     }
     
-    @Transaction
-    suspend fun updateIsInPlexusData(mainData: MainData) {
-        val existingData = getAppByPackage(mainData.packageName)
-        if (existingData != null) {
-            existingData.isInPlexusData = mainData.isInPlexusData
-            update(existingData)
-        }
-    }
-    
     @Query("SELECT * FROM main_table WHERE packageName = :packageName")
     fun getAppByPackage(packageName: String): MainData?
     

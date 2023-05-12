@@ -77,7 +77,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     var mgBronzeRatingsPercent = 0.0f
     var mgBrokenRatingsPercent = 0.0f
     var sortedRatingsList = ArrayList<Rating>()
-    var ratingsListSorted = false
+    var listIsSorted = false
     var differentVersionsList = listOf<String>()
     var selectedVersionString: String? = null
     var statusRadio = R.id.user_ratings_radio_any_status

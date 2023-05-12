@@ -126,7 +126,7 @@ class TotalScoreFragment : Fragment() {
             "silver" -> "gold"
             "bronze" -> "silver"
             "broken" -> "bronze"
-            else -> error("Invalid rating range")
+            else -> error("Invalid rating range") // Should never reach here
         }
     }
     
@@ -136,9 +136,8 @@ class TotalScoreFragment : Fragment() {
     
     private fun calcPercent(ratingsCount: Int, totalRatings: Int): Float {
         return if (totalRatings == 0) 0.0f else {
-            "%.1f" // Limit result to 1 decimal place without rounding off
-                .format((ratingsCount.toFloat() / totalRatings.toFloat()) * 100)
-                .toFloat()
+            val result = (ratingsCount.toFloat() / totalRatings.toFloat()) * 100.0f
+            ((result * 10.0f).toInt().toFloat()) / 10.0f // Limit result to 1 decimal place without rounding off
         }
     }
     

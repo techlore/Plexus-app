@@ -96,6 +96,16 @@ class LicensesFragment : Fragment() {
             add(License(getString(R.string.microG_icon),
                         getString(R.string.apache_2_0_license),
                         "https://microg.org/"))
+    
+            // lottie-android
+            add(License(getString(R.string.lottie_android),
+                        getString(R.string.apache_2_0_license),
+                        "https://github.com/airbnb/lottie-android/blob/master/LICENSE"))
+    
+            // LottieFiles
+            add(License(getString(R.string.lottie_files),
+                        getString(R.string.lottie_files_license),
+                        "https://lottiefiles.com/page/license"))
         }
         
         licenseAdapter = LicenseItemAdapter(licenseList)
