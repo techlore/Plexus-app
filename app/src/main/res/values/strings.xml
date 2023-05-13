@@ -104,18 +104,19 @@
 
     <!--#########################################################################################-->
 
-    <!--Dialogs-->
-    <string name="no_network_title">No Network/Internet</string>
-    <string name="no_network_subtitle">Connect to Wi-Fi or mobile data and retry.
-        If already connected, make sure it has an internet connection.</string>
-    <string name="exit">Exit</string>
-    <string name="retry">Retry</string>
 
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="exit">Exit</string>
+    <string name="retry">Retry</string>
+
+    <!--No Network/Internet-->
+    <string name="no_network_title">No Network/Internet</string>
+    <string name="no_network_subtitle">Connect to Wi-Fi or mobile data and retry.
+        If already connected, make sure it has an internet connection.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alphabetical</string>

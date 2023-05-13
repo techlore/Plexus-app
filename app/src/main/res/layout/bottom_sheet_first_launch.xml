@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_12"
+    android:paddingBottom="@dimen/margin_8"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="25dp"
+        android:layout_height="4.5dp"
+        android:backgroundTint="@color/color_drag_handle"
+        app:cardElevation="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_16"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/hello_anim_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:layout_marginStart="@dimen/margin_35"
+        app:lottie_rawRes="@raw/lottie_hello"
+        app:lottie_speed="1.05"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/welcome_text_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_25"
+        android:paddingEnd="@dimen/margin_25"
+        android:text="As a first-time user of the app, please take a moment to familiarize yourself with the icons and status indicators."
+        android:textSize="@dimen/text_17"
+        android:textColor="@color/color_control_normal"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_12"
+        android:paddingBottom="@dimen/margin_8"
+        android:gravity="end">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/skip_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            style="@style/BottomSheetButtonStyle"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/proceed_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/proceed"
+            style="@style/BottomSheetButtonStyle"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+    </LinearLayout>
+
+</LinearLayout>

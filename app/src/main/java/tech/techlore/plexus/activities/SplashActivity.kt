@@ -23,12 +23,16 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySplashBinding
-import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
+import tech.techlore.plexus.fragments.bottomsheets.FirstLaunchBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_LAUNCH
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 
@@ -48,7 +52,6 @@ class SplashActivity : AppCompatActivity() {
     }
     
     private fun retrieveData() {
-        
         lifecycleScope.launch{
             val context = this@SplashActivity
             if (hasNetwork(context) && hasInternet()) {
@@ -56,15 +59,26 @@ class SplashActivity : AppCompatActivity() {
                 mainRepository.plexusDataIntoDB(context)
                 activityBinding.progressText.text = getString(R.string.scan_installed)
                 mainRepository.installedAppsIntoDB(context)
-                startActivity(Intent(context, MainActivity::class.java))
-                finish()
+                afterDataRetrieved()
             }
             else {
-                NoNetworkDialog(negativeButtonText = getString(R.string.exit),
-                                positiveButtonClickListener = { retrieveData() },
-                                negativeButtonClickListener = { finishAndRemoveTask() })
-                    .show(supportFragmentManager, "NoNetworkDialog")
+                NoNetworkBottomSheet(negativeButtonText = getString(R.string.exit),
+                                     positiveButtonClickListener = { retrieveData() },
+                                     negativeButtonClickListener = { finishAndRemoveTask() })
+                    .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
+        }
+    }
+    
+    private fun afterDataRetrieved() {
+        if (PreferenceManager(this@SplashActivity).getBoolean(FIRST_LAUNCH)) {
+            FirstLaunchBottomSheet().show(supportFragmentManager, "FirstLaunchBottomSheet")
+            activityBinding.progressIndicator.isVisible = false
+            activityBinding.progressText.isVisible = false
+        }
+        else {
+            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
         }
     }
     

@@ -110,7 +110,6 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         }
     
         // Done
-        footerBinding.positiveButton.text = getString(R.string.done)
         footerBinding.positiveButton.setOnClickListener {
             preferenceManager.setInt(A_Z_SORT,
                                      bottomSheetBinding.alphabeticalChipGroup.checkedChipId)

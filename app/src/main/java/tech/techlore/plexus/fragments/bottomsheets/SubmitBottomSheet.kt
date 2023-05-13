@@ -29,6 +29,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieDrawable
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,22 +64,22 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     private var postedRatingId: String? = null
     private var iconUrl: String? = null
     
-    override fun onStart() {
-        super.onStart()
-        dialog?.setCanceledOnTouchOutside(false)
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+    
+        val bottomSheetDialog = dialog as BottomSheetDialog
+        bottomSheetDialog.setCanceledOnTouchOutside(false)
+        bottomSheetDialog.behavior.isDraggable = false
+    
         // Prevent bottom sheet dismiss on back pressed
-        dialog?.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
+        bottomSheetDialog.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 // Do nothing
                 return@OnKeyListener true
             }
             false
         })
-    }
-    
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
         
         bottomSheetBinding = BottomSheetSubmitBinding.inflate(inflater, container, false)
         submitActivity = requireActivity() as SubmitActivity
@@ -113,7 +114,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             val mainRepository = appManager.mainRepository
         
             val rating = PostRating(version = submitActivity.installedVersion,
-                                    buildNumber = submitActivity.installedVersionBuild,
+                                    buildNumber = submitActivity.installedBuild,
                                     googleLib = if (submitActivity.isMicroG) "micro_g" else "none",
                                     score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
                                     notes = submitActivity.activityBinding.submitNotesText.text.toString())

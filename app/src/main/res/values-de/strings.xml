@@ -117,18 +117,16 @@
 
     <!--#########################################################################################-->
 
-    <!--Dialogs-->
-    <string name="no_network_title">Kein Netzwerk/Internet</string>
-    <string name="no_network_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
-        Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
-    <string name="exit">Ausgang</string>
-    <string name="retry">Wiederholen</string>
-
-    <!--#########################################################################################-->
-
     <!--Bottom sheets-->
     <string name="cancel">Abbrechen</string>
     <string name="done">Anwenden</string>
+    <string name="exit">Ausgang</string>
+    <string name="retry">Wiederholen</string>
+
+    <!--No Network/Internet-->
+    <string name="no_network_title">Kein Netzwerk/Internet</string>
+    <string name="no_network_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
+        Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alphabetisch</string>

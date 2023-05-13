@@ -39,7 +39,8 @@
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginStart="@dimen/margin_25"
         android:textSize="@dimen/text_17"
-        android:text="@string/first_submission_desc"/>
+        android:text="@string/first_submission_desc"
+        android:textColor="@color/color_control_normal"/>
 
     <RadioGroup
         android:id="@+id/dg_mg_radiogroup"

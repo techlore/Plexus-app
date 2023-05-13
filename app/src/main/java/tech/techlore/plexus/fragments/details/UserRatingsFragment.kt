@@ -66,7 +66,7 @@ class UserRatingsFragment : Fragment() {
             if (detailsActivity.differentVersionsList.isEmpty()){
                 val uniqueVersions = HashSet<String>()
                 detailsActivity.sortedRatingsList.forEach { ratings ->
-                    uniqueVersions.add(ratings.version!!)
+                    uniqueVersions.add("${ratings.version!!} (${ratings.buildNumber})")
                 }
                 detailsActivity.differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
             }

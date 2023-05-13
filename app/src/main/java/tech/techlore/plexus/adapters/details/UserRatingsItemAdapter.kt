@@ -49,23 +49,23 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
     
     override fun onBindViewHolder(holder: UserRatingsItemAdapter.ListViewHolder, position: Int) {
         
-        val rating = aListViewItems[position]
+        val userRating = aListViewItems[position]
         val context = holder.itemView.context
         
         @SuppressLint("SetTextI18n")
-        holder.version.text = "${context.getString(R.string.version)}: ${rating.version}"
+        holder.version.text = "${context.getString(R.string.version)}: ${userRating.version} (${userRating.buildNumber})"
         
         // Notes
-        if (!rating.note.isNullOrEmpty()) {
-            holder.note.text = rating.note
+        if (!userRating.note.isNullOrEmpty()) {
+            holder.note.text = userRating.note
         }
         else {
             holder.note.visibility = View.GONE
         }
     
         // Status
-        statusTextViewIcon(context, rating.googleLib!!, holder.status)
-        mapRatingScoreToStatusTextStyle(context, rating.ratingScore!!.ratingScore, holder.status)
+        statusTextViewIcon(context, userRating.googleLib!!, holder.status)
+        mapRatingScoreToStatusTextStyle(context, userRating.ratingScore!!.ratingScore, holder.status)
         
     }
     

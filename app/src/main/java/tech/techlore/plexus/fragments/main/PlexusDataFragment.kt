@@ -32,7 +32,7 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
+import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -134,12 +134,12 @@ class PlexusDataFragment :
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
             }
             else {
-                NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
-                                positiveButtonClickListener = { refreshData() },
-                                negativeButtonClickListener = {
-                                    fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                                })
-                    .show(parentFragmentManager, "NoNetworkDialog")
+                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
+                                     positiveButtonClickListener = { refreshData() },
+                                     negativeButtonClickListener = {
+                                         fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                                     })
+                    .show(parentFragmentManager, "NoNetworkBottomSheet")
             }
         }
     }

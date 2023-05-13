@@ -26,7 +26,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:paddingBottom="@dimen/margin_20">
+    android:paddingTop="@dimen/margin_12"
+    android:paddingBottom="@dimen/margin_16">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/drag_handle"
@@ -104,7 +105,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/margin_6.5"
         android:text="@string/cancel"
-        style="@style/DialogButtonStyle"
+        style="@style/BottomSheetButtonStyle"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -116,7 +117,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/margin_12"
         android:text="@string/done"
-        style="@style/DialogButtonStyle"
+        style="@style/BottomSheetButtonStyle"
         android:visibility="gone"
         tools:visibility="visible"/>
 

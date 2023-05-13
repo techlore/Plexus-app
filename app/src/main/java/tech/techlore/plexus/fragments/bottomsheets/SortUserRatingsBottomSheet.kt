@@ -91,7 +91,6 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         }
         
         // Done
-        footerBinding.positiveButton.text = getString(R.string.done)
         footerBinding.positiveButton.setOnClickListener {
             if (!tmpSelVerString.isNullOrEmpty()) {
                 detailsActivity.selectedVersionString = tmpSelVerString

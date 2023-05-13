@@ -26,6 +26,9 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="backgroundColor">@color/grey_900</item>
         <item name="colorPrimaryDark">@color/grey_900</item>
+
+        <item name="fontFamily">@font/roboto</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
     </style>
 
     <!--#########################################################################################-->
@@ -115,39 +118,6 @@
 
     <!--#########################################################################################-->
 
-    <!--Base dialog style-->
-    <style name="BaseDialogStyle" parent="MaterialAlertDialog.Material3">
-        <item name="shapeAppearance">@style/DialogShapeStyle</item>
-        <item name="shapeAppearanceOverlay">@null</item>
-    </style>
-
-    <!--Dialog title text-->
-    <style name="DialogTitleTextStyle" parent="MaterialAlertDialog.Material3.Title.Text">
-        <item name="fontFamily">@font/roboto_medium</item>
-        <item name="android:textColor">@color/color_text_title</item>
-        <item name="android:textSize">@dimen/text_18</item>
-    </style>
-
-    <!--Dialog body text-->
-    <style name="DialogBodyTextStyle" parent="MaterialAlertDialog.Material3.Body.Text">
-        <item name="android:textColor">@color/color_text_title</item>
-        <item name="android:textSize">@dimen/text_16</item>
-    </style>
-
-    <!--Dialog buttons-->
-    <style name="DialogButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/btm_sheet_btn_text_color</item>
-        <item name="android:textSize">@dimen/text_16</item>
-        <item name="fontFamily">@font/roboto_medium</item>
-    </style>
-
-    <!--Dialog rounded corners-->
-    <style name="DialogShapeStyle" parent="ShapeAppearance.Material3.MediumComponent">
-        <item name="cornerSize">@dimen/margin_12</item>
-    </style>
-
-    <!--#########################################################################################-->
-
     <!--Base bottom sheet style-->
     <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/BottomSheetShapeStyle</item>
@@ -156,6 +126,13 @@
     <!--Bottom sheet rounded corners-->
     <style name="BottomSheetShapeStyle" parent="ShapeAppearance.Material3.LargeComponent">
         <item name="cornerSize">@dimen/margin_12</item>
+    </style>
+
+    <!--Bottom sheet buttons-->
+    <style name="BottomSheetButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/btm_sheet_btn_text_color</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
     <!--#########################################################################################-->

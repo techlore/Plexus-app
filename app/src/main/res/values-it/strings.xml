@@ -111,18 +111,16 @@
 
     <!--#########################################################################################-->
 
-    <!--Dialogs-->
-    <string name="no_network_title">Nessuna Rete/Internet</string>
-    <string name="no_network_subtitle">Connettiti a dati Wi-Fi o mobili e riprova.
-        Se gi\u00E0 connesso, assicurarsi che abbia una connessione internet.</string>
-    <string name="exit">Uscita</string>
-    <string name="retry">Riprovare</string>
-
-    <!--#########################################################################################-->
-
     <!--Bottom sheets-->
     <string name="cancel">Annulla</string>
     <string name="done">Fatto</string>
+    <string name="exit">Uscita</string>
+    <string name="retry">Riprovare</string>
+
+    <!--No Network/Internet-->
+    <string name="no_network_title">Nessuna Rete/Internet</string>
+    <string name="no_network_subtitle">Connettiti a dati Wi-Fi o mobili e riprova.
+        Se gi\u00E0 connesso, assicurarsi che abbia una connessione internet.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alfabetico</string>

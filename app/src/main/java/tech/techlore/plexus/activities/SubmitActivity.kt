@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.activities
 
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -30,8 +29,8 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
+import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SubmitBottomSheet
-import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MICROG
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
@@ -44,7 +43,7 @@ class SubmitActivity : AppCompatActivity() {
     lateinit var nameString: String
     lateinit var packageNameString: String
     lateinit var installedVersion: String
-    var installedVersionBuild = 0
+    var installedBuild = 0
     var isInPlexusData = true
     var isMicroG = false
     
@@ -56,7 +55,7 @@ class SubmitActivity : AppCompatActivity() {
         nameString = intent.getStringExtra("name")!!
         packageNameString = intent.getStringExtra("packageName")!!
         installedVersion = intent.getStringExtra("installedVersion")!!
-        installedVersionBuild = intent.getIntExtra("installedBuild", 0)
+        installedBuild = intent.getIntExtra("installedBuild", 0)
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
         isMicroG = PreferenceManager(this).getBoolean(DEVICE_IS_MICROG)
         val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
@@ -82,8 +81,12 @@ class SubmitActivity : AppCompatActivity() {
         
         activityBinding.submitName.text = nameString
         activityBinding.submitPackageName.text = packageNameString
-        @SuppressLint("SetTextI18n")
-        activityBinding.submitInstalledVersion.text = "${getString(R.string.installed)}: ${installedVersion.ifEmpty { getString(R.string.na) }}"
+        activityBinding.submitInstalledVersion.text =
+            if (installedVersion.isEmpty()) {
+                "${getString(R.string.installed)}: ${getString(R.string.na)}"
+            } else {
+                "${getString(R.string.installed)}: $installedVersion (${installedBuild})"
+            }
         activityBinding.dgMgText.text = if (isMicroG) getString(R.string.microG) else getString(R.string.de_Googled)
         
         // Notes
@@ -140,10 +143,10 @@ class SubmitActivity : AppCompatActivity() {
                 SubmitBottomSheet().show(supportFragmentManager, "SubmitBottomSheet")
             }
             else {
-                NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
-                                positiveButtonClickListener = { submitData() },
-                                negativeButtonClickListener = {})
-                    .show(supportFragmentManager, "NoNetworkDialog")
+                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
+                                     positiveButtonClickListener = { submitData() },
+                                     negativeButtonClickListener = {})
+                    .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
     }

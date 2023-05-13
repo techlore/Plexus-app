@@ -64,7 +64,6 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.themeRadiogroup.setOnCheckedChangeListener { _, checkedId ->
             
             when (checkedId) {
-                
                 R.id.sys_default ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 

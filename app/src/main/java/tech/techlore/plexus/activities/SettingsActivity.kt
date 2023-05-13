@@ -19,6 +19,7 @@
 
 package tech.techlore.plexus.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivitySettingsBinding
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_LAUNCH
 
 class SettingsActivity : AppCompatActivity() {
     
@@ -44,6 +47,7 @@ class SettingsActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         
         /*####################################################################################*/
+        
         setSupportActionBar(activityBinding.toolbarBottom)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         
@@ -56,7 +60,16 @@ class SettingsActivity : AppCompatActivity() {
     
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if (navController.currentDestination?.id == R.id.licensesFragment) {
+            
+            val preferenceManager = PreferenceManager(this@SettingsActivity)
+            
+            if (preferenceManager.getBoolean(FIRST_LAUNCH)) {
+                preferenceManager.setBoolean(FIRST_LAUNCH, false)
+                startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
+                finish()
+                overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+            }
+            else if (navController.currentDestination?.id == R.id.licensesFragment) {
                 navController.navigate(R.id.action_licensesFragment_to_aboutFragment)
             }
             else {

@@ -114,18 +114,16 @@
 
     <!--#########################################################################################-->
 
-    <!--Dialogs-->
-    <string name="no_network_title">Pas de R\u00E9seau/Internet</string>
-    <string name="no_network_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es mobiles et r\u00E9essayez.
-        Si vous \u00EAtes d\u00E9j\u00E0 connect\u00E9, assurez-vous qu\'il a une connexion internet.</string>
-    <string name="exit">Fermer</string>
-    <string name="retry">R\u00E9essayer</string>
-
-    <!--#########################################################################################-->
-
     <!--Bottom sheets-->
     <string name="cancel">Annuler</string>
     <string name="done">OK</string>
+    <string name="exit">Fermer</string>
+    <string name="retry">R\u00E9essayer</string>
+
+    <!--No Network/Internet-->
+    <string name="no_network_title">Pas de R\u00E9seau/Internet</string>
+    <string name="no_network_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es mobiles et r\u00E9essayez.
+        Si vous \u00EAtes d\u00E9j\u00E0 connect\u00E9, assurez-vous qu\'il a une connexion internet.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alphab\u00E9tique</string>

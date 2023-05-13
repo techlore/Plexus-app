@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.activities
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -47,8 +46,8 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.fragments.bottomsheets.FirstSubmissionBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
-import tech.techlore.plexus.fragments.dialogs.NoNetworkDialog
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -139,9 +138,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             requestBuilder.into(activityBinding.detailsAppIcon)
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
-            @SuppressLint("SetTextI18n")
-            activityBinding.detailsInstalledVersion.text = "${getString(R.string.installed)}: " +
-                                                           app.installedVersion.ifEmpty { getString(R.string.na) }
+            activityBinding.detailsInstalledVersion.text =
+                if (app.installedVersion.isEmpty()) {
+                    "${getString(R.string.installed)}: ${getString(R.string.na)}"
+                } else {
+                    "${getString(R.string.installed)}: ${app.installedVersion} (${app.installedBuild})"
+                }
     
             // Radio group/buttons
             activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
@@ -213,10 +215,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 activityBinding.detailsRadiogroup.isVisible = true
             }
             else {
-                NoNetworkDialog(negativeButtonText = getString(R.string.cancel),
-                                positiveButtonClickListener = { retrieveRatings() },
-                                negativeButtonClickListener = { finish() })
-                    .show(supportFragmentManager, "NoNetworkDialog")
+                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
+                                     positiveButtonClickListener = { retrieveRatings() },
+                                     negativeButtonClickListener = { finish() })
+                    .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
     }

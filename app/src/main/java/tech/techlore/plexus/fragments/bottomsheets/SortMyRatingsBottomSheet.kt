@@ -79,7 +79,6 @@ class SortMyRatingsBottomSheet(private val navController: NavController) : Botto
         }
         
         // Done
-        footerBinding.positiveButton.text = getString(R.string.done)
         footerBinding.positiveButton.setOnClickListener {
             preferenceManager.setInt(MY_RATINGS_A_Z_SORT,
                                      bottomSheetBinding.myRatingsAlphabeticalChipGroup.checkedChipId)

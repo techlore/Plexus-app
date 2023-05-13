@@ -113,18 +113,16 @@
 
     <!--#########################################################################################-->
 
-    <!--Dialogs-->
-    <string name="no_network_title">Sin Red/Internet</string>
-    <string name="no_network_subtitle">Conéctese a datos Wi-Fi o m\u00F3viles y vuelva a intentarlo.
-        Si ya est\u00E1 conectado, aseg\u00FArese de que tenga una conexi\u00F3n a internet.</string>
-    <string name="exit">Salida</string>
-    <string name="retry">Rever</string>
-
-    <!--#########################################################################################-->
-
     <!--Bottom sheets-->
     <string name="cancel">Cancelar</string>
     <string name="done">Hecho</string>
+    <string name="exit">Salida</string>
+    <string name="retry">Rever</string>
+
+    <!--No Network/Internet-->
+    <string name="no_network_title">Sin Red/Internet</string>
+    <string name="no_network_subtitle">Conéctese a datos Wi-Fi o m\u00F3viles y vuelva a intentarlo.
+        Si ya est\u00E1 conectado, aseg\u00FArese de que tenga una conexi\u00F3n a internet.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alfab\u00E9tico</string>

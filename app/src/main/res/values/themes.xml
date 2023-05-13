@@ -31,7 +31,6 @@
     <!--App light theme-->
     <style name="AppTheme" parent="BaseAppStyle">
         <item name="android:windowLightStatusBar">true</item>
-        <item name="materialAlertDialogTheme">@style/DialogTheme</item>
     </style>
 
     <!--#########################################################################################-->
@@ -89,26 +88,13 @@
 
     <!--#########################################################################################-->
 
-    <!--Dialog theme-->
-    <style name="DialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="alertDialogStyle">@style/BaseDialogStyle</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/DialogTitleTextStyle</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/DialogBodyTextStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
-        <item name="android:windowEnterAnimation">@anim/fade_scale_in</item>
-        <item name="android:windowExitAnimation">@anim/fade_scale_out</item>
-        <item name="android:backgroundDimAmount">0.50</item>
-    </style>
-
-    <!--#########################################################################################-->
-
     <!--Bottom sheet theme-->
     <style name="BottomSheetTheme" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
         <item name="android:backgroundDimAmount">0.50</item>
         <item name="android:windowEnterAnimation">@anim/fade_in_slide_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/fade_out_slide_to_bottom</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

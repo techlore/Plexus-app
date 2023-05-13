@@ -86,7 +86,7 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         
         holder.name.text = myRating.name
         @SuppressLint("SetTextI18n")
-        holder.version.text = "${context.getString(R.string.version)}: ${myRating.version}"
+        holder.version.text = "${context.getString(R.string.version)}: ${myRating.version} (${myRating.buildNumber})"
         
         // Notes
         if (!myRating.notes.isNullOrEmpty()) {
