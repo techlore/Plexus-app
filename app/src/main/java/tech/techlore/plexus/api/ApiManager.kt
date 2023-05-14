@@ -36,7 +36,7 @@ class ApiManager {
             OkHttpClient.Builder()
                 .dispatcher(
                     Dispatcher().apply {
-                        maxRequests = 10 // Max number of concurrent requests (default is 64)
+                        maxRequests = 8 // Max parallel network requests (default is 64)
                     }
                 )
                 .build()

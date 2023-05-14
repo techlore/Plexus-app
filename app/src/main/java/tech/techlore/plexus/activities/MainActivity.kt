@@ -78,23 +78,10 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         activityBinding.navView.setNavigationItemSelectedListener { navMenuItem: MenuItem ->
             
             when (navMenuItem.itemId) {
-                
-                R.id.nav_plexus_data -> {
-                    preferenceManager.setInt(SEL_ITEM, R.id.nav_plexus_data)
-                }
-                
-                R.id.nav_fav -> {
-                    preferenceManager.setInt(SEL_ITEM, R.id.nav_fav)
-                }
-    
-                R.id.nav_submit_rating -> {
-                    preferenceManager.setInt(SEL_ITEM, R.id.nav_submit_rating)
-                }
-                
-                R.id.nav_my_ratings -> {
-                    preferenceManager.setInt(SEL_ITEM, R.id.nav_my_ratings)
-                }
-                
+                R.id.nav_plexus_data -> preferenceManager.setInt(SEL_ITEM, R.id.nav_plexus_data)
+                R.id.nav_fav -> preferenceManager.setInt(SEL_ITEM, R.id.nav_fav)
+                R.id.nav_submit_rating -> preferenceManager.setInt(SEL_ITEM, R.id.nav_submit_rating)
+                R.id.nav_my_ratings -> preferenceManager.setInt(SEL_ITEM, R.id.nav_my_ratings)
             }
             
             clickedItem = navMenuItem.itemId
@@ -169,22 +156,13 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         
         // Nav view icon
         activityBinding.toolbarBottom.setNavigationOnClickListener {
-            
-            when (bottomSheetBehavior.state) {
-                
-                BottomSheetBehavior.STATE_COLLAPSED ->
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-                
-                BottomSheetBehavior.STATE_HALF_EXPANDED ->
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                
-                BottomSheetBehavior.STATE_EXPANDED ->
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                
-                BottomSheetBehavior.STATE_DRAGGING -> {}
-                BottomSheetBehavior.STATE_HIDDEN -> {}
-                BottomSheetBehavior.STATE_SETTLING -> {}
-            }
+            bottomSheetBehavior.state =
+                when (bottomSheetBehavior.state) {
+                    BottomSheetBehavior.STATE_COLLAPSED -> BottomSheetBehavior.STATE_HALF_EXPANDED
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> BottomSheetBehavior.STATE_EXPANDED
+                    BottomSheetBehavior.STATE_EXPANDED -> BottomSheetBehavior.STATE_COLLAPSED
+                    else -> 0
+                }
         }
     }
     
@@ -192,43 +170,21 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     fun displayFragment(clickedItem: Int) {
         val currentFragment = navController.currentDestination!!
         
-        val action: Int =
-            when (clickedItem) {
-                
-                R.id.nav_plexus_data ->
-                    when (currentFragment.id) {
-                        R.id.submitRatingFragment -> R.id.action_submitRatingFragment_to_plexusDataFragment
-                        R.id.favoritesFragment -> R.id.action_favoritesFragment_to_plexusDataFragment
-                        R.id.myRatingsFragment -> R.id.action_myRatingsFragment_to_plexusDataFragment
-                        else -> 0
-                    }
-                
-                R.id.nav_fav ->
-                    when (currentFragment.id) {
-                        R.id.plexusDataFragment -> R.id.action_plexusDataFragment_to_favoritesFragment
-                        R.id.submitRatingFragment -> R.id.action_submitRatingFragment_to_favoritesFragment
-                        R.id.myRatingsFragment -> R.id.action_myRatingsFragment_to_favoritesFragment
-                        else -> 0
-                    }
+        val actionsMap =
+            mapOf(Pair(R.id.favoritesFragment, R.id.nav_plexus_data) to R.id.action_favoritesFragment_to_plexusDataFragment,
+                  Pair(R.id.submitRatingFragment, R.id.nav_plexus_data) to R.id.action_submitRatingFragment_to_plexusDataFragment,
+                  Pair(R.id.myRatingsFragment, R.id.nav_plexus_data) to R.id.action_myRatingsFragment_to_plexusDataFragment,
+                  Pair(R.id.plexusDataFragment, R.id.nav_fav) to R.id.action_plexusDataFragment_to_favoritesFragment,
+                  Pair(R.id.submitRatingFragment, R.id.nav_fav) to R.id.action_submitRatingFragment_to_favoritesFragment,
+                  Pair(R.id.myRatingsFragment, R.id.nav_fav) to R.id.action_myRatingsFragment_to_favoritesFragment,
+                  Pair(R.id.plexusDataFragment, R.id.nav_submit_rating) to R.id.action_plexusDataFragment_to_submitRatingFragment,
+                  Pair(R.id.favoritesFragment, R.id.nav_submit_rating) to R.id.action_favoritesFragment_to_submitRatingFragment,
+                  Pair(R.id.myRatingsFragment, R.id.nav_submit_rating) to R.id.action_myRatingsFragment_to_submitRatingFragment,
+                  Pair(R.id.plexusDataFragment, R.id.nav_my_ratings) to R.id.action_plexusDataFragment_to_myRatingsFragment,
+                  Pair(R.id.favoritesFragment, R.id.nav_my_ratings) to R.id.action_favoritesFragment_to_myRatingsFragment,
+                  Pair(R.id.submitRatingFragment, R.id.nav_my_ratings) to R.id.action_submitRatingFragment_to_myRatingsFragment)
     
-                R.id.nav_submit_rating ->
-                    when (currentFragment.id) {
-                        R.id.plexusDataFragment -> R.id.action_plexusDataFragment_to_installedAppsFragment
-                        R.id.favoritesFragment -> R.id.action_favoritesFragment_to_installedAppsFragment
-                        R.id.myRatingsFragment -> R.id.action_myRatingsFragment_to_installedAppsFragment
-                        else -> 0
-                    }
-                
-                R.id.nav_my_ratings ->
-                    when(currentFragment.id) {
-                        R.id.plexusDataFragment -> R.id.action_plexusDataFragment_to_myRatingsFragment
-                        R.id.submitRatingFragment -> R.id.action_submitRatingFragment_to_myRatingsFragment
-                        R.id.favoritesFragment -> R.id.action_favoritesFragment_to_myRatingsFragment
-                        else -> 0
-                    }
-                
-                else -> 0
-            }
+        val action = actionsMap[Pair(currentFragment.id, clickedItem)] ?: 0
         
         // java.lang.IllegalArgumentException:
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
@@ -278,7 +234,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         override fun handleOnBackPressed() {
             
             when {
-                
                 bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED ->
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 

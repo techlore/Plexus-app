@@ -30,7 +30,7 @@
         android:name="tech.techlore.plexus.fragments.main.PlexusDataFragment"
         android:label="@string/plexus_data" >
         <action
-            android:id="@+id/action_plexusDataFragment_to_installedAppsFragment"
+            android:id="@+id/action_plexusDataFragment_to_submitRatingFragment"
             app:destination="@id/submitRatingFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
@@ -71,7 +71,7 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"/>
         <action
-            android:id="@+id/action_favoritesFragment_to_installedAppsFragment"
+            android:id="@+id/action_favoritesFragment_to_submitRatingFragment"
             app:destination="@id/submitRatingFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
@@ -132,7 +132,7 @@
         android:name="tech.techlore.plexus.fragments.main.MyRatingsFragment"
         android:label="@string/my_ratings" >
         <action
-            android:id="@+id/action_myRatingsFragment_to_installedAppsFragment"
+            android:id="@+id/action_myRatingsFragment_to_submitRatingFragment"
             app:destination="@id/submitRatingFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"

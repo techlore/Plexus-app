@@ -141,7 +141,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             activityBinding.detailsInstalledVersion.text =
                 if (app.installedVersion.isEmpty()) {
                     "${getString(R.string.installed)}: ${getString(R.string.na)}"
-                } else {
+                }
+                else {
                     "${getString(R.string.installed)}: ${app.installedVersion} (${app.installedBuild})"
                 }
     
@@ -227,7 +228,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private fun displayFragment(checkedItem: Int) {
         val currentFragment = navController.currentDestination!!
         
-        val action: Int =
+        val action =
             when (checkedItem) {
                 
                 10 -> R.id.action_fragmentProgressBar_to_totalScoreFragment
