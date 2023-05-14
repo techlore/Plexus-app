@@ -116,11 +116,15 @@
     <string name="done">Fatto</string>
     <string name="exit">Uscita</string>
     <string name="retry">Riprovare</string>
+    <string name="skip">Salto</string>
 
     <!--No Network/Internet-->
     <string name="no_network_title">Nessuna Rete/Internet</string>
     <string name="no_network_subtitle">Connettiti a dati Wi-Fi o mobili e riprova.
         Se gi\u00E0 connesso, assicurarsi che abbia una connessione internet.</string>
+
+    <!--First launch-->
+    <string name="welcome_text_desc">Se si utilizza l\'app per la prima volta, si consiglia di familiarizzare con le icone e gli indicatori di stato.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alfabetico</string>

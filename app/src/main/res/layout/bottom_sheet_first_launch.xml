@@ -58,7 +58,7 @@
         android:layout_marginBottom="@dimen/margin_16"
         android:paddingStart="@dimen/margin_25"
         android:paddingEnd="@dimen/margin_25"
-        android:text="As a first-time user of the app, please take a moment to familiarize yourself with the icons and status indicators."
+        android:text="@string/welcome_text_desc"
         android:textSize="@dimen/text_17"
         android:textColor="@color/color_control_normal"
         android:visibility="gone"
@@ -78,7 +78,7 @@
             android:id="@+id/skip_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Skip"
+            android:text="@string/skip"
             style="@style/BottomSheetButtonStyle"
             android:visibility="invisible"
             tools:visibility="visible"/>

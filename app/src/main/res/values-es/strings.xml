@@ -118,11 +118,15 @@
     <string name="done">Hecho</string>
     <string name="exit">Salida</string>
     <string name="retry">Rever</string>
+    <string name="skip">Saltar</string>
 
     <!--No Network/Internet-->
     <string name="no_network_title">Sin Red/Internet</string>
     <string name="no_network_subtitle">Conéctese a datos Wi-Fi o m\u00F3viles y vuelva a intentarlo.
         Si ya est\u00E1 conectado, aseg\u00FArese de que tenga una conexi\u00F3n a internet.</string>
+
+    <!--First launch-->
+    <string name="welcome_text_desc">Si es la primera vez que utilizas la app, t\u00F3mate un momento para familiarizarte con los iconos y los indicadores de estado.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alfab\u00E9tico</string>

@@ -114,11 +114,15 @@
     <string name="done">Klaar</string>
     <string name="exit">Uitgang</string>
     <string name="retry">Opnieuw proberen</string>
+    <string name="skip">Skip</string>
 
     <!--No Network/Internet-->
     <string name="no_network_title">Geen Netwerk/Internet</string>
     <string name="no_network_subtitle">Maak verbinding met Wi-Fi of mobiele gegevens en probeer het opnieuw.
         Als u al verbonden bent, zorg er dan voor dat deze een internetverbinding heeft.</string>
+
+    <!--First launch-->
+    <string name="welcome_text_desc">Neem als eerste gebruiker van de app even de tijd om vertrouwd te raken met de pictogrammen en statusindicatoren.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alfabetisch</string>

@@ -119,11 +119,15 @@
     <string name="done">OK</string>
     <string name="exit">Fermer</string>
     <string name="retry">R\u00E9essayer</string>
+    <string name="skip">Sauter</string>
 
     <!--No Network/Internet-->
     <string name="no_network_title">Pas de R\u00E9seau/Internet</string>
     <string name="no_network_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es mobiles et r\u00E9essayez.
         Si vous \u00EAtes d\u00E9j\u00E0 connect\u00E9, assurez-vous qu\'il a une connexion internet.</string>
+
+    <!--First launch-->
+    <string name="welcome_text_desc">Si vous utilisez l\'app pour la premi\u00E8re fois, prenez le temps de vous familiariser avec les ic\u00F4nes et les indicateurs d\'\u00E9tat.</string>
 
     <!--Sort-->
     <string name="alphabetical">Alphab\u00E9tique</string>

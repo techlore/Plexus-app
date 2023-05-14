@@ -32,6 +32,7 @@ import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.FragmentTotalScoreBinding
+import tech.techlore.plexus.models.ratingrange.RatingRange
 
 class TotalScoreFragment : Fragment() {
     
@@ -62,21 +63,19 @@ class TotalScoreFragment : Fragment() {
             // everytime user switches from user ratings fragment to this one
             if (!detailsActivity.totalScoreCalculated) {
     
-                val ratingRanges = mapOf("limit_reached" to 4.1f, // Dummy range, check nextRange()
-                                         "gold" to 4.0f,
-                                         "silver" to 3.0f,
-                                         "bronze" to 2.0f,
-                                         "broken" to 1.0f)
+                val ratingRanges = listOf(RatingRange("gold", 4.0f, 4.0f),
+                                          RatingRange("silver", 3.0f, 3.9f),
+                                          RatingRange("bronze", 2.0f, 2.9f),
+                                          RatingRange("broken", 1.0f, 1.9f))
     
                 val ratingCounts = mutableMapOf<Pair<String?, String>, Int>()
-                for (library in listOf("none", "micro_g")) {
-                    for ((range, value) in ratingRanges) {
-                        val count = detailsActivity.ratingsList.count {
-                            it.googleLib == library
-                            && it.ratingScore!!.ratingScore >= value
-                            && it.ratingScore!!.ratingScore < ratingRanges[nextRange(range)] !!
+                for (rating in detailsActivity.ratingsList) {
+                    for (range in ratingRanges) {
+                        if (rating.ratingScore!!.ratingScore >= range.minValue
+                            && rating.ratingScore!!.ratingScore <= range.maxValue) {
+                            val key = rating.googleLib to range.status
+                            ratingCounts[key] = (ratingCounts[key] ?: 0) + 1
                         }
-                        ratingCounts[library to range] = count
                     }
                 }
     
@@ -117,16 +116,6 @@ class TotalScoreFragment : Fragment() {
                                         detailsActivity.mgBronzeRatingsPercent,
                                         detailsActivity.mgBrokenRatingsPercent)
             }
-        }
-    }
-    
-    private fun nextRange(currentRange: String): String {
-        return when (currentRange) {
-            "gold" -> "limit_reached" // "limit_reached" is used to know that real range has reached "gold"
-            "silver" -> "gold"
-            "bronze" -> "silver"
-            "broken" -> "bronze"
-            else -> error("Invalid rating range") // Should never reach here
         }
     }
     
