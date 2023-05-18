@@ -32,5 +32,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Plexus"
-include ':app'
-include ':FastScroll'
+include("app")
+include("FastScroll")

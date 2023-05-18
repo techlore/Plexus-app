@@ -17,13 +17,27 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id 'com.android.application' version '8.0.1' apply false
-    id 'com.android.library' version '8.0.1' apply false
-    id 'org.jetbrains.kotlin.android' version '1.8.21' apply false
+    id("com.android.library")
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+android {
+    namespace = "tech.techlore.plexus.me.zhanghai.android.fastscroll"
+    compileSdk = 33
+
+    defaultConfig {
+        minSdk = 23
+        targetSdk = 33
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
 }
