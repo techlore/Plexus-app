@@ -87,7 +87,6 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.proceedButton.setOnClickListener {
             startActivity(Intent(requireActivity(), SettingsActivity::class.java)
                               .putExtra("frag", R.id.helpFragment))
-            dismiss()
             requireActivity().finish()
         }
         
@@ -95,7 +94,6 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.skipButton.setOnClickListener {
             PreferenceManager(requireActivity()).setBoolean(FIRST_LAUNCH, false)
             startActivity(Intent(requireActivity(), MainActivity::class.java))
-            dismiss()
             requireActivity().finish()
         }
         

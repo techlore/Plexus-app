@@ -22,8 +22,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText">
 
     <View
         android:id="@+id/dg_card"
@@ -63,18 +65,16 @@
         android:textSize="@dimen/text_17"
         android:textColor="@color/color_control_normal"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/dg_circle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/dg_total_ratings"
         app:layout_constraintStart_toStartOf="@id/dg_card"
         app:layout_constraintEnd_toEndOf="@id/dg_card"
         android:layout_marginTop="@dimen/margin_10"
-        android:padding="@dimen/margin_4"
-        app:strokeWidth="@dimen/margin_4"
-        app:strokeColor="@color/color_primary"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
+        app:trackCornerRadius="@dimen/margin_10"
+        app:indicatorSize="100dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dg_avg_score"
@@ -84,6 +84,7 @@
         app:layout_constraintBottom_toBottomOf="@id/dg_circle"
         app:layout_constraintStart_toStartOf="@id/dg_circle"
         app:layout_constraintEnd_toEndOf="@id/dg_circle"
+        android:text="0/4"
         android:textSize="@dimen/text_20"
         android:textColor="@color/color_text_title"/>
 
@@ -93,7 +94,7 @@
         android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/dg_avg_score"
         app:layout_constraintStart_toStartOf="@id/dg_card"
-        android:layout_marginTop="@dimen/margin_45"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="@dimen/margin_16"
         android:paddingStart="@dimen/margin_8"
         android:paddingEnd="@dimen/margin_16"
@@ -124,7 +125,8 @@
         app:layout_constraintStart_toEndOf="@id/dg_gold_progress"
         app:layout_constraintEnd_toEndOf="@id/dg_card"
         android:layout_marginEnd="@dimen/margin_16"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:text="0%"/>
 
     <!--####################################################-->
 
@@ -165,7 +167,8 @@
         app:layout_constraintStart_toEndOf="@id/dg_silver_progress"
         app:layout_constraintEnd_toEndOf="@id/dg_card"
         android:layout_marginEnd="@dimen/margin_16"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:text="0%"/>
 
     <!--####################################################-->
 
@@ -206,7 +209,8 @@
         app:layout_constraintStart_toEndOf="@id/dg_bronze_progress"
         app:layout_constraintEnd_toEndOf="@id/dg_card"
         android:layout_marginEnd="@dimen/margin_16"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:text="0%"/>
 
     <!--####################################################-->
 
@@ -247,7 +251,8 @@
         app:layout_constraintStart_toEndOf="@id/dg_broken_progress"
         app:layout_constraintEnd_toEndOf="@id/dg_card"
         android:layout_marginEnd="@dimen/margin_16"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:text="0%"/>
 
     <!--####################################################-->
 
@@ -301,18 +306,16 @@
         android:textSize="@dimen/text_17"
         android:textColor="@color/color_control_normal"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/mg_circle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/mg_total_ratings"
         app:layout_constraintStart_toStartOf="@id/mg_card"
         app:layout_constraintEnd_toEndOf="@id/mg_card"
         android:layout_marginTop="@dimen/margin_10"
-        android:padding="@dimen/margin_4"
-        app:strokeWidth="@dimen/margin_4"
-        app:strokeColor="@color/color_primary"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
+        app:trackCornerRadius="@dimen/margin_10"
+        app:indicatorSize="100dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mg_avg_score"
@@ -322,6 +325,7 @@
         app:layout_constraintBottom_toBottomOf="@id/mg_circle"
         app:layout_constraintStart_toStartOf="@id/mg_circle"
         app:layout_constraintEnd_toEndOf="@id/mg_circle"
+        android:text="0/4"
         android:textSize="@dimen/text_20"
         android:textColor="@color/color_text_title"/>
 
@@ -331,7 +335,7 @@
         android:layout_height="@dimen/margin_32"
         app:layout_constraintTop_toBottomOf="@id/mg_avg_score"
         app:layout_constraintStart_toStartOf="@id/mg_card"
-        android:layout_marginTop="@dimen/margin_45"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="@dimen/margin_16"
         android:paddingStart="@dimen/margin_8"
         android:paddingEnd="@dimen/margin_16"
@@ -362,7 +366,8 @@
         app:layout_constraintStart_toEndOf="@id/mg_gold_progress"
         app:layout_constraintEnd_toEndOf="@id/mg_card"
         android:layout_marginEnd="@dimen/margin_16"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:text="0%"/>
 
     <!--####################################################-->
 
@@ -403,7 +408,8 @@
         app:layout_constraintStart_toEndOf="@id/mg_silver_progress"
         app:layout_constraintEnd_toEndOf="@id/mg_card"
         android:layout_marginEnd="@dimen/margin_16"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:text="0%"/>
 
     <!--####################################################-->
 
@@ -444,7 +450,8 @@
         app:layout_constraintStart_toEndOf="@id/mg_bronze_progress"
         app:layout_constraintEnd_toEndOf="@id/mg_card"
         android:layout_marginEnd="@dimen/margin_16"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:text="0%"/>
 
     <!--####################################################-->
 
@@ -485,7 +492,8 @@
         app:layout_constraintStart_toEndOf="@id/mg_broken_progress"
         app:layout_constraintEnd_toEndOf="@id/mg_card"
         android:layout_marginEnd="@dimen/margin_16"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:text="0%"/>
 
     <Space
         android:id="@+id/mg_card_bottom_space"

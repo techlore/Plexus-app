@@ -148,6 +148,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
             // Radio group/buttons
             activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
+                activityBinding.nestedScrollView.apply {
+                    if (scrollX != 0 || scrollY != 0) {
+                        post {
+                            scrollTo(0, 0)
+                        }
+                    }
+                }
                 displayFragment(checkedId)
             }
     

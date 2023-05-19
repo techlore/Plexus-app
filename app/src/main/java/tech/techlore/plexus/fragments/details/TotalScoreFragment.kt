@@ -33,11 +33,13 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.FragmentTotalScoreBinding
 import tech.techlore.plexus.models.ratingrange.RatingRange
+import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToBgColor
 
 class TotalScoreFragment : Fragment() {
     
     private var _binding: FragmentTotalScoreBinding? = null
     private val fragmentBinding get() = _binding!!
+    private lateinit var detailsActivity: AppDetailsActivity
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -54,7 +56,7 @@ class TotalScoreFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             // Perform calculations in default dispatcher
             // which is optimized for CPU intensive tasks
-            val detailsActivity = requireActivity() as AppDetailsActivity
+            detailsActivity = requireActivity() as AppDetailsActivity
             val totalDgRatings = detailsActivity.app.totalDgRatings
             val totalMgRatings = detailsActivity.app.totalMgRatings
             
@@ -135,6 +137,9 @@ class TotalScoreFragment : Fragment() {
                                         dgSilverRatingsPercent: Float,
                                         dgBronzeRatingsPercent: Float,
                                         dgBrokenRatingsPercent: Float) {
+        fragmentBinding.dgCircle.setIndicatorColor(mapScoreRangeToBgColor(requireContext(),
+                                                                          detailsActivity.app.dgScore))
+        fragmentBinding.dgCircle.setProgressCompat(100, true)
         fragmentBinding.dgGoldProgress.setProgressCompat(dgGoldRatingsPercent.toInt(), true)
         fragmentBinding.dgGoldPercent.text = "${removeDotZeroFromFloat(dgGoldRatingsPercent)}%"
         fragmentBinding.dgSilverProgress.setProgressCompat(dgSilverRatingsPercent.toInt(), true)
@@ -150,13 +155,18 @@ class TotalScoreFragment : Fragment() {
                                         mgSilverRatingsPercent: Float,
                                         mgBronzeRatingsPercent: Float,
                                         mgBrokenRatingsPercent: Float) {
-        fragmentBinding.mgGoldProgress.setProgressCompat(mgGoldRatingsPercent.toInt(), true)
+        // No need to animate progress indicators here
+        // as they won't be shown unless scrolled
+        fragmentBinding.mgCircle.setIndicatorColor(mapScoreRangeToBgColor(requireContext(),
+                                                                          detailsActivity.app.mgScore))
+        fragmentBinding.mgCircle.progress = 100
+        fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()
         fragmentBinding.mgGoldPercent.text = "${removeDotZeroFromFloat(mgGoldRatingsPercent)}%"
-        fragmentBinding.mgSilverProgress.setProgressCompat(mgSilverRatingsPercent.toInt(), true)
+        fragmentBinding.mgSilverProgress.progress = mgSilverRatingsPercent.toInt()
         fragmentBinding.mgSilverPercent.text = "${removeDotZeroFromFloat(mgSilverRatingsPercent)}%"
-        fragmentBinding.mgBronzeProgress.setProgressCompat(mgBronzeRatingsPercent.toInt(), true)
+        fragmentBinding.mgBronzeProgress.progress = mgBronzeRatingsPercent.toInt()
         fragmentBinding.mgBronzePercent.text = "${removeDotZeroFromFloat(mgBronzeRatingsPercent)}%"
-        fragmentBinding.mgBrokenProgress.setProgressCompat(mgBrokenRatingsPercent.toInt(), true)
+        fragmentBinding.mgBrokenProgress.progress = mgBrokenRatingsPercent.toInt()
         fragmentBinding.mgBrokenPercent.text = "${removeDotZeroFromFloat(mgBrokenRatingsPercent)}%"
     }
     

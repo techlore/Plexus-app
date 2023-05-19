@@ -77,6 +77,16 @@ class UiUtils {
                 else -> context.getString(R.string.gold_title)
             }
         }
+    
+        fun mapScoreRangeToBgColor(context: Context, score: Float): Int {
+            return when(score) {
+                0.0f -> context.resources.getColor(R.color.color_primary, context.theme)
+                in 1.0f..1.9f -> context.resources.getColor(R.color.color_broken_status, context.theme)
+                in 2.0f..2.9f -> context.resources.getColor(R.color.color_bronze_status, context.theme)
+                in 3.0f..3.9f -> context.resources.getColor(R.color.color_silver_status, context.theme)
+                else -> context.resources.getColor(R.color.color_gold_status, context.theme)
+            }
+        }
         
         fun mapStatusStringToBgColor(context: Context, status: String): Int? {
             return when(status) {
