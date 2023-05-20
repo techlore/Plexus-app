@@ -20,6 +20,7 @@ The terms “we,” “us,” and “our” refer to Techlore, Inc., while “yo
   - App version
   - App build
   - Your rating
+  - Any information you optionally submit in the notes field
 - No other personally identifiable information is transmitted to the server.
 - This app does not contain any trackers, you can check the [εxodus report](https://reports.exodus-privacy.eu.org/en/reports/tech.techlore.plexus/latest/).
 
