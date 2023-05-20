@@ -1,0 +1,11 @@
+- Passaggio da un sistema basato sui punteggi a un sistema basato sullo stato più facile da usare.
+- Riprogettazione completa volta a migliorare l'accessibilità su tutte le dimensioni dello schermo e ad accogliere la modalità a una mano.
+- Implementato l'invio delle candidature direttamente dall'app, semplificando e snellendo il processo.
+- È stato risolto il problema della posizione errata dei popup durante lo scorrimento veloce.
+- Eliminato lo sfarfallio degli elenchi durante le ricerche.
+- Introdotta una funzione di preferiti per contrassegnare e accedere facilmente alle app più amate.
+- Aggiunta la possibilità di filtrare le app installate.
+- Aggiunta un'opzione per verificare se un'app è disponibile sia su Google Play che su F-Droid.
+- Supporto per più versioni di app.
+- Sono state incluse icone a tema per Android 13 e successivi.
+- Miglioramento delle traduzioni in tedesco e francese.

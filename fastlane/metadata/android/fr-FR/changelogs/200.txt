@@ -1,0 +1,11 @@
+- Passage d'un système basé sur les notes à un système plus convivial basé sur le statut.
+- Refonte complète visant à améliorer l'accessibilité sur toutes les tailles d'écran et à permettre l'utilisation d'une seule main.
+- Mise en œuvre des soumissions directement à partir de l'application, ce qui simplifie et rationalise le processus.
+- Résolution du problème de la position incorrecte des fenêtres contextuelles en cas de défilement rapide.
+- Élimination du scintillement des listes lors des recherches.
+- Introduction d'une fonction de favoris pour marquer et accéder facilement à vos applications préférées.
+- Ajout de la possibilité de filtrer les applications installées.
+- Ajout d'une option permettant de vérifier si une application est disponible à la fois sur Google Play et sur F-Droid.
+- Prise en charge de plusieurs versions d'applications.
+- Ajout d'icônes thématiques pour Android 13 et plus.
+- Amélioration des traductions en allemand et en français.

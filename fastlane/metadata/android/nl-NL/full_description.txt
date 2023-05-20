@@ -1,4 +1,4 @@
-Verwijder de angst voor de compatibiliteit van de Android-app op de-Googled-apparaten.
+<b>Verwijder de angst voor de compatibiliteit van de Android-app op de-Googled-apparaten.</b>
 
-Google Play Services zijn een integraal onderdeel van de meeste Android-apparaten waarmee gebruikers hun Google-account op hun telefoon kunnen gebruiken, en Google-specifieke functies mogelijk maken voor applicaties die erop vertrouwen.
-Wanneer gebruikers verhuizen naar een de-Googled ROM zoals Grapheneos, Calyxos of Lineageos, worden ze geconfronteerd met het openen van hun standaardtoepassingen in de hoop dat ze werken. Plexus wil het gokspel verslaan en gebruikers in staat stellen precies te weten wat er zal gebeuren als ze een nieuwe ROM flashen. Plexus ondersteunt ROM's zonder Google Play Services, bijvoorbeeld: Grapheneos, evenals ROM's met Microg, een open source alternatief voor Google Play Services, bijvoorbeeld: Calyxos.
+Wanneer gebruikers overstappen op een gede-googlede ROM zoals <a href="https://grapheneos.org/">GrapheneOS</a>, <a href="https://calyxos.org/">CalyxOS</a>, of <a href="https://lineageos.org/">LineageOS</a>, worden ze geconfronteerd met het openen van hun apps in de hoop dat ze goed werken. Plexus wil het raadspel verslaan, zodat gebruikers precies weten welke apps werken wanneer ze een nieuwe ROM flashen.
+Plexus ondersteunt ROMs zonder Google Play Services zoals <i>GrapheneOS</i>, maar ook ROMs met <a href="https://microg.org/">microG</a> (een open source alternatief voor Google Play Services) zoals <i>CalyxOS</i>.

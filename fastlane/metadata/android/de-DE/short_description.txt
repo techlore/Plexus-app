@@ -1,1 +1,1 @@
-Android app für Plexus
+Kompatibilität mit Android-Anwendungen
