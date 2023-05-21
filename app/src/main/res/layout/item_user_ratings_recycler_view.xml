@@ -51,10 +51,38 @@
         android:textSize="@dimen/text_17"/>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ratings_rom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratings_version"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_4"
+        android:text="@string/rom"
+        android:textAlignment="viewStart"
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_17"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ratings_android_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratings_rom"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_4"
+        android:text="@string/android"
+        android:textAlignment="viewStart"
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_17"/>
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/ratings_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ratings_version"
+        app:layout_constraintTop_toBottomOf="@id/ratings_android_version"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/margin_12"
         android:layout_marginEnd="@dimen/margin_12"

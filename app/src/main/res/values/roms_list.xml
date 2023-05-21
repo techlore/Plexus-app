@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!--Don't include terms like
+    "OS", "Project", "ROM", "-"-->
+    <string-array name="custom_roms">
+        <item>Ancient</item>
+        <item>Arcana</item>
+        <item>Arrow</item>
+        <item>Awaken</item>
+        <item>Blaze</item>
+        <item>Bliss</item>
+        <item>Calyx</item>
+        <item>Cherish</item>
+        <item>Cipher</item>
+        <item>crDroid</item>
+        <item>DerpFest</item>
+        <item>Descendant</item>
+        <item>Elixir</item>
+        <item>Eternity</item>
+        <item>EvolutionX</item>
+        <item>Graphene</item>
+        <item>Havoc</item>
+        <item>iode</item>
+        <item>Komodo</item>
+        <item>Krypton</item>
+        <item>Lineage</item>
+        <item>Maki</item>
+        <item>NamelessAOSP</item>
+        <item>Nusantra</item>
+        <item>Octavi</item>
+        <item>Omni</item>
+        <item>Palladium</item>
+        <item>Palyrim</item>
+        <item>ParanoidAndroid</item>
+        <item>PixelExperience</item>
+        <item>PixelExtended</item>
+        <item>PixelPlus</item>
+        <item>Pixel</item>
+        <item>Pixys</item>
+        <item>POSP</item>
+        <item>ResurrectionRemix</item>
+        <item>RiceDroid</item>
+        <item>Rising</item>
+        <item>Spark</item>
+        <item>Syberia</item>
+        <item>VoidUI</item>
+        <item>Voltage</item>
+        <item>xdroid</item>
+        <item>Xtended</item>
+        <item>Zephyrus</item>
+    </string-array>
+</resources>

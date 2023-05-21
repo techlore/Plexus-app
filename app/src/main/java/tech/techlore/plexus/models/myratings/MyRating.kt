@@ -21,7 +21,6 @@ package tech.techlore.plexus.models.myratings
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.fasterxml.jackson.annotation.JsonProperty
 
 @Entity(tableName = "my_ratings_table")
 data class MyRating(
@@ -38,6 +37,12 @@ data class MyRating(
     var version: String? = null,
     
     var buildNumber: Int = 0,
+    
+    var romName: String? = null,
+    
+    var romBuild: String? = null,
+
+    var androidVersion: String,
     
     var isInstalled: Boolean = true,
     

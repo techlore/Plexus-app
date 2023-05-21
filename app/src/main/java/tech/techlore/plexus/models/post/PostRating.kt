@@ -29,6 +29,15 @@ data class PostRating(
     @JsonProperty("app_build_number")
     var buildNumber: Int,
     
+    @JsonProperty("rom_name")
+    var romName: String? = null,
+
+    @JsonProperty("rom_build")
+    var romBuild: String? = null,
+
+    @JsonProperty("android_version")
+    var androidVersion: String,
+    
     @JsonProperty("google_lib")
     var googleLib: String,
     

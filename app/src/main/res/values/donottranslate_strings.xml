@@ -28,6 +28,9 @@
 
     <string name="na" translatable="false">NA</string>
 
+    <string name="rom" translatable="false">ROM</string>
+    <string name="android" translatable="false">Android</string>
+
     <string name="bottom_sheet_title" translatable="false">Bottom Sheet Title</string>
 
     <string name="a_z" translatable="false">A-Z</string>

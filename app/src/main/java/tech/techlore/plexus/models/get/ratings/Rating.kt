@@ -40,6 +40,15 @@ data class Rating(
     
     @JsonProperty("app_build_number")
     var buildNumber: Int = 0,
+
+    @JsonProperty("rom_name")
+    var romName: String? = null,
+
+    @JsonProperty("rom_build")
+    var romBuild: String? = null,
+
+    @JsonProperty("android_version")
+    var androidVersion: String,
     
     @JsonProperty("google_lib")
     var googleLib: String? = null,
@@ -49,6 +58,6 @@ data class Rating(
     var ratingScore: RatingScore? = null,
     
     @JsonProperty("notes")
-    var note: String? = null
+    var notes: String? = null
 
 )

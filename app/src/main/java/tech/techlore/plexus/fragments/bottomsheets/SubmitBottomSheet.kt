@@ -21,6 +21,7 @@ package tech.techlore.plexus.fragments.bottomsheets
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -112,9 +113,33 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             val appManager = requireContext().applicationContext as ApplicationManager
             val apiRepository = appManager.apiRepository
             val mainRepository = appManager.mainRepository
+    
+            val customRomsList = resources.getStringArray(R.array.custom_roms)
+            val customRomsPattern = customRomsList.joinToString("|") { Regex.escape(it) }
+            val customRomsRegex = "(?i)($customRomsPattern)".toRegex(setOf(RegexOption.IGNORE_CASE))
+            
+            // Check a few properties from build.prop
+            // that might contain ROM name
+            val buildPropValues =
+                listOf("ro.build.flavor",
+                       "ro.product.system.name",
+                       "ro.build.user",
+                       "ro.build.description",
+                       "ro.build.fingerprint")
+                    .mapNotNull { getSystemProperty(it) }
+    
+            // Check if any value from build.prop matches against custom roms list
+            val matchingValue = buildPropValues.firstOrNull { customRomsRegex.containsMatchIn(it) }
+            val romName = customRomsList.firstOrNull { matchingValue?.contains(it, ignoreCase = true) == true }
+    
+            // Get ROM build only if ROM name is available
+            val romBuild = if (!romName.isNullOrEmpty()) getSystemProperty("ro.build.id") else null
         
             val rating = PostRating(version = submitActivity.installedVersion,
                                     buildNumber = submitActivity.installedBuild,
+                                    romName = romName,
+                                    romBuild = romBuild,
+                                    androidVersion = Build.VERSION.RELEASE,
                                     googleLib = if (submitActivity.isMicroG) "micro_g" else "none",
                                     score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
                                     notes = submitActivity.activityBinding.submitNotesText.text.toString())
@@ -258,6 +283,19 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         
     }
     
+    @SuppressLint("PrivateApi")
+    private fun getSystemProperty(propertyName: String): String? {
+        val propertyValue: String? =
+            try {
+                val systemProperties = Class.forName("android.os.SystemProperties")
+                val getProperty = systemProperties.getMethod("get", String::class.java)
+                getProperty.invoke(null, propertyName) as? String
+            } catch (e: Exception) {
+                null
+            }
+        return propertyValue
+    }
+    
     private suspend fun updateMyRatingInDb(rating: PostRating) {
         val myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
         myRatingsRepository
@@ -267,6 +305,9 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                               iconUrl = iconUrl,
                                               version = rating.version,
                                               buildNumber = rating.buildNumber,
+                                              romName = rating.romName,
+                                              romBuild = rating.romBuild,
+                                              androidVersion = rating.androidVersion,
                                               googleLib = rating.googleLib,
                                               ratingScore = rating.score,
                                               notes = rating.notes))

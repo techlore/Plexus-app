@@ -23,6 +23,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
@@ -36,7 +37,9 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
         
         val status: MaterialTextView = itemView.findViewById(R.id.ratings_status)
         val version: MaterialTextView = itemView.findViewById(R.id.ratings_version)
-        val note: MaterialTextView = itemView.findViewById(R.id.ratings_notes)
+        val rom: MaterialTextView = itemView.findViewById(R.id.ratings_rom)
+        val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratings_android_version)
+        val notes: MaterialTextView = itemView.findViewById(R.id.ratings_notes)
         
     }
     
@@ -47,20 +50,30 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
         )
     }
     
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: UserRatingsItemAdapter.ListViewHolder, position: Int) {
         
         val userRating = aListViewItems[position]
         val context = holder.itemView.context
         
-        @SuppressLint("SetTextI18n")
         holder.version.text = "${context.getString(R.string.version)}: ${userRating.version} (${userRating.buildNumber})"
-        
-        // Notes
-        if (!userRating.note.isNullOrEmpty()) {
-            holder.note.text = userRating.note
+    
+        // ROM
+        if (!userRating.romName.isNullOrEmpty()) {
+            holder.rom.text = "${context.getString(R.string.rom)}: ${userRating.romName} (${userRating.romBuild})"
         }
         else {
-            holder.note.visibility = View.GONE
+            holder.rom.isVisible = false
+        }
+    
+        holder.androidVersion.text = "${context.getString(R.string.android)}: ${userRating.androidVersion}"
+    
+        // Notes
+        if (!userRating.notes.isNullOrEmpty()) {
+            holder.notes.text = userRating.notes
+        }
+        else {
+            holder.notes.isVisible = false
         }
     
         // Status

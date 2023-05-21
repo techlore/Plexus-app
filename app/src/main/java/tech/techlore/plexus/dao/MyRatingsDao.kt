@@ -56,6 +56,9 @@ interface MyRatingsDao {
         }
         else{
             existingRating.ratingScore = myRating.ratingScore
+            existingRating.romName = myRating.romName
+            existingRating.romBuild = myRating.romBuild
+            existingRating.androidVersion = myRating.androidVersion
             existingRating.notes = myRating.notes
             update(existingRating)
         }

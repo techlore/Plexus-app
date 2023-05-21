@@ -24,6 +24,7 @@ import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -42,6 +43,8 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         val icon: ShapeableImageView = itemView.findViewById(R.id.my_ratings_icon)
         val name: MaterialTextView = itemView.findViewById(R.id.my_ratings_name)
         val version: MaterialTextView = itemView.findViewById(R.id.my_ratings_version)
+        val rom: MaterialTextView = itemView.findViewById(R.id.my_ratings_rom)
+        val androidVersion: MaterialTextView = itemView.findViewById(R.id.my_ratings_android_version)
         val notes: MaterialTextView = itemView.findViewById(R.id.my_ratings_notes)
         val status: MaterialTextView = itemView.findViewById(R.id.my_ratings_status)
         
@@ -54,6 +57,7 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         )
     }
     
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyRatingItemAdapter.ListViewHolder, position: Int) {
         
         val myRating = aListViewItems[position]
@@ -85,15 +89,24 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         }
         
         holder.name.text = myRating.name
-        @SuppressLint("SetTextI18n")
         holder.version.text = "${context.getString(R.string.version)}: ${myRating.version} (${myRating.buildNumber})"
+        
+        // ROM
+        if (!myRating.romName.isNullOrEmpty()){
+            holder.rom.text = "${context.getString(R.string.rom)}: ${myRating.romName} (${myRating.romBuild})"
+        }
+        else {
+            holder.rom.isVisible = false
+        }
+        
+        holder.androidVersion.text = "${context.getString(R.string.android)}: ${myRating.androidVersion}"
         
         // Notes
         if (!myRating.notes.isNullOrEmpty()) {
             holder.notes.text = myRating.notes
         }
         else {
-            holder.notes.visibility = View.GONE
+            holder.notes.isVisible = false
         }
         
         // Status
