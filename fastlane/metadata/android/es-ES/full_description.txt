@@ -1,4 +1,4 @@
 <b>Elimine el miedo a la compatibilidad de la aplicación de Android en los dispositivos de-Googled.</b>
 
-Cuando los usuarios se pasan a una ROM sin Google como <a href="https://grapheneos.org/">GrapheneOS</a>, <a href="https://calyxos.org/">CalyxOS</a>, o <a href="https://lineageos.org/">LineageOS</a>, tienen que abrir sus aplicaciones con la esperanza de que funcionen correctamente. Plexus tiene como objetivo vencer el juego de adivinanzas, permitiendo a los usuarios saber exactamente qué aplicaciones funcionan cuando flashean una nueva ROM.
-Plexus soporta ROMs sin Google Play Services como <i>GrapheneOS</i>, así como ROMs con <a href="https://microg.org/">microG</a> (una alternativa de código abierto de Google Play Services) como <i>CalyxOS</i>.
+Cuando los usuarios se pasan a una ROM sin Google como <a href="https://calyxos.org/">CalyxOS</a> o <a href="https://lineageos.org/">LineageOS</a>, tienen que abrir sus aplicaciones con la esperanza de que funcionen correctamente. Plexus tiene como objetivo vencer el juego de adivinanzas, permitiendo a los usuarios saber exactamente qué aplicaciones funcionan cuando flashean una nueva ROM.
+Plexus soporta ROMs sin Google Play Services como <i>LineageOS</i>, así como ROMs con <a href="https://microg.org/">microG</a> (una alternativa de código abierto de Google Play Services) como <i>CalyxOS</i>.
