@@ -8,9 +8,10 @@ The terms “we,” “us,” and “our” refer to Techlore, Inc., while “yo
 
 
 ## App permissions
-- ACCESS_NETWORK_STATE: Required to determine whether an internet connection is available before initiating any network request.
-- INTERNET: Required to retrieve the data from the server and submit your ratings.
-- QUERY_ALL_PACKAGES: Required to scan all the installed apps on your device.
+The app requires the following permissions:
+- **ACCESS_NETWORK_STATE**: Required to determine whether an internet connection is available before initiating any network request.
+- **INTERNET**: Required to retrieve the data from the server and submit your ratings.
+- **QUERY_ALL_PACKAGES**: Required to scan all the installed apps on your device.
 
 
 ## Data collection
@@ -19,9 +20,12 @@ The terms “we,” “us,” and “our” refer to Techlore, Inc., while “yo
   - App package
   - App version
   - App build
+  - Custom ROM name
+  - Custom ROM build
+  - Android version
   - Your rating
   - Any information you optionally submit in the notes field
-- No other personally identifiable information is transmitted to the server.
+- No other personally identifiable information is stored on the server.
 - This app does not contain any trackers, you can check the [εxodus report](https://reports.exodus-privacy.eu.org/en/reports/tech.techlore.plexus/latest/).
 
 
