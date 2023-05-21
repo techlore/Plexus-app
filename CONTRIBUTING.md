@@ -1,13 +1,9 @@
 # CONTRIBUTING
 
-**Plexus is only for applications directly or indirectly from the Google Play Store. Please do not submit applications from F-Droid as they are all expected to work.**
-
-
 
 ## Contents
 - [Contributing to the app](#contributing-to-the-app)
 - [Contributing to the data](#contributing-to-the-data)
-
 
 
 ## Contributing to the app
@@ -20,7 +16,6 @@
     - [French](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-fr/strings.xml)
     - [Italian](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-it/strings.xml)
     - [Dutch](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-nl/strings.xml)
-
 
 
 ## Contributing to the data
