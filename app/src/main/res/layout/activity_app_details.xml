@@ -60,6 +60,7 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/app"
+                android:textAlignment="center"
                 android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_20"
                 style="@style/MediumBoldText"/>
@@ -74,6 +75,7 @@
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/package_name"
                 android:textColor="@color/color_text_title"
+                android:textAlignment="center"
                 android:textSize="@dimen/text_18"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -85,6 +87,7 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/installed"
+                android:textAlignment="center"
                 android:textSize="@dimen/text_17"
                 android:textColor="@color/color_control_normal"/>
 

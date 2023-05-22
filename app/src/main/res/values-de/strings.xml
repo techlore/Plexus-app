@@ -144,10 +144,14 @@
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
 
-    <!--App details activity-->
+    <!--More options-->
     <string name="menu_share">Teilen</string>
-    <string name="first_submission_desc">Bitte w\u00E4hlen sie aus, ob es sich um ein de-Googled oder ein microG-Ger\u00E4t handelt.
-        \n\nBei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">Bei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
+    <string name="select_dg_or_mg_device">Bitte w\u00E4hlen sie aus, ob es sich um ein de-Googled oder ein microG-Ger\u00E4t handelt.</string>
+    <string name="select_correct_rom">Bitte w\u00E4hlen sie das richtige custom ROM, das auf diesem ger\u00E4t installiert ist.</string>
+    <string name="select">W\u00E4hlen sie</string>
     <string name="proceed">Weiter</string>
 
     <!--Submit-->

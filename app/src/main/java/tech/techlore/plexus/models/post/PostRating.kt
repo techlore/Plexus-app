@@ -30,10 +30,10 @@ data class PostRating(
     var buildNumber: Int,
     
     @JsonProperty("rom_name")
-    var romName: String? = null,
+    var romName: String,
 
     @JsonProperty("rom_build")
-    var romBuild: String? = null,
+    var romBuild: String,
 
     @JsonProperty("android_version")
     var androidVersion: String,

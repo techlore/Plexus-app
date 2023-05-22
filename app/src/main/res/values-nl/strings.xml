@@ -136,10 +136,14 @@
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
 
-    <!--App details activity-->
+    <!--More options-->
     <string name="menu_share">Delen</string>
-    <string name="first_submission_desc">Selecteer of dit een de-Googled of een microG-toestel is.
-        \n\nAl uw toekomstige inzendingen zullen rekening houden met deze selectie, die later niet kan worden gewijzigd.</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">Al uw toekomstige inzendingen zullen rekening houden met deze selectie, die later niet kan worden gewijzigd.</string>
+    <string name="select_dg_or_mg_device">Selecteer of dit een de-Googled of een microG-toestel is.</string>
+    <string name="select_correct_rom">Selecteer de juiste aangepaste ROM die op dit toestel is ge\u00EFnstalleerd.</string>
+    <string name="select">Selecteer</string>
     <string name="proceed">Ga verder</string>
 
     <!--Submit-->

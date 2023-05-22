@@ -51,11 +51,12 @@ class UserRatingsFragment : Fragment() {
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    
+        val detailsActivity = requireActivity() as AppDetailsActivity
         
         lifecycleScope.launch(Dispatchers.Default) {
             // Perform sorting in default dispatcher
             // which is optimized for CPU intensive tasks
-            val detailsActivity = requireActivity() as AppDetailsActivity
             detailsActivity.sortedRatingsList = detailsActivity.ratingsList
             val googleLib: String
             val dgScore: Int
@@ -66,7 +67,7 @@ class UserRatingsFragment : Fragment() {
             if (detailsActivity.differentVersionsList.isEmpty()){
                 val uniqueVersions = HashSet<String>()
                 detailsActivity.sortedRatingsList.forEach { ratings ->
-                    uniqueVersions.add("${ratings.version!!} (${ratings.buildNumber})")
+                    uniqueVersions.add("${ratings.version} (${ratings.buildNumber})")
                 }
                 detailsActivity.differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
             }
@@ -78,7 +79,7 @@ class UserRatingsFragment : Fragment() {
                 if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
                     detailsActivity.sortedRatingsList =
                         detailsActivity.sortedRatingsList.filter { ratings ->
-                            ratings.version == detailsActivity.selectedVersionString
+                            ratings.version == detailsActivity.selectedVersionString!!.substringBefore(" (")
                         } as ArrayList<Rating>
                 }
     

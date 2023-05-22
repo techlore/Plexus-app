@@ -140,10 +140,14 @@
     <string name="light">Luz</string>
     <string name="dark">Oscuro</string>
 
-    <!--App details activity-->
+    <!--More options-->
     <string name="menu_share">Cuota</string>
-    <string name="first_submission_desc">Por favor, seleccione si se trata de un dispositivo de-Googled o microG.
-        \n\nTodos sus env\u00EDos futuros tendr\u00E1n en cuenta esta selecci\u00F3n, y no se podr\u00E1 cambiar posteriormente.</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">Todos sus env\u00EDos futuros tendr\u00E1n en cuenta esta selecci\u00F3n, y no se podr\u00E1 cambiar posteriormente.</string>
+    <string name="select_dg_or_mg_device">Por favor, seleccione si se trata de un dispositivo de-Googled o microG.</string>
+    <string name="select_correct_rom">Por favor, seleccione la ROM personalizada correcta instalada en este dispositivo.</string>
+    <string name="select">Seleccione</string>
     <string name="proceed">Proceda</string>
 
     <!--Submit-->

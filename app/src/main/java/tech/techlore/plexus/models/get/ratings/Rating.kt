@@ -29,23 +29,23 @@ import tech.techlore.plexus.converters.get.RatingScoreConverter
 data class Rating(
     
     @JsonProperty("id")
-    var id: String? = null,
+    var id: String,
     
     @JsonProperty("app_package")
     @JsonIgnore
-    var packageName: String? = null,
+    var packageName: String,
     
     @JsonProperty("app_version")
-    var version: String? = null,
+    var version: String,
     
     @JsonProperty("app_build_number")
-    var buildNumber: Int = 0,
+    var buildNumber: Int,
 
     @JsonProperty("rom_name")
-    var romName: String? = null,
+    var romName: String,
 
     @JsonProperty("rom_build")
-    var romBuild: String? = null,
+    var romBuild: String,
 
     @JsonProperty("android_version")
     var androidVersion: String,

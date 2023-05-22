@@ -37,11 +37,12 @@ class PreferenceManager(context: Context) {
         const val MY_RATINGS_STATUS_RADIO = "my_ratings_status_radio"
         const val MY_RATINGS_STATUS_CHIP = "my_ratings_dg_status_chip"
         const val FIRST_SUBMISSION = "first_submission"
+        const val DEVICE_ROM = "device_rom"
         const val DEVICE_IS_MICROG = "device_is_microg"
     }
 
     private val sharedPreferences =
-        context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
+        context.getSharedPreferences("tech.techlore.plexus_preferences", Context.MODE_PRIVATE)
 
     fun getInt(key: String): Int {
         return sharedPreferences.getInt(key, 0)
@@ -60,6 +61,16 @@ class PreferenceManager(context: Context) {
     fun setBoolean(key: String, value: Boolean) {
         val editor = sharedPreferences.edit()
         editor.putBoolean(key, value)
+        editor.apply()
+    }
+    
+    fun getString(key: String): String? {
+        return sharedPreferences.getString(key, null)
+    }
+    
+    fun setString(key: String, value: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(key, value)
         editor.apply()
     }
 }

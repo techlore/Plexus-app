@@ -21,53 +21,56 @@
 
 <resources>
 
-    <!--Don't include terms like
-    "OS", "Project", "ROM", "-"-->
+    <!--
+    Don't include "-"
+    spaces are allowed
+    -->
     <string-array name="custom_roms">
-        <item>Ancient</item>
-        <item>Arcana</item>
-        <item>Arrow</item>
-        <item>Awaken</item>
-        <item>Blaze</item>
-        <item>Bliss</item>
-        <item>Calyx</item>
-        <item>Cherish</item>
-        <item>Cipher</item>
+        <item>AncientOS</item>
+        <item>Project Arcana</item>
+        <item>ArrowOS</item>
+        <item>Project Awaken</item>
+        <item>Project Blaze</item>
+        <item>Bliss ROM</item>
+        <item>CalyxOS</item>
+        <item>CarbonROM</item>
+        <item>CherishOS</item>
+        <item>CipherOS</item>
         <item>crDroid</item>
         <item>DerpFest</item>
         <item>Descendant</item>
-        <item>Elixir</item>
-        <item>Eternity</item>
-        <item>EvolutionX</item>
-        <item>Graphene</item>
-        <item>Havoc</item>
-        <item>iode</item>
-        <item>Komodo</item>
+        <item>Project Elixir</item>
+        <item>EternityOS</item>
+        <item>Evolution X</item>
+        <item>GrapheneOS</item>
+        <item>HavocOS</item>
+        <item>iodeOS</item>
+        <item>Komodo OS</item>
         <item>Krypton</item>
-        <item>Lineage</item>
+        <item>LineageOS</item>
         <item>Maki</item>
-        <item>NamelessAOSP</item>
-        <item>Nusantra</item>
-        <item>Octavi</item>
-        <item>Omni</item>
-        <item>Palladium</item>
-        <item>Palyrim</item>
-        <item>ParanoidAndroid</item>
-        <item>PixelExperience</item>
-        <item>PixelExtended</item>
-        <item>PixelPlus</item>
-        <item>Pixel</item>
-        <item>Pixys</item>
+        <item>Nameless AOSP</item>
+        <item>Nusantra Project</item>
+        <item>OctaviOS</item>
+        <item>OmniROM</item>
+        <item>PalladiumOS</item>
+        <item>Palyrim OS</item>
+        <item>Paranoid Android</item>
+        <item>Pixel Experience</item>
+        <item>Pixel Extended</item>
+        <item>Pixel Plus</item>
+        <item>PixelOS</item>
+        <item>PixysOS</item>
         <item>POSP</item>
-        <item>ResurrectionRemix</item>
-        <item>RiceDroid</item>
-        <item>Rising</item>
-        <item>Spark</item>
-        <item>Syberia</item>
+        <item>Resurrection Remix</item>
+        <item>riceDroid</item>
+        <item>RisingOS</item>
+        <item>SparkOS</item>
+        <item>Syberia OS</item>
         <item>VoidUI</item>
-        <item>Voltage</item>
-        <item>xdroid</item>
+        <item>VoltageOS</item>
+        <item>xdroidOSS</item>
         <item>Xtended</item>
-        <item>Zephyrus</item>
+        <item>Project Zephyrus</item>
     </string-array>
 </resources>

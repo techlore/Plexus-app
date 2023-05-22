@@ -90,15 +90,7 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         
         holder.name.text = myRating.name
         holder.version.text = "${context.getString(R.string.version)}: ${myRating.version} (${myRating.buildNumber})"
-        
-        // ROM
-        if (!myRating.romName.isNullOrEmpty()){
-            holder.rom.text = "${context.getString(R.string.rom)}: ${myRating.romName} (${myRating.romBuild})"
-        }
-        else {
-            holder.rom.isVisible = false
-        }
-        
+        holder.rom.text = "${context.getString(R.string.rom)}: ${myRating.romName} (${myRating.romBuild})"
         holder.androidVersion.text = "${context.getString(R.string.android)}: ${myRating.androidVersion}"
         
         // Notes

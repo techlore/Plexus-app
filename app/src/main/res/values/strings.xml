@@ -131,10 +131,14 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
 
-    <!--App details activity-->
+    <!--More options-->
     <string name="menu_share">Share</string>
-    <string name="first_submission_desc">Please select whether this is a de-Googled or a microG device.
-        \n\nAll your future submissions will consider this selection, and it cannot be changed later.</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">All your future submissions will consider these selections, and they cannot be changed later.</string>
+    <string name="select_dg_or_mg_device">Please select whether this is a de-Googled or a microG device.</string>
+    <string name="select_correct_rom">Please select the correct custom ROM installed on this device.</string>
+    <string name="select">Select</string>
     <string name="proceed">Proceed</string>
 
     <!--Submit-->

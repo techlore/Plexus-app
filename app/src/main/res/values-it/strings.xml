@@ -138,10 +138,14 @@
     <string name="light">Chiaro</string>
     <string name="dark">Scuro</string>
 
-    <!--App details activity-->
+    <!--More options-->
     <string name="menu_share">Condividere</string>
-    <string name="first_submission_desc">Selezionare se si tratta di un dispositivo de-Googled o microG.
-        \n\nTutti i futuri invii terranno conto di questa selezione, che non potr\u00E0 essere modificata in seguito.</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">Tutti i futuri invii terranno conto di questa selezione, che non potr\u00E0 essere modificata in seguito.</string>
+    <string name="select_dg_or_mg_device">Selezionare se si tratta di un dispositivo de-Googled o microG.</string>
+    <string name="select_correct_rom">Selezionare la ROM personalizzata corretta installata sul dispositivo.</string>
+    <string name="select">Selezionare</string>
     <string name="proceed">Procedere</string>
 
     <!--Submit-->

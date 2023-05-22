@@ -24,6 +24,7 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFirstSubmissionBinding
@@ -31,7 +32,9 @@ import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MICROG
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
+import tech.techlore.plexus.utils.SystemUtils.Companion.getSystemProperty
 
 class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> Unit) : BottomSheetDialogFragment() {
     
@@ -49,8 +52,57 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
         
         headerBinding.bottomSheetTitle.text = getString(R.string.new_submission)
         
+        val customRomsList = resources.getStringArray(R.array.custom_roms)
+    
+        val truncatedRomDropdownList =
+            listOf(getString(R.string.select)) +
+            customRomsList.map {
+                // Remove "OS", "Project", "ROM" etc.
+                // from words in the custom ROMs list
+                it.removePrefix("OS")
+                    .removePrefix("Project")
+                    .removePrefix("ROM")
+                    .removeSuffix("OS")
+                    .removeSuffix("Project")
+                    .removeSuffix("ROM")
+                    .replace(" ", "")
+            }
+        val customRomsPattern = truncatedRomDropdownList.joinToString("|") { Regex.escape(it) }
+        val customRomsRegex = "(?i)($customRomsPattern)".toRegex(setOf(RegexOption.IGNORE_CASE))
+    
+        // Check a few properties from build.prop
+        // that might contain ROM name
+        val buildPropValues =
+            listOf("ro.build.flavor",
+                   "ro.product.system.name",
+                   "ro.build.user",
+                   "ro.build.description",
+                   "ro.build.fingerprint")
+                .mapNotNull { getSystemProperty(it) }
+    
+        // Check if any value from build.prop matches against custom roms list
+        val matchingValue = buildPropValues.firstOrNull { customRomsRegex.containsMatchIn(it) }
+        val romNameIndex =
+            truncatedRomDropdownList.indexOfFirst {
+                matchingValue?.contains(it, ignoreCase = true) == true
+            } // -1 would mean no matching index
+    
+        // ROM dropdown
+        bottomSheetBinding.romDropdownMenu.setText(
+            if (romNameIndex != -1) customRomsList[romNameIndex-1] else truncatedRomDropdownList[0]
+            // customRomsList[romNameIndex-1]
+            // because truncatedRomDropdownList has an extra item "Select", not present in customRomsList
+        )
+        val adapter = ArrayAdapter(requireContext(),
+                                   R.layout.item_dropdown_menu,
+                                   listOf(getString(R.string.select)) + customRomsList)
+        bottomSheetBinding.romDropdownMenu.setAdapter(adapter)
+        
+        bottomSheetBinding.romDropdownMenu.setOnItemClickListener { _, _, position, _ ->
+            footerBinding.positiveButton.isEnabled = position != 0
+        }
+        
         // Proceed
-        footerBinding.positiveButton.text = getString(R.string.proceed)
         footerBinding.positiveButton.isEnabled = false
         timer = object : CountDownTimer(10000, 1000) {
             
@@ -61,19 +113,23 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
             }
             
             override fun onFinish() {
-                footerBinding.positiveButton.isEnabled = true
                 footerBinding.positiveButton.text = getString(R.string.proceed)
+                footerBinding.positiveButton.isEnabled =
+                    bottomSheetBinding.romDropdownMenu.text.toString() != truncatedRomDropdownList[0]
                 timer = null
-                footerBinding.positiveButton.setOnClickListener{
-                    preferenceManager.setBoolean(FIRST_SUBMISSION, false)
-                    if (bottomSheetBinding.dgMgRadiogroup.checkedRadioButtonId == R.id.dg_submit) {
-                        preferenceManager.setBoolean(DEVICE_IS_MICROG, false)
-                    }
-                    dismiss()
-                    positiveButtonClickListener.invoke()
-                }
             }
         }.start()
+    
+        // Proceed
+        footerBinding.positiveButton.setOnClickListener{
+            preferenceManager.setBoolean(FIRST_SUBMISSION, false)
+            if (bottomSheetBinding.firstSubmitRadiogroup.checkedRadioButtonId == R.id.first_submit_dg_radio) {
+                preferenceManager.setBoolean(DEVICE_IS_MICROG, false)
+            }
+            preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
+            dismiss()
+            positiveButtonClickListener.invoke()
+        }
         
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }

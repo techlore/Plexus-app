@@ -23,7 +23,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
@@ -43,14 +42,13 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val detailsActivity = requireActivity() as AppDetailsActivity
-        var tmpSelVerString: String? = null
         
         headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
         
         // Version dropdown
         bottomSheetBinding.versionDropdownMenu.setText(detailsActivity.selectedVersionString)
         val adapter = ArrayAdapter(requireContext(),
-                                   R.layout.item_version_dropdown_menu,
+                                   R.layout.item_dropdown_menu,
                                    detailsActivity.differentVersionsList)
         bottomSheetBinding.versionDropdownMenu.setAdapter(adapter)
         
@@ -74,12 +72,6 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
             else -> bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.GONE
         }
         
-        // On selecting item in version dropdown
-        bottomSheetBinding.versionDropdownMenu.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, _, position, _ ->
-                tmpSelVerString = parent.getItemAtPosition(position) as String
-            }
-        
         // On selecting status radio btn
         bottomSheetBinding.userRatingsStatusRadiogroup.setOnCheckedChangeListener { _, checkedId: Int ->
             if (checkedId != R.id.user_ratings_radio_any_status) {
@@ -92,9 +84,7 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         
         // Done
         footerBinding.positiveButton.setOnClickListener {
-            if (!tmpSelVerString.isNullOrEmpty()) {
-                detailsActivity.selectedVersionString = tmpSelVerString
-            }
+            detailsActivity.selectedVersionString = bottomSheetBinding.versionDropdownMenu.text.toString()
             detailsActivity.statusRadio = bottomSheetBinding.userRatingsStatusRadiogroup.checkedRadioButtonId
             if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status) {
                 detailsActivity.dgStatusSort = bottomSheetBinding.userRatingsStatusChipGroup.checkedChipId
