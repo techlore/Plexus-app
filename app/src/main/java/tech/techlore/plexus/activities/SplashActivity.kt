@@ -35,6 +35,7 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_LAUNCH
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.SystemUtils.Companion.isDeviceDeGoogledOrMicroG
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -59,6 +60,7 @@ class SplashActivity : AppCompatActivity() {
                 mainRepository.plexusDataIntoDB(context)
                 activityBinding.progressText.text = getString(R.string.scan_installed)
                 mainRepository.installedAppsIntoDB(context)
+                isDeviceDeGoogledOrMicroG(context)
                 afterDataRetrieved()
             }
             else {

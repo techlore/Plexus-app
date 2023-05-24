@@ -19,6 +19,7 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -31,7 +32,6 @@ import tech.techlore.plexus.databinding.BottomSheetFirstSubmissionBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MICROG
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
 import tech.techlore.plexus.utils.SystemUtils.Companion.getSystemProperty
@@ -53,23 +53,24 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
         headerBinding.bottomSheetTitle.text = getString(R.string.new_submission)
         
         val customRomsList = resources.getStringArray(R.array.custom_roms)
-    
-        val truncatedRomDropdownList =
-            listOf(getString(R.string.select)) +
+        val truncatedCustomRomsList =
             customRomsList.map {
                 // Remove "OS", "Project", "ROM" etc.
                 // from words in the custom ROMs list
-                it.removePrefix("OS")
-                    .removePrefix("Project")
-                    .removePrefix("ROM")
+                it.removePrefix("Project")
                     .removeSuffix("OS")
                     .removeSuffix("Project")
                     .removeSuffix("ROM")
                     .replace(" ", "")
             }
-        val customRomsPattern = truncatedRomDropdownList.joinToString("|") { Regex.escape(it) }
+        
+        val allRomsDropdownList = listOf(getString(R.string.select)) +
+                                  "Stock (${Build.MANUFACTURER} ${Build.MODEL})" +
+                                  customRomsList
+        
+        val customRomsPattern = truncatedCustomRomsList.joinToString("|") { Regex.escape(it) }
         val customRomsRegex = "(?i)($customRomsPattern)".toRegex(setOf(RegexOption.IGNORE_CASE))
-    
+        
         // Check a few properties from build.prop
         // that might contain ROM name
         val buildPropValues =
@@ -79,23 +80,24 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                    "ro.build.description",
                    "ro.build.fingerprint")
                 .mapNotNull { getSystemProperty(it) }
-    
+        
         // Check if any value from build.prop matches against custom roms list
         val matchingValue = buildPropValues.firstOrNull { customRomsRegex.containsMatchIn(it) }
         val romNameIndex =
-            truncatedRomDropdownList.indexOfFirst {
+            truncatedCustomRomsList.indexOfFirst {
                 matchingValue?.contains(it, ignoreCase = true) == true
             } // -1 would mean no matching index
-    
+        
         // ROM dropdown
         bottomSheetBinding.romDropdownMenu.setText(
-            if (romNameIndex != -1) customRomsList[romNameIndex-1] else truncatedRomDropdownList[0]
-            // customRomsList[romNameIndex-1]
-            // because truncatedRomDropdownList has an extra item "Select", not present in customRomsList
+            if (romNameIndex != -1) allRomsDropdownList[romNameIndex + 2] else allRomsDropdownList[0]
+            // allRomsDropdownList[romNameIndex + 2]
+            // because allRomsDropdownList has two extra items "Select" & "Stock-device",
+            // not present in truncatedCustomRomsList
         )
         val adapter = ArrayAdapter(requireContext(),
                                    R.layout.item_dropdown_menu,
-                                   listOf(getString(R.string.select)) + customRomsList)
+                                   allRomsDropdownList)
         bottomSheetBinding.romDropdownMenu.setAdapter(adapter)
         
         bottomSheetBinding.romDropdownMenu.setOnItemClickListener { _, _, position, _ ->
@@ -115,17 +117,14 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
             override fun onFinish() {
                 footerBinding.positiveButton.text = getString(R.string.proceed)
                 footerBinding.positiveButton.isEnabled =
-                    bottomSheetBinding.romDropdownMenu.text.toString() != truncatedRomDropdownList[0]
+                    bottomSheetBinding.romDropdownMenu.text.toString() != allRomsDropdownList[0]
                 timer = null
             }
         }.start()
-    
+        
         // Proceed
         footerBinding.positiveButton.setOnClickListener{
             preferenceManager.setBoolean(FIRST_SUBMISSION, false)
-            if (bottomSheetBinding.firstSubmitRadiogroup.checkedRadioButtonId == R.id.first_submit_dg_radio) {
-                preferenceManager.setBoolean(DEVICE_IS_MICROG, false)
-            }
             preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
             dismiss()
             positiveButtonClickListener.invoke()

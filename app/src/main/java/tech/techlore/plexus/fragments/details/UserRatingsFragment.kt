@@ -34,6 +34,7 @@ import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.adapters.details.UserRatingsItemAdapter
 import tech.techlore.plexus.databinding.FragmentUserRatingsBinding
 import tech.techlore.plexus.models.get.ratings.Rating
+import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
 class UserRatingsFragment : Fragment() {
@@ -62,7 +63,7 @@ class UserRatingsFragment : Fragment() {
             val dgScore: Int
             val mgScore: Int
     
-            // Get different versions from ratings list
+            // Get different versions, ROMs & androids from ratings list
             // and store them in a separate list
             if (detailsActivity.differentVersionsList.isEmpty()){
                 val uniqueVersions = HashSet<String>()
@@ -72,17 +73,60 @@ class UserRatingsFragment : Fragment() {
                 detailsActivity.differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
             }
     
+            if (detailsActivity.differentRomsList.isEmpty()){
+                val uniqueRoms = HashSet<String>()
+                detailsActivity.sortedRatingsList.forEach { ratings ->
+                    uniqueRoms.add(ratings.romName)
+                }
+                detailsActivity.differentRomsList = listOf(getString(R.string.any)) + uniqueRoms.toList()
+            }
+    
+            if (detailsActivity.differentAndroidsList.isEmpty()){
+                val uniqueAndroids = HashSet<String>()
+                detailsActivity.sortedRatingsList.forEach { ratings ->
+                    uniqueAndroids.add(ratings.androidVersion)
+                }
+                detailsActivity.differentAndroidsList = listOf(getString(R.string.any)) + uniqueAndroids.toList()
+            }
+    
             // Only perform sorting if it was not done already
             // This will prevent sorting
             // everytime user switches from total score fragment to this one
             if (!detailsActivity.listIsSorted) {
+                
+                // Version sort
                 if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
                     detailsActivity.sortedRatingsList =
                         detailsActivity.sortedRatingsList.filter { ratings ->
-                            ratings.version == detailsActivity.selectedVersionString!!.substringBefore(" (")
+                            ratings.version == detailsActivity.selectedVersionString.substringBefore(" (")
                         } as ArrayList<Rating>
                 }
     
+                // ROM sort
+                if (!detailsActivity.selectedRomString.equals(getString(R.string.any))) {
+                    detailsActivity.sortedRatingsList =
+                        detailsActivity.sortedRatingsList.filter { ratings ->
+                            ratings.romName == detailsActivity.selectedRomString
+                        } as ArrayList<Rating>
+                }
+    
+                // Android sort
+                if (!detailsActivity.selectedAndroidString.equals(getString(R.string.any))) {
+                    detailsActivity.sortedRatingsList =
+                        detailsActivity.sortedRatingsList.filter { ratings ->
+                            ratings.androidVersion == detailsActivity.selectedAndroidString
+                        } as ArrayList<Rating>
+                }
+                
+                // Installed from sort
+                if (detailsActivity.installedFromChip != R.id.user_ratings_chip_installed_any) {
+                    detailsActivity.sortedRatingsList =
+                        detailsActivity.sortedRatingsList.filter { ratings ->
+                            ratings.installedFrom == mapInstalledFromChipIdToString(detailsActivity.installedFromChip)
+                        } as ArrayList<Rating>
+                }
+    
+                // Status sort
                 if (detailsActivity.statusRadio != R.id.user_ratings_radio_any_status) {
                     googleLib = if (detailsActivity.statusRadio == R.id.user_ratings_radio_dg_status) "none" else "micro_g"
                     detailsActivity.sortedRatingsList =

@@ -141,8 +141,7 @@
 
     <!--First submission-->
     <string name="first_submission_desc">Al uw toekomstige inzendingen zullen rekening houden met deze selectie, die later niet kan worden gewijzigd.</string>
-    <string name="select_dg_or_mg_device">Selecteer of dit een de-Googled of een microG-toestel is.</string>
-    <string name="select_correct_rom">Selecteer de juiste aangepaste ROM die op dit toestel is ge\u00EFnstalleerd.</string>
+    <string name="select_correct_rom">Selecteer de juiste ROM die op dit toestel is ge\u00EFnstalleerd.</string>
     <string name="select">Selecteer</string>
     <string name="proceed">Ga verder</string>
 
@@ -156,6 +155,7 @@
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Installeer de app om een beoordeling in te dienen</string>
+    <string name="device_should_be_degoogled_or_microg">Apparaat moet de-Googled zijn of microG hebben om beoordeling in te dienen.</string>
     <string name="no_browsers">Geen browsers ge\u00EFnstalleerd op dit apparaat</string>
 
 </resources>

@@ -80,7 +80,8 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             val installedFrom =
                 when(installedFromPref) {
-                    R.id.sort_installed_google_play -> "googlePlay"
+                    R.id.sort_installed_google_play -> "google_play"
+                    R.id.sort_installed_fdroid -> "fdroid"
                     R.id.sort_installed_other -> "other"
                     else -> ""
                 }
@@ -110,7 +111,8 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             val installedFrom =
                 when(installedFromPref) {
-                    R.id.sort_installed_google_play -> "googlePlay"
+                    R.id.sort_installed_google_play -> "google_play"
+                    R.id.sort_installed_fdroid -> "fdroid"
                     R.id.sort_installed_other -> "other"
                     else -> ""
                 }

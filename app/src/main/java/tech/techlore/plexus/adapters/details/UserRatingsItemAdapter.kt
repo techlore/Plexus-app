@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.get.ratings.Rating
+import tech.techlore.plexus.utils.UiUtils.Companion.installedFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapRatingScoreToStatusTextStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.statusTextViewIcon
 
@@ -35,11 +36,12 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
-        val status: MaterialTextView = itemView.findViewById(R.id.ratings_status)
         val version: MaterialTextView = itemView.findViewById(R.id.ratings_version)
         val rom: MaterialTextView = itemView.findViewById(R.id.ratings_rom)
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratings_android_version)
         val notes: MaterialTextView = itemView.findViewById(R.id.ratings_notes)
+        val status: MaterialTextView = itemView.findViewById(R.id.ratings_status)
+        val installedFrom: MaterialTextView = itemView.findViewById(R.id.ratings_installed_from)
         
     }
     
@@ -71,6 +73,9 @@ class UserRatingsItemAdapter (private val aListViewItems: ArrayList<Rating>) : R
         // Status
         statusTextViewIcon(context, userRating.googleLib!!, holder.status)
         mapRatingScoreToStatusTextStyle(context, userRating.ratingScore!!.ratingScore, holder.status)
+        
+        // Installed from
+        installedFromTextViewStyle(context, userRating.installedFrom, holder.installedFrom)
         
     }
     

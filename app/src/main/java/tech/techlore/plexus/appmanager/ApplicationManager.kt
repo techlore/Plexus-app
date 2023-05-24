@@ -47,6 +47,8 @@ class ApplicationManager : Application() {
     val miniRepository by lazy { MainDataMinimalRepository(applicationContext, database.mainDataDao()) }
     val myRatingsRepository by lazy { MyRatingsRepository(database.myRatingsDao()) }
     
+    var deviceIsMicroG = false
+    var deviceIsDeGoogled = false
     var submitSuccessful = false
     
     override fun onCreate() {

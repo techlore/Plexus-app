@@ -20,7 +20,6 @@
 package tech.techlore.plexus.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -37,14 +36,8 @@ interface MyRatingsDao {
     @Update
     suspend fun update(myRating: MyRating)
     
-    @Delete
-    suspend fun delete(myRating: MyRating)
-    
     @Query("SELECT * FROM my_ratings_table WHERE id = :id")
     suspend fun getRatingById(id: String): MyRating?
-    
-    @Query("SELECT * FROM my_ratings_table WHERE packageName = :packageName")
-    suspend fun getRatingByPackage(packageName: String): MyRating?
     
     @Transaction
     suspend fun insertOrUpdateMyRatings(myRating: MyRating) {
@@ -56,23 +49,36 @@ interface MyRatingsDao {
         }
         else{
             existingRating.ratingScore = myRating.ratingScore
+            existingRating.version = myRating.version
             existingRating.romName = myRating.romName
             existingRating.romBuild = myRating.romBuild
             existingRating.androidVersion = myRating.androidVersion
+            existingRating.installedFrom = myRating.installedFrom
             existingRating.notes = myRating.notes
             update(existingRating)
         }
     }
     
+    @Query("SELECT * FROM my_ratings_table")
+    suspend fun getMyRatingsList(): List<MyRating>
+    
     @Query("""
         SELECT * FROM my_ratings_table
-        WHERE (googleLib = :googleLib OR :googleLib = '')
+        WHERE (version = :version OR :version = '')
+        AND (romName = :romName OR :romName = '')
+        AND (androidVersion = :androidVersion OR :androidVersion = '')
+        AND (installedFrom = :installedFrom OR :installedFrom = '')
+        AND (googleLib = :googleLib OR :googleLib = '')
         AND (ratingScore == :ratingScore OR :ratingScore = -1)
         ORDER BY
         CASE WHEN :isAsc = 1 THEN name END ASC,
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
-    suspend fun getSortedMyRatings(googleLib: String,
+    suspend fun getSortedMyRatings(version: String,
+                                   romName: String,
+                                   androidVersion: String,
+                                   installedFrom: String,
+                                   googleLib: String,
                                    ratingScore: Int,
                                    isAsc: Boolean): List<MyRating>
     // -1 is for ignoring the score when required,

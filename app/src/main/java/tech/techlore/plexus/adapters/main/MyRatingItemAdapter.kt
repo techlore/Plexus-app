@@ -33,6 +33,7 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.utils.UiUtils.Companion.installedFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapRatingScoreToStatusTextStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.statusTextViewIcon
 
@@ -47,6 +48,7 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.my_ratings_android_version)
         val notes: MaterialTextView = itemView.findViewById(R.id.my_ratings_notes)
         val status: MaterialTextView = itemView.findViewById(R.id.my_ratings_status)
+        val installedFrom: MaterialTextView = itemView.findViewById(R.id.my_ratings_installed_from)
         
     }
     
@@ -102,8 +104,11 @@ class MyRatingItemAdapter (private val aListViewItems: ArrayList<MyRating>) : Re
         }
         
         // Status
-        statusTextViewIcon(context, myRating.googleLib!!, holder.status)
+        statusTextViewIcon(context, myRating.googleLib, holder.status)
         mapRatingScoreToStatusTextStyle(context, myRating.ratingScore, holder.status)
+    
+        // Installed from
+        installedFromTextViewStyle(context, myRating.installedFrom, holder.installedFrom)
         
     }
     

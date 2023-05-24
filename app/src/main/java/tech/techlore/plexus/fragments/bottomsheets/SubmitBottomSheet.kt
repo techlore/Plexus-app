@@ -122,7 +122,8 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                     romName = PreferenceManager(requireContext()).getString(DEVICE_ROM)!!,
                                     romBuild = Build.DISPLAY,
                                     androidVersion = mapAndroidVersionIntToString(Build.VERSION.SDK_INT),
-                                    googleLib = if (submitActivity.isMicroG) "micro_g" else "none",
+                                    installedFrom = submitActivity.installedFromString,
+                                    googleLib = if (appManager.deviceIsMicroG) "micro_g" else "none",
                                     score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
                                     notes = submitActivity.activityBinding.submitNotesText.text.toString())
         
@@ -277,6 +278,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                               romName = rating.romName,
                                               romBuild = rating.romBuild,
                                               androidVersion = rating.androidVersion,
+                                              installedFrom = submitActivity.installedFromString,
                                               googleLib = rating.googleLib,
                                               ratingScore = rating.score,
                                               notes = rating.notes))

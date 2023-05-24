@@ -149,8 +149,7 @@
 
     <!--First submission-->
     <string name="first_submission_desc">Bei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
-    <string name="select_dg_or_mg_device">Bitte w\u00E4hlen sie aus, ob es sich um ein de-Googled oder ein microG-Ger\u00E4t handelt.</string>
-    <string name="select_correct_rom">Bitte w\u00E4hlen sie das richtige custom ROM, das auf diesem ger\u00E4t installiert ist.</string>
+    <string name="select_correct_rom">Bitte w\u00E4hlen sie das richtige ROM, das auf diesem ger\u00E4t installiert ist.</string>
     <string name="select">W\u00E4hlen sie</string>
     <string name="proceed">Weiter</string>
 
@@ -164,6 +163,7 @@
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Installieren sie die app um eine bewertung abzugeben</string>
+    <string name="device_should_be_degoogled_or_microg">Das ger\u00E4t sollte entweder de-Googled sein oder microG haben, um eine bewertung abzugeben.</string>
     <string name="no_browsers">Es ist kein Browser auf diesem Ger\u00E4t installiert</string>
 
 </resources>

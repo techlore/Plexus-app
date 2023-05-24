@@ -40,9 +40,13 @@ import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_ANDROID_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_A_Z_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_INSTALLED_FROM_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_ROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_STATUS_CHIP
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_STATUS_RADIO
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_VERSION_SORT
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
@@ -76,7 +80,12 @@ class MyRatingsFragment :
         /*########################################################################################*/
         
         lifecycleScope.launch{
-            myRatingsList = myRatingsRepository.getSortedMyRatings(statusRadioPref = preferenceManager.getInt(MY_RATINGS_STATUS_RADIO),
+            myRatingsList = myRatingsRepository.getSortedMyRatings(context = requireContext(),
+                                                                   versionPref = preferenceManager.getString(MY_RATINGS_VERSION_SORT) ?: "",
+                                                                   romPref = preferenceManager.getString(MY_RATINGS_ROM_SORT) ?: "",
+                                                                   androidPref = preferenceManager.getString(MY_RATINGS_ANDROID_SORT) ?: "",
+                                                                   installedFromPref = preferenceManager.getInt(MY_RATINGS_INSTALLED_FROM_SORT),
+                                                                   statusRadioPref = preferenceManager.getInt(MY_RATINGS_STATUS_RADIO),
                                                                    statusChipPref = preferenceManager.getInt(MY_RATINGS_STATUS_CHIP),
                                                                    orderPref = preferenceManager.getInt(MY_RATINGS_A_Z_SORT))
             

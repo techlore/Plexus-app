@@ -34,11 +34,14 @@ class PreferenceManager(context: Context) {
         const val MG_STATUS_SORT = "mg_status_sort"
         const val INSTALLED_FROM_SORT = "installed_from_sort"
         const val MY_RATINGS_A_Z_SORT = "my_ratings_a_z_sort"
+        const val MY_RATINGS_VERSION_SORT = "my_ratings_version_sort"
+        const val MY_RATINGS_ROM_SORT = "my_ratings_rom_sort"
+        const val MY_RATINGS_ANDROID_SORT = "my_ratings_android_sort"
+        const val MY_RATINGS_INSTALLED_FROM_SORT = "my_ratings_installed_from_sort"
         const val MY_RATINGS_STATUS_RADIO = "my_ratings_status_radio"
         const val MY_RATINGS_STATUS_CHIP = "my_ratings_dg_status_chip"
         const val FIRST_SUBMISSION = "first_submission"
         const val DEVICE_ROM = "device_rom"
-        const val DEVICE_IS_MICROG = "device_is_microg"
     }
 
     private val sharedPreferences =

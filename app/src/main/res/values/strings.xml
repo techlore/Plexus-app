@@ -135,9 +135,8 @@
     <string name="menu_share">Share</string>
 
     <!--First submission-->
-    <string name="first_submission_desc">All your future submissions will consider these selections, and they cannot be changed later.</string>
-    <string name="select_dg_or_mg_device">Please select whether this is a de-Googled or a microG device.</string>
-    <string name="select_correct_rom">Please select the correct custom ROM installed on this device.</string>
+    <string name="first_submission_desc">All your future submissions will consider this selection, and it cannot be changed later.</string>
+    <string name="select_correct_rom">Please select the correct ROM installed on this device.</string>
     <string name="select">Select</string>
     <string name="proceed">Proceed</string>
 
@@ -151,6 +150,7 @@
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Install the app to submit rating</string>
+    <string name="device_should_be_degoogled_or_microg">Device should either be de-Googled or have microG to submit rating.</string>
     <string name="no_browsers">No browsers installed on this device</string>
 
 </resources>

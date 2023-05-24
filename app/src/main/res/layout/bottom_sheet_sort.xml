@@ -117,6 +117,13 @@
             android:text="@string/google_play"/>
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/sort_installed_fdroid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NotTestedFilterChipTheme"
+            android:text="@string/fdroid"/>
+
+        <com.google.android.material.chip.Chip
             android:id="@+id/sort_installed_other"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

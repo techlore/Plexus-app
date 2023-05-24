@@ -54,6 +54,7 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.UiUtils.Companion.installedFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
@@ -78,7 +79,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     var sortedRatingsList = ArrayList<Rating>()
     var listIsSorted = false
     var differentVersionsList = listOf<String>()
-    var selectedVersionString: String? = null
+    var differentRomsList = listOf<String>()
+    var differentAndroidsList = listOf<String>()
+    lateinit var selectedVersionString: String
+    lateinit var selectedRomString: String
+    lateinit var selectedAndroidString: String
+    var installedFromChip = R.id.user_ratings_chip_installed_any
     var statusRadio = R.id.user_ratings_radio_any_status
     var dgStatusSort = 0
     var mgStatusSort = 0
@@ -94,7 +100,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.details_nav_host) as NavHostFragment
         navController = navHostFragment.navController
         selectedVersionString = getString(R.string.any)
-        val repository = (applicationContext as ApplicationManager).mainRepository
+        selectedRomString = getString(R.string.any)
+        selectedAndroidString = getString(R.string.any)
+        val appManager = applicationContext as ApplicationManager
+        val repository = appManager.mainRepository
         val requestManager = Glide.with(this)
         val requestOptions =
             RequestOptions()
@@ -102,7 +111,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
                 .centerCrop() // Center-crop the image to fill the ImageView
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
-    
+        
         /*########################################################################################*/
         
         setSupportActionBar(activityBinding.bottomAppBar)
@@ -113,9 +122,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 app = intent.getStringExtra("packageName")?.let { repository.getAppByPackage(it) } !!
             }
         }
-    
+        
         lifecycleScope.launch {
-    
+            
             // Icon
             val requestBuilder =
                 if (!app.isInstalled) {
@@ -134,10 +143,11 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         throw RuntimeException(e)
                     }
                 }
-    
+            
             requestBuilder.into(activityBinding.detailsAppIcon)
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
+            
             activityBinding.detailsInstalledVersion.text =
                 if (app.installedVersion.isEmpty()) {
                     "${getString(R.string.installed)}: ${getString(R.string.na)}"
@@ -146,6 +156,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     "${getString(R.string.installed)}: ${app.installedVersion} (${app.installedBuild})"
                 }
     
+            installedFromTextViewStyle(this@AppDetailsActivity,
+                                       app.installedFrom,
+                                       activityBinding.detailsInstalledFrom)
+            
             // Radio group/buttons
             activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
                 activityBinding.nestedScrollView.apply {
@@ -157,7 +171,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 }
                 displayFragment(checkedId)
             }
-    
+            
             // FAB
             activityBinding.fab.setOnClickListener {
                 when {
@@ -165,15 +179,20 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.install_app_to_submit),
                                      activityBinding.bottomAppBarRadio)
-        
+    
+                    !appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
+                        showSnackbar(activityBinding.detailsCoordLayout,
+                                     getString(R.string.device_should_be_degoogled_or_microg),
+                                     activityBinding.bottomAppBarRadio)
+                    
                     preferenceManager.getBoolean(FIRST_SUBMISSION) ->
                         FirstSubmissionBottomSheet(positiveButtonClickListener = { startSubmitActivity() })
                             .show(supportFragmentManager, "FirstSubmissionBottomSheet")
-        
+                    
                     else -> startSubmitActivity()
                 }
             }
-    
+            
             // Only retrieve ratings list if not done already
             if (!ratingsRetrieved) {
                 retrieveRatings()
@@ -189,14 +208,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 val apiRepository = (applicationContext as ApplicationManager).apiRepository
                 val ratingsCall = apiRepository.getRatings(packageName = app.packageName, pageNumber = 1)
                 val ratingsResponse = ratingsCall.awaitResponse()
-    
+                
                 if (ratingsResponse.isSuccessful) {
                     ratingsResponse.body()?.let { ratingsRoot ->
                         ratingsList = ratingsRoot.ratingsData
                         // No need to store the ratings list in database, as:
                         // 1. It's not used anywhere else, except details activity
                         // 2. We're already retrieving latest ratings everytime in details activity
-        
+                        
                         // Retrieve remaining ratings in parallel
                         if (ratingsRoot.meta.totalPages > 1) {
                             val requests = mutableListOf<Deferred<Unit>>()
@@ -217,7 +236,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         }
                     }
                 }
-    
+                
                 ratingsRetrieved = true
                 displayFragment(10)
                 activityBinding.detailsRadiogroup.isVisible = true
@@ -292,6 +311,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                           .putExtra("packageName", app.packageName)
                           .putExtra("installedVersion", app.installedVersion)
                           .putExtra("installedBuild", app.installedBuild)
+                          .putExtra("installedFrom", app.installedFrom)
                           .putExtra("isInPlexusData", app.isInPlexusData))
         finish()
         overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)

@@ -56,7 +56,7 @@ class UiUtils {
             
             navController.navigate(action)
         }
-    
+        
         fun mapStatusChipToScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Float, Float> {
             return when (preferenceManager.getInt(sortKey)) {
                 R.id.sort_not_tested -> Pair(0.0f, 0.0f)
@@ -77,7 +77,7 @@ class UiUtils {
                 else -> context.getString(R.string.gold_title)
             }
         }
-    
+        
         fun mapScoreRangeToBgColor(context: Context, score: Float): Int {
             return when(score) {
                 0.0f -> context.resources.getColor(R.color.color_primary, context.theme)
@@ -107,7 +107,7 @@ class UiUtils {
                 else -> 4
             }
         }
-    
+        
         fun mapRatingScoreToStatusTextStyle(context: Context, ratingScore: Int, textView: MaterialTextView) {
             val (statusString, backgroundTint) =
                 when(ratingScore) {
@@ -120,20 +120,50 @@ class UiUtils {
                     else -> Pair(context.getString(R.string.gold_title),
                                  context.resources.getColor(R.color.color_gold_status, context.theme))
                 }
-        
+            
             textView.text = statusString
             textView.backgroundTintList = ColorStateList.valueOf(backgroundTint)
         }
-        
+    
         fun statusTextViewIcon(context: Context, googleLib: String, textView: MaterialTextView) {
             val statusIcon =
                 when (googleLib) {
                     "none" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
                     else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
                 }
-    
+        
             textView.setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
+        
+        }
+        
+        fun installedFromTextViewStyle(context: Context, installedFrom: String, textView: MaterialTextView) {
+            val (icon, text) =
+                when (installedFrom) {
+                    
+                    "google_play" -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_google_play),
+                                          context.getString(R.string.google_play))
+                    
+                    "fdroid" -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_fdroid),
+                                     context.getString(R.string.fdroid))
+                    
+                    "other" -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_apk),
+                                    context.getString(R.string.other))
+                    
+                    else -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_apk),
+                                 context.getString(R.string.na))
+                }
             
+            textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+            textView.text = text
+        }
+        
+        fun mapInstalledFromChipIdToString(installedFromChip: Int): String {
+            return when (installedFromChip) {
+                R.id.my_ratings_chip_installed_any -> ""
+                R.id.my_ratings_chip_installed_google_play, R.id.user_ratings_chip_installed_google_play -> "google_play"
+                R.id.my_ratings_chip_installed_fdroid, R.id.user_ratings_chip_installed_fdroid -> "fdroid"
+                else -> "other"
+            }
         }
         
         fun showSnackbar(coordinatorLayout: CoordinatorLayout, message: String, anchorView: View?) {

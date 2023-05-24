@@ -45,57 +45,6 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_25"
-        android:layout_marginBottom="@dimen/margin_4"
-        android:layout_marginEnd="@dimen/margin_16"
-        android:layout_marginStart="@dimen/margin_25"
-        android:textSize="@dimen/text_17"
-        android:text="@string/select_dg_or_mg_device"
-        android:textColor="@color/color_control_normal"
-        style="@style/MediumBoldText"/>
-
-    <RadioGroup
-        android:id="@+id/first_submit_radiogroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:paddingTop="@dimen/margin_6.5"
-        android:paddingBottom="@dimen/margin_4">
-
-        <RadioButton
-            android:id="@+id/first_submit_dg_radio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:paddingStart="@dimen/margin_8"
-            android:paddingEnd="@dimen/margin_8"
-            android:checked="true"
-            android:text="@string/de_Googled"
-            android:textAlignment="viewStart"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_16"
-            android:drawableStart="@drawable/ic_degoogled"
-            android:drawablePadding="@dimen/margin_8"/>
-
-        <RadioButton
-            android:id="@+id/first_submit_mg_radio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin_8"
-            android:paddingEnd="@dimen/margin_8"
-            android:text="@string/microG"
-            android:textAlignment="viewStart"
-            android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_16"
-            android:drawableStart="@drawable/ic_microg"
-            android:drawablePadding="@dimen/margin_8"/>
-
-    </RadioGroup>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_4"
         android:layout_marginEnd="@dimen/margin_16"

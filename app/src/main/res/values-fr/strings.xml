@@ -146,8 +146,7 @@
 
     <!--First submission-->
     <string name="first_submission_desc">Toutes vos futures soumissions tiendront compte de cette s\u00E9lection, qui ne pourra pas \u00EAtre modifi\u00E9e ult\u00E9rieurement.</string>
-    <string name="select_dg_or_mg_device">Veuillez indiquer s\'il s\'agit d\'un dispositif de-Googled ou d\'un dispositif microG.</string>
-    <string name="select_correct_rom">Veuillez s\u00E9lectionner la ROM personnalis\u00E9e correcte install\u00E9e sur cet appareil.</string>
+    <string name="select_correct_rom">Veuillez s\u00E9lectionner la ROM correcte install\u00E9e sur cet appareil.</string>
     <string name="select">S\u00E9lectionner</string>
     <string name="proceed">Proc\u00E9der</string>
 
@@ -161,6 +160,7 @@
 
     <!--Snackbars-->
     <string name="install_app_to_submit">Installer l\'app pour soumettre une \u00E9valuation</string>
+    <string name="device_should_be_degoogled_or_microg">L\'appareil doit \u00EAtre de-Googled ou disposer d\'un microG pour soumettre une \u00E9valuation.</string>
     <string name="no_browsers">Aucun navigateur n\'est install\u00E9 sur cet appareil</string>
 
 </resources>

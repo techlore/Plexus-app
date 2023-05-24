@@ -91,6 +91,22 @@
                 android:textSize="@dimen/text_17"
                 android:textColor="@color/color_control_normal"/>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/details_installed_from"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_32"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_10"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_16"
+                android:drawableStart="@drawable/ic_google_play"
+                android:drawablePadding="@dimen/margin_8"
+                android:background="@drawable/shape_outline"
+                android:text="@string/google_play"
+                android:textSize="@dimen/text_16"
+                android:textColor="@color/color_control_normal"/>
+
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/details_nav_host"
                 android:layout_width="match_parent"

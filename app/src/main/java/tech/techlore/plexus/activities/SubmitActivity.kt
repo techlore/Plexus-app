@@ -28,14 +28,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
 import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SubmitBottomSheet
-import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_IS_MICROG
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.UiUtils.Companion.installedFromTextViewStyle
 
 class SubmitActivity : AppCompatActivity() {
     
@@ -44,8 +44,8 @@ class SubmitActivity : AppCompatActivity() {
     lateinit var packageNameString: String
     lateinit var installedVersion: String
     var installedBuild = 0
+    lateinit var installedFromString: String
     var isInPlexusData = true
-    var isMicroG = false
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +56,8 @@ class SubmitActivity : AppCompatActivity() {
         packageNameString = intent.getStringExtra("packageName")!!
         installedVersion = intent.getStringExtra("installedVersion")!!
         installedBuild = intent.getIntExtra("installedBuild", 0)
+        installedFromString = intent.getStringExtra("installedFrom")!!
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
-        isMicroG = PreferenceManager(this).getBoolean(DEVICE_IS_MICROG)
         val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
         // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
         // while still allowing real words like coffee, committee etc.
@@ -87,7 +87,14 @@ class SubmitActivity : AppCompatActivity() {
             } else {
                 "${getString(R.string.installed)}: $installedVersion (${installedBuild})"
             }
-        activityBinding.dgMgText.text = if (isMicroG) getString(R.string.microG) else getString(R.string.de_Googled)
+    
+        installedFromTextViewStyle(this@SubmitActivity,
+                                           installedFromString,
+                                           activityBinding.submitInstalledFrom)
+        
+        activityBinding.dgMgText.text =
+            if ((applicationContext as ApplicationManager).deviceIsMicroG) "${getString(R.string.microG)} ${getString(R.string.status)}"
+            else "${getString(R.string.de_Googled)} ${getString(R.string.status)}"
         
         // Notes
         activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"

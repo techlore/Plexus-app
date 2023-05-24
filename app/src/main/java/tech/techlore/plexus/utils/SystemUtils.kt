@@ -20,11 +20,40 @@
 package tech.techlore.plexus.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
+import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.utils.PackageUtils.Companion.checkAppCertificate
+import tech.techlore.plexus.utils.PackageUtils.Companion.isAppInstalled
 
 class SystemUtils {
     
     companion object {
+        
+        fun isDeviceDeGoogledOrMicroG(context: Context) {
+            
+            val appManager = (context.applicationContext as ApplicationManager)
+            
+            val gappsPackages = listOf("com.google.android.gms",
+                                       "com.google.android.gsf",
+                                       "com.android.vending")
+            
+            val microGCertificate = "O=NOGAPPS Project,C=DE"
+            val packageManager = context.packageManager
     
+            val gappsCount =
+                gappsPackages.count { packageName ->
+                    isAppInstalled(packageManager, packageName)
+                }
+            
+            val microGCount =
+                gappsPackages.count { packageName ->
+                    checkAppCertificate(packageManager, packageName, microGCertificate)
+                }
+    
+            appManager.deviceIsMicroG = gappsCount == microGCount
+            appManager.deviceIsDeGoogled = gappsCount == 0
+        }
+        
         @SuppressLint("PrivateApi")
         fun getSystemProperty(propertyName: String): String? {
             val propertyValue: String? =
@@ -37,7 +66,7 @@ class SystemUtils {
                 }
             return propertyValue
         }
-    
+        
         fun mapAndroidVersionIntToString(versionSdkInt: Int): String {
             return when(versionSdkInt) {
                 23 -> "6.0"

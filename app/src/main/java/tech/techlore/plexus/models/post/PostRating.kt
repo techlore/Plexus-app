@@ -38,6 +38,9 @@ data class PostRating(
     @JsonProperty("android_version")
     var androidVersion: String,
     
+    @JsonProperty("installation_source")
+    var installedFrom: String,
+    
     @JsonProperty("google_lib")
     var googleLib: String,
     

@@ -28,25 +28,27 @@ data class MyRating(
     @PrimaryKey
     var id: String,
     
-    var name: String? = null,
+    var name: String,
     
     var packageName: String,
     
     var iconUrl: String? = null,
     
-    var version: String? = null,
+    var version: String,
     
-    var buildNumber: Int = 0,
+    var buildNumber: Int,
     
-    var romName: String? = null,
+    var romName: String,
     
-    var romBuild: String? = null,
+    var romBuild: String,
 
     var androidVersion: String,
     
     var isInstalled: Boolean = true,
     
-    var googleLib: String? = null,
+    var installedFrom: String,
+    
+    var googleLib: String,
     
     var ratingScore: Int = 0,
     

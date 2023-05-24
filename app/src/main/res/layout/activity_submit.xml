@@ -99,14 +99,32 @@
                 android:textColor="@color/color_control_normal"/>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/submit_installed_from"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_32"
+                app:layout_constraintTop_toBottomOf="@id/submit_installed_version"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_10"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_16"
+                android:drawableStart="@drawable/ic_google_play"
+                android:drawablePadding="@dimen/margin_8"
+                android:background="@drawable/shape_outline"
+                android:text="@string/google_play"
+                android:textSize="@dimen/text_16"
+                android:textColor="@color/color_control_normal"/>
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/dg_mg_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/submit_installed_version"
+                app:layout_constraintTop_toBottomOf="@id/submit_installed_from"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_20"
-                android:text="@string/microG"
+                android:text="@string/status"
                 android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"/>
