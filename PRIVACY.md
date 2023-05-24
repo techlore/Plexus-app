@@ -20,9 +20,11 @@ The app requires the following permissions:
   - App package
   - App version
   - App build
-  - Custom ROM name
-  - Custom ROM build
+  - ROM name
+  - Device brand and model (only if Stock ROM is selected)
+  - ROM build
   - Android version
+  - Installation source of the app (Google Play or F-Droid)
   - Your rating
   - Any information you optionally submit in the notes field
 - No other personally identifiable information is stored on the server.
