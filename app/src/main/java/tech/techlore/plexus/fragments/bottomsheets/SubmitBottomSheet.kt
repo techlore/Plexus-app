@@ -53,8 +53,8 @@ import tech.techlore.plexus.models.post.PostRating
 import tech.techlore.plexus.models.post.PostRatingRoot
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_ROM
-import tech.techlore.plexus.utils.DbUtils.Companion.truncatedDgScore
-import tech.techlore.plexus.utils.DbUtils.Companion.truncatedMgScore
+import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedDgScore
+import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedMgScore
 import tech.techlore.plexus.utils.SystemUtils.Companion.mapAndroidVersionIntToString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 

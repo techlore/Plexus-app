@@ -19,7 +19,7 @@
 
 package tech.techlore.plexus.utils
 
-class DbUtils {
+class ScoreUtils {
     
     companion object {
         

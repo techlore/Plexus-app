@@ -37,6 +37,12 @@ class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
         }
     }
     
+    suspend fun getMyRatingByPackageAndVersion(packageName: String, version: String): MyRating? {
+        return withContext(Dispatchers.IO) {
+            ratingsDao.getMyRatingByPackageAndVersion(packageName, version)
+        }
+    }
+    
     suspend fun getMyRatingsList(): ArrayList<MyRating> {
         return withContext(Dispatchers.IO) {
             ratingsDao.getMyRatingsList() as ArrayList<MyRating>
@@ -44,9 +50,9 @@ class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
     }
     
     suspend fun getSortedMyRatings(context: Context,
-                                   versionPref: String,
-                                   romPref: String,
-                                   androidPref: String,
+                                   versionPref: String?,
+                                   romPref: String?,
+                                   androidPref: String?,
                                    installedFromPref: Int,
                                    statusRadioPref: Int,
                                    statusChipPref: Int,
@@ -54,15 +60,15 @@ class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
         return withContext(Dispatchers.IO) {
             
             val version =
-                if (versionPref == context.getString(R.string.any)) ""
+                if (versionPref == context.getString(R.string.any) || versionPref.isNullOrEmpty()) ""
                 else versionPref.substringBefore(" (")
             
             val rom =
-                if (romPref == context.getString(R.string.any)) ""
+                if (romPref == context.getString(R.string.any) || romPref.isNullOrEmpty()) ""
                 else romPref
             
             val android =
-                if (androidPref == context.getString(R.string.any)) ""
+                if (androidPref == context.getString(R.string.any) || androidPref.isNullOrEmpty()) ""
                 else androidPref
             
             val installedFromString = mapInstalledFromChipIdToString(installedFromPref)

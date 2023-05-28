@@ -33,8 +33,8 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.main.MainData
-import tech.techlore.plexus.utils.DbUtils.Companion.truncatedDgScore
-import tech.techlore.plexus.utils.DbUtils.Companion.truncatedMgScore
+import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedDgScore
+import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedMgScore
 import tech.techlore.plexus.utils.PackageUtils.Companion.scannedInstalledAppsList
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {

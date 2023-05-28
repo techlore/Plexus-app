@@ -159,8 +159,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="install_app_to_submit">Installer l\'app pour soumettre une \u00E9valuation</string>
-    <string name="device_should_be_degoogled_or_microg">L\'appareil doit \u00EAtre de-Googled ou disposer d\'un microG pour soumettre une \u00E9valuation.</string>
+    <string name="install_app_to_submit">Installer %1$s pour soumettre une \u00E9valuation</string>
+    <string name="device_should_be_degoogled_or_microg">L\'appareil doit \u00EAtre de-Googled ou disposer d\'un microG pour soumettre une \u00E9valuation</string>
+    <string name="rating_already_submitted">\u00C9valuation d\u00E9j\u00E0 soumise pour %1$s %2$s</string>
     <string name="no_browsers">Aucun navigateur n\'est install\u00E9 sur cet appareil</string>
 
 </resources>

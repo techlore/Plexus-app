@@ -162,8 +162,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="install_app_to_submit">Installieren sie die app um eine bewertung abzugeben</string>
-    <string name="device_should_be_degoogled_or_microg">Das ger\u00E4t sollte entweder de-Googled sein oder microG haben, um eine bewertung abzugeben.</string>
+    <string name="install_app_to_submit">Installieren sie %1$s um eine bewertung abzugeben</string>
+    <string name="device_should_be_degoogled_or_microg">Das ger\u00E4t sollte entweder de-Googled sein oder microG haben, um eine bewertung abzugeben</string>
+    <string name="rating_already_submitted">Bewertung bereits abgegeben f\u00FCr %1$s %2$s</string>
     <string name="no_browsers">Es ist kein Browser auf diesem Ger\u00E4t installiert</string>
 
 </resources>

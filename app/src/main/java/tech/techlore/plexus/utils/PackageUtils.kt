@@ -50,6 +50,7 @@ class PackageUtils {
                         // Add scanned apps to list
                         if (it.packageName !in setOf("tech.techlore.plexus",
                                                      "com.android.vending",
+                                                     "org.fdroid.fdroid",
                                                      "com.google.android.gms",
                                                      "com.google.android.gsf",
                                                      "org.microg.gms.droidguard",

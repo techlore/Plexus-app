@@ -39,7 +39,6 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
@@ -103,7 +102,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
         val appManager = applicationContext as ApplicationManager
-        val repository = appManager.mainRepository
+        val mainRepository = appManager.mainRepository
+        val myRatingsRepository = appManager.myRatingsRepository
         val requestManager = Glide.with(this)
         val requestOptions =
             RequestOptions()
@@ -117,13 +117,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         setSupportActionBar(activityBinding.bottomAppBar)
         activityBinding.bottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         
-        runBlocking {
-            launch {
-                app = intent.getStringExtra("packageName")?.let { repository.getAppByPackage(it) } !!
-            }
-        }
-        
         lifecycleScope.launch {
+            app = mainRepository.getAppByPackage(intent.getStringExtra("packageName")!!)!!
             
             // Icon
             val requestBuilder =
@@ -171,18 +166,26 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 }
                 displayFragment(checkedId)
             }
+    
+            val myRating =
+                myRatingsRepository.getMyRatingByPackageAndVersion(app.packageName, app.installedVersion)
             
             // FAB
             activityBinding.fab.setOnClickListener {
                 when {
                     !app.isInstalled ->
                         showSnackbar(activityBinding.detailsCoordLayout,
-                                     getString(R.string.install_app_to_submit),
+                                     getString(R.string.install_app_to_submit, app.name),
                                      activityBinding.bottomAppBarRadio)
     
                     !appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
+                                     activityBinding.bottomAppBarRadio)
+                    
+                    myRating != null ->
+                        showSnackbar(activityBinding.detailsCoordLayout,
+                                     getString(R.string.rating_already_submitted, app.name, app.installedVersion),
                                      activityBinding.bottomAppBarRadio)
                     
                     preferenceManager.getBoolean(FIRST_SUBMISSION) ->

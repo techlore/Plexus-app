@@ -81,9 +81,9 @@ class MyRatingsFragment :
         
         lifecycleScope.launch{
             myRatingsList = myRatingsRepository.getSortedMyRatings(context = requireContext(),
-                                                                   versionPref = preferenceManager.getString(MY_RATINGS_VERSION_SORT) ?: "",
-                                                                   romPref = preferenceManager.getString(MY_RATINGS_ROM_SORT) ?: "",
-                                                                   androidPref = preferenceManager.getString(MY_RATINGS_ANDROID_SORT) ?: "",
+                                                                   versionPref = preferenceManager.getString(MY_RATINGS_VERSION_SORT),
+                                                                   romPref = preferenceManager.getString(MY_RATINGS_ROM_SORT),
+                                                                   androidPref = preferenceManager.getString(MY_RATINGS_ANDROID_SORT),
                                                                    installedFromPref = preferenceManager.getInt(MY_RATINGS_INSTALLED_FROM_SORT),
                                                                    statusRadioPref = preferenceManager.getInt(MY_RATINGS_STATUS_RADIO),
                                                                    statusChipPref = preferenceManager.getInt(MY_RATINGS_STATUS_CHIP),

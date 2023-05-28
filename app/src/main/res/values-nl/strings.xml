@@ -154,8 +154,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="install_app_to_submit">Installeer de app om een beoordeling in te dienen</string>
-    <string name="device_should_be_degoogled_or_microg">Apparaat moet de-Googled zijn of microG hebben om beoordeling in te dienen.</string>
+    <string name="install_app_to_submit">Installeer %1$s om een beoordeling in te dienen</string>
+    <string name="device_should_be_degoogled_or_microg">Apparaat moet de-Googled zijn of microG hebben om beoordeling in te dienen</string>
+    <string name="rating_already_submitted">Beoordeling reeds ingediend voor %1$s %2$s</string>
     <string name="no_browsers">Geen browsers ge\u00EFnstalleerd op dit apparaat</string>
 
 </resources>

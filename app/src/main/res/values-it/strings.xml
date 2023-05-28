@@ -156,8 +156,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="install_app_to_submit">Installare l\'app per inviare la valutazione</string>
-    <string name="device_should_be_degoogled_or_microg">Il dispositivo deve essere de-Googled o avere il microG per inviare la valutazione.</string>
+    <string name="install_app_to_submit">Installare %1$s per inviare la valutazione</string>
+    <string name="device_should_be_degoogled_or_microg">Il dispositivo deve essere de-Googled o avere il microG per inviare la valutazione</string>
+    <string name="rating_already_submitted">Valutazione gi\u00E0 inviata per %1$s %2$s</string>
     <string name="no_browsers">Nessun browser installato sul dispositivo</string>
 
 </resources>

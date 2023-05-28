@@ -37,12 +37,15 @@ interface MyRatingsDao {
     suspend fun update(myRating: MyRating)
     
     @Query("SELECT * FROM my_ratings_table WHERE id = :id")
-    suspend fun getRatingById(id: String): MyRating?
+    suspend fun getMyRatingById(id: String): MyRating?
+    
+    @Query("SELECT * FROM my_ratings_table WHERE packageName = :packageName AND version = :version")
+    suspend fun getMyRatingByPackageAndVersion(packageName: String, version: String): MyRating?
     
     @Transaction
     suspend fun insertOrUpdateMyRatings(myRating: MyRating) {
         
-        val existingRating = getRatingById(myRating.id)
+        val existingRating = getMyRatingById(myRating.id)
     
         if (existingRating == null) {
             insert(myRating)

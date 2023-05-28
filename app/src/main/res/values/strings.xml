@@ -149,8 +149,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="install_app_to_submit">Install the app to submit rating</string>
-    <string name="device_should_be_degoogled_or_microg">Device should either be de-Googled or have microG to submit rating.</string>
+    <string name="install_app_to_submit">Install %1$s to submit rating</string>
+    <string name="device_should_be_degoogled_or_microg">Device should either be de-Googled or have microG to submit rating</string>
+    <string name="rating_already_submitted">Rating already submitted for %1$s %2$s</string>
     <string name="no_browsers">No browsers installed on this device</string>
 
 </resources>
