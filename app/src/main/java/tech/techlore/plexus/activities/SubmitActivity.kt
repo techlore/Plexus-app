@@ -24,6 +24,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -58,13 +59,14 @@ class SubmitActivity : AppCompatActivity() {
         installedBuild = intent.getIntExtra("installedBuild", 0)
         installedFromString = intent.getStringExtra("installedFrom")!!
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
-        val regexPattern = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
+        val repetitiveCharsRegex = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
         // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
         // while still allowing real words like coffee, committee etc.
         val blockedWords = resources.getStringArray(R.array.blocked_words)
         val blockedWordsPattern = blockedWords.joinToString("|") { Regex.escape(it) }
         val blockedWordsRegex =
             "(?i)\\b($blockedWordsPattern)\\b".toRegex(setOf(RegexOption.IGNORE_CASE))// *next regex meme goes here*
+        val emojiRegex = Regex("[\\p{So}\\p{Sk}]") // This will block emojis and other unnecessary symbols
         
         /*########################################################################################*/
         
@@ -87,10 +89,10 @@ class SubmitActivity : AppCompatActivity() {
             } else {
                 "${getString(R.string.installed)}: $installedVersion (${installedBuild})"
             }
-    
+        
         installedFromTextViewStyle(this@SubmitActivity,
-                                           installedFromString,
-                                           activityBinding.submitInstalledFrom)
+                                   installedFromString,
+                                   activityBinding.submitInstalledFrom)
         
         activityBinding.dgMgText.text =
             if ((applicationContext as ApplicationManager).deviceIsMicroG) "${getString(R.string.microG)} ${getString(R.string.status)}"
@@ -118,16 +120,20 @@ class SubmitActivity : AppCompatActivity() {
                     
                     // On timer finish, perform task
                     override fun onFinish() {
-                        val text = activityBinding.submitNotesText.text.toString()
                         
-                        // Check for blocked words
-                        val hasBlockedWord = blockedWordsRegex.find(text) != null
+                        // Check for blocked words, repetitive chars, emojis and URLs
+                        val hasBlockedWord = blockedWordsRegex.find(charSequence) != null
+                        val hasRepetitiveChars = repetitiveCharsRegex.find(charSequence) == null
+                        val hasEmojis = emojiRegex.find(charSequence) != null
+                        val hasURLs = Patterns.WEB_URL.matcher(charSequence).find()
                         
                         activityBinding.submitFab.isEnabled =
-                            text.isEmpty()
-                            || (text.length in 5..300
+                            charSequence.isEmpty()
+                            || (charSequence.length in 5..300
                                 && !hasBlockedWord
-                                && regexPattern.matches(text))
+                                && !hasRepetitiveChars
+                                && !hasEmojis
+                                && !hasURLs)
                     }
                     
                 }.start()
