@@ -25,6 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
@@ -59,31 +60,30 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         
         // Show system default option only on SDK 29 and above
         bottomSheetBinding.sysDefault.visibility = if (Build.VERSION.SDK_INT >= 29) View.VISIBLE else View.GONE
+        
+        // On selecting option
+        bottomSheetBinding.themeRadiogroup.setOnCheckedChangeListener { _, checkedId ->
     
-        // Done
-        footerBinding.positiveButton.setOnClickListener {
-            val checkedId = bottomSheetBinding.themeRadiogroup.checkedRadioButtonId
             preferenceManager.setInt(THEME, checkedId)
             
             when (checkedId) {
                 R.id.sys_default ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        
+                
                 R.id.light ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        
+                
                 R.id.dark ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
             
             dismiss()
             requireActivity().recreate()
+            
         }
     
-        // Cancel
-        footerBinding.negativeButton.setOnClickListener {
-            dismiss()
-        }
+        footerBinding.positiveButton.isVisible = false
+        footerBinding.negativeButton.setOnClickListener { dismiss() }
         
         return bottomSheetBinding.root
     }
