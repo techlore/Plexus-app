@@ -59,29 +59,28 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         
         // Show system default option only on SDK 29 and above
         bottomSheetBinding.sysDefault.visibility = if (Build.VERSION.SDK_INT >= 29) View.VISIBLE else View.GONE
-        
-        // On selecting option
-        bottomSheetBinding.themeRadiogroup.setOnCheckedChangeListener { _, checkedId ->
+    
+        // Done
+        footerBinding.positiveButton.setOnClickListener {
+            val checkedId = bottomSheetBinding.themeRadiogroup.checkedRadioButtonId
+            preferenceManager.setInt(THEME, checkedId)
             
             when (checkedId) {
                 R.id.sys_default ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                
+        
                 R.id.light ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                
+        
                 R.id.dark ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
-    
-            preferenceManager.setInt(THEME, checkedId)
+            
             dismiss()
             requireActivity().recreate()
-            
         }
     
-        footerBinding.positiveButton.visibility = View.GONE
-    
+        // Cancel
         footerBinding.negativeButton.setOnClickListener {
             dismiss()
         }

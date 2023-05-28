@@ -70,7 +70,7 @@
         android:orientation="horizontal"
         android:layout_marginBottom="@dimen/margin_4"
         android:paddingStart="@dimen/margin_8"
-        android:paddingEnd="@dimen/margin_12"
+        android:paddingEnd="@dimen/margin_16"
         android:paddingBottom="@dimen/margin_8"
         android:gravity="end">
 
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/skip"
-            style="@style/BottomSheetButtonStyle"
+            style="@style/NegativeButtonStyle"
             android:visibility="invisible"
             tools:visibility="visible"/>
 
@@ -87,8 +87,9 @@
             android:id="@+id/proceed_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
             android:text="@string/proceed"
-            style="@style/BottomSheetButtonStyle"
+            style="@style/PositiveButtonStyle"
             android:visibility="invisible"
             tools:visibility="visible"/>
 

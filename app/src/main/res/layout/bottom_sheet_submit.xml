@@ -103,9 +103,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/done_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="@dimen/margin_6.5"
+        android:layout_marginEnd="@dimen/margin_16"
         android:text="@string/cancel"
-        style="@style/BottomSheetButtonStyle"
+        style="@style/NegativeButtonStyle"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -115,9 +115,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_16"
         android:text="@string/done"
-        style="@style/BottomSheetButtonStyle"
+        style="@style/PositiveButtonStyle"
         android:visibility="gone"
         tools:visibility="visible"/>
 

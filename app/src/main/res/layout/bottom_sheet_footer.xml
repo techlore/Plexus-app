@@ -26,7 +26,7 @@
     android:orientation="horizontal"
     android:layout_marginBottom="@dimen/margin_4"
     android:paddingStart="@dimen/margin_8"
-    android:paddingEnd="@dimen/margin_12"
+    android:paddingEnd="@dimen/margin_16"
     android:paddingBottom="@dimen/margin_8"
     android:gravity="end">
 
@@ -35,13 +35,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
-        style="@style/BottomSheetButtonStyle"/>
+        style="@style/NegativeButtonStyle"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/positive_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
         android:text="@string/done"
-        style="@style/BottomSheetButtonStyle"/>
+        style="@style/PositiveButtonStyle"/>
 
 </LinearLayout>

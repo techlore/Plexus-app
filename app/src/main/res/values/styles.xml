@@ -129,8 +129,15 @@
     </style>
 
     <!--Bottom sheet buttons-->
-    <style name="BottomSheetButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/btm_sheet_btn_text_color</item>
+    <style name="NegativeButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/fab_icon_color</item>
+        <item name="backgroundTint">@color/fab_color</item>
         <item name="android:textSize">@dimen/text_16</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
