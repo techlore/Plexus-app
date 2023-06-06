@@ -71,7 +71,7 @@ New pull requests can be submitted [here](https://github.com/techlore/Plexus-app
 - [the-weird-aquarian](https://github.com/the-weird-aquarian) for developing this app.
 - [parveshnarwal](https://github.com/parveshnarwal) for helping with the initial implementation of json into this app.
 - [tomkonidas](https://github.com/tomkonidas) for developing the API & the Plexus website which helped in the development of this project.
-- [henryistaken](https://github.com/henryistaken) for going forward with the project and designing/modifying some of the icons.
+- [Henry](https://github.com/henry-fisher) for going forward with the project and designing/modifying some of the icons.
 - [Contributors](https://github.com/techlore/plexus-app/graphs/contributors) for making this app better
 - Data Submissions -  everyone who has and continues to contribute data to make this project better than ever
 
