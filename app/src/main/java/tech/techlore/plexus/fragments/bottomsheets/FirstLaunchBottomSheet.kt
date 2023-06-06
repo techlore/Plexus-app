@@ -40,6 +40,9 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_LAUNCH
 
 class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
     
+    private var _binding: BottomSheetFirstLaunchBinding? = null
+    private val bottomSheetBinding get() = _binding!!
+    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -57,14 +60,18 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
             false
         })
         
-        val bottomSheetBinding = BottomSheetFirstLaunchBinding.inflate(inflater, container, false)
+        _binding = BottomSheetFirstLaunchBinding.inflate(inflater, container, false)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         // Anim view
         bottomSheetBinding.helloAnimView.setMaxFrame(300)
-        
+    
         bottomSheetBinding.helloAnimView.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {}
-            
+        
             override fun onAnimationEnd(animation: Animator) {
                 val fadeIn = AlphaAnimation(0.5f, 1.0f)
                 fadeIn.duration = 600
@@ -75,29 +82,31 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
                 bottomSheetBinding.skipButton.isVisible = true
                 bottomSheetBinding.skipButton.startAnimation(fadeIn)
             }
-            
+        
             override fun onAnimationCancel(animation: Animator) {}
-            
+        
             override fun onAnimationRepeat(animation: Animator) {}
         })
-        
+    
         bottomSheetBinding.helloAnimView.playAnimation()
-        
+    
         // Proceed
         bottomSheetBinding.proceedButton.setOnClickListener {
             startActivity(Intent(requireActivity(), SettingsActivity::class.java)
                               .putExtra("frag", R.id.helpFragment))
             requireActivity().finish()
         }
-        
+    
         // Skip
         bottomSheetBinding.skipButton.setOnClickListener {
             PreferenceManager(requireActivity()).setBoolean(FIRST_LAUNCH, false)
             startActivity(Intent(requireActivity(), MainActivity::class.java))
             requireActivity().finish()
         }
-        
-        return bottomSheetBinding.root
     }
     
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

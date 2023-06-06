@@ -38,6 +38,10 @@ import tech.techlore.plexus.utils.SystemUtils.Companion.getSystemProperty
 
 class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> Unit) : BottomSheetDialogFragment() {
     
+    private var _binding: BottomSheetFirstSubmissionBinding? = null
+    private val bottomSheetBinding get() = _binding!!
+    private lateinit var headerBinding: BottomSheetHeaderBinding
+    private lateinit var footerBinding: BottomSheetFooterBinding
     private var timer: CountDownTimer? = null
     private var remSecs = 0
     
@@ -45,13 +49,18 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        val bottomSheetBinding = BottomSheetFirstSubmissionBinding.inflate(inflater, container, false)
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        _binding = BottomSheetFirstSubmissionBinding.inflate(inflater, container, false)
+        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        
         val preferenceManager = PreferenceManager(requireContext())
-        
+    
         headerBinding.bottomSheetTitle.text = getString(R.string.new_submission)
-        
+    
         val customRomsList = resources.getStringArray(R.array.custom_roms)
         val truncatedCustomRomsList =
             customRomsList.map {
@@ -63,14 +72,14 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                     .removeSuffix("ROM")
                     .replace(" ", "")
             }
-        
+    
         val allRomsDropdownList = listOf(getString(R.string.select)) +
                                   "Stock (${Build.MANUFACTURER} ${Build.MODEL})" +
                                   customRomsList
-        
+    
         val customRomsPattern = truncatedCustomRomsList.joinToString("|") { Regex.escape(it) }
         val customRomsRegex = "(?i)($customRomsPattern)".toRegex(setOf(RegexOption.IGNORE_CASE))
-        
+    
         // Check a few properties from build.prop
         // that might contain ROM name
         val buildPropValues =
@@ -80,14 +89,14 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                    "ro.build.description",
                    "ro.build.fingerprint")
                 .mapNotNull { getSystemProperty(it) }
-        
+    
         // Check if any value from build.prop matches against custom roms list
         val matchingValue = buildPropValues.firstOrNull { customRomsRegex.containsMatchIn(it) }
         val romNameIndex =
             truncatedCustomRomsList.indexOfFirst {
                 matchingValue?.contains(it, ignoreCase = true) == true
             } // -1 would mean no matching index
-        
+    
         // ROM dropdown
         bottomSheetBinding.romDropdownMenu.setText(
             if (romNameIndex != -1) allRomsDropdownList[romNameIndex + 2] else allRomsDropdownList[0]
@@ -99,21 +108,21 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                                    R.layout.item_dropdown_menu,
                                    allRomsDropdownList)
         bottomSheetBinding.romDropdownMenu.setAdapter(adapter)
-        
+    
         bottomSheetBinding.romDropdownMenu.setOnItemClickListener { _, _, position, _ ->
             footerBinding.positiveButton.isEnabled = position != 0
         }
-        
+    
         // Proceed
         footerBinding.positiveButton.isEnabled = false
         timer = object : CountDownTimer(10000, 1000) {
-            
+        
             override fun onTick(millisUntilFinished: Long) {
                 remSecs = (millisUntilFinished / 1000).toInt() + 1 // Show 10s..1s instead of 9s..0s
                 val positiveBtnText = ("${getString(R.string.proceed)} ${remSecs}s")
                 footerBinding.positiveButton.text = positiveBtnText
             }
-            
+        
             override fun onFinish() {
                 footerBinding.positiveButton.text = getString(R.string.proceed)
                 footerBinding.positiveButton.isEnabled =
@@ -121,7 +130,7 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                 timer = null
             }
         }.start()
-        
+    
         // Proceed
         footerBinding.positiveButton.setOnClickListener{
             preferenceManager.setBoolean(FIRST_SUBMISSION, false)
@@ -129,15 +138,14 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
             dismiss()
             positiveButtonClickListener.invoke()
         }
-        
+    
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }
-        
-        return bottomSheetBinding.root
     }
     
     override fun onDestroy() {
         super.onDestroy()
         timer?.cancel()
+        _binding = null
     }
 }

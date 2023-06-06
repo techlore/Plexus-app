@@ -36,6 +36,11 @@ import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
 class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
     
+    private var _binding: BottomSheetSortUserRatingsBinding? = null
+    private val bottomSheetBinding get() = _binding!!
+    private lateinit var headerBinding: BottomSheetHeaderBinding
+    private lateinit var footerBinding: BottomSheetFooterBinding
+    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -43,57 +48,62 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         val bottomSheetDialog = dialog as BottomSheetDialog
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         
-        val bottomSheetBinding = BottomSheetSortUserRatingsBinding.inflate(inflater, container, false)
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        _binding = BottomSheetSortUserRatingsBinding.inflate(inflater, container, false)
+        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    
         val detailsActivity = requireActivity() as AppDetailsActivity
-        
+    
         headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
-        
+    
         // Version dropdown
         bottomSheetBinding.userRatingsVersionDropdownMenu.setText(detailsActivity.selectedVersionString)
         val versionAdapter = ArrayAdapter(requireContext(),
                                           R.layout.item_dropdown_menu,
                                           detailsActivity.differentVersionsList)
         bottomSheetBinding.userRatingsVersionDropdownMenu.setAdapter(versionAdapter)
-        
+    
         // Rom dropdown
         bottomSheetBinding.userRatingsRomDropdownMenu.setText(detailsActivity.selectedRomString)
         val romAdapter = ArrayAdapter(requireContext(),
-                                          R.layout.item_dropdown_menu,
-                                          detailsActivity.differentRomsList)
+                                      R.layout.item_dropdown_menu,
+                                      detailsActivity.differentRomsList)
         bottomSheetBinding.userRatingsRomDropdownMenu.setAdapter(romAdapter)
     
         // Android dropdown
         bottomSheetBinding.userRatingsAndroidDropdownMenu.setText(detailsActivity.selectedAndroidString)
         val androidAdapter = ArrayAdapter(requireContext(),
-                                      R.layout.item_dropdown_menu,
-                                      detailsActivity.differentAndroidsList)
+                                          R.layout.item_dropdown_menu,
+                                          detailsActivity.differentAndroidsList)
         bottomSheetBinding.userRatingsAndroidDropdownMenu.setAdapter(androidAdapter)
-        
+    
         // Installed from chip checked by default
         bottomSheetBinding.userRatingsInstalledFromChipGroup.check(detailsActivity.installedFromChip)
-        
+    
         // Status radio btn checked by default
         bottomSheetBinding.userRatingsStatusRadiogroup.check(detailsActivity.statusRadio)
-        
+    
         // Status chip group visibility
         when (detailsActivity.statusRadio) {
             R.id.user_ratings_radio_dg_status -> {
                 bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
-                
+            
                 // Default DG status checked chip
                 bottomSheetBinding.userRatingsStatusChipGroup.check(detailsActivity.dgStatusSort)
             }
             R.id.user_ratings_radio_mg_status -> {
                 bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
-                
+            
                 // Default MG status checked chip
                 bottomSheetBinding.userRatingsStatusChipGroup.check(detailsActivity.mgStatusSort)
             }
             else -> bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.GONE
         }
-        
+    
         // On selecting status radio btn
         bottomSheetBinding.userRatingsStatusRadiogroup.setOnCheckedChangeListener { _, checkedId: Int ->
             if (checkedId != R.id.user_ratings_radio_any_status) {
@@ -103,7 +113,7 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
                 bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.GONE
             }
         }
-        
+    
         // Done
         footerBinding.positiveButton.setOnClickListener {
             detailsActivity.selectedVersionString = bottomSheetBinding.userRatingsVersionDropdownMenu.text.toString()
@@ -117,16 +127,19 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
             else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status) {
                 detailsActivity.mgStatusSort = bottomSheetBinding.userRatingsStatusChipGroup.checkedChipId
             }
-            
+        
             detailsActivity.listIsSorted = false // Set to false so list is sorted on fragment refresh
-            
+        
             dismiss()
             refreshFragment(detailsActivity.navController)
         }
-        
+    
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }
-        
-        return bottomSheetBinding.root
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

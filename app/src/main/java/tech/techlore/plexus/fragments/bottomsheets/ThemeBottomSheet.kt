@@ -36,17 +36,27 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 
 class ThemeBottomSheet : BottomSheetDialogFragment() {
     
+    private var _binding: BottomSheetThemeBinding? = null
+    private val bottomSheetBinding get() = _binding!!
+    private lateinit var headerBinding: BottomSheetHeaderBinding
+    private lateinit var footerBinding: BottomSheetFooterBinding
+    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        val bottomSheetBinding = BottomSheetThemeBinding.inflate(inflater, container, false)
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        _binding = BottomSheetThemeBinding.inflate(inflater, container, false)
+        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    
         val preferenceManager = PreferenceManager(requireContext())
-        
+    
         headerBinding.bottomSheetTitle.setText(R.string.theme)
-        
+    
         // Default checked radio btn
         if (preferenceManager.getInt(THEME) == 0) {
             if (Build.VERSION.SDK_INT >= 29) {
@@ -57,34 +67,37 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
             }
         }
         bottomSheetBinding.themeRadiogroup.check(preferenceManager.getInt(THEME))
-        
+    
         // Show system default option only on SDK 29 and above
         bottomSheetBinding.sysDefault.visibility = if (Build.VERSION.SDK_INT >= 29) View.VISIBLE else View.GONE
-        
+    
         // On selecting option
         bottomSheetBinding.themeRadiogroup.setOnCheckedChangeListener { _, checkedId ->
-    
+        
             preferenceManager.setInt(THEME, checkedId)
-            
+        
             when (checkedId) {
                 R.id.sys_default ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                
+            
                 R.id.light ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                
+            
                 R.id.dark ->
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
-            
+        
             dismiss()
             requireActivity().recreate()
-            
+        
         }
     
         footerBinding.positiveButton.isVisible = false
         footerBinding.negativeButton.setOnClickListener { dismiss() }
-        
-        return bottomSheetBinding.root
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

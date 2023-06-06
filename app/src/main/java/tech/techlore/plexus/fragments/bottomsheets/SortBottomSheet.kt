@@ -39,13 +39,23 @@ import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
 class SortBottomSheet(private val navController: NavController) : BottomSheetDialogFragment() {
     
+    private var _binding: BottomSheetSortBinding? = null
+    private val bottomSheetBinding get() = _binding!!
+    private lateinit var headerBinding: BottomSheetHeaderBinding
+    private lateinit var footerBinding: BottomSheetFooterBinding
+    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
     
-        val bottomSheetBinding = BottomSheetSortBinding.inflate(inflater, container, false)
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        _binding = BottomSheetSortBinding.inflate(inflater, container, false)
+        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        
         val preferenceManager = PreferenceManager(requireContext())
     
         headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
@@ -55,7 +65,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             preferenceManager.setInt(A_Z_SORT, R.id.sort_a_z)
         }
         bottomSheetBinding.alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT))
-        
+    
         // Installed from chip group
         val isInstalledAppsFragment =
             navController.currentDestination!!.id in setOf(R.id.submitRatingFragment, R.id.favoritesFragment)
@@ -132,7 +142,10 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }
-        
-        return bottomSheetBinding.root
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

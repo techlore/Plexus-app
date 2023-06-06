@@ -61,7 +61,8 @@ import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 @SuppressLint("SetTextI18n")
 class SubmitBottomSheet : BottomSheetDialogFragment() {
     
-    private lateinit var bottomSheetBinding: BottomSheetSubmitBinding
+    private var _binding: BottomSheetSubmitBinding? = null
+    private val bottomSheetBinding get() = _binding!!
     private lateinit var submitActivity: SubmitActivity
     private var appCreated = false
     private var ratingCreated = false
@@ -84,8 +85,13 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             }
             false
         })
-        
-        bottomSheetBinding = BottomSheetSubmitBinding.inflate(inflater, container, false)
+    
+        _binding = BottomSheetSubmitBinding.inflate(inflater, container, false)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    
         submitActivity = requireActivity() as SubmitActivity
         submitData()
     
@@ -102,13 +108,11 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 submitData()
             }
         }
-        
+    
         // Cancel
         bottomSheetBinding.cancelButton.setOnClickListener {
             dismiss()
         }
-        
-        return bottomSheetBinding.root
     }
     
     private fun submitData() {
@@ -282,6 +286,11 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                               googleLib = rating.googleLib,
                                               ratingScore = rating.score,
                                               notes = rating.notes))
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
     
 }

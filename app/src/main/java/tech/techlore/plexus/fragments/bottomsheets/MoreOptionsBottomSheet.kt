@@ -40,30 +40,40 @@ class MoreOptionsBottomSheet(
     private val anchorView: View
 ) : BottomSheetDialogFragment() {
     
+    private var _binding: BottomSheetMoreOptionsBinding? = null
+    private val bottomSheetBinding get() = _binding!!
+    private lateinit var headerBinding: BottomSheetHeaderBinding
+    private lateinit var footerBinding: BottomSheetFooterBinding
+    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        
-        val bottomSheetBinding = BottomSheetMoreOptionsBinding.inflate(inflater, container, false)
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+    
+        _binding = BottomSheetMoreOptionsBinding.inflate(inflater, container, false)
+        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    
         val playStoreString = "https://play.google.com/store/apps/details?id=$packageNameString"
         val fdroidString = "https://f-droid.org/packages/$packageNameString/"
         
         headerBinding.bottomSheetTitle.text = nameString
-        
+    
         // Play store
         bottomSheetBinding.playStore.setOnClickListener {
             dismiss()
             openURL(requireActivity(), playStoreString, coordinatorLayout, anchorView)
         }
-        
+    
         // F-Droid
         bottomSheetBinding.fdroid.setOnClickListener {
             dismiss()
             openURL(requireActivity(), fdroidString, coordinatorLayout, anchorView)
         }
-        
+    
         // Share
         bottomSheetBinding.share.setOnClickListener {
             share(requireActivity(),
@@ -73,14 +83,17 @@ class MoreOptionsBottomSheet(
                   mgStatus,
                   playStoreString,
                   fdroidString)
-            
+        
             dismiss()
         }
         footerBinding.positiveButton.visibility = View.GONE
-        
+    
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }
-        
-        return bottomSheetBinding.root
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

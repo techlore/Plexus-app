@@ -38,6 +38,11 @@ class NoNetworkBottomSheet(
     private val negativeButtonClickListener: () -> Unit
 ) : BottomSheetDialogFragment() {
     
+    private var _binding: BottomSheetNoNetworkBinding? = null
+    private val bottomSheetBinding get() = _binding!!
+    private lateinit var headerBinding: BottomSheetHeaderBinding
+    private lateinit var footerBinding: BottomSheetFooterBinding
+    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -55,28 +60,34 @@ class NoNetworkBottomSheet(
             false
         })
     
-        val bottomSheetBinding = BottomSheetNoNetworkBinding.inflate(inflater, container, false)
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        _binding = BottomSheetNoNetworkBinding.inflate(inflater, container, false)
+        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         // Title
         headerBinding.bottomSheetTitle.text = getString(R.string.no_network_title)
-        
+    
         // Retry
         footerBinding.positiveButton.text = getString(R.string.retry)
         footerBinding.positiveButton.setOnClickListener {
             dismiss()
             positiveButtonClickListener.invoke()
         }
-        
+    
         // Exit/Cancel
         footerBinding.negativeButton.text = negativeButtonText
         footerBinding.negativeButton.setOnClickListener {
             dismiss()
             negativeButtonClickListener.invoke()
         }
-        
-        return bottomSheetBinding.root
     }
     
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
