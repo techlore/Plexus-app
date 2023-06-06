@@ -72,6 +72,9 @@ class SettingsActivity : AppCompatActivity() {
             else if (navController.currentDestination?.id == R.id.licensesFragment) {
                 navController.navigate(R.id.action_licensesFragment_to_aboutFragment)
             }
+            else if (navController.currentDestination?.id == R.id.supportUsFragment) {
+                navController.navigate(R.id.action_supportUsFragment_to_aboutFragment)
+            }
             else {
                 finish()
             }

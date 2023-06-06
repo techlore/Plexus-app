@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                         }
                         
                         R.id.nav_report_issue -> openURL(this@MainActivity,
-                                                         "https://github.com/techlore/Plexus-app/issues",
+                                                         getString(R.string.plexus_report_issue_url),
                                                          activityBinding.mainCoordinatorLayout,
                                                          activityBinding.bottomNavContainer)
                         

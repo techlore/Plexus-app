@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -17,6 +17,17 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<vector android:autoMirrored="true" android:height="5dp" android:viewportHeight="24" android:viewportWidth="24" android:width="5dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="@android:color/white" android:pathData="M2 12a10 10 0 1 1 20 0 10 10 0 1 1-20 0"/>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="256"
+    android:viewportHeight="256">
+
+    <path
+        android:fillColor="#FF6600"
+        android:pathData="M128 0C57.32 0 0 57.32 0 128c0 14.13 2.29 27.72 6.52 40.43H44.8V60.73l83.2 83.2 83.2-83.2v107.69h38.28c4.23-12.71 6.52-26.3 6.52-40.43C256 57.31 198.68 0 128 0"/>
+    <path
+        android:fillColor="#4C4C4C"
+        android:pathData="M108.87 163.06l-36.31-36.31v67.76H18.62c22.47 36.86 63.05 61.48 109.37 61.48s86.91-24.62 109.37-61.48h-53.93v-67.76l-36.31 36.31-19.13 19.13-19.13-19.13z"/>
 </vector>

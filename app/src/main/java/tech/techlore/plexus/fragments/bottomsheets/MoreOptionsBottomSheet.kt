@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetMoreOptionsBinding
@@ -57,8 +58,8 @@ class MoreOptionsBottomSheet(
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     
-        val playStoreString = "https://play.google.com/store/apps/details?id=$packageNameString"
-        val fdroidString = "https://f-droid.org/packages/$packageNameString/"
+        val playStoreString = "${getString(R.string.google_play_url)}$packageNameString"
+        val fdroidString = "${getString(R.string.fdroid_url)}$packageNameString/"
         
         headerBinding.bottomSheetTitle.text = nameString
     

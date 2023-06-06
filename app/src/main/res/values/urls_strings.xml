@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!--Main activity-->
+    <!--Nav view-->
+    <string name="plexus_report_issue_url" translatable="false">https://github.com/techlore/Plexus-app/issues</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+    <string name="plexus_privacy_policy_url" translatable="false">https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md</string>
+    <string name="plexus_github_url" translatable="false">https://github.com/techlore/Plexus-app</string>
+    <string name="techlore_website_url" translatable="false">https://www.techlore.tech</string>
+
+    <!--Licenses fragment-->
+    <string name="plexus_license_url" translatable="false">https://github.com/techlore/Plexus-app/blob/main/LICENSE</string>
+    <string name="jackson_license_url" translatable="false">https://github.com/FasterXML/jackson-module-kotlin/blob/2.15/LICENSE</string>
+    <string name="retrofit_license_url" translatable="false">https://github.com/square/retrofit/blob/master/LICENSE.txt</string>
+    <string name="glide_license_url" translatable="false">https://github.com/bumptech/glide/blob/master/LICENSE</string>
+    <string name="fastscroll_license_url" translatable="false">https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE</string>
+    <string name="jsoup_license_url" translatable="false">https://github.com/jhy/jsoup/blob/master/LICENSE</string>
+    <string name="md_icons_license_url" translatable="false">https://github.com/Templarian/MaterialDesign/blob/master/LICENSE</string>
+    <string name="lottie_android_license_url" translatable="false">https://github.com/airbnb/lottie-android/blob/master/LICENSE</string>
+    <string name="lottie_files_license_url" translatable="false">https://lottiefiles.com/page/license</string>
+    <string name="fdroid_icon_license_url" translatable="false">https://f-droid.org/en/about/</string>
+    <string name="microG_icon_license_url" translatable="false">https://microg.org/</string>
+    <string name="liberapay_icon_license_url" translatable="false">https://liberapay.com/about/logos</string>
+    <string name="monero_icon_license_url" translatable="false">https://www.getmonero.org/legal/</string>
+
+    <!--Support us fragment-->
+    <string name="plexus_liberapay_url" translatable="false">https://liberapay.com/Plexus</string>
+
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <!--More options-->
+    <string name="google_play_url" translatable="false">https://play.google.com/store/apps/details?id=</string>
+    <string name="fdroid_url" translatable="false">https://f-droid.org/packages/</string>
+
+</resources>

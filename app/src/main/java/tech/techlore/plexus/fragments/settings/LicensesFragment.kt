@@ -53,59 +53,69 @@ class LicensesFragment : Fragment() {
             // Plexus
             add(License(getString(R.string.plexus),
                         "${getString(R.string.copyright_techlore)}\n\n${getString(R.string.gpl_3_0_license)}",
-                        "https://github.com/techlore/Plexus-app/blob/main/LICENSE"))
+                        getString(R.string.plexus_license_url)))
     
             // Jackson
             add(License(getString(R.string.jackson),
                         getString(R.string.apache_2_0_license),
-                        "https://github.com/FasterXML/jackson-module-kotlin/blob/2.15/LICENSE"))
+                        getString(R.string.jackson_license_url)))
     
             // Retrofit
             add(License(getString(R.string.retrofit),
                         "${getString(R.string.copyright_square)}\n\n${getString(R.string.apache_2_0_license)}",
-                        "https://github.com/square/retrofit/blob/master/LICENSE.txt"))
+                        getString(R.string.retrofit_license_url)))
             
             // Glide
             add(License(getString(R.string.glide),
                         getString(R.string.glide_license,
                                   getString(R.string.apache_2_0_license),
                                   getString(R.string.mit_license)),
-                        "https://github.com/bumptech/glide/blob/master/LICENSE"))
+                        getString(R.string.glide_license_url)))
     
             // FastScroll
             add(License(getString(R.string.fastscroll),
                         getString(R.string.apache_2_0_license),
-                        "https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE"))
+                        getString(R.string.fastscroll_license_url)))
             
             // jsoup
             add(License(getString(R.string.jsoup),
                         "${getString(R.string.copyright_jsoup)}\n\n${getString(R.string.mit_license)}",
-                        "https://github.com/jhy/jsoup/blob/master/LICENSE"))
+                        getString(R.string.jsoup_license_url)))
             
             // Material Design Icons
             add(License(getString(R.string.md_icons),
                         getString(R.string.apache_2_0_license),
-                        "https://github.com/Templarian/MaterialDesign/blob/master/LICENSE"))
-    
-            // F-Droid icon
-            add(License(getString(R.string.fdroid_icon),
-                        getString(R.string.cc_3_0_license),
-                        "https://f-droid.org/en/about/"))
-    
-            // microG icon
-            add(License(getString(R.string.microG_icon),
-                        getString(R.string.apache_2_0_license),
-                        "https://microg.org/"))
+                        getString(R.string.md_icons_license_url)))
     
             // lottie-android
             add(License(getString(R.string.lottie_android),
                         getString(R.string.apache_2_0_license),
-                        "https://github.com/airbnb/lottie-android/blob/master/LICENSE"))
+                        getString(R.string.lottie_android_license_url)))
     
             // LottieFiles
             add(License(getString(R.string.lottie_files),
                         getString(R.string.lottie_files_license),
-                        "https://lottiefiles.com/page/license"))
+                        getString(R.string.lottie_files_license_url)))
+    
+            // F-Droid icon
+            add(License(getString(R.string.fdroid_icon),
+                        getString(R.string.cc_3_0_license),
+                        getString(R.string.fdroid_icon_license_url)))
+    
+            // microG icon
+            add(License(getString(R.string.microG_icon),
+                        getString(R.string.apache_2_0_license),
+                        getString(R.string.microG_icon_license_url)))
+            
+            // Liberapay icon
+            add(License(getString(R.string.liberapay_icon),
+                        getString(R.string.cc0_1_0_universal_public_domain_license),
+                        getString(R.string.liberapay_icon_license_url)))
+    
+            // Monero icon
+            add(License(getString(R.string.monero_icon),
+                        getString(R.string.cc_3_0_license),
+                        getString(R.string.monero_icon_license_url)))
         }
         
         licenseAdapter = LicenseItemAdapter(licenseList)

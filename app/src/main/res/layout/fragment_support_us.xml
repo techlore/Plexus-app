@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/support_us_coord_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/liberapay_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/liberapay_card_bottom_space"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:background="@drawable/shape_card"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/liberapay_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/liberapay_card"
+                app:layout_constraintTop_toTopOf="@id/liberapay_card"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_20"
+                android:text="@string/liberapay"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"
+                android:drawableStart="@drawable/ic_liberapay"
+                android:drawablePadding="@dimen/margin_16"
+                style="@style/MediumBoldText"/>
+
+            <ImageView
+                android:id="@+id/liberapay_qr"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                app:layout_constraintStart_toStartOf="@id/liberapay_card"
+                app:layout_constraintEnd_toEndOf="@id/liberapay_card"
+                app:layout_constraintTop_toBottomOf="@id/liberapay_text"
+                android:layout_marginTop="@dimen/margin_16"
+                android:src="@drawable/ic_liberapay_qr"
+                android:contentDescription="@string/plexus_liberapay_url" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/liberapay_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/liberapay_card"
+                app:layout_constraintEnd_toEndOf="@id/liberapay_card"
+                app:layout_constraintTop_toBottomOf="@id/liberapay_qr"
+                android:padding="@dimen/margin_16"
+                android:text="@string/plexus_liberapay_url"
+                android:textColor="@color/color_url"
+                android:textSize="@dimen/text_17"
+                android:textIsSelectable="true"/>
+
+            <Space
+                android:id="@+id/liberapay_card_bottom_space"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_10"
+                app:layout_constraintTop_toBottomOf="@id/liberapay_url"
+                app:layout_constraintStart_toStartOf="@id/liberapay_card"
+                app:layout_constraintEnd_toEndOf="@id/liberapay_card"/>
+
+            <!--##################################################-->
+
+            <View
+                android:id="@+id/monero_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/liberapay_card"
+                app:layout_constraintBottom_toBottomOf="@id/monero_card_bottom_space"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:background="@drawable/shape_card"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/monero_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/monero_card"
+                app:layout_constraintTop_toTopOf="@id/monero_card"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_20"
+                android:text="@string/monero"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_18"
+                android:drawableStart="@drawable/ic_monero"
+                android:drawablePadding="@dimen/margin_16"
+                style="@style/MediumBoldText"/>
+
+            <ImageView
+                android:id="@+id/monero_qr"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                app:layout_constraintStart_toStartOf="@id/monero_card"
+                app:layout_constraintEnd_toEndOf="@id/monero_card"
+                app:layout_constraintTop_toBottomOf="@id/monero_text"
+                android:layout_marginTop="@dimen/margin_16"
+                android:src="@drawable/ic_monero_qr"
+                android:contentDescription="@string/monero" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/monero_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/monero_card"
+                app:layout_constraintEnd_toEndOf="@id/monero_card"
+                app:layout_constraintTop_toBottomOf="@id/monero_qr"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_25"
+                android:layout_marginEnd="@dimen/margin_25"
+                android:layout_marginBottom="@dimen/margin_6.5"
+                android:text="@string/monero_address"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_17"
+                android:textIsSelectable="true"/>
+
+            <Space
+                android:id="@+id/monero_card_bottom_space"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_40"
+                app:layout_constraintTop_toBottomOf="@id/monero_address"
+                app:layout_constraintStart_toStartOf="@id/monero_card"
+                app:layout_constraintEnd_toEndOf="@id/monero_card"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

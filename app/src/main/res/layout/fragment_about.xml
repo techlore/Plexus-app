@@ -120,6 +120,26 @@
             app:drawableStartCompat="@drawable/ic_licenses" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/support_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginBottom="@dimen/margin_2.5"
+            android:clickable="true"
+            android:drawablePadding="@dimen/margin_16"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="@dimen/margin_25"
+            android:paddingTop="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_25"
+            android:paddingBottom="@dimen/margin_16"
+            android:text="@string/support_us"
+            android:textAlignment="viewStart"
+            android:textColor="@color/color_text_title"
+            android:textSize="@dimen/text_16"
+            app:drawableStartCompat="@drawable/ic_support_us" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/view_on_git"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

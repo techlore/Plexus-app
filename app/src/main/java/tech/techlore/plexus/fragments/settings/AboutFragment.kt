@@ -62,7 +62,7 @@ class AboutFragment : Fragment() {
         // Privacy policy
         fragmentBinding.privacyPolicy.setOnClickListener {
                 openURL(requireActivity(),
-                        "https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md",
+                        getString(R.string.plexus_privacy_policy_url),
                         settingsActivity.activityBinding.settingsCoordLayout,
                         settingsActivity.activityBinding.toolbarBottom)
             }
@@ -71,11 +71,16 @@ class AboutFragment : Fragment() {
         fragmentBinding.licenses.setOnClickListener {
                 settingsActivity.navController.navigate(R.id.action_aboutFragment_to_licensesFragment)
             }
+    
+        // Support us
+        fragmentBinding.supportUs.setOnClickListener {
+            settingsActivity.navController.navigate(R.id.action_aboutFragment_to_supportUsFragment)
+        }
         
         // View on GitHub
         fragmentBinding.viewOnGit.setOnClickListener {
             openURL(requireActivity(),
-                        "https://github.com/techlore/Plexus-app",
+                        getString(R.string.plexus_github_url),
                         settingsActivity.activityBinding.settingsCoordLayout,
                         settingsActivity.activityBinding.toolbarBottom)
             }
@@ -83,7 +88,7 @@ class AboutFragment : Fragment() {
         // Visit Techlore
         fragmentBinding.visitTechlore.setOnClickListener {
             openURL(requireActivity(),
-                        "https://techlore.tech",
+                        getString(R.string.techlore_website_url),
                         settingsActivity.activityBinding.settingsCoordLayout,
                         settingsActivity.activityBinding.toolbarBottom)
             }

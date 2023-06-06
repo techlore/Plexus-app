@@ -37,6 +37,10 @@
     <string name="z_a" translatable="false">Z-A</string>
     <string name="google_play" translatable="false">Google Play</string>
     <string name="fdroid" translatable="false">F-Droid</string>
+    <string name="liberapay" translatable="false">Liberapay</string>
+    <string name="monero" translatable="false">Monero</string>
+
+    <string name="monero_address" translatable="false">85WHr5GxHmZLQzHk25zbDhbzwzS9pSKLmLka5S6tgfoM7F58QnMMgVYDAuFX3YTn4SNhnrybREvcs34vtof2whuQEf8H66P</string>
 
     <string name="jackson" translatable="false">Jackson</string>
     <string name="retrofit" translatable="false">Retrofit</string>
@@ -44,10 +48,12 @@
     <string name="fastscroll" translatable="false">AndroidFastScroll</string>
     <string name="jsoup" translatable="false">jsoup</string>
     <string name="md_icons" translatable="false">MaterialDesignIcons</string>
-    <string name="fdroid_icon" translatable="false">F-Droid icon</string>
-    <string name="microG_icon" translatable="false">microG icon</string>
     <string name="lottie_android" translatable="false">lottie-android</string>
     <string name="lottie_files" translatable="false">LottieFiles</string>
+    <string name="fdroid_icon" translatable="false">F-Droid icon</string>
+    <string name="microG_icon" translatable="false">microG icon</string>
+    <string name="liberapay_icon" translatable="false">Liberapay icon</string>
+    <string name="monero_icon" translatable="false">Monero icon</string>
 
     <string name="copyright_techlore" translatable="false">Copyright © 2022-present Techlore</string>
     <string name="copyright_square" translatable="false">Copyright © 2013 Square, Inc.</string>
@@ -97,6 +103,20 @@
 \n
 \nYou do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
 \nNo warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.</string>
+
+    <string name="cc0_1_0_universal_public_domain_license" translatable="false">No Copyright
+\nThe person who associated a work with this deed has dedicated the work to the public domain by waiving all of his or her rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
+\n
+\nYou can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. See Other Information below.
+\n
+\nOther Information
+\n
+\n- In no way are the patent or trademark rights of any person affected by CC0, nor are the rights that other persons may have in the work or in how the work is used, such as publicity or privacy rights.
+\n
+\n- Unless expressly stated otherwise, the person who associated a work with this deed makes no warranties about the work, and disclaims liability for all uses of the work, to the fullest extent permitted by applicable law.
+\n
+\n- When using or citing the work, you should not imply endorsement by the author or the affirmer.
+</string>
 
     <string name="glide_license" translatable="false">License for everything not in third_party and not otherwise marked:
 \n

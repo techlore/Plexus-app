@@ -37,7 +37,15 @@
             app:exitAnim="@anim/slide_to_start"
             app:popEnterAnim="@anim/slide_from_start"
             app:popExitAnim="@anim/slide_to_end"/>
+        <action
+            android:id="@+id/action_aboutFragment_to_supportUsFragment"
+            app:destination="@id/supportUsFragment"
+            app:enterAnim="@anim/slide_from_end"
+            app:exitAnim="@anim/slide_to_start"
+            app:popEnterAnim="@anim/slide_from_start"
+            app:popExitAnim="@anim/slide_to_end"/>
     </fragment>
+
     <fragment
         android:id="@+id/licensesFragment"
         android:name="tech.techlore.plexus.fragments.settings.LicensesFragment"
@@ -53,8 +61,23 @@
     </fragment>
 
     <fragment
+        android:id="@+id/supportUsFragment"
+        android:name="tech.techlore.plexus.fragments.settings.SupportUsFragment"
+        android:label="@string/support_us"
+        tools:layout="@layout/fragment_support_us">
+        <action
+            android:id="@+id/action_supportUsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/slide_from_start"
+            app:exitAnim="@anim/slide_to_end"
+            app:popEnterAnim="@anim/slide_from_end"
+            app:popExitAnim="@anim/slide_to_start"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/helpFragment"
         android:name="tech.techlore.plexus.fragments.settings.HelpFragment"
         android:label="@string/menu_help"
         tools:layout="@layout/fragment_help" />
+
 </navigation>
