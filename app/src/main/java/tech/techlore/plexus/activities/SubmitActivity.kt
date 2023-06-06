@@ -37,6 +37,7 @@ import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.installedFromTextViewStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.statusTextViewIcon
 
 class SubmitActivity : AppCompatActivity() {
     
@@ -59,6 +60,7 @@ class SubmitActivity : AppCompatActivity() {
         installedBuild = intent.getIntExtra("installedBuild", 0)
         installedFromString = intent.getStringExtra("installedFrom")!!
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
+        val appManager = applicationContext as ApplicationManager
         val repetitiveCharsRegex = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
         // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
         // while still allowing real words like coffee, committee etc.
@@ -93,9 +95,12 @@ class SubmitActivity : AppCompatActivity() {
         installedFromTextViewStyle(this@SubmitActivity,
                                    installedFromString,
                                    activityBinding.submitInstalledFrom)
+    
+        val googleLib = if (appManager.deviceIsMicroG) "micro_g" else "none"
+        statusTextViewIcon(this, googleLib, activityBinding.dgMgText)
         
         activityBinding.dgMgText.text =
-            if ((applicationContext as ApplicationManager).deviceIsMicroG) "${getString(R.string.microG)} ${getString(R.string.status)}"
+            if (appManager.deviceIsMicroG) "${getString(R.string.microG)} ${getString(R.string.status)}"
             else "${getString(R.string.de_Googled)} ${getString(R.string.status)}"
         
         // Notes
