@@ -34,12 +34,11 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.fragments.bottomsheets.SortBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortMyRatingsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.ThemeBottomSheet
-import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.SEL_ITEM
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
 class MainActivity : AppCompatActivity(), MenuProvider {
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     lateinit var activityBinding: ActivityMainBinding
     lateinit var bottomSheetBehavior: BottomSheetBehavior<CoordinatorLayout>
     var clickedItem = 0
-    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var appManager: ApplicationManager
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         activityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        preferenceManager = PreferenceManager(this)
+        appManager = applicationContext as ApplicationManager
         bottomSheetBehavior = BottomSheetBehavior.from(activityBinding.bottomNavContainer)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         navController = navHostFragment.navController
@@ -71,17 +70,17 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         
         // To set nav view item background, check selected item
         if (savedInstanceState == null) {
-            preferenceManager.setInt(SEL_ITEM, R.id.nav_plexus_data)
+            appManager.selectedItem = R.id.nav_plexus_data
         }
         
         // Nav view items
         activityBinding.navView.setNavigationItemSelectedListener { navMenuItem: MenuItem ->
             
             when (navMenuItem.itemId) {
-                R.id.nav_plexus_data -> preferenceManager.setInt(SEL_ITEM, R.id.nav_plexus_data)
-                R.id.nav_fav -> preferenceManager.setInt(SEL_ITEM, R.id.nav_fav)
-                R.id.nav_submit_rating -> preferenceManager.setInt(SEL_ITEM, R.id.nav_submit_rating)
-                R.id.nav_my_ratings -> preferenceManager.setInt(SEL_ITEM, R.id.nav_my_ratings)
+                R.id.nav_plexus_data -> appManager.selectedItem = R.id.nav_plexus_data
+                R.id.nav_fav -> appManager.selectedItem = R.id.nav_fav
+                R.id.nav_submit_rating -> appManager.selectedItem = R.id.nav_submit_rating
+                R.id.nav_my_ratings -> appManager.selectedItem = R.id.nav_my_ratings
             }
             
             clickedItem = navMenuItem.itemId
@@ -132,7 +131,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 
                 activityBinding.dimBg.alpha = slideOffset * 2f // Dim background on sliding up
-                activityBinding.navView.setCheckedItem(preferenceManager.getInt(SEL_ITEM)) // Always sync checked item on slide
+                activityBinding.navView.setCheckedItem(appManager.selectedItem) // Always sync checked item on slide
                 
                 // Hide toolbar title and menu on slide up
                 if (slideOffset > 0.02) {
@@ -190,7 +189,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
         if (clickedItem != currentFragment.id && action != 0) {
-            activityBinding.navView.setCheckedItem(preferenceManager.getInt(SEL_ITEM))
+            activityBinding.navView.setCheckedItem(appManager.selectedItem)
             navController.navigate(action)
         }
     }
@@ -199,7 +198,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_activity_main, menu)
         
-        menu.findItem(R.id.menu_search).isVisible = preferenceManager.getInt(SEL_ITEM) != R.id.nav_my_ratings
+        menu.findItem(R.id.menu_search).isVisible = appManager.selectedItem != R.id.nav_my_ratings
         
     }
     
@@ -239,7 +238,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 
                 navController.currentDestination!!.id != navController.graph.startDestinationId -> {
                     clickedItem = R.id.nav_plexus_data
-                    preferenceManager.setInt(SEL_ITEM, R.id.nav_plexus_data)
+                    appManager.selectedItem = R.id.nav_plexus_data
                     displayFragment(clickedItem)
                     activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
                 }

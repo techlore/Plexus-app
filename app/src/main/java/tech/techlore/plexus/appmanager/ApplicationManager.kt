@@ -49,6 +49,7 @@ class ApplicationManager : Application() {
     
     var deviceIsMicroG = false
     var deviceIsDeGoogled = false
+    var selectedItem = 0
     var submitSuccessful = false
     
     override fun onCreate() {

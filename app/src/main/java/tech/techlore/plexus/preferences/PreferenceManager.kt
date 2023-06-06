@@ -26,7 +26,6 @@ class PreferenceManager(context: Context) {
     companion object {
         // Shared pref keys
         const val FIRST_LAUNCH = "first_launch"
-        const val SEL_ITEM = "selected_item"
         const val THEME = "theme"
         const val A_Z_SORT = "a_z_sort"
         const val STATUS_RADIO = "status_radio"

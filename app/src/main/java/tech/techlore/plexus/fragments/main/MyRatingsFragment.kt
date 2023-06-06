@@ -75,7 +75,8 @@ class MyRatingsFragment :
         
         preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
+        val appManager = (requireContext().applicationContext as ApplicationManager)
+        myRatingsRepository = appManager.myRatingsRepository
         
         /*########################################################################################*/
         
@@ -115,7 +116,7 @@ class MyRatingsFragment :
             // New rating fab
             fragmentBinding.newRatingFab.isVisible = true
             fragmentBinding.newRatingFab.setOnClickListener {
-                preferenceManager.setInt(PreferenceManager.SEL_ITEM, R.id.nav_submit_rating)
+                appManager.selectedItem = R.id.nav_submit_rating
                 mainActivity.clickedItem = R.id.nav_submit_rating
                 mainActivity.displayFragment(mainActivity.clickedItem)
             }
