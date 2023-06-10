@@ -94,5 +94,5 @@ dependencies {
     implementation("org.jsoup:jsoup:1.16.1")
 
     // Lottie
-    implementation("com.airbnb.android:lottie:6.0.0")
+    implementation("com.airbnb.android:lottie:6.0.1")
 }
