@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -38,8 +38,57 @@
         app:navGraph="@navigation/settings_fragments_nav_graph"
         app:defaultNavHost="true"/>
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/help_radio_bottom_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <RadioGroup
+        android:id="@+id/help_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="65dp"
+        android:background="@drawable/shape_outline"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_help_videos"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_40"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape_radio_btn_selector"
+            android:checked="true"
+            android:button="@android:color/transparent"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
+            android:text="@string/videos"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/radio_btn_text_color"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_help_text"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_40"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape_radio_btn_selector"
+            android:button="@android:color/transparent"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
+            android:text="@string/text"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/radio_btn_text_color"/>
+
+    </RadioGroup>
+
     <!--This is just here to provide bg color
-        For some reason appbar layout doesn't show elevated color-->
+        appbar layout doesn't show elevated color-->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

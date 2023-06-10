@@ -94,8 +94,15 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
+    <string name="videos">Videos</string>
+    <string name="text">Text</string>
 
-    <!--Help fragment-->
+    <!--Help videos fragment-->
+    <string name="introduction">Einf\u00FChrung</string>
+    <string name="navigation">Navigation</string>
+    <string name="submissions">Einreichungen</string>
+
+    <!--Help text fragment-->
     <string name="what_status_mean">Was bedeutet der status?</string>
     <string name="not_tested_subtitle">Nicht verf\u00FCgbar, die anwendung wurde nicht getestet</string>
     <string name="broken_title">Zerbrochen</string>
@@ -119,8 +126,9 @@
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
-    <string name="cancel">Abbrechen</string>
     <string name="done">Anwenden</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="dismiss">Ablehnen</string>
     <string name="exit">Ausgang</string>
     <string name="retry">Wiederholen</string>
     <string name="skip">\u00DCberspringen</string>

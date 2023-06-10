@@ -88,8 +88,15 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
+    <string name="videos">Videos</string>
+    <string name="text">Testo</string>
 
-    <!--Help fragment-->
+    <!--Help videos fragment-->
+    <string name="introduction">Introduzione</string>
+    <string name="navigation">Navigazione</string>
+    <string name="submissions">Invii</string>
+
+    <!--Help text fragment-->
     <string name="what_status_mean">Che cosa significa lo stato?</string>
     <string name="not_tested_subtitle">Non disponibile, l\'applicazione non \u00E8 stata testata</string>
     <string name="broken_title">Rotto</string>
@@ -113,8 +120,9 @@
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
-    <string name="cancel">Annulla</string>
     <string name="done">Fatto</string>
+    <string name="cancel">Annulla</string>
+    <string name="dismiss">Congedo</string>
     <string name="exit">Uscita</string>
     <string name="retry">Riprovare</string>
     <string name="skip">Salto</string>

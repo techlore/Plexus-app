@@ -211,7 +211,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_close"/>
+        app:navigationIcon="@drawable/ic_back"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/submit_fab"
@@ -220,7 +220,7 @@
         app:layout_anchor="@id/submit_bottom_app_bar"
         android:src="@drawable/ic_done"
         app:backgroundTint="@color/fab_color"
-        app:tint="@color/fab_icon_color"
+        app:tint="@color/icon_color"
         android:contentDescription="@string/submit"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

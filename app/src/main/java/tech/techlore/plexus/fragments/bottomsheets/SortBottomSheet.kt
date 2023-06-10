@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
@@ -41,21 +42,19 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     
     private var _binding: BottomSheetSortBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var headerBinding: BottomSheetHeaderBinding
-    private lateinit var footerBinding: BottomSheetFooterBinding
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
     
         _binding = BottomSheetSortBinding.inflate(inflater, container, false)
-        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        
+    
+        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = PreferenceManager(requireContext())
     
         headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
@@ -70,8 +69,8 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         val isInstalledAppsFragment =
             navController.currentDestination!!.id in setOf(R.id.submitRatingFragment, R.id.favoritesFragment)
         if (isInstalledAppsFragment) {
-            bottomSheetBinding.sortInstalledFromText.visibility = View.VISIBLE
-            bottomSheetBinding.installedFromChipGroup.visibility = View.VISIBLE
+            bottomSheetBinding.sortInstalledFromText.isVisible = true
+            bottomSheetBinding.installedFromChipGroup.isVisible = true
             if (preferenceManager.getInt(INSTALLED_FROM_SORT) == 0) {
                 preferenceManager.setInt(INSTALLED_FROM_SORT, R.id.sort_installed_any)
             }
@@ -86,7 +85,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     
         // Status chip group visibility
         if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_dg_status) {
-            bottomSheetBinding.statusChipGroup.visibility = View.VISIBLE
+            bottomSheetBinding.statusChipGroup.isVisible = true
         
             // Default DG status checked chip
             if (preferenceManager.getInt(DG_STATUS_SORT) == 0) {
@@ -96,7 +95,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             bottomSheetBinding.statusChipGroup.check(preferenceManager.getInt(DG_STATUS_SORT))
         }
         else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_mg_status) {
-            bottomSheetBinding.statusChipGroup.visibility = View.VISIBLE
+            bottomSheetBinding.statusChipGroup.isVisible = true
         
             // Default MG status checked chip
             if (preferenceManager.getInt(MG_STATUS_SORT) == 0) {
@@ -106,17 +105,12 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             bottomSheetBinding.statusChipGroup.check(preferenceManager.getInt(MG_STATUS_SORT))
         }
         else {
-            bottomSheetBinding.statusChipGroup.visibility = View.GONE
+            bottomSheetBinding.statusChipGroup.isVisible = false
         }
     
         // On selecting status radio btn
         bottomSheetBinding.statusRadiogroup.setOnCheckedChangeListener { _, checkedId: Int ->
-            if (checkedId != R.id.radio_any_status) {
-                bottomSheetBinding.statusChipGroup.visibility = View.VISIBLE
-            }
-            else {
-                bottomSheetBinding.statusChipGroup.visibility = View.GONE
-            }
+            bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.radio_any_status
         }
     
         // Done

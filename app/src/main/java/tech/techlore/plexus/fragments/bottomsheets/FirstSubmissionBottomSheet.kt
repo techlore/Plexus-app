@@ -40,24 +40,22 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
     
     private var _binding: BottomSheetFirstSubmissionBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var headerBinding: BottomSheetHeaderBinding
-    private lateinit var footerBinding: BottomSheetFooterBinding
     private var timer: CountDownTimer? = null
-    private var remSecs = 0
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
         _binding = BottomSheetFirstSubmissionBinding.inflate(inflater, container, false)
-        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        
+    
+        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = PreferenceManager(requireContext())
+        var remSecs: Int
     
         headerBinding.bottomSheetTitle.text = getString(R.string.new_submission)
     
@@ -114,29 +112,30 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
         }
     
         // Proceed
-        footerBinding.positiveButton.isEnabled = false
-        timer = object : CountDownTimer(10000, 1000) {
+        footerBinding.positiveButton.apply {
+            isEnabled = false
+            
+            timer = object : CountDownTimer(10000, 1000) {
         
-            override fun onTick(millisUntilFinished: Long) {
-                remSecs = (millisUntilFinished / 1000).toInt() + 1 // Show 10s..1s instead of 9s..0s
-                val positiveBtnText = ("${getString(R.string.proceed)} ${remSecs}s")
-                footerBinding.positiveButton.text = positiveBtnText
-            }
+                override fun onTick(millisUntilFinished: Long) {
+                    remSecs = (millisUntilFinished / 1000).toInt() + 1 // Show 10s..1s instead of 9s..0s
+                    val positiveBtnText = ("${getString(R.string.proceed)} ${remSecs}s")
+                    text = positiveBtnText
+                }
         
-            override fun onFinish() {
-                footerBinding.positiveButton.text = getString(R.string.proceed)
-                footerBinding.positiveButton.isEnabled =
-                    bottomSheetBinding.romDropdownMenu.text.toString() != allRomsDropdownList[0]
-                timer = null
+                override fun onFinish() {
+                    text = getString(R.string.proceed)
+                    isEnabled = bottomSheetBinding.romDropdownMenu.text.toString() != allRomsDropdownList[0]
+                    timer = null
+                }
+            }.start()
+            
+            setOnClickListener{
+                preferenceManager.setBoolean(FIRST_SUBMISSION, false)
+                preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
+                dismiss()
+                positiveButtonClickListener.invoke()
             }
-        }.start()
-    
-        // Proceed
-        footerBinding.positiveButton.setOnClickListener{
-            preferenceManager.setBoolean(FIRST_SUBMISSION, false)
-            preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
-            dismiss()
-            positiveButtonClickListener.invoke()
         }
     
         // Cancel

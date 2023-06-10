@@ -291,7 +291,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         when(menuItem.itemId) {
             
             R.id.details_menu_help -> startActivity(Intent(this@AppDetailsActivity, SettingsActivity::class.java)
-                                                        .putExtra("frag", R.id.helpFragment))
+                                                        .putExtra("frag", R.id.helpVideosFragment))
             
             R.id.menu_sort_user_ratings -> SortUserRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
             

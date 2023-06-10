@@ -91,8 +91,15 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
+    <string name="videos">Videos</string>
+    <string name="text">Texte</string>
 
-    <!--Help fragment-->
+    <!--Help videos fragment-->
+    <string name="introduction">Introduction</string>
+    <string name="navigation">Navigation</string>
+    <string name="submissions">Soumissions</string>
+
+    <!--Help text fragment-->
     <string name="what_status_mean">Que signifient les statuts?</string>
     <string name="not_tested_subtitle">Non disponible, l\'application n\'a pas \u00E9t\u00E9 test\u00E9e</string>
     <string name="broken_title">Bris\u00E9</string>
@@ -116,8 +123,9 @@
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
+    <string name="done">Termin\u00E9</string>
     <string name="cancel">Annuler</string>
-    <string name="done">OK</string>
+    <string name="dismiss">Rejeter</string>
     <string name="exit">Fermer</string>
     <string name="retry">R\u00E9essayer</string>
     <string name="skip">Sauter</string>

@@ -86,8 +86,15 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
+    <string name="videos">Videos</string>
+    <string name="text">Tekst</string>
 
-    <!--Help fragment-->
+    <!--Help videos fragment-->
+    <string name="introduction">Inleiding</string>
+    <string name="navigation">Navigatie</string>
+    <string name="submissions">Inzendingen</string>
+
+    <!--Help text fragment-->
     <string name="what_status_mean">Wat betekent de status?</string>
     <string name="not_tested_subtitle">Niet beschikbaar, app is niet getest</string>
     <string name="broken_title">Gebroken</string>
@@ -111,8 +118,9 @@
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
-    <string name="cancel">Annuleren</string>
     <string name="done">Klaar</string>
+    <string name="cancel">Annuleren</string>
+    <string name="dismiss">Ontsla</string>
     <string name="exit">Uitgang</string>
     <string name="retry">Opnieuw proberen</string>
     <string name="skip">Skip</string>

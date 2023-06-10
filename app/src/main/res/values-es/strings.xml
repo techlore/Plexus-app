@@ -90,8 +90,15 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
+    <string name="videos">Videos</string>
+    <string name="text">Texto</string>
 
-    <!--Help fragment-->
+    <!--Help videos fragment-->
+    <string name="introduction">Introducci\u00F3n</string>
+    <string name="navigation">Navegaci\u00F3n</string>
+    <string name="submissions">Env\u00EDos</string>
+
+    <!--Help text fragment-->
     <string name="what_status_mean">¿Qu\u00E9 significan las estados?</string>
     <string name="not_tested_subtitle">No disponible, la app no se ha probado</string>
     <string name="broken_title">Roto</string>
@@ -115,8 +122,9 @@
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
-    <string name="cancel">Cancelar</string>
     <string name="done">Hecho</string>
+    <string name="cancel">Cancelar</string>
+    <string name="dismiss">Desestimar</string>
     <string name="exit">Salida</string>
     <string name="retry">Rever</string>
     <string name="skip">Saltar</string>

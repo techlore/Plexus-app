@@ -43,21 +43,19 @@ class MoreOptionsBottomSheet(
     
     private var _binding: BottomSheetMoreOptionsBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var headerBinding: BottomSheetHeaderBinding
-    private lateinit var footerBinding: BottomSheetFooterBinding
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
     
         _binding = BottomSheetMoreOptionsBinding.inflate(inflater, container, false)
-        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     
+        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val playStoreString = "${getString(R.string.google_play_url)}$packageNameString"
         val fdroidString = "${getString(R.string.fdroid_url)}$packageNameString/"
         
@@ -87,10 +85,14 @@ class MoreOptionsBottomSheet(
         
             dismiss()
         }
+        
         footerBinding.positiveButton.visibility = View.GONE
     
         // Cancel
-        footerBinding.negativeButton.setOnClickListener { dismiss() }
+        footerBinding.negativeButton.apply {
+            text = getString(R.string.dismiss)
+            setOnClickListener { dismiss() }
+        }
     }
     
     override fun onDestroy() {

@@ -27,6 +27,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieDrawable
@@ -96,16 +97,18 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         submitData()
     
         // Done/Retry
-        bottomSheetBinding.doneButton.setOnClickListener {
-            if (ratingCreated && !postedRatingId.isNullOrBlank()) {
-                dismiss()
-                submitActivity.finish()
-            }
-            else {
-                bottomSheetBinding.doneButton.isVisible = false
-                bottomSheetBinding.cancelButton.isVisible = false
-                changeAnimView(R.raw.lottie_uploading, true)
-                submitData()
+        bottomSheetBinding.doneButton.apply {
+            setOnClickListener {
+                if (ratingCreated && !postedRatingId.isNullOrBlank()) {
+                    dismiss()
+                    submitActivity.finish()
+                }
+                else {
+                    isVisible = false
+                    bottomSheetBinding.cancelButton.isVisible = false
+                    changeAnimView(R.raw.lottie_uploading, true)
+                    submitData()
+                }
             }
         }
     
@@ -172,11 +175,16 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 appManager.submitSuccessful = true
                 changeAnimView(R.raw.lottie_success, false)
                 bottomSheetBinding.submitStatusText.text = getString(R.string.submit_success)
-                bottomSheetBinding.heartView.isVisible = true
-                bottomSheetBinding.heartView.playAnimation()
+                bottomSheetBinding.heartView.apply {
+                    isVisible = true
+                    playAnimation()
+                }
                 bottomSheetBinding.thanksText.isVisible = true
-                bottomSheetBinding.doneButton.text = getString(R.string.done)
-                bottomSheetBinding.doneButton.isVisible = true
+                bottomSheetBinding.doneButton.apply {
+                    icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
+                    text = getString(R.string.done)
+                    isVisible = true
+                }
                 bottomSheetBinding.cancelButton.isVisible = false
             }
         }
@@ -200,8 +208,11 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             // Request failed
             changeAnimView(R.raw.lottie_error, false)
             bottomSheetBinding.submitStatusText.text = "${getString(R.string.submit_error)}: ${response.code()}"
-            bottomSheetBinding.doneButton.text = getString(R.string.retry)
-            bottomSheetBinding.doneButton.isVisible = true
+            bottomSheetBinding.doneButton.apply {
+                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_retry)
+                text = getString(R.string.retry)
+                isVisible = true
+            }
             bottomSheetBinding.cancelButton.isVisible = true
             submitActivity.activityBinding.submitFab.isEnabled = true
         }

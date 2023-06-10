@@ -38,21 +38,19 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetThemeBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var headerBinding: BottomSheetHeaderBinding
-    private lateinit var footerBinding: BottomSheetFooterBinding
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
         _binding = BottomSheetThemeBinding.inflate(inflater, container, false)
-        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     
+        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = PreferenceManager(requireContext())
     
         headerBinding.bottomSheetTitle.setText(R.string.theme)
@@ -69,30 +67,43 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.themeRadiogroup.check(preferenceManager.getInt(THEME))
     
         // Show system default option only on SDK 29 and above
-        bottomSheetBinding.sysDefault.visibility = if (Build.VERSION.SDK_INT >= 29) View.VISIBLE else View.GONE
+        bottomSheetBinding.sysDefault.isVisible = Build.VERSION.SDK_INT >= 29
     
-        // On selecting option
-        bottomSheetBinding.themeRadiogroup.setOnCheckedChangeListener { _, checkedId ->
-        
-            preferenceManager.setInt(THEME, checkedId)
-        
-            when (checkedId) {
-                R.id.sys_default ->
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        // RadioGroup
+        bottomSheetBinding.themeRadiogroup.apply {
             
-                R.id.light ->
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            
-                R.id.dark ->
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            // Default checked radio btn
+            if (preferenceManager.getInt(THEME) == 0) {
+                if (Build.VERSION.SDK_INT >= 29) {
+                    preferenceManager.setInt(THEME, R.id.sys_default)
+                }
+                else {
+                    preferenceManager.setInt(THEME, R.id.light)
+                }
             }
+            check(preferenceManager.getInt(THEME))
+    
+            // On selecting option
+            setOnCheckedChangeListener { _, checkedId ->
+                preferenceManager.setInt(THEME, checkedId)
+                when (checkedId) {
+                    R.id.sys_default ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            
+                    R.id.light ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            
+                    R.id.dark ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                dismiss()
+                requireActivity().recreate()
         
-            dismiss()
-            requireActivity().recreate()
-        
+            }
         }
     
         footerBinding.positiveButton.isVisible = false
+        
         footerBinding.negativeButton.setOnClickListener { dismiss() }
     }
     

@@ -221,7 +221,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             }
             
             R.id.main_menu_help -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java)
-                                                .putExtra("frag", R.id.helpFragment))
+                                                .putExtra("frag", R.id.helpVideosFragment))
             
         }
         

@@ -25,6 +25,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
@@ -40,8 +41,6 @@ class NoNetworkBottomSheet(
     
     private var _binding: BottomSheetNoNetworkBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var headerBinding: BottomSheetHeaderBinding
-    private lateinit var footerBinding: BottomSheetFooterBinding
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -61,28 +60,34 @@ class NoNetworkBottomSheet(
         })
     
         _binding = BottomSheetNoNetworkBinding.inflate(inflater, container, false)
-        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    
+        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         
         // Title
         headerBinding.bottomSheetTitle.text = getString(R.string.no_network_title)
     
         // Retry
-        footerBinding.positiveButton.text = getString(R.string.retry)
-        footerBinding.positiveButton.setOnClickListener {
-            dismiss()
-            positiveButtonClickListener.invoke()
+        footerBinding.positiveButton.apply {
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_retry)
+            text = getString(R.string.retry)
+            setOnClickListener {
+                dismiss()
+                positiveButtonClickListener.invoke()
+            }
         }
     
         // Exit/Cancel
-        footerBinding.negativeButton.text = negativeButtonText
-        footerBinding.negativeButton.setOnClickListener {
-            dismiss()
-            negativeButtonClickListener.invoke()
+        footerBinding.negativeButton.apply {
+            text = negativeButtonText
+            setOnClickListener {
+                dismiss()
+                negativeButtonClickListener.invoke()
+            }
         }
     }
     

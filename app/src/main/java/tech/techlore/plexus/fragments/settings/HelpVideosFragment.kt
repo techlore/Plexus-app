@@ -26,33 +26,41 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SettingsActivity
-import tech.techlore.plexus.databinding.FragmentSupportUsBinding
-import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
+import tech.techlore.plexus.databinding.FragmentHelpVideosBinding
+import tech.techlore.plexus.fragments.bottomsheets.VideoPlayerBottomSheet
 
-class SupportUsFragment : Fragment() {
+class HelpVideosFragment : Fragment() {
     
-    private var _binding: FragmentSupportUsBinding? = null
+    private var _binding: FragmentHelpVideosBinding? = null
     private val fragmentBinding get() = _binding!!
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
-        _binding = FragmentSupportUsBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment
+        _binding = FragmentHelpVideosBinding.inflate(inflater, container, false)
         return fragmentBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val toolbar = (requireActivity() as SettingsActivity).activityBinding.toolbarBottom
-        toolbar.title = getString(R.string.support_us)
+        (requireActivity() as SettingsActivity).activityBinding.toolbarBottom.title = getString(R.string.menu_help)
         
-        // Liberapay
-        fragmentBinding.liberapayUrl.setOnClickListener {
-            openURL(requireActivity(),
-                    getString(R.string.plexus_liberapay_url),
-                    fragmentBinding.supportUsCoordLayout,
-                    toolbar)
+        val viewToVideoIdMap =
+            mapOf(fragmentBinding.introductionThumbnail to R.raw.intro_video,
+                  fragmentBinding.introductionText to R.raw.intro_video,
+                  fragmentBinding.navigationThumbnail to R.raw.navigation_video,
+                  fragmentBinding.introText to R.raw.navigation_video,
+                  fragmentBinding.submissionsThumbnail to R.raw.submissions_video,
+                  fragmentBinding.introText to R.raw.submissions_video,
+                  fragmentBinding.aboutThumbnail to R.raw.about_video,
+                  fragmentBinding.introText to R.raw.about_video
+            )
+        
+        viewToVideoIdMap.forEach { (view, videoId) ->
+            view.setOnClickListener {
+                VideoPlayerBottomSheet(videoId).show(parentFragmentManager, "VideoPlayerBottomSheet")
+            }
         }
     }
     
@@ -60,5 +68,4 @@ class SupportUsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    
 }

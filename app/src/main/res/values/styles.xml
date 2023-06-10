@@ -129,15 +129,26 @@
     </style>
 
     <!--Bottom sheet buttons-->
-    <style name="NegativeButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+    <style name="NegativeButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:paddingStart">@dimen/margin_16</item>
+        <item name="android:paddingEnd">@dimen/margin_20</item>
+        <item name="icon">@drawable/ic_cancel</item>
+        <item name="iconSize">18dp</item>
+        <item name="iconPadding">@dimen/margin_4</item>
         <item name="android:textColor">@color/color_primary</item>
         <item name="android:textSize">@dimen/text_16</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.Material3.Button">
-        <item name="android:textColor">@color/fab_icon_color</item>
         <item name="backgroundTint">@color/fab_color</item>
+        <item name="android:paddingStart">@dimen/margin_16</item>
+        <item name="android:paddingEnd">@dimen/margin_20</item>
+        <item name="icon">@drawable/ic_done</item>
+        <item name="iconSize">18dp</item>
+        <item name="iconPadding">@dimen/margin_4</item>
+        <item name="iconTint">@color/icon_color</item>
+        <item name="android:textColor">@color/icon_color</item>
         <item name="android:textSize">@dimen/text_16</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>

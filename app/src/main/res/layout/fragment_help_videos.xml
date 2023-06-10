@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="55dp"
+    tools:context=".fragments.settings.HelpVideosFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_12"
+        android:paddingBottom="@dimen/margin_35">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/introduction_thumbnail"
+            android:layout_width="170dp"
+            android:layout_height="320dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"
+            android:paddingBottom="1dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/intro_thumbnail"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/introduction_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/introduction_thumbnail"
+            app:layout_constraintEnd_toEndOf="@id/introduction_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/introduction_thumbnail"
+            android:padding="@dimen/margin_12"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/shape_rounded_bottom_corners"
+            android:text="@string/introduction"
+            android:textColor="@color/color_snackbar_text"
+            android:textSize="@dimen/text_17"
+            android:drawableStart="@drawable/ic_play_circle"
+            android:drawablePadding="@dimen/margin_8"
+            android:drawableTint="@color/color_snackbar_text"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/navigation_thumbnail"
+            android:layout_width="170dp"
+            android:layout_height="320dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"
+            android:paddingBottom="1dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/intro_thumbnail"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/navigation_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/navigation_thumbnail"
+            app:layout_constraintEnd_toEndOf="@id/navigation_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/navigation_thumbnail"
+            android:padding="@dimen/margin_12"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/shape_rounded_bottom_corners"
+            android:text="@string/navigation"
+            android:textColor="@color/color_snackbar_text"
+            android:textSize="@dimen/text_17"
+            android:drawableStart="@drawable/ic_play_circle"
+            android:drawablePadding="@dimen/margin_8"
+            android:drawableTint="@color/color_snackbar_text"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/submissions_thumbnail"
+            android:layout_width="170dp"
+            android:layout_height="320dp"
+            android:layout_marginTop="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingBottom="1dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/intro_thumbnail"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/submissions_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/submissions_thumbnail"
+            app:layout_constraintEnd_toEndOf="@id/submissions_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/submissions_thumbnail"
+            android:padding="@dimen/margin_12"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/shape_rounded_bottom_corners"
+            android:text="@string/submissions"
+            android:textColor="@color/color_snackbar_text"
+            android:textSize="@dimen/text_17"
+            android:drawableStart="@drawable/ic_play_circle"
+            android:drawablePadding="@dimen/margin_8"
+            android:drawableTint="@color/color_snackbar_text"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/about_thumbnail"
+            android:layout_width="170dp"
+            android:layout_height="320dp"
+            android:layout_marginTop="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal"
+            app:layout_constraintStart_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingBottom="1dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/intro_thumbnail"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/about_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/about_thumbnail"
+            app:layout_constraintEnd_toEndOf="@id/about_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/about_thumbnail"
+            android:padding="@dimen/margin_12"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/shape_rounded_bottom_corners"
+            android:text="@string/about"
+            android:textColor="@color/color_snackbar_text"
+            android:textSize="@dimen/text_17"
+            android:drawableStart="@drawable/ic_play_circle"
+            android:drawablePadding="@dimen/margin_8"
+            android:drawableTint="@color/color_snackbar_text"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

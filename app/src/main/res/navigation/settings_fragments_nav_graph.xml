@@ -33,17 +33,13 @@
         <action
             android:id="@+id/action_aboutFragment_to_licensesFragment"
             app:destination="@id/licensesFragment"
-            app:enterAnim="@anim/slide_from_end"
-            app:exitAnim="@anim/slide_to_start"
-            app:popEnterAnim="@anim/slide_from_start"
-            app:popExitAnim="@anim/slide_to_end"/>
+            app:enterAnim="@anim/fade_in_slide_from_end"
+            app:exitAnim="@anim/no_movement"/>
         <action
             android:id="@+id/action_aboutFragment_to_supportUsFragment"
             app:destination="@id/supportUsFragment"
-            app:enterAnim="@anim/slide_from_end"
-            app:exitAnim="@anim/slide_to_start"
-            app:popEnterAnim="@anim/slide_from_start"
-            app:popExitAnim="@anim/slide_to_end"/>
+            app:enterAnim="@anim/fade_in_slide_from_end"
+            app:exitAnim="@anim/no_movement"/>
     </fragment>
 
     <fragment
@@ -54,10 +50,8 @@
         <action
             android:id="@+id/action_licensesFragment_to_aboutFragment"
             app:destination="@id/aboutFragment"
-            app:enterAnim="@anim/slide_from_start"
-            app:exitAnim="@anim/slide_to_end"
-            app:popEnterAnim="@anim/slide_from_end"
-            app:popExitAnim="@anim/slide_to_start"/>
+            app:enterAnim="@anim/no_movement"
+            app:exitAnim="@anim/fade_out_slide_to_end"/>
     </fragment>
 
     <fragment
@@ -68,16 +62,32 @@
         <action
             android:id="@+id/action_supportUsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment"
-            app:enterAnim="@anim/slide_from_start"
-            app:exitAnim="@anim/slide_to_end"
-            app:popEnterAnim="@anim/slide_from_end"
-            app:popExitAnim="@anim/slide_to_start"/>
+            app:enterAnim="@anim/no_movement"
+            app:exitAnim="@anim/fade_out_slide_to_end"/>
     </fragment>
 
     <fragment
-        android:id="@+id/helpFragment"
-        android:name="tech.techlore.plexus.fragments.settings.HelpFragment"
+        android:id="@+id/helpVideosFragment"
+        android:name="tech.techlore.plexus.fragments.settings.HelpVideosFragment"
         android:label="@string/menu_help"
-        tools:layout="@layout/fragment_help" />
+        tools:layout="@layout/fragment_help_videos">
+        <action
+            android:id="@+id/action_helpVideosFragment_to_helpTextFragment"
+            app:destination="@id/helpTextFragment"
+            app:enterAnim="@anim/slide_from_end"
+            app:exitAnim="@anim/slide_to_start"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/helpTextFragment"
+        android:name="tech.techlore.plexus.fragments.settings.HelpTextFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help_text" >
+        <action
+            android:id="@+id/action_helpTextFragment_to_helpVideosFragment"
+            app:destination="@id/helpVideosFragment"
+            app:enterAnim="@anim/slide_from_start"
+            app:exitAnim="@anim/slide_to_end"/>
+    </fragment>
 
 </navigation>

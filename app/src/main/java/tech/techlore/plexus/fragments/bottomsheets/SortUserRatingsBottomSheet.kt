@@ -38,8 +38,6 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortUserRatingsBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var headerBinding: BottomSheetHeaderBinding
-    private lateinit var footerBinding: BottomSheetFooterBinding
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -49,13 +47,13 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         
         _binding = BottomSheetSortUserRatingsBinding.inflate(inflater, container, false)
-        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     
+        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val detailsActivity = requireActivity() as AppDetailsActivity
     
         headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)

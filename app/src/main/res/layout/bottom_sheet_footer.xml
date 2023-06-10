@@ -27,6 +27,7 @@
     android:layout_marginBottom="@dimen/margin_4"
     android:paddingStart="@dimen/margin_8"
     android:paddingEnd="@dimen/margin_16"
+    android:paddingTop="@dimen/margin_8"
     android:paddingBottom="@dimen/margin_8"
     android:gravity="end">
 

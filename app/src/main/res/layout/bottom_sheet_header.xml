@@ -22,11 +22,11 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="25dp"
         android:layout_height="4.5dp"
         android:backgroundTint="@color/color_drag_handle"
-        app:cardElevation="0dp"
+        app:strokeColor="@android:color/transparent"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_16"/>

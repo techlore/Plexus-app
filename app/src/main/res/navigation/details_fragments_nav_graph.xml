@@ -21,13 +21,15 @@
 
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/details_fragments_nav_graph"
     app:startDestination="@id/fragmentProgressBar">
 
     <fragment
         android:id="@+id/fragmentProgressBar"
         android:name="tech.techlore.plexus.fragments.details.FragmentProgressBar"
-        android:label="FragmentProgressBar" >
+        android:label="FragmentProgressBar"
+        tools:layout="@layout/fragment_progress_bar">
         <action
             android:id="@+id/action_fragmentProgressBar_to_totalScoreFragment"
             app:destination="@id/totalScoreFragment" />
@@ -36,7 +38,8 @@
     <fragment
         android:id="@+id/totalScoreFragment"
         android:name="tech.techlore.plexus.fragments.details.TotalScoreFragment"
-        android:label="@string/total_score" >
+        android:label="@string/total_score"
+        tools:layout="@layout/fragment_total_score">
         <action
             android:id="@+id/action_totalScoreFragment_to_userRatingsFragment"
             app:destination="@id/userRatingsFragment"
@@ -47,7 +50,8 @@
     <fragment
         android:id="@+id/userRatingsFragment"
         android:name="tech.techlore.plexus.fragments.details.UserRatingsFragment"
-        android:label="@string/user_ratings" >
+        android:label="@string/user_ratings"
+        tools:layout="@layout/fragment_user_ratings">
         <action
             android:id="@+id/action_userRatingsFragment_to_totalScoreFragment"
             app:destination="@id/totalScoreFragment"

@@ -52,8 +52,6 @@ class SortMyRatingsBottomSheet(private val navController: NavController) : Botto
     
     private var _binding: BottomSheetSortMyRatingsBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var headerBinding: BottomSheetHeaderBinding
-    private lateinit var footerBinding: BottomSheetFooterBinding
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -63,13 +61,13 @@ class SortMyRatingsBottomSheet(private val navController: NavController) : Botto
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         
         _binding = BottomSheetSortMyRatingsBinding.inflate(inflater, container, false)
-        headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        
+    
+        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = PreferenceManager(requireContext())
     
         lifecycleScope.launch {

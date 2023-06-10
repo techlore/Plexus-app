@@ -61,7 +61,7 @@ class SubmitActivity : AppCompatActivity() {
         installedFromString = intent.getStringExtra("installedFrom")!!
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
         val appManager = applicationContext as ApplicationManager
-        val repetitiveCharsRegex = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
+        val repeatedCharsRegex = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
         // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
         // while still allowing real words like coffee, committee etc.
         val blockedWords = resources.getStringArray(R.array.blocked_words)
@@ -128,7 +128,7 @@ class SubmitActivity : AppCompatActivity() {
                         
                         // Check for blocked words, repetitive chars, emojis and URLs
                         val hasBlockedWord = blockedWordsRegex.find(charSequence) != null
-                        val hasRepetitiveChars = repetitiveCharsRegex.find(charSequence) == null
+                        val hasRepeatedChars = repeatedCharsRegex.find(charSequence) == null
                         val hasEmojis = emojiRegex.find(charSequence) != null
                         val hasURLs = Patterns.WEB_URL.matcher(charSequence).find()
                         
@@ -136,7 +136,7 @@ class SubmitActivity : AppCompatActivity() {
                             charSequence.isEmpty()
                             || (charSequence.length in 5..300
                                 && !hasBlockedWord
-                                && !hasRepetitiveChars
+                                && !hasRepeatedChars
                                 && !hasEmojis
                                 && !hasURLs)
                     }

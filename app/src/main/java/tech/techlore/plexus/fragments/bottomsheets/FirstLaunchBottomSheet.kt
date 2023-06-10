@@ -93,7 +93,7 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
         // Proceed
         bottomSheetBinding.proceedButton.setOnClickListener {
             startActivity(Intent(requireActivity(), SettingsActivity::class.java)
-                              .putExtra("frag", R.id.helpFragment))
+                              .putExtra("frag", R.id.helpVideosFragment))
             requireActivity().finish()
         }
     
@@ -102,6 +102,7 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
             PreferenceManager(requireActivity()).setBoolean(FIRST_LAUNCH, false)
             startActivity(Intent(requireActivity(), MainActivity::class.java))
             requireActivity().finish()
+            requireActivity().overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
         }
     }
     

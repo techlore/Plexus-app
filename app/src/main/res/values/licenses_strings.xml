@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+        <string name="gpl_3_0_license" translatable="false">This program is free software: you can redistribute it and/or modify
+\nit under the terms of the GNU General Public License as published by
+\nthe Free Software Foundation, either version 3 of the License, or
+\n(at your option) any later version.
+\n
+\nThis program is distributed in the hope that it will be useful,
+\nbut WITHOUT ANY WARRANTY; without even the implied warranty of
+\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+\nGNU General Public License for more details.
+\n
+\nYou should have received a copy of the GNU General Public License
+\nalong with this program.  If not, see https://www.gnu.org/licenses.</string>
+
+    <string name="apache_2_0_license" translatable="false">Licensed under the Apache License, Version 2.0 (the "License");
+\nyou may not use this file except in compliance with the License.
+\nYou may obtain a copy of the License at
+\n
+\nhttps://www.apache.org/licenses/LICENSE-2.0
+\n
+\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</string>
+
+    <string name="mit_license" translatable="false">Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+\n
+\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+\n
+\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+
+    <string name="cc_3_0_license" translatable="false">You are free to:
+\nShare — copy and redistribute the material in any medium or format
+\nAdapt — remix, transform, and build upon the material for any purpose, even commercially.
+\nThe licensor cannot revoke these freedoms as long as you follow the license terms.
+\n
+\nUnder the following terms:
+\n
+\nAttribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+\nShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+\n
+\nNo additional restrictions - You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+\n
+\nNotices:
+\n
+\nYou do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
+\nNo warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.</string>
+
+    <string name="cc0_1_0_universal_public_domain_license" translatable="false">No Copyright
+\nThe person who associated a work with this deed has dedicated the work to the public domain by waiving all of his or her rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
+\n
+\nYou can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. See Other Information below.
+\n
+\nOther Information
+\n
+\n- In no way are the patent or trademark rights of any person affected by CC0, nor are the rights that other persons may have in the work or in how the work is used, such as publicity or privacy rights.
+\n
+\n- Unless expressly stated otherwise, the person who associated a work with this deed makes no warranties about the work, and disclaims liability for all uses of the work, to the fullest extent permitted by applicable law.
+\n
+\n- When using or citing the work, you should not imply endorsement by the author or the affirmer.
+</string>
+
+    <string name="glide_license" translatable="false">License for everything not in third_party and not otherwise marked:
+\n
+\nCopyright © 2014 Google, Inc. All rights reserved.
+\n
+\nRedistribution and use in source and binary forms, with or without modification, are
+\npermitted provided that the following conditions are met:
+\n
+\n1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\n
+\n2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\n
+\nTHIS SOFTWARE IS PROVIDED BY GOOGLE, INC. \`\`AS IS\'\' AND ANY EXPRESS OR IMPLIED
+\nWARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+\nFITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GOOGLE, INC. OR
+\nCONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+\nCONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+\nANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+\nNEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+\nADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+\n
+\nThe views and conclusions contained in the software and documentation are those of the
+\nauthors and should not be interpreted as representing official policies, either expressed
+\nor implied, of Google, Inc.
+\n
+\nLicense for third_party/disklrucache:
+\n
+\nCopyright 2012 Jake Wharton
+\nCopyright 2011 The Android Open Source Project
+\n
+\n%1$s
+\n
+\nLicense for third_party/gif_decoder:
+\n
+\nCopyright © 2013 Xcellent Creations, Inc.
+\n
+\n%2$s
+\n
+\nLicense for third_party/gif_encoder/AnimatedGifEncoder.java and
+\nthird_party/gif_encoder/LZWEncoder.java:
+\n
+\nNo copyright asserted on the source code of this class. May be used for any
+\npurpose, however, refer to the Unisys LZW patent for restrictions on use of
+\nthe associated LZWEncoder class. Please forward any corrections to
+\nkweiner@fmsware.com.
+\n
+\nLicense for third_party/gif_encoder/NeuQuant.java
+\n
+\nCopyright © 1994 Anthony Dekker
+\n
+\nNEUQUANT Neural-Net quantization algorithm by Anthony Dekker, 1994. See
+\n"Kohonen neural networks for optimal colour quantization" in "Network:
+\nComputation in Neural Systems" Vol. 5 (1994) pp 351-367. for a discussion of
+\nthe algorithm.
+\n
+\nAny party obtaining a copy of these files from the author, directly or
+\nindirectly, is granted, free of charge, a full and unrestricted irrevocable,
+\nworld-wide, paid up, royalty-free, nonexclusive right and license to deal in
+\nthis software and documentation files (the "Software"), including without
+\nlimitation the rights to use, copy, modify, merge, publish, distribute,
+\nsublicense, and/or sell copies of the Software, and to permit persons who
+\nreceive copies from any such party to do so, with the only requirement being
+\nthat this copyright notice remain intact.</string>
+
+    <string name="lottie_files_license" translatable="false">Copyright © 2021 Design Barn Inc.
+\n
+\nPermission is hereby granted, free of charge, to any person obtaining a copy of the public animation files available for download at the LottieFiles site (“Files”) to download, reproduce, modify, publish, distribute, publicly display, and publicly digitally perform such Files, including for commercial purposes, provided that any display, publication, performance, or distribution of Files must contain (and be subject to) the same terms and conditions of this license. Modifications to Files are deemed derivative works and must also be expressly distributed under the same terms and conditions of this license. You may not purport to impose any additional or different terms or conditions on, or apply any technical measures that restrict exercise of, the rights granted under this license. This license does not include the right to collect or compile Files from LottieFiles to replicate or develop a similar or competing service.
+\n
+\nUse of Files without attributing the creator(s) of the Files is permitted under this license, though attribution is strongly encouraged. If attributions are included, such attributions should be visible to the end user.
+\n
+\nFILES ARE PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL THE CREATOR(S) OF FILES OR DESIGN BARN, INC. BE LIABLE ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF SUCH FILES.</string>
+
+
+</resources>

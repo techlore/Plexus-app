@@ -23,6 +23,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
@@ -45,6 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.settings_nav_host) as NavHostFragment
         navController = navHostFragment.navController
+        val displayFragmentId = intent.extras?.getInt("frag")!!
         
         /*####################################################################################*/
         
@@ -52,9 +54,23 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         
         activityBinding.toolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        activityBinding.helpRadioBottomAppbar.isVisible = displayFragmentId == R.id.helpVideosFragment
         
-        intent.extras?.let {
-            navController.navigate(it.getInt("frag"))
+        navController.navigate(displayFragmentId)
+        
+        activityBinding.helpRadiogroup.apply {
+            isVisible = displayFragmentId == R.id.helpVideosFragment
+            if (isVisible) {
+                check(R.id.radio_help_videos)
+                setOnCheckedChangeListener { _, checkedId ->
+                    val action =
+                        when (checkedId) {
+                            R.id.radio_help_text -> R.id.action_helpVideosFragment_to_helpTextFragment
+                            else -> R.id.action_helpTextFragment_to_helpVideosFragment
+                        }
+                    navController.navigate(action)
+                }
+            }
         }
     }
     
@@ -80,5 +96,5 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
     }
-
+    
 }

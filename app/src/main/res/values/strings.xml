@@ -81,8 +81,15 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
+    <string name="videos">Videos</string>
+    <string name="text">Text</string>
 
-    <!--Help fragment-->
+    <!--Help videos fragment-->
+    <string name="introduction">Introduction</string>
+    <string name="navigation">Navigation</string>
+    <string name="submissions">Submissions</string>
+
+    <!--Help text fragment-->
     <string name="what_status_mean">What do the status mean?</string>
     <string name="not_tested_subtitle">Not available, app has not been tested</string>
     <string name="broken_title">Broken</string>
@@ -106,8 +113,9 @@
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
-    <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="dismiss">Dismiss</string>
     <string name="exit">Exit</string>
     <string name="retry">Retry</string>
     <string name="skip">Skip</string>
