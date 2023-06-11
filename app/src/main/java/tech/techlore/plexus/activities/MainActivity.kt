@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             appManager.selectedNavItem =
                 when (navMenuItem.itemId) {
                     R.id.nav_plexus_data, R.id.nav_fav, R.id.nav_submit_rating, R.id.nav_my_ratings -> navMenuItem.itemId
-                    else -> 0
+                    else -> appManager.selectedNavItem
                 }
             
             clickedItem = navMenuItem.itemId
