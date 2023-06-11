@@ -39,14 +39,15 @@ class UiUtils {
         // Horizontally scroll text,
         // if text is too long
         fun hScrollText(textView: TextView) {
-            textView.setSingleLine()
-            textView.isSelected = true
+            textView.apply {
+                setSingleLine()
+                isSelected = true
+            }
         }
         
         fun refreshFragment(navController: NavController) {
-            val currentFragment = navController.currentDestination!!
             val action =
-                when(currentFragment.id) {
+                when(navController.currentDestination!!.id) {
                     R.id.plexusDataFragment -> R.id.action_plexusDataFragment_self
                     R.id.favoritesFragment -> R.id.action_favoritesFragment_self
                     R.id.submitRatingFragment -> R.id.action_submitRatingFragment_self
@@ -121,8 +122,10 @@ class UiUtils {
                                  context.resources.getColor(R.color.color_gold_status, context.theme))
                 }
             
-            textView.text = statusString
-            textView.backgroundTintList = ColorStateList.valueOf(backgroundTint)
+            textView.apply {
+                text = statusString
+                backgroundTintList = ColorStateList.valueOf(backgroundTint)
+            }
         }
     
         fun statusTextViewIcon(context: Context, googleLib: String, textView: MaterialTextView) {
@@ -137,7 +140,7 @@ class UiUtils {
         }
         
         fun installedFromTextViewStyle(context: Context, installedFrom: String, textView: MaterialTextView) {
-            val (icon, text) =
+            val (icon, installedFromText) =
                 when (installedFrom) {
                     
                     "google_play" -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_google_play),
@@ -153,8 +156,10 @@ class UiUtils {
                                  context.getString(R.string.na))
                 }
             
-            textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
-            textView.text = text
+            textView.apply {
+                setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+                text = installedFromText
+            }
         }
         
         fun mapInstalledFromChipIdToString(installedFromChip: Int): String {

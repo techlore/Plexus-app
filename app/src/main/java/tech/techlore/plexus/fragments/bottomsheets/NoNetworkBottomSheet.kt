@@ -46,18 +46,19 @@ class NoNetworkBottomSheet(
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
     
-        val bottomSheetDialog = dialog as BottomSheetDialog
-        bottomSheetDialog.setCanceledOnTouchOutside(false)
-        bottomSheetDialog.behavior.isDraggable = false
+        (dialog as BottomSheetDialog).apply {
+            setCanceledOnTouchOutside(false)
+            behavior.isDraggable = false
     
-        // Prevent bottom sheet dismiss on back pressed
-        bottomSheetDialog.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                // Do nothing
-                return@OnKeyListener true
-            }
-            false
-        })
+            // Prevent bottom sheet dismiss on back pressed
+            setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    // Do nothing
+                    return@OnKeyListener true
+                }
+                false
+            })
+        }
     
         _binding = BottomSheetNoNetworkBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root

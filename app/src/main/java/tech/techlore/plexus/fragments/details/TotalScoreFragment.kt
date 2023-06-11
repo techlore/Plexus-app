@@ -137,9 +137,11 @@ class TotalScoreFragment : Fragment() {
                                         dgSilverRatingsPercent: Float,
                                         dgBronzeRatingsPercent: Float,
                                         dgBrokenRatingsPercent: Float) {
-        fragmentBinding.dgCircle.setIndicatorColor(mapScoreRangeToBgColor(requireContext(),
-                                                                          detailsActivity.app.dgScore))
-        fragmentBinding.dgCircle.setProgressCompat(100, true)
+        fragmentBinding.dgCircle.apply {
+            setIndicatorColor(mapScoreRangeToBgColor(requireContext(), detailsActivity.app.dgScore))
+            setProgressCompat(100, true)
+        }
+        
         fragmentBinding.dgGoldProgress.setProgressCompat(dgGoldRatingsPercent.toInt(), true)
         fragmentBinding.dgGoldPercent.text = "${removeDotZeroFromFloat(dgGoldRatingsPercent)}%"
         fragmentBinding.dgSilverProgress.setProgressCompat(dgSilverRatingsPercent.toInt(), true)
@@ -157,9 +159,10 @@ class TotalScoreFragment : Fragment() {
                                         mgBrokenRatingsPercent: Float) {
         // No need to animate progress indicators here
         // as they won't be shown unless scrolled
-        fragmentBinding.mgCircle.setIndicatorColor(mapScoreRangeToBgColor(requireContext(),
-                                                                          detailsActivity.app.mgScore))
-        fragmentBinding.mgCircle.progress = 100
+        fragmentBinding.mgCircle.apply {
+            setIndicatorColor(mapScoreRangeToBgColor(requireContext(), detailsActivity.app.mgScore))
+            fragmentBinding.mgCircle.progress = 100
+        }
         fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()
         fragmentBinding.mgGoldPercent.text = "${removeDotZeroFromFloat(mgGoldRatingsPercent)}%"
         fragmentBinding.mgSilverProgress.progress = mgSilverRatingsPercent.toInt()

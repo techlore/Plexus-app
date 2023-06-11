@@ -85,8 +85,6 @@ class SubmitRatingFragment :
                                                            statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                            orderPref = preferenceManager.getInt(A_Z_SORT))
             
-            fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-            
             if (installedAppsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
             }
@@ -94,14 +92,19 @@ class SubmitRatingFragment :
                 installedAppItemAdapter = MainDataItemAdapter(installedAppsList,
                                                               this@SubmitRatingFragment,
                                                               lifecycleScope)
-                fragmentBinding.recyclerView.adapter = installedAppItemAdapter
-                FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
+                fragmentBinding.recyclerView.apply {
+                    addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
+                    adapter = installedAppItemAdapter
+                    FastScrollerBuilder(this).useMd2Style().build() // Fast scroll
+                }
             }
             
             // Swipe refresh layout
-            fragmentBinding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
-            fragmentBinding.swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
-            fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshInstalledApps() }
+            fragmentBinding.swipeRefreshLayout.apply {
+                setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
+                setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
+                setOnRefreshListener { refreshInstalledApps() }
+            }
         }
     }
     

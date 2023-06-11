@@ -77,40 +77,40 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             bottomSheetBinding.installedFromChipGroup.check(preferenceManager.getInt(INSTALLED_FROM_SORT))
         }
     
-        // Status radio btn checked by default
-        if (preferenceManager.getInt(STATUS_RADIO) == 0) {
-            preferenceManager.setInt(STATUS_RADIO, R.id.radio_any_status)
-        }
-        bottomSheetBinding.statusRadiogroup.check(preferenceManager.getInt(STATUS_RADIO))
-    
-        // Status chip group visibility
-        if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_dg_status) {
-            bottomSheetBinding.statusChipGroup.isVisible = true
-        
-            // Default DG status checked chip
-            if (preferenceManager.getInt(DG_STATUS_SORT) == 0) {
-                preferenceManager.setInt(DG_STATUS_SORT,
-                                         R.id.sort_not_tested)
+        // Status radio group
+        bottomSheetBinding.statusRadiogroup.apply {
+            if (preferenceManager.getInt(STATUS_RADIO) == 0) {
+                preferenceManager.setInt(STATUS_RADIO, R.id.radio_any_status)
             }
-            bottomSheetBinding.statusChipGroup.check(preferenceManager.getInt(DG_STATUS_SORT))
-        }
-        else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_mg_status) {
-            bottomSheetBinding.statusChipGroup.isVisible = true
-        
-            // Default MG status checked chip
-            if (preferenceManager.getInt(MG_STATUS_SORT) == 0) {
-                preferenceManager.setInt(MG_STATUS_SORT,
-                                         R.id.sort_not_tested)
+            check(preferenceManager.getInt(STATUS_RADIO))
+            setOnCheckedChangeListener { _, checkedId: Int ->
+                bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.radio_any_status
             }
-            bottomSheetBinding.statusChipGroup.check(preferenceManager.getInt(MG_STATUS_SORT))
-        }
-        else {
-            bottomSheetBinding.statusChipGroup.isVisible = false
         }
     
-        // On selecting status radio btn
-        bottomSheetBinding.statusRadiogroup.setOnCheckedChangeListener { _, checkedId: Int ->
-            bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.radio_any_status
+        // Status chip group
+        bottomSheetBinding.statusChipGroup.apply {
+            if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_dg_status) {
+                isVisible = true
+        
+                // Default de-Googled status checked chip
+                if (preferenceManager.getInt(DG_STATUS_SORT) == 0) {
+                    preferenceManager.setInt(DG_STATUS_SORT, R.id.sort_not_tested)
+                }
+                check(preferenceManager.getInt(DG_STATUS_SORT))
+            }
+            else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_mg_status) {
+                isVisible = true
+        
+                // Default microG status checked chip
+                if (preferenceManager.getInt(MG_STATUS_SORT) == 0) {
+                    preferenceManager.setInt(MG_STATUS_SORT, R.id.sort_not_tested)
+                }
+                check(preferenceManager.getInt(MG_STATUS_SORT))
+            }
+            else {
+                isVisible = false
+            }
         }
     
         // Done

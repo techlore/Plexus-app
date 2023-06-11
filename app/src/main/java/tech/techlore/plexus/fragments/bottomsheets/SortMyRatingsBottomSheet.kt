@@ -56,7 +56,7 @@ class SortMyRatingsBottomSheet(private val navController: NavController) : Botto
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
+        
         val bottomSheetDialog = dialog as BottomSheetDialog
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         
@@ -65,17 +65,17 @@ class SortMyRatingsBottomSheet(private val navController: NavController) : Botto
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
+        
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = PreferenceManager(requireContext())
-    
+        
         lifecycleScope.launch {
             val myRatingsList = (requireContext().applicationContext as ApplicationManager).myRatingsRepository.getMyRatingsList()
             val differentVersionsList: List<String>
             val differentRomsList: List<String>
             val differentAndroidsList: List<String>
-        
+            
             withContext(Dispatchers.Default) {
                 // Get different versions, ROMs & androids from ratings list
                 // and store them in a separate list
@@ -84,88 +84,96 @@ class SortMyRatingsBottomSheet(private val navController: NavController) : Botto
                     uniqueVersions.add("${ratings.version} (${ratings.buildNumber})")
                 }
                 differentVersionsList = listOf(getString(R.string.any)) + uniqueVersions.toList()
-            
+                
                 val uniqueRoms = HashSet<String>()
                 myRatingsList.forEach { ratings ->
                     uniqueRoms.add(ratings.romName)
                 }
                 differentRomsList = listOf(getString(R.string.any)) + uniqueRoms.toList()
-            
+                
                 val uniqueAndroids = HashSet<String>()
                 myRatingsList.forEach { ratings ->
                     uniqueAndroids.add(ratings.androidVersion)
                 }
                 differentAndroidsList = listOf(getString(R.string.any)) + uniqueAndroids.toList()
             }
-        
+            
             withContext(Dispatchers.Main) {
                 headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
-            
+                
                 // Default alphabetical checked chip
                 if (preferenceManager.getInt(MY_RATINGS_A_Z_SORT) == 0) {
                     preferenceManager.setInt(MY_RATINGS_A_Z_SORT, R.id.my_ratings_sort_a_z)
                 }
                 bottomSheetBinding.myRatingsAlphabeticalChipGroup.check(preferenceManager.getInt(MY_RATINGS_A_Z_SORT))
-            
+                
                 // Version dropdown
-                if (preferenceManager.getString(MY_RATINGS_VERSION_SORT).isNullOrEmpty()) {
-                    preferenceManager.setString(MY_RATINGS_VERSION_SORT, differentVersionsList[0])
+                bottomSheetBinding.myRatingsVersionDropdownMenu.apply {
+                    if (preferenceManager.getString(MY_RATINGS_VERSION_SORT).isNullOrEmpty()) {
+                        preferenceManager.setString(MY_RATINGS_VERSION_SORT, differentVersionsList[0])
+                    }
+                    setText(preferenceManager.getString(MY_RATINGS_VERSION_SORT))
+                    val versionAdapter = ArrayAdapter(requireContext(),
+                                                      R.layout.item_dropdown_menu,
+                                                      differentVersionsList)
+                    setAdapter(versionAdapter)
                 }
-                bottomSheetBinding.myRatingsVersionDropdownMenu.setText(preferenceManager.getString(MY_RATINGS_VERSION_SORT))
-                val versionAdapter = ArrayAdapter(requireContext(),
-                                                  R.layout.item_dropdown_menu,
-                                                  differentVersionsList)
-                bottomSheetBinding.myRatingsVersionDropdownMenu.setAdapter(versionAdapter)
-            
+                
                 // Rom dropdown
-                if (preferenceManager.getString(MY_RATINGS_ROM_SORT).isNullOrEmpty()) {
-                    preferenceManager.setString(MY_RATINGS_ROM_SORT, differentRomsList[0])
-                }
-                bottomSheetBinding.myRatingsRomDropdownMenu.setText(preferenceManager.getString(MY_RATINGS_ROM_SORT))
-                val romAdapter = ArrayAdapter(requireContext(),
-                                              R.layout.item_dropdown_menu,
-                                              differentRomsList)
-                bottomSheetBinding.myRatingsRomDropdownMenu.setAdapter(romAdapter)
-            
-                // Android dropdown
-                if (preferenceManager.getString(MY_RATINGS_ANDROID_SORT).isNullOrEmpty()) {
-                    preferenceManager.setString(MY_RATINGS_ANDROID_SORT, differentAndroidsList[0])
-                }
-                bottomSheetBinding.myRatingsAndroidDropdownMenu.setText(preferenceManager.getString(MY_RATINGS_ANDROID_SORT))
-                val androidAdapter = ArrayAdapter(requireContext(),
+                bottomSheetBinding.myRatingsRomDropdownMenu.apply {
+                    if (preferenceManager.getString(MY_RATINGS_ROM_SORT).isNullOrEmpty()) {
+                        preferenceManager.setString(MY_RATINGS_ROM_SORT, differentRomsList[0])
+                    }
+                    setText(preferenceManager.getString(MY_RATINGS_ROM_SORT))
+                    val romAdapter = ArrayAdapter(requireContext(),
                                                   R.layout.item_dropdown_menu,
-                                                  differentAndroidsList)
-                bottomSheetBinding.myRatingsAndroidDropdownMenu.setAdapter(androidAdapter)
-            
+                                                  differentRomsList)
+                    setAdapter(romAdapter)
+                }
+                
+                // Android dropdown
+                bottomSheetBinding.myRatingsAndroidDropdownMenu.apply {
+                    if (preferenceManager.getString(MY_RATINGS_ANDROID_SORT).isNullOrEmpty()) {
+                        preferenceManager.setString(MY_RATINGS_ANDROID_SORT, differentAndroidsList[0])
+                    }
+                    setText(preferenceManager.getString(MY_RATINGS_ANDROID_SORT))
+                    val androidAdapter = ArrayAdapter(requireContext(),
+                                                      R.layout.item_dropdown_menu,
+                                                      differentAndroidsList)
+                    setAdapter(androidAdapter)
+                }
+                
                 // Installed from chip checked by default
                 if (preferenceManager.getInt(MY_RATINGS_INSTALLED_FROM_SORT) == 0) {
                     preferenceManager.setInt(MY_RATINGS_INSTALLED_FROM_SORT, R.id.my_ratings_chip_installed_any)
                 }
                 bottomSheetBinding.myRatingsInstalledFromChipGroup.check(preferenceManager.getInt(MY_RATINGS_INSTALLED_FROM_SORT))
-            
-                // Status radio btn checked by default
-                if (preferenceManager.getInt(MY_RATINGS_STATUS_RADIO) == 0) {
-                    preferenceManager.setInt(MY_RATINGS_STATUS_RADIO, R.id.my_ratings_radio_any_status)
+                
+                // Status radio group
+                bottomSheetBinding.myRatingsStatusRadiogroup.apply {
+                    if (preferenceManager.getInt(MY_RATINGS_STATUS_RADIO) == 0) {
+                        preferenceManager.setInt(MY_RATINGS_STATUS_RADIO, R.id.my_ratings_radio_any_status)
+                    }
+                    check(preferenceManager.getInt(MY_RATINGS_STATUS_RADIO))
+                    setOnCheckedChangeListener { _, checkedId: Int ->
+                        if (checkedId != R.id.my_ratings_radio_any_status) {
+                            bottomSheetBinding.myRatingsStatusChipGroup.visibility = View.VISIBLE
+                        }
+                        else {
+                            bottomSheetBinding.myRatingsStatusChipGroup.visibility = View.GONE
+                        }
+                    }
                 }
-                bottomSheetBinding.myRatingsStatusRadiogroup.check(preferenceManager.getInt(MY_RATINGS_STATUS_RADIO))
-            
+                
                 // Status chip group
-                bottomSheetBinding.myRatingsStatusChipGroup.isVisible = preferenceManager.getInt(MY_RATINGS_STATUS_RADIO) != R.id.my_ratings_radio_any_status
-                if (preferenceManager.getInt(MY_RATINGS_STATUS_CHIP) == 0) {
-                    preferenceManager.setInt(MY_RATINGS_STATUS_CHIP, R.id.my_ratings_sort_any)
-                }
-                bottomSheetBinding.myRatingsStatusChipGroup.check(preferenceManager.getInt(MY_RATINGS_STATUS_CHIP))
-            
-                // On selecting status radio btn
-                bottomSheetBinding.myRatingsStatusRadiogroup.setOnCheckedChangeListener { _, checkedId: Int ->
-                    if (checkedId != R.id.my_ratings_radio_any_status) {
-                        bottomSheetBinding.myRatingsStatusChipGroup.visibility = View.VISIBLE
+                bottomSheetBinding.myRatingsStatusChipGroup.apply {
+                    isVisible = preferenceManager.getInt(MY_RATINGS_STATUS_RADIO) != R.id.my_ratings_radio_any_status
+                    if (preferenceManager.getInt(MY_RATINGS_STATUS_CHIP) == 0) {
+                        preferenceManager.setInt(MY_RATINGS_STATUS_CHIP, R.id.my_ratings_sort_any)
                     }
-                    else {
-                        bottomSheetBinding.myRatingsStatusChipGroup.visibility = View.GONE
-                    }
+                    check(preferenceManager.getInt(MY_RATINGS_STATUS_CHIP))
                 }
-            
+                
                 // Done
                 footerBinding.positiveButton.setOnClickListener {
                     preferenceManager.setInt(MY_RATINGS_A_Z_SORT,
@@ -182,11 +190,11 @@ class SortMyRatingsBottomSheet(private val navController: NavController) : Botto
                                              bottomSheetBinding.myRatingsStatusRadiogroup.checkedRadioButtonId)
                     preferenceManager.setInt(MY_RATINGS_STATUS_CHIP,
                                              bottomSheetBinding.myRatingsStatusChipGroup.checkedChipId)
-                
+                    
                     dismiss()
                     refreshFragment(navController)
                 }
-            
+                
                 // Cancel
                 footerBinding.negativeButton.setOnClickListener { dismiss() }
             }

@@ -45,44 +45,39 @@ interface MainDataDao {
         
         val existingData = getAppByPackage(mainData.packageName)
         
-        if (existingData == null) {
-            insert(mainData)
-        }
-        else {
-            existingData.name = mainData.name
-            existingData.dgScore = mainData.dgScore
-            existingData.totalDgRatings = mainData.totalDgRatings
-            existingData.mgScore = mainData.mgScore
-            existingData.totalMgRatings = mainData.totalMgRatings
-            existingData.isInPlexusData = mainData.isInPlexusData
-            update(existingData)
+        existingData.apply {
+            if (this == null) {
+                insert(mainData)
+            }
+            else {
+                name = mainData.name
+                dgScore = mainData.dgScore
+                totalDgRatings = mainData.totalDgRatings
+                mgScore = mainData.mgScore
+                totalMgRatings = mainData.totalMgRatings
+                isInPlexusData = mainData.isInPlexusData
+                update(this)
+            }
         }
     }
     
     @Transaction
     suspend fun insertOrUpdateInstalledApps(mainData: MainData) {
-        
-        val existingApp = getAppByPackage(mainData.packageName)
-        
-        if (existingApp == null) {
-            mainData.isInPlexusData = false
-            insert(mainData)
-        }
-        else {
-            existingApp.installedVersion = mainData.installedVersion
-            existingApp.installedBuild = mainData.installedBuild
-            existingApp.isInstalled = mainData.isInstalled
-            existingApp.installedFrom = mainData.installedFrom
-            update(existingApp)
-        }
-    }
     
-    @Transaction
-    suspend fun updateFavApps(mainData: MainData) {
         val existingApp = getAppByPackage(mainData.packageName)
-        if (existingApp != null) {
-            existingApp.isFav = mainData.isFav
-            update(existingApp)
+    
+        existingApp.apply {
+            if (this == null) {
+                mainData.isInPlexusData = false
+                insert(mainData)
+            }
+            else {
+                installedVersion = mainData.installedVersion
+                installedBuild = mainData.installedBuild
+                isInstalled = mainData.isInstalled
+                installedFrom = mainData.installedFrom
+                update(this)
+            }
         }
     }
     

@@ -114,8 +114,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         
         /*########################################################################################*/
         
-        setSupportActionBar(activityBinding.bottomAppBar)
-        activityBinding.bottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        activityBinding.bottomAppBar.apply {
+            setSupportActionBar(this)
+            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
         
         lifecycleScope.launch {
             app = mainRepository.getAppByPackage(intent.getStringExtra("packageName")!!)!!
@@ -255,8 +257,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
     // Setup fragments
     private fun displayFragment(checkedItem: Int) {
-        val currentFragment = navController.currentDestination!!
-        
         val action =
             when (checkedItem) {
                 
@@ -275,7 +275,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         // java.lang.IllegalArgumentException:
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
-        if (checkedItem != currentFragment.id && action != 0) {
+        if (checkedItem != navController.currentDestination!!.id && action != 0) {
             navController.navigate(action)
         }
     }

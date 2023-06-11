@@ -145,9 +145,11 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
     suspend fun updateFav(mainDataMinimal: MainDataMinimal) {
         return withContext(Dispatchers.IO) {
             val existingData = mainDataDao.getAppByPackage(mainDataMinimal.packageName)
-            if (existingData != null) {
-                existingData.isFav = mainDataMinimal.isFav
-                mainDataDao.update(existingData)
+            existingData.apply {
+                if (this != null) {
+                    isFav = mainDataMinimal.isFav
+                    mainDataDao.update(this)
+                }
             }
         }
     }

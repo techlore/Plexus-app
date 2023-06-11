@@ -19,6 +19,7 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +31,6 @@ import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetMoreOptionsBinding
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
-import tech.techlore.plexus.utils.IntentUtils.Companion.share
 
 class MoreOptionsBottomSheet(
     private val nameString: String,
@@ -47,47 +47,51 @@ class MoreOptionsBottomSheet(
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
+        
         _binding = BottomSheetMoreOptionsBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
+        
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val playStoreString = "${getString(R.string.google_play_url)}$packageNameString"
         val fdroidString = "${getString(R.string.fdroid_url)}$packageNameString/"
         
         headerBinding.bottomSheetTitle.text = nameString
-    
+        
         // Play store
         bottomSheetBinding.playStore.setOnClickListener {
             dismiss()
             openURL(requireActivity(), playStoreString, coordinatorLayout, anchorView)
         }
-    
+        
         // F-Droid
         bottomSheetBinding.fdroid.setOnClickListener {
             dismiss()
             openURL(requireActivity(), fdroidString, coordinatorLayout, anchorView)
         }
-    
+        
         // Share
         bottomSheetBinding.share.setOnClickListener {
-            share(requireActivity(),
-                  nameString,
-                  packageNameString,
-                  dgStatus,
-                  mgStatus,
-                  playStoreString,
-                  fdroidString)
-        
             dismiss()
+            startActivity(Intent.createChooser(
+                Intent(Intent.ACTION_SEND)
+                    .setType("text/plain")
+                    .putExtra(Intent.EXTRA_TEXT,
+                              """
+                              ${getString(R.string.app)}: $nameString
+                              ${getString(R.string.package_name)}: $packageNameString
+                              ${getString(R.string.de_Googled)}: $dgStatus
+                              ${getString(R.string.microG)}: $mgStatus
+                              ${getString(R.string.google_play)}: $playStoreString
+                              ${getString(R.string.fdroid)}: $fdroidString
+                              """.trimIndent()), getString(R.string.menu_share)))
         }
         
         footerBinding.positiveButton.visibility = View.GONE
-    
+        
         // Cancel
         footerBinding.negativeButton.apply {
             text = getString(R.string.dismiss)

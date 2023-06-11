@@ -96,19 +96,22 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
             } // -1 would mean no matching index
     
         // ROM dropdown
-        bottomSheetBinding.romDropdownMenu.setText(
-            if (romNameIndex != -1) allRomsDropdownList[romNameIndex + 2] else allRomsDropdownList[0]
-            // allRomsDropdownList[romNameIndex + 2]
-            // because allRomsDropdownList has two extra items "Select" & "Stock-device",
-            // not present in truncatedCustomRomsList
-        )
-        val adapter = ArrayAdapter(requireContext(),
-                                   R.layout.item_dropdown_menu,
-                                   allRomsDropdownList)
-        bottomSheetBinding.romDropdownMenu.setAdapter(adapter)
+        bottomSheetBinding.romDropdownMenu.apply {
+            setText(
+                if (romNameIndex != -1) allRomsDropdownList[romNameIndex + 2] else allRomsDropdownList[0]
+                // allRomsDropdownList[romNameIndex + 2]
+                // because allRomsDropdownList has two extra items "Select" & "Stock (device)",
+                // not present in truncatedCustomRomsList
+            )
+            
+            val adapter = ArrayAdapter(requireContext(),
+                                       R.layout.item_dropdown_menu,
+                                       allRomsDropdownList)
+            setAdapter(adapter)
     
-        bottomSheetBinding.romDropdownMenu.setOnItemClickListener { _, _, position, _ ->
-            footerBinding.positiveButton.isEnabled = position != 0
+            setOnItemClickListener { _, _, position, _ ->
+                footerBinding.positiveButton.isEnabled = position != 0
+            }
         }
     
         // Proceed

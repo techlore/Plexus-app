@@ -32,42 +32,29 @@ import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 class IntentUtils {
     
     companion object {
-    
+        
         // App details activity
         fun startDetailsActivity(activityFrom: Activity, packageName: String) {
-    
+            
             activityFrom.startActivity(Intent(activityFrom, AppDetailsActivity::class.java)
                                            .putExtra("packageName", packageName))
         }
-    
+        
         // Open links
-        fun openURL(activity: Activity, URL: String, coordinatorLayout: CoordinatorLayout, anchorView: View?) {
+        fun openURL(activity: Activity,
+                    URL: String,
+                    coordinatorLayout: CoordinatorLayout,
+                    anchorView: View?) {
             try {
                 activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL)))
             }
             // If no browser installed, show snackbar
             catch (e: ActivityNotFoundException) {
-                showSnackbar(coordinatorLayout, activity.getString(R.string.no_browsers), anchorView)
+                showSnackbar(coordinatorLayout,
+                             activity.getString(R.string.no_browsers),
+                             anchorView)
             }
         }
-    
-        // Share
-        fun share(activity: Activity, nameString: String, packageNameString: String,
-                  dgStatusString: String, mgStatusString: String,
-                  playStoreString: String, fdroidString: String) {
-    
-            activity.startActivity(Intent.createChooser(
-                Intent(Intent.ACTION_SEND)
-                    .setType("text/plain")
-                    .putExtra(Intent.EXTRA_TEXT,
-                              """
-                              ${activity.getString(R.string.app)}: $nameString
-                              ${activity.getString(R.string.package_name)}: $packageNameString
-                              ${activity.getString(R.string.de_Googled)}: $dgStatusString
-                              ${activity.getString(R.string.microG)}: $mgStatusString
-                              ${activity.getString(R.string.google_play)}: $playStoreString
-                              ${activity.getString(R.string.fdroid)}: $fdroidString
-                              """.trimIndent()), activity.getString(R.string.menu_share)))
-        }
+        
     }
 }

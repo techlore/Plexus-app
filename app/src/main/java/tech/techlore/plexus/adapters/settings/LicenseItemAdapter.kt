@@ -50,15 +50,17 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>) : Recyc
         val license = aListViewItems[position]
         val settingsActivity = holder.itemView.context as SettingsActivity
         
-        holder.licenseTitle.text = license.licenseTitle
-        holder.licenseDesc.text = license.licenseDesc
-        
-        holder.licenseTitle.setOnClickListener{
-            openURL(settingsActivity,
-                    license.url,
-                    settingsActivity.activityBinding.settingsCoordLayout,
-                    settingsActivity.activityBinding.toolbarBottom)
+        holder.licenseTitle.apply {
+            text = license.licenseTitle
+            setOnClickListener{
+                openURL(settingsActivity,
+                        license.url,
+                        settingsActivity.activityBinding.settingsCoordLayout,
+                        settingsActivity.activityBinding.toolbarBottom)
+            }
         }
+        
+        holder.licenseDesc.text = license.licenseDesc
     }
     
     override fun getItemCount(): Int {

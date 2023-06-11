@@ -49,11 +49,13 @@ class SettingsActivity : AppCompatActivity() {
         val displayFragmentId = intent.extras?.getInt("frag")!!
         
         /*####################################################################################*/
+    
+        activityBinding.toolbarBottom.apply {
+            setSupportActionBar(this)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
         
-        setSupportActionBar(activityBinding.toolbarBottom)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        
-        activityBinding.toolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         activityBinding.helpRadioBottomAppbar.isVisible = displayFragmentId == R.id.helpVideosFragment
         
         navController.navigate(displayFragmentId)

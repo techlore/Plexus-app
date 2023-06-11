@@ -95,7 +95,7 @@ class UserRatingsFragment : Fragment() {
             if (!detailsActivity.listIsSorted) {
                 
                 // Version sort
-                if (!detailsActivity.selectedVersionString.equals(getString(R.string.any))) {
+                if (detailsActivity.selectedVersionString != getString(R.string.any)) {
                     detailsActivity.sortedRatingsList =
                         detailsActivity.sortedRatingsList.filter { ratings ->
                             ratings.version == detailsActivity.selectedVersionString.substringBefore(" (")
@@ -103,7 +103,7 @@ class UserRatingsFragment : Fragment() {
                 }
     
                 // ROM sort
-                if (!detailsActivity.selectedRomString.equals(getString(R.string.any))) {
+                if (detailsActivity.selectedRomString != getString(R.string.any)) {
                     detailsActivity.sortedRatingsList =
                         detailsActivity.sortedRatingsList.filter { ratings ->
                             ratings.romName == detailsActivity.selectedRomString
@@ -111,7 +111,7 @@ class UserRatingsFragment : Fragment() {
                 }
     
                 // Android sort
-                if (!detailsActivity.selectedAndroidString.equals(getString(R.string.any))) {
+                if (detailsActivity.selectedAndroidString != getString(R.string.any)) {
                     detailsActivity.sortedRatingsList =
                         detailsActivity.sortedRatingsList.filter { ratings ->
                             ratings.androidVersion == detailsActivity.selectedAndroidString

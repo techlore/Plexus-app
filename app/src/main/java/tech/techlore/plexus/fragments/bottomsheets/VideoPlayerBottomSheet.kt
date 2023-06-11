@@ -93,7 +93,7 @@ class VideoPlayerBottomSheet(private val videoId: Int) : BottomSheetDialogFragme
                 val minutes = durationInSeconds / 60
                 val seconds = durationInSeconds % 60
                 bottomSheetBinding.maxTime.text = String.format("%02d:%02d", minutes, seconds)
-                updateSeekBar(bottomSheetBinding.videoView)
+                updateSeekBar(this)
             }
             
             setOnClickListener {

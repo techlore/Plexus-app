@@ -78,8 +78,6 @@ class FavoritesFragment:
                                                  statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                  orderPref = preferenceManager.getInt(A_Z_SORT))
     
-            fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-    
             if (favList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
             }
@@ -87,8 +85,11 @@ class FavoritesFragment:
                 favItemAdapter = FavoriteItemAdapter(favList,
                                                      this@FavoritesFragment,
                                                      lifecycleScope)
-                fragmentBinding.recyclerView.adapter = favItemAdapter
-                FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
+                fragmentBinding.recyclerView.apply {
+                    addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
+                    adapter = favItemAdapter
+                    FastScrollerBuilder(this).useMd2Style().build() // Fast scroll
+                }
             }
     
             // Swipe refresh layout

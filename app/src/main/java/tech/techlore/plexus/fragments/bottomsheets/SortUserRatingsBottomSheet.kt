@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -42,7 +43,7 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
+        
         val bottomSheetDialog = dialog as BottomSheetDialog
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         
@@ -51,67 +52,69 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
+        
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val detailsActivity = requireActivity() as AppDetailsActivity
-    
+        
         headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
-    
+        
         // Version dropdown
-        bottomSheetBinding.userRatingsVersionDropdownMenu.setText(detailsActivity.selectedVersionString)
-        val versionAdapter = ArrayAdapter(requireContext(),
-                                          R.layout.item_dropdown_menu,
-                                          detailsActivity.differentVersionsList)
-        bottomSheetBinding.userRatingsVersionDropdownMenu.setAdapter(versionAdapter)
-    
+        bottomSheetBinding.userRatingsVersionDropdownMenu.apply {
+            setText(detailsActivity.selectedVersionString)
+            val versionAdapter = ArrayAdapter(requireContext(),
+                                              R.layout.item_dropdown_menu,
+                                              detailsActivity.differentVersionsList)
+            setAdapter(versionAdapter)
+        }
+        
         // Rom dropdown
-        bottomSheetBinding.userRatingsRomDropdownMenu.setText(detailsActivity.selectedRomString)
-        val romAdapter = ArrayAdapter(requireContext(),
-                                      R.layout.item_dropdown_menu,
-                                      detailsActivity.differentRomsList)
-        bottomSheetBinding.userRatingsRomDropdownMenu.setAdapter(romAdapter)
-    
-        // Android dropdown
-        bottomSheetBinding.userRatingsAndroidDropdownMenu.setText(detailsActivity.selectedAndroidString)
-        val androidAdapter = ArrayAdapter(requireContext(),
+        bottomSheetBinding.userRatingsRomDropdownMenu.apply {
+            setText(detailsActivity.selectedRomString)
+            val romAdapter = ArrayAdapter(requireContext(),
                                           R.layout.item_dropdown_menu,
-                                          detailsActivity.differentAndroidsList)
-        bottomSheetBinding.userRatingsAndroidDropdownMenu.setAdapter(androidAdapter)
-    
+                                          detailsActivity.differentRomsList)
+            setAdapter(romAdapter)
+        }
+        
+        // Android dropdown
+        bottomSheetBinding.userRatingsAndroidDropdownMenu.apply {
+            setText(detailsActivity.selectedAndroidString)
+            val androidAdapter = ArrayAdapter(requireContext(),
+                                              R.layout.item_dropdown_menu,
+                                              detailsActivity.differentAndroidsList)
+            setAdapter(androidAdapter)
+        }
+        
         // Installed from chip checked by default
         bottomSheetBinding.userRatingsInstalledFromChipGroup.check(detailsActivity.installedFromChip)
-    
-        // Status radio btn checked by default
-        bottomSheetBinding.userRatingsStatusRadiogroup.check(detailsActivity.statusRadio)
-    
+        
+        // Status radio group
+        bottomSheetBinding.userRatingsStatusRadiogroup.apply {
+            check(detailsActivity.statusRadio)
+            setOnCheckedChangeListener { _, checkedId: Int ->
+                bottomSheetBinding.userRatingsStatusChipGroup.isVisible =
+                    checkedId != R.id.user_ratings_radio_any_status
+            }
+        }
+        
         // Status chip group visibility
-        when (detailsActivity.statusRadio) {
-            R.id.user_ratings_radio_dg_status -> {
-                bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
-            
-                // Default DG status checked chip
-                bottomSheetBinding.userRatingsStatusChipGroup.check(detailsActivity.dgStatusSort)
-            }
-            R.id.user_ratings_radio_mg_status -> {
-                bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
-            
-                // Default MG status checked chip
-                bottomSheetBinding.userRatingsStatusChipGroup.check(detailsActivity.mgStatusSort)
-            }
-            else -> bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.GONE
-        }
-    
-        // On selecting status radio btn
-        bottomSheetBinding.userRatingsStatusRadiogroup.setOnCheckedChangeListener { _, checkedId: Int ->
-            if (checkedId != R.id.user_ratings_radio_any_status) {
-                bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.VISIBLE
-            }
-            else {
-                bottomSheetBinding.userRatingsStatusChipGroup.visibility = View.GONE
+        bottomSheetBinding.userRatingsStatusChipGroup.apply {
+            when (detailsActivity.statusRadio) {
+                R.id.user_ratings_radio_dg_status -> {
+                    isVisible = true
+                    // Default DG status checked chip
+                    check(detailsActivity.dgStatusSort)
+                }
+                R.id.user_ratings_radio_mg_status -> {
+                    isVisible = true
+                    // Default MG status checked chip
+                    check(detailsActivity.mgStatusSort)
+                }
+                else -> isVisible = false
             }
         }
-    
+        
         // Done
         footerBinding.positiveButton.setOnClickListener {
             detailsActivity.selectedVersionString = bottomSheetBinding.userRatingsVersionDropdownMenu.text.toString()
@@ -125,13 +128,13 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
             else if (detailsActivity.statusRadio == R.id.user_ratings_radio_mg_status) {
                 detailsActivity.mgStatusSort = bottomSheetBinding.userRatingsStatusChipGroup.checkedChipId
             }
-        
+            
             detailsActivity.listIsSorted = false // Set to false so list is sorted on fragment refresh
-        
+            
             dismiss()
             refreshFragment(detailsActivity.navController)
         }
-    
+        
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }
     }

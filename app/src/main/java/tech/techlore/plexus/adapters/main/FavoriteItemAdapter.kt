@@ -87,58 +87,71 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         holder.fav.setOnCheckedChangeListener(null)
         val favorite = aListViewItems[position]
         val context = holder.itemView.context
-        
-        if (favorite.isInstalled) {
-            try {
-                holder.icon.setImageDrawable(context.packageManager.getApplicationIcon(favorite.packageName))
-                // Don't use GLIDE to load icons directly to ImageView
-                // as there's a delay in displaying icons when fast scrolling
+    
+        holder.icon.apply {
+            if (favorite.isInstalled) {
+                try {
+                    setImageDrawable(context.packageManager.getApplicationIcon(favorite.packageName))
+                    // Don't use GLIDE to load icons directly to ImageView
+                    // as there's a delay in displaying icons when fast scrolling
+                }
+                catch (e: PackageManager.NameNotFoundException) {
+                    e.printStackTrace()
+                }
             }
-            catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
+            else {
+                val requestOptions =
+                    RequestOptions()
+                        .placeholder(R.drawable.ic_apk) // Placeholder icon
+                        .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
+                        .centerCrop() // Center-crop the image to fill the ImageView
+                        .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
+        
+                Glide.with(context)
+                    .load(favorite.iconUrl)
+                    .onlyRetrieveFromCache(true) // Icon should always be in cache
+                    .apply(requestOptions)
+                    .into(this)
             }
         }
-        else {
-            val requestOptions =
-                RequestOptions()
-                    .placeholder(R.drawable.ic_apk) // Placeholder icon
-                    .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
-                    .centerCrop() // Center-crop the image to fill the ImageView
-                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
-            
-            Glide.with(context)
-                .load(favorite.iconUrl)
-                .onlyRetrieveFromCache(true) // Icon should always be in cache
-                .apply(requestOptions)
-                .into(holder.icon)
+        
+        holder.name.apply {
+            text = favorite.name
+            hScrollText(this)
         }
         
-        holder.name.text = favorite.name
-        holder.packageName.text = favorite.packageName
-        holder.dgStatus.text = favorite.dgStatus
-        holder.dgStatus.backgroundTintList =
-            mapStatusStringToBgColor(context, favorite.dgStatus)?.let { ColorStateList.valueOf(it) }
-        holder.mgStatus.text = favorite.mgStatus
-        holder.mgStatus.backgroundTintList =
-            mapStatusStringToBgColor(context, favorite.mgStatus)?.let { ColorStateList.valueOf(it) }
-        holder.fav.isChecked = favorite.isFav
+        holder.packageName.apply {
+            text = favorite.packageName
+            hScrollText(this)
+        }
         
-        // Horizontally scrolling text
-        hScrollText(holder.name)
-        hScrollText(holder.packageName)
+        holder.dgStatus.apply {
+            text = favorite.dgStatus
+            backgroundTintList =
+                mapStatusStringToBgColor(context, favorite.dgStatus)?.let { ColorStateList.valueOf(it) }
+        }
+    
+        holder.mgStatus.apply {
+            text = favorite.mgStatus
+            backgroundTintList =
+                mapStatusStringToBgColor(context, favorite.mgStatus)?.let { ColorStateList.valueOf(it) }
+        }
         
-        holder.fav.setOnCheckedChangeListener{ _, isChecked ->
-            favorite.isFav = isChecked
-            coroutineScope.launch {
-                (context.applicationContext as ApplicationManager).miniRepository.updateFav(favorite)
-            }
-            
-            val currentPosition = holder.bindingAdapterPosition
-            if (currentPosition != RecyclerView.NO_POSITION) {
-                coroutineScope.launch(Dispatchers.Main) {
-                    aListViewItems.removeAt(currentPosition)
-                    notifyItemRemoved(currentPosition)
-                    notifyItemRangeChanged(currentPosition, aListViewItems.size - currentPosition)
+        holder.fav.apply {
+            isChecked = favorite.isFav
+            setOnCheckedChangeListener{ _, isChecked ->
+                favorite.isFav = isChecked
+                coroutineScope.launch {
+                    (context.applicationContext as ApplicationManager).miniRepository.updateFav(favorite)
+                }
+        
+                val currentPosition = holder.bindingAdapterPosition
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    coroutineScope.launch(Dispatchers.Main) {
+                        aListViewItems.removeAt(currentPosition)
+                        notifyItemRemoved(currentPosition)
+                        notifyItemRangeChanged(currentPosition, aListViewItems.size - currentPosition)
+                    }
                 }
             }
         }
@@ -162,7 +175,9 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         val diffCallback = MainDataMinimalDiffUtil(aListViewItems, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         diffResult.dispatchUpdatesTo(this)
-        aListViewItems.clear()
-        aListViewItems.addAll(newList)
+        aListViewItems.apply{
+            clear()
+            addAll(newList)
+        }
     }
 }

@@ -55,9 +55,11 @@ class SearchActivity :
         /*###########################################################################################*/
         
         // Bottom toolbar as actionbar
-        setSupportActionBar(activityBinding.searchToolbarBottom)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        activityBinding.searchToolbarBottom.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        activityBinding.searchToolbarBottom.apply {
+            setSupportActionBar(this)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
         
         // Perform search
         activityBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

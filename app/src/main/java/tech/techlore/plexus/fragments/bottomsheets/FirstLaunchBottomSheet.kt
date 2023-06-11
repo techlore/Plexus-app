@@ -46,19 +46,20 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
-        val bottomSheetDialog = dialog as BottomSheetDialog
-        bottomSheetDialog.setCanceledOnTouchOutside(false)
-        bottomSheetDialog.behavior.isDraggable = false
         
-        // Prevent bottom sheet dismiss on back pressed
-        bottomSheetDialog.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                // Do nothing
-                return@OnKeyListener true
-            }
-            false
-        })
+        (dialog as BottomSheetDialog).apply {
+            setCanceledOnTouchOutside(false)
+            behavior.isDraggable = false
+            
+            // Prevent bottom sheet dismiss on back pressed
+            setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    // Do nothing
+                    return@OnKeyListener true
+                }
+                false
+            })
+        }
         
         _binding = BottomSheetFirstLaunchBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
@@ -67,36 +68,44 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         // Anim view
-        bottomSheetBinding.helloAnimView.setMaxFrame(300)
-    
-        bottomSheetBinding.helloAnimView.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {}
+        bottomSheetBinding.helloAnimView.apply {
+            setMaxFrame(300)
+            
+            addAnimatorListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {}
+                
+                override fun onAnimationEnd(animation: Animator) {
+                    val fadeIn = AlphaAnimation(0.5f, 1.0f)
+                    fadeIn.duration = 600
+                    bottomSheetBinding.welcomeTextDesc.apply {
+                        isVisible = true
+                        startAnimation(fadeIn)
+                    }
+                    bottomSheetBinding.proceedButton.apply {
+                        isVisible = true
+                        startAnimation(fadeIn)
+                    }
+                    bottomSheetBinding.skipButton.apply {
+                        isVisible = true
+                        startAnimation(fadeIn)
+                    }
+                }
+                
+                override fun onAnimationCancel(animation: Animator) {}
+                
+                override fun onAnimationRepeat(animation: Animator) {}
+            })
+            
+            playAnimation()
+        }
         
-            override fun onAnimationEnd(animation: Animator) {
-                val fadeIn = AlphaAnimation(0.5f, 1.0f)
-                fadeIn.duration = 600
-                bottomSheetBinding.welcomeTextDesc.isVisible = true
-                bottomSheetBinding.welcomeTextDesc.startAnimation(fadeIn)
-                bottomSheetBinding.proceedButton.isVisible = true
-                bottomSheetBinding.proceedButton.startAnimation(fadeIn)
-                bottomSheetBinding.skipButton.isVisible = true
-                bottomSheetBinding.skipButton.startAnimation(fadeIn)
-            }
-        
-            override fun onAnimationCancel(animation: Animator) {}
-        
-            override fun onAnimationRepeat(animation: Animator) {}
-        })
-    
-        bottomSheetBinding.helloAnimView.playAnimation()
-    
         // Proceed
         bottomSheetBinding.proceedButton.setOnClickListener {
             startActivity(Intent(requireActivity(), SettingsActivity::class.java)
                               .putExtra("frag", R.id.helpVideosFragment))
             requireActivity().finish()
         }
-    
+        
         // Skip
         bottomSheetBinding.skipButton.setOnClickListener {
             PreferenceManager(requireActivity()).setBoolean(FIRST_LAUNCH, false)

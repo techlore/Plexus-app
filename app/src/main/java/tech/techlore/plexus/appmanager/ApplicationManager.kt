@@ -49,7 +49,7 @@ class ApplicationManager : Application() {
     
     var deviceIsMicroG = false
     var deviceIsDeGoogled = false
-    var selectedItem = 0
+    var selectedNavItem = 0
     var submitSuccessful = false
     
     override fun onCreate() {
@@ -79,9 +79,10 @@ class ApplicationManager : Application() {
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 if (activity !is SplashActivity) {
-                    activity.window.statusBarColor = SurfaceColors.SURFACE_0.getColor(activity)
-                    activity.window.navigationBarColor =
-                        SurfaceColors.getColorForElevation(activity, 8f)
+                    activity.window.apply {
+                        statusBarColor = SurfaceColors.SURFACE_0.getColor(activity)
+                        navigationBarColor = SurfaceColors.getColorForElevation(activity, 8f)
+                    }
                 }
             }
 

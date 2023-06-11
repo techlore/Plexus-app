@@ -34,7 +34,6 @@ class LicensesFragment : Fragment() {
     
     private var _binding: FragmentLicensesBinding? = null
     private val fragmentBinding get() = _binding!!
-    private lateinit var licenseAdapter: LicenseItemAdapter
     private lateinit var licenseList: ArrayList<License>
     
     override fun onCreateView(inflater: LayoutInflater,
@@ -118,8 +117,7 @@ class LicensesFragment : Fragment() {
                         getString(R.string.monero_icon_license_url)))
         }
         
-        licenseAdapter = LicenseItemAdapter(licenseList)
-        fragmentBinding.licensesRecyclerView.adapter = licenseAdapter
+        fragmentBinding.licensesRecyclerView.adapter = LicenseItemAdapter(licenseList)
     }
     
     override fun onDestroyView() {

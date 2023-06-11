@@ -47,18 +47,20 @@ interface MyRatingsDao {
         
         val existingRating = getMyRatingById(myRating.id)
     
-        if (existingRating == null) {
-            insert(myRating)
-        }
-        else{
-            existingRating.ratingScore = myRating.ratingScore
-            existingRating.version = myRating.version
-            existingRating.romName = myRating.romName
-            existingRating.romBuild = myRating.romBuild
-            existingRating.androidVersion = myRating.androidVersion
-            existingRating.installedFrom = myRating.installedFrom
-            existingRating.notes = myRating.notes
-            update(existingRating)
+        existingRating.apply {
+            if (this == null) {
+                insert(myRating)
+            }
+            else{
+                ratingScore = myRating.ratingScore
+                version = myRating.version
+                romName = myRating.romName
+                romBuild = myRating.romBuild
+                androidVersion = myRating.androidVersion
+                installedFrom = myRating.installedFrom
+                notes = myRating.notes
+                update(this)
+            }
         }
     }
     

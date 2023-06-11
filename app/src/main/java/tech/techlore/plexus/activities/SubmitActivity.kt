@@ -71,9 +71,11 @@ class SubmitActivity : AppCompatActivity() {
         val emojiRegex = Regex("[\\p{So}\\p{Sk}]") // This will block emojis and other unnecessary symbols
         
         /*########################################################################################*/
-        
-        setSupportActionBar(activityBinding.submitBottomAppBar)
-        activityBinding.submitBottomAppBar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+    
+        activityBinding.submitBottomAppBar.apply {
+            setSupportActionBar(this)
+            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
         
         // Icon
         try{
@@ -96,12 +98,13 @@ class SubmitActivity : AppCompatActivity() {
                                    installedFromString,
                                    activityBinding.submitInstalledFrom)
     
-        val googleLib = if (appManager.deviceIsMicroG) "micro_g" else "none"
-        statusTextViewIcon(this, googleLib, activityBinding.dgMgText)
-        
-        activityBinding.dgMgText.text =
-            if (appManager.deviceIsMicroG) "${getString(R.string.microG)} ${getString(R.string.status)}"
-            else "${getString(R.string.de_Googled)} ${getString(R.string.status)}"
+        activityBinding.dgMgText.apply {
+            val googleLib = if (appManager.deviceIsMicroG) "micro_g" else "none"
+            statusTextViewIcon(this@SubmitActivity, googleLib, this)
+            text =
+                if (appManager.deviceIsMicroG) "${getString(R.string.microG)} ${getString(R.string.status)}"
+                else "${getString(R.string.de_Googled)} ${getString(R.string.status)}"
+        }
         
         // Notes
         activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"

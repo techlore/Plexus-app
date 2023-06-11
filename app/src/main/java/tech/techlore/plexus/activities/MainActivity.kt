@@ -64,24 +64,25 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         
         /*########################################################################################*/
         
-        setSupportActionBar(activityBinding.toolbarBottom)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
+        activityBinding.toolbarBottom.apply {
+            setSupportActionBar(this)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            title = navController.currentDestination!!.label.toString()
+        }
         
         // To set nav view item background, check selected item
         if (savedInstanceState == null) {
-            appManager.selectedItem = R.id.nav_plexus_data
+            appManager.selectedNavItem = R.id.nav_plexus_data
         }
         
         // Nav view items
         activityBinding.navView.setNavigationItemSelectedListener { navMenuItem: MenuItem ->
             
-            when (navMenuItem.itemId) {
-                R.id.nav_plexus_data -> appManager.selectedItem = R.id.nav_plexus_data
-                R.id.nav_fav -> appManager.selectedItem = R.id.nav_fav
-                R.id.nav_submit_rating -> appManager.selectedItem = R.id.nav_submit_rating
-                R.id.nav_my_ratings -> appManager.selectedItem = R.id.nav_my_ratings
-            }
+            appManager.selectedNavItem =
+                when (navMenuItem.itemId) {
+                    R.id.nav_plexus_data, R.id.nav_fav, R.id.nav_submit_rating, R.id.nav_my_ratings -> navMenuItem.itemId
+                    else -> 0
+                }
             
             clickedItem = navMenuItem.itemId
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // Close nav view
@@ -131,7 +132,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 
                 activityBinding.dimBg.alpha = slideOffset * 2f // Dim background on sliding up
-                activityBinding.navView.setCheckedItem(appManager.selectedItem) // Always sync checked item on slide
+                activityBinding.navView.setCheckedItem(appManager.selectedNavItem) // Always sync checked item on slide
                 
                 // Hide toolbar title and menu on slide up
                 if (slideOffset > 0.02) {
@@ -182,14 +183,14 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                   Pair(R.id.plexusDataFragment, R.id.nav_my_ratings) to R.id.action_plexusDataFragment_to_myRatingsFragment,
                   Pair(R.id.favoritesFragment, R.id.nav_my_ratings) to R.id.action_favoritesFragment_to_myRatingsFragment,
                   Pair(R.id.submitRatingFragment, R.id.nav_my_ratings) to R.id.action_submitRatingFragment_to_myRatingsFragment)
-    
+        
         val action = actionsMap[Pair(currentFragment.id, clickedItem)] ?: 0
         
         // java.lang.IllegalArgumentException:
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
         if (clickedItem != currentFragment.id && action != 0) {
-            activityBinding.navView.setCheckedItem(appManager.selectedItem)
+            activityBinding.navView.setCheckedItem(appManager.selectedNavItem)
             navController.navigate(action)
         }
     }
@@ -198,7 +199,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_activity_main, menu)
         
-        menu.findItem(R.id.menu_search).isVisible = appManager.selectedItem != R.id.nav_my_ratings
+        menu.findItem(R.id.menu_search).isVisible = appManager.selectedNavItem != R.id.nav_my_ratings
         
     }
     
@@ -221,7 +222,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             }
             
             R.id.main_menu_help -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java)
-                                                .putExtra("frag", R.id.helpVideosFragment))
+                                                     .putExtra("frag", R.id.helpVideosFragment))
             
         }
         
@@ -238,7 +239,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 
                 navController.currentDestination!!.id != navController.graph.startDestinationId -> {
                     clickedItem = R.id.nav_plexus_data
-                    appManager.selectedItem = R.id.nav_plexus_data
+                    appManager.selectedNavItem = R.id.nav_plexus_data
                     displayFragment(clickedItem)
                     activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
                 }

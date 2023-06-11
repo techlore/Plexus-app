@@ -37,9 +37,7 @@ class HelpTextFragment : Fragment() {
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
-        val settingsActivity = requireActivity() as SettingsActivity
-        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.menu_help)
+        (requireActivity() as SettingsActivity).activityBinding.toolbarBottom.title = getString(R.string.menu_help)
     }
     
 }

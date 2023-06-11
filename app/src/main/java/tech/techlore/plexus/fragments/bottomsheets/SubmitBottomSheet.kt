@@ -245,7 +245,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         val document =
             try {
                 withContext(Dispatchers.IO) {
-                    Jsoup.connect("https://play.google.com/store/apps/details?id=${submitActivity.packageNameString}").get()
+                    Jsoup.connect("${getString(R.string.google_play_url)}${submitActivity.packageNameString}").get()
                 }
             }
             catch (e: HttpStatusException) {
@@ -253,7 +253,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 // then try connecting to F-Droid
                 try {
                     withContext(Dispatchers.IO) {
-                        Jsoup.connect("https://f-droid.org/en/packages/${submitActivity.packageNameString}").get()
+                        Jsoup.connect("${getString(R.string.fdroid_url)}${submitActivity.packageNameString}/").get()
                     }
                 }
                 catch (e: HttpStatusException) {

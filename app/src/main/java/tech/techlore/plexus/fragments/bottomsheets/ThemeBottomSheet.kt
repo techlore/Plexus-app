@@ -55,21 +55,10 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
     
         headerBinding.bottomSheetTitle.setText(R.string.theme)
     
-        // Default checked radio btn
-        if (preferenceManager.getInt(THEME) == 0) {
-            if (Build.VERSION.SDK_INT >= 29) {
-                preferenceManager.setInt(THEME, R.id.sys_default)
-            }
-            else {
-                preferenceManager.setInt(THEME, R.id.light)
-            }
-        }
-        bottomSheetBinding.themeRadiogroup.check(preferenceManager.getInt(THEME))
-    
         // Show system default option only on SDK 29 and above
         bottomSheetBinding.sysDefault.isVisible = Build.VERSION.SDK_INT >= 29
     
-        // RadioGroup
+        // Radio group
         bottomSheetBinding.themeRadiogroup.apply {
             
             // Default checked radio btn

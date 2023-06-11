@@ -90,35 +90,40 @@ class MyRatingsFragment :
                                                                    statusChipPref = preferenceManager.getInt(MY_RATINGS_STATUS_CHIP),
                                                                    orderPref = preferenceManager.getInt(MY_RATINGS_A_Z_SORT))
             
-            fragmentBinding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-            
             if (myRatingsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
-                val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.empty_list_view_text)
                 val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_my_ratings)
-                emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-                emptyListView.text =
-                    if (preferenceManager.getBoolean(FIRST_SUBMISSION)) {
-                        getString(R.string.no_ratings_available) +
-                        "\n\n" +
-                        getString(R.string.submit_first_rating)
-                    }
-                    else {
-                        getString(R.string.no_ratings_available)
+                fragmentBinding.root.findViewById<MaterialTextView>(R.id.empty_list_view_text)
+                    .apply {
+                        setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+                        text =
+                            if (preferenceManager.getBoolean(FIRST_SUBMISSION)) {
+                                getString(R.string.no_ratings_available) +
+                                "\n\n" +
+                                getString(R.string.submit_first_rating)
+                            }
+                            else {
+                                getString(R.string.no_ratings_available)
+                            }
                     }
             }
             else {
                 myRatingItemAdapter = MyRatingItemAdapter(myRatingsList)
-                fragmentBinding.recyclerView.adapter = myRatingItemAdapter
-                FastScrollerBuilder(fragmentBinding.recyclerView).useMd2Style().build() // Fast scroll
+                fragmentBinding.recyclerView.apply {
+                    addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
+                    adapter = myRatingItemAdapter
+                    FastScrollerBuilder(this).useMd2Style().build() // Fast scroll
+                }
             }
             
             // New rating fab
-            fragmentBinding.newRatingFab.isVisible = true
-            fragmentBinding.newRatingFab.setOnClickListener {
-                appManager.selectedItem = R.id.nav_submit_rating
-                mainActivity.clickedItem = R.id.nav_submit_rating
-                mainActivity.displayFragment(mainActivity.clickedItem)
+            fragmentBinding.newRatingFab.apply {
+                isVisible = true
+                setOnClickListener {
+                    appManager.selectedNavItem = R.id.nav_submit_rating
+                    mainActivity.clickedItem = R.id.nav_submit_rating
+                    mainActivity.displayFragment(mainActivity.clickedItem)
+                }
             }
             
             // Swipe refresh layout
