@@ -82,9 +82,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.5.1")
-    implementation("androidx.room:room-ktx:2.5.1")
-    kapt("androidx.room:room-compiler:2.5.1")
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.15.1")
