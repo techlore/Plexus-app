@@ -40,19 +40,19 @@
         android:layout_marginBottom="@dimen/margin_16"/>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/hello_anim_view"
+        android:id="@+id/helloAnimView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleX="2"
         android:scaleY="2"
         android:layout_marginStart="@dimen/margin_35"
         app:lottie_rawRes="@raw/lottie_hello"
-        app:lottie_speed="1.05"
+        app:lottie_colorFilter="@color/color_primary"
         app:lottie_loop="false"
         app:lottie_autoPlay="false"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/welcome_text_desc"
+        android:id="@+id/welcomeTextDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
@@ -75,7 +75,7 @@
         android:gravity="end">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/skip_button"
+            android:id="@+id/skipButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/skip"
@@ -84,7 +84,7 @@
             tools:visibility="visible"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/proceed_button"
+            android:id="@+id/proceedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"

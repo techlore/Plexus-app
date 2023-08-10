@@ -68,8 +68,6 @@ class FavoritesFragment:
         appManager = requireContext().applicationContext as ApplicationManager
         mainActivity = requireActivity() as MainActivity
         miniRepository = appManager.miniRepository
-    
-        /*########################################################################################*/
         
         lifecycleScope.launch{
             favList =

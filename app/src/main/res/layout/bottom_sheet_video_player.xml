@@ -29,7 +29,7 @@
     tools:context=".fragments.bottomsheets.VideoPlayerBottomSheet">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/video_title"
+        android:id="@+id/videoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_25"
@@ -52,7 +52,7 @@
         app:strokeColor="@android:color/transparent">
 
         <VideoView
-            android:id="@+id/video_view"
+            android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -67,7 +67,7 @@
         android:gravity="center">
 
         <Chronometer
-            android:id="@+id/start_chronometer"
+            android:id="@+id/startChronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_12"
@@ -75,13 +75,13 @@
             android:textSize="@dimen/text_16"/>
 
         <SeekBar
-            android:id="@+id/seek_bar"
+            android:id="@+id/seekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/max_time"
+            android:id="@+id/maxTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_12"
@@ -91,7 +91,7 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/dismiss_btn"
+        android:id="@+id/dismissBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

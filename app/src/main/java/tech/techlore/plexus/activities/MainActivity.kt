@@ -34,19 +34,20 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityMainBinding
+import tech.techlore.plexus.fragments.bottomsheets.DeleteAccountBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.SortMyRatingsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.ThemeBottomSheet
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
 class MainActivity : AppCompatActivity(), MenuProvider {
     
     lateinit var activityBinding: ActivityMainBinding
     lateinit var bottomSheetBehavior: BottomSheetBehavior<CoordinatorLayout>
-    var clickedItem = 0
-    private lateinit var appManager: ApplicationManager
+    var clickedNavItem = 0
+    var selectedNavItem = 0
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     
@@ -57,12 +58,11 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         activityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        appManager = applicationContext as ApplicationManager
         bottomSheetBehavior = BottomSheetBehavior.from(activityBinding.bottomNavContainer)
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
-        
-        /*########################################################################################*/
+        val navMyAccountItems = listOf(R.id.nav_my_ratings, R.id.nav_delete_account)
+        val encPreferenceManager = EncryptedPreferenceManager(this)
         
         activityBinding.toolbarBottom.apply {
             setSupportActionBar(this)
@@ -71,20 +71,17 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         }
         
         // To set nav view item background, check selected item
-        if (savedInstanceState == null) {
-            appManager.selectedNavItem = R.id.nav_plexus_data
-        }
+        selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: R.id.nav_plexus_data
         
         // Nav view items
         activityBinding.navView.setNavigationItemSelectedListener { navMenuItem: MenuItem ->
             
-            appManager.selectedNavItem =
-                when (navMenuItem.itemId) {
-                    R.id.nav_plexus_data, R.id.nav_fav, R.id.nav_submit_rating, R.id.nav_my_ratings -> navMenuItem.itemId
-                    else -> appManager.selectedNavItem
-                }
+            when (navMenuItem.itemId) {
+                R.id.nav_plexus_data, R.id.nav_fav, R.id.nav_submit_rating, R.id.nav_my_ratings ->
+                    selectedNavItem = navMenuItem.itemId
+            }
             
-            clickedItem = navMenuItem.itemId
+            clickedNavItem = navMenuItem.itemId
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // Close nav view
             true
         }
@@ -101,18 +98,20 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 // after bottom sheet is collapsed
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     
-                    when (clickedItem) {
+                    when (clickedNavItem) {
                         
                         R.id.nav_plexus_data, R.id.nav_fav, R.id.nav_submit_rating, R.id.nav_my_ratings -> {
-                            displayFragment(clickedItem)
+                            displayFragment(clickedNavItem)
                             activityBinding.toolbarBottom.title =
                                 navController.currentDestination !!.label.toString()
                         }
                         
                         R.id.nav_report_issue -> openURL(this@MainActivity,
                                                          getString(R.string.plexus_report_issue_url),
-                                                         activityBinding.mainCoordinatorLayout,
+                                                         activityBinding.mainCoordLayout,
                                                          activityBinding.bottomNavContainer)
+                        
+                        R.id.nav_delete_account -> DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
                         
                         R.id.nav_theme -> ThemeBottomSheet().show(supportFragmentManager, "ThemeBottomSheet")
                         
@@ -125,14 +124,21 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                     // Set to 0,
                     // otherwise if bottom sheet is dragged up and no item is clicked
                     // then on bottom sheet collapse, same action will be triggered again.
-                    clickedItem = 0
+                    clickedNavItem = 0
                 }
             }
             
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 
                 activityBinding.dimBg.alpha = slideOffset * 2f // Dim background on sliding up
-                activityBinding.navView.setCheckedItem(appManager.selectedNavItem) // Always sync checked item on slide
+                
+                activityBinding.navView.apply {
+                    navMyAccountItems.forEach {
+                        menu.findItem(it).isVisible =
+                            encPreferenceManager.getBoolean(IS_REGISTERED)
+                    }
+                    setCheckedItem(selectedNavItem) // Always sync selected item on slide
+                }
                 
                 // Hide toolbar title and menu on slide up
                 if (slideOffset > 0.02) {
@@ -190,16 +196,21 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
         if (clickedItem != currentFragment.id && action != 0) {
-            activityBinding.navView.setCheckedItem(appManager.selectedNavItem)
+            activityBinding.navView.setCheckedItem(selectedNavItem)
             navController.navigate(action)
         }
+    }
+    
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("selectedNavItem", selectedNavItem)
     }
     
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_activity_main, menu)
         
-        menu.findItem(R.id.menu_search).isVisible = appManager.selectedNavItem != R.id.nav_my_ratings
+        menu.findItem(R.id.menu_search).isVisible = selectedNavItem != R.id.nav_my_ratings
         
     }
     
@@ -212,14 +223,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
             }
             
-            R.id.menu_sort -> {
-                if (navController.currentDestination!!.id == R.id.myRatingsFragment) {
-                    SortMyRatingsBottomSheet(navController).show(supportFragmentManager, "SortMyRatingsBottomSheet")
-                }
-                else {
-                    SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
-                }
-            }
+            R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
             
             R.id.main_menu_help -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java)
                                                      .putExtra("frag", R.id.helpVideosFragment))
@@ -237,10 +241,10 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED ->
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 
-                navController.currentDestination!!.id != navController.graph.startDestinationId -> {
-                    clickedItem = R.id.nav_plexus_data
-                    appManager.selectedNavItem = R.id.nav_plexus_data
-                    displayFragment(clickedItem)
+                navController.currentDestination!!.id != R.id.nav_plexus_data -> {
+                    clickedNavItem = R.id.nav_plexus_data
+                    selectedNavItem = R.id.nav_plexus_data
+                    displayFragment(clickedNavItem)
                     activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
                 }
                 

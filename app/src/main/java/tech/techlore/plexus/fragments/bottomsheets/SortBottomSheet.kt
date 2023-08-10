@@ -56,60 +56,72 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = PreferenceManager(requireContext())
+        val isInstalledAppsFragment =
+            navController.currentDestination!!.id in setOf(R.id.submitRatingFragment, R.id.favoritesFragment)
+        val isMyRatingsFragment =
+            navController.currentDestination!!.id == R.id.myRatingsFragment
     
         headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
     
         // Default alphabetical checked chip
         if (preferenceManager.getInt(A_Z_SORT) == 0) {
-            preferenceManager.setInt(A_Z_SORT, R.id.sort_a_z)
+            preferenceManager.setInt(A_Z_SORT, R.id.sortAZ)
         }
         bottomSheetBinding.alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT))
-    
+        
         // Installed from chip group
-        val isInstalledAppsFragment =
-            navController.currentDestination!!.id in setOf(R.id.submitRatingFragment, R.id.favoritesFragment)
         if (isInstalledAppsFragment) {
             bottomSheetBinding.sortInstalledFromText.isVisible = true
-            bottomSheetBinding.installedFromChipGroup.isVisible = true
-            if (preferenceManager.getInt(INSTALLED_FROM_SORT) == 0) {
-                preferenceManager.setInt(INSTALLED_FROM_SORT, R.id.sort_installed_any)
+            bottomSheetBinding.installedFromChipGroup.apply {
+                isVisible = true
+                if (preferenceManager.getInt(INSTALLED_FROM_SORT) == 0) {
+                    preferenceManager.setInt(INSTALLED_FROM_SORT, R.id.sortInstalledAny)
+                }
+                check(preferenceManager.getInt(INSTALLED_FROM_SORT))
             }
-            bottomSheetBinding.installedFromChipGroup.check(preferenceManager.getInt(INSTALLED_FROM_SORT))
         }
     
         // Status radio group
-        bottomSheetBinding.statusRadiogroup.apply {
-            if (preferenceManager.getInt(STATUS_RADIO) == 0) {
-                preferenceManager.setInt(STATUS_RADIO, R.id.radio_any_status)
+        if (!isMyRatingsFragment) {
+            bottomSheetBinding.statusRadioGroup.apply {
+                if (preferenceManager.getInt(STATUS_RADIO) == 0) {
+                    preferenceManager.setInt(STATUS_RADIO, R.id.radioAnyStatus)
+                }
+                check(preferenceManager.getInt(STATUS_RADIO))
+                setOnCheckedChangeListener { _, checkedId: Int ->
+                    bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.radioAnyStatus
+                }
             }
-            check(preferenceManager.getInt(STATUS_RADIO))
-            setOnCheckedChangeListener { _, checkedId: Int ->
-                bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.radio_any_status
-            }
+        }
+        else {
+            bottomSheetBinding.sortStatusText.isVisible = false
+            bottomSheetBinding.statusRadioGroup.isVisible = false
         }
     
         // Status chip group
-        bottomSheetBinding.statusChipGroup.apply {
-            if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_dg_status) {
-                isVisible = true
-        
-                // Default de-Googled status checked chip
-                if (preferenceManager.getInt(DG_STATUS_SORT) == 0) {
-                    preferenceManager.setInt(DG_STATUS_SORT, R.id.sort_not_tested)
+        if (bottomSheetBinding.statusRadioGroup.isVisible) {
+            bottomSheetBinding.statusChipGroup.apply {
+                if (preferenceManager.getInt(STATUS_RADIO) == R.id.radioDgStatus) {
+                    isVisible = true
+            
+                    // Default de-Googled status checked chip
+                    if (preferenceManager.getInt(DG_STATUS_SORT) == 0) {
+                        preferenceManager.setInt(DG_STATUS_SORT, R.id.sortNotTested)
+                    }
+                    check(preferenceManager.getInt(DG_STATUS_SORT))
                 }
-                check(preferenceManager.getInt(DG_STATUS_SORT))
-            }
-            else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_mg_status) {
-                isVisible = true
-        
-                // Default microG status checked chip
-                if (preferenceManager.getInt(MG_STATUS_SORT) == 0) {
-                    preferenceManager.setInt(MG_STATUS_SORT, R.id.sort_not_tested)
+                else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radioMgStatus) {
+                    isVisible = true
+            
+                    // Default microG status checked chip
+                    if (preferenceManager.getInt(MG_STATUS_SORT) == 0) {
+                        preferenceManager.setInt(MG_STATUS_SORT, R.id.sortNotTested)
+                    }
+                    check(preferenceManager.getInt(MG_STATUS_SORT))
                 }
-                check(preferenceManager.getInt(MG_STATUS_SORT))
-            }
-            else {
-                isVisible = false
+                else {
+                    isVisible = false
+                }
             }
         }
     
@@ -120,12 +132,12 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             if (isInstalledAppsFragment) preferenceManager.setInt(INSTALLED_FROM_SORT,
                                                                   bottomSheetBinding.installedFromChipGroup.checkedChipId)
             preferenceManager.setInt(STATUS_RADIO,
-                                     bottomSheetBinding.statusRadiogroup.checkedRadioButtonId)
-            if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_dg_status) {
+                                     bottomSheetBinding.statusRadioGroup.checkedRadioButtonId)
+            if (preferenceManager.getInt(STATUS_RADIO) == R.id.radioDgStatus) {
                 preferenceManager.setInt(DG_STATUS_SORT,
                                          bottomSheetBinding.statusChipGroup.checkedChipId)
             }
-            else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radio_mg_status) {
+            else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radioMgStatus) {
                 preferenceManager.setInt(MG_STATUS_SORT,
                                          bottomSheetBinding.statusChipGroup.checkedChipId)
             }

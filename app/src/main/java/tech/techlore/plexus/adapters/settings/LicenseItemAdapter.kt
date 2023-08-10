@@ -33,8 +33,8 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>) : Recyc
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
-        val licenseTitle: MaterialTextView = itemView.findViewById(R.id.license_title)
-        val licenseDesc: MaterialTextView = itemView.findViewById(R.id.license_desc)
+        val licenseTitle: MaterialTextView = itemView.findViewById(R.id.licenseTitle)
+        val licenseDesc: MaterialTextView = itemView.findViewById(R.id.licenseDesc)
         
     }
     

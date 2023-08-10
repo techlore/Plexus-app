@@ -36,10 +36,12 @@
     <string name="a_z" translatable="false">A-Z</string>
     <string name="z_a" translatable="false">Z-A</string>
     <string name="google_play" translatable="false">Google Play</string>
+    <string name="google_play_alt" translatable="false">Google Play alt</string>
     <string name="fdroid" translatable="false">F-Droid</string>
+    <string name="apk" translatable="false">apk</string>
+
     <string name="liberapay" translatable="false">Liberapay</string>
     <string name="monero" translatable="false">Monero</string>
-
     <string name="monero_address" translatable="false">85WHr5GxHmZLQzHk25zbDhbzwzS9pSKLmLka5S6tgfoM7F58QnMMgVYDAuFX3YTn4SNhnrybREvcs34vtof2whuQEf8H66P</string>
 
     <string name="jackson" translatable="false">Jackson</string>

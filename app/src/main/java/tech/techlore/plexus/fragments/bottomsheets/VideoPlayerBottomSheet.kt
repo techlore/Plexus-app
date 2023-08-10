@@ -19,6 +19,7 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
@@ -39,29 +40,33 @@ import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetVideoPlayerBinding
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 
 class VideoPlayerBottomSheet(private val videoId: Int) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetVideoPlayerBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            setCanceledOnTouchOutside(false)
+            behavior.isDraggable = false
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            
+            // Prevent bottom sheet dismiss on back pressed
+            setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    // Do nothing
+                    return@OnKeyListener true
+                }
+                false
+            })
+        }
+    }
+    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        
-        val bottomSheetDialog = dialog as BottomSheetDialog
-        bottomSheetDialog.setCanceledOnTouchOutside(false)
-        bottomSheetDialog.behavior.isDraggable = false
-        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        
-        // Prevent bottom sheet dismiss on back pressed
-        bottomSheetDialog.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                // Do nothing
-                return@OnKeyListener true
-            }
-            false
-        })
         
         _binding = BottomSheetVideoPlayerBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
@@ -77,9 +82,8 @@ class VideoPlayerBottomSheet(private val videoId: Int) : BottomSheetDialogFragme
         bottomSheetBinding.videoTitle.text =
             when (videoId) {
                 R.raw.intro_video -> getString(R.string.introduction)
-                R.raw.navigation_video -> getString(R.string.navigation)
-                R.raw.submissions_video -> getString(R.string.submissions)
-                else -> getString(R.string.about)
+                /*R.raw.navigation_video -> getString(R.string.navigation)*/
+                else -> getString(R.string.submissions)
             }
         
         // Video
@@ -117,8 +121,7 @@ class VideoPlayerBottomSheet(private val videoId: Int) : BottomSheetDialogFragme
                 bottomSheetBinding.seekBar.progress = bottomSheetBinding.seekBar.max
                 bottomSheetBinding.startChronometer.base = SystemClock.elapsedRealtime() - bottomSheetBinding.seekBar.max
                 bottomSheetBinding.startChronometer.stop()
-                if (preferenceManager.getBoolean(PreferenceManager.FIRST_LAUNCH)) {
-                    dismiss()
+                if (preferenceManager.getBoolean(IS_FIRST_LAUNCH)) {
                     FirstLaunchBottomSheet().show(parentFragmentManager, "FirstLaunchBottomSheet")
                 }
             }
@@ -141,9 +144,15 @@ class VideoPlayerBottomSheet(private val videoId: Int) : BottomSheetDialogFragme
         })
         
         bottomSheetBinding.dismissBtn.setOnClickListener {
-            dismiss()
-            if (preferenceManager.getBoolean(PreferenceManager.FIRST_LAUNCH)) {
+            if (preferenceManager.getBoolean(IS_FIRST_LAUNCH)) {
+                bottomSheetBinding.videoView.apply {
+                    stopPlayback()
+                    keepScreenOn = false
+                }
                 FirstLaunchBottomSheet().show(parentFragmentManager, "FirstLaunchBottomSheet")
+            }
+            else {
+                dismiss()
             }
         }
         
@@ -159,8 +168,7 @@ class VideoPlayerBottomSheet(private val videoId: Int) : BottomSheetDialogFragme
                 }
                 else if (videoView.isPlaying) {
                     bottomSheetBinding.seekBar.progress = videoView.currentPosition
-                    bottomSheetBinding.startChronometer.base =
-                        SystemClock.elapsedRealtime() - videoView.currentPosition
+                    bottomSheetBinding.startChronometer.base = SystemClock.elapsedRealtime() - videoView.currentPosition
                 }
                 delay(500) // Update seekbar every 500 milliseconds
             }

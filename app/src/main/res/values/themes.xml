@@ -63,33 +63,56 @@
         <item name="android:text">@string/gold_title</item>
     </style>
 
+    <style name="GooglePlayAltFilterChipTheme" parent="BaseFilterChipStyle">
+        <item name="chipBackgroundColor">@color/color_installed_from</item>
+        <item name="android:text">@string/google_play_alt</item>
+    </style>
+
+    <style name="FdroidFilterChipTheme" parent="BaseFilterChipStyle">
+        <item name="chipBackgroundColor">@color/color_installed_from</item>
+        <item name="android:text">@string/fdroid</item>
+    </style>
+
+    <style name="ApkFilterChipTheme" parent="BaseFilterChipStyle">
+        <item name="chipBackgroundColor">@color/color_installed_from</item>
+        <item name="android:text">@string/apk</item>
+    </style>
+
+    <style name="SystemDefaultChipTheme" parent="BaseThemeChipStyle">
+        <item name="closeIcon">@drawable/ic_system_default</item>
+        <item name="android:text">@string/follow_system</item>
+    </style>
+
+    <style name="LightChipTheme" parent="BaseThemeChipStyle">
+        <item name="closeIcon">@drawable/ic_light</item>
+        <item name="android:text">@string/light</item>
+    </style>
+
+    <style name="DarkChipTheme" parent="BaseThemeChipStyle">
+        <item name="closeIcon">@drawable/ic_dark</item>
+        <item name="android:text">@string/dark</item>
+    </style>
+
     <!--#########################################################################################-->
 
-    <!--Status text themes-->
-    <style name="BrokenTextTheme" parent="BaseChipLikeTextViewStyle">
-        <item name="android:text">@string/broken_title</item>
-        <item name="backgroundTint">@color/color_broken_status</item>
+    <!--Chip like text view themes-->
+    <style name="InstalledFromTextViewTheme" parent="BaseChipLikeTextViewStyle">
+        <item name="android:drawableTint">@color/color_text_title</item>
+        <item name="backgroundTint">@color/color_installed_from</item>
+        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="SilverTextTheme" parent="BaseChipLikeTextViewStyle">
-        <item name="android:text">@string/silver_title</item>
-        <item name="backgroundTint">@color/color_silver_status</item>
-    </style>
-
-    <style name="BronzeTextTheme" parent="BaseChipLikeTextViewStyle">
-        <item name="android:text">@string/bronze_title</item>
-        <item name="backgroundTint">@color/color_bronze_status</item>
-    </style>
-
-    <style name="GoldTextTheme" parent="BaseChipLikeTextViewStyle">
-        <item name="android:text">@string/gold_title</item>
-        <item name="backgroundTint">@color/color_gold_status</item>
+    <style name="AndroidVersionTextViewTheme" parent="BaseChipLikeTextViewStyle">
+        <item name="android:drawableStart">@drawable/ic_android_version</item>
+        <item name="android:drawableTint">@color/color_text_title</item>
+        <item name="backgroundTint">@color/color_android_version</item>
+        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
     <!--#########################################################################################-->
 
     <!--Bottom sheet theme-->
-    <style name="BottomSheetTheme" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
+    <style name="BottomSheetTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
         <item name="android:backgroundDimAmount">0.50</item>
         <item name="android:windowEnterAnimation">@anim/fade_in_slide_from_bottom</item>

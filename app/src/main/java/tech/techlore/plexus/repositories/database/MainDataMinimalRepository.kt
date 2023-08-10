@@ -56,12 +56,12 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             val preferenceManager = PreferenceManager(context)
             
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_dg_status, DG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radioDgStatus, DG_STATUS_SORT)
             
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_mg_status, MG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radioMgStatus, MG_STATUS_SORT)
             
-            val isAsc = orderPref != R.id.sort_z_a
+            val isAsc = orderPref != R.id.sortZA
             
             mainDataDao
                 .getSortedPlexusDataApps(dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
@@ -80,19 +80,19 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             val installedFrom =
                 when(installedFromPref) {
-                    R.id.sort_installed_google_play -> "google_play"
-                    R.id.sort_installed_fdroid -> "fdroid"
-                    R.id.sort_installed_other -> "other"
+                    R.id.sortInstalledGooglePlayAlt -> "google_play_alternative"
+                    R.id.sortInstalledFdroid -> "fdroid"
+                    R.id.sortInstalledApk -> "apk"
                     else -> ""
                 }
     
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_dg_status, DG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radioDgStatus, DG_STATUS_SORT)
     
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_mg_status, MG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radioMgStatus, MG_STATUS_SORT)
             
-            val isAsc = orderPref != R.id.sort_z_a
+            val isAsc = orderPref != R.id.sortZA
             
             mainDataDao
                 .getSortedInstalledApps(installedFrom, dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
@@ -111,19 +111,19 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             val installedFrom =
                 when(installedFromPref) {
-                    R.id.sort_installed_google_play -> "google_play"
-                    R.id.sort_installed_fdroid -> "fdroid"
-                    R.id.sort_installed_other -> "other"
+                    R.id.sortInstalledGooglePlayAlt -> "google_play_alternative"
+                    R.id.sortInstalledFdroid -> "fdroid"
+                    R.id.sortInstalledApk -> "apk"
                     else -> ""
                 }
     
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_dg_status, DG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radioDgStatus, DG_STATUS_SORT)
     
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radio_mg_status, MG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusRadioPref, R.id.radioMgStatus, MG_STATUS_SORT)
             
-            val isAsc = orderPref != R.id.sort_z_a
+            val isAsc = orderPref != R.id.sortZA
             
             mainDataDao.getSortedFavApps(installedFrom, dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
                 .map { mapToMinimalData(it) }

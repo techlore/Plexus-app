@@ -19,6 +19,7 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.KeyEvent
@@ -42,14 +43,11 @@ class NoNetworkBottomSheet(
     private var _binding: BottomSheetNoNetworkBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-    
-        (dialog as BottomSheetDialog).apply {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
             setCanceledOnTouchOutside(false)
             behavior.isDraggable = false
-    
+            
             // Prevent bottom sheet dismiss on back pressed
             setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -59,6 +57,11 @@ class NoNetworkBottomSheet(
                 false
             })
         }
+    }
+    
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
     
         _binding = BottomSheetNoNetworkBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root

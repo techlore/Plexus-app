@@ -23,14 +23,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/settings_coord_layout"
+    android:id="@+id/settingsCoordLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_background"
     tools:context=".activities.SettingsActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/settings_nav_host"
+        android:id="@+id/settingsNavHost"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,7 +39,7 @@
         app:defaultNavHost="true"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/help_radio_bottom_appbar"
+        android:id="@+id/helpRadioBottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_gravity="bottom"
@@ -48,7 +48,7 @@
         tools:visibility="visible"/>
 
     <RadioGroup
-        android:id="@+id/help_radiogroup"
+        android:id="@+id/helpRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
@@ -59,11 +59,11 @@
         tools:visibility="visible">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radio_help_videos"
+            android:id="@+id/radioHelpVideos"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_40"
             android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_radio_btn_selector"
+            android:background="@drawable/shape_radio_btn_bg"
             android:checked="true"
             android:button="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
@@ -73,11 +73,11 @@
             android:textColor="@color/radio_btn_text_color"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radio_help_text"
+            android:id="@+id/radioHelpText"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_40"
             android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_radio_btn_selector"
+            android:background="@drawable/shape_radio_btn_bg"
             android:button="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
@@ -101,14 +101,12 @@
         android:layout_gravity="bottom">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar_bottom"
+            android:id="@+id/toolbarBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_back"
             android:background="@android:color/transparent"
             app:contentInsetStartWithNavigation="0dp"
-            android:paddingStart="@dimen/margin_2.5"
-            android:paddingEnd="@dimen/margin_2.5"
             app:titleTextColor="@color/color_text_title"/>
 
     </com.google.android.material.appbar.AppBarLayout>

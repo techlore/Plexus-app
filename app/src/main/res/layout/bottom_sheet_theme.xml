@@ -21,6 +21,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_12"
@@ -31,55 +32,44 @@
     <include
         layout="@layout/bottom_sheet_header"/>
 
-        <RadioGroup
-            android:id="@+id/theme_radiogroup"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/themeChipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:paddingStart="@dimen/margin_22"
+        android:paddingEnd="@dimen/margin_22"
+        app:chipSpacingVertical="@dimen/margin_2.5"
+        app:singleSelection="true"
+        app:selectionRequired="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/followSystem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_6.5"
-            android:paddingBottom="@dimen/margin_4"
-            android:paddingEnd="@dimen/margin_12"
-            android:paddingStart="@dimen/margin_16">
+            android:layout_height="@dimen/margin_75"
+            android:layoutDirection="rtl"
+            android:checked="true"
+            app:closeIconEnabled="true"
+            style="@style/SystemDefaultChipTheme"/>
 
-            <RadioButton
-                android:id="@+id/sys_default"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_4"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:checked="true"
-                android:text="@string/system_default"
-                android:textAlignment="viewStart"
-                android:textColor="@color/color_text_title"
-                android:textSize="@dimen/text_16" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/light"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_75"
+            android:layoutDirection="rtl"
+            app:closeIconEnabled="true"
+            style="@style/LightChipTheme"/>
 
-            <RadioButton
-                android:id="@+id/light"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_4"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/light"
-                android:textAlignment="viewStart"
-                android:textColor="@color/color_text_title"
-                android:textSize="@dimen/text_16" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/dark"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_75"
+            android:layoutDirection="rtl"
+            app:closeIconEnabled="true"
+            style="@style/DarkChipTheme"/>
 
-            <RadioButton
-                android:id="@+id/dark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_8"
-                android:text="@string/dark"
-                android:textAlignment="viewStart"
-                android:textColor="@color/color_text_title"
-                android:textSize="@dimen/text_16" />
-
-        </RadioGroup>
+    </com.google.android.material.chip.ChipGroup>
 
     <include layout="@layout/bottom_sheet_footer"/>
 

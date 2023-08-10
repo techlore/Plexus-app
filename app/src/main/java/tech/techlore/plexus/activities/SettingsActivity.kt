@@ -29,7 +29,7 @@ import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivitySettingsBinding
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_LAUNCH
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 
 class SettingsActivity : AppCompatActivity() {
     
@@ -43,31 +43,29 @@ class SettingsActivity : AppCompatActivity() {
         activityBinding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.settings_nav_host) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.settingsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         val displayFragmentId = intent.extras?.getInt("frag")!!
-        
-        /*####################################################################################*/
     
         activityBinding.toolbarBottom.apply {
             setSupportActionBar(this)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         }
+    
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         
-        activityBinding.helpRadioBottomAppbar.isVisible = displayFragmentId == R.id.helpVideosFragment
+        activityBinding.helpRadioBottomAppBar.isVisible = displayFragmentId == R.id.helpVideosFragment
         
         navController.navigate(displayFragmentId)
         
-        activityBinding.helpRadiogroup.apply {
+        activityBinding.helpRadioGroup.apply {
             isVisible = displayFragmentId == R.id.helpVideosFragment
             if (isVisible) {
-                check(R.id.radio_help_videos)
+                check(R.id.radioHelpVideos)
                 setOnCheckedChangeListener { _, checkedId ->
                     val action =
                         when (checkedId) {
-                            R.id.radio_help_text -> R.id.action_helpVideosFragment_to_helpTextFragment
+                            R.id.radioHelpText -> R.id.action_helpVideosFragment_to_helpTextFragment
                             else -> R.id.action_helpTextFragment_to_helpVideosFragment
                         }
                     navController.navigate(action)
@@ -81,8 +79,8 @@ class SettingsActivity : AppCompatActivity() {
             
             val preferenceManager = PreferenceManager(this@SettingsActivity)
             
-            if (preferenceManager.getBoolean(FIRST_LAUNCH)) {
-                preferenceManager.setBoolean(FIRST_LAUNCH, false)
+            if (preferenceManager.getBoolean(IS_FIRST_LAUNCH)) {
+                preferenceManager.setBoolean(IS_FIRST_LAUNCH, false)
                 startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
                 finish()
                 overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)

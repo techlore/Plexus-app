@@ -94,22 +94,38 @@
 
     <!--#########################################################################################-->
 
-    <!--Base filter chip style-->
-    <style name="BaseFilterChipStyle" parent="Widget.Material3.Chip.Filter">
+    <!--Base chip style-->
+    <style name="BaseChipStyle" parent="Widget.Material3.Chip.Filter">
         <item name="chipSurfaceColor">@android:color/transparent</item>
-        <item name="chipStrokeColor">@android:color/transparent</item>
-        <item name="chipStrokeWidth">0dp</item>
+        <item name="checkedIcon">@drawable/ic_done</item>
+        <item name="checkedIconTint">@color/color_text_title</item>
         <item name="android:textColor">@color/color_text_title</item>
         <item name="android:textSize">@dimen/text_16</item>
-        <item name="checkedIconTint">@color/color_text_title</item>
+    </style>
+
+    <style name="BaseFilterChipStyle" parent="BaseChipStyle">
+        <item name="chipStrokeColor">@android:color/transparent</item>
+        <item name="chipStrokeWidth">0dp</item>
+    </style>
+
+    <style name="BaseThemeChipStyle" parent="BaseChipStyle">
+        <item name="chipBackgroundColor">@color/chip_bg_color</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="closeIconEndPadding">@dimen/margin_4</item>
+        <item name="closeIconStartPadding">@dimen/margin_8</item>
+        <item name="closeIconTint">@color/color_text_title</item>
+        <item name="closeIconSize">24dp</item>
+        <item name="chipIconSize">24dp</item>
     </style>
 
     <!--#########################################################################################-->
 
     <!--Base chip like text view style-->
     <style name="BaseChipLikeTextViewStyle" parent="MediumBoldText">
-        <item name="android:paddingStart">@dimen/margin_16</item>
+        <item name="android:paddingStart">@dimen/margin_8</item>
         <item name="android:paddingEnd">@dimen/margin_16</item>
+        <item name="android:drawablePadding">@dimen/margin_8</item>
         <item name="android:background">@drawable/shape_outline</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/color_text_title</item>
@@ -132,6 +148,7 @@
     <style name="NegativeButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
         <item name="android:paddingStart">@dimen/margin_16</item>
         <item name="android:paddingEnd">@dimen/margin_20</item>
+        <item name="android:gravity">center</item>
         <item name="icon">@drawable/ic_cancel</item>
         <item name="iconSize">18dp</item>
         <item name="iconPadding">@dimen/margin_4</item>
@@ -144,6 +161,7 @@
         <item name="backgroundTint">@color/fab_color</item>
         <item name="android:paddingStart">@dimen/margin_16</item>
         <item name="android:paddingEnd">@dimen/margin_20</item>
+        <item name="android:gravity">center</item>
         <item name="icon">@drawable/ic_done</item>
         <item name="iconSize">18dp</item>
         <item name="iconPadding">@dimen/margin_4</item>
@@ -167,7 +185,7 @@
     </style>
 
     <style name="SnackbarButtonStyle" parent="Widget.Material3.Button.TextButton.Snackbar">
-        <item name="android:textColor">#B3C5FF</item>
+        <item name="android:textColor">@color/color_snackbar_btn_text</item>
     </style>
 
 </resources>

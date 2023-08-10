@@ -28,7 +28,9 @@ import tech.techlore.plexus.dao.MyRatingsDao
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 
-@Database(entities = [MainData::class, MyRating::class], version = 1, exportSchema = false)
+@Database(entities = [MainData::class, MyRating::class],
+          version = 1,
+          exportSchema = false)
 abstract class MainDatabase : RoomDatabase() {
     
     abstract fun mainDataDao(): MainDataDao

@@ -71,8 +71,6 @@ class SubmitRatingFragment :
         mainActivity = requireActivity() as MainActivity
         miniRepository = appManager.miniRepository
         
-        /*########################################################################################*/
-        
         lifecycleScope.launch {
             
             // Forcefully set toolbar title

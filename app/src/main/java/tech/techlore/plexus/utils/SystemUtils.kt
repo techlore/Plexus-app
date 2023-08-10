@@ -22,7 +22,7 @@ package tech.techlore.plexus.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import tech.techlore.plexus.appmanager.ApplicationManager
-import tech.techlore.plexus.utils.PackageUtils.Companion.checkAppCertificate
+import tech.techlore.plexus.utils.PackageUtils.Companion.getAppCertificate
 import tech.techlore.plexus.utils.PackageUtils.Companion.isAppInstalled
 
 class SystemUtils {
@@ -47,7 +47,7 @@ class SystemUtils {
             
             val microGCount =
                 gappsPackages.count { packageName ->
-                    checkAppCertificate(packageManager, packageName, microGCertificate)
+                    microGCertificate == getAppCertificate(packageManager, packageName)
                 }
     
             appManager.deviceIsMicroG = gappsCount == microGCount
@@ -65,24 +65,6 @@ class SystemUtils {
                     null
                 }
             return propertyValue
-        }
-        
-        fun mapAndroidVersionIntToString(versionSdkInt: Int): String {
-            return when(versionSdkInt) {
-                23 -> "6.0"
-                24 -> "7.0"
-                25 -> "7.1.1"
-                26 -> "8.0"
-                27 -> "8.1"
-                28 -> "9.0"
-                29 -> "10.0"
-                30 -> "11.0"
-                31 -> "12.0"
-                32 -> "12.1"
-                33 -> "13.0"
-                34 -> "14.0"
-                else -> "NA"
-            }
         }
         
     }

@@ -40,7 +40,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
-import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToBgColor
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToColor
 import kotlin.collections.ArrayList
 
 class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
@@ -57,9 +57,9 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         
         val icon: ImageView = itemView.findViewById(R.id.icon)
         val name: MaterialTextView = itemView.findViewById(R.id.name)
-        val packageName: MaterialTextView = itemView.findViewById(R.id.package_name)
-        val dgStatus: MaterialTextView = itemView.findViewById(R.id.dg_status)
-        val mgStatus: MaterialTextView = itemView.findViewById(R.id.mg_status)
+        val packageName: MaterialTextView = itemView.findViewById(R.id.packageName)
+        val dgStatus: MaterialTextView = itemView.findViewById(R.id.dgStatus)
+        val mgStatus: MaterialTextView = itemView.findViewById(R.id.mgStatus)
         val fav: MaterialCheckBox = itemView.findViewById(R.id.fav)
         
         init {
@@ -106,6 +106,7 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         
                 Glide.with(context)
                     .load(mainDataMinimal.iconUrl)
+                    .onlyRetrieveFromCache(true)
                     .apply(requestOptions)
                     .into(this)
             }
@@ -124,13 +125,13 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         holder.dgStatus.apply {
             text = mainDataMinimal.dgStatus
             backgroundTintList =
-                mapStatusStringToBgColor(context, mainDataMinimal.dgStatus)?.let { ColorStateList.valueOf(it) }
+                mapStatusStringToColor(context, mainDataMinimal.dgStatus)?.let { ColorStateList.valueOf(it) }
         }
     
         holder.mgStatus.apply {
             text = mainDataMinimal.mgStatus
             backgroundTintList =
-                mapStatusStringToBgColor(context, mainDataMinimal.mgStatus)?.let { ColorStateList.valueOf(it) }
+                mapStatusStringToColor(context, mainDataMinimal.mgStatus)?.let { ColorStateList.valueOf(it) }
         }
         
         holder.fav.apply {

@@ -23,14 +23,9 @@ class ScoreUtils {
     
     companion object {
         
-        fun truncatedDgScore(dgScore: Float): Float {
+        fun truncatedScore(score: Float): Float {
             // Convert to 1 decimal place without rounding off
-            return ((dgScore * 10.0f).toInt().toFloat()) / 10.0f
-        }
-        
-        fun truncatedMgScore(mgScore: Float): Float {
-            // Convert to 1 decimal place without rounding off
-            return ((mgScore * 10.0f).toInt().toFloat()) / 10.0f
+            return ((score * 10.0f).toInt().toFloat()) / 10.0f
         }
         
     }

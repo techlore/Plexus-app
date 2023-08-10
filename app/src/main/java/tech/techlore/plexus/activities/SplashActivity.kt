@@ -29,10 +29,10 @@ import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySplashBinding
-import tech.techlore.plexus.fragments.bottomsheets.FirstLaunchBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.VideoPlayerBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_LAUNCH
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.SystemUtils.Companion.isDeviceDeGoogledOrMicroG
@@ -46,8 +46,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activityBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-        
-        /*########################################################################################*/
         
         retrieveData()
     }
@@ -73,15 +71,18 @@ class SplashActivity : AppCompatActivity() {
     }
     
     private fun afterDataRetrieved() {
-        if (PreferenceManager(this@SplashActivity).getBoolean(FIRST_LAUNCH)) {
-            FirstLaunchBottomSheet().show(supportFragmentManager, "FirstLaunchBottomSheet")
-            activityBinding.progressIndicator.isVisible = false
-            activityBinding.progressText.isVisible = false
+        if (PreferenceManager(this@SplashActivity).getBoolean(IS_FIRST_LAUNCH)) {
+            VideoPlayerBottomSheet(R.raw.intro_video).show(supportFragmentManager, "VideoPlayerBottomSheet")
         }
         else {
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
         }
+        activityBinding.progressIndicator.apply {
+            pauseAnimation()
+            isVisible = false
+        }
+        activityBinding.progressText.isVisible = false
     }
     
     override fun finish() {

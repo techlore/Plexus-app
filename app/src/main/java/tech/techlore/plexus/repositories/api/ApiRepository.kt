@@ -25,8 +25,10 @@ import tech.techlore.plexus.api.ApiService
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.get.apps.GetSingleAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
-import tech.techlore.plexus.models.post.PostAppRoot
-import tech.techlore.plexus.models.post.PostRatingRoot
+import tech.techlore.plexus.models.post.app.PostAppRoot
+import tech.techlore.plexus.models.post.device.RegisterDevice
+import tech.techlore.plexus.models.post.device.VerifyDevice
+import tech.techlore.plexus.models.post.rating.PostRatingRoot
 
 class ApiRepository(private val apiService: ApiService) {
     
@@ -40,6 +42,14 @@ class ApiRepository(private val apiService: ApiService) {
     
     fun getRatings(packageName: String, pageNumber: Int): Call<RatingsRoot> {
         return apiService.getRatings(packageName, pageNumber)
+    }
+    
+    fun registerDevice(registerDevice: RegisterDevice): Call<ResponseBody> {
+        return apiService.registerDevice(registerDevice)
+    }
+    
+    fun verifyDevice(verifyDevice: VerifyDevice): Call<ResponseBody> {
+        return apiService.verifyDevice(verifyDevice)
     }
     
     fun postApp(postAppRoot: PostAppRoot): Call<ResponseBody> {

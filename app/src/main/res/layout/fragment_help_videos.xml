@@ -37,27 +37,27 @@
         android:paddingBottom="@dimen/margin_35">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_vertical"
+            android:id="@+id/guidelineVertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5"/>
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_horizontal"
+            android:id="@+id/guidelineHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5"/>
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/introduction_thumbnail"
+            android:id="@+id/introductionThumbnail"
             android:layout_width="170dp"
             android:layout_height="320dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
             android:paddingBottom="1dp"
             android:clickable="true"
             android:focusable="true"
@@ -66,12 +66,12 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/introduction_text"
+            android:id="@+id/introductionText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/introduction_thumbnail"
-            app:layout_constraintEnd_toEndOf="@id/introduction_thumbnail"
-            app:layout_constraintBottom_toBottomOf="@id/introduction_thumbnail"
+            app:layout_constraintStart_toStartOf="@id/introductionThumbnail"
+            app:layout_constraintEnd_toEndOf="@id/introductionThumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/introductionThumbnail"
             android:padding="@dimen/margin_12"
             android:clickable="true"
             android:focusable="true"
@@ -85,27 +85,27 @@
             android:drawableTint="@color/color_snackbar_text"/>
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/navigation_thumbnail"
+            android:id="@+id/navigationThumbnail"
             android:layout_width="170dp"
             android:layout_height="320dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
             android:paddingBottom="1dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:background="@drawable/intro_thumbnail"
+            android:background="@drawable/test_thumbnail"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/navigation_text"
+            android:id="@+id/navigationText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/navigation_thumbnail"
-            app:layout_constraintEnd_toEndOf="@id/navigation_thumbnail"
-            app:layout_constraintBottom_toBottomOf="@id/navigation_thumbnail"
+            app:layout_constraintStart_toStartOf="@id/navigationThumbnail"
+            app:layout_constraintEnd_toEndOf="@id/navigationThumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/navigationThumbnail"
             android:padding="@dimen/margin_12"
             android:clickable="true"
             android:focusable="true"
@@ -119,69 +119,34 @@
             android:drawableTint="@color/color_snackbar_text"/>
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/submissions_thumbnail"
+            android:id="@+id/submissionsThumbnail"
             android:layout_width="170dp"
             android:layout_height="320dp"
             android:layout_marginTop="@dimen/margin_20"
-            app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             app:layout_constraintBottom_toBottomOf="parent"
             android:paddingBottom="1dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:background="@drawable/intro_thumbnail"
+            android:background="@drawable/test_thumbnail"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/submissions_text"
+            android:id="@+id/submissionsText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/submissions_thumbnail"
-            app:layout_constraintEnd_toEndOf="@id/submissions_thumbnail"
-            app:layout_constraintBottom_toBottomOf="@id/submissions_thumbnail"
+            app:layout_constraintStart_toStartOf="@id/submissionsThumbnail"
+            app:layout_constraintEnd_toEndOf="@id/submissionsThumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/submissionsThumbnail"
             android:padding="@dimen/margin_12"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/shape_rounded_bottom_corners"
             android:text="@string/submissions"
-            android:textColor="@color/color_snackbar_text"
-            android:textSize="@dimen/text_17"
-            android:drawableStart="@drawable/ic_play_circle"
-            android:drawablePadding="@dimen/margin_8"
-            android:drawableTint="@color/color_snackbar_text"/>
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/about_thumbnail"
-            android:layout_width="170dp"
-            android:layout_height="320dp"
-            android:layout_marginTop="@dimen/margin_20"
-            app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal"
-            app:layout_constraintStart_toEndOf="@+id/guideline_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingBottom="1dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@drawable/intro_thumbnail"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/about_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/about_thumbnail"
-            app:layout_constraintEnd_toEndOf="@id/about_thumbnail"
-            app:layout_constraintBottom_toBottomOf="@id/about_thumbnail"
-            android:padding="@dimen/margin_12"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@drawable/shape_rounded_bottom_corners"
-            android:text="@string/about"
             android:textColor="@color/color_snackbar_text"
             android:textSize="@dimen/text_17"
             android:drawableStart="@drawable/ic_play_circle"

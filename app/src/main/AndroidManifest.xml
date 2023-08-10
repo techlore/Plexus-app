@@ -38,10 +38,21 @@
             android:name=".activities.AppDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
+        <!-- My Ratings details activity -->
+        <activity
+            android:name=".activities.MyRatingsDetailsActivity"
+            android:configChanges="orientation|screenSize"/>
+
         <!-- Search activity -->
         <activity
             android:name=".activities.SearchActivity"
             android:configChanges="orientation|screenSize"/>
+
+        <!-- Verification activity -->
+        <activity
+            android:name=".activities.VerificationActivity"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustNothing"/>
 
         <!--Submit Activity-->
         <activity

@@ -100,7 +100,6 @@
     <string name="submissions">Soumissions</string>
 
     <!--Help text fragment-->
-    <string name="what_status_mean">Que signifient les statuts?</string>
     <string name="not_tested_subtitle">Non disponible, l\'application n\'a pas \u00E9t\u00E9 test\u00E9e</string>
     <string name="broken_title">Bris\u00E9</string>
     <string name="broken_subtitle">Inutilisable, principalement des applications qui ne s\'ouvrent pas</string>
@@ -110,12 +109,12 @@
     <string name="silver_subtitle">Presque tout fonctionne avec un minimum de r\u00E9serves</string>
     <string name="gold_title">L\'or</string>
     <string name="gold_subtitle">Exp\u00E9rience parfaite ou similaire \u00E0 une exp\u00E9rience parfaite</string>
-    <string name="what_icons_mean">Que signifient les ic\u00F4nes?</string>
+    <string name="icons">Que signifient les ic\u00F4nes?</string>
 
     <!--About fragment-->
     <string name="version">Version</string>
     <string name="privacy_policy">Politique de confidentialit\u00E9</string>
-    <string name="licenses">Licenses</string>
+    <string name="third_party_licenses">Licenses</string>
     <string name="support_us">Soutenez nous</string>
     <string name="view_on_github">Voir sur GitHub</string>
     <string name="visit_techlore">Visiter Techlore</string>
@@ -146,7 +145,7 @@
     <string name="status">Statut</string>
 
     <!--Theme-->
-    <string name="system_default">Syst\u00E8me</string>
+    <string name="follow_system">Suivre le syst\u00E8me</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
 

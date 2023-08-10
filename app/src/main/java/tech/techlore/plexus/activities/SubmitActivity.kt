@@ -24,8 +24,8 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
@@ -36,8 +36,11 @@ import tech.techlore.plexus.fragments.bottomsheets.SubmitBottomSheet
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.UiUtils.Companion.installedFromTextViewStyle
-import tech.techlore.plexus.utils.UiUtils.Companion.statusTextViewIcon
+import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
+import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
+import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
+import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
+import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 
 class SubmitActivity : AppCompatActivity() {
     
@@ -61,17 +64,7 @@ class SubmitActivity : AppCompatActivity() {
         installedFromString = intent.getStringExtra("installedFrom")!!
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
         val appManager = applicationContext as ApplicationManager
-        val repeatedCharsRegex = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
-        // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc
-        // while still allowing real words like coffee, committee etc.
-        val blockedWords = resources.getStringArray(R.array.blocked_words)
-        val blockedWordsPattern = blockedWords.joinToString("|") { Regex.escape(it) }
-        val blockedWordsRegex =
-            "(?i)\\b($blockedWordsPattern)\\b".toRegex(setOf(RegexOption.IGNORE_CASE))// *next regex meme goes here*
-        val emojiRegex = Regex("[\\p{So}\\p{Sk}]") // This will block emojis and other unnecessary symbols
         
-        /*########################################################################################*/
-    
         activityBinding.submitBottomAppBar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
@@ -94,13 +87,18 @@ class SubmitActivity : AppCompatActivity() {
                 "${getString(R.string.installed)}: $installedVersion (${installedBuild})"
             }
         
-        installedFromTextViewStyle(this@SubmitActivity,
-                                   installedFromString,
-                                   activityBinding.submitInstalledFrom)
-    
+        setInstalledFromTextViewStyle(this@SubmitActivity,
+                                      installedFromString,
+                                      activityBinding.submitInstalledFrom)
+        
         activityBinding.dgMgText.apply {
-            val googleLib = if (appManager.deviceIsMicroG) "micro_g" else "none"
-            statusTextViewIcon(this@SubmitActivity, googleLib, this)
+            val statusIcon =
+                when {
+                    !appManager.deviceIsMicroG -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
+                    else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
+                }
+            
+            setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
             text =
                 if (appManager.deviceIsMicroG) "${getString(R.string.microG)} ${getString(R.string.status)}"
                 else "${getString(R.string.de_Googled)} ${getString(R.string.status)}"
@@ -118,9 +116,7 @@ class SubmitActivity : AppCompatActivity() {
                 
                 // Introduce a subtle delay
                 // so text is checked after typing is finished
-                if (delayTimer != null) {
-                    delayTimer!!.cancel()
-                }
+                delayTimer?.cancel()
                 
                 delayTimer = object : CountDownTimer(300, 100) {
                     
@@ -128,20 +124,13 @@ class SubmitActivity : AppCompatActivity() {
                     
                     // On timer finish, perform task
                     override fun onFinish() {
-                        
-                        // Check for blocked words, repetitive chars, emojis and URLs
-                        val hasBlockedWord = blockedWordsRegex.find(charSequence) != null
-                        val hasRepeatedChars = repeatedCharsRegex.find(charSequence) == null
-                        val hasEmojis = emojiRegex.find(charSequence) != null
-                        val hasURLs = Patterns.WEB_URL.matcher(charSequence).find()
-                        
                         activityBinding.submitFab.isEnabled =
                             charSequence.isEmpty()
                             || (charSequence.length in 5..300
-                                && !hasBlockedWord
-                                && !hasRepeatedChars
-                                && !hasEmojis
-                                && !hasURLs)
+                                && !hasBlockedWord(this@SubmitActivity, charSequence)
+                                && !hasRepeatedChars(charSequence)
+                                && !hasEmojis(charSequence)
+                                && !hasURL(charSequence))
                     }
                     
                 }.start()

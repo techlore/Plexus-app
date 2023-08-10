@@ -21,7 +21,7 @@ package tech.techlore.plexus.converters.post
 
 import androidx.room.TypeConverter
 import com.fasterxml.jackson.databind.ObjectMapper
-import tech.techlore.plexus.models.post.PostRating
+import tech.techlore.plexus.models.post.rating.PostRating
 
 object PostRatingConverter {
     

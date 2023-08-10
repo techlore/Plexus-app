@@ -23,7 +23,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/submit_coordinator_layout"
+    android:id="@+id/submitCoordLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_background"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/submit_app_icon"
+                android:id="@+id/submitAppIcon"
                 android:layout_width="@dimen/margin_64"
                 android:layout_height="@dimen/margin_64"
                 app:layout_constraintTop_toTopOf="parent"
@@ -51,10 +51,10 @@
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/submit_name"
+                android:id="@+id/submitName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/submit_app_icon"
+                app:layout_constraintTop_toBottomOf="@id/submitAppIcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_8"
@@ -69,10 +69,10 @@
                 style="@style/MediumBoldText"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/submit_package_name"
+                android:id="@+id/submitPackageName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/submit_name"
+                app:layout_constraintTop_toBottomOf="@id/submitName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_2.5"
@@ -84,10 +84,10 @@
                 android:textSize="@dimen/text_18"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/submit_installed_version"
+                android:id="@+id/submitInstalledVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/submit_package_name"
+                app:layout_constraintTop_toBottomOf="@id/submitPackageName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_2.5"
@@ -99,74 +99,76 @@
                 android:textColor="@color/color_control_normal"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/submit_installed_from"
+                android:id="@+id/submitInstalledFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_32"
-                app:layout_constraintTop_toBottomOf="@id/submit_installed_version"
+                app:layout_constraintTop_toBottomOf="@id/submitInstalledVersion"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/margin_10"
                 android:paddingStart="@dimen/margin_8"
                 android:paddingEnd="@dimen/margin_16"
+                android:background="@drawable/shape_outline"
+                android:backgroundTint="@color/color_installed_from"
                 android:drawableStart="@drawable/ic_google_play"
                 android:drawablePadding="@dimen/margin_8"
-                android:background="@drawable/shape_outline"
-                android:text="@string/google_play"
+                android:drawableTint="@color/color_text_title"
+                android:text="@string/google_play_alt"
                 android:textSize="@dimen/text_16"
-                android:textColor="@color/color_control_normal"/>
+                android:textColor="@color/color_text_title"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/dg_mg_text"
+                android:id="@+id/dgMgText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/submit_installed_from"
+                app:layout_constraintTop_toBottomOf="@id/submitInstalledFrom"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_16"
                 android:drawableStart="@drawable/ic_degoogled"
-                android:drawablePadding="@dimen/margin_8"
+                android:drawablePadding="@dimen/margin_12"
                 android:text="@string/status"
                 android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"/>
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/submit_status_chip_group"
+                android:id="@+id/submitStatusChipGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/dg_mg_text"
+                app:layout_constraintTop_toBottomOf="@id/dgMgText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_8"
                 app:chipSpacingHorizontal="@dimen/margin_10"
                 app:chipSpacingVertical="@dimen/margin_4"
                 app:singleSelection="true"
                 app:selectionRequired="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/submit_broken"
+                    android:id="@+id/submitBroken"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     style="@style/BrokenFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/submit_bronze"
+                    android:id="@+id/submitBronze"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/BronzeFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/submit_silver"
+                    android:id="@+id/submitSilver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/SilverFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/submit_gold"
+                    android:id="@+id/submitGold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/GoldFilterChipTheme"/>
@@ -174,10 +176,10 @@
             </com.google.android.material.chip.ChipGroup>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/submit_notes_box"
+                android:id="@+id/submitNotesBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/submit_status_chip_group"
+                app:layout_constraintTop_toBottomOf="@id/submitStatusChipGroup"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -191,7 +193,7 @@
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/submit_notes_text"
+                    android:id="@+id/submitNotesText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minLines="4"
@@ -207,17 +209,17 @@
     </ScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/submit_bottom_app_bar"
+        android:id="@+id/submitBottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_back"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/submit_fab"
+        android:id="@+id/submitFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/submit_bottom_app_bar"
+        app:layout_anchor="@id/submitBottomAppBar"
         android:src="@drawable/ic_done"
         app:backgroundTint="@color/fab_color"
         app:tint="@color/icon_color"

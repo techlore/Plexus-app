@@ -20,9 +20,14 @@
 package tech.techlore.plexus.repositories.database
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -33,9 +38,8 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.main.MainData
-import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedDgScore
-import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedMgScore
 import tech.techlore.plexus.utils.PackageUtils.Companion.scannedInstalledAppsList
+import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedScore
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {
     
@@ -80,40 +84,62 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
     private suspend fun onRequestSuccessful(getAppsRoot: GetAppsRoot,
                                             glideRequestManager: RequestManager) {
         // Insert/update all apps in db
-        for (appData in getAppsRoot.appData) {
+        getAppsRoot.appData.forEach { appData ->
             
-            appData.iconUrl?.let {
-                // Preload icon into cache
+            appData.iconUrl?.let { iconUrl ->
                 glideRequestManager
-                    .load(appData.iconUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
-                    .preload()
+                    .load(iconUrl)
+                    .onlyRetrieveFromCache(true)
+                    .listener(object : RequestListener<Drawable> {
+                        
+                        override fun onLoadFailed(e: GlideException?,
+                                                  model: Any?,
+                                                  target: Target<Drawable>?,
+                                                  isFirstResource: Boolean): Boolean {
+                            // Icon is not in cache, preload into cache
+                            glideRequestManager
+                                .load(iconUrl)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
+                                .preload()
+                            return false
+                        }
+                        
+                        override fun onResourceReady(resource: Drawable?,
+                                                     model: Any?,
+                                                     target: Target<Drawable>?,
+                                                     dataSource: DataSource?,
+                                                     isFirstResource: Boolean): Boolean {
+                            // Icon is in cache, don't do anything
+                            return false
+                        }
+                    })
+                    .submit()
             }
             
             mainDataDao
                 .insertOrUpdatePlexusData(MainData(name = appData.name,
                                                    packageName = appData.packageName,
                                                    iconUrl = appData.iconUrl ?: "",
-                                                   dgScore = truncatedDgScore(appData.scores[1].score),
+                                                   dgScore = truncatedScore(appData.scores[1].score),
                                                    totalDgRatings = appData.scores[1].totalRatings,
-                                                   mgScore = truncatedMgScore(appData.scores[0].score),
+                                                   mgScore = truncatedScore(appData.scores[0].score),
                                                    totalMgRatings = appData.scores[0].totalRatings))
         }
     }
     
     suspend fun installedAppsIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
-        
+            
             val installedApps = scannedInstalledAppsList(context)
             val databaseApps = mainDataDao.getInstalledApps() as ArrayList<MainData>
-        
+            
             // Find uninstalled apps
             val uninstalledApps = databaseApps.filterNot { databaseApp ->
                 installedApps.any { installedApp ->
                     installedApp.packageName == databaseApp.packageName
                 }
             }
-    
+            
             // Delete uninstalled apps from db
             uninstalledApps.forEach {
                 if (! it.isInPlexusData) {
@@ -126,7 +152,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                     mainDataDao.update(it)
                 }
             }
-        
+            
             // Insert/update new data
             installedApps.forEach {
                 mainDataDao.insertOrUpdateInstalledApps(it)

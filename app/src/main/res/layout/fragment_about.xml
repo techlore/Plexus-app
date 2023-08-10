@@ -46,8 +46,6 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/app_name"
-            style="@style/MediumBoldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -57,10 +55,11 @@
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/plexus"
             android:textColor="@color/color_text_title"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_20"
+            style="@style/MediumBoldText"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/version_about"
+            android:id="@+id/aboutVersion"
             style="@style/MediumBoldText"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -71,16 +70,28 @@
             android:textColor="@color/color_control_normal"
             android:textSize="@dimen/text_17" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:paddingStart="@dimen/margin_8"
+            android:paddingEnd="@dimen/margin_8"
+            android:text="@string/by_techlore"
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_17"
+            android:textAlignment="center"
+            android:textStyle="italic"/>
+
         <include
             layout="@layout/divider_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/privacy_policy"
+            android:id="@+id/privacyPolicy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_12"
@@ -113,14 +124,14 @@
             android:paddingTop="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_25"
             android:paddingBottom="@dimen/margin_16"
-            android:text="@string/licenses"
+            android:text="@string/third_party_licenses"
             android:textAlignment="viewStart"
             android:textColor="@color/color_text_title"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_licenses" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/support_us"
+            android:id="@+id/supportUs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_2.5"
@@ -140,7 +151,7 @@
             app:drawableStartCompat="@drawable/ic_support_us" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/view_on_git"
+            android:id="@+id/viewOnGitHub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_2.5"
@@ -160,7 +171,7 @@
             app:drawableStartCompat="@drawable/ic_github" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/visit_techlore"
+            android:id="@+id/visitTechlore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_2.5"

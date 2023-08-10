@@ -35,24 +35,22 @@
         layout="@layout/bottom_sheet_header"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/play_store"
+        android:id="@+id/playStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_marginBottom="1dp"
+        android:paddingHorizontal="@dimen/margin_25"
+        android:paddingVertical="@dimen/margin_16"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:paddingStart="@dimen/margin_20"
-        android:paddingTop="@dimen/margin_16"
-        android:paddingEnd="@dimen/margin_25"
-        android:paddingBottom="@dimen/margin_16"
         android:text="@string/google_play"
         android:textAlignment="viewStart"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         app:drawableStartCompat="@drawable/ic_google_play"
-        android:drawablePadding="@dimen/margin_20"/>
+        android:drawablePadding="@dimen/margin_12"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/fdroid"
@@ -60,19 +58,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_2.5"
         android:layout_marginBottom="1dp"
+        android:paddingHorizontal="@dimen/margin_25"
+        android:paddingVertical="@dimen/margin_16"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:paddingStart="@dimen/margin_20"
-        android:paddingTop="@dimen/margin_16"
-        android:paddingEnd="@dimen/margin_25"
-        android:paddingBottom="@dimen/margin_16"
         android:text="@string/fdroid"
         android:textAlignment="viewStart"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         app:drawableStartCompat="@drawable/ic_fdroid"
-        android:drawablePadding="@dimen/margin_20"/>
+        android:drawablePadding="@dimen/margin_12"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/share"
@@ -80,19 +76,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_2.5"
         android:layout_marginBottom="@dimen/margin_6.5"
+        android:paddingHorizontal="@dimen/margin_25"
+        android:paddingVertical="@dimen/margin_16"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:paddingStart="@dimen/margin_20"
-        android:paddingTop="@dimen/margin_16"
-        android:paddingEnd="@dimen/margin_25"
-        android:paddingBottom="@dimen/margin_16"
         android:text="@string/menu_share"
         android:textAlignment="viewStart"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16"
         app:drawableStartCompat="@drawable/ic_share"
-        android:drawablePadding="@dimen/margin_20"/>
+        android:drawablePadding="@dimen/margin_12"/>
 
     <include layout="@layout/bottom_sheet_footer"/>
 

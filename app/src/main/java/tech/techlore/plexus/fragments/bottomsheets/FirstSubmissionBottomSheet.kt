@@ -19,6 +19,8 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -28,15 +30,16 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.AppDetailsActivity
+import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.databinding.BottomSheetFirstSubmissionBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_ROM
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.utils.SystemUtils.Companion.getSystemProperty
 
-class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> Unit) : BottomSheetDialogFragment() {
+class FirstSubmissionBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetFirstSubmissionBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -51,14 +54,14 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
+        
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val preferenceManager = PreferenceManager(requireContext())
+        val preferenceManager = EncryptedPreferenceManager(requireContext())
         var remSecs: Int
-    
+        
         headerBinding.bottomSheetTitle.text = getString(R.string.new_submission)
-    
+        
         val customRomsList = resources.getStringArray(R.array.custom_roms)
         val truncatedCustomRomsList =
             customRomsList.map {
@@ -70,14 +73,14 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                     .removeSuffix("ROM")
                     .replace(" ", "")
             }
-    
+        
         val allRomsDropdownList = listOf(getString(R.string.select)) +
                                   "Stock (${Build.MANUFACTURER} ${Build.MODEL})" +
                                   customRomsList
-    
+        
         val customRomsPattern = truncatedCustomRomsList.joinToString("|") { Regex.escape(it) }
         val customRomsRegex = "(?i)($customRomsPattern)".toRegex(setOf(RegexOption.IGNORE_CASE))
-    
+        
         // Check a few properties from build.prop
         // that might contain ROM name
         val buildPropValues =
@@ -87,14 +90,14 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                    "ro.build.description",
                    "ro.build.fingerprint")
                 .mapNotNull { getSystemProperty(it) }
-    
+        
         // Check if any value from build.prop matches against custom roms list
         val matchingValue = buildPropValues.firstOrNull { customRomsRegex.containsMatchIn(it) }
         val romNameIndex =
             truncatedCustomRomsList.indexOfFirst {
                 matchingValue?.contains(it, ignoreCase = true) == true
             } // -1 would mean no matching index
-    
+        
         // ROM dropdown
         bottomSheetBinding.romDropdownMenu.apply {
             setText(
@@ -108,24 +111,24 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                                        R.layout.item_dropdown_menu,
                                        allRomsDropdownList)
             setAdapter(adapter)
-    
+            
             setOnItemClickListener { _, _, position, _ ->
-                footerBinding.positiveButton.isEnabled = position != 0
+                footerBinding.positiveButton.isEnabled = position != 0 && timer == null
             }
         }
-    
+        
         // Proceed
         footerBinding.positiveButton.apply {
             isEnabled = false
             
-            timer = object : CountDownTimer(10000, 1000) {
-        
+            timer = object : CountDownTimer(5000, 1000) {
+                
                 override fun onTick(millisUntilFinished: Long) {
-                    remSecs = (millisUntilFinished / 1000).toInt() + 1 // Show 10s..1s instead of 9s..0s
-                    val positiveBtnText = ("${getString(R.string.proceed)} ${remSecs}s")
-                    text = positiveBtnText
+                    remSecs = (millisUntilFinished / 1000).toInt() + 1 // Show 5s..1s instead of 4s..0s
+                    @SuppressLint("SetTextI18n")
+                    text = "${getString(R.string.proceed)} ${remSecs}s"
                 }
-        
+                
                 override fun onFinish() {
                     text = getString(R.string.proceed)
                     isEnabled = bottomSheetBinding.romDropdownMenu.text.toString() != allRomsDropdownList[0]
@@ -133,14 +136,20 @@ class FirstSubmissionBottomSheet(private val positiveButtonClickListener: () -> 
                 }
             }.start()
             
-            setOnClickListener{
-                preferenceManager.setBoolean(FIRST_SUBMISSION, false)
+            setOnClickListener {
                 preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
                 dismiss()
-                positiveButtonClickListener.invoke()
+                val detailsActivity = requireActivity() as AppDetailsActivity
+                detailsActivity.startActivity(Intent(detailsActivity, VerificationActivity::class.java)
+                                                    .putExtra("name", detailsActivity.app.name)
+                                                    .putExtra("packageName", detailsActivity.app.packageName)
+                                                    .putExtra("installedVersion", detailsActivity.app.installedVersion)
+                                                    .putExtra("installedBuild", detailsActivity.app.installedBuild)
+                                                    .putExtra("installedFrom", detailsActivity.app.installedFrom)
+                                                    .putExtra("isInPlexusData", detailsActivity.app.isInPlexusData))
             }
         }
-    
+        
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }
     }

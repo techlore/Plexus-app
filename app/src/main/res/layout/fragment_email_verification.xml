@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:gravity="center">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:drawableStart="@drawable/ic_verify"
+            android:drawablePadding="@dimen/margin_12"
+            android:text="@string/verify_to_get_started"
+            android:textSize="@dimen/text_18"
+            android:textColor="@color/color_text_title"
+            style="@style/MediumBoldText"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_12"
+            android:textColorHint="@color/color_hint"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_16"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:drawableStart="@drawable/ic_terms_conditions"
+            android:drawablePadding="@dimen/margin_12"
+            android:text="@string/terms_conditions_title"
+            android:textSize="@dimen/text_18"
+            android:textColor="@color/color_text_title"
+            style="@style/MediumBoldText"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:text="@string/terms_conditions_desc"
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/color_text_title"/>
+
+        <include layout="@layout/divider_horizontal"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginHorizontal="@dimen/margin_10"
+            android:text="@string/by_proceeding_agree_desc"
+            android:textColor="@color/color_control_normal"
+            android:textSize="@dimen/text_16"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/proceedBtn"
+            android:layout_width="180dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="@dimen/margin_16"
+            android:backgroundTint="@color/fab_color"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/margin_8"
+            android:text="@string/proceed"
+            style="@style/PositiveButtonStyle"
+            android:enabled="false"/>
+
+    </LinearLayout>
+</ScrollView>

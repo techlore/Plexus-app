@@ -28,11 +28,11 @@
     tools:ignore="HardcodedText">
 
     <View
-        android:id="@+id/dg_card"
+        android:id="@+id/dgCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/dg_card_bottom_space"
+        app:layout_constraintBottom_toBottomOf="@id/dgCardBottomSpace"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/margin_20"
@@ -41,11 +41,11 @@
         android:background="@drawable/shape_card"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_text"
+        android:id="@+id/dgText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/dg_card"
-        app:layout_constraintStart_toStartOf="@id/dg_card"
+        app:layout_constraintTop_toTopOf="@id/dgCard"
+        app:layout_constraintStart_toStartOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/de_Googled"
@@ -54,11 +54,11 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_total_ratings"
+        android:id="@+id/dgTotalRatings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dg_text"
-        app:layout_constraintStart_toStartOf="@id/dg_card"
+        app:layout_constraintTop_toBottomOf="@id/dgText"
+        app:layout_constraintStart_toStartOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_12"
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/total_ratings"
@@ -66,35 +66,35 @@
         android:textColor="@color/color_control_normal"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/dg_circle"
+        android:id="@+id/dgCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dg_total_ratings"
-        app:layout_constraintStart_toStartOf="@id/dg_card"
-        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        app:layout_constraintTop_toBottomOf="@id/dgTotalRatings"
+        app:layout_constraintStart_toStartOf="@id/dgCard"
+        app:layout_constraintEnd_toEndOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_10"
         app:trackCornerRadius="@dimen/margin_10"
         app:indicatorSize="100dp"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_avg_score"
+        android:id="@+id/dgAvgScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/dg_circle"
-        app:layout_constraintBottom_toBottomOf="@id/dg_circle"
-        app:layout_constraintStart_toStartOf="@id/dg_circle"
-        app:layout_constraintEnd_toEndOf="@id/dg_circle"
+        app:layout_constraintTop_toTopOf="@id/dgCircle"
+        app:layout_constraintBottom_toBottomOf="@id/dgCircle"
+        app:layout_constraintStart_toStartOf="@id/dgCircle"
+        app:layout_constraintEnd_toEndOf="@id/dgCircle"
         android:text="0/4"
         android:textSize="@dimen/text_20"
         android:textColor="@color/color_text_title"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/dg_gold_progress"
+        android:id="@+id/dgGoldProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dg_avg_score"
-        app:layout_constraintStart_toStartOf="@id/dg_card"
-        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        app:layout_constraintTop_toBottomOf="@id/dgAvgScore"
+        app:layout_constraintStart_toStartOf="@id/dgCard"
+        app:layout_constraintEnd_toEndOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_55"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
@@ -105,12 +105,12 @@
         app:indicatorColor="@color/color_gold_status"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_gold_text_chip"
+        android:id="@+id/dgGoldTextChip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@id/dg_gold_progress"
-        app:layout_constraintBottom_toBottomOf="@id/dg_gold_progress"
-        app:layout_constraintStart_toStartOf="@id/dg_gold_progress"
+        app:layout_constraintTop_toTopOf="@id/dgGoldProgress"
+        app:layout_constraintBottom_toBottomOf="@id/dgGoldProgress"
+        app:layout_constraintStart_toStartOf="@id/dgGoldProgress"
         android:gravity="center"
         android:layout_marginStart="@dimen/margin_8"
         android:drawableStart="@drawable/ic_degoogled"
@@ -121,12 +121,12 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_gold_percent"
+        android:id="@+id/dgGoldPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/dg_gold_progress"
-        app:layout_constraintBottom_toBottomOf="@id/dg_gold_progress"
-        app:layout_constraintEnd_toEndOf="@id/dg_gold_progress"
+        app:layout_constraintTop_toTopOf="@id/dgGoldProgress"
+        app:layout_constraintBottom_toBottomOf="@id/dgGoldProgress"
+        app:layout_constraintEnd_toEndOf="@id/dgGoldProgress"
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
@@ -136,12 +136,12 @@
     <!--####################################################-->
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/dg_silver_progress"
+        android:id="@+id/dgSilverProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dg_gold_progress"
-        app:layout_constraintStart_toStartOf="@id/dg_card"
-        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        app:layout_constraintTop_toBottomOf="@id/dgGoldProgress"
+        app:layout_constraintStart_toStartOf="@id/dgCard"
+        app:layout_constraintEnd_toEndOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
@@ -152,12 +152,12 @@
         app:indicatorColor="@color/color_silver_status"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_silver_text_chip"
+        android:id="@+id/dgSilverTextChip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@+id/dg_silver_progress"
-        app:layout_constraintBottom_toBottomOf="@id/dg_silver_progress"
-        app:layout_constraintStart_toStartOf="@id/dg_silver_progress"
+        app:layout_constraintTop_toTopOf="@+id/dgSilverProgress"
+        app:layout_constraintBottom_toBottomOf="@id/dgSilverProgress"
+        app:layout_constraintStart_toStartOf="@id/dgSilverProgress"
         android:gravity="center"
         android:layout_marginStart="@dimen/margin_8"
         android:drawableStart="@drawable/ic_degoogled"
@@ -168,12 +168,12 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_silver_percent"
+        android:id="@+id/dgSilverPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/dg_silver_progress"
-        app:layout_constraintBottom_toBottomOf="@id/dg_silver_progress"
-        app:layout_constraintEnd_toEndOf="@id/dg_silver_progress"
+        app:layout_constraintTop_toTopOf="@id/dgSilverProgress"
+        app:layout_constraintBottom_toBottomOf="@id/dgSilverProgress"
+        app:layout_constraintEnd_toEndOf="@id/dgSilverProgress"
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
@@ -183,12 +183,12 @@
     <!--####################################################-->
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/dg_bronze_progress"
+        android:id="@+id/dgBronzeProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dg_silver_progress"
-        app:layout_constraintStart_toStartOf="@id/dg_card"
-        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        app:layout_constraintTop_toBottomOf="@id/dgSilverProgress"
+        app:layout_constraintStart_toStartOf="@id/dgCard"
+        app:layout_constraintEnd_toEndOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
@@ -199,12 +199,12 @@
         app:indicatorColor="@color/color_bronze_status"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_bronze_text_chip"
+        android:id="@+id/dgBronzeTextChip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@+id/dg_bronze_progress"
-        app:layout_constraintBottom_toBottomOf="@id/dg_bronze_progress"
-        app:layout_constraintStart_toStartOf="@id/dg_bronze_progress"
+        app:layout_constraintTop_toTopOf="@+id/dgBronzeProgress"
+        app:layout_constraintBottom_toBottomOf="@id/dgBronzeProgress"
+        app:layout_constraintStart_toStartOf="@id/dgBronzeProgress"
         android:gravity="center"
         android:layout_marginStart="@dimen/margin_8"
         android:drawableStart="@drawable/ic_degoogled"
@@ -215,12 +215,12 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_bronze_percent"
+        android:id="@+id/dgBronzePercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/dg_bronze_progress"
-        app:layout_constraintBottom_toBottomOf="@id/dg_bronze_progress"
-        app:layout_constraintEnd_toEndOf="@id/dg_bronze_progress"
+        app:layout_constraintTop_toTopOf="@id/dgBronzeProgress"
+        app:layout_constraintBottom_toBottomOf="@id/dgBronzeProgress"
+        app:layout_constraintEnd_toEndOf="@id/dgBronzeProgress"
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
@@ -230,12 +230,12 @@
     <!--####################################################-->
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/dg_broken_progress"
+        android:id="@+id/dgBrokenProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dg_bronze_progress"
-        app:layout_constraintStart_toStartOf="@id/dg_card"
-        app:layout_constraintEnd_toEndOf="@id/dg_card"
+        app:layout_constraintTop_toBottomOf="@id/dgBronzeProgress"
+        app:layout_constraintStart_toStartOf="@id/dgCard"
+        app:layout_constraintEnd_toEndOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
@@ -246,12 +246,12 @@
         app:indicatorColor="@color/color_broken_status"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_broken_text_chip"
+        android:id="@+id/dgBrokenTextChip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@+id/dg_broken_progress"
-        app:layout_constraintBottom_toBottomOf="@id/dg_broken_progress"
-        app:layout_constraintStart_toStartOf="@id/dg_broken_progress"
+        app:layout_constraintTop_toTopOf="@+id/dgBrokenProgress"
+        app:layout_constraintBottom_toBottomOf="@id/dgBrokenProgress"
+        app:layout_constraintStart_toStartOf="@id/dgBrokenProgress"
         android:layout_marginStart="@dimen/margin_8"
         android:gravity="center"
         android:drawableStart="@drawable/ic_degoogled"
@@ -262,12 +262,12 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_broken_percent"
+        android:id="@+id/dgBrokenPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/dg_broken_progress"
-        app:layout_constraintBottom_toBottomOf="@id/dg_broken_progress"
-        app:layout_constraintEnd_toEndOf="@id/dg_broken_progress"
+        app:layout_constraintTop_toTopOf="@id/dgBrokenProgress"
+        app:layout_constraintBottom_toBottomOf="@id/dgBrokenProgress"
+        app:layout_constraintEnd_toEndOf="@id/dgBrokenProgress"
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
@@ -277,22 +277,22 @@
     <!--####################################################-->
 
     <Space
-        android:id="@+id/dg_card_bottom_space"
+        android:id="@+id/dgCardBottomSpace"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_25"
-        app:layout_constraintTop_toBottomOf="@id/dg_broken_text_chip"
-        app:layout_constraintStart_toStartOf="@id/dg_card"
-        app:layout_constraintEnd_toEndOf="@id/dg_card"/>
+        app:layout_constraintTop_toBottomOf="@id/dgBrokenTextChip"
+        app:layout_constraintStart_toStartOf="@id/dgCard"
+        app:layout_constraintEnd_toEndOf="@id/dgCard"/>
 
     <!--####################################################-->
     <!--####################################################-->
 
     <View
-        android:id="@+id/mg_card"
+        android:id="@+id/mgCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/dg_card"
-        app:layout_constraintBottom_toBottomOf="@id/mg_card_bottom_space"
+        app:layout_constraintTop_toBottomOf="@id/dgCard"
+        app:layout_constraintBottom_toBottomOf="@id/mgCardBottomSpace"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/margin_20"
@@ -302,11 +302,11 @@
         android:background="@drawable/shape_card"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_text"
+        android:id="@+id/mgText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/mg_card"
-        app:layout_constraintStart_toStartOf="@id/mg_card"
+        app:layout_constraintTop_toTopOf="@id/mgCard"
+        app:layout_constraintStart_toStartOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/microG"
@@ -315,11 +315,11 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_total_ratings"
+        android:id="@+id/mgTotalRatings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mg_text"
-        app:layout_constraintStart_toStartOf="@id/mg_card"
+        app:layout_constraintTop_toBottomOf="@id/mgText"
+        app:layout_constraintStart_toStartOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_12"
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/total_ratings"
@@ -327,35 +327,35 @@
         android:textColor="@color/color_control_normal"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/mg_circle"
+        android:id="@+id/mgCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mg_total_ratings"
-        app:layout_constraintStart_toStartOf="@id/mg_card"
-        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        app:layout_constraintTop_toBottomOf="@id/mgTotalRatings"
+        app:layout_constraintStart_toStartOf="@id/mgCard"
+        app:layout_constraintEnd_toEndOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_10"
         app:trackCornerRadius="@dimen/margin_10"
         app:indicatorSize="100dp"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_avg_score"
+        android:id="@+id/mgAvgScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/mg_circle"
-        app:layout_constraintBottom_toBottomOf="@id/mg_circle"
-        app:layout_constraintStart_toStartOf="@id/mg_circle"
-        app:layout_constraintEnd_toEndOf="@id/mg_circle"
+        app:layout_constraintTop_toTopOf="@id/mgCircle"
+        app:layout_constraintBottom_toBottomOf="@id/mgCircle"
+        app:layout_constraintStart_toStartOf="@id/mgCircle"
+        app:layout_constraintEnd_toEndOf="@id/mgCircle"
         android:text="0/4"
         android:textSize="@dimen/text_20"
         android:textColor="@color/color_text_title"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/mg_gold_progress"
+        android:id="@+id/mgGoldProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mg_avg_score"
-        app:layout_constraintStart_toStartOf="@id/mg_card"
-        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        app:layout_constraintTop_toBottomOf="@id/mgAvgScore"
+        app:layout_constraintStart_toStartOf="@id/mgCard"
+        app:layout_constraintEnd_toEndOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_55"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
@@ -366,12 +366,12 @@
         app:indicatorColor="@color/color_gold_status"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_gold_text_chip"
+        android:id="@+id/mgGoldTextChip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@+id/mg_gold_progress"
-        app:layout_constraintBottom_toBottomOf="@id/mg_gold_progress"
-        app:layout_constraintStart_toStartOf="@id/mg_gold_progress"
+        app:layout_constraintTop_toTopOf="@+id/mgGoldProgress"
+        app:layout_constraintBottom_toBottomOf="@id/mgGoldProgress"
+        app:layout_constraintStart_toStartOf="@id/mgGoldProgress"
         android:layout_marginStart="@dimen/margin_8"
         android:gravity="center"
         android:drawableStart="@drawable/ic_microg"
@@ -382,12 +382,12 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_gold_percent"
+        android:id="@+id/mgGoldPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/mg_gold_progress"
-        app:layout_constraintBottom_toBottomOf="@id/mg_gold_progress"
-        app:layout_constraintEnd_toEndOf="@id/mg_gold_progress"
+        app:layout_constraintTop_toTopOf="@id/mgGoldProgress"
+        app:layout_constraintBottom_toBottomOf="@id/mgGoldProgress"
+        app:layout_constraintEnd_toEndOf="@id/mgGoldProgress"
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
@@ -397,12 +397,12 @@
     <!--####################################################-->
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/mg_silver_progress"
+        android:id="@+id/mgSilverProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mg_gold_progress"
-        app:layout_constraintStart_toStartOf="@id/mg_card"
-        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        app:layout_constraintTop_toBottomOf="@id/mgGoldProgress"
+        app:layout_constraintStart_toStartOf="@id/mgCard"
+        app:layout_constraintEnd_toEndOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
@@ -413,12 +413,12 @@
         app:indicatorColor="@color/color_silver_status"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_silver_text_chip"
+        android:id="@+id/mgSilverTextChip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@+id/mg_silver_progress"
-        app:layout_constraintBottom_toBottomOf="@id/mg_silver_progress"
-        app:layout_constraintStart_toStartOf="@id/mg_silver_progress"
+        app:layout_constraintTop_toTopOf="@+id/mgSilverProgress"
+        app:layout_constraintBottom_toBottomOf="@id/mgSilverProgress"
+        app:layout_constraintStart_toStartOf="@id/mgSilverProgress"
         android:layout_marginStart="@dimen/margin_8"
         android:gravity="center"
         android:drawableStart="@drawable/ic_microg"
@@ -429,12 +429,12 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_silver_percent"
+        android:id="@+id/mgSilverPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/mg_silver_progress"
-        app:layout_constraintBottom_toBottomOf="@id/mg_silver_progress"
-        app:layout_constraintEnd_toEndOf="@id/mg_silver_progress"
+        app:layout_constraintTop_toTopOf="@id/mgSilverProgress"
+        app:layout_constraintBottom_toBottomOf="@id/mgSilverProgress"
+        app:layout_constraintEnd_toEndOf="@id/mgSilverProgress"
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
@@ -444,12 +444,12 @@
     <!--####################################################-->
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/mg_bronze_progress"
+        android:id="@+id/mgBronzeProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mg_silver_progress"
-        app:layout_constraintStart_toStartOf="@id/mg_card"
-        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        app:layout_constraintTop_toBottomOf="@id/mgSilverProgress"
+        app:layout_constraintStart_toStartOf="@id/mgCard"
+        app:layout_constraintEnd_toEndOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
@@ -460,12 +460,12 @@
         app:indicatorColor="@color/color_bronze_status"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_bronze_text_chip"
+        android:id="@+id/mgBronzeTextChip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@+id/mg_bronze_progress"
-        app:layout_constraintBottom_toBottomOf="@id/mg_bronze_progress"
-        app:layout_constraintStart_toStartOf="@id/mg_bronze_progress"
+        app:layout_constraintTop_toTopOf="@+id/mgBronzeProgress"
+        app:layout_constraintBottom_toBottomOf="@id/mgBronzeProgress"
+        app:layout_constraintStart_toStartOf="@id/mgBronzeProgress"
         android:layout_marginStart="@dimen/margin_8"
         android:gravity="center"
         android:drawableStart="@drawable/ic_microg"
@@ -476,12 +476,12 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_bronze_percent"
+        android:id="@+id/mgBronzePercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/mg_bronze_progress"
-        app:layout_constraintBottom_toBottomOf="@id/mg_bronze_progress"
-        app:layout_constraintEnd_toEndOf="@id/mg_bronze_progress"
+        app:layout_constraintTop_toTopOf="@id/mgBronzeProgress"
+        app:layout_constraintBottom_toBottomOf="@id/mgBronzeProgress"
+        app:layout_constraintEnd_toEndOf="@id/mgBronzeProgress"
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
@@ -491,12 +491,12 @@
     <!--####################################################-->
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/mg_broken_progress"
+        android:id="@+id/mgBrokenProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mg_bronze_text_chip"
-        app:layout_constraintStart_toStartOf="@id/mg_card"
-        app:layout_constraintEnd_toEndOf="@id/mg_card"
+        app:layout_constraintTop_toBottomOf="@id/mgBronzeTextChip"
+        app:layout_constraintStart_toStartOf="@id/mgCard"
+        app:layout_constraintEnd_toEndOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
@@ -507,12 +507,12 @@
         app:indicatorColor="@color/color_broken_status"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_broken_text_chip"
+        android:id="@+id/mgBrokenTextChip"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@+id/mg_broken_progress"
-        app:layout_constraintBottom_toBottomOf="@id/mg_broken_progress"
-        app:layout_constraintStart_toStartOf="@id/mg_broken_progress"
+        app:layout_constraintTop_toTopOf="@+id/mgBrokenProgress"
+        app:layout_constraintBottom_toBottomOf="@id/mgBrokenProgress"
+        app:layout_constraintStart_toStartOf="@id/mgBrokenProgress"
         android:layout_marginStart="@dimen/margin_8"
         android:gravity="center"
         android:drawableStart="@drawable/ic_microg"
@@ -523,12 +523,12 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_broken_percent"
+        android:id="@+id/mgBrokenPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/mg_broken_progress"
-        app:layout_constraintBottom_toBottomOf="@id/mg_broken_progress"
-        app:layout_constraintEnd_toEndOf="@id/mg_broken_progress"
+        app:layout_constraintTop_toTopOf="@id/mgBrokenProgress"
+        app:layout_constraintBottom_toBottomOf="@id/mgBrokenProgress"
+        app:layout_constraintEnd_toEndOf="@id/mgBrokenProgress"
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
@@ -536,11 +536,11 @@
         style="@style/MediumBoldText"/>
 
     <Space
-        android:id="@+id/mg_card_bottom_space"
+        android:id="@+id/mgCardBottomSpace"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_40"
-        app:layout_constraintTop_toBottomOf="@id/mg_broken_text_chip"
-        app:layout_constraintStart_toStartOf="@id/mg_card"
-        app:layout_constraintEnd_toEndOf="@id/mg_card"/>
+        app:layout_constraintTop_toBottomOf="@id/mgBrokenTextChip"
+        app:layout_constraintStart_toStartOf="@id/mgCard"
+        app:layout_constraintEnd_toEndOf="@id/mgCard"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,7 +49,6 @@ class ApplicationManager : Application() {
     
     var deviceIsMicroG = false
     var deviceIsDeGoogled = false
-    var selectedNavItem = 0
     var submitSuccessful = false
     
     override fun onCreate() {
@@ -68,7 +67,7 @@ class ApplicationManager : Application() {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 }
             }
-            R.id.sys_default -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            R.id.followSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             R.id.light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             R.id.dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 

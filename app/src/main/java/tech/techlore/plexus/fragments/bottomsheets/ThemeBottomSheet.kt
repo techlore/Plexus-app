@@ -48,35 +48,36 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
+        
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = PreferenceManager(requireContext())
-    
+        
         headerBinding.bottomSheetTitle.setText(R.string.theme)
-    
+        
         // Show system default option only on SDK 29 and above
-        bottomSheetBinding.sysDefault.isVisible = Build.VERSION.SDK_INT >= 29
-    
-        // Radio group
-        bottomSheetBinding.themeRadiogroup.apply {
+        bottomSheetBinding.followSystem.isVisible = Build.VERSION.SDK_INT >= 29
+        
+        // Chip group
+        bottomSheetBinding.themeChipGroup.apply {
             
-            // Default checked radio btn
+            // Default checked chip
             if (preferenceManager.getInt(THEME) == 0) {
                 if (Build.VERSION.SDK_INT >= 29) {
-                    preferenceManager.setInt(THEME, R.id.sys_default)
+                    preferenceManager.setInt(THEME, R.id.followSystem)
                 }
                 else {
                     preferenceManager.setInt(THEME, R.id.light)
                 }
             }
             check(preferenceManager.getInt(THEME))
-    
+            
             // On selecting option
-            setOnCheckedChangeListener { _, checkedId ->
-                preferenceManager.setInt(THEME, checkedId)
-                when (checkedId) {
-                    R.id.sys_default ->
+            setOnCheckedStateChangeListener { _, checkedIds ->
+                val checkedChip = checkedIds.first()
+                preferenceManager.setInt(THEME, checkedChip)
+                when (checkedChip) {
+                    R.id.followSystem ->
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             
                     R.id.light ->
@@ -86,11 +87,10 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }
                 dismiss()
-                requireActivity().recreate()
-        
+                
             }
         }
-    
+        
         footerBinding.positiveButton.isVisible = false
         
         footerBinding.negativeButton.setOnClickListener { dismiss() }

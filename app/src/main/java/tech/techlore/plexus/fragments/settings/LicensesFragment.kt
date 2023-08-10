@@ -45,14 +45,9 @@ class LicensesFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        (requireActivity() as SettingsActivity).activityBinding.toolbarBottom.title = getString(R.string.licenses)
+        (requireActivity() as SettingsActivity).activityBinding.toolbarBottom.title = getString(R.string.third_party_licenses)
         
         licenseList = ArrayList<License>().apply {
-            
-            // Plexus
-            add(License(getString(R.string.plexus),
-                        "${getString(R.string.copyright_techlore)}\n\n${getString(R.string.gpl_3_0_license)}",
-                        getString(R.string.plexus_license_url)))
     
             // Jackson
             add(License(getString(R.string.jackson),

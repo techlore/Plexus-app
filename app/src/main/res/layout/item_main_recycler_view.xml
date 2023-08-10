@@ -28,7 +28,7 @@
     android:layout_marginStart="@dimen/margin_12"
     android:layout_marginEnd="@dimen/margin_12"
     android:layout_marginTop="@dimen/margin_4"
-    android:layout_marginBottom="@dimen/margin_6.5"
+    android:layout_marginBottom="@dimen/margin_12"
     android:paddingStart="@dimen/margin_8"
     android:paddingEnd="@dimen/margin_8"
     android:paddingTop="@dimen/margin_8"
@@ -42,7 +42,7 @@
         android:layout_height="@dimen/margin_45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/name"
-        app:layout_constraintBottom_toBottomOf="@id/dg_status"
+        app:layout_constraintBottom_toBottomOf="@id/dgStatus"
         android:src="@drawable/ic_apk"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
@@ -64,7 +64,7 @@
         android:textSize="@dimen/text_17"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/package_name"
+        android:id="@+id/packageName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/name"
@@ -80,44 +80,30 @@
         android:textSize="@dimen/text_16"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dg_status"
+        android:id="@+id/dgStatus"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toBottomOf="@id/package_name"
+        app:layout_constraintTop_toBottomOf="@id/packageName"
         app:layout_constraintStart_toEndOf="@id/icon"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_12"
-        android:paddingStart="@dimen/margin_8"
-        android:paddingEnd="@dimen/margin_16"
-        android:gravity="center"
-        android:background="@drawable/shape_outline"
         android:drawableStart="@drawable/ic_degoogled"
-        android:drawablePadding="@dimen/margin_8"
         android:text="@string/na"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/BaseChipLikeTextViewStyle"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mg_status"
+        android:id="@+id/mgStatus"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toBottomOf="@id/package_name"
-        app:layout_constraintStart_toEndOf="@id/dg_status"
+        app:layout_constraintTop_toBottomOf="@id/packageName"
+        app:layout_constraintStart_toEndOf="@id/dgStatus"
         android:layout_marginStart="@dimen/margin_12"
         android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_12"
-        android:paddingStart="@dimen/margin_8"
-        android:paddingEnd="@dimen/margin_16"
-        android:gravity="center"
-        android:background="@drawable/shape_outline"
         android:drawableStart="@drawable/ic_microg"
-        android:drawablePadding="@dimen/margin_8"
         android:text="@string/na"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_16"
-        style="@style/MediumBoldText"/>
+        style="@style/BaseChipLikeTextViewStyle"/>
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/fav"

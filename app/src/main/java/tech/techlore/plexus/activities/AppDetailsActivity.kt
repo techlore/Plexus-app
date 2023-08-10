@@ -47,13 +47,15 @@ import tech.techlore.plexus.fragments.bottomsheets.FirstSubmissionBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
-import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.get.ratings.Rating
-import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
+import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
+import tech.techlore.plexus.utils.IntentUtils.Companion.startSubmitActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.UiUtils.Companion.installedFromTextViewStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
@@ -62,7 +64,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
-    private lateinit var preferenceManager: PreferenceManager
     lateinit var app: MainData
     var ratingsList = ArrayList<Rating>()
     private var ratingsRetrieved = false
@@ -83,8 +84,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     lateinit var selectedVersionString: String
     lateinit var selectedRomString: String
     lateinit var selectedAndroidString: String
-    var installedFromChip = R.id.user_ratings_chip_installed_any
-    var statusRadio = R.id.user_ratings_radio_any_status
+    var installedFromChip = R.id.ratingsChipInstalledAny
+    var statusRadio = R.id.ratingsRadioAnyStatus
     var dgStatusSort = 0
     var mgStatusSort = 0
     
@@ -95,8 +96,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        preferenceManager = PreferenceManager(this)
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.details_nav_host) as NavHostFragment
+        val encryptedPreferenceManager = EncryptedPreferenceManager(this)
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
@@ -111,8 +112,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
                 .centerCrop() // Center-crop the image to fill the ImageView
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
-        
-        /*########################################################################################*/
         
         activityBinding.bottomAppBar.apply {
             setSupportActionBar(this)
@@ -152,13 +151,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 else {
                     "${getString(R.string.installed)}: ${app.installedVersion} (${app.installedBuild})"
                 }
-    
-            installedFromTextViewStyle(this@AppDetailsActivity,
-                                       app.installedFrom,
-                                       activityBinding.detailsInstalledFrom)
+            
+            setInstalledFromTextViewStyle(this@AppDetailsActivity,
+                                          app.installedFrom,
+                                          activityBinding.detailsInstalledFrom)
             
             // Radio group/buttons
-            activityBinding.detailsRadiogroup.setOnCheckedChangeListener{_, checkedId: Int ->
+            activityBinding.detailsRadioGroup.setOnCheckedChangeListener{_, checkedId: Int ->
                 activityBinding.nestedScrollView.apply {
                     if (scrollX != 0 || scrollY != 0) {
                         post {
@@ -168,9 +167,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 }
                 displayFragment(checkedId)
             }
-    
-            val myRating =
-                myRatingsRepository.getMyRatingByPackageAndVersion(app.packageName, app.installedVersion)
+            
+            val myRatingExists =
+                myRatingsRepository
+                    .getMyRatingsByPackage(app.packageName)?.ratingsDetails?.any { it.version == app.installedVersion } == true
             
             // FAB
             activityBinding.fab.setOnClickListener {
@@ -179,22 +179,36 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.install_app_to_submit, app.name),
                                      activityBinding.bottomAppBarRadio)
-    
-                    !appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
+                    
+                    /*!appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
-                                     activityBinding.bottomAppBarRadio)
+                                     activityBinding.bottomAppBarRadio)*/
                     
-                    myRating != null ->
+                    encryptedPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
+                        FirstSubmissionBottomSheet().show(supportFragmentManager, "FirstSubmissionBottomSheet")
+                    
+                    !encryptedPreferenceManager.getBoolean(IS_REGISTERED) ->
+                        startActivity(Intent(this@AppDetailsActivity, VerificationActivity::class.java)
+                                          .putExtra("name", app.name)
+                                          .putExtra("packageName", app.packageName)
+                                          .putExtra("installedVersion", app.installedVersion)
+                                          .putExtra("installedBuild", app.installedBuild)
+                                          .putExtra("installedFrom", app.installedFrom)
+                                          .putExtra("isInPlexusData", app.isInPlexusData))
+                    
+                    myRatingExists ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.rating_already_submitted, app.name, app.installedVersion),
                                      activityBinding.bottomAppBarRadio)
                     
-                    preferenceManager.getBoolean(FIRST_SUBMISSION) ->
-                        FirstSubmissionBottomSheet(positiveButtonClickListener = { startSubmitActivity() })
-                            .show(supportFragmentManager, "FirstSubmissionBottomSheet")
-                    
-                    else -> startSubmitActivity()
+                    else -> startSubmitActivity(this@AppDetailsActivity,
+                                                app.name,
+                                                app.packageName,
+                                                app.installedVersion,
+                                                app.installedBuild,
+                                                app.installedFrom,
+                                                app.isInPlexusData)
                 }
             }
             
@@ -244,7 +258,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 
                 ratingsRetrieved = true
                 displayFragment(10)
-                activityBinding.detailsRadiogroup.isVisible = true
+                activityBinding.detailsRadioGroup.isVisible = true
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
@@ -260,14 +274,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         val action =
             when (checkedItem) {
                 
-                10 -> R.id.action_fragmentProgressBar_to_totalScoreFragment
+                10 -> R.id.action_fragmentProgressView_to_totalScoreFragment
                 // 10 is just a custom number
                 // to let the nav controller navigate from
-                // progress bar fragment to total score fragment
+                // progress view fragment to total score fragment
                 
-                R.id.radio_total_score -> R.id.action_userRatingsFragment_to_totalScoreFragment
+                R.id.radioTotalScore -> R.id.action_userRatingsFragment_to_totalScoreFragment
                 
-                R.id.radio_user_ratings -> R.id.action_totalScoreFragment_to_userRatingsFragment
+                R.id.radioUserRatings -> R.id.action_totalScoreFragment_to_userRatingsFragment
                 
                 else -> 0
             }
@@ -306,18 +320,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         }
         
         return true
-    }
-    
-    private fun startSubmitActivity() {
-        startActivity(Intent(this@AppDetailsActivity, SubmitActivity::class.java)
-                          .putExtra("name", app.name)
-                          .putExtra("packageName", app.packageName)
-                          .putExtra("installedVersion", app.installedVersion)
-                          .putExtra("installedBuild", app.installedBuild)
-                          .putExtra("installedFrom", app.installedFrom)
-                          .putExtra("isInPlexusData", app.isInPlexusData))
-        finish()
-        overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
     }
     
     // On back pressed

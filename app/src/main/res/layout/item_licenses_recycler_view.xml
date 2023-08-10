@@ -27,7 +27,7 @@
     android:layout_marginStart="@dimen/margin_10"
     android:layout_marginEnd="@dimen/margin_10"
     android:layout_marginTop="@dimen/margin_4"
-    android:layout_marginBottom="@dimen/margin_6.5"
+    android:layout_marginBottom="@dimen/margin_12"
     android:paddingStart="@dimen/margin_8"
     android:paddingEnd="@dimen/margin_8"
     android:paddingTop="@dimen/margin_10"
@@ -35,27 +35,27 @@
     android:background="@drawable/shape_card">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/license_title"
+        android:id="@+id/licenseTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_4"
         android:clickable="true"
         android:focusable="true"
-        android:text="@string/plexus"
+        android:text="@string/jackson"
         android:textAlignment="viewStart"
         android:textColor="@color/color_url"
         android:textSize="@dimen/text_20" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/license_desc"
+        android:id="@+id/licenseDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_4"
         android:paddingStart="@dimen/margin_10"
         android:paddingEnd="@dimen/margin_8"
-        android:text="@string/gpl_3_0_license"
+        android:text="@string/apache_2_0_license"
         android:textColor="@color/color_text_title"
         android:textSize="@dimen/text_16" />
 

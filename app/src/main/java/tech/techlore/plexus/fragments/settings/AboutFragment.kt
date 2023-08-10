@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Techlore
+ * Copyright (c) 2022-present Techlore
  *
  *  This file is part of Plexus.
  *
@@ -19,7 +19,7 @@
 
 package tech.techlore.plexus.fragments.settings
 
-import android.content.pm.PackageManager
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +35,6 @@ class AboutFragment : Fragment() {
     
     private var _binding: FragmentAboutBinding? = null
     private val fragmentBinding get() = _binding!!
-    private lateinit var version: String
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -51,13 +50,9 @@ class AboutFragment : Fragment() {
         settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.about)
         
         // Version
-        try {
-            version = ("${getString(R.string.version)}: ${BuildConfig.VERSION_NAME}")
-        }
-        catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-        fragmentBinding.versionAbout.text = version
+        @SuppressLint("SetTextI18n")
+        fragmentBinding.aboutVersion.text = "${getString(R.string.version)}: ${BuildConfig.VERSION_NAME}"
+        
         
         // Privacy policy
         fragmentBinding.privacyPolicy.setOnClickListener {
@@ -78,7 +73,7 @@ class AboutFragment : Fragment() {
         }
         
         // View on GitHub
-        fragmentBinding.viewOnGit.setOnClickListener {
+        fragmentBinding.viewOnGitHub.setOnClickListener {
             openURL(requireActivity(),
                         getString(R.string.plexus_github_url),
                         settingsActivity.activityBinding.settingsCoordLayout,

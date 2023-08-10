@@ -52,7 +52,8 @@ class UiUtils {
                     R.id.favoritesFragment -> R.id.action_favoritesFragment_self
                     R.id.submitRatingFragment -> R.id.action_submitRatingFragment_self
                     R.id.myRatingsFragment -> R.id.action_myRatingsFragment_self
-                    else -> R.id.action_userRatingsFragment_self
+                    R.id.userRatingsFragment -> R.id.action_userRatingsFragment_self
+                    else -> R.id.action_myRatingsDetailsFragment_self
                 }
             
             navController.navigate(action)
@@ -60,11 +61,11 @@ class UiUtils {
         
         fun mapStatusChipToScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Float, Float> {
             return when (preferenceManager.getInt(sortKey)) {
-                R.id.sort_not_tested -> Pair(0.0f, 0.0f)
-                R.id.sort_broken -> Pair(1.0f, 1.9f)
-                R.id.sort_bronze -> Pair(2.0f, 2.9f)
-                R.id.sort_silver -> Pair(3.0f, 3.9f)
-                R.id.sort_gold -> Pair(4.0f, 4.0f)
+                R.id.sortNotTested -> Pair(0.0f, 0.0f)
+                R.id.sortBroken -> Pair(1.0f, 1.9f)
+                R.id.sortBronze -> Pair(2.0f, 2.9f)
+                R.id.sortSilver -> Pair(3.0f, 3.9f)
+                R.id.sortGold -> Pair(4.0f, 4.0f)
                 else -> Pair(-1.0f, -1.0f)
             }
         }
@@ -79,7 +80,7 @@ class UiUtils {
             }
         }
         
-        fun mapScoreRangeToBgColor(context: Context, score: Float): Int {
+        fun mapScoreRangeToColor(context: Context, score: Float): Int {
             return when(score) {
                 0.0f -> context.resources.getColor(R.color.color_primary, context.theme)
                 in 1.0f..1.9f -> context.resources.getColor(R.color.color_broken_status, context.theme)
@@ -89,7 +90,7 @@ class UiUtils {
             }
         }
         
-        fun mapStatusStringToBgColor(context: Context, status: String): Int? {
+        fun mapStatusStringToColor(context: Context, status: String): Int? {
             return when(status) {
                 context.getString(R.string.na) -> null // No background tint. Only show outline
                 context.getString(R.string.broken_title) -> context.resources.getColor(R.color.color_broken_status, context.theme)
@@ -101,15 +102,50 @@ class UiUtils {
         
         fun mapStatusChipIdToRatingScore(statusChipId: Int): Int {
             return when (statusChipId) {
-                R.id.my_ratings_sort_any -> -1
-                R.id.my_ratings_sort_broken, R.id.user_ratings_sort_broken, R.id.submit_broken -> 1
-                R.id.my_ratings_sort_bronze, R.id.user_ratings_sort_bronze, R.id.submit_bronze -> 2
-                R.id.my_ratings_sort_silver, R.id.user_ratings_sort_silver, R.id.submit_silver -> 3
+                R.id.ratingsSortBroken, R.id.submitBroken -> 1
+                R.id.ratingsSortBronze, R.id.submitBronze -> 2
+                R.id.ratingsSortSilver, R.id.submitSilver -> 3
                 else -> 4
             }
         }
+    
+        fun setInstalledFromTextViewStyle(context: Context, installedFrom: String, textView: MaterialTextView) {
+            val (icon, installedFromText) =
+                when (installedFrom) {
+                
+                    "google_play_alternative" ->
+                        Pair(ContextCompat.getDrawable(context, R.drawable.ic_google_play),
+                             context.getString(R.string.google_play_alt))
+                
+                    "fdroid" ->
+                        Pair(ContextCompat.getDrawable(context, R.drawable.ic_fdroid),
+                             context.getString(R.string.fdroid))
+                
+                    "apk" ->
+                        Pair(ContextCompat.getDrawable(context, R.drawable.ic_apk),
+                             context.getString(R.string.apk))
+                
+                    else ->
+                        Pair(ContextCompat.getDrawable(context, R.drawable.ic_cancel),
+                             context.getString(R.string.na))
+                }
         
-        fun mapRatingScoreToStatusTextStyle(context: Context, ratingScore: Int, textView: MaterialTextView) {
+            textView.apply {
+                setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+                text = installedFromText
+            }
+        }
+        
+        fun setStatusTextViewStyle(context: Context,
+                                   googleLib: String,
+                                   ratingScore: Int,
+                                   textView: MaterialTextView) {
+            val statusIcon =
+                when (googleLib) {
+                    "none" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
+                    else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
+                }
+            
             val (statusString, backgroundTint) =
                 when(ratingScore) {
                     1 -> Pair(context.getString(R.string.broken_title),
@@ -123,51 +159,17 @@ class UiUtils {
                 }
             
             textView.apply {
+                setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
                 text = statusString
                 backgroundTintList = ColorStateList.valueOf(backgroundTint)
-            }
-        }
-    
-        fun statusTextViewIcon(context: Context, googleLib: String, textView: MaterialTextView) {
-            val statusIcon =
-                when (googleLib) {
-                    "none" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
-                    else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
-                }
-        
-            textView.setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
-        
-        }
-        
-        fun installedFromTextViewStyle(context: Context, installedFrom: String, textView: MaterialTextView) {
-            val (icon, installedFromText) =
-                when (installedFrom) {
-                    
-                    "google_play" -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_google_play),
-                                          context.getString(R.string.google_play))
-                    
-                    "fdroid" -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_fdroid),
-                                     context.getString(R.string.fdroid))
-                    
-                    "other" -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_apk),
-                                    context.getString(R.string.other))
-                    
-                    else -> Pair(ContextCompat.getDrawable(context, R.drawable.ic_apk),
-                                 context.getString(R.string.na))
-                }
-            
-            textView.apply {
-                setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
-                text = installedFromText
             }
         }
         
         fun mapInstalledFromChipIdToString(installedFromChip: Int): String {
             return when (installedFromChip) {
-                R.id.my_ratings_chip_installed_any -> ""
-                R.id.my_ratings_chip_installed_google_play, R.id.user_ratings_chip_installed_google_play -> "google_play"
-                R.id.my_ratings_chip_installed_fdroid, R.id.user_ratings_chip_installed_fdroid -> "fdroid"
-                else -> "other"
+                R.id.ratingsChipInstalledGooglePlayAlt -> "google_play_alternative"
+                R.id.ratingsChipInstalledFdroid -> "fdroid"
+                else -> "apk"
             }
         }
         

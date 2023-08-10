@@ -26,22 +26,21 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progress_indicator"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressIndicator"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/progress_text"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@id/progressText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/margin_8"
-        app:indicatorSize="@dimen/margin_25"
-        app:trackThickness="3dp"
-        app:trackCornerRadius="@dimen/margin_20"
-        app:indicatorColor="#B3C5FF"
-        android:indeterminateOnly="true"/>
+        android:scaleX="1.8"
+        android:scaleY="1.8"
+        app:lottie_rawRes="@raw/lottie_progress_indicator"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/progress_text"
+        android:id="@+id/progressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

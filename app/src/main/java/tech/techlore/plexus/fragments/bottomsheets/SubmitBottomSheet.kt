@@ -20,6 +20,7 @@
 package tech.techlore.plexus.fragments.bottomsheets
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
@@ -40,6 +41,7 @@ import okhttp3.ResponseBody
 import org.json.JSONObject
 import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import retrofit2.Call
 import retrofit2.awaitResponse
 import tech.techlore.plexus.R
@@ -47,16 +49,14 @@ import tech.techlore.plexus.activities.SubmitActivity
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetSubmitBinding
 import tech.techlore.plexus.models.main.MainData
-import tech.techlore.plexus.models.myratings.MyRating
-import tech.techlore.plexus.models.post.PostApp
-import tech.techlore.plexus.models.post.PostAppRoot
-import tech.techlore.plexus.models.post.PostRating
-import tech.techlore.plexus.models.post.PostRatingRoot
-import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEVICE_ROM
-import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedDgScore
-import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedMgScore
-import tech.techlore.plexus.utils.SystemUtils.Companion.mapAndroidVersionIntToString
+import tech.techlore.plexus.models.myratings.MyRatingDetails
+import tech.techlore.plexus.models.post.app.PostApp
+import tech.techlore.plexus.models.post.app.PostAppRoot
+import tech.techlore.plexus.models.post.rating.PostRating
+import tech.techlore.plexus.models.post.rating.PostRatingRoot
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
+import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedScore
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
 @SuppressLint("SetTextI18n")
@@ -70,32 +70,35 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     private var postedRatingId: String? = null
     private var iconUrl: String? = null
     
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            setCanceledOnTouchOutside(false)
+            behavior.isDraggable = false
+            
+            // Prevent bottom sheet dismiss on back pressed
+            setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    // Do nothing
+                    return@OnKeyListener true
+                }
+                false
+            })
+        }
+    }
+    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
-        val bottomSheetDialog = dialog as BottomSheetDialog
-        bottomSheetDialog.setCanceledOnTouchOutside(false)
-        bottomSheetDialog.behavior.isDraggable = false
-    
-        // Prevent bottom sheet dismiss on back pressed
-        bottomSheetDialog.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                // Do nothing
-                return@OnKeyListener true
-            }
-            false
-        })
-    
+        
         _binding = BottomSheetSubmitBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
+        
         submitActivity = requireActivity() as SubmitActivity
         submitData()
-    
+        
         // Done/Retry
         bottomSheetBinding.doneButton.apply {
             setOnClickListener {
@@ -111,11 +114,9 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 }
             }
         }
-    
+        
         // Cancel
-        bottomSheetBinding.cancelButton.setOnClickListener {
-            dismiss()
-        }
+        bottomSheetBinding.cancelButton.setOnClickListener { dismiss() }
     }
     
     private fun submitData() {
@@ -123,20 +124,20 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             val appManager = requireContext().applicationContext as ApplicationManager
             val apiRepository = appManager.apiRepository
             val mainRepository = appManager.mainRepository
-        
+            
             val rating = PostRating(version = submitActivity.installedVersion,
                                     buildNumber = submitActivity.installedBuild,
-                                    romName = PreferenceManager(requireContext()).getString(DEVICE_ROM)!!,
+                                    romName = EncryptedPreferenceManager(requireContext()).getString(DEVICE_ROM)!!,
                                     romBuild = Build.DISPLAY,
-                                    androidVersion = mapAndroidVersionIntToString(Build.VERSION.SDK_INT),
+                                    androidVersion = mapAndroidVersionIntToString(),
                                     installedFrom = submitActivity.installedFromString,
                                     googleLib = if (appManager.deviceIsMicroG) "micro_g" else "none",
                                     score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
                                     notes = submitActivity.activityBinding.submitNotesText.text.toString())
-        
+            
             val postRatingRoot = PostRatingRoot(rating)
             val postRatingCall = apiRepository.postRating(submitActivity.packageNameString, postRatingRoot)
-        
+            
             if (!submitActivity.isInPlexusData) {
                 getIconUrl()
                 val app = PostApp(name = submitActivity.nameString,
@@ -153,7 +154,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             else {
                 postRating(postRatingCall)
             }
-        
+            
             if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                 updateMyRatingInDb(rating)
                 val singleAppCall = apiRepository.getSingleAppWithScores(submitActivity.packageNameString)
@@ -165,9 +166,9 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                             .insertOrUpdatePlexusData(MainData(name = appData.name,
                                                                packageName = appData.packageName,
                                                                iconUrl = appData.iconUrl ?: "",
-                                                               dgScore = truncatedDgScore(appData.scores[1].score),
+                                                               dgScore = truncatedScore(appData.scores[1].score),
                                                                totalDgRatings = appData.scores[1].totalRatings,
-                                                               mgScore = truncatedMgScore(appData.scores[0].score),
+                                                               mgScore = truncatedScore(appData.scores[0].score),
                                                                totalMgRatings = appData.scores[0].totalRatings,
                                                                isInPlexusData = true))
                     }
@@ -242,52 +243,66 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     }
     
     private suspend fun getIconUrl(): String? {
-        val document =
-            try {
-                withContext(Dispatchers.IO) {
-                    Jsoup.connect("${getString(R.string.google_play_url)}${submitActivity.packageNameString}").get()
-                }
-            }
-            catch (e: HttpStatusException) {
-                // If 404 error from Google Play,
-                // then try connecting to F-Droid
-                try {
-                    withContext(Dispatchers.IO) {
-                        Jsoup.connect("${getString(R.string.fdroid_url)}${submitActivity.packageNameString}/").get()
-                    }
-                }
-                catch (e: HttpStatusException) {
-                    null
-                }
-            }
+        var document: Document
+        val fdroidUrl = "${getString(R.string.fdroid_url)}${submitActivity.packageNameString}/"
         
-        if (document != null) {
+        try {
+            document =
+                withContext(Dispatchers.IO) {
+                    Jsoup.connect(fdroidUrl).get()
+                }
             val element = document.selectFirst("meta[property=og:image]")
             val url = element?.attr("content")
-            // Sometimes on F-Droid when original icon of the app is not provided,
-            // we get F-Droid logo as the icon.
+            // Sometimes on F-Droid when the original icon of the app is not provided,
+            // we get the F-Droid logo as the icon.
             // Example: Fennec (https://f-droid.org/en/packages/org.mozilla.fennec_fdroid)
-            // When this happens, assign iconUrl to null
-            iconUrl =
-                if (url?.startsWith("https://f-droid.org/assets/fdroid-logo") == true) {
-                    null
-                }
-                else {
-                    url
-                }
+            // When this happens, assign throw 404 error
+            if (url?.startsWith("https://f-droid.org/assets/fdroid-logo") == true) {
+                throw HttpStatusException("Icon not found on F-Droid", 404, fdroidUrl)
+            }
+            else {
+                iconUrl = url
+            }
+        }
+        catch (e: HttpStatusException) {
+            // If 404 error from F-Droid or icon not found,
+            // then try connecting to Google Play
+            try {
+                document =
+                    withContext(Dispatchers.IO) {
+                        Jsoup.connect("${getString(R.string.google_play_url)}${submitActivity.packageNameString}").get()
+                    }
+                val element = document.selectFirst("meta[property=og:image]")
+                iconUrl = element?.attr("content")
+            } catch (e: HttpStatusException) {
+                iconUrl = null
+            }
         }
         
         return iconUrl
-        
+    }
+    
+    private fun mapAndroidVersionIntToString(): String {
+        return when(Build.VERSION.SDK_INT) {
+            23 -> "6.0"
+            24 -> "7.0"
+            25 -> "7.1.1"
+            26 -> "8.0"
+            27 -> "8.1"
+            28 -> "9.0"
+            29 -> "10.0"
+            30 -> "11.0"
+            31 -> "12.0"
+            32 -> "12.1"
+            33 -> "13.0"
+            34 -> "14.0"
+            else -> "NA" // Should never reach here
+        }
     }
     
     private suspend fun updateMyRatingInDb(rating: PostRating) {
         val myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
-        myRatingsRepository
-            .insertOrUpdateMyRatings(MyRating(id = postedRatingId!!,
-                                              name = submitActivity.nameString,
-                                              packageName = submitActivity.packageNameString,
-                                              iconUrl = iconUrl,
+        val myRatingDetails = MyRatingDetails(id = postedRatingId!!,
                                               version = rating.version,
                                               buildNumber = rating.buildNumber,
                                               romName = rating.romName,
@@ -295,8 +310,14 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                               androidVersion = rating.androidVersion,
                                               installedFrom = submitActivity.installedFromString,
                                               googleLib = rating.googleLib,
-                                              ratingScore = rating.score,
-                                              notes = rating.notes))
+                                              myRatingScore = rating.score,
+                                              notes = rating.notes)
+        
+        myRatingsRepository
+            .insertOrUpdateMyRatings(name = submitActivity.nameString,
+                                     packageName = submitActivity.packageNameString,
+                                     iconUrl = iconUrl,
+                                     myRatingDetails = myRatingDetails)
     }
     
     override fun onDestroy() {

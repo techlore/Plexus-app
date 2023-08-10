@@ -28,35 +28,35 @@
     android:layout_marginStart="@dimen/margin_10"
     android:layout_marginEnd="@dimen/margin_10"
     android:layout_marginTop="@dimen/margin_4"
-    android:layout_marginBottom="@dimen/margin_6.5"
+    android:layout_marginBottom="@dimen/margin_12"
     android:paddingStart="@dimen/margin_8"
     android:paddingEnd="@dimen/margin_8"
     android:paddingTop="@dimen/margin_8"
-    android:paddingBottom="@dimen/margin_12"
-    android:background="@drawable/shape_card"
-    tools:context=".adapters.main.MyRatingItemAdapter">
+    android:paddingBottom="@dimen/margin_20"
+    android:background="@drawable/shape_card_with_ripple"
+    tools:context=".adapters.main.MyRatingsItemAdapter">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/my_ratings_icon"
+        android:id="@+id/myRatingsIcon"
         android:layout_width="@dimen/margin_45"
         android:layout_height="@dimen/margin_45"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/my_ratings_name"
-        app:layout_constraintBottom_toBottomOf="@id/my_ratings_status"
+        app:layout_constraintTop_toTopOf="@id/myRatingsName"
+        app:layout_constraintBottom_toBottomOf="@id/myRatingsPackage"
         android:src="@drawable/ic_apk"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/my_ratings_name"
+        android:id="@+id/myRatingsName"
         style="@style/MediumBoldText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/my_ratings_icon"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/myRatingsIcon"
+        app:layout_constraintEnd_toStartOf="@id/myRatingsCount"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginTop="@dimen/margin_12"
         android:ellipsize="marquee"
         android:text="@string/app"
         android:textAlignment="viewStart"
@@ -64,98 +64,34 @@
         android:textSize="@dimen/text_17"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/my_ratings_version"
+        android:id="@+id/myRatingsPackage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/my_ratings_name"
-        app:layout_constraintStart_toEndOf="@id/my_ratings_icon"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/myRatingsName"
+        app:layout_constraintStart_toEndOf="@id/myRatingsIcon"
+        app:layout_constraintEnd_toStartOf="@id/myRatingsCount"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_6.5"
         android:ellipsize="marquee"
-        android:text="@string/version"
+        android:text="@string/package_name"
         android:textAlignment="viewStart"
         android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_17"/>
+        android:textSize="@dimen/text_16"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/my_ratings_rom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/my_ratings_version"
-        app:layout_constraintStart_toEndOf="@id/my_ratings_icon"
+        android:id="@+id/myRatingsCount"
+        android:layout_width="@dimen/margin_50"
+        android:layout_height="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_6.5"
-        android:text="@string/rom"
-        android:textAlignment="viewStart"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_17"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/my_ratings_android_version"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/my_ratings_rom"
-        app:layout_constraintStart_toEndOf="@id/my_ratings_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_6.5"
-        android:text="@string/android"
-        android:textAlignment="viewStart"
-        android:textColor="@color/color_text_title"
-        android:textSize="@dimen/text_17"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/my_ratings_notes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/my_ratings_android_version"
-        app:layout_constraintStart_toEndOf="@id/my_ratings_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_6.5"
-        android:text="@string/notes"
-        android:textAlignment="viewStart"
-        android:textColor="@color/color_control_normal"
-        android:textSize="@dimen/text_17"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/my_ratings_status"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toBottomOf="@id/my_ratings_notes"
-        app:layout_constraintStart_toEndOf="@id/my_ratings_icon"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_8"
-        android:paddingStart="@dimen/margin_8"
-        android:paddingEnd="@dimen/margin_16"
-        android:drawableStart="@drawable/ic_degoogled"
-        android:drawablePadding="@dimen/margin_8"
-        style="@style/GoldTextTheme"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/my_ratings_installed_from"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toBottomOf="@id/my_ratings_notes"
-        app:layout_constraintStart_toEndOf="@id/my_ratings_status"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/myRatingsName"
+        app:layout_constraintBottom_toBottomOf="@id/myRatingsName"
         android:gravity="center"
-        android:layout_marginStart="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_8"
-        android:paddingStart="@dimen/margin_8"
-        android:paddingEnd="@dimen/margin_16"
-        android:drawableStart="@drawable/ic_google_play"
-        android:drawablePadding="@dimen/margin_8"
-        android:background="@drawable/shape_outline"
-        android:text="@string/google_play"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:background="@drawable/shape_rounded_corners_large"
+        android:backgroundTint="@color/color_radio_selected_bg"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_control_normal"/>
+        android:textColor="@color/color_count_text"
+        style="@style/MediumBoldText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

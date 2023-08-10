@@ -23,13 +23,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/details_coord_layout"
+    android:id="@+id/detailsCoordLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.AppDetailsActivity">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view"
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
@@ -41,7 +41,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/details_app_icon"
+                android:id="@+id/detailsAppIcon"
                 android:layout_width="@dimen/margin_64"
                 android:layout_height="@dimen/margin_64"
                 android:layout_gravity="center"
@@ -50,7 +50,7 @@
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/details_name"
+                android:id="@+id/detailsName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -66,7 +66,7 @@
                 style="@style/MediumBoldText"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/details_package_name"
+                android:id="@+id/detailsPackageName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -79,7 +79,7 @@
                 android:textSize="@dimen/text_18"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/details_installed_version"
+                android:id="@+id/detailsInstalledVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -92,23 +92,16 @@
                 android:textColor="@color/color_control_normal"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/details_installed_from"
+                android:id="@+id/detailsInstalledFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_32"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/margin_10"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_16"
-                android:drawableStart="@drawable/ic_google_play"
-                android:drawablePadding="@dimen/margin_8"
-                android:background="@drawable/shape_outline"
-                android:text="@string/google_play"
-                android:textSize="@dimen/text_16"
-                android:textColor="@color/color_control_normal"/>
+                style="@style/InstalledFromTextViewTheme"/>
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/details_nav_host"
+                android:id="@+id/detailsNavHost"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:name="androidx.navigation.fragment.NavHostFragment"
@@ -120,14 +113,14 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar_radio"
+        android:id="@+id/bottomAppBarRadio"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="60dp"/>
 
     <RadioGroup
-        android:id="@+id/details_radiogroup"
+        android:id="@+id/detailsRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
@@ -138,11 +131,11 @@
         tools:visibility="visible">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radio_total_score"
+            android:id="@+id/radioTotalScore"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_40"
             android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_radio_btn_selector"
+            android:background="@drawable/shape_radio_btn_bg"
             android:checked="true"
             android:button="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
@@ -152,11 +145,11 @@
             android:textColor="@color/radio_btn_text_color"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radio_user_ratings"
+            android:id="@+id/radioUserRatings"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_40"
             android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_radio_btn_selector"
+            android:background="@drawable/shape_radio_btn_bg"
             android:button="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
@@ -167,7 +160,7 @@
     </RadioGroup>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
+        android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
@@ -178,7 +171,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/bottom_app_bar"
+        app:layout_anchor="@id/bottomAppBar"
         app:icon="@drawable/ic_edit"
         app:iconTint="@color/color_snackbar_text"
         android:text="@string/submit"

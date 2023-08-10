@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_10"
+    android:layout_marginEnd="@dimen/margin_10"
+    android:layout_marginTop="@dimen/margin_4"
+    android:layout_marginBottom="@dimen/margin_12"
+    android:paddingStart="@dimen/margin_8"
+    android:paddingEnd="@dimen/margin_8"
+    android:paddingTop="@dimen/margin_8"
+    android:paddingBottom="@dimen/margin_12"
+    android:background="@drawable/shape_card"
+    tools:context=".adapters.appdetails.UserRatingsItemAdapter">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ratingsVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_4"
+        android:text="@string/version"
+        android:textAlignment="viewStart"
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_17"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ratingsRom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratingsVersion"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_8"
+        android:text="@string/rom"
+        android:textAlignment="viewStart"
+        android:textColor="@color/color_text_title"
+        android:textSize="@dimen/text_17"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ratingsNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ratingsRom"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_8"
+        android:text="@string/notes"
+        android:textAlignment="viewStart"
+        android:textColor="@color/color_control_normal"
+        android:textSize="@dimen/text_17"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ratingsAndroidVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_32"
+        app:layout_constraintTop_toBottomOf="@id/ratingsNotes"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_12"
+        style="@style/AndroidVersionTextViewTheme"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ratingsInstalledFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_32"
+        app:layout_constraintTop_toTopOf="@id/ratingsAndroidVersion"
+        app:layout_constraintBottom_toBottomOf="@id/ratingsAndroidVersion"
+        app:layout_constraintStart_toEndOf="@id/ratingsAndroidVersion"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/margin_12"
+        style="@style/InstalledFromTextViewTheme"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ratingsStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_32"
+        app:layout_constraintTop_toBottomOf="@id/ratingsAndroidVersion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="14dp"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_16"
+        android:gravity="center"
+        android:background="@drawable/shape_outline"
+        android:backgroundTint="@color/color_gold_status"
+        android:drawableStart="@drawable/ic_degoogled"
+        android:drawablePadding="@dimen/margin_8"
+        android:text="@string/gold_title"
+        android:textSize="@dimen/text_16"
+        android:textColor="@color/color_text_title"
+        style="@style/BaseChipLikeTextViewStyle"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

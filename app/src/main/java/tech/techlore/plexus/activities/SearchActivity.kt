@@ -32,34 +32,28 @@ import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.models.minimal.MainDataMinimal
-import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
-class SearchActivity :
-    AppCompatActivity(),
-    MainDataItemAdapter.OnItemClickListener {
+class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListener {
     
-    private lateinit var mainDataItemAdapter: MainDataItemAdapter
     private lateinit var searchDataList: ArrayList<MainDataMinimal>
-    private lateinit var miniRepository: MainDataMinimalRepository
-    private var delayTimer: CountDownTimer? = null
     
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val activityBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        miniRepository = (applicationContext as ApplicationManager).miniRepository
+        val miniRepository = (applicationContext as ApplicationManager).miniRepository
         searchDataList = ArrayList()
-        
-        /*###########################################################################################*/
+        var delayTimer: CountDownTimer? = null
         
         // Bottom toolbar as actionbar
         activityBinding.searchToolbarBottom.apply {
             setSupportActionBar(this)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         }
+    
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         
         // Perform search
         activityBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -69,9 +63,7 @@ class SearchActivity :
             }
             
             override fun onQueryTextChange(searchString: String): Boolean {
-                if (delayTimer != null) {
-                    delayTimer !!.cancel()
-                }
+                delayTimer?.cancel()
                 
                 // Search with a subtle delay
                 delayTimer = object : CountDownTimer(350, 150) {
@@ -88,7 +80,7 @@ class SearchActivity :
                                 }
                                 else {
                                     activityBinding.emptySearchView.visibility = View.GONE
-                                    mainDataItemAdapter = MainDataItemAdapter(searchDataList,
+                                    val mainDataItemAdapter = MainDataItemAdapter(searchDataList,
                                                                               this@SearchActivity,
                                                                               lifecycleScope)
                                     activityBinding.searchRv.adapter = mainDataItemAdapter

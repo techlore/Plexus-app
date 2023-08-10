@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_12"
+    android:paddingBottom="@dimen/margin_8"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/bottom_sheet_header"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/welcomeTextDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_25"
+        android:paddingEnd="@dimen/margin_25"
+        android:text="@string/delete_account_desc"
+        android:textSize="@dimen/text_17"
+        android:textColor="@color/color_control_normal"/>
+
+    <include layout="@layout/bottom_sheet_footer"/>
+
+</LinearLayout>

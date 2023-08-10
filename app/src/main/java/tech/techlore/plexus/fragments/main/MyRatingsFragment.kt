@@ -19,6 +19,7 @@
 
 package tech.techlore.plexus.fragments.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,34 +33,26 @@ import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
-import tech.techlore.plexus.adapters.main.MainDataItemAdapter
-import tech.techlore.plexus.adapters.main.MyRatingItemAdapter
+import tech.techlore.plexus.activities.MyRatingsDetailsActivity
+import tech.techlore.plexus.adapters.main.MyRatingsItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_SUBMISSION
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_ANDROID_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_A_Z_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_INSTALLED_FROM_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_ROM_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_STATUS_CHIP
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_STATUS_RADIO
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MY_RATINGS_VERSION_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
-import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
 class MyRatingsFragment :
     Fragment(),
-    MainDataItemAdapter.OnItemClickListener {
+    MyRatingsItemAdapter.OnItemClickListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var myRatingItemAdapter: MyRatingItemAdapter
+    private lateinit var myRatingsItemAdapter: MyRatingsItemAdapter
     private lateinit var myRatingsList: ArrayList<MyRating>
-    private lateinit var preferenceManager: PreferenceManager
     private lateinit var myRatingsRepository: MyRatingsRepository
     
     override fun onCreateView(inflater: LayoutInflater,
@@ -73,31 +66,20 @@ class MyRatingsFragment :
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        preferenceManager = PreferenceManager(requireContext())
         mainActivity = requireActivity() as MainActivity
-        val appManager = (requireContext().applicationContext as ApplicationManager)
-        myRatingsRepository = appManager.myRatingsRepository
-        
-        /*########################################################################################*/
+        myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
         
         lifecycleScope.launch{
-            myRatingsList = myRatingsRepository.getSortedMyRatings(context = requireContext(),
-                                                                   versionPref = preferenceManager.getString(MY_RATINGS_VERSION_SORT),
-                                                                   romPref = preferenceManager.getString(MY_RATINGS_ROM_SORT),
-                                                                   androidPref = preferenceManager.getString(MY_RATINGS_ANDROID_SORT),
-                                                                   installedFromPref = preferenceManager.getInt(MY_RATINGS_INSTALLED_FROM_SORT),
-                                                                   statusRadioPref = preferenceManager.getInt(MY_RATINGS_STATUS_RADIO),
-                                                                   statusChipPref = preferenceManager.getInt(MY_RATINGS_STATUS_CHIP),
-                                                                   orderPref = preferenceManager.getInt(MY_RATINGS_A_Z_SORT))
+            myRatingsRepository.getSortedMyRatingsByName(orderPref = PreferenceManager(requireContext()).getInt(A_Z_SORT))
             
             if (myRatingsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
                 val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_my_ratings)
-                fragmentBinding.root.findViewById<MaterialTextView>(R.id.empty_list_view_text)
+                fragmentBinding.root.findViewById<MaterialTextView>(R.id.emptyListViewText)
                     .apply {
                         setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
                         text =
-                            if (preferenceManager.getBoolean(FIRST_SUBMISSION)) {
+                            if (PreferenceManager(requireContext()).getBoolean(IS_FIRST_SUBMISSION)) {
                                 getString(R.string.no_ratings_available) +
                                 "\n\n" +
                                 getString(R.string.submit_first_rating)
@@ -108,10 +90,10 @@ class MyRatingsFragment :
                     }
             }
             else {
-                myRatingItemAdapter = MyRatingItemAdapter(myRatingsList)
+                myRatingsItemAdapter = MyRatingsItemAdapter(myRatingsList, this@MyRatingsFragment)
                 fragmentBinding.recyclerView.apply {
                     addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
-                    adapter = myRatingItemAdapter
+                    adapter = myRatingsItemAdapter
                     FastScrollerBuilder(this).useMd2Style().build() // Fast scroll
                 }
             }
@@ -120,9 +102,9 @@ class MyRatingsFragment :
             fragmentBinding.newRatingFab.apply {
                 isVisible = true
                 setOnClickListener {
-                    appManager.selectedNavItem = R.id.nav_submit_rating
-                    mainActivity.clickedItem = R.id.nav_submit_rating
-                    mainActivity.displayFragment(mainActivity.clickedItem)
+                    mainActivity.selectedNavItem = R.id.nav_submit_rating
+                    mainActivity.clickedNavItem = R.id.nav_submit_rating
+                    mainActivity.displayFragment(mainActivity.clickedNavItem)
                 }
             }
             
@@ -135,7 +117,8 @@ class MyRatingsFragment :
     // On click
     override fun onItemClick(position: Int) {
         val myRating = myRatingsList[position]
-        startDetailsActivity(mainActivity, myRating.packageName)
+        startActivity(Intent(requireActivity(), MyRatingsDetailsActivity::class.java)
+                          .putExtra("packageName", myRating.packageName))
     }
     
     override fun onDestroyView() {

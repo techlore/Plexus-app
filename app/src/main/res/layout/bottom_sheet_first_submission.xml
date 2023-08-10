@@ -57,7 +57,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/submit_status_chip_group"
+        app:layout_constraintTop_toBottomOf="@id/submitStatusChipGroup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
         <AutoCompleteTextView
-            android:id="@+id/rom_dropdown_menu"
+            android:id="@+id/romDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"

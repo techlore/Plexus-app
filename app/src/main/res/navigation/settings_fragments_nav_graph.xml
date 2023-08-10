@@ -45,7 +45,7 @@
     <fragment
         android:id="@+id/licensesFragment"
         android:name="tech.techlore.plexus.fragments.settings.LicensesFragment"
-        android:label="@string/licenses"
+        android:label="@string/third_party_licenses"
         tools:layout="@layout/fragment_licenses" >
         <action
             android:id="@+id/action_licensesFragment_to_aboutFragment"

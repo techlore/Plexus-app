@@ -28,7 +28,7 @@
     android:background="@color/color_background">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_rv"
+        android:id="@+id/searchRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -38,7 +38,7 @@
         tools:listitem="@layout/item_main_recycler_view" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/empty_search_view"
+        android:id="@+id/emptySearchView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -61,17 +61,15 @@
         android:layout_gravity="bottom">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/search_toolbar_bottom"
+            android:id="@+id/searchToolbarBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_back"
             android:background="@android:color/transparent"
-            app:contentInsetStartWithNavigation="0dp"
-            android:paddingStart="@dimen/margin_2.5"
-            android:paddingEnd="@dimen/margin_2.5">
+            app:contentInsetStartWithNavigation="0dp">
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_view"
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconifiedByDefault="false"

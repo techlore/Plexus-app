@@ -56,6 +56,7 @@
     <color name="color_nav_item_bg">@color/color_secondaryContainer</color>
     <color name="color_radio_selected_bg">@color/color_primaryContainer</color>
     <color name="color_fab">@color/color_primaryContainer</color>
+    <color name="color_count_text">@color/color_snackbar_text</color>
     <color name="color_control_normal">#CAC4D0</color>
     <color name="color_text_title">#FAFAFA</color>
     <color name="color_enabled">#B8B8BD</color>
@@ -68,11 +69,13 @@
     <color name="color_divider">#5F6267</color>
     <color name="color_drag_handle">#606165</color>
     <color name="color_url">#42A5F5</color>
+    <color name="color_android_version">#3498DB</color>
+    <color name="color_installed_from">#27B763</color>
 
     <!--Status colors-->
     <color name="color_broken_status">#E62E2E</color>
     <color name="color_bronze_status">#B05A3C</color>
     <color name="color_silver_status">#A9A9A9</color>
-    <color name="color_gold_status">#FFBF00</color>
+    <color name="color_gold_status">#FFAE00</color>
 
 </resources>

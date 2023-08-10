@@ -30,7 +30,7 @@
     android:paddingBottom="@dimen/margin_16">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/drag_handle"
+        android:id="@+id/dragHandle"
         android:layout_width="25dp"
         android:layout_height="4.5dp"
         android:backgroundTint="@color/color_drag_handle"
@@ -42,22 +42,22 @@
         android:layout_marginBottom="@dimen/margin_16"/>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/anim_view"
+        android:id="@+id/animView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/drag_handle"
+        app:layout_constraintTop_toBottomOf="@+id/dragHandle"
         android:layout_marginTop="@dimen/margin_12"
         app:lottie_rawRes="@raw/lottie_uploading"
         app:lottie_loop="true"
         app:lottie_autoPlay="true"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/submit_status_text"
+        android:id="@+id/submitStatusText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/anim_view"
+        app:layout_constraintTop_toBottomOf="@id/animView"
         android:layout_marginTop="@dimen/margin_8"
         android:gravity="center"
         android:text="@string/wait_submitting_data"
@@ -65,12 +65,12 @@
         android:textColor="@color/color_control_normal"/>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/heart_view"
+        android:id="@+id/heartView"
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submit_status_text"
-        app:layout_constraintBottom_toTopOf="@id/done_button"
+        app:layout_constraintTop_toBottomOf="@+id/submitStatusText"
+        app:layout_constraintBottom_toTopOf="@id/doneButton"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
         android:layout_marginStart="@dimen/margin_12"
@@ -83,13 +83,13 @@
         tools:visibility="visible"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/thanks_text"
+        android:id="@+id/thanksText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/heart_view"
+        app:layout_constraintStart_toEndOf="@id/heartView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/heart_view"
-        app:layout_constraintBottom_toBottomOf="@id/heart_view"
+        app:layout_constraintTop_toTopOf="@id/heartView"
+        app:layout_constraintBottom_toBottomOf="@id/heartView"
         android:layout_marginEnd="@dimen/margin_16"
         android:text="@string/thanks_for_submitting"
         android:textSize="@dimen/text_17"
@@ -98,10 +98,10 @@
         tools:visibility="visible"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/cancel_button"
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/done_button"
+        app:layout_constraintEnd_toStartOf="@id/doneButton"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/margin_16"
         android:text="@string/cancel"
@@ -110,7 +110,7 @@
         tools:visibility="visible"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/done_button"
+        android:id="@+id/doneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

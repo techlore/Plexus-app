@@ -26,6 +26,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.models.myratings.MyRatingDetails
 
 @Dao
 interface MyRatingsDao {
@@ -36,57 +37,38 @@ interface MyRatingsDao {
     @Update
     suspend fun update(myRating: MyRating)
     
-    @Query("SELECT * FROM my_ratings_table WHERE id = :id")
-    suspend fun getMyRatingById(id: String): MyRating?
-    
-    @Query("SELECT * FROM my_ratings_table WHERE packageName = :packageName AND version = :version")
-    suspend fun getMyRatingByPackageAndVersion(packageName: String, version: String): MyRating?
+    @Query("SELECT * FROM my_ratings_table WHERE packageName = :packageName")
+    suspend fun getMyRatingsByPackage(packageName: String): MyRating?
     
     @Transaction
-    suspend fun insertOrUpdateMyRatings(myRating: MyRating) {
+    suspend fun insertOrUpdateMyRatings(name: String,
+                                        packageName: String,
+                                        iconUrl: String?,
+                                        myRatingDetails: MyRatingDetails) {
         
-        val existingRating = getMyRatingById(myRating.id)
-    
+        val existingRating = getMyRatingsByPackage(packageName)
+        
         existingRating.apply {
             if (this == null) {
-                insert(myRating)
+                val myRatingDetailsList = listOf(myRatingDetails)
+                insert(MyRating(name = name,
+                                packageName = packageName,
+                                iconUrl = iconUrl,
+                                ratingsDetails = myRatingDetailsList))
             }
             else{
-                ratingScore = myRating.ratingScore
-                version = myRating.version
-                romName = myRating.romName
-                romBuild = myRating.romBuild
-                androidVersion = myRating.androidVersion
-                installedFrom = myRating.installedFrom
-                notes = myRating.notes
+                ratingsDetails += myRatingDetails
                 update(this)
             }
         }
     }
     
-    @Query("SELECT * FROM my_ratings_table")
-    suspend fun getMyRatingsList(): List<MyRating>
-    
     @Query("""
         SELECT * FROM my_ratings_table
-        WHERE (version = :version OR :version = '')
-        AND (romName = :romName OR :romName = '')
-        AND (androidVersion = :androidVersion OR :androidVersion = '')
-        AND (installedFrom = :installedFrom OR :installedFrom = '')
-        AND (googleLib = :googleLib OR :googleLib = '')
-        AND (ratingScore == :ratingScore OR :ratingScore = -1)
         ORDER BY
         CASE WHEN :isAsc = 1 THEN name END ASC,
         CASE WHEN :isAsc = 0 THEN name END DESC
     """)
-    suspend fun getSortedMyRatings(version: String,
-                                   romName: String,
-                                   androidVersion: String,
-                                   installedFrom: String,
-                                   googleLib: String,
-                                   ratingScore: Int,
-                                   isAsc: Boolean): List<MyRating>
-    // -1 is for ignoring the score when required,
-    // so it doesn't include it while filtering
+    suspend fun getSortedMyRatingsByName(isAsc: Boolean): List<MyRating>
     
 }

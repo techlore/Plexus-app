@@ -20,6 +20,7 @@
 package tech.techlore.plexus.fragments.bottomsheets
 
 import android.animation.Animator
+import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -36,18 +37,15 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.SettingsActivity
 import tech.techlore.plexus.databinding.BottomSheetFirstLaunchBinding
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.FIRST_LAUNCH
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 
 class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetFirstLaunchBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        
-        (dialog as BottomSheetDialog).apply {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
             setCanceledOnTouchOutside(false)
             behavior.isDraggable = false
             
@@ -60,6 +58,11 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
                 false
             })
         }
+    }
+    
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         
         _binding = BottomSheetFirstLaunchBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
@@ -103,20 +106,21 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.proceedButton.setOnClickListener {
             startActivity(Intent(requireActivity(), SettingsActivity::class.java)
                               .putExtra("frag", R.id.helpVideosFragment))
-            requireActivity().finish()
+            onDestroy()
         }
         
         // Skip
         bottomSheetBinding.skipButton.setOnClickListener {
-            PreferenceManager(requireActivity()).setBoolean(FIRST_LAUNCH, false)
+            PreferenceManager(requireActivity()).setBoolean(IS_FIRST_LAUNCH, false)
             startActivity(Intent(requireActivity(), MainActivity::class.java))
-            requireActivity().finish()
-            requireActivity().overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+            onDestroy()
         }
     }
     
     override fun onDestroy() {
         super.onDestroy()
+        requireActivity().finish()
+        requireActivity().overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start)
         _binding = null
     }
 }

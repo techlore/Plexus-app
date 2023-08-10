@@ -21,19 +21,19 @@ package tech.techlore.plexus.converters.post
 
 import androidx.room.TypeConverter
 import com.fasterxml.jackson.databind.ObjectMapper
-import tech.techlore.plexus.models.post.PostApp
+import tech.techlore.plexus.models.post.app.PostApp
 
 object PostAppConverter {
     
     private val objectMapper = ObjectMapper()
     
     @TypeConverter
-    fun fromPostRating(json: String): PostApp {
+    fun fromPostApp(json: String): PostApp {
         return objectMapper.readValue(json, PostApp::class.java)
     }
     
     @TypeConverter
-    fun toPostRating(postApp: PostApp): String {
+    fun toPostApp(postApp: PostApp): String {
         return objectMapper.writeValueAsString(postApp)
     }
     

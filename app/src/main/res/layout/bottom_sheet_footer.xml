@@ -32,14 +32,14 @@
     android:gravity="end">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/negative_button"
+        android:id="@+id/negativeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
         style="@style/NegativeButtonStyle"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/positive_button"
+        android:id="@+id/positiveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16"

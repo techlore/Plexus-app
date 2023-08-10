@@ -23,21 +23,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/details_fragments_nav_graph"
-    app:startDestination="@id/fragmentProgressBar">
+    app:startDestination="@id/fragmentProgressView">
 
     <fragment
-        android:id="@+id/fragmentProgressBar"
-        android:name="tech.techlore.plexus.fragments.details.FragmentProgressBar"
+        android:id="@+id/fragmentProgressView"
+        android:name="tech.techlore.plexus.fragments.appdetails.FragmentProgressView"
         android:label="FragmentProgressBar"
-        tools:layout="@layout/fragment_progress_bar">
+        tools:layout="@layout/fragment_progress_view">
         <action
-            android:id="@+id/action_fragmentProgressBar_to_totalScoreFragment"
+            android:id="@+id/action_fragmentProgressView_to_totalScoreFragment"
             app:destination="@id/totalScoreFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/totalScoreFragment"
-        android:name="tech.techlore.plexus.fragments.details.TotalScoreFragment"
+        android:name="tech.techlore.plexus.fragments.appdetails.TotalScoreFragment"
         android:label="@string/total_score"
         tools:layout="@layout/fragment_total_score">
         <action
@@ -49,9 +49,9 @@
 
     <fragment
         android:id="@+id/userRatingsFragment"
-        android:name="tech.techlore.plexus.fragments.details.UserRatingsFragment"
+        android:name="tech.techlore.plexus.fragments.appdetails.UserRatingsFragment"
         android:label="@string/user_ratings"
-        tools:layout="@layout/fragment_user_ratings">
+        tools:layout="@layout/fragment_ratings_details">
         <action
             android:id="@+id/action_userRatingsFragment_to_totalScoreFragment"
             app:destination="@id/totalScoreFragment"
@@ -60,6 +60,20 @@
         <action
             android:id="@+id/action_userRatingsFragment_self"
             app:destination="@id/userRatingsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/myRatingsDetailsFragment"
+        android:name="tech.techlore.plexus.fragments.myratingsdetails.MyRatingsDetailsFragment"
+        android:label="@string/user_ratings"
+        tools:layout="@layout/fragment_ratings_details">
+        <action
+            android:id="@+id/action_myRatingsDetailsFragment_self"
+            app:destination="@id/myRatingsDetailsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"

@@ -95,7 +95,6 @@
     <string name="submissions">Inzendingen</string>
 
     <!--Help text fragment-->
-    <string name="what_status_mean">Wat betekent de status?</string>
     <string name="not_tested_subtitle">Niet beschikbaar, app is niet getest</string>
     <string name="broken_title">Gebroken</string>
     <string name="broken_subtitle">Onbruikbaar, meestal apps die niet openen</string>
@@ -105,12 +104,12 @@
     <string name="silver_subtitle">Bijna alles werkt met minimale beperkingen</string>
     <string name="gold_title">Goud</string>
     <string name="gold_subtitle">Perfecte of perfect lijkende ervaring</string>
-    <string name="what_icons_mean">Wat betekenen de iconen?</string>
+    <string name="icons">Wat betekenen de iconen?</string>
 
     <!--About fragment-->
     <string name="version">Versie</string>
     <string name="privacy_policy">Privacybeleid</string>
-    <string name="licenses">Licenties</string>
+    <string name="third_party_licenses">Licenties</string>
     <string name="support_us">Steun ons</string>
     <string name="view_on_github">Bekijk op GitHub</string>
     <string name="visit_techlore">Bezoek Techlore</string>
@@ -141,7 +140,7 @@
     <string name="status">Status</string>
 
     <!--Theme-->
-    <string name="system_default">Systeemfout</string>
+    <string name="follow_system">Systeem volgen</string>
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
 

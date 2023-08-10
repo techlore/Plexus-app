@@ -49,14 +49,28 @@
                     android:title="@string/submit_rating" />
 
                 <item
+                    android:id="@+id/nav_report_issue"
+                    android:icon="@drawable/ic_report_issue"
+                    android:title="@string/report_issue"/>
+
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/my_account">
+        <menu>
+            <group android:checkableBehavior="single"
+                android:id="@+id/group_my_account">
+
+                <item
                     android:id="@+id/nav_my_ratings"
                     android:icon="@drawable/ic_my_ratings"
                     android:title="@string/my_ratings"/>
 
                 <item
-                    android:id="@+id/nav_report_issue"
-                    android:icon="@drawable/ic_report_issue"
-                    android:title="@string/report_issue"/>
+                    android:id="@+id/nav_delete_account"
+                    android:icon="@drawable/ic_delete_account"
+                    android:title="@string/delete_account"/>
 
             </group>
         </menu>

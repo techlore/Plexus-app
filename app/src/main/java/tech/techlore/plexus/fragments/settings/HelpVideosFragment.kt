@@ -49,12 +49,10 @@ class HelpVideosFragment : Fragment() {
         val viewToVideoIdMap =
             mapOf(fragmentBinding.introductionThumbnail to R.raw.intro_video,
                   fragmentBinding.introductionText to R.raw.intro_video,
-                  fragmentBinding.navigationThumbnail to R.raw.navigation_video,
+                  /*fragmentBinding.navigationThumbnail to R.raw.navigation_video,
                   fragmentBinding.navigationText to R.raw.navigation_video,
                   fragmentBinding.submissionsThumbnail to R.raw.submissions_video,
-                  fragmentBinding.submissionsText to R.raw.submissions_video,
-                  fragmentBinding.aboutThumbnail to R.raw.about_video,
-                  fragmentBinding.aboutText to R.raw.about_video
+                  fragmentBinding.submissionsText to R.raw.submissions_video*/
             )
         
         viewToVideoIdMap.forEach { (view, videoId) ->

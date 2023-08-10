@@ -103,7 +103,6 @@
     <string name="submissions">Einreichungen</string>
 
     <!--Help text fragment-->
-    <string name="what_status_mean">Was bedeutet der status?</string>
     <string name="not_tested_subtitle">Nicht verf\u00FCgbar, die anwendung wurde nicht getestet</string>
     <string name="broken_title">Zerbrochen</string>
     <string name="broken_subtitle">Unbrauchbare, meist nicht zu \u00F6ffnende anwendungen</string>
@@ -113,12 +112,12 @@
     <string name="silver_subtitle">Fast alles funktioniert mit minimalen abstrichen</string>
     <string name="gold_title">Gold</string>
     <string name="gold_subtitle">Perfekte oder perfekt-\u00E4hnliche erfahrung</string>
-    <string name="what_icons_mean">Was bedeuten die icons?</string>
+    <string name="icons">Was bedeuten die icons?</string>
 
     <!--About fragment-->
     <string name="version">Version</string>
     <string name="privacy_policy">Datenschutzbestimmungen</string>
-    <string name="licenses">Lizenzen</string>
+    <string name="third_party_licenses">Lizenzen</string>
     <string name="support_us">Unterst\u00FCtzen sie uns</string>
     <string name="view_on_github">Auf GitHub anschauen</string>
     <string name="visit_techlore">Besuche Techlore</string>
@@ -149,7 +148,7 @@
     <string name="status">Status</string>
 
     <!--Theme-->
-    <string name="system_default">Systemvorgabe</string>
+    <string name="follow_system">System verfolgen</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
 

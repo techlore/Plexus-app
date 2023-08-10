@@ -21,37 +21,22 @@ package tech.techlore.plexus.models.myratings
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import tech.techlore.plexus.converters.myratings.MyRatingsDetailsConverter
 
 @Entity(tableName = "my_ratings_table")
+@TypeConverters(MyRatingsDetailsConverter::class)
 data class MyRating(
-    
-    @PrimaryKey
-    var id: String,
     
     var name: String,
     
+    @PrimaryKey
     var packageName: String,
     
     var iconUrl: String? = null,
-    
-    var version: String,
-    
-    var buildNumber: Int,
-    
-    var romName: String,
-    
-    var romBuild: String,
 
-    var androidVersion: String,
-    
     var isInstalled: Boolean = true,
     
-    var installedFrom: String,
-    
-    var googleLib: String,
-    
-    var ratingScore: Int = 0,
-    
-    var notes: String? = null
+    var ratingsDetails: List<MyRatingDetails>
 
 )

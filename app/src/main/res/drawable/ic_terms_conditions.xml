@@ -1,0 +1,31 @@
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960"
+    android:tint="@color/color_enabled">
+
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M199 840q-17 0-28-11.5T160 800q0-17 11.5-28.5T200 760h401q17 0 28 11.5t11 28.5q0 17-11.5 28.5T600 840H199zm130-251L216 476q-23-23-23.5-56.5T215 363l29-29 228 226-29 29q-23 23-57 23t-57-23zm311-197L414 164l29-29q23-23 56.5-22.5T556 136l113 113q23 23 23 57t-23 57l-29 29zm156 380L302 278l56-56 495 495q11 11 10.5 27.5T852 772q-11 11-28 11t-28-11z"/>
+</vector>
