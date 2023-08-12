@@ -71,24 +71,23 @@
         style="@style/PositiveButtonStyle"
         android:enabled="false"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/resendButton"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/infoAnim"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_12"
-        app:icon="@drawable/ic_retry"
-        app:iconGravity="textStart"
-        app:iconPadding="@dimen/margin_8"
-        android:text="@string/resend_code"
-        android:textSize="@dimen/text_16"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:enabled="true"/>
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/margin_8"
+        android:scaleX="1.8"
+        android:scaleY="1.8"
+        app:lottie_rawRes="@raw/lottie_progress_indicator"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/infoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8"
         android:text="@string/verifying_code"
         android:textSize="@dimen/text_16"
         android:textColor="@color/color_control_normal"

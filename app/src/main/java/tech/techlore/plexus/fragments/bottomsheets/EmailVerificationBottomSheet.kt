@@ -98,11 +98,8 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
         }
         
         // Cancel
-        footerBinding.negativeButton.apply {
-            isEnabled = false
-            setOnClickListener {
-                dismiss()
-            }
+        footerBinding.negativeButton.setOnClickListener {
+            dismiss()
         }
     }
     
@@ -139,7 +136,7 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
                     footerBinding.negativeButton.isEnabled = true
                 }
             }
-        
+            
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 bottomSheetBinding.textView.text = getString(R.string.error_sending_code)
                 footerBinding.positiveButton.isEnabled = true

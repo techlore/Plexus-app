@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.fragments.verification
 
-import android.annotation.SuppressLint
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -29,15 +28,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.text.isDigitsOnly
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.appmanager.ApplicationManager
@@ -45,15 +43,16 @@ import tech.techlore.plexus.databinding.FragmentCodeVerificationBinding
 import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.device.VerifyDevice
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ID
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
-import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
+import tech.techlore.plexus.utils.IntentUtils.Companion.startSubmitActivity
 
 class CodeVerificationFragment : Fragment() {
     
     private var _binding: FragmentCodeVerificationBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var verificationActivity: VerificationActivity
-    private var resendCodeTimer: CountDownTimer? = null
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -66,8 +65,6 @@ class CodeVerificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         verificationActivity = (requireActivity() as VerificationActivity)
-        var clickedTimes = 0
-        val inputMethodManager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         
         // Title
         fragmentBinding.titleText.text = getString(R.string.enter_code_sent_to_email,
@@ -81,9 +78,9 @@ class CodeVerificationFragment : Fragment() {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-    
+                
                 fragmentBinding.codeTextBox.error = null
-    
+                
                 // Introduce a subtle delay
                 // so text is checked after typing is finished
                 delayTimer?.cancel()
@@ -107,126 +104,61 @@ class CodeVerificationFragment : Fragment() {
         })
         
         // Done
-        fragmentBinding.doneButton.apply {
-            setOnClickListener {
-                isEnabled = false
-                
-                fragmentBinding.infoText.apply {
-                    isVisible = true
-                    text = getString(R.string.verifying_code)
-                }
-                
+        fragmentBinding.doneButton.setOnClickListener {
+            showInfo(true)
+            lifecycleScope.launch {
                 verifyDevice()
             }
         }
-        
-        // Resend code
-        resendCodeCountdown(30000)
-        fragmentBinding.resendButton.apply {
-            setOnClickListener {
-                clickedTimes += 1
-        
-                when (clickedTimes) {
-                    1 -> {
-                        isEnabled = false
-                        fragmentBinding.infoText.isVisible = true
-                        // TODO: Send code
-                        fragmentBinding.infoText.isVisible = false
-                        resendCodeCountdown(59000)
-                        showSnackbar(verificationActivity.activityBinding.verificationCoordLayout,
-                                     getString(R.string.code_sent, verificationActivity.emailString),
-                                     verificationActivity.activityBinding.verificationToolbarBottom)
-                    }
-            
-                    2 -> {
-                        isEnabled = false
-                        fragmentBinding.infoText.isVisible = true
-                        // TODO: Send code
-                        isEnabled = true
-                        fragmentBinding.infoText.isVisible = false
-                        showSnackbar(verificationActivity.activityBinding.verificationCoordLayout,
-                                     getString(R.string.code_sent, verificationActivity.emailString),
-                                     verificationActivity.activityBinding.verificationToolbarBottom)
-                    }
-            
-                    else -> showSnackbar(verificationActivity.activityBinding.verificationCoordLayout,
-                                         getString(R.string.try_after_2_hours),
-                                         verificationActivity.activityBinding.verificationToolbarBottom)
-                }
-            }
-        }
     }
     
-    private fun resendCodeCountdown(duration: Long) {
-        var remSecs: Int
-        fragmentBinding.resendButton.apply {
-            resendCodeTimer = object : CountDownTimer(duration, 1000) {
-                
-                override fun onTick(millisUntilFinished: Long) {
-                    isEnabled = false
-                    remSecs =
-                        (millisUntilFinished / 1000).toInt() + 1 // Show 30s..1s instead of 29s..0s
-                    @SuppressLint("SetTextI18n")
-                    text = "${getString(R.string.resend_code)} ${remSecs}s"
-                }
-                
-                override fun onFinish() {
-                    text = getString(R.string.resend_code)
-                    isEnabled = true
-                    resendCodeTimer = null
-                }
-            }.start()
-        }
-    }
-    
-    private fun verifyDevice() {
+    private suspend fun verifyDevice() {
         val apiRepository = (requireContext().applicationContext as ApplicationManager).apiRepository
         val verifyDeviceCall = apiRepository.verifyDevice(VerifyDevice(deviceId = verificationActivity.deviceId,
                                                                        code = fragmentBinding.codeText.text.toString()))
-        verifyDeviceCall.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    val verifyDeviceResponse =
-                        response.body()?.string()?.let {
-                            jacksonObjectMapper().readValue(it, VerifyDeviceResponseRoot::class.java)
-                        }
-                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
-                    EncryptedPreferenceManager(requireContext()).setString(DEVICE_TOKEN, verifyDeviceResponse?.deviceToken!!.token)
-                    fragmentBinding.infoText.isVisible = false
-                    /*if (inputMethodManager.isAcceptingText) {
-                        inputMethodManager.hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken, 0)
-                    }
-                    EncryptedPreferenceManager(requireContext()).setBoolean(IS_REGISTERED, true)
-                    startSubmitActivity(verificationActivity,
-                                        verificationActivity.nameString,
-                                        verificationActivity.packageNameString,
-                                        verificationActivity.installedVersionString,
-                                        verificationActivity.installedBuild,
-                                        verificationActivity.installedFromString,
-                                        verificationActivity.isInPlexusData)*/
+        val response = withContext(Dispatchers.IO) {
+            verifyDeviceCall.execute()
+        }
+        if (response.isSuccessful) {
+            val verifyDeviceResponse =
+                response.body()?.string()?.let {
+                    jacksonObjectMapper().readValue(it, VerifyDeviceResponseRoot::class.java)
                 }
-                else {
-                    fragmentBinding.apply {
-                        infoText.isVisible = false
-                        fragmentBinding.doneButton.isEnabled = true
-                        fragmentBinding.codeTextBox.error = getString(R.string.incorrect_code)
-                    }
+            EncryptedPreferenceManager(requireContext()).apply {
+                setString(DEVICE_TOKEN, verifyDeviceResponse?.deviceToken!!.token)
+                setString(DEVICE_ID, verificationActivity.deviceId)
+                setBoolean(IS_REGISTERED, true)
+            }
+            fragmentBinding.infoText.isVisible = false
+            (requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+                if (isAcceptingText) {
+                    hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken, 0)
                 }
             }
-            
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                fragmentBinding.apply {
-                    infoText.isVisible = false
-                    fragmentBinding.doneButton.isEnabled = true
-                    fragmentBinding.codeTextBox.error = getString(R.string.incorrect_code)
-                }
-            }
-        })
+            startSubmitActivity(verificationActivity,
+                                verificationActivity.nameString,
+                                verificationActivity.packageNameString,
+                                verificationActivity.installedVersionString,
+                                verificationActivity.installedBuild,
+                                verificationActivity.installedFromString,
+                                verificationActivity.isInPlexusData)
+        }
+        else {
+            showInfo(false)
+        }
+    }
+    
+    private fun showInfo(show: Boolean) {
+        fragmentBinding.apply {
+            doneButton.isEnabled = !show
+            infoAnim.isVisible = show
+            infoText.isVisible = show
+            if (!show) codeTextBox.error = getString(R.string.incorrect_code)
+        }
     }
     
     override fun onDestroyView() {
         super.onDestroyView()
-        resendCodeTimer?.cancel()
         _binding = null
     }
 }

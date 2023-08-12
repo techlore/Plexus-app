@@ -48,6 +48,7 @@
         android:layout_marginStart="@dimen/margin_35"
         app:lottie_rawRes="@raw/lottie_hello"
         app:lottie_colorFilter="@color/color_primary"
+        app:lottie_speed="1.02"
         app:lottie_loop="false"
         app:lottie_autoPlay="false"/>
 

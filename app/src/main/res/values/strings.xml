@@ -101,13 +101,8 @@
     <!--OTP verification fragment-->
     <string name="enter_code_sent_to_email">Enter the verification code sent to\n%1$s</string>
     <string name="verification_code">Verification code</string>
-    <string name="resend_code">Resend code</string>
     <string name="verifying_code">Please wait, verifying code …</string>
-    <string name="resending_code">Please wait, resending code …</string>
-    <string name="code_sent">Code sent to %1$s</string>
     <string name="incorrect_code">Incorrect verification code.</string>
-    <string name="try_after_2_hours">Maximum retry limit reached.
-        \nPlease wait for 2 hours and try again.</string>
 
     <!--#########################################################################################-->
 

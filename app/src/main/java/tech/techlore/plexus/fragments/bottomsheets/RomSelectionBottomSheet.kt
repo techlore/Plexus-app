@@ -32,16 +32,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.activities.VerificationActivity
-import tech.techlore.plexus.databinding.BottomSheetFirstSubmissionBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
+import tech.techlore.plexus.databinding.BottomSheetRomSelectionBinding
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.utils.SystemUtils.Companion.getSystemProperty
 
-class FirstSubmissionBottomSheet : BottomSheetDialogFragment() {
+class RomSelectionBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetFirstSubmissionBinding? = null
+    private var _binding: BottomSheetRomSelectionBinding? = null
     private val bottomSheetBinding get() = _binding!!
     private var timer: CountDownTimer? = null
     
@@ -49,7 +49,7 @@ class FirstSubmissionBottomSheet : BottomSheetDialogFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        _binding = BottomSheetFirstSubmissionBinding.inflate(inflater, container, false)
+        _binding = BottomSheetRomSelectionBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     

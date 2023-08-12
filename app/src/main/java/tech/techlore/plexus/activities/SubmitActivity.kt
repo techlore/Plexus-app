@@ -92,16 +92,17 @@ class SubmitActivity : AppCompatActivity() {
                                       activityBinding.submitInstalledFrom)
         
         activityBinding.dgMgText.apply {
-            val statusIcon =
-                when {
-                    !appManager.deviceIsMicroG -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
-                    else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
+            val (statusIcon, statusText) =
+                if (appManager.deviceIsMicroG) {
+                    Pair(ContextCompat.getDrawable(context, R.drawable.ic_microg),
+                         "${getString(R.string.microG)} ${getString(R.string.status)}")
                 }
-            
+                else {
+                    Pair(ContextCompat.getDrawable(context, R.drawable.ic_degoogled),
+                         "${getString(R.string.de_Googled)} ${getString(R.string.status)}")
+                }
             setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
-            text =
-                if (appManager.deviceIsMicroG) "${getString(R.string.microG)} ${getString(R.string.status)}"
-                else "${getString(R.string.de_Googled)} ${getString(R.string.status)}"
+            text = statusText
         }
         
         // Notes

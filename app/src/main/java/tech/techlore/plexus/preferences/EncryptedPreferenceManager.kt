@@ -20,7 +20,6 @@
 package tech.techlore.plexus.preferences
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import java.io.IOException
@@ -31,22 +30,17 @@ class EncryptedPreferenceManager(context: Context) {
     companion object {
         const val DEVICE_ROM = "device_rom"
         const val DEVICE_ID = "device_id"
-        const val EMAIL = "email"
-        const val TIME = "time"
         const val DEVICE_TOKEN = "device_token"
         const val IS_REGISTERED = "is_registered"
     }
     
-    private val encryptedSharedPreferences: SharedPreferences
-    
-    init {
+    private val encryptedSharedPreferences =
         try {
-            encryptedSharedPreferences =
-                EncryptedSharedPreferences.create(context,
-                                                  "tech.techlore.plexus_enc_prefs",
-                                                  MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
-                                                  EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                                                  EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM)
+            EncryptedSharedPreferences.create(context,
+                                              "tech.techlore.plexus_enc_prefs",
+                                              MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
+                                              EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                                              EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM)
         }
         catch (genSecException: GeneralSecurityException) {
             genSecException.printStackTrace()
@@ -56,7 +50,6 @@ class EncryptedPreferenceManager(context: Context) {
             ioException.printStackTrace()
             throw RuntimeException("Encrypted Preferences IO Exception", ioException)
         }
-    }
     
     fun getBoolean(key: String): Boolean {
         return encryptedSharedPreferences.getBoolean(key, false)

@@ -20,16 +20,17 @@
 package tech.techlore.plexus.converters.post
 
 import androidx.room.TypeConverter
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import tech.techlore.plexus.models.post.app.PostApp
 
 object PostAppConverter {
     
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
     fun fromPostApp(json: String): PostApp {
-        return objectMapper.readValue(json, PostApp::class.java)
+        return objectMapper.readValue(json)
     }
     
     @TypeConverter

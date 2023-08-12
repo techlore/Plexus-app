@@ -30,6 +30,8 @@ import tech.techlore.plexus.databinding.BottomSheetDeleteAccountBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ID
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
@@ -61,6 +63,8 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
             setOnClickListener {
                 EncryptedPreferenceManager(requireContext()).apply {
                     deleteString(DEVICE_TOKEN)
+                    deleteString(DEVICE_ID)
+                    deleteString(DEVICE_ROM)
                     setBoolean(IS_REGISTERED, false)
                 }
                 dismiss()

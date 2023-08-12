@@ -70,7 +70,7 @@ class MyRatingsFragment :
         myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
         
         lifecycleScope.launch{
-            myRatingsRepository.getSortedMyRatingsByName(orderPref = PreferenceManager(requireContext()).getInt(A_Z_SORT))
+            myRatingsList = myRatingsRepository.getSortedMyRatingsByName(orderPref = PreferenceManager(requireContext()).getInt(A_Z_SORT))
             
             if (myRatingsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()

@@ -120,10 +120,10 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                 .insertOrUpdatePlexusData(MainData(name = appData.name,
                                                    packageName = appData.packageName,
                                                    iconUrl = appData.iconUrl ?: "",
-                                                   dgScore = truncatedScore(appData.scores[1].score),
-                                                   totalDgRatings = appData.scores[1].totalRatings,
-                                                   mgScore = truncatedScore(appData.scores[0].score),
-                                                   totalMgRatings = appData.scores[0].totalRatings))
+                                                   dgScore = truncatedScore(appData.scores[0].score),
+                                                   totalDgRatings = appData.scores[0].totalRatings,
+                                                   mgScore = truncatedScore(appData.scores[1].score),
+                                                   totalMgRatings = appData.scores[1].totalRatings))
         }
     }
     

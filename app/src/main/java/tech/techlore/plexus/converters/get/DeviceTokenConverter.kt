@@ -20,16 +20,17 @@
 package tech.techlore.plexus.converters.get
 
 import androidx.room.TypeConverter
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import tech.techlore.plexus.models.get.responses.DeviceToken
 
 object DeviceTokenConverter {
     
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
     fun fromDeviceToken(json: String): DeviceToken {
-        return objectMapper.readValue(json, DeviceToken::class.java)
+        return objectMapper.readValue(json)
     }
     
     @TypeConverter

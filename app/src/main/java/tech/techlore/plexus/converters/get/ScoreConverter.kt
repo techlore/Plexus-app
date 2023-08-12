@@ -20,12 +20,13 @@
 package tech.techlore.plexus.converters.get
 
 import androidx.room.TypeConverter
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import tech.techlore.plexus.models.get.scores.Score
 
 object ScoreConverter {
     
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
     fun fromScore(scores: ArrayList<Score>): String {
@@ -34,9 +35,7 @@ object ScoreConverter {
     
     @TypeConverter
     fun toScore(scoresString: String): ArrayList<Score> {
-        val typeFactory = objectMapper.typeFactory
-        val listType = typeFactory.constructCollectionType(ArrayList::class.java, Score::class.java)
-        return objectMapper.readValue(scoresString, listType)
+        return objectMapper.readValue(scoresString)
     }
     
 }

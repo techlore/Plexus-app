@@ -20,16 +20,17 @@
 package tech.techlore.plexus.converters.post
 
 import androidx.room.TypeConverter
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import tech.techlore.plexus.models.post.rating.PostRating
 
 object PostRatingConverter {
     
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
     fun fromPostRating(json: String): PostRating {
-        return objectMapper.readValue(json, PostRating::class.java)
+        return objectMapper.readValue(json)
     }
     
     @TypeConverter

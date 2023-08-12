@@ -43,7 +43,7 @@ import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.fragments.bottomsheets.FirstSubmissionBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.RomSelectionBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
@@ -169,8 +169,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             }
             
             val myRatingExists =
-                myRatingsRepository
-                    .getMyRatingsByPackage(app.packageName)?.ratingsDetails?.any { it.version == app.installedVersion } == true
+                myRatingsRepository.getMyRatingsByPackage(app.packageName)?.ratingsDetails?.any {
+                    it.version == app.installedVersion
+                } == true
             
             // FAB
             activityBinding.fab.setOnClickListener {
@@ -180,13 +181,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      getString(R.string.install_app_to_submit, app.name),
                                      activityBinding.bottomAppBarRadio)
                     
-                    /*!appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
+                    !appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
-                                     activityBinding.bottomAppBarRadio)*/
+                                     activityBinding.bottomAppBarRadio)
                     
                     encryptedPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
-                        FirstSubmissionBottomSheet().show(supportFragmentManager, "FirstSubmissionBottomSheet")
+                        RomSelectionBottomSheet().show(supportFragmentManager, "RomSelectionBottomSheet")
                     
                     !encryptedPreferenceManager.getBoolean(IS_REGISTERED) ->
                         startActivity(Intent(this@AppDetailsActivity, VerificationActivity::class.java)
