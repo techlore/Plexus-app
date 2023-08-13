@@ -29,12 +29,12 @@ object PostRatingConverter {
     private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
-    fun fromPostRating(json: String): PostRating {
+    fun fromJsonToPostRating(json: String): PostRating {
         return objectMapper.readValue(json)
     }
     
     @TypeConverter
-    fun toPostRating(postRating: PostRating): String {
+    fun fromPostRatingToJson(postRating: PostRating): String {
         return objectMapper.writeValueAsString(postRating)
     }
     

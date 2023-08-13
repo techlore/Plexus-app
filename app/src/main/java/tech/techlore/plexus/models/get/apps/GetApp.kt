@@ -21,10 +21,10 @@ package tech.techlore.plexus.models.get.apps
 
 import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.get.ScoreConverter
-import tech.techlore.plexus.models.get.scores.Score
+import tech.techlore.plexus.converters.get.ScoresRootConverter
+import tech.techlore.plexus.models.get.scores.ScoresRoot
 
-@TypeConverters(ScoreConverter::class)
+@TypeConverters(ScoresRootConverter::class)
 data class GetApp(
     
     @JsonProperty("name")
@@ -37,6 +37,6 @@ data class GetApp(
     var iconUrl: String? = null,
 
     @JsonProperty("scores")
-    val scores: ArrayList<Score>
+    val scoresRoot: ScoresRoot
     
 )

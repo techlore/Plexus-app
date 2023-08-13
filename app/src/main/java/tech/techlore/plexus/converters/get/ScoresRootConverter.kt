@@ -17,26 +17,26 @@
  *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.get.scores
+package tech.techlore.plexus.converters.get
 
+import androidx.room.TypeConverter
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import tech.techlore.plexus.models.get.scores.Score
+import tech.techlore.plexus.models.get.scores.ScoresRoot
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-
-data class Score(
+object ScoresRootConverter {
     
-    @JsonProperty("numerator")
-    var score: Float,
+    private val objectMapper = jacksonObjectMapper()
     
-    @JsonProperty("denominator")
-    @JsonIgnore
-    var denominator: Float,
+    @TypeConverter
+    fun fromJsonToScoresRoot(json: String): ScoresRoot {
+        return objectMapper.readValue(json)
+    }
     
-    @JsonProperty("rating_type")
-    @JsonIgnore
-    var ratingType: String,
+    @TypeConverter
+    fun fromScoresRootToJson(score: Score): String {
+        return objectMapper.writeValueAsString(score)
+    }
     
-    @JsonProperty("total_count")
-    var totalRatings: Int
-    
-)
+}

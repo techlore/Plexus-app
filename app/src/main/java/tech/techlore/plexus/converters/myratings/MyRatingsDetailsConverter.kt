@@ -29,13 +29,13 @@ object MyRatingsDetailsConverter {
     private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
-    fun fromMyRatingsDetails(ratingsDetails: List<MyRatingDetails>): String {
-        return objectMapper.writeValueAsString(ratingsDetails)
+    fun fromJsonToMyRatingsDetails(ratingsDetailsString: String): List<MyRatingDetails> {
+        return objectMapper.readValue(ratingsDetailsString)
     }
     
     @TypeConverter
-    fun toMyRatingsDetails(ratingsDetailsString: String): List<MyRatingDetails> {
-        return objectMapper.readValue(ratingsDetailsString)
+    fun fromMyRatingsDetailsToJson(ratingsDetails: List<MyRatingDetails>): String {
+        return objectMapper.writeValueAsString(ratingsDetails)
     }
     
 }

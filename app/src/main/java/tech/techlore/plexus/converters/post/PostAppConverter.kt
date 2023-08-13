@@ -29,12 +29,12 @@ object PostAppConverter {
     private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
-    fun fromPostApp(json: String): PostApp {
+    fun fromJsonToPostApp(json: String): PostApp {
         return objectMapper.readValue(json)
     }
     
     @TypeConverter
-    fun toPostApp(postApp: PostApp): String {
+    fun fromPostAppToJson(postApp: PostApp): String {
         return objectMapper.writeValueAsString(postApp)
     }
     

@@ -29,13 +29,13 @@ object ScoreConverter {
     private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
-    fun fromScore(scores: ArrayList<Score>): String {
-        return objectMapper.writeValueAsString(scores)
+    fun fromJsonToScore(json: String): Score {
+        return objectMapper.readValue(json)
     }
     
     @TypeConverter
-    fun toScore(scoresString: String): ArrayList<Score> {
-        return objectMapper.readValue(scoresString)
+    fun fromScoreToJson(score: Score): String {
+        return objectMapper.writeValueAsString(score)
     }
     
 }

@@ -19,24 +19,17 @@
 
 package tech.techlore.plexus.models.get.scores
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore
+import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonProperty
+import tech.techlore.plexus.converters.get.ScoreConverter
 
-data class Score(
+@TypeConverters(ScoreConverter::class)
+data class ScoresRoot(
     
-    @JsonProperty("numerator")
-    var score: Float,
+    @JsonProperty("native")
+    var dgScore: Score,
     
-    @JsonProperty("denominator")
-    @JsonIgnore
-    var denominator: Float,
-    
-    @JsonProperty("rating_type")
-    @JsonIgnore
-    var ratingType: String,
-    
-    @JsonProperty("total_count")
-    var totalRatings: Int
-    
+    @JsonProperty("micro_g")
+    var mgScore: Score
+
 )

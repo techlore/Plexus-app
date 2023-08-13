@@ -29,12 +29,12 @@ object DeviceTokenConverter {
     private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
-    fun fromDeviceToken(json: String): DeviceToken {
+    fun fromJsonToDeviceToken(json: String): DeviceToken {
         return objectMapper.readValue(json)
     }
     
     @TypeConverter
-    fun toDeviceToken(deviceToken: DeviceToken): String {
+    fun fromDeviceTokenToJson(deviceToken: DeviceToken): String {
         return objectMapper.writeValueAsString(deviceToken)
     }
 }

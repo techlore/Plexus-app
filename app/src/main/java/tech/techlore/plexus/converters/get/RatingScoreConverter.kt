@@ -29,12 +29,12 @@ object RatingScoreConverter {
     private val objectMapper = jacksonObjectMapper()
     
     @TypeConverter
-    fun fromRatingScore(json: String): RatingScore {
+    fun fromJsonToRatingScore(json: String): RatingScore {
         return objectMapper.readValue(json)
     }
     
     @TypeConverter
-    fun toRatingScore(ratingScore: RatingScore): String {
+    fun fromRatingScoreToJson(ratingScore: RatingScore): String {
         return objectMapper.writeValueAsString(ratingScore)
     }
     

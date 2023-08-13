@@ -120,10 +120,10 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                 .insertOrUpdatePlexusData(MainData(name = appData.name,
                                                    packageName = appData.packageName,
                                                    iconUrl = appData.iconUrl ?: "",
-                                                   dgScore = truncatedScore(appData.scores[0].score),
-                                                   totalDgRatings = appData.scores[0].totalRatings,
-                                                   mgScore = truncatedScore(appData.scores[1].score),
-                                                   totalMgRatings = appData.scores[1].totalRatings))
+                                                   dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
+                                                   totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
+                                                   mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
+                                                   totalMgRatings = appData.scoresRoot.mgScore.totalRatings))
         }
     }
     
@@ -142,7 +142,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
             
             // Delete uninstalled apps from db
             uninstalledApps.forEach {
-                if (! it.isInPlexusData) {
+                if (!it.isInPlexusData) {
                     mainDataDao.delete(it)
                 }
                 else {
