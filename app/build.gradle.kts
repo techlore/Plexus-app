@@ -25,12 +25,12 @@ plugins {
 
 android {
     namespace = "tech.techlore.plexus"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "tech.techlore.plexus"
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 200
         versionName = "2.0.0"
     }
@@ -71,9 +71,9 @@ dependencies {
     implementation(project(":FastScroll"))
 
     // Navigation components
-    implementation("androidx.navigation:navigation-runtime-ktx:2.6.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.1")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
 
     // Jackson kotlin module
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
