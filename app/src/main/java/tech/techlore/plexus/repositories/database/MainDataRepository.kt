@@ -94,7 +94,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                         
                         override fun onLoadFailed(e: GlideException?,
                                                   model: Any?,
-                                                  target: Target<Drawable>?,
+                                                  target: Target<Drawable>,
                                                   isFirstResource: Boolean): Boolean {
                             // Icon is not in cache, preload into cache
                             glideRequestManager
@@ -104,10 +104,10 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                             return false
                         }
                         
-                        override fun onResourceReady(resource: Drawable?,
-                                                     model: Any?,
+                        override fun onResourceReady(resource: Drawable,
+                                                     model: Any,
                                                      target: Target<Drawable>?,
-                                                     dataSource: DataSource?,
+                                                     dataSource: DataSource,
                                                      isFirstResource: Boolean): Boolean {
                             // Icon is in cache, don't do anything
                             return false

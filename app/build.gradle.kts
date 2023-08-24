@@ -88,8 +88,8 @@ dependencies {
     ksp("androidx.room:room-compiler:2.5.2")
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.15.1")
-    ksp("com.github.bumptech.glide:compiler:4.15.1")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    ksp("com.github.bumptech.glide:compiler:4.16.0")
 
     // jsoup
     implementation("org.jsoup:jsoup:1.16.1")
