@@ -7,7 +7,8 @@
 
 
 ## Contributing to the app
-- Try not to use any deprecated libraries, dependencies or methods, unless no other alternatives are available.
+- Do not submit pull requests to update gradle or dependencies.
+- Try not to use any deprecated libraries, dependencies or methods, if other alternatives are available.
 - Make sure the characters are properly encoded when translating strings (example: ä as \u00E4, é as \u00E9 etc).
   The strings can be found here:
     - [English](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values/strings.xml)
@@ -19,4 +20,4 @@
 
 
 ## Contributing to the data
-This has now been integrated in the app itself. Please do not open pull requests to add new apps as they won't be accepted.
+This has been integrated in the app. Please do not open pull requests to add new apps as they won't be accepted.

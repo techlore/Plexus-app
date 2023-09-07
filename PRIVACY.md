@@ -15,6 +15,9 @@ The app requires the following permissions:
 
 
 ## Data collection
+- Your email. It will be used for verification purposes only and will be removed from our systems after verifying. This is done to: 
+  - prevent potential abuse of our API.
+  - ensure accuracy of the data submitted.
 - When you submit ratings for any app, the following data is uploaded to the server:
   - App name
   - App package
