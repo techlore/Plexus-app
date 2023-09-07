@@ -142,7 +142,7 @@ class UiUtils {
                                    textView: MaterialTextView) {
             val statusIcon =
                 when (googleLib) {
-                    "none" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
+                    "native" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
                     else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
                 }
             

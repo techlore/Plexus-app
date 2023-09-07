@@ -34,12 +34,6 @@ class ApiManager {
         
         private val okHttpClient =
             OkHttpClient.Builder()
-                /*.addInterceptor { chain ->
-                    val request = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer YOUR_API_KEY")
-                        .build()
-                    chain.proceed(request)
-                }*/
                 .dispatcher(
                     Dispatcher().apply {
                         maxRequests = 8 // Max parallel network requests (default is 64)

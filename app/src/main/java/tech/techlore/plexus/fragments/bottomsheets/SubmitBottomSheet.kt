@@ -32,22 +32,22 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieDrawable
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.ResponseBody
 import org.json.JSONObject
 import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import retrofit2.Call
 import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SubmitActivity
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetSubmitBinding
+import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.models.post.app.PostApp
@@ -56,6 +56,8 @@ import tech.techlore.plexus.models.post.rating.PostRating
 import tech.techlore.plexus.models.post.rating.PostRatingRoot
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
+import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedScore
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
@@ -65,10 +67,16 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetSubmitBinding? = null
     private val bottomSheetBinding get() = _binding!!
     private lateinit var submitActivity: SubmitActivity
-    private var appCreated = false
+    private lateinit var encPreferenceManager: EncryptedPreferenceManager
+    private lateinit var deviceToken: String
+    private lateinit var appManager: ApplicationManager
+    private lateinit var apiRepository: ApiRepository
+    private lateinit var postAppRoot: PostAppRoot
+    private lateinit var rating: PostRating
+    private lateinit var postRatingRoot: PostRatingRoot
+    private var iconUrl: String? = null
     private var ratingCreated = false
     private var postedRatingId: String? = null
-    private var iconUrl: String? = null
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
@@ -97,6 +105,24 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         submitActivity = requireActivity() as SubmitActivity
+        encPreferenceManager = EncryptedPreferenceManager(requireContext())
+        deviceToken = encPreferenceManager.getString(DEVICE_TOKEN)!!
+        appManager = requireContext().applicationContext as ApplicationManager
+        apiRepository = appManager.apiRepository
+        postAppRoot = PostAppRoot(PostApp(name = submitActivity.nameString,
+                                          packageName = submitActivity.packageNameString,
+                                          iconUrl = iconUrl))
+        rating = PostRating(version = submitActivity.installedVersion,
+                            buildNumber = submitActivity.installedBuild,
+                            romName = encPreferenceManager.getString(DEVICE_ROM)!!,
+                            romBuild = Build.DISPLAY,
+                            androidVersion = mapAndroidVersionIntToString(),
+                            installedFrom = submitActivity.installedFromString,
+                            ratingType = if (appManager.deviceIsMicroG) "micro_g" else "native",
+                            score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
+                            notes = submitActivity.activityBinding.submitNotesText.text.toString())
+        postRatingRoot = PostRatingRoot(rating)
+        
         submitData()
         
         // Done/Retry
@@ -121,38 +147,14 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     
     private fun submitData() {
         lifecycleScope.launch {
-            val appManager = requireContext().applicationContext as ApplicationManager
-            val apiRepository = appManager.apiRepository
             val mainRepository = appManager.mainRepository
-            
-            val rating = PostRating(version = submitActivity.installedVersion,
-                                    buildNumber = submitActivity.installedBuild,
-                                    romName = EncryptedPreferenceManager(requireContext()).getString(DEVICE_ROM)!!,
-                                    romBuild = Build.DISPLAY,
-                                    androidVersion = mapAndroidVersionIntToString(),
-                                    installedFrom = submitActivity.installedFromString,
-                                    googleLib = if (appManager.deviceIsMicroG) "micro_g" else "none",
-                                    score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
-                                    notes = submitActivity.activityBinding.submitNotesText.text.toString())
-            
-            val postRatingRoot = PostRatingRoot(rating)
-            val postRatingCall = apiRepository.postRating(submitActivity.packageNameString, postRatingRoot)
             
             if (!submitActivity.isInPlexusData) {
                 getIconUrl()
-                val app = PostApp(name = submitActivity.nameString,
-                                  packageName = submitActivity.packageNameString,
-                                  iconUrl = iconUrl)
-                val postAppRoot = PostAppRoot(app)
-                val postAppCall = apiRepository.postApp(postAppRoot)
-                postApp(postAppCall)
-                if (appCreated) {
-                    submitActivity.isInPlexusData = true
-                    postRating(postRatingCall)
-                }
+                postApp()
             }
             else {
-                postRating(postRatingCall)
+                postRating()
             }
             
             if (ratingCreated && !postedRatingId.isNullOrBlank()) {
@@ -197,33 +199,40 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.animView.playAnimation()
     }
     
-    private suspend fun postApp(postAppCall: Call<ResponseBody>) {
+    private suspend fun postApp() {
         val response = withContext(Dispatchers.IO) {
-            postAppCall.execute()
+            apiRepository.postApp(deviceToken, postAppRoot).execute()
         }
-        if (response.isSuccessful || response.code() == 422) {
+        if (response.code() == 401) {
+            // Unauthorized, renew token
+            renewDeviceToken()
+            postApp()
+        }
+        else if (response.isSuccessful || response.code() == 422) {
             // Request was successful or app already exists
-            appCreated = true
+            submitActivity.isInPlexusData = true
+            postRating()
         }
         else {
             // Request failed
-            changeAnimView(R.raw.lottie_error, false)
-            bottomSheetBinding.submitStatusText.text = "${getString(R.string.submit_error)}: ${response.code()}"
-            bottomSheetBinding.doneButton.apply {
-                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_retry)
-                text = getString(R.string.retry)
-                isVisible = true
-            }
-            bottomSheetBinding.cancelButton.isVisible = true
-            submitActivity.activityBinding.submitFab.isEnabled = true
+            postFailed(response.code())
         }
     }
     
-    private suspend fun postRating(postRatingCall: Call<ResponseBody>) {
+    private suspend fun postRating() {
         val response = withContext(Dispatchers.IO) {
-            postRatingCall.execute()
+            apiRepository
+                .postRating(deviceToken,
+                            submitActivity.packageNameString,
+                            postRatingRoot)
+                .execute()
         }
-        if (response.isSuccessful) {
+        if (response.code() == 401) {
+            // Unauthorized, renew token
+            renewDeviceToken()
+            postRating()
+        }
+        else if (response.isSuccessful) {
             // Request was successful
             ratingCreated = true
             val responseBody = response.body()!!.string()
@@ -233,13 +242,20 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         }
         else {
             // Request failed
-            changeAnimView(R.raw.lottie_error, false)
-            bottomSheetBinding.submitStatusText.text = "${getString(R.string.submit_error)}: ${response.code()}"
-            bottomSheetBinding.doneButton.text = getString(R.string.retry)
-            bottomSheetBinding.doneButton.isVisible = true
-            bottomSheetBinding.cancelButton.isVisible = true
-            submitActivity.activityBinding.submitFab.isEnabled = true
+            postFailed(response.code())
         }
+    }
+    
+    private fun postFailed(responseCode: Int) {
+        changeAnimView(R.raw.lottie_error, false)
+        bottomSheetBinding.submitStatusText.text = "${getString(R.string.submit_error)}: $responseCode"
+        bottomSheetBinding.doneButton.apply {
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_retry)
+            text = getString(R.string.retry)
+            isVisible = true
+        }
+        bottomSheetBinding.cancelButton.isVisible = true
+        submitActivity.activityBinding.submitFab.isEnabled = true
     }
     
     private suspend fun getIconUrl(): String? {
@@ -282,6 +298,23 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         return iconUrl
     }
     
+    private suspend fun renewDeviceToken() {
+        val response = withContext(Dispatchers.IO) {
+            apiRepository.renewDevice(deviceToken).execute()
+        }
+        if (response.isSuccessful) {
+            val verifyDeviceResponse =
+                response.body()?.string()?.let {
+                    jacksonObjectMapper().readValue(it, VerifyDeviceResponseRoot::class.java)
+                }
+            encPreferenceManager.setString(DEVICE_TOKEN, verifyDeviceResponse?.deviceToken!!.token)
+            deviceToken = encPreferenceManager.getString(DEVICE_TOKEN)!!
+        }
+        else {
+            postFailed(response.code())
+        }
+    }
+    
     private fun mapAndroidVersionIntToString(): String {
         return when(Build.VERSION.SDK_INT) {
             23 -> "6.0"
@@ -309,7 +342,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                               romBuild = rating.romBuild,
                                               androidVersion = rating.androidVersion,
                                               installedFrom = submitActivity.installedFromString,
-                                              googleLib = rating.googleLib,
+                                              googleLib = rating.ratingType,
                                               myRatingScore = rating.score,
                                               notes = rating.notes)
         

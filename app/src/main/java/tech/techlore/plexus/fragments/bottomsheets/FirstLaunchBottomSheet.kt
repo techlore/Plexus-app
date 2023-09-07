@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
-import android.animation.Animator
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -28,20 +27,21 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.SettingsActivity
-import tech.techlore.plexus.databinding.BottomSheetFirstLaunchBinding
+import tech.techlore.plexus.databinding.BottomSheetFooterBinding
+import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
+import tech.techlore.plexus.databinding.BottomSheetNoNetworkBinding
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 
 class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetFirstLaunchBinding? = null
+    private var _binding: BottomSheetNoNetworkBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -64,56 +64,39 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        _binding = BottomSheetFirstLaunchBinding.inflate(inflater, container, false)
+        _binding = BottomSheetNoNetworkBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    
+        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+    
+        // Title
+        headerBinding.bottomSheetTitle.isVisible = false
         
-        // Anim view
-        bottomSheetBinding.helloAnimView.apply {
-            setMaxFrame(300)
-            
-            addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator) {}
-                
-                override fun onAnimationEnd(animation: Animator) {
-                    val fadeIn = AlphaAnimation(0.5f, 1.0f)
-                    fadeIn.duration = 600
-                    bottomSheetBinding.welcomeTextDesc.apply {
-                        isVisible = true
-                        startAnimation(fadeIn)
-                    }
-                    bottomSheetBinding.proceedButton.apply {
-                        isVisible = true
-                        startAnimation(fadeIn)
-                    }
-                    bottomSheetBinding.skipButton.apply {
-                        isVisible = true
-                        startAnimation(fadeIn)
-                    }
-                }
-                
-                override fun onAnimationCancel(animation: Animator) {}
-                
-                override fun onAnimationRepeat(animation: Animator) {}
-            })
-            
-            playAnimation()
-        }
-        
+        // Text
+        bottomSheetBinding.descText.text = getString(R.string.welcome_text_desc)
+    
         // Proceed
-        bottomSheetBinding.proceedButton.setOnClickListener {
-            startActivity(Intent(requireActivity(), SettingsActivity::class.java)
-                              .putExtra("frag", R.id.helpVideosFragment))
-            onDestroy()
+        footerBinding.positiveButton.apply {
+            text = getString(R.string.proceed)
+            setOnClickListener {
+                startActivity(Intent(requireActivity(), SettingsActivity::class.java)
+                                  .putExtra("frag", R.id.helpVideosFragment))
+                onDestroy()
+            }
         }
-        
+    
         // Skip
-        bottomSheetBinding.skipButton.setOnClickListener {
-            PreferenceManager(requireActivity()).setBoolean(IS_FIRST_LAUNCH, false)
-            startActivity(Intent(requireActivity(), MainActivity::class.java))
-            onDestroy()
+        footerBinding.negativeButton.apply {
+            text = getString(R.string.skip)
+            setOnClickListener {
+                PreferenceManager(requireActivity()).setBoolean(IS_FIRST_LAUNCH, false)
+                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                onDestroy()
+            }
         }
     }
     

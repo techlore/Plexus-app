@@ -75,7 +75,7 @@ class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : Re
         
         // Status
         setStatusTextViewStyle(context,
-                               userRating.googleLib!!,
+                               userRating.ratingType!!,
                                userRating.ratingScore!!.ratingScore,
                                holder.status)
         

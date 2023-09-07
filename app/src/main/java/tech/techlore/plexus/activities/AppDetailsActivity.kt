@@ -181,35 +181,41 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      getString(R.string.install_app_to_submit, app.name),
                                      activityBinding.bottomAppBarRadio)
                     
-                    !appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
+                    /*!appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
-                                     activityBinding.bottomAppBarRadio)
+                                     activityBinding.bottomAppBarRadio)*/
                     
                     encryptedPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                         RomSelectionBottomSheet().show(supportFragmentManager, "RomSelectionBottomSheet")
                     
-                    !encryptedPreferenceManager.getBoolean(IS_REGISTERED) ->
-                        startActivity(Intent(this@AppDetailsActivity, VerificationActivity::class.java)
+                    !encryptedPreferenceManager.getBoolean(IS_REGISTERED) -> {
+                        startActivity(Intent(this@AppDetailsActivity,
+                                             VerificationActivity::class.java)
                                           .putExtra("name", app.name)
                                           .putExtra("packageName", app.packageName)
                                           .putExtra("installedVersion", app.installedVersion)
                                           .putExtra("installedBuild", app.installedBuild)
                                           .putExtra("installedFrom", app.installedFrom)
                                           .putExtra("isInPlexusData", app.isInPlexusData))
+                        finish()
+                    }
                     
                     myRatingExists ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.rating_already_submitted, app.name, app.installedVersion),
                                      activityBinding.bottomAppBarRadio)
                     
-                    else -> startSubmitActivity(this@AppDetailsActivity,
-                                                app.name,
-                                                app.packageName,
-                                                app.installedVersion,
-                                                app.installedBuild,
-                                                app.installedFrom,
-                                                app.isInPlexusData)
+                    else -> {
+                        startSubmitActivity(this@AppDetailsActivity,
+                                            app.name,
+                                            app.packageName,
+                                            app.installedVersion,
+                                            app.installedBuild,
+                                            app.installedFrom,
+                                            app.isInPlexusData)
+                        finish()
+                    }
                 }
             }
             
@@ -234,7 +240,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         ratingsList = ratingsRoot.ratingsData
                         // No need to store the ratings list in database, as:
                         // 1. It's not used anywhere else, except details activity
-                        // 2. We're already retrieving latest ratings everytime in details activity
+                        // 2. We're already retrieving the latest ratings everytime in details activity
                         
                         // Retrieve remaining ratings in parallel
                         if (ratingsRoot.meta.totalPages > 1) {

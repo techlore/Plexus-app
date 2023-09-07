@@ -40,21 +40,21 @@ data class Rating(
     
     @JsonProperty("app_build_number")
     var buildNumber: Int,
-
+    
     @JsonProperty("rom_name")
     var romName: String,
-
+    
     @JsonProperty("rom_build")
     var romBuild: String,
-
+    
     @JsonProperty("android_version")
     var androidVersion: String,
     
     @JsonProperty("installation_source")
     var installedFrom: String,
     
-    @JsonProperty("google_lib")
-    var googleLib: String? = null,
+    @JsonProperty("rating_type")
+    var ratingType: String? = null,
     
     @JsonProperty("score")
     @Embedded

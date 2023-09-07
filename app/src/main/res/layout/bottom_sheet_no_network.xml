@@ -32,6 +32,7 @@
         layout="@layout/bottom_sheet_header"/>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/descText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"

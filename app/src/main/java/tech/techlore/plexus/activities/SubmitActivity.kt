@@ -24,6 +24,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -54,6 +55,7 @@ class SubmitActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivitySubmitBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
@@ -166,5 +168,11 @@ class SubmitActivity : AppCompatActivity() {
         super.finish()
         startDetailsActivity(this@SubmitActivity, packageNameString)
         overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+    }
+    
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            finish()
+        }
     }
 }

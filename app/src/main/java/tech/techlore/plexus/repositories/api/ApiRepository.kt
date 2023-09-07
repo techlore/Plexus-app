@@ -52,12 +52,20 @@ class ApiRepository(private val apiService: ApiService) {
         return apiService.verifyDevice(verifyDevice)
     }
     
-    fun postApp(postAppRoot: PostAppRoot): Call<ResponseBody> {
-        return apiService.postApp(postAppRoot)
+    fun renewDevice(authToken: String): Call<ResponseBody> {
+        return apiService.renewDevice("Bearer $authToken")
     }
     
-    fun postRating(packageName: String, postRatingRoot: PostRatingRoot): Call<ResponseBody> {
-        return apiService.postRating(packageName, postRatingRoot)
+    fun postApp(authToken: String, postAppRoot: PostAppRoot): Call<ResponseBody> {
+        return apiService.postApp("Bearer $authToken", postAppRoot)
+    }
+    
+    fun postRating(authToken: String,
+                   packageName: String,
+                   postRatingRoot: PostRatingRoot): Call<ResponseBody> {
+        return apiService.postRating("Bearer $authToken",
+                                     packageName,
+                                     postRatingRoot)
     }
     
 }

@@ -76,16 +76,16 @@ class TotalScoreFragment : Fragment() {
                     for (range in ratingRanges) {
                         if (rating.ratingScore!!.ratingScore >= range.minValue
                             && rating.ratingScore!!.ratingScore <= range.maxValue) {
-                            val key = rating.googleLib to range.status
+                            val key = rating.ratingType to range.status
                             ratingCounts[key] = (ratingCounts[key] ?: 0) + 1
                         }
                     }
                 }
     
-                val dgGoldRatingsCount = ratingCounts["none" to "gold"] ?: 0
-                val dgSilverRatingsCount = ratingCounts["none" to "silver"] ?: 0
-                val dgBronzeRatingsCount = ratingCounts["none" to "bronze"] ?: 0
-                val dgBrokenRatingsCount = ratingCounts["none" to "broken"] ?: 0
+                val dgGoldRatingsCount = ratingCounts["native" to "gold"] ?: 0
+                val dgSilverRatingsCount = ratingCounts["native" to "silver"] ?: 0
+                val dgBronzeRatingsCount = ratingCounts["native" to "bronze"] ?: 0
+                val dgBrokenRatingsCount = ratingCounts["native" to "broken"] ?: 0
                 val mgGoldRatingsCount = ratingCounts["micro_g" to "gold"] ?: 0
                 val mgSilverRatingsCount = ratingCounts["micro_g" to "silver"] ?: 0
                 val mgBronzeRatingsCount = ratingCounts["micro_g" to "bronze"] ?: 0

@@ -23,6 +23,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -55,13 +56,19 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     fun verifyDevice(@Body verifyDevice: VerifyDevice): Call<ResponseBody>
     
+    @POST("devices/renew")
+    @Headers("Content-Type: application/json")
+    fun renewDevice(@Header("Authorization") authToken: String): Call<ResponseBody>
+    
     @POST("apps")
     @Headers("Content-Type: application/json")
-    fun postApp(@Body postAppRoot: PostAppRoot): Call<ResponseBody>
+    fun postApp(@Header("Authorization") authToken: String,
+                @Body postAppRoot: PostAppRoot): Call<ResponseBody>
     
     @POST("apps/{packageName}/ratings")
     @Headers("Content-Type: application/json")
-    fun postRating(@Path("packageName") packageName: String,
+    fun postRating(@Header("Authorization") authToken: String,
+                   @Path("packageName") packageName: String,
                    @Body postRatingRoot: PostRatingRoot): Call<ResponseBody>
     
 }

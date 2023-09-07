@@ -128,10 +128,10 @@ class UserRatingsFragment : Fragment() {
     
                 // Status sort
                 if (detailsActivity.statusRadio != R.id.ratingsRadioAnyStatus) {
-                    googleLib = if (detailsActivity.statusRadio == R.id.ratingsRadioDgStatus) "none" else "micro_g"
+                    googleLib = if (detailsActivity.statusRadio == R.id.ratingsRadioDgStatus) "native" else "micro_g"
                     detailsActivity.sortedRatingsList =
                         detailsActivity.sortedRatingsList.filter { ratings ->
-                            ratings.googleLib == googleLib
+                            ratings.ratingType == googleLib
                         } as ArrayList<Rating>
         
                     if (detailsActivity.statusRadio == R.id.ratingsRadioDgStatus

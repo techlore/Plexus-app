@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityVerificationBinding
+import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
 class VerificationActivity : AppCompatActivity() {
     
@@ -63,6 +64,10 @@ class VerificationActivity : AppCompatActivity() {
     
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() { finish() }
+        override fun handleOnBackPressed() {
+            finish()
+            startDetailsActivity(this@VerificationActivity, packageNameString)
+            overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+        }
     }
 }
