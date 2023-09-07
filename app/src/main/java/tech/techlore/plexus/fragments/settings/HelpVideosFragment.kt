@@ -27,7 +27,6 @@ import androidx.fragment.app.Fragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SettingsActivity
 import tech.techlore.plexus.databinding.FragmentHelpVideosBinding
-import tech.techlore.plexus.fragments.bottomsheets.VideoPlayerBottomSheet
 
 class HelpVideosFragment : Fragment() {
     
@@ -43,23 +42,7 @@ class HelpVideosFragment : Fragment() {
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        
         (requireActivity() as SettingsActivity).activityBinding.toolbarBottom.title = getString(R.string.menu_help)
-        
-        val viewToVideoIdMap =
-            mapOf(fragmentBinding.introductionThumbnail to R.raw.intro_video,
-                  fragmentBinding.introductionText to R.raw.intro_video,
-                  /*fragmentBinding.navigationThumbnail to R.raw.navigation_video,
-                  fragmentBinding.navigationText to R.raw.navigation_video,
-                  fragmentBinding.submissionsThumbnail to R.raw.submissions_video,
-                  fragmentBinding.submissionsText to R.raw.submissions_video*/
-            )
-        
-        viewToVideoIdMap.forEach { (view, videoId) ->
-            view.setOnClickListener {
-                VideoPlayerBottomSheet(videoId).show(parentFragmentManager, "VideoPlayerBottomSheet")
-            }
-        }
     }
     
     override fun onDestroyView() {

@@ -67,18 +67,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/helpVideosFragment"
-        android:name="tech.techlore.plexus.fragments.settings.HelpVideosFragment"
-        android:label="@string/menu_help"
-        tools:layout="@layout/fragment_help_videos">
-        <action
-            android:id="@+id/action_helpVideosFragment_to_helpTextFragment"
-            app:destination="@id/helpTextFragment"
-            app:enterAnim="@anim/slide_from_end"
-            app:exitAnim="@anim/slide_to_start"/>
-    </fragment>
-
-    <fragment
         android:id="@+id/helpTextFragment"
         android:name="tech.techlore.plexus.fragments.settings.HelpTextFragment"
         android:label="@string/menu_help"
@@ -86,6 +74,18 @@
         <action
             android:id="@+id/action_helpTextFragment_to_helpVideosFragment"
             app:destination="@id/helpVideosFragment"
+            app:enterAnim="@anim/slide_from_end"
+            app:exitAnim="@anim/slide_to_start"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/helpVideosFragment"
+        android:name="tech.techlore.plexus.fragments.settings.HelpVideosFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help_videos">
+        <action
+            android:id="@+id/action_helpVideosFragment_to_helpTextFragment"
+            app:destination="@id/helpTextFragment"
             app:enterAnim="@anim/slide_from_start"
             app:exitAnim="@anim/slide_to_end"/>
     </fragment>

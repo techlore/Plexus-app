@@ -226,7 +226,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
             
             R.id.main_menu_help -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java)
-                                                     .putExtra("frag", R.id.helpVideosFragment))
+                                                     .putExtra("frag", R.id.helpTextFragment))
             
         }
         

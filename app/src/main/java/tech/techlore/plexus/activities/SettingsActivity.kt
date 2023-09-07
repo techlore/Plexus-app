@@ -54,19 +54,19 @@ class SettingsActivity : AppCompatActivity() {
     
         supportActionBar?.setDisplayShowTitleEnabled(false)
         
-        activityBinding.helpRadioBottomAppBar.isVisible = displayFragmentId == R.id.helpVideosFragment
+        activityBinding.helpRadioBottomAppBar.isVisible = displayFragmentId == R.id.helpTextFragment
         
         navController.navigate(displayFragmentId)
         
         activityBinding.helpRadioGroup.apply {
-            isVisible = displayFragmentId == R.id.helpVideosFragment
+            isVisible = displayFragmentId == R.id.helpTextFragment
             if (isVisible) {
-                check(R.id.radioHelpVideos)
+                check(R.id.radioHelpText)
                 setOnCheckedChangeListener { _, checkedId ->
                     val action =
                         when (checkedId) {
-                            R.id.radioHelpText -> R.id.action_helpVideosFragment_to_helpTextFragment
-                            else -> R.id.action_helpTextFragment_to_helpVideosFragment
+                            R.id.radioHelpVideos -> R.id.action_helpTextFragment_to_helpVideosFragment
+                            else -> R.id.action_helpVideosFragment_to_helpTextFragment
                         }
                     navController.navigate(action)
                 }

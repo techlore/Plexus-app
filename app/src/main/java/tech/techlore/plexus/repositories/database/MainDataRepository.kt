@@ -99,7 +99,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                             // Icon is not in cache, preload into cache
                             glideRequestManager
                                 .load(iconUrl)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
+                                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC) // Cache strategy
                                 .preload()
                             return false
                         }

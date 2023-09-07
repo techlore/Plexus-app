@@ -105,7 +105,7 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
                         .placeholder(R.drawable.ic_apk) // Placeholder icon
                         .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
                         .centerCrop() // Center-crop the image to fill the ImageView
-                        .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC) // Cache strategy
         
                 Glide.with(context)
                     .load(favorite.iconUrl)

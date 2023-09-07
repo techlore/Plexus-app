@@ -29,8 +29,8 @@ import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySplashBinding
+import tech.techlore.plexus.fragments.bottomsheets.FirstLaunchBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.VideoPlayerBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
@@ -72,7 +72,7 @@ class SplashActivity : AppCompatActivity() {
     
     private fun afterDataRetrieved() {
         if (PreferenceManager(this@SplashActivity).getBoolean(IS_FIRST_LAUNCH)) {
-            VideoPlayerBottomSheet(R.raw.intro_video).show(supportFragmentManager, "VideoPlayerBottomSheet")
+            FirstLaunchBottomSheet().show(supportFragmentManager, "FirstLaunchBottomSheet")
         }
         else {
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))

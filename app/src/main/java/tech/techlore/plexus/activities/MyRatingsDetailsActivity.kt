@@ -152,7 +152,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
         when(menuItem.itemId) {
             
             R.id.details_menu_help -> startActivity(Intent(this@MyRatingsDetailsActivity, SettingsActivity::class.java)
-                                                        .putExtra("frag", R.id.helpVideosFragment))
+                                                        .putExtra("frag", R.id.helpTextFragment))
             
             R.id.menu_sort_user_ratings -> SortMyRatingsDetailsBottomSheet().show(supportFragmentManager, "SortMyRatingsBottomSheet")
             

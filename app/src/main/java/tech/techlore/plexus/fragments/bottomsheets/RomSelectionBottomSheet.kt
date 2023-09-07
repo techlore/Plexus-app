@@ -147,6 +147,8 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
                                                     .putExtra("installedBuild", detailsActivity.app.installedBuild)
                                                     .putExtra("installedFrom", detailsActivity.app.installedFrom)
                                                     .putExtra("isInPlexusData", detailsActivity.app.isInPlexusData))
+                
+                detailsActivity.finish()
             }
         }
         

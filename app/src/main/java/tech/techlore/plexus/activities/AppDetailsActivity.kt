@@ -111,7 +111,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 .placeholder(R.drawable.ic_apk) // Placeholder image
                 .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
                 .centerCrop() // Center-crop the image to fill the ImageView
-                .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC) // Cache strategy
         
         activityBinding.bottomAppBar.apply {
             setSupportActionBar(this)
@@ -181,10 +181,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      getString(R.string.install_app_to_submit, app.name),
                                      activityBinding.bottomAppBarRadio)
                     
-                    /*!appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
+                    !appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
-                                     activityBinding.bottomAppBarRadio)*/
+                                     activityBinding.bottomAppBarRadio)
                     
                     encryptedPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                         RomSelectionBottomSheet().show(supportFragmentManager, "RomSelectionBottomSheet")
@@ -312,7 +312,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         when(menuItem.itemId) {
             
             R.id.details_menu_help -> startActivity(Intent(this@AppDetailsActivity, SettingsActivity::class.java)
-                                                        .putExtra("frag", R.id.helpVideosFragment))
+                                                        .putExtra("frag", R.id.helpTextFragment))
             
             R.id.menu_sort_user_ratings -> SortUserRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
             

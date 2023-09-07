@@ -59,7 +59,7 @@
         tools:visibility="visible">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioHelpVideos"
+            android:id="@+id/radioHelpText"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_40"
             android:layout_margin="@dimen/margin_4"
@@ -68,12 +68,12 @@
             android:button="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
-            android:text="@string/videos"
+            android:text="@string/text"
             android:textSize="@dimen/text_16"
             android:textColor="@color/radio_btn_text_color"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioHelpText"
+            android:id="@+id/radioHelpVideos"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_40"
             android:layout_margin="@dimen/margin_4"
@@ -81,7 +81,7 @@
             android:button="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
-            android:text="@string/text"
+            android:text="@string/videos"
             android:textSize="@dimen/text_16"
             android:textColor="@color/radio_btn_text_color"/>
 
