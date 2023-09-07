@@ -63,7 +63,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
@@ -71,9 +71,9 @@ dependencies {
     implementation(project(":FastScroll"))
 
     // Navigation components
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.2")
 
     // Jackson kotlin module
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
