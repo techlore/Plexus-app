@@ -20,12 +20,17 @@
 package tech.techlore.plexus.utils
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import coil.ImageLoader
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
@@ -57,6 +62,39 @@ class UiUtils {
                 }
             
             navController.navigate(action)
+        }
+        
+        fun displayAppIcon(context: Context,
+                           imageView: ImageView,
+                           isInstalled: Boolean,
+                           packageName: String,
+                           iconUrl: String) {
+            imageView.apply {
+                if (isInstalled) {
+                    try {
+                        setImageDrawable(context.packageManager.getApplicationIcon(packageName))
+                        // Don't use Coil to load icons directly to ImageView
+                        // as there's a delay in displaying icons when fast scrolling
+                    }
+                    catch (e: PackageManager.NameNotFoundException) {
+                        e.printStackTrace()
+                    }
+                }
+                else {
+                    val imageRequest =
+                        ImageRequest.Builder(context)
+                            .data(iconUrl)
+                            .memoryCachePolicy(CachePolicy.ENABLED)
+                            .placeholder(R.drawable.ic_apk)
+                            .fallback(R.drawable.ic_apk)
+                            .target(this)
+                            .build()
+                    
+                    ImageLoader.Builder(context)
+                        .build()
+                        .enqueue(imageRequest)
+                }
+            }
         }
         
         fun mapStatusChipToScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Float, Float> {
@@ -108,28 +146,28 @@ class UiUtils {
                 else -> 4
             }
         }
-    
+        
         fun setInstalledFromTextViewStyle(context: Context, installedFrom: String, textView: MaterialTextView) {
             val (icon, installedFromText) =
                 when (installedFrom) {
-                
+                    
                     "google_play_alternative" ->
                         Pair(ContextCompat.getDrawable(context, R.drawable.ic_google_play),
                              context.getString(R.string.google_play_alt))
-                
+                    
                     "fdroid" ->
                         Pair(ContextCompat.getDrawable(context, R.drawable.ic_fdroid),
                              context.getString(R.string.fdroid))
-                
+                    
                     "apk" ->
                         Pair(ContextCompat.getDrawable(context, R.drawable.ic_apk),
                              context.getString(R.string.apk))
-                
+                    
                     else ->
                         Pair(ContextCompat.getDrawable(context, R.drawable.ic_cancel),
                              context.getString(R.string.na))
                 }
-        
+            
             textView.apply {
                 setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
                 text = installedFromText

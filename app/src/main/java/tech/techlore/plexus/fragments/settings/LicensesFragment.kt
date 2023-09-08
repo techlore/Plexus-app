@@ -59,12 +59,10 @@ class LicensesFragment : Fragment() {
                         "${getString(R.string.copyright_square)}\n\n${getString(R.string.apache_2_0_license)}",
                         getString(R.string.retrofit_license_url)))
             
-            // Glide
-            add(License(getString(R.string.glide),
-                        getString(R.string.glide_license,
-                                  getString(R.string.apache_2_0_license),
-                                  getString(R.string.mit_license)),
-                        getString(R.string.glide_license_url)))
+            // Coil
+            add(License(getString(R.string.coil),
+                        "${getString(R.string.copyright_coil)}\n\n${getString(R.string.apache_2_0_license)}",
+                        getString(R.string.coil_license_url)))
     
             // FastScroll
             add(License(getString(R.string.fastscroll),

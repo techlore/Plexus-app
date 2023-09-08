@@ -46,7 +46,7 @@
 
     <string name="jackson" translatable="false">Jackson</string>
     <string name="retrofit" translatable="false">Retrofit</string>
-    <string name="glide" translatable="false">Glide</string>
+    <string name="coil" translatable="false">Coil</string>
     <string name="fastscroll" translatable="false">AndroidFastScroll</string>
     <string name="jsoup" translatable="false">jsoup</string>
     <string name="md_icons" translatable="false">MaterialDesignIcons</string>
@@ -59,6 +59,7 @@
 
     <string name="copyright_techlore" translatable="false">Copyright © 2022-present Techlore</string>
     <string name="copyright_square" translatable="false">Copyright © 2013 Square, Inc.</string>
+    <string name="copyright_coil" translatable="false">Copyright © 2023 Coil Contributors</string>
     <string name="copyright_jsoup" translatable="false">Copyright © 2009–2023 Jonathan Hedley</string>
 
 </resources>

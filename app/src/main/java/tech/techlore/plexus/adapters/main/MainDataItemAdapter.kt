@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.adapters.main
 
-import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
@@ -27,9 +26,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
@@ -40,6 +36,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
+import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToColor
 import kotlin.collections.ArrayList
 
@@ -84,33 +81,12 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         
         val mainDataMinimal = aListViewItems[position]
         val context = holder.itemView.context
-    
-        holder.icon.apply {
-            if (mainDataMinimal.isInstalled) {
-                try {
-                    setImageDrawable(context.packageManager.getApplicationIcon(mainDataMinimal.packageName))
-                    // Don't use GLIDE to load icons directly to ImageView
-                    // as there's a delay in displaying icons when fast scrolling
-                }
-                catch (e: PackageManager.NameNotFoundException) {
-                    e.printStackTrace()
-                }
-            }
-            else {
-                val requestOptions =
-                    RequestOptions()
-                        .placeholder(R.drawable.ic_apk) // Placeholder icon
-                        .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
-                        .centerCrop() // Center-crop the image to fill the ImageView
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC) // Cache strategy
         
-                Glide.with(context)
-                    .load(mainDataMinimal.iconUrl)
-                    .onlyRetrieveFromCache(true)
-                    .apply(requestOptions)
-                    .into(this)
-            }
-        }
+        displayAppIcon(context = context,
+                       imageView = holder.icon,
+                       isInstalled = mainDataMinimal.isInstalled,
+                       packageName = mainDataMinimal.packageName,
+                       iconUrl = mainDataMinimal.iconUrl)
         
         holder.name.apply {
             text = mainDataMinimal.name
@@ -127,7 +103,7 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             backgroundTintList =
                 mapStatusStringToColor(context, mainDataMinimal.dgStatus)?.let { ColorStateList.valueOf(it) }
         }
-    
+        
         holder.mgStatus.apply {
             text = mainDataMinimal.mgStatus
             backgroundTintList =

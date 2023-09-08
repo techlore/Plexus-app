@@ -63,72 +63,7 @@
 \n
 \n- Unless expressly stated otherwise, the person who associated a work with this deed makes no warranties about the work, and disclaims liability for all uses of the work, to the fullest extent permitted by applicable law.
 \n
-\n- When using or citing the work, you should not imply endorsement by the author or the affirmer.
-</string>
-
-    <string name="glide_license" translatable="false">License for everything not in third_party and not otherwise marked:
-\n
-\nCopyright © 2014 Google, Inc. All rights reserved.
-\n
-\nRedistribution and use in source and binary forms, with or without modification, are
-\npermitted provided that the following conditions are met:
-\n
-\n1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-\n
-\n2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-\n
-\nTHIS SOFTWARE IS PROVIDED BY GOOGLE, INC. \`\`AS IS\'\' AND ANY EXPRESS OR IMPLIED
-\nWARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-\nFITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GOOGLE, INC. OR
-\nCONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-\nCONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-\nANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-\nNEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-\nADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-\n
-\nThe views and conclusions contained in the software and documentation are those of the
-\nauthors and should not be interpreted as representing official policies, either expressed
-\nor implied, of Google, Inc.
-\n
-\nLicense for third_party/disklrucache:
-\n
-\nCopyright 2012 Jake Wharton
-\nCopyright 2011 The Android Open Source Project
-\n
-\n%1$s
-\n
-\nLicense for third_party/gif_decoder:
-\n
-\nCopyright © 2013 Xcellent Creations, Inc.
-\n
-\n%2$s
-\n
-\nLicense for third_party/gif_encoder/AnimatedGifEncoder.java and
-\nthird_party/gif_encoder/LZWEncoder.java:
-\n
-\nNo copyright asserted on the source code of this class. May be used for any
-\npurpose, however, refer to the Unisys LZW patent for restrictions on use of
-\nthe associated LZWEncoder class. Please forward any corrections to
-\nkweiner@fmsware.com.
-\n
-\nLicense for third_party/gif_encoder/NeuQuant.java
-\n
-\nCopyright © 1994 Anthony Dekker
-\n
-\nNEUQUANT Neural-Net quantization algorithm by Anthony Dekker, 1994. See
-\n"Kohonen neural networks for optimal colour quantization" in "Network:
-\nComputation in Neural Systems" Vol. 5 (1994) pp 351-367. for a discussion of
-\nthe algorithm.
-\n
-\nAny party obtaining a copy of these files from the author, directly or
-\nindirectly, is granted, free of charge, a full and unrestricted irrevocable,
-\nworld-wide, paid up, royalty-free, nonexclusive right and license to deal in
-\nthis software and documentation files (the "Software"), including without
-\nlimitation the rights to use, copy, modify, merge, publish, distribute,
-\nsublicense, and/or sell copies of the Software, and to permit persons who
-\nreceive copies from any such party to do so, with the only requirement being
-\nthat this copyright notice remain intact.</string>
+\n- When using or citing the work, you should not imply endorsement by the author or the affirmer.</string>
 
     <string name="lottie_files_license" translatable="false">Copyright © 2021 Design Barn Inc.
 \n

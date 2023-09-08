@@ -35,7 +35,7 @@
     <!--Licenses fragment-->
     <string name="jackson_license_url" translatable="false">https://github.com/FasterXML/jackson-module-kotlin/blob/2.15/LICENSE</string>
     <string name="retrofit_license_url" translatable="false">https://github.com/square/retrofit/blob/master/LICENSE.txt</string>
-    <string name="glide_license_url" translatable="false">https://github.com/bumptech/glide/blob/master/LICENSE</string>
+    <string name="coil_license_url" translatable="false">https://github.com/coil-kt/coil/blob/main/LICENSE.txt</string>
     <string name="fastscroll_license_url" translatable="false">https://github.com/zhanghai/AndroidFastScroll/blob/master/LICENSE</string>
     <string name="jsoup_license_url" translatable="false">https://github.com/jhy/jsoup/blob/master/LICENSE</string>
     <string name="md_icons_license_url" translatable="false">https://github.com/Templarian/MaterialDesign/blob/master/LICENSE</string>

@@ -86,10 +86,9 @@ dependencies {
     implementation("androidx.room:room-runtime:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")
-
-    // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    ksp("com.github.bumptech.glide:compiler:4.16.0")
+    
+    // Coil
+    implementation("io.coil-kt:coil:2.4.0")
 
     // jsoup
     implementation("org.jsoup:jsoup:1.16.1")

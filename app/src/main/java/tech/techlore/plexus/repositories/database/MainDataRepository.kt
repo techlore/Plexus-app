@@ -20,14 +20,9 @@
 package tech.techlore.plexus.repositories.database
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import coil.ImageLoader
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -48,13 +43,14 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
             val apiRepository = (context.applicationContext as ApplicationManager).apiRepository
             val appsCall = apiRepository.getAppsWithScores(pageNumber = 1)
             val appsResponse = appsCall.awaitResponse()
-            val requestManager = Glide.with(context)
+            val imageLoader = ImageLoader.Builder(context).build()
+            val imageRequest = ImageRequest.Builder(context)
             
             if (appsResponse.isSuccessful) {
                 appsResponse.body()?.let { getAppsRoot ->
                     
                     // Insert/update all apps in db
-                    onRequestSuccessful(getAppsRoot, requestManager)
+                    onRequestSuccessful(getAppsRoot, imageLoader, imageRequest)
                     
                     // Retrieve remaining apps in parallel
                     if (getAppsRoot.meta.totalPages > 1) {
@@ -65,14 +61,14 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                                 val remAppsResponse = remAppsCall.awaitResponse()
                                 if (remAppsResponse.isSuccessful) {
                                     remAppsResponse.body()?.let { root ->
-                                        onRequestSuccessful(root, requestManager)
+                                        onRequestSuccessful(root, imageLoader, imageRequest)
                                     }
                                 }
-                
+                                
                             }
                             requests.add(request)
                         }
-        
+                        
                         // Wait for all requests to complete
                         requests.awaitAll()
                     }
@@ -82,38 +78,20 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
     }
     
     private suspend fun onRequestSuccessful(getAppsRoot: GetAppsRoot,
-                                            glideRequestManager: RequestManager) {
+                                            imageLoader: ImageLoader,
+                                            imageRequest: ImageRequest.Builder) {
         // Insert/update all apps in db
         getAppsRoot.appData.forEach { appData ->
             
             appData.iconUrl?.let { iconUrl ->
-                glideRequestManager
-                    .load(iconUrl)
-                    .onlyRetrieveFromCache(true)
-                    .listener(object : RequestListener<Drawable> {
-                        
-                        override fun onLoadFailed(e: GlideException?,
-                                                  model: Any?,
-                                                  target: Target<Drawable>,
-                                                  isFirstResource: Boolean): Boolean {
-                            // Icon is not in cache, preload into cache
-                            glideRequestManager
-                                .load(iconUrl)
-                                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC) // Cache strategy
-                                .preload()
-                            return false
-                        }
-                        
-                        override fun onResourceReady(resource: Drawable,
-                                                     model: Any,
-                                                     target: Target<Drawable>?,
-                                                     dataSource: DataSource,
-                                                     isFirstResource: Boolean): Boolean {
-                            // Icon is in cache, don't do anything
-                            return false
-                        }
-                    })
-                    .submit()
+                val preloadRequest =
+                    imageRequest
+                        .data(iconUrl)
+                        .diskCachePolicy(CachePolicy.ENABLED)
+                        .memoryCachePolicy(CachePolicy.DISABLED)
+                        .size(150, 150)
+                        .build()
+                imageLoader.enqueue(preloadRequest)
             }
             
             mainDataDao

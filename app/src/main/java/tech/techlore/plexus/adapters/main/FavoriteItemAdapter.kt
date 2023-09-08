@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.adapters.main
 
-import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
@@ -28,9 +27,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +37,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
+import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToColor
 import kotlin.collections.ArrayList
@@ -87,33 +84,12 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         holder.fav.setOnCheckedChangeListener(null)
         val favorite = aListViewItems[position]
         val context = holder.itemView.context
-    
-        holder.icon.apply {
-            if (favorite.isInstalled) {
-                try {
-                    setImageDrawable(context.packageManager.getApplicationIcon(favorite.packageName))
-                    // Don't use GLIDE to load icons directly to ImageView
-                    // as there's a delay in displaying icons when fast scrolling
-                }
-                catch (e: PackageManager.NameNotFoundException) {
-                    e.printStackTrace()
-                }
-            }
-            else {
-                val requestOptions =
-                    RequestOptions()
-                        .placeholder(R.drawable.ic_apk) // Placeholder icon
-                        .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
-                        .centerCrop() // Center-crop the image to fill the ImageView
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC) // Cache strategy
         
-                Glide.with(context)
-                    .load(favorite.iconUrl)
-                    .onlyRetrieveFromCache(true) // Icon should always be in cache
-                    .apply(requestOptions)
-                    .into(this)
-            }
-        }
+        displayAppIcon(context = context,
+                       imageView = holder.icon,
+                       isInstalled = favorite.isInstalled,
+                       packageName = favorite.packageName,
+                       iconUrl = favorite.iconUrl)
         
         holder.name.apply {
             text = favorite.name
@@ -130,7 +106,7 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             backgroundTintList =
                 mapStatusStringToColor(context, favorite.dgStatus)?.let { ColorStateList.valueOf(it) }
         }
-    
+        
         holder.mgStatus.apply {
             text = favorite.mgStatus
             backgroundTintList =
@@ -144,7 +120,7 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
                 coroutineScope.launch {
                     (context.applicationContext as ApplicationManager).miniRepository.updateFav(favorite)
                 }
-        
+                
                 val currentPosition = holder.bindingAdapterPosition
                 if (currentPosition != RecyclerView.NO_POSITION) {
                     coroutineScope.launch(Dispatchers.Main) {

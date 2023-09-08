@@ -20,7 +20,6 @@
 package tech.techlore.plexus.activities
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -32,9 +31,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -55,6 +51,7 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_
 import tech.techlore.plexus.utils.IntentUtils.Companion.startSubmitActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
@@ -96,7 +93,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        val encryptedPreferenceManager = EncryptedPreferenceManager(this)
+        val encPreferenceManager = EncryptedPreferenceManager(this)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         selectedVersionString = getString(R.string.any)
@@ -105,13 +102,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         val appManager = applicationContext as ApplicationManager
         val mainRepository = appManager.mainRepository
         val myRatingsRepository = appManager.myRatingsRepository
-        val requestManager = Glide.with(this)
-        val requestOptions =
-            RequestOptions()
-                .placeholder(R.drawable.ic_apk) // Placeholder image
-                .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
-                .centerCrop() // Center-crop the image to fill the ImageView
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC) // Cache strategy
         
         activityBinding.bottomAppBar.apply {
             setSupportActionBar(this)
@@ -121,26 +111,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         lifecycleScope.launch {
             app = mainRepository.getAppByPackage(intent.getStringExtra("packageName")!!)!!
             
-            // Icon
-            val requestBuilder =
-                if (!app.isInstalled) {
-                    requestManager
-                        .load(app.iconUrl)
-                        .onlyRetrieveFromCache(true) // Icon should always be in cache
-                        .apply(requestOptions)
-                }
-                else {
-                    try {
-                        requestManager
-                            .load(packageManager.getApplicationIcon(app.packageName))
-                            .apply(requestOptions)
-                    }
-                    catch (e: PackageManager.NameNotFoundException) {
-                        throw RuntimeException(e)
-                    }
-                }
+            displayAppIcon(context = this@AppDetailsActivity,
+                           imageView = activityBinding.detailsAppIcon,
+                           isInstalled = app.isInstalled,
+                           packageName = app.packageName,
+                           iconUrl = app.iconUrl!!)
             
-            requestBuilder.into(activityBinding.detailsAppIcon)
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
             
@@ -186,10 +162,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      getString(R.string.device_should_be_degoogled_or_microg),
                                      activityBinding.bottomAppBarRadio)
                     
-                    encryptedPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
+                    encPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                         RomSelectionBottomSheet().show(supportFragmentManager, "RomSelectionBottomSheet")
                     
-                    !encryptedPreferenceManager.getBoolean(IS_REGISTERED) -> {
+                    !encPreferenceManager.getBoolean(IS_REGISTERED) -> {
                         startActivity(Intent(this@AppDetailsActivity,
                                              VerificationActivity::class.java)
                                           .putExtra("name", app.name)

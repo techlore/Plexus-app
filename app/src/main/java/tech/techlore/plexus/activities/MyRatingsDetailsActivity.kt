@@ -20,7 +20,6 @@
 package tech.techlore.plexus.activities
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -32,9 +31,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
@@ -44,6 +40,7 @@ import tech.techlore.plexus.fragments.bottomsheets.SortMyRatingsDetailsBottomShe
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 
@@ -84,13 +81,6 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
         val appManager = applicationContext as ApplicationManager
         val mainRepository = appManager.mainRepository
         val myRatingsRepository = appManager.myRatingsRepository
-        val requestManager = Glide.with(this)
-        val requestOptions =
-            RequestOptions()
-                .placeholder(R.drawable.ic_apk) // Placeholder image
-                .fallback(R.drawable.ic_apk) // Fallback image in case requested image isn't available
-                .centerCrop() // Center-crop the image to fill the ImageView
-                .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache strategy
         
         activityBinding.bottomAppBar.apply {
             setSupportActionBar(this)
@@ -101,26 +91,12 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             app = mainRepository.getAppByPackage(packageNameString)!!
             myRating = myRatingsRepository.getMyRatingsByPackage(packageNameString)!!
             
-            // Icon
-            val requestBuilder =
-                if (!app.isInstalled) {
-                    requestManager
-                        .load(app.iconUrl)
-                        .onlyRetrieveFromCache(true) // Icon should always be in cache
-                        .apply(requestOptions)
-                }
-                else {
-                    try {
-                        requestManager
-                            .load(packageManager.getApplicationIcon(app.packageName))
-                            .apply(requestOptions)
-                    }
-                    catch (e: PackageManager.NameNotFoundException) {
-                        throw RuntimeException(e)
-                    }
-                }
+            displayAppIcon(context = this@MyRatingsDetailsActivity,
+                           imageView = activityBinding.detailsAppIcon,
+                           isInstalled = app.isInstalled,
+                           packageName = app.packageName,
+                           iconUrl = app.iconUrl!!)
             
-            requestBuilder.into(activityBinding.detailsAppIcon)
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
             
