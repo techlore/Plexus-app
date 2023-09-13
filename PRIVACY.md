@@ -15,7 +15,7 @@ The app requires the following permissions:
 
 
 ## Data collection
-- Your email. It will be used for verification purposes only and will be removed from our systems after verifying. This is done to: 
+- Your email. It will be used for verification purposes only and will be removed from our systems after verifying. This is done to:
   - prevent potential abuse of our API.
   - ensure accuracy of the data submitted.
 - When you submit ratings for any app, the following data is uploaded to the server:
@@ -23,15 +23,18 @@ The app requires the following permissions:
   - App package
   - App version
   - App build
+  - Installation source of the app (Google Play alternative/F-Droid/apk)
   - ROM name
   - Device brand and model (only if Stock ROM is selected)
   - ROM build
   - Android version
-  - Installation source of the app (Google Play or F-Droid)
+  - de-Googled device or microG
   - Your rating
   - Any information you optionally submit in the notes field
-- No other personally identifiable information is stored on the server.
-- This app does not contain any trackers, you can check the [εxodus report](https://reports.exodus-privacy.eu.org/en/reports/tech.techlore.plexus/latest/).
+
+Except for the data mentioned above, no other personally identifiable information is stored on the server.
+
+This app does not contain any trackers, you can check the [εxodus report](https://reports.exodus-privacy.eu.org/en/reports/tech.techlore.plexus/latest/).
 
 
 ## Changes to our privacy policy
