@@ -7,7 +7,7 @@
 
 
 ## Contributing to the app
-- Do not submit pull requests to update gradle or dependencies.
+- Do not submit pull requests to update gradle, dependencies or SDK.
 - Try not to use any deprecated libraries, dependencies or methods, if other alternatives are available.
 - Make sure the characters are properly encoded when translating strings (example: ä as \u00E4, é as \u00E9 etc).
   The strings can be found here:

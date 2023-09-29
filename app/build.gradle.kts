@@ -71,9 +71,9 @@ dependencies {
     implementation(project(":FastScroll"))
 
     // Navigation components
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.2")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.2")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
 
     // Jackson kotlin module
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
