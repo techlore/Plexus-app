@@ -71,9 +71,9 @@ dependencies {
     implementation(project(":FastScroll"))
 
     // Navigation components
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
     // Jackson kotlin module
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
@@ -83,15 +83,15 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.5.2")
-    implementation("androidx.room:room-ktx:2.5.2")
-    ksp("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-runtime:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+    ksp("androidx.room:room-compiler:2.6.0")
     
     // Coil
-    implementation("io.coil-kt:coil:2.4.0")
+    implementation("io.coil-kt:coil:2.5.0")
 
     // jsoup
-    implementation("org.jsoup:jsoup:1.16.1")
+    implementation("org.jsoup:jsoup:1.16.2")
 
     // Lottie
     implementation("com.airbnb.android:lottie:6.1.0")

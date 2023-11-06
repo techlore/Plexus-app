@@ -143,7 +143,7 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     }
     
     // Fast scroll popup
-    override fun getPopupText(position: Int): String {
+    override fun getPopupText(view: View, position: Int): CharSequence {
         return aListViewItems[position].name.substring(0, 1)
     }
     

@@ -23,11 +23,11 @@ plugins {
 
 android {
     namespace = "tech.techlore.plexus.me.zhanghai.android.fastscroll"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
     }
 
     compileOptions {
@@ -39,5 +39,5 @@ android {
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.recyclerview:recyclerview:1.3.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }

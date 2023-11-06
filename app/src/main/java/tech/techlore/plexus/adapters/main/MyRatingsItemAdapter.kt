@@ -94,7 +94,7 @@ class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
     }
     
     // Fast scroll popup
-    override fun getPopupText(position: Int): String {
+    override fun getPopupText(view: View, position: Int): CharSequence {
         return aListViewItems[position].name.substring(0, 1)
     }
 }
