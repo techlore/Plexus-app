@@ -26,7 +26,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
-import me.zhanghai.android.fastscroll.PopupTextProvider
+import me.stellarsand.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon

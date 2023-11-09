@@ -32,7 +32,7 @@ import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import me.zhanghai.android.fastscroll.PopupTextProvider
+import me.stellarsand.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.models.minimal.MainDataMinimal

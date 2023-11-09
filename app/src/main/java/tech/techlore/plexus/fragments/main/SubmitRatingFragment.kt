@@ -26,7 +26,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
@@ -93,7 +93,7 @@ class SubmitRatingFragment :
                 fragmentBinding.recyclerView.apply {
                     addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
                     adapter = installedAppItemAdapter
-                    FastScrollerBuilder(this).useMd2Style().build() // Fast scroll
+                    FastScrollerBuilder(this).build() // Fast scroll
                 }
             }
             

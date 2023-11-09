@@ -47,7 +47,7 @@
     <string name="jackson" translatable="false">Jackson</string>
     <string name="retrofit" translatable="false">Retrofit</string>
     <string name="coil" translatable="false">Coil</string>
-    <string name="fastscroll" translatable="false">AndroidFastScroll</string>
+    <string name="fastscroll" translatable="false">AndroidFastScroll-kt</string>
     <string name="jsoup" translatable="false">jsoup</string>
     <string name="md_icons" translatable="false">MaterialDesignIcons</string>
     <string name="lottie_android" translatable="false">lottie-android</string>

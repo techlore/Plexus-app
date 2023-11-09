@@ -26,7 +26,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.appmanager.ApplicationManager
@@ -84,7 +84,7 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
                                                                               this@SearchActivity,
                                                                               lifecycleScope)
                                     activityBinding.searchRv.adapter = mainDataItemAdapter
-                                    FastScrollerBuilder(activityBinding.searchRv).useMd2Style().build() // Fast scroll
+                                    FastScrollerBuilder(activityBinding.searchRv).build() // Fast scroll
                                 }
                             }
                         }

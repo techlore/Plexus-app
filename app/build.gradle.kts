@@ -68,7 +68,9 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
-    implementation(project(":FastScroll"))
+    
+    // FastScroll
+    implementation("com.github.StellarSand:AndroidFastScroll-kt:v1.0.2")
 
     // Navigation components
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")

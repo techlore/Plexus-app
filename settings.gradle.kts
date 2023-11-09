@@ -29,8 +29,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://jitpack.io")
     }
 }
+
 rootProject.name = "Plexus"
 include("app")
-include("FastScroll")
