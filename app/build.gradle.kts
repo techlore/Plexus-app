@@ -68,9 +68,6 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
-    
-    // FastScroll
-    implementation("com.github.StellarSand:AndroidFastScroll-kt:v1.0.2")
 
     // Navigation components
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
@@ -91,6 +88,9 @@ dependencies {
     
     // Coil
     implementation("io.coil-kt:coil:2.5.0")
+    
+    // FastScroll
+    implementation("com.github.StellarSand:AndroidFastScroll-kt:v1.0.3")
 
     // jsoup
     implementation("org.jsoup:jsoup:1.16.2")
