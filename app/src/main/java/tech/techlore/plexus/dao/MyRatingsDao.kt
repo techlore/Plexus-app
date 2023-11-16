@@ -66,9 +66,12 @@ interface MyRatingsDao {
     @Query("""
         SELECT * FROM my_ratings_table
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN name END ASC,
-        CASE WHEN :isAsc = 0 THEN name END DESC
+        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
+        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
     """)
     suspend fun getSortedMyRatingsByName(isAsc: Boolean): List<MyRating>
+    
+    @Query("DELETE FROM my_ratings_table")
+    suspend fun deleteAllRatings()
     
 }

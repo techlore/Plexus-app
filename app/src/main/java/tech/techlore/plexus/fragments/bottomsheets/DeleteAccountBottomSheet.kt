@@ -23,9 +23,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetDeleteAccountBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
@@ -66,12 +69,15 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
                     deleteString(DEVICE_ID)
                     deleteString(DEVICE_ROM)
                     setBoolean(IS_REGISTERED, false)
+                    lifecycleScope.launch {
+                        (requireContext().applicationContext as ApplicationManager).myRatingsRepository.deleteAllRatings()
+                    }
                 }
                 dismiss()
                 (requireActivity() as MainActivity).apply {
                     if (selectedNavItem == R.id.nav_my_ratings) {
-                        selectedNavItem = R.id.nav_plexus_data
                         clickedNavItem = R.id.nav_plexus_data
+                        selectedNavItem = clickedNavItem
                         displayFragment(clickedNavItem)
                     }
                     showSnackbar(activityBinding.mainCoordLayout,
