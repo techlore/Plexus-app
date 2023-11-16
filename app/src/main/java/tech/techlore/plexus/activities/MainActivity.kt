@@ -241,9 +241,9 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED ->
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 
-                navController.currentDestination!!.id != R.id.nav_plexus_data -> {
+                navController.currentDestination!!.label.toString() != getString(R.string.plexus_data) -> {
                     clickedNavItem = R.id.nav_plexus_data
-                    selectedNavItem = R.id.nav_plexus_data
+                    selectedNavItem = clickedNavItem
                     displayFragment(clickedNavItem)
                     activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
                 }

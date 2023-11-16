@@ -95,7 +95,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                            imageView = activityBinding.detailsAppIcon,
                            isInstalled = app.isInstalled,
                            packageName = app.packageName,
-                           iconUrl = app.iconUrl!!)
+                           iconUrl = app.iconUrl)
             
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
@@ -147,6 +147,8 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() { finish() }
+        override fun handleOnBackPressed() {
+            finish()
+        }
     }
 }

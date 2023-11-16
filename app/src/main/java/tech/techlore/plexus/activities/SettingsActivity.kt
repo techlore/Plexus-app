@@ -46,12 +46,12 @@ class SettingsActivity : AppCompatActivity() {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.settingsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         val displayFragmentId = intent.extras?.getInt("frag")!!
-    
+        
         activityBinding.toolbarBottom.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         }
-    
+        
         supportActionBar?.setDisplayShowTitleEnabled(false)
         
         activityBinding.helpRadioBottomAppBar.isVisible = displayFragmentId == R.id.helpTextFragment
@@ -79,21 +79,25 @@ class SettingsActivity : AppCompatActivity() {
             
             val preferenceManager = PreferenceManager(this@SettingsActivity)
             
-            if (preferenceManager.getBoolean(IS_FIRST_LAUNCH)) {
-                preferenceManager.setBoolean(IS_FIRST_LAUNCH, false)
-                startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
-                finish()
-                overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+            when {
+                preferenceManager.getBoolean(IS_FIRST_LAUNCH) -> {
+                    preferenceManager.setBoolean(IS_FIRST_LAUNCH, false)
+                    startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
+                    finish()
+                    overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+                }
+                
+                navController.currentDestination?.id == R.id.licensesFragment -> {
+                    navController.navigate(R.id.action_licensesFragment_to_aboutFragment)
+                }
+                
+                navController.currentDestination?.id == R.id.supportUsFragment -> {
+                    navController.navigate(R.id.action_supportUsFragment_to_aboutFragment)
+                }
+                
+                else -> finish()
             }
-            else if (navController.currentDestination?.id == R.id.licensesFragment) {
-                navController.navigate(R.id.action_licensesFragment_to_aboutFragment)
-            }
-            else if (navController.currentDestination?.id == R.id.supportUsFragment) {
-                navController.navigate(R.id.action_supportUsFragment_to_aboutFragment)
-            }
-            else {
-                finish()
-            }
+            
         }
     }
     

@@ -50,4 +50,10 @@ class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
         }
     }
     
+    suspend fun deleteAllRatings() {
+        withContext(Dispatchers.IO){
+            ratingsDao.deleteAllRatings()
+        }
+    }
+    
 }

@@ -115,7 +115,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                            imageView = activityBinding.detailsAppIcon,
                            isInstalled = app.isInstalled,
                            packageName = app.packageName,
-                           iconUrl = app.iconUrl!!)
+                           iconUrl = app.iconUrl)
             
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
@@ -307,6 +307,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() { finish() }
+        override fun handleOnBackPressed() {
+            finish()
+        }
     }
 }

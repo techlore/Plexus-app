@@ -21,7 +21,6 @@ package tech.techlore.plexus.repositories.database
 
 import android.content.Context
 import coil.ImageLoader
-import coil.request.CachePolicy
 import coil.request.ImageRequest
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -87,8 +86,6 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                 val preloadRequest =
                     imageRequest
                         .data(iconUrl)
-                        .diskCachePolicy(CachePolicy.ENABLED)
-                        .memoryCachePolicy(CachePolicy.DISABLED)
                         .size(150, 150)
                         .build()
                 imageLoader.enqueue(preloadRequest)

@@ -93,8 +93,8 @@ interface MainDataDao {
         AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN name END ASC,
-        CASE WHEN :isAsc = 0 THEN name END DESC
+        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
+        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
     """)
     suspend fun getSortedPlexusDataApps(dgScoreFrom: Float,
                                         dgScoreTo: Float,
@@ -111,8 +111,8 @@ interface MainDataDao {
         AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN name END ASC,
-        CASE WHEN :isAsc = 0 THEN name END DESC
+        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
+        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
     """)
     suspend fun getSortedInstalledApps(installedFrom: String,
                                        dgScoreFrom: Float,
@@ -130,8 +130,8 @@ interface MainDataDao {
         AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN name END ASC,
-        CASE WHEN :isAsc = 0 THEN name END DESC
+        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
+        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
     """)
     suspend fun getSortedFavApps(installedFrom: String,
                                  dgScoreFrom: Float,
@@ -145,7 +145,7 @@ interface MainDataDao {
     @Query("""
         SELECT * FROM main_table
         WHERE name LIKE '%' || :searchQuery || '%' OR packageName LIKE '%' || :searchQuery || '%'
-        ORDER BY name ASC
+        ORDER BY LOWER(name) ASC
     """)
     suspend fun searchFromDb(searchQuery: String): List<MainData>
     

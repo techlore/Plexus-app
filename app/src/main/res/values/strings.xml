@@ -174,7 +174,10 @@
     <string name="error_sending_code">Error while sending code</string>
 
     <!--Delete account-->
-    <string name="delete_account_desc">If you delete your account, you won\'t be able to submit ratings.
+    <string name="delete_account_desc">If you delete your account:
+        \n\u2022 you won\'t be able to submit ratings.
+        \n\u2022 all previously submitted ratings will be permanently removed from this device.
+        \n
         \nAre you sure you want to proceed?</string>
 
     <!--Theme-->

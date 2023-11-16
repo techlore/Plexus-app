@@ -76,7 +76,7 @@ class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
                        imageView = holder.icon,
                        isInstalled = myRating.isInstalled,
                        packageName = myRating.packageName,
-                       iconUrl = myRating.iconUrl!!)
+                       iconUrl = myRating.iconUrl)
         
         holder.name.text = myRating.name
         holder.packageName.text = myRating.packageName

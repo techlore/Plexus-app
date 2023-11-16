@@ -68,7 +68,7 @@ class UiUtils {
                            imageView: ImageView,
                            isInstalled: Boolean,
                            packageName: String,
-                           iconUrl: String) {
+                           iconUrl: String?) {
             imageView.apply {
                 if (isInstalled) {
                     try {
