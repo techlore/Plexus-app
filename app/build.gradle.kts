@@ -75,7 +75,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
     // Jackson kotlin module
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
 
     // Retrofit2
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -93,8 +93,8 @@ dependencies {
     implementation("com.github.StellarSand:AndroidFastScroll-kt:v1.0.3")
 
     // jsoup
-    implementation("org.jsoup:jsoup:1.16.2")
+    implementation("org.jsoup:jsoup:1.17.1")
 
     // Lottie
-    implementation("com.airbnb.android:lottie:6.1.0")
+    implementation("com.airbnb.android:lottie:6.2.0")
 }
