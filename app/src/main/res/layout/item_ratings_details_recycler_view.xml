@@ -47,7 +47,7 @@
         android:layout_marginTop="@dimen/margin_4"
         android:text="@string/version"
         android:textAlignment="viewStart"
-        android:textColor="@color/color_text_title"
+        android:textColor="@color/color_onSurface"
         android:textSize="@dimen/text_17"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -61,7 +61,7 @@
         android:layout_marginTop="@dimen/margin_8"
         android:text="@string/rom"
         android:textAlignment="viewStart"
-        android:textColor="@color/color_text_title"
+        android:textColor="@color/color_onSurface"
         android:textSize="@dimen/text_17"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -118,7 +118,7 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/gold_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_text_title"
+        android:textColor="@color/color_onSurface"
         style="@style/BaseChipLikeTextViewStyle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,9 @@
 <resources>
 
     <!--
+    Ensure proper encoding of characters when translating to other languages.
+    example: ä as \u00E4, é as \u00E9 etc.
+
     + = \u002B
     & = &amp;
     -->
@@ -122,7 +125,7 @@
     <string name="submissions">Submissions</string>
 
     <!--Help text fragment-->
-    <string name="icons">What do the icons mean?</string>
+    <string name="icons">Icons</string>
     <string name="not_tested_subtitle">Not available, app has not been tested</string>
     <string name="broken_title">Broken</string>
     <string name="broken_subtitle">Unusable, mostly apps that fail to open</string>

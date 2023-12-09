@@ -20,11 +20,12 @@
 package tech.techlore.plexus.activities
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import tech.techlore.plexus.R
@@ -45,7 +46,7 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
         
         val miniRepository = (applicationContext as ApplicationManager).miniRepository
         searchDataList = ArrayList()
-        var delayTimer: CountDownTimer? = null
+        var job: Job? = null
         
         // Bottom toolbar as actionbar
         activityBinding.searchToolbarBottom.apply {
@@ -63,37 +64,31 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
             }
             
             override fun onQueryTextChange(searchString: String): Boolean {
-                delayTimer?.cancel()
+                job?.cancel()
                 
                 // Search with a subtle delay
-                delayTimer = object : CountDownTimer(350, 150) {
-                    
-                    override fun onTick(millisUntilFinished: Long) {}
-                    
-                    override fun onFinish() {
-                        if (searchString.isNotEmpty()) {
-                            lifecycleScope.launch {
-                                searchDataList = miniRepository.searchFromDb(searchString)
-                                if (searchDataList.isEmpty()) {
-                                    activityBinding.searchRv.adapter = null
-                                    activityBinding.emptySearchView.visibility = View.VISIBLE
-                                }
-                                else {
-                                    activityBinding.emptySearchView.visibility = View.GONE
-                                    val mainDataItemAdapter = MainDataItemAdapter(searchDataList,
+                job = lifecycleScope.launch {
+                    delay(350)
+                    if (searchString.isNotEmpty()) {
+                            searchDataList = miniRepository.searchFromDb(searchString)
+                            if (searchDataList.isEmpty()) {
+                                activityBinding.searchRv.adapter = null
+                                activityBinding.emptySearchView.visibility = View.VISIBLE
+                            }
+                            else {
+                                activityBinding.emptySearchView.visibility = View.GONE
+                                val mainDataItemAdapter = MainDataItemAdapter(searchDataList,
                                                                               this@SearchActivity,
                                                                               lifecycleScope)
-                                    activityBinding.searchRv.adapter = mainDataItemAdapter
-                                    FastScrollerBuilder(activityBinding.searchRv).build() // Fast scroll
-                                }
+                                activityBinding.searchRv.adapter = mainDataItemAdapter
+                                FastScrollerBuilder(activityBinding.searchRv).build() // Fast scroll
                             }
-                        }
-                        else {
-                            activityBinding.searchRv.adapter = null
-                            activityBinding.emptySearchView.visibility = View.GONE
-                        }
                     }
-                }.start()
+                    else {
+                        activityBinding.searchRv.adapter = null
+                        activityBinding.emptySearchView.visibility = View.GONE
+                    }
+                }
                 
                 return true
             }

@@ -116,7 +116,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             
             navController.navigate(R.id.myRatingsDetailsFragment)
             
-            activityBinding.fab.isVisible = false
+            activityBinding.submitBtn.isVisible = false
         }
     }
     

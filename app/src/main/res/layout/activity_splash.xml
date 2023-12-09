@@ -49,6 +49,6 @@
         android:layout_marginBottom="100dp"
         android:text="@string/retrieving_data"
         android:textSize="@dimen/text_17"
-        android:textColor="@color/color_snackbar_text"/>
+        android:textColor="#E4E2E6"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

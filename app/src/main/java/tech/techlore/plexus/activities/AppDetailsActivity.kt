@@ -149,8 +149,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     it.version == app.installedVersion
                 } == true
             
-            // FAB
-            activityBinding.fab.setOnClickListener {
+            // Submit
+            activityBinding.submitBtn.setOnClickListener {
                 when {
                     !app.isInstalled ->
                         showSnackbar(activityBinding.detailsCoordLayout,

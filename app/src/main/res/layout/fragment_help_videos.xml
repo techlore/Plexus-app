@@ -78,11 +78,11 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/shape_rounded_bottom_corners"
             android:text="@string/introduction"
-            android:textColor="@color/color_snackbar_text"
+            android:textColor="@color/color_onPrimary"
             android:textSize="@dimen/text_17"
             android:drawableStart="@drawable/ic_play_circle"
             android:drawablePadding="@dimen/margin_8"
-            android:drawableTint="@color/color_snackbar_text"/>
+            android:drawableTint="@color/color_onPrimary"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/navigationThumbnail"
@@ -112,11 +112,11 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/shape_rounded_bottom_corners"
             android:text="@string/navigation"
-            android:textColor="@color/color_snackbar_text"
+            android:textColor="@color/color_onPrimary"
             android:textSize="@dimen/text_17"
             android:drawableStart="@drawable/ic_play_circle"
             android:drawablePadding="@dimen/margin_8"
-            android:drawableTint="@color/color_snackbar_text"/>
+            android:drawableTint="@color/color_onPrimary"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/submissionsThumbnail"
@@ -147,11 +147,11 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/shape_rounded_bottom_corners"
             android:text="@string/submissions"
-            android:textColor="@color/color_snackbar_text"
+            android:textColor="@color/color_onPrimary"
             android:textSize="@dimen/text_17"
             android:drawableStart="@drawable/ic_play_circle"
             android:drawablePadding="@dimen/margin_8"
-            android:drawableTint="@color/color_snackbar_text"/>
+            android:drawableTint="@color/color_onPrimary"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -40,7 +40,7 @@
         android:layout_marginStart="@dimen/margin_25"
         android:textSize="@dimen/text_17"
         android:text="@string/first_submission_desc"
-        android:textColor="@color/color_text_title"/>
+        android:textColor="@color/color_onSurface"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"

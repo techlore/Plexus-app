@@ -55,8 +55,8 @@
             app:layout_constraintStart_toStartOf="@id/iconsCard"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_12"
-            android:text="Icons"
-            android:textColor="@color/color_text_title"
+            android:text="@string/icons"
+            android:textColor="@color/color_onSurface"
             android:textSize="@dimen/text_18"
             style="@style/MediumBoldText"/>
 
@@ -122,7 +122,7 @@
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
             android:text="@string/status"
-            android:textColor="@color/color_text_title"
+            android:textColor="@color/color_onSurface"
             android:textSize="@dimen/text_18"
             style="@style/MediumBoldText"/>
 
@@ -345,7 +345,7 @@
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
             android:text="@string/other"
-            android:textColor="@color/color_text_title"
+            android:textColor="@color/color_onSurface"
             android:textSize="@dimen/text_18"
             style="@style/MediumBoldText"/>
 

@@ -60,7 +60,7 @@
             android:background="@android:color/transparent"
             app:contentInsetStartWithNavigation="0dp"
             app:title="@string/verification"
-            app:titleTextColor="@color/color_text_title"/>
+            app:titleTextColor="@color/color_onSurface"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -55,5 +55,6 @@
     <!--More options-->
     <string name="google_play_url" translatable="false">https://play.google.com/store/apps/details?id=</string>
     <string name="fdroid_url" translatable="false">https://f-droid.org/packages/</string>
+    <string name="exodus_url" translatable="false">https://reports.exodus-privacy.eu.org/en/reports/search/</string>
 
 </resources>

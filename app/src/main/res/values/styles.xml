@@ -64,9 +64,7 @@
 
         <item name="fontFamily">@font/roboto</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
-        <item name="snackbarStyle">@style/SnackbarStyle</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
-        <item name="snackbarButtonStyle">@style/SnackbarButtonStyle</item>
     </style>
 
     <!--#########################################################################################-->
@@ -88,7 +86,7 @@
     </style>
 
     <!--Nav view items texts style-->
-    <style name="NavViewText" parent="MediumBoldText">
+    <style name="NavViewText" parent="TextAppearance.Material3.ActionBar.Title">
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
@@ -98,8 +96,8 @@
     <style name="BaseChipStyle" parent="Widget.Material3.Chip.Filter">
         <item name="chipSurfaceColor">@android:color/transparent</item>
         <item name="checkedIcon">@drawable/ic_done</item>
-        <item name="checkedIconTint">@color/color_text_title</item>
-        <item name="android:textColor">@color/color_text_title</item>
+        <item name="checkedIconTint">@color/color_onSurface</item>
+        <item name="android:textColor">@color/color_onSurface</item>
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
@@ -114,7 +112,7 @@
         <item name="chipStrokeWidth">1dp</item>
         <item name="closeIconEndPadding">@dimen/margin_4</item>
         <item name="closeIconStartPadding">@dimen/margin_8</item>
-        <item name="closeIconTint">@color/color_text_title</item>
+        <item name="closeIconTint">@color/color_onSurface</item>
         <item name="closeIconSize">24dp</item>
         <item name="chipIconSize">24dp</item>
     </style>
@@ -128,7 +126,7 @@
         <item name="android:drawablePadding">@dimen/margin_8</item>
         <item name="android:background">@drawable/shape_outline</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/color_text_title</item>
+        <item name="android:textColor">@color/color_onSurface</item>
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
@@ -141,7 +139,7 @@
 
     <!--Bottom sheet rounded corners-->
     <style name="BottomSheetShapeStyle" parent="ShapeAppearance.Material3.LargeComponent">
-        <item name="cornerSize">@dimen/margin_12</item>
+        <item name="cornerSize">@dimen/margin_16</item>
     </style>
 
     <!--Bottom sheet buttons-->
@@ -158,34 +156,21 @@
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.Material3.Button">
-        <item name="backgroundTint">@color/fab_color</item>
         <item name="android:paddingStart">@dimen/margin_16</item>
         <item name="android:paddingEnd">@dimen/margin_20</item>
         <item name="android:gravity">center</item>
         <item name="icon">@drawable/ic_done</item>
         <item name="iconSize">18dp</item>
         <item name="iconPadding">@dimen/margin_4</item>
-        <item name="iconTint">@color/icon_color</item>
-        <item name="android:textColor">@color/icon_color</item>
         <item name="android:textSize">@dimen/text_16</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--Snackbar style-->
-    <style name="SnackbarStyle" parent="Widget.Material3.Snackbar">
-        <item name="android:backgroundTint">@color/color_snackbar_bg</item>
-    </style>
-
     <!--Snackbar text style-->
     <style name="SnackbarTextStyle" parent="Widget.Material3.Snackbar.TextView">
-        <item name="android:textColor">@color/color_snackbar_text</item>
         <item name="android:textSize">@dimen/text_15</item>
-    </style>
-
-    <style name="SnackbarButtonStyle" parent="Widget.Material3.Button.TextButton.Snackbar">
-        <item name="android:textColor">@color/color_snackbar_btn_text</item>
     </style>
 
 </resources>

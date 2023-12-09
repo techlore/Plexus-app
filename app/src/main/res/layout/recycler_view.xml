@@ -57,8 +57,6 @@
         android:layout_marginBottom="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
         android:src="@drawable/ic_new"
-        android:tintMode="@color/color_snackbar_text"
-        app:backgroundTint="@color/color_fab"
         android:contentDescription="@string/new_submission"
         android:visibility="gone"
         tools:visibility="visible"/>

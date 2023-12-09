@@ -64,7 +64,7 @@
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/app"
                 android:textAlignment="center"
-                android:textColor="@color/color_text_title"
+                android:textColor="@color/color_onSurface"
                 android:textSize="@dimen/text_20"
                 style="@style/MediumBoldText"/>
 
@@ -80,7 +80,7 @@
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/package_name"
                 android:textAlignment="center"
-                android:textColor="@color/color_text_title"
+                android:textColor="@color/color_onSurface"
                 android:textSize="@dimen/text_18"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -113,10 +113,10 @@
                 android:backgroundTint="@color/color_installed_from"
                 android:drawableStart="@drawable/ic_google_play"
                 android:drawablePadding="@dimen/margin_8"
-                android:drawableTint="@color/color_text_title"
+                android:drawableTint="@color/color_onSurface"
                 android:text="@string/google_play_alt"
                 android:textSize="@dimen/text_16"
-                android:textColor="@color/color_text_title"/>
+                android:textColor="@color/color_onSurface"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/dgMgText"
@@ -129,7 +129,7 @@
                 android:drawableStart="@drawable/ic_degoogled"
                 android:drawablePadding="@dimen/margin_12"
                 android:text="@string/status"
-                android:textColor="@color/color_text_title"
+                android:textColor="@color/color_onSurface"
                 android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"/>
 
@@ -199,7 +199,7 @@
                     android:minLines="4"
                     android:hint="@string/notes"
                     android:gravity="top"
-                    android:textColor="@color/color_text_title"
+                    android:textColor="@color/color_onSurface"
                     android:textSize="@dimen/text_16"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -219,10 +219,10 @@
         android:id="@+id/submitFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/submitBottomAppBar"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="80dp"
         android:src="@drawable/ic_done"
-        app:backgroundTint="@color/fab_color"
-        app:tint="@color/icon_color"
         android:contentDescription="@string/submit"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

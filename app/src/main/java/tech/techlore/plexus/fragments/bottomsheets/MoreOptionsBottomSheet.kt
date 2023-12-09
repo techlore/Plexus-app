@@ -58,6 +58,7 @@ class MoreOptionsBottomSheet(
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val playStoreString = "${getString(R.string.google_play_url)}$packageNameString"
         val fdroidString = "${getString(R.string.fdroid_url)}$packageNameString/"
+        val exodusString = "${getString(R.string.exodus_url)}$packageNameString/"
         
         headerBinding.bottomSheetTitle.text = nameString
         
@@ -71,6 +72,12 @@ class MoreOptionsBottomSheet(
         bottomSheetBinding.fdroid.setOnClickListener {
             dismiss()
             openURL(requireActivity(), fdroidString, coordinatorLayout, anchorView)
+        }
+        
+        // Exodus
+        bottomSheetBinding.exodus.setOnClickListener {
+            dismiss()
+            openURL(requireActivity(), exodusString, coordinatorLayout, anchorView)
         }
         
         // Share
@@ -87,6 +94,7 @@ class MoreOptionsBottomSheet(
                               ${getString(R.string.microG)}: $mgStatus
                               ${getString(R.string.google_play)}: $playStoreString
                               ${getString(R.string.fdroid)}: $fdroidString
+                              ${getString(R.string.exodus)}: $exodusString
                               """.trimIndent()), getString(R.string.menu_share)))
         }
         

@@ -58,7 +58,7 @@
                 android:drawableStart="@drawable/ic_liberapay"
                 android:drawablePadding="@dimen/margin_12"
                 android:text="@string/liberapay"
-                android:textColor="@color/color_text_title"
+                android:textColor="@color/color_onSurface"
                 android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"/>
 
@@ -122,7 +122,7 @@
                 android:drawableStart="@drawable/ic_monero"
                 android:drawablePadding="@dimen/margin_12"
                 android:text="@string/monero"
-                android:textColor="@color/color_text_title"
+                android:textColor="@color/color_onSurface"
                 android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"/>
 
@@ -150,7 +150,7 @@
                 android:layout_marginEnd="@dimen/margin_25"
                 android:layout_marginBottom="@dimen/margin_6.5"
                 android:text="@string/monero_address"
-                android:textColor="@color/color_text_title"
+                android:textColor="@color/color_onSurface"
                 android:textSize="@dimen/text_17"
                 android:textIsSelectable="true"/>
 

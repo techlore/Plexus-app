@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     app:navigationIcon="@drawable/ic_nav_view"
                     app:contentInsetStartWithNavigation="0dp"
-                    app:titleTextColor="@color/color_text_title"/>
+                    app:titleTextColor="@color/color_onSurface"/>
 
             </com.google.android.material.appbar.AppBarLayout>
 

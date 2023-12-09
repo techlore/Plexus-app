@@ -38,7 +38,7 @@
         android:drawablePadding="@dimen/margin_12"
         android:text="@string/enter_code_sent_to_email"
         android:textSize="@dimen/text_18"
-        android:textColor="@color/color_text_title"
+        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +57,7 @@
         android:hint="@string/verification_code"
         android:inputType="number"
         android:maxLength="6"
-        android:textColor="@color/color_text_title"
+        android:textColor="@color/color_onSurface"
         android:textSize="@dimen/text_16"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,10 +65,11 @@
         android:id="@+id/doneButton"
         android:layout_width="180dp"
         android:layout_height="55dp"
+        app:icon="@drawable/ic_done"
         app:iconGravity="textStart"
         app:iconPadding="@dimen/margin_8"
         android:text="@string/done"
-        style="@style/PositiveButtonStyle"
+        android:textSize="@dimen/text_16"
         android:enabled="false"/>
 
     <com.airbnb.lottie.LottieAnimationView
