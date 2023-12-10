@@ -19,10 +19,10 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_marginBottom="@dimen/margin_4"
     android:paddingStart="@dimen/margin_8"
@@ -43,7 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16"
+        app:iconTint="@color/btn_text_color"
         android:text="@string/done"
+        android:textColor="@color/btn_text_color"
         style="@style/PositiveButtonStyle"/>
 
 </LinearLayout>

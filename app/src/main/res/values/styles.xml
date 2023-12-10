@@ -161,8 +161,10 @@
         <item name="android:gravity">center</item>
         <item name="icon">@drawable/ic_done</item>
         <item name="iconSize">18dp</item>
+        <item name="iconTint">@color/color_inverseOnSurface</item>
         <item name="iconPadding">@dimen/margin_4</item>
         <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/color_inverseOnSurface</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 

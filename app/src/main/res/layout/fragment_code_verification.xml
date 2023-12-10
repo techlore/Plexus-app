@@ -65,12 +65,13 @@
         android:id="@+id/doneButton"
         android:layout_width="180dp"
         android:layout_height="55dp"
-        app:icon="@drawable/ic_done"
         app:iconGravity="textStart"
         app:iconPadding="@dimen/margin_8"
+        app:iconTint="@color/btn_text_color"
         android:text="@string/done"
-        android:textSize="@dimen/text_16"
-        android:enabled="false"/>
+        android:textColor="@color/btn_text_color"
+        android:enabled="false"
+        style="@style/PositiveButtonStyle"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/infoAnim"

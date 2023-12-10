@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="65dp"
-        android:background="@drawable/shape_outline"
+        android:background="@drawable/shape_radio_group"
         android:orientation="horizontal"
         android:visibility="gone"
         tools:visibility="visible">
