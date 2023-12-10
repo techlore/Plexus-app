@@ -149,7 +149,7 @@
         android:layout_marginBottom="@dimen/margin_4"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:background="@drawable/shape_outline">
+        android:background="@drawable/shape_radio_group">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radioAnyStatus"

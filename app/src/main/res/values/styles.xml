@@ -108,6 +108,7 @@
 
     <style name="BaseThemeChipStyle" parent="BaseChipStyle">
         <item name="chipBackgroundColor">@color/chip_bg_color</item>
+        <item name="chipCornerRadius">@dimen/margin_12</item>
         <item name="chipStrokeColor">@color/chip_stroke_color</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="closeIconEndPadding">@dimen/margin_4</item>

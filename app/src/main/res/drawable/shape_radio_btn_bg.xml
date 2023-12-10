@@ -21,7 +21,7 @@
     <item android:state_checked="true">
         <shape android:shape="rectangle">
             <solid android:color="@color/color_primary"/>
-            <corners android:radius="@dimen/margin_8"/>
+            <corners android:radius="@dimen/margin_12"/>
         </shape>
     </item>
 </selector>
