@@ -67,15 +67,14 @@ class PlexusDataFragment :
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        preferenceManager = PreferenceManager(requireContext())
         appManager = requireContext().applicationContext as ApplicationManager
+        preferenceManager = appManager.preferenceManager
         mainActivity = requireActivity() as MainActivity
         miniRepository = appManager.miniRepository
         
         lifecycleScope.launch{
             plexusDataList =
-                miniRepository.miniPlexusDataListFromDB(context = requireContext(),
-                                                        statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                miniRepository.miniPlexusDataListFromDB(statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                         orderPref = preferenceManager.getInt(A_Z_SORT))
     
             if (plexusDataList.isEmpty()) {
@@ -107,8 +106,7 @@ class PlexusDataFragment :
             lifecycleScope.launch{
                 plexusDataItemAdapter
                     .updateList(miniRepository
-                                    .miniPlexusDataListFromDB(context = requireContext(),
-                                                              statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                    .miniPlexusDataListFromDB(statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                               orderPref = preferenceManager.getInt(A_Z_SORT)))
                 appManager.submitSuccessful = false
             }
@@ -129,8 +127,7 @@ class PlexusDataFragment :
                 mainRepository.plexusDataIntoDB(requireContext())
                 plexusDataItemAdapter
                     .updateList(miniRepository
-                                    .miniPlexusDataListFromDB(context = requireContext(),
-                                                              statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                    .miniPlexusDataListFromDB(statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                               orderPref = preferenceManager.getInt(A_Z_SORT)))
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
             }

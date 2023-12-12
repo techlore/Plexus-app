@@ -23,6 +23,7 @@ import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.minimal.MainDataMinimal
@@ -33,6 +34,8 @@ import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToScoreRange
 
 class MainDataMinimalRepository(private val context: Context, private val mainDataDao: MainDataDao) {
+    
+    private val appManager = context.applicationContext as ApplicationManager
     
     private suspend fun mapToMinimalData(mainData: MainData): MainDataMinimal {
         return withContext(Dispatchers.IO) {
@@ -48,12 +51,11 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    suspend fun miniPlexusDataListFromDB(context: Context,
-                                         statusRadioPref: Int,
+    suspend fun miniPlexusDataListFromDB(statusRadioPref: Int,
                                          orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
-            val preferenceManager = PreferenceManager(context)
+            val preferenceManager = appManager.preferenceManager
             
             val (dgScoreFrom, dgScoreTo) =
                 getScoreRange(preferenceManager, statusRadioPref, R.id.radioDgStatus, DG_STATUS_SORT)
@@ -70,13 +72,12 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    suspend fun miniInstalledAppsListFromDB(context: Context,
-                                            installedFromPref: Int,
+    suspend fun miniInstalledAppsListFromDB(installedFromPref: Int,
                                             statusRadioPref: Int,
                                             orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
-            val preferenceManager = PreferenceManager(context)
+            val preferenceManager = appManager.preferenceManager
             
             val installedFrom =
                 when(installedFromPref) {
@@ -101,13 +102,12 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    suspend fun miniFavListFromDB(context: Context,
-                                  installedFromPref: Int,
+    suspend fun miniFavListFromDB(installedFromPref: Int,
                                   statusRadioPref: Int,
                                   orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
-            val preferenceManager = PreferenceManager(context)
+            val preferenceManager = appManager.preferenceManager
             
             val installedFrom =
                 when(installedFromPref) {

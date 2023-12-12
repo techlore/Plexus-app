@@ -27,10 +27,10 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
-import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
@@ -55,7 +55,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val preferenceManager = PreferenceManager(requireContext())
+        val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
         val isInstalledAppsFragment =
             navController.currentDestination!!.id in setOf(R.id.submitRatingFragment, R.id.favoritesFragment)
         val isMyRatingsFragment =

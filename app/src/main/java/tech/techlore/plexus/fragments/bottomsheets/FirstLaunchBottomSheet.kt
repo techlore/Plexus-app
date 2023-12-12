@@ -35,8 +35,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.SettingsActivity
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFirstLaunchBinding
-import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 
 class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
@@ -111,7 +111,8 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
         
         // Skip
         bottomSheetBinding.skipButton.setOnClickListener {
-            PreferenceManager(requireActivity()).setBoolean(IS_FIRST_LAUNCH, false)
+            (requireContext().applicationContext as ApplicationManager)
+                .preferenceManager.setBoolean(IS_FIRST_LAUNCH, false)
             startActivity(Intent(requireActivity(), MainActivity::class.java))
             onDestroy()
         }

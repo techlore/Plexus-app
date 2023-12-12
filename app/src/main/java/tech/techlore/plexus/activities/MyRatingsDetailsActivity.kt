@@ -71,14 +71,14 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        preferenceManager = PreferenceManager(this)
+        val appManager = applicationContext as ApplicationManager
+        preferenceManager = appManager.preferenceManager
         navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         packageNameString = intent.getStringExtra("packageName")!!
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
-        val appManager = applicationContext as ApplicationManager
         val mainRepository = appManager.mainRepository
         val myRatingsRepository = appManager.myRatingsRepository
         

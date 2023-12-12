@@ -28,10 +28,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
-import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 
 class ThemeBottomSheet : BottomSheetDialogFragment() {
@@ -51,7 +51,7 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         
         val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val preferenceManager = PreferenceManager(requireContext())
+        val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
         
         headerBinding.bottomSheetTitle.setText(R.string.theme)
         

@@ -116,7 +116,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                             buildNumber = submitActivity.installedBuild,
                             romName = encPreferenceManager.getString(DEVICE_ROM)!!,
                             romBuild = Build.DISPLAY,
-                            androidVersion = mapAndroidVersionIntToString(),
+                            androidVersion = getAndroidVersionString(),
                             installedFrom = submitActivity.installedFromString,
                             ratingType = if (appManager.deviceIsMicroG) "micro_g" else "native",
                             score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
@@ -315,7 +315,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         }
     }
     
-    private fun mapAndroidVersionIntToString(): String {
+    private fun getAndroidVersionString(): String {
         return when(Build.VERSION.SDK_INT) {
             23 -> "6.0"
             24 -> "7.0"

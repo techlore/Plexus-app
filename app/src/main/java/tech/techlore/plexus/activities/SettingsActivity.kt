@@ -27,8 +27,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySettingsBinding
-import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 
 class SettingsActivity : AppCompatActivity() {
@@ -77,7 +77,7 @@ class SettingsActivity : AppCompatActivity() {
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             
-            val preferenceManager = PreferenceManager(this@SettingsActivity)
+            val preferenceManager = (applicationContext as ApplicationManager).preferenceManager
             
             when {
                 preferenceManager.getBoolean(IS_FIRST_LAUNCH) -> {

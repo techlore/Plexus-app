@@ -31,7 +31,6 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySplashBinding
 import tech.techlore.plexus.fragments.bottomsheets.FirstLaunchBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
-import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
@@ -71,7 +70,7 @@ class SplashActivity : AppCompatActivity() {
     }
     
     private fun afterDataRetrieved() {
-        if (PreferenceManager(this@SplashActivity).getBoolean(IS_FIRST_LAUNCH)) {
+        if ((applicationContext as ApplicationManager).preferenceManager.getBoolean(IS_FIRST_LAUNCH)) {
             FirstLaunchBottomSheet().show(supportFragmentManager, "FirstLaunchBottomSheet")
         }
         else {

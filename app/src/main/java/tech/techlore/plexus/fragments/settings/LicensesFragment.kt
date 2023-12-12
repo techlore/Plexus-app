@@ -93,6 +93,11 @@ class LicensesFragment : Fragment() {
             add(License(getString(R.string.fdroid_icon),
                         getString(R.string.cc_3_0_license),
                         getString(R.string.fdroid_icon_license_url)))
+            
+            // Exodus icon
+            add(License(getString(R.string.exodus_icon),
+                        getString(R.string.agpl_3_0_license),
+                        getString(R.string.exodus_icon_license_url)))
     
             // microG icon
             add(License(getString(R.string.microG_icon),

@@ -64,15 +64,14 @@ class FavoritesFragment:
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        preferenceManager = PreferenceManager(requireContext())
         appManager = requireContext().applicationContext as ApplicationManager
+        preferenceManager = appManager.preferenceManager
         mainActivity = requireActivity() as MainActivity
         miniRepository = appManager.miniRepository
         
         lifecycleScope.launch{
             favList =
-                miniRepository.miniFavListFromDB(context = requireContext(),
-                                                 installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
+                miniRepository.miniFavListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                  statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                  orderPref = preferenceManager.getInt(A_Z_SORT))
     
@@ -101,8 +100,7 @@ class FavoritesFragment:
             lifecycleScope.launch{
                 favItemAdapter
                     .updateList(miniRepository
-                                    .miniFavListFromDB(context = requireContext(),
-                                                       installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
+                                    .miniFavListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                        statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                        orderPref = preferenceManager.getInt(A_Z_SORT)))
                 appManager.submitSuccessful = false

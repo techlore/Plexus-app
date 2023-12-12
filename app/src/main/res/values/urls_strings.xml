@@ -42,6 +42,7 @@
     <string name="lottie_android_license_url" translatable="false">https://github.com/airbnb/lottie-android/blob/master/LICENSE</string>
     <string name="lottie_files_license_url" translatable="false">https://lottiefiles.com/page/license</string>
     <string name="fdroid_icon_license_url" translatable="false">https://f-droid.org/en/about/</string>
+    <string name="exodus_icon_license_url" translatable="false">https://github.com/Exodus-Privacy/website/blob/hugo/LICENSE</string>
     <string name="microG_icon_license_url" translatable="false">https://microg.org/</string>
     <string name="liberapay_icon_license_url" translatable="false">https://liberapay.com/about/logos</string>
     <string name="monero_icon_license_url" translatable="false">https://www.getmonero.org/legal/</string>

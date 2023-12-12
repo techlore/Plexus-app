@@ -66,8 +66,8 @@ class SubmitRatingFragment :
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        preferenceManager = PreferenceManager(requireContext())
         appManager = requireContext().applicationContext as ApplicationManager
+        preferenceManager = appManager.preferenceManager
         mainActivity = requireActivity() as MainActivity
         miniRepository = appManager.miniRepository
         
@@ -78,8 +78,7 @@ class SubmitRatingFragment :
             mainActivity.activityBinding.toolbarBottom.title = getString(R.string.submit_rating)
             
             installedAppsList =
-                miniRepository.miniInstalledAppsListFromDB(context = requireContext(),
-                                                           installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
+                miniRepository.miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                            statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                            orderPref = preferenceManager.getInt(A_Z_SORT))
             
@@ -112,8 +111,7 @@ class SubmitRatingFragment :
             lifecycleScope.launch {
                 installedAppItemAdapter
                     .updateList(miniRepository
-                                    .miniInstalledAppsListFromDB(context = requireContext(),
-                                                                 installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
+                                    .miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                                  statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                                  orderPref = preferenceManager.getInt(A_Z_SORT)))
                 appManager.submitSuccessful = false
@@ -134,8 +132,7 @@ class SubmitRatingFragment :
             fragmentBinding.swipeRefreshLayout.isRefreshing = false
             installedAppItemAdapter
                 .updateList(miniRepository
-                                .miniInstalledAppsListFromDB(context = requireContext(),
-                                                             installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
+                                .miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
                                                              statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                              orderPref = preferenceManager.getInt(A_Z_SORT)))
         }

@@ -38,7 +38,7 @@
     <string name="google_play" translatable="false">Google Play</string>
     <string name="google_play_alt" translatable="false">Google Play alt</string>
     <string name="fdroid" translatable="false">F-Droid</string>
-    <string name="exodus" translatable="false">Exodus privacy</string>
+    <string name="exodus" translatable="false">Exodus Privacy</string>
     <string name="apk" translatable="false">apk</string>
 
     <string name="liberapay" translatable="false">Liberapay</string>
@@ -54,11 +54,11 @@
     <string name="lottie_android" translatable="false">lottie-android</string>
     <string name="lottie_files" translatable="false">LottieFiles</string>
     <string name="fdroid_icon" translatable="false">F-Droid icon</string>
+    <string name="exodus_icon" translatable="false">Exodus Privacy icon</string>
     <string name="microG_icon" translatable="false">microG icon</string>
     <string name="liberapay_icon" translatable="false">Liberapay icon</string>
     <string name="monero_icon" translatable="false">Monero icon</string>
 
-    <string name="copyright_techlore" translatable="false">Copyright © 2022-present Techlore</string>
     <string name="copyright_square" translatable="false">Copyright © 2013 Square, Inc.</string>
     <string name="copyright_coil" translatable="false">Copyright © 2023 Coil Contributors</string>
     <string name="copyright_jsoup" translatable="false">Copyright © 2009–2023 Jonathan Hedley</string>

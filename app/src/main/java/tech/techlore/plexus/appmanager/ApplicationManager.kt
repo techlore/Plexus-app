@@ -39,6 +39,7 @@ import tech.techlore.plexus.repositories.database.MyRatingsRepository
 class ApplicationManager : Application() {
     
     // Using by lazy so database and repositories are only created when they're needed
+    val preferenceManager by lazy { PreferenceManager(this) }
     private val apiService by lazy { apiBuilder() }
     private val database by lazy { getDatabase(this) }
     
@@ -53,8 +54,6 @@ class ApplicationManager : Application() {
     
     override fun onCreate() {
         super.onCreate()
-
-        val preferenceManager = PreferenceManager(this)
 
         // Theme
         when (preferenceManager.getInt(THEME)) {

@@ -39,7 +39,6 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.myratings.MyRating
-import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
@@ -67,10 +66,12 @@ class MyRatingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         mainActivity = requireActivity() as MainActivity
-        myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
+        val appManager = requireContext().applicationContext as ApplicationManager
+        myRatingsRepository = appManager.myRatingsRepository
         
         lifecycleScope.launch{
-            myRatingsList = myRatingsRepository.getSortedMyRatingsByName(orderPref = PreferenceManager(requireContext()).getInt(A_Z_SORT))
+            myRatingsList =
+                myRatingsRepository.getSortedMyRatingsByName(orderPref = appManager.preferenceManager.getInt(A_Z_SORT))
             
             if (myRatingsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
@@ -79,7 +80,7 @@ class MyRatingsFragment :
                     .apply {
                         setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
                         text =
-                            if (PreferenceManager(requireContext()).getBoolean(IS_FIRST_SUBMISSION)) {
+                            if (appManager.preferenceManager.getBoolean(IS_FIRST_SUBMISSION)) {
                                 getString(R.string.no_ratings_available) +
                                 "\n\n" +
                                 getString(R.string.submit_first_rating)
