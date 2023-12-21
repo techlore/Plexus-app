@@ -53,15 +53,15 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
         val isInstalledAppsFragment =
             navController.currentDestination!!.id in setOf(R.id.submitRatingFragment, R.id.favoritesFragment)
         val isMyRatingsFragment =
             navController.currentDestination!!.id == R.id.myRatingsFragment
-    
-        headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
+        
+        // Title
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
     
         // Default alphabetical checked chip
         if (preferenceManager.getInt(A_Z_SORT) == 0) {
@@ -150,8 +150,8 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         footerBinding.negativeButton.setOnClickListener { dismiss() }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

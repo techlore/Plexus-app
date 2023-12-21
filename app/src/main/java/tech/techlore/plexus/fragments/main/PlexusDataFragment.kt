@@ -102,13 +102,13 @@ class PlexusDataFragment :
     
     override fun onResume() {
         super.onResume()
-        if (appManager.submitSuccessful) {
+        if (appManager.isDataUpdated) {
             lifecycleScope.launch{
                 plexusDataItemAdapter
                     .updateList(miniRepository
                                     .miniPlexusDataListFromDB(statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
                                                               orderPref = preferenceManager.getInt(A_Z_SORT)))
-                appManager.submitSuccessful = false
+                appManager.isDataUpdated = false
             }
         }
     }

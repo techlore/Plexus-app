@@ -99,14 +99,12 @@
     <style name="InstalledFromTextViewTheme" parent="BaseChipLikeTextViewStyle">
         <item name="android:drawableTint">@color/color_onSurface</item>
         <item name="backgroundTint">@color/color_installed_from</item>
-        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="AndroidVersionTextViewTheme" parent="BaseChipLikeTextViewStyle">
         <item name="android:drawableStart">@drawable/ic_android_version</item>
         <item name="android:drawableTint">@color/color_onSurface</item>
         <item name="backgroundTint">@color/color_android_version</item>
-        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
     <!--#########################################################################################-->

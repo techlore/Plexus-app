@@ -79,7 +79,7 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
                 
                 override fun onAnimationEnd(animation: Animator) {
                     val fadeIn = AlphaAnimation(0.5f, 1.0f)
-                    fadeIn.duration = 600
+                    fadeIn.duration = 500
                     bottomSheetBinding.welcomeTextDesc.apply {
                         isVisible = true
                         startAnimation(fadeIn)
@@ -118,10 +118,9 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
         }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
-        requireActivity().finish()
-        requireActivity().overridePendingTransition(R.anim.slide_from_end, R.anim.slide_to_start)
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
+        requireActivity().finish()
     }
 }

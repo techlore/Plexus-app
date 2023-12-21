@@ -19,17 +19,13 @@
   ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="25dp"
-        android:layout_height="4.5dp"
-        android:backgroundTint="@color/color_drag_handle"
-        app:strokeColor="@android:color/transparent"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_8"
-        android:layout_marginBottom="@dimen/margin_16"/>
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/dragHandle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bottomSheetTitle"
@@ -37,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_25"
         android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/bottom_sheet_title"
         android:textSize="@dimen/text_18"

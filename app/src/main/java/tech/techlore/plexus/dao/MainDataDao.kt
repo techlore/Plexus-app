@@ -45,39 +45,31 @@ interface MainDataDao {
         
         val existingData = getAppByPackage(mainData.packageName)
         
-        existingData.apply {
-            if (this == null) {
-                insert(mainData)
-            }
-            else {
-                name = mainData.name
-                dgScore = mainData.dgScore
-                totalDgRatings = mainData.totalDgRatings
-                mgScore = mainData.mgScore
-                totalMgRatings = mainData.totalMgRatings
-                isInPlexusData = mainData.isInPlexusData
-                update(this)
-            }
-        }
+        existingData?.apply {
+            name = mainData.name
+            dgScore = mainData.dgScore
+            totalDgRatings = mainData.totalDgRatings
+            mgScore = mainData.mgScore
+            totalMgRatings = mainData.totalMgRatings
+            isInPlexusData = mainData.isInPlexusData
+            update(this)
+        } ?: insert(mainData)
     }
     
     @Transaction
     suspend fun insertOrUpdateInstalledApps(mainData: MainData) {
-    
+        
         val existingApp = getAppByPackage(mainData.packageName)
-    
-        existingApp.apply {
-            if (this == null) {
-                mainData.isInPlexusData = false
-                insert(mainData)
-            }
-            else {
-                installedVersion = mainData.installedVersion
-                installedBuild = mainData.installedBuild
-                isInstalled = mainData.isInstalled
-                installedFrom = mainData.installedFrom
-                update(this)
-            }
+        
+        existingApp?.apply {
+            installedVersion = mainData.installedVersion
+            installedBuild = mainData.installedBuild
+            isInstalled = mainData.isInstalled
+            installedFrom = mainData.installedFrom
+            update(this)
+        } ?: run {
+            mainData.isInPlexusData = false
+            insert(mainData)
         }
     }
     

@@ -23,12 +23,17 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.activities.VerificationActivity
@@ -43,7 +48,11 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetRomSelectionBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private var timer: CountDownTimer? = null
+    private var job: Job? = null
+    
+    private companion object {
+        const val NO_MATCH_FOUND = -1
+    }
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -55,12 +64,10 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = EncryptedPreferenceManager(requireContext())
-        var remSecs: Int
         
-        headerBinding.bottomSheetTitle.text = getString(R.string.new_submission)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.new_submission)
         
         val customRomsList = resources.getStringArray(R.array.custom_roms)
         val truncatedCustomRomsList =
@@ -101,7 +108,8 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
         // ROM dropdown
         bottomSheetBinding.romDropdownMenu.apply {
             setText(
-                if (romNameIndex != -1) allRomsDropdownList[romNameIndex + 2] else allRomsDropdownList[0]
+                if (romNameIndex != NO_MATCH_FOUND) allRomsDropdownList[romNameIndex + 2]
+                else allRomsDropdownList[0]
                 // allRomsDropdownList[romNameIndex + 2]
                 // because allRomsDropdownList has two extra items "Select" & "Stock (device)",
                 // not present in truncatedCustomRomsList
@@ -113,7 +121,7 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
             setAdapter(adapter)
             
             setOnItemClickListener { _, _, position, _ ->
-                footerBinding.positiveButton.isEnabled = position != 0 && timer == null
+                footerBinding.positiveButton.isEnabled = position != 0 && job == null
             }
         }
         
@@ -121,32 +129,32 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
         footerBinding.positiveButton.apply {
             isEnabled = false
             
-            timer = object : CountDownTimer(5000, 1000) {
-                
-                override fun onTick(millisUntilFinished: Long) {
-                    remSecs = (millisUntilFinished / 1000).toInt() + 1 // Show 5s..1s instead of 4s..0s
-                    @SuppressLint("SetTextI18n")
-                    text = "${getString(R.string.proceed)} ${remSecs}s"
+            job = lifecycleScope.launch {
+                for (i in 5 downTo 1) {
+                    withContext(Dispatchers.Main) {
+                        @SuppressLint("SetTextI18n")
+                        text = "${getString(R.string.proceed)} ${i}s"
+                    }
+                    delay(1000)
                 }
-                
-                override fun onFinish() {
+                withContext(Dispatchers.Main) {
                     text = getString(R.string.proceed)
                     isEnabled = bottomSheetBinding.romDropdownMenu.text.toString() != allRomsDropdownList[0]
-                    timer = null
+                    job = null
                 }
-            }.start()
+            }
             
             setOnClickListener {
                 preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
                 dismiss()
                 val detailsActivity = requireActivity() as AppDetailsActivity
                 detailsActivity.startActivity(Intent(detailsActivity, VerificationActivity::class.java)
-                                                    .putExtra("name", detailsActivity.app.name)
-                                                    .putExtra("packageName", detailsActivity.app.packageName)
-                                                    .putExtra("installedVersion", detailsActivity.app.installedVersion)
-                                                    .putExtra("installedBuild", detailsActivity.app.installedBuild)
-                                                    .putExtra("installedFrom", detailsActivity.app.installedFrom)
-                                                    .putExtra("isInPlexusData", detailsActivity.app.isInPlexusData))
+                                                  .putExtra("name", detailsActivity.app.name)
+                                                  .putExtra("packageName", detailsActivity.app.packageName)
+                                                  .putExtra("installedVersion", detailsActivity.app.installedVersion)
+                                                  .putExtra("installedBuild", detailsActivity.app.installedBuild)
+                                                  .putExtra("installedFrom", detailsActivity.app.installedFrom)
+                                                  .putExtra("isInPlexusData", detailsActivity.app.isInPlexusData))
                 
                 detailsActivity.finish()
             }
@@ -156,9 +164,9 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
         footerBinding.negativeButton.setOnClickListener { dismiss() }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
-        timer?.cancel()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        job?.cancel()
         _binding = null
     }
 }

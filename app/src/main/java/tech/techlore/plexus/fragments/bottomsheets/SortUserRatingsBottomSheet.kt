@@ -57,11 +57,11 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val detailsActivity = requireActivity() as AppDetailsActivity
         
-        headerBinding.bottomSheetTitle.text = getString(R.string.menu_sort)
+        // Title
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
         
         // Version dropdown
         bottomSheetBinding.ratingsVersionDropdownMenu.apply {
@@ -143,8 +143,8 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         footerBinding.negativeButton.setOnClickListener { dismiss() }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

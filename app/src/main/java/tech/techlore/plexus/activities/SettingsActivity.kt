@@ -84,7 +84,7 @@ class SettingsActivity : AppCompatActivity() {
                     preferenceManager.setBoolean(IS_FIRST_LAUNCH, false)
                     startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
                     finish()
-                    overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+                    overridePendingTransition(R.anim.slide_from_start, R.anim.slide_to_end)
                 }
                 
                 navController.currentDestination?.id == R.id.licensesFragment -> {

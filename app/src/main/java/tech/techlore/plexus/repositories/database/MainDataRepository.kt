@@ -141,9 +141,26 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
         }
     }
     
-    suspend fun insertOrUpdatePlexusData(mainData: MainData) {
-        return withContext(Dispatchers.IO) {
-            mainDataDao.insertOrUpdatePlexusData(mainData)
+    suspend fun updateSingleApp(context: Context, packageName: String) {
+        withContext(Dispatchers.IO) {
+            val apiRepository = (context.applicationContext as ApplicationManager).apiRepository
+            val singleAppCall = apiRepository.getSingleAppWithScores(packageName)
+            val singleAppResponse = singleAppCall.awaitResponse()
+            if (singleAppResponse.isSuccessful) {
+                singleAppResponse.body()?.let { getSingleAppRoot ->
+                    val appData = getSingleAppRoot.appData
+                    mainDataDao
+                        .insertOrUpdatePlexusData(MainData(name = appData.name,
+                                                           packageName = appData.packageName,
+                                                           iconUrl = appData.iconUrl ?: "",
+                                                           dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
+                                                           totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
+                                                           mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
+                                                           totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
+                                                           isInPlexusData = true))
+                }
+            }
         }
     }
+    
 }

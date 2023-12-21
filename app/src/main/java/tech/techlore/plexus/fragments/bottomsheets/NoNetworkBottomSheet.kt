@@ -27,6 +27,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
@@ -68,12 +69,21 @@ class NoNetworkBottomSheet(
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+        
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         
         // Title
-        headerBinding.bottomSheetTitle.text = getString(R.string.no_network_title)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).apply {
+            dragHandle.isVisible = false
+            bottomSheetTitle.apply {
+                text = getString(R.string.no_network_title)
+                // Set margin top to 12 dp, since drag handle is not visible now
+                val params = layoutParams as ViewGroup.MarginLayoutParams
+                val topMargin = (12 * requireContext().resources.displayMetrics.density).toInt()
+                params.setMargins(params.leftMargin, topMargin, params.rightMargin, params.bottomMargin)
+                requestLayout()
+            }
+        }
     
         // Retry
         footerBinding.positiveButton.apply {
@@ -95,8 +105,8 @@ class NoNetworkBottomSheet(
         }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

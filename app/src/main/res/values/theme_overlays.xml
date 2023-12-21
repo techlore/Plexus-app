@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022-present Techlore
+  ~
+  ~  This file is part of Plexus.
+  ~
+  ~  Plexus is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  (at your option) any later version.
+  ~
+  ~  Plexus is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <style name="ThemeOverlay.AppTheme.MediumContrast" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_primary_mediumContrast</item>
+        <item name="colorOnPrimary">@color/color_onPrimary_mediumContrast</item>
+        <item name="colorPrimaryContainer">@color/color_primaryContainer_mediumContrast</item>
+        <item name="colorOnPrimaryContainer">@color/color_onPrimaryContainer_mediumContrast</item>
+        <item name="colorSecondary">@color/color_secondary_mediumContrast</item>
+        <item name="colorOnSecondary">@color/color_onSecondary_mediumContrast</item>
+        <item name="colorSecondaryContainer">@color/color_secondaryContainer_mediumContrast</item>
+        <item name="colorOnSecondaryContainer">@color/color_onSecondaryContainer_mediumContrast</item>
+        <item name="colorTertiary">@color/color_tertiary_mediumContrast</item>
+        <item name="colorOnTertiary">@color/color_onTertiary_mediumContrast</item>
+        <item name="colorTertiaryContainer">@color/color_tertiaryContainer_mediumContrast</item>
+        <item name="colorOnTertiaryContainer">@color/color_onTertiaryContainer_mediumContrast</item>
+        <item name="colorError">@color/color_error_mediumContrast</item>
+        <item name="colorOnError">@color/color_onError_mediumContrast</item>
+        <item name="colorErrorContainer">@color/color_errorContainer_mediumContrast</item>
+        <item name="colorOnErrorContainer">@color/color_onErrorContainer_mediumContrast</item>
+        <item name="android:colorBackground">@color/color_background_mediumContrast</item>
+        <item name="colorOnBackground">@color/color_onBackground_mediumContrast</item>
+        <item name="colorSurface">@color/color_surface_mediumContrast</item>
+        <item name="colorOnSurface">@color/color_onSurface_mediumContrast</item>
+        <item name="colorSurfaceVariant">@color/color_surfaceVariant_mediumContrast</item>
+        <item name="colorOnSurfaceVariant">@color/color_onSurfaceVariant_mediumContrast</item>
+        <item name="colorOutline">@color/color_outline_mediumContrast</item>
+        <item name="colorOutlineVariant">@color/color_outlineVariant_mediumContrast</item>
+        <item name="colorSurfaceInverse">@color/color_inverseSurface_mediumContrast</item>
+        <item name="colorOnSurfaceInverse">@color/color_inverseOnSurface_mediumContrast</item>
+        <item name="colorPrimaryInverse">@color/color_inversePrimary_mediumContrast</item>
+        <item name="colorPrimaryFixed">@color/color_primaryFixed_mediumContrast</item>
+        <item name="colorOnPrimaryFixed">@color/color_onPrimaryFixed_mediumContrast</item>
+        <item name="colorPrimaryFixedDim">@color/color_primaryFixedDim_mediumContrast</item>
+        <item name="colorOnPrimaryFixedVariant">@color/color_onPrimaryFixedVariant_mediumContrast</item>
+        <item name="colorSecondaryFixed">@color/color_secondaryFixed_mediumContrast</item>
+        <item name="colorOnSecondaryFixed">@color/color_onSecondaryFixed_mediumContrast</item>
+        <item name="colorSecondaryFixedDim">@color/color_secondaryFixedDim_mediumContrast</item>
+        <item name="colorOnSecondaryFixedVariant">@color/color_onSecondaryFixedVariant_mediumContrast</item>
+        <item name="colorTertiaryFixed">@color/color_tertiaryFixed_mediumContrast</item>
+        <item name="colorOnTertiaryFixed">@color/color_onTertiaryFixed_mediumContrast</item>
+        <item name="colorTertiaryFixedDim">@color/color_tertiaryFixedDim_mediumContrast</item>
+        <item name="colorOnTertiaryFixedVariant">@color/color_onTertiaryFixedVariant_mediumContrast</item>
+        <item name="colorSurfaceDim">@color/color_surfaceDim_mediumContrast</item>
+        <item name="colorSurfaceBright">@color/color_surfaceBright_mediumContrast</item>
+        <item name="colorSurfaceContainerLowest">@color/color_surfaceContainerLowest_mediumContrast</item>
+        <item name="colorSurfaceContainerLow">@color/color_surfaceContainerLow_mediumContrast</item>
+        <item name="colorSurfaceContainer">@color/color_surfaceContainer_mediumContrast</item>
+        <item name="colorSurfaceContainerHigh">@color/color_surfaceContainerHigh_mediumContrast</item>
+        <item name="colorSurfaceContainerHighest">@color/color_surfaceContainerHighest_mediumContrast</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.HighContrast" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_primary_highContrast</item>
+        <item name="colorOnPrimary">@color/color_onPrimary_highContrast</item>
+        <item name="colorPrimaryContainer">@color/color_primaryContainer_highContrast</item>
+        <item name="colorOnPrimaryContainer">@color/color_onPrimaryContainer_highContrast</item>
+        <item name="colorSecondary">@color/color_secondary_highContrast</item>
+        <item name="colorOnSecondary">@color/color_onSecondary_highContrast</item>
+        <item name="colorSecondaryContainer">@color/color_secondaryContainer_highContrast</item>
+        <item name="colorOnSecondaryContainer">@color/color_onSecondaryContainer_highContrast</item>
+        <item name="colorTertiary">@color/color_tertiary_highContrast</item>
+        <item name="colorOnTertiary">@color/color_onTertiary_highContrast</item>
+        <item name="colorTertiaryContainer">@color/color_tertiaryContainer_highContrast</item>
+        <item name="colorOnTertiaryContainer">@color/color_onTertiaryContainer_highContrast</item>
+        <item name="colorError">@color/color_error_highContrast</item>
+        <item name="colorOnError">@color/color_onError_highContrast</item>
+        <item name="colorErrorContainer">@color/color_errorContainer_highContrast</item>
+        <item name="colorOnErrorContainer">@color/color_onErrorContainer_highContrast</item>
+        <item name="android:colorBackground">@color/color_background_highContrast</item>
+        <item name="colorOnBackground">@color/color_onBackground_highContrast</item>
+        <item name="colorSurface">@color/color_surface_highContrast</item>
+        <item name="colorOnSurface">@color/color_onSurface_highContrast</item>
+        <item name="colorSurfaceVariant">@color/color_surfaceVariant_highContrast</item>
+        <item name="colorOnSurfaceVariant">@color/color_onSurfaceVariant_highContrast</item>
+        <item name="colorOutline">@color/color_outline_highContrast</item>
+        <item name="colorOutlineVariant">@color/color_outlineVariant_highContrast</item>
+        <item name="colorSurfaceInverse">@color/color_inverseSurface_highContrast</item>
+        <item name="colorOnSurfaceInverse">@color/color_inverseOnSurface_highContrast</item>
+        <item name="colorPrimaryInverse">@color/color_inversePrimary_highContrast</item>
+        <item name="colorPrimaryFixed">@color/color_primaryFixed_highContrast</item>
+        <item name="colorOnPrimaryFixed">@color/color_onPrimaryFixed_highContrast</item>
+        <item name="colorPrimaryFixedDim">@color/color_primaryFixedDim_highContrast</item>
+        <item name="colorOnPrimaryFixedVariant">@color/color_onPrimaryFixedVariant_highContrast</item>
+        <item name="colorSecondaryFixed">@color/color_secondaryFixed_highContrast</item>
+        <item name="colorOnSecondaryFixed">@color/color_onSecondaryFixed_highContrast</item>
+        <item name="colorSecondaryFixedDim">@color/color_secondaryFixedDim_highContrast</item>
+        <item name="colorOnSecondaryFixedVariant">@color/color_onSecondaryFixedVariant_highContrast</item>
+        <item name="colorTertiaryFixed">@color/color_tertiaryFixed_highContrast</item>
+        <item name="colorOnTertiaryFixed">@color/color_onTertiaryFixed_highContrast</item>
+        <item name="colorTertiaryFixedDim">@color/color_tertiaryFixedDim_highContrast</item>
+        <item name="colorOnTertiaryFixedVariant">@color/color_onTertiaryFixedVariant_highContrast</item>
+        <item name="colorSurfaceDim">@color/color_surfaceDim_highContrast</item>
+        <item name="colorSurfaceBright">@color/color_surfaceBright_highContrast</item>
+        <item name="colorSurfaceContainerLowest">@color/color_surfaceContainerLowest_highContrast</item>
+        <item name="colorSurfaceContainerLow">@color/color_surfaceContainerLow_highContrast</item>
+        <item name="colorSurfaceContainer">@color/color_surfaceContainer_highContrast</item>
+        <item name="colorSurfaceContainerHigh">@color/color_surfaceContainerHigh_highContrast</item>
+        <item name="colorSurfaceContainerHighest">@color/color_surfaceContainerHighest_highContrast</item>
+    </style>
+
+</resources>

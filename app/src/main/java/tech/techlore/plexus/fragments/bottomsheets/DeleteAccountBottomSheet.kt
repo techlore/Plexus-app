@@ -54,11 +54,10 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         
         // Title
-        headerBinding.bottomSheetTitle.text = getString(R.string.delete_account)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.delete_account)
         
         // Proceed
         footerBinding.positiveButton.apply {
@@ -93,8 +92,8 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
         }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

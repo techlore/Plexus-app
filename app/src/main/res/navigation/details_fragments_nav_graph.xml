@@ -32,7 +32,9 @@
         tools:layout="@layout/fragment_progress_view">
         <action
             android:id="@+id/action_fragmentProgressView_to_totalScoreFragment"
-            app:destination="@id/totalScoreFragment" />
+            app:destination="@id/totalScoreFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
     </fragment>
 
     <fragment

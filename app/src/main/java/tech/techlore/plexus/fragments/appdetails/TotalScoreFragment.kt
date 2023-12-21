@@ -40,6 +40,7 @@ class TotalScoreFragment : Fragment() {
     private var _binding: FragmentTotalScoreBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var detailsActivity: AppDetailsActivity
+    private var mgScore = 0.0f
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -54,6 +55,7 @@ class TotalScoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     
         detailsActivity = requireActivity() as AppDetailsActivity
+        mgScore = detailsActivity.app.mgScore
         val totalDgRatings = detailsActivity.app.totalDgRatings
         val totalMgRatings = detailsActivity.app.totalMgRatings
         
@@ -112,7 +114,7 @@ class TotalScoreFragment : Fragment() {
                                         detailsActivity.dgBronzeRatingsPercent,
                                         detailsActivity.dgBrokenRatingsPercent)
                 
-                fragmentBinding.mgAvgScore.text = "${removeDotZeroFromFloat(detailsActivity.app.mgScore)}/4"
+                fragmentBinding.mgAvgScore.text = "${removeDotZeroFromFloat(mgScore)}/4"
                 fragmentBinding.mgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalMgRatings"
                 setMgProgressAndPercent(detailsActivity.mgGoldRatingsPercent,
                                         detailsActivity.mgSilverRatingsPercent,
@@ -161,7 +163,7 @@ class TotalScoreFragment : Fragment() {
         // No need to animate progress indicators here
         // as they won't be shown unless scrolled
         fragmentBinding.mgCircle.apply {
-            setIndicatorColor(mapScoreRangeToColor(requireContext(), detailsActivity.app.mgScore))
+            setIndicatorColor(mapScoreRangeToColor(requireContext(), mgScore))
             fragmentBinding.mgCircle.progress = 100
         }
         fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()

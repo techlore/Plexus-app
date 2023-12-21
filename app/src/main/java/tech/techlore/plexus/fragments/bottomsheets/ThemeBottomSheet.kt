@@ -49,11 +49,10 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
         
-        headerBinding.bottomSheetTitle.setText(R.string.theme)
+        // Title
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.setText(R.string.theme)
         
         // Show system default option only on SDK 29 and above
         bottomSheetBinding.followSystem.isVisible = Build.VERSION.SDK_INT >= 29
@@ -91,13 +90,14 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
             }
         }
         
-        footerBinding.positiveButton.isVisible = false
-        
-        footerBinding.negativeButton.setOnClickListener { dismiss() }
+        BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
+            positiveButton.isVisible = false
+            negativeButton.setOnClickListener { dismiss() }
+        }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

@@ -19,11 +19,13 @@
 
 package tech.techlore.plexus.activities
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
@@ -61,9 +63,11 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
+    private lateinit var packageNameString: String
+    private lateinit var appManager: ApplicationManager
     lateinit var app: MainData
     var ratingsList = ArrayList<Rating>()
-    private var ratingsRetrieved = false
+    private var hasRatings = false
     var totalScoreCalculated = false
     var dgGoldRatingsPercent = 0.0f
     var dgSilverRatingsPercent = 0.0f
@@ -86,6 +90,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     var dgStatusSort = 0
     var mgStatusSort = 0
     
+    private companion object {
+        const val NAV_FROM_PROG_TO_TOTAL_SCORE = 10 // Navigate from progress view to total score frag
+        const val ANIM_DURATION: Long = 500
+        val ANIM_INTERPOLATOR = AccelerateDecelerateInterpolator()
+    }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -96,12 +106,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         val encPreferenceManager = EncryptedPreferenceManager(this)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
+        packageNameString = intent.getStringExtra("packageName")!!
+        appManager = applicationContext as ApplicationManager
+        val mainRepository = appManager.mainRepository
+        val myRatingsRepository = appManager.myRatingsRepository
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
-        val appManager = applicationContext as ApplicationManager
-        val mainRepository = appManager.mainRepository
-        val myRatingsRepository = appManager.myRatingsRepository
         
         activityBinding.bottomAppBar.apply {
             setSupportActionBar(this)
@@ -109,7 +120,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         }
         
         lifecycleScope.launch {
-            app = mainRepository.getAppByPackage(intent.getStringExtra("packageName")!!)!!
+            app = mainRepository.getAppByPackage(packageNameString)!!
             
             displayAppIcon(context = this@AppDetailsActivity,
                            imageView = activityBinding.detailsAppIcon,
@@ -195,25 +206,53 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 }
             }
             
-            // Only retrieve ratings list if not done already
-            if (!ratingsRetrieved) {
-                retrieveRatings()
+            retrieveRatings()
+            // Since the latest ratings, scores etc. are already retrieved & calculated,
+            // update in db
+            if (hasRatings) {
+                mainRepository.updateSingleApp(context = this@AppDetailsActivity,
+                                               packageName = packageNameString)
+                app = mainRepository.getAppByPackage(packageNameString)!!
+                appManager.isDataUpdated = true
             }
         }
         
+    }
+    
+    // Setup fragments
+    private fun displayFragment(checkedItem: Int) {
+        val action =
+            when (checkedItem) {
+                NAV_FROM_PROG_TO_TOTAL_SCORE -> R.id.action_fragmentProgressView_to_totalScoreFragment
+                R.id.radioTotalScore -> R.id.action_userRatingsFragment_to_totalScoreFragment
+                R.id.radioUserRatings -> R.id.action_totalScoreFragment_to_userRatingsFragment
+                else -> 0
+            }
+        
+        // java.lang.IllegalArgumentException:
+        // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
+        // Hence the second check
+        if (checkedItem != navController.currentDestination!!.id && action != 0) {
+            navController.navigate(action)
+        }
     }
     
     private fun retrieveRatings() {
         
         lifecycleScope.launch {
             if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
-                val apiRepository = (applicationContext as ApplicationManager).apiRepository
+                val apiRepository = appManager.apiRepository
                 val ratingsCall = apiRepository.getRatings(packageName = app.packageName, pageNumber = 1)
                 val ratingsResponse = ratingsCall.awaitResponse()
                 
                 if (ratingsResponse.isSuccessful) {
                     ratingsResponse.body()?.let { ratingsRoot ->
-                        ratingsList = ratingsRoot.ratingsData
+                        ratingsRoot.ratingsData.apply {
+                            if (isNotEmpty()) {
+                                hasRatings = true
+                                ratingsList = this
+                            }
+                        }
                         // No need to store the ratings list in database, as:
                         // 1. It's not used anywhere else, except details activity
                         // 2. We're already retrieving the latest ratings everytime in details activity
@@ -239,9 +278,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     }
                 }
                 
-                ratingsRetrieved = true
-                displayFragment(10)
-                activityBinding.detailsRadioGroup.isVisible = true
+                displayFragment(NAV_FROM_PROG_TO_TOTAL_SCORE)
+                ObjectAnimator.ofFloat(activityBinding.detailsRadioGroup, "alpha", 0f, 1f)
+                    .apply {
+                        duration = ANIM_DURATION
+                        interpolator = ANIM_INTERPOLATOR
+                        activityBinding.detailsRadioGroup.isVisible = true
+                        start()
+                    }
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
@@ -249,31 +293,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      negativeButtonClickListener = { finish() })
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
-        }
-    }
-    
-    // Setup fragments
-    private fun displayFragment(checkedItem: Int) {
-        val action =
-            when (checkedItem) {
-                
-                10 -> R.id.action_fragmentProgressView_to_totalScoreFragment
-                // 10 is just a custom number
-                // to let the nav controller navigate from
-                // progress view fragment to total score fragment
-                
-                R.id.radioTotalScore -> R.id.action_userRatingsFragment_to_totalScoreFragment
-                
-                R.id.radioUserRatings -> R.id.action_totalScoreFragment_to_userRatingsFragment
-                
-                else -> 0
-            }
-        
-        // java.lang.IllegalArgumentException:
-        // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
-        // Hence the second check
-        if (checkedItem != navController.currentDestination!!.id && action != 0) {
-            navController.navigate(action)
         }
     }
     

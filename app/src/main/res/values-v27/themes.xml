@@ -34,7 +34,6 @@
     <style name="AppTheme" parent="BaseAppStyle">
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

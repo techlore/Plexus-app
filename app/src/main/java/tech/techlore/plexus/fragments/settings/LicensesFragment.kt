@@ -66,18 +66,13 @@ class LicensesFragment : Fragment() {
     
             // FastScroll
             add(License(getString(R.string.fastscroll),
-                        getString(R.string.apache_2_0_license),
+                        "${getString(R.string.copyright_fastscroll)}\n\n${getString(R.string.apache_2_0_license)}",
                         getString(R.string.fastscroll_license_url)))
             
             // jsoup
             add(License(getString(R.string.jsoup),
                         "${getString(R.string.copyright_jsoup)}\n\n${getString(R.string.mit_license)}",
                         getString(R.string.jsoup_license_url)))
-            
-            // Material Design Icons
-            add(License(getString(R.string.md_icons),
-                        getString(R.string.apache_2_0_license),
-                        getString(R.string.md_icons_license_url)))
     
             // lottie-android
             add(License(getString(R.string.lottie_android),

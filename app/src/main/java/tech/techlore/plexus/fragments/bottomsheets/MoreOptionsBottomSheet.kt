@@ -54,13 +54,13 @@ class MoreOptionsBottomSheet(
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val headerBinding = BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val playStoreString = "${getString(R.string.google_play_url)}$packageNameString"
         val fdroidString = "${getString(R.string.fdroid_url)}$packageNameString/"
         val exodusString = "${getString(R.string.exodus_url)}$packageNameString/"
         
-        headerBinding.bottomSheetTitle.text = nameString
+        // Title
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = nameString
         
         // Play store
         bottomSheetBinding.playStore.setOnClickListener {
@@ -74,7 +74,7 @@ class MoreOptionsBottomSheet(
             openURL(requireActivity(), fdroidString, coordinatorLayout, anchorView)
         }
         
-        // Exodus
+        // Exodus Privacy
         bottomSheetBinding.exodus.setOnClickListener {
             dismiss()
             openURL(requireActivity(), exodusString, coordinatorLayout, anchorView)
@@ -107,8 +107,8 @@ class MoreOptionsBottomSheet(
         }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

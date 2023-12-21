@@ -42,13 +42,11 @@ import org.json.JSONObject
 import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SubmitActivity
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetSubmitBinding
 import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
-import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.models.post.app.PostApp
 import tech.techlore.plexus.models.post.app.PostAppRoot
@@ -58,7 +56,6 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
 import tech.techlore.plexus.repositories.api.ApiRepository
-import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedScore
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
 @SuppressLint("SetTextI18n")
@@ -159,23 +156,9 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             
             if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                 updateMyRatingInDb(rating)
-                val singleAppCall = apiRepository.getSingleAppWithScores(submitActivity.packageNameString)
-                val singleAppResponse = singleAppCall.awaitResponse()
-                if (singleAppResponse.isSuccessful) {
-                    singleAppResponse.body()?.let { getSingleAppRoot ->
-                        val appData = getSingleAppRoot.appData
-                        mainRepository
-                            .insertOrUpdatePlexusData(MainData(name = appData.name,
-                                                               packageName = appData.packageName,
-                                                               iconUrl = appData.iconUrl ?: "",
-                                                               dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
-                                                               totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
-                                                               mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
-                                                               totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
-                                                               isInPlexusData = true))
-                    }
-                }
-                appManager.submitSuccessful = true
+                mainRepository.updateSingleApp(context = requireContext(),
+                                               packageName = submitActivity.packageNameString)
+                appManager.isDataUpdated = true
                 changeAnimView(R.raw.lottie_success, false)
                 bottomSheetBinding.submitStatusText.text = getString(R.string.submit_success)
                 bottomSheetBinding.heartView.apply {
@@ -353,8 +336,8 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                      myRatingDetails = myRatingDetails)
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
     

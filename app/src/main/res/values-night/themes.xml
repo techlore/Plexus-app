@@ -29,8 +29,6 @@
     <!--#########################################################################################-->
 
     <!--App dark theme-->
-    <style name="AppTheme" parent="BaseAppStyle">
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-    </style>
+    <style name="AppTheme" parent="BaseAppStyle"/>
 
 </resources>

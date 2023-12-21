@@ -19,7 +19,6 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
@@ -28,7 +27,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -41,7 +39,6 @@ import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetEmailVerificationBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
-import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.models.get.responses.RegisterDeviceResponse
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import java.util.UUID
@@ -79,9 +76,6 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        
-        // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
         
         registerDevice()
         
@@ -124,29 +118,30 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
                         }
                     }
                     else {
-                        bottomSheetBinding.textView.text = getString(R.string.error_sending_code)
-                        footerBinding.positiveButton.isEnabled = true
-                        footerBinding.negativeButton.isEnabled = true
+                        onPostFailed(getString(R.string.error_sending_code))
                     }
                 }
                 else {
-                    @SuppressLint("SetTextI18n")
-                    bottomSheetBinding.textView.text = "${getString(R.string.error_sending_code)}: ${response.code()}"
-                    footerBinding.positiveButton.isEnabled = true
-                    footerBinding.negativeButton.isEnabled = true
+                    onPostFailed("${getString(R.string.error_sending_code)}: ${response.code()}")
                 }
             }
             
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                bottomSheetBinding.textView.text = getString(R.string.error_sending_code)
-                footerBinding.positiveButton.isEnabled = true
-                footerBinding.negativeButton.isEnabled = true
+                onPostFailed(getString(R.string.error_sending_code))
             }
         })
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun onPostFailed(message: String) {
+        bottomSheetBinding.textView.text = message
+        footerBinding.apply {
+            positiveButton.isEnabled = true
+            negativeButton.isEnabled = true
+        }
+    }
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

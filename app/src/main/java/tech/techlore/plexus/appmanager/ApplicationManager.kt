@@ -19,14 +19,10 @@
 
 package tech.techlore.plexus.appmanager
 
-import android.app.Activity
 import android.app.Application
 import android.os.Build
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
-import com.google.android.material.elevation.SurfaceColors
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.SplashActivity
 import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
 import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -38,19 +34,18 @@ import tech.techlore.plexus.repositories.database.MyRatingsRepository
 
 class ApplicationManager : Application() {
     
-    // Using by lazy so database and repositories are only created when they're needed
     val preferenceManager by lazy { PreferenceManager(this) }
     private val apiService by lazy { apiBuilder() }
     private val database by lazy { getDatabase(this) }
     
     val apiRepository by lazy { ApiRepository(apiService) }
     val mainRepository by lazy { MainDataRepository(database.mainDataDao()) }
-    val miniRepository by lazy { MainDataMinimalRepository(applicationContext, database.mainDataDao()) }
+    val miniRepository by lazy { MainDataMinimalRepository(this, database.mainDataDao()) }
     val myRatingsRepository by lazy { MyRatingsRepository(database.myRatingsDao()) }
     
     var deviceIsMicroG = false
     var deviceIsDeGoogled = false
-    var submitSuccessful = false
+    var isDataUpdated = false
     
     override fun onCreate() {
         super.onCreate()
@@ -71,30 +66,6 @@ class ApplicationManager : Application() {
             R.id.dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         }
-
-        // Set status bar and navigation bar colors
-        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                if (activity !is SplashActivity) {
-                    activity.window.apply {
-                        statusBarColor = SurfaceColors.SURFACE_0.getColor(activity)
-                        navigationBarColor = SurfaceColors.getColorForElevation(activity, 8f)
-                    }
-                }
-            }
-
-            override fun onActivityStarted(activity: Activity) {}
-
-            override fun onActivityResumed(activity: Activity) {}
-
-            override fun onActivityPaused(activity: Activity) {}
-
-            override fun onActivityStopped(activity: Activity) {}
-
-            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-
-            override fun onActivityDestroyed(activity: Activity) {}
-        })
     }
+    
 }

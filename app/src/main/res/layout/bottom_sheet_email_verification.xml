@@ -29,8 +29,6 @@
     android:orientation="vertical"
     android:layout_gravity="center">
 
-    <include layout="@layout/bottom_sheet_header"/>
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/anim"
         android:layout_width="match_parent"

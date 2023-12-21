@@ -168,7 +168,7 @@
             android:textAlignment="viewStart"
             android:textColor="@color/color_onSurface"
             android:textSize="@dimen/text_16"
-            app:drawableStartCompat="@drawable/ic_github" />
+            app:drawableStartCompat="@drawable/ic_view_on_github" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/visitTechlore"
