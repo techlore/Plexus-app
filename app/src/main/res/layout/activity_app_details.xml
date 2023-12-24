@@ -61,7 +61,6 @@
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/app"
                 android:textAlignment="center"
-                android:textColor="@color/color_onSurface"
                 android:textSize="@dimen/text_20"
                 style="@style/MediumBoldText"/>
 
@@ -74,7 +73,7 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:text="@string/package_name"
-                android:textColor="@color/color_onSurface"
+                android:textColor="?attr/colorOnSurface"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_18"/>
 
@@ -89,7 +88,7 @@
                 android:text="@string/installed"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_17"
-                android:textColor="@color/color_control_normal"/>
+                android:textColor="?attr/colorControlNormal"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/detailsInstalledFrom"
@@ -170,17 +169,15 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/submitBtn"
         android:layout_width="wrap_content"
-        android:layout_height="53dp"
-        android:layout_marginBottom="@dimen/margin_8"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_10"
         android:layout_marginEnd="@dimen/margin_16"
         android:paddingHorizontal="@dimen/margin_20"
         android:layout_gravity="bottom|end"
         app:icon="@drawable/ic_edit"
         app:iconGravity="textStart"
         app:iconPadding="@dimen/margin_8"
-        app:iconTint="@color/color_inverseOnSurface"
         android:text="@string/submit"
-        android:textSize="@dimen/text_16"
-        android:textColor="@color/color_inverseOnSurface"/>
+        android:textSize="@dimen/text_16"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

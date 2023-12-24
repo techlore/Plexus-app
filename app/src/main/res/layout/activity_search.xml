@@ -25,14 +25,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    android:background="?attr/colorSurface">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:background="@color/color_background"
+        android:background="?attr/colorSurface"
         android:layout_marginBottom="?attr/actionBarSize"
         android:clipToPadding="false"
         tools:listitem="@layout/item_main_recycler_view" />

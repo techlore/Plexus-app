@@ -22,10 +22,12 @@ package tech.techlore.plexus.appmanager
 import android.app.Application
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.color.DynamicColors
 import tech.techlore.plexus.R
 import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
 import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
@@ -65,6 +67,11 @@ class ApplicationManager : Application() {
             R.id.light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             R.id.dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
+        }
+        
+        // Material you
+        if (preferenceManager.getBooleanDefValFalse(MATERIAL_YOU)) {
+            DynamicColors.applyToActivitiesIfAvailable(this)
         }
     }
     

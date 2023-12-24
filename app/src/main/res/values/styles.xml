@@ -81,8 +81,8 @@
         <item name="colorSurfaceContainerHigh">@color/color_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/color_surfaceContainerHighest</item>
 
-        <item name="android:statusBarColor">@color/color_background</item>
-        <item name="android:navigationBarColor">@color/color_surfaceContainer</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
     </style>
@@ -90,17 +90,16 @@
     <!--#########################################################################################-->
 
     <!--Medium bold text style-->
-    <style name="MediumBoldText" parent="TextAppearance.Material3.LabelLarge"/>
+    <style name="MediumBoldText" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
 
     <!--#########################################################################################-->
 
     <!--Nav view style-->
     <style name="NavViewStyle" parent="Widget.Material3.NavigationView">
-        <item name="itemShapeFillColor">@color/nav_item_bg_color</item>
         <item name="itemTextAppearance">@style/NavViewText</item>
         <item name="itemIconSize">@dimen/margin_22</item>
-        <item name="itemIconTint">@color/nav_item_text_color</item>
-        <item name="itemTextColor">@color/nav_item_text_color</item>
     </style>
 
     <!--Nav view items texts style-->
@@ -114,8 +113,8 @@
     <style name="BaseChipStyle" parent="Widget.Material3.Chip.Filter">
         <item name="chipSurfaceColor">@android:color/transparent</item>
         <item name="checkedIcon">@drawable/ic_done</item>
-        <item name="checkedIconTint">@color/color_onSurface</item>
-        <item name="android:textColor">@color/color_onSurface</item>
+        <item name="checkedIconTint">?attr/colorOnSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
@@ -131,7 +130,6 @@
         <item name="chipStrokeWidth">1dp</item>
         <item name="closeIconEndPadding">@dimen/margin_4</item>
         <item name="closeIconStartPadding">@dimen/margin_8</item>
-        <item name="closeIconTint">@color/color_onSurface</item>
         <item name="closeIconSize">24dp</item>
         <item name="chipIconSize">24dp</item>
     </style>
@@ -145,7 +143,7 @@
         <item name="android:drawablePadding">@dimen/margin_8</item>
         <item name="android:background">@drawable/shape_outline</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/color_onSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
@@ -178,10 +176,8 @@
         <item name="android:gravity">center</item>
         <item name="icon">@drawable/ic_done</item>
         <item name="iconSize">18dp</item>
-        <item name="iconTint">@color/color_inverseOnSurface</item>
         <item name="iconPadding">@dimen/margin_4</item>
         <item name="android:textSize">@dimen/text_16</item>
-        <item name="android:textColor">@color/color_inverseOnSurface</item>
     </style>
 
     <!--#########################################################################################-->

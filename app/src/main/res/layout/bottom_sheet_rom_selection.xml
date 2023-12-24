@@ -40,7 +40,7 @@
         android:layout_marginStart="@dimen/margin_25"
         android:textSize="@dimen/text_17"
         android:text="@string/first_submission_desc"
-        android:textColor="@color/color_onSurface"/>
+        android:textColor="?attr/colorOnSurface"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
         android:layout_marginStart="@dimen/margin_25"
         android:textSize="@dimen/text_17"
         android:text="@string/select_correct_rom"
-        android:textColor="@color/color_control_normal"
+        android:textColor="?attr/colorControlNormal"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textfield.TextInputLayout

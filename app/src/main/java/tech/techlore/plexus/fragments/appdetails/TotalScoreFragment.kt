@@ -26,6 +26,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -141,7 +142,10 @@ class TotalScoreFragment : Fragment() {
                                         dgBronzeRatingsPercent: Float,
                                         dgBrokenRatingsPercent: Float) {
         fragmentBinding.dgCircle.apply {
-            setIndicatorColor(mapScoreRangeToColor(requireContext(), detailsActivity.app.dgScore))
+            when (detailsActivity.app.dgScore) {
+                0.0f -> MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary)
+                else -> setIndicatorColor(mapScoreRangeToColor(requireContext(), detailsActivity.app.dgScore))
+            }
             setProgressCompat(100, true)
         }
         
@@ -163,7 +167,10 @@ class TotalScoreFragment : Fragment() {
         // No need to animate progress indicators here
         // as they won't be shown unless scrolled
         fragmentBinding.mgCircle.apply {
-            setIndicatorColor(mapScoreRangeToColor(requireContext(), mgScore))
+            when (mgScore) {
+                0.0f -> MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary)
+                else -> setIndicatorColor(mapScoreRangeToColor(requireContext(), mgScore))
+            }
             fragmentBinding.mgCircle.progress = 100
         }
         fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()

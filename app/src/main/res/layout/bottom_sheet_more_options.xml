@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -46,7 +46,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/google_play"
         android:textAlignment="viewStart"
-        android:textColor="@color/color_onSurface"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="@dimen/text_16"
         android:drawableStart="@drawable/ic_google_play"
         android:drawablePadding="@dimen/margin_12"/>
@@ -64,7 +64,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/fdroid"
         android:textAlignment="viewStart"
-        android:textColor="@color/color_onSurface"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="@dimen/text_16"
         android:drawableStart="@drawable/ic_fdroid"
         android:drawablePadding="@dimen/margin_12"/>
@@ -82,7 +82,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/exodus"
         android:textAlignment="viewStart"
-        android:textColor="@color/color_onSurface"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="@dimen/text_16"
         android:drawableStart="@drawable/ic_exodus"
         android:drawablePadding="@dimen/margin_12"/>
@@ -100,7 +100,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/menu_share"
         android:textAlignment="viewStart"
-        android:textColor="@color/color_onSurface"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="@dimen/text_16"
         android:drawableStart="@drawable/ic_share"
         android:drawablePadding="@dimen/margin_12"/>

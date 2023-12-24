@@ -18,7 +18,7 @@
   -->
 
 <vector android:autoMirrored="true" android:height="24dp"
-    android:tint="@color/color_enabled" android:viewportHeight="960"
+    android:tint="?attr/colorControlNormal" android:viewportHeight="960"
     android:viewportWidth="960" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="@android:color/white" android:pathData="M346 800H240q-33 0-56.5-23.5T160 720V614l-77-78q-23-23-23-56t23-56l77-78V240q0-33 23.5-56.5T240 160h106l78-77q23-23 56-23t56 23l78 77h106q33 0 56.5 23.5T800 240v106l77 78q23 23 23 56t-23 56l-77 78v106q0 33-23.5 56.5T720 800H614l-78 77q-23 23-56 23t-56-23l-78-77zm134-320zm0 200q83 0 141.5-58.5T680 480q0-83-58.5-141.5T480 280v400zm0 140l100-100h140V580l100-100-100-100V240H580L480 140 380 240H240v140L140 480l100 100v140h140l100 100z"/>
 </vector>

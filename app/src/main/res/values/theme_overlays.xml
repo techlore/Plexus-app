@@ -21,7 +21,7 @@
 
 <resources>
 
-    <style name="ThemeOverlay.AppTheme.MediumContrast" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="ThemeOverlay.BaseAppStyle.MediumContrast" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color_primary_mediumContrast</item>
         <item name="colorOnPrimary">@color/color_onPrimary_mediumContrast</item>
         <item name="colorPrimaryContainer">@color/color_primaryContainer_mediumContrast</item>
@@ -70,7 +70,7 @@
         <item name="colorSurfaceContainerHighest">@color/color_surfaceContainerHighest_mediumContrast</item>
     </style>
 
-    <style name="ThemeOverlay.AppTheme.HighContrast" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="ThemeOverlay.BaseAppStyle.HighContrast" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color_primary_highContrast</item>
         <item name="colorOnPrimary">@color/color_onPrimary_highContrast</item>
         <item name="colorPrimaryContainer">@color/color_primaryContainer_highContrast</item>

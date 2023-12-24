@@ -26,7 +26,7 @@
     android:id="@+id/mainCoordLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background"
+    android:background="?attr/colorSurface"
     tools:context=".activities.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -59,13 +59,14 @@
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_75"
-                android:background="@color/color_surfaceContainer">
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbarBottom"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorSurfaceContainer"
                     app:navigationIcon="@drawable/ic_nav_view"
                     app:contentInsetStartWithNavigation="0dp"
                     app:titleTextColor="@color/color_onSurface"/>
@@ -76,7 +77,8 @@
                 android:id="@+id/navView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_surfaceContainer"
+                android:paddingTop="@dimen/margin_12"
+                android:background="?attr/colorSurfaceContainer"
                 app:menu="@menu/menu_nav_view"
                 style="@style/NavViewStyle"/>
 

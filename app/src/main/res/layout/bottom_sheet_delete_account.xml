@@ -41,7 +41,7 @@
         android:paddingEnd="@dimen/margin_25"
         android:text="@string/delete_account_desc"
         android:textSize="@dimen/text_17"
-        android:textColor="@color/color_control_normal"/>
+        android:textColor="?attr/colorControlNormal"/>
 
     <include layout="@layout/bottom_sheet_footer"/>
 

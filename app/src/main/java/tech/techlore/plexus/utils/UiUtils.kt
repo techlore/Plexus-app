@@ -120,7 +120,6 @@ class UiUtils {
         
         fun mapScoreRangeToColor(context: Context, score: Float): Int {
             return when(score) {
-                0.0f -> context.resources.getColor(R.color.color_primary, context.theme)
                 in 1.0f..1.9f -> context.resources.getColor(R.color.color_broken_status, context.theme)
                 in 2.0f..2.9f -> context.resources.getColor(R.color.color_bronze_status, context.theme)
                 in 3.0f..3.9f -> context.resources.getColor(R.color.color_silver_status, context.theme)

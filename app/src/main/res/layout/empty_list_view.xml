@@ -35,7 +35,7 @@
         android:text="@string/no_apps_found"
         android:gravity="center"
         android:textSize="@dimen/text_17"
-        android:textColor="@color/color_control_normal"
+        android:textColor="?attr/colorControlNormal"
         app:drawableTopCompat="@drawable/ic_no_apps"
         android:drawablePadding="@dimen/margin_10"/>
 

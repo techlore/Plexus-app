@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -37,7 +37,6 @@
         android:text="@string/bottom_sheet_title"
         android:textSize="@dimen/text_18"
         android:layout_gravity="start"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
 </merge>

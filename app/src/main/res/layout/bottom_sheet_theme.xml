@@ -37,9 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
-        android:layout_marginBottom="@dimen/margin_8"
-        android:paddingStart="@dimen/margin_22"
-        android:paddingEnd="@dimen/margin_22"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:paddingHorizontal="@dimen/margin_22"
         app:chipSpacingVertical="@dimen/margin_2.5"
         app:singleSelection="true"
         app:selectionRequired="true">
@@ -70,6 +69,31 @@
             style="@style/DarkChipTheme"/>
 
     </com.google.android.material.chip.ChipGroup>
+
+    <include
+        layout="@layout/divider_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_20"/>
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/materialYouSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:paddingStart="@dimen/margin_35"
+        android:paddingEnd="@dimen/margin_25"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_material_you"
+        android:drawablePadding="@dimen/margin_16"
+        android:text="@string/material_you"
+        android:textAlignment="viewStart"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="@dimen/text_16"
+        android:checked="false"/>
 
     <include layout="@layout/bottom_sheet_footer"/>
 

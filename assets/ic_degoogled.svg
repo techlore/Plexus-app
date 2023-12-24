@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
-  ~
-  ~  This file is part of Plexus.
-  ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
-  ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
-  
+  - Copyright (c) 2022-present Techlore
+  -
+  -  This file is part of Plexus.
+  -
+  -  Plexus is free software: you can redistribute it and/or modify
+  -  it under the terms of the GNU General Public License as published by
+  -  the Free Software Foundation, either version 3 of the License, or
+  -  (at your option) any later version.
+  -
+  -  Plexus is distributed in the hope that it will be useful,
+  -  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  -  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  -  GNU General Public License for more details.
+  -
+  -  You should have received a copy of the GNU General Public License
+  -  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
   --><svg xmlns="http://www.w3.org/2000/svg" height="1080" width="1080">
     <path d="M501.5 15.5C625.7 9 739 40.5 841.5 110c131.9 96.5 205.7 226.7 221.5 390.5 8.2 184.4-58.3 335.3-199.5 452.5-129.6 97.2-274.3 130.2-434 99C293 1021.1 184.9 948.6 105 834.5 13.2 692.5-8.3 540.3 40.5 378c38-113.6 106-204.6 204-273 78-51.8 163.6-81.7 257-89.5z" fill="#F2F2F2"/>
     <path d="M511.5 33.5c178.4-3.7 322.6 64 432.5 203 92.7 127.6 121.7 268.6 87 423C994.6 793.8 917.8 898 800.5 972c-122.6 71.8-253 90.4-391 56C261.1 984.3 152.3 893.5 83 755.5c-51.1-110.4-62.1-224.7-33-343C87.6 280 164.8 177.5 281.5 105c71.1-42.1 147.7-65.9 230-71.5z" fill="#fe0201"/>

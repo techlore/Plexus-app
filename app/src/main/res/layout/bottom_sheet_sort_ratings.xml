@@ -111,9 +111,9 @@
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/installed_from"
-        style="@style/MediumBoldText"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_control_normal"/>
+        android:textColor="?attr/colorControlNormal"
+        style="@style/MediumBoldText"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/ratingsInstalledFromChipGroup"
@@ -162,9 +162,9 @@
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/status"
-        style="@style/MediumBoldText"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_control_normal"/>
+        android:textColor="?attr/colorControlNormal"
+        style="@style/MediumBoldText"/>
 
     <RadioGroup
         android:id="@+id/ratingsStatusRadioGroup"

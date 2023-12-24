@@ -26,7 +26,7 @@
     android:id="@+id/verificationCoordLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background"
+    android:background="?attr/colorSurface"
     android:orientation="vertical"
     tools:context=".activities.VerificationActivity">
 
@@ -60,7 +60,7 @@
             android:background="@android:color/transparent"
             app:contentInsetStartWithNavigation="0dp"
             app:title="@string/verification"
-            app:titleTextColor="@color/color_onSurface"/>
+            app:titleTextColor="?attr/colorOnSurface"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

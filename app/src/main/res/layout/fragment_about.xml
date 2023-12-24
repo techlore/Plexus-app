@@ -54,21 +54,20 @@
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/plexus"
-            android:textColor="@color/color_onSurface"
             android:textSize="@dimen/text_20"
             style="@style/MediumBoldText"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/aboutVersion"
-            style="@style/MediumBoldText"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/version"
-            android:textColor="@color/color_control_normal"
-            android:textSize="@dimen/text_17" />
+            android:textColor="?attr/colorControlNormal"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -77,7 +76,7 @@
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/by_techlore"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17"
             android:textAlignment="center"
             android:textStyle="italic"/>
@@ -105,7 +104,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/privacy_policy"
             android:textAlignment="viewStart"
-            android:textColor="@color/color_onSurface"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_privacy_policy"
             android:drawablePadding="@dimen/margin_16"/>
@@ -126,7 +125,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/third_party_licenses"
             android:textAlignment="viewStart"
-            android:textColor="@color/color_onSurface"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_licenses" />
 
@@ -146,7 +145,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/support_us"
             android:textAlignment="viewStart"
-            android:textColor="@color/color_onSurface"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_support_us" />
 
@@ -166,7 +165,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/view_on_github"
             android:textAlignment="viewStart"
-            android:textColor="@color/color_onSurface"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_view_on_github" />
 
@@ -186,7 +185,7 @@
             android:paddingBottom="@dimen/margin_16"
             android:text="@string/visit_techlore"
             android:textAlignment="viewStart"
-            android:textColor="@color/color_onSurface"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="@dimen/text_16"
             app:drawableStartCompat="@drawable/ic_website" />
 

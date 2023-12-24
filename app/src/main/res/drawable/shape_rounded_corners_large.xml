@@ -21,6 +21,6 @@
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/color_scrollbar"/>
+    <solid android:color="?attr/colorSecondaryContainer"/>
     <corners android:radius="@dimen/margin_75"/>
 </shape>

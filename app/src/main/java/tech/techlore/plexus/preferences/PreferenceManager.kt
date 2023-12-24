@@ -27,6 +27,7 @@ class PreferenceManager(context: Context) {
         // Shared pref keys
         const val IS_FIRST_LAUNCH = "is_first_launch"
         const val THEME = "theme"
+        const val MATERIAL_YOU = "material_you"
         const val A_Z_SORT = "a_z_sort"
         const val STATUS_RADIO = "status_radio"
         const val DG_STATUS_SORT = "dg_status_sort"
@@ -51,6 +52,10 @@ class PreferenceManager(context: Context) {
     
     fun getBoolean(key: String): Boolean {
         return sharedPreferences.getBoolean(key, true)
+    }
+    
+    fun getBooleanDefValFalse(key: String): Boolean {
+        return sharedPreferences.getBoolean(key, false)
     }
     
     fun setBoolean(key: String, value: Boolean) {

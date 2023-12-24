@@ -187,6 +187,7 @@
     <string name="follow_system">Follow system</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+    <string name="material_you">Material You\n(requires app restart)</string>
 
     <!--More options-->
     <string name="menu_share">Share</string>

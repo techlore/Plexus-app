@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import com.google.android.material.color.MaterialColors
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.fragments.bottomsheets.DeleteAccountBottomSheet
@@ -50,6 +51,10 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     var selectedNavItem = 0
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
+    
+    private companion object {
+        const val BOTTOM_NAV_SLIDE_UP_THRESHOLD = 0.02
+    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,14 +146,8 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 }
                 
                 // Hide toolbar title and menu on slide up
-                if (slideOffset > 0.02) {
-                    activityBinding.toolbarBottom.title = null
-                    activityBinding.toolbarBottom.menu.clear()
-                }
-                else {
-                    activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
-                    invalidateMenu()
-                }
+                if (slideOffset > BOTTOM_NAV_SLIDE_UP_THRESHOLD) updateUiOnSlide(true)
+                else updateUiOnSlide(false)
                 
                 // Collapse nav view on clicking background
                 // just like dialogs and bottom sheets
@@ -198,6 +197,42 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         if (clickedItem != currentFragment.id && action != 0) {
             activityBinding.navView.setCheckedItem(selectedNavItem)
             navController.navigate(action)
+        }
+    }
+    
+    private fun updateUiOnSlide(thresholdCrossed: Boolean) {
+        var surfaceContainerLowColor: Int
+        var surfaceContainerColor: Int
+        
+        if (thresholdCrossed) {
+            activityBinding.apply {
+                toolbarBottom.apply {
+                    title = null
+                    menu.clear()
+                    surfaceContainerLowColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceContainerLow)
+                    setBackgroundColor(surfaceContainerLowColor)
+                }
+                navView.setBackgroundColor(MaterialColors.getColor(navView, com.google.android.material.R.attr.colorSurfaceContainerLow))
+            }
+            window.apply {
+                statusBarColor = surfaceContainerLowColor
+                navigationBarColor = surfaceContainerLowColor
+            }
+        }
+        else {
+            activityBinding.apply {
+                toolbarBottom.apply {
+                    title = navController.currentDestination!!.label.toString()
+                    surfaceContainerColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceContainer)
+                    setBackgroundColor(surfaceContainerColor)
+                }
+                invalidateMenu()
+                navView.setBackgroundColor(surfaceContainerColor)
+            }
+            window.apply {
+                statusBarColor = MaterialColors.getColor(activityBinding.mainCoordLayout, com.google.android.material.R.attr.colorSurface)
+                navigationBarColor = surfaceContainerColor
+            }
         }
     }
     

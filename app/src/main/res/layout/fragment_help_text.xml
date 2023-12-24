@@ -56,7 +56,6 @@
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_12"
             android:text="@string/icons"
-            android:textColor="@color/color_onSurface"
             android:textSize="@dimen/text_18"
             style="@style/MediumBoldText"/>
 
@@ -72,7 +71,7 @@
             android:drawableStart="@drawable/ic_degoogled"
             android:drawablePadding="@dimen/margin_12"
             android:text="@string/de_Googled"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -87,7 +86,7 @@
             android:drawableStart="@drawable/ic_microg"
             android:drawablePadding="@dimen/margin_12"
             android:text="@string/microG"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <Space
@@ -122,7 +121,6 @@
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
             android:text="@string/status"
-            android:textColor="@color/color_onSurface"
             android:textSize="@dimen/text_18"
             style="@style/MediumBoldText"/>
 
@@ -150,7 +148,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
             android:text="@string/not_tested_subtitle"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <include
@@ -190,7 +188,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
             android:text="@string/broken_subtitle"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <include
@@ -230,7 +228,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
             android:text="@string/bronze_subtitle"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <include
@@ -270,7 +268,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
             android:text="@string/silver_subtitle"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <include
@@ -310,7 +308,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
             android:text="@string/gold_subtitle"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <Space
@@ -345,7 +343,6 @@
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
             android:text="@string/other"
-            android:textColor="@color/color_onSurface"
             android:textSize="@dimen/text_18"
             style="@style/MediumBoldText"/>
 
@@ -396,7 +393,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
             android:text="@string/android_version_desc"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <include
@@ -458,7 +455,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
             android:text="@string/installation_source_desc"
-            android:textColor="@color/color_control_normal"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="@dimen/text_17" />
 
         <Space

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2022 Techlore
+  ~ Copyright (c) 2022-present Techlore
   ~
   ~  This file is part of Plexus.
   ~
@@ -20,8 +20,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/color_primary"/>
-            <corners android:radius="@dimen/margin_12"/>
+            <solid android:color="?attr/colorPrimary"/>
+            <corners android:radius="@dimen/margin_75"/>
         </shape>
     </item>
 </selector>

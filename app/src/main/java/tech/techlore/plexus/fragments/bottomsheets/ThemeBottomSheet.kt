@@ -32,6 +32,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 
 class ThemeBottomSheet : BottomSheetDialogFragment() {
@@ -78,10 +79,10 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
                 when (checkedChip) {
                     R.id.followSystem ->
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            
+                    
                     R.id.light ->
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            
+                    
                     R.id.dark ->
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }
@@ -90,9 +91,23 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
             }
         }
         
+        // Material You
+        bottomSheetBinding.materialYouSwitch.apply {
+            if (Build.VERSION.SDK_INT >= 31) {
+                isVisible = true
+                isChecked = preferenceManager.getBooleanDefValFalse(MATERIAL_YOU)
+                setOnCheckedChangeListener { _, isChecked ->
+                    preferenceManager.setBoolean(MATERIAL_YOU, isChecked)
+                }
+            }
+        }
+        
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
             positiveButton.isVisible = false
-            negativeButton.setOnClickListener { dismiss() }
+            negativeButton.apply {
+                text = getString(R.string.dismiss)
+                setOnClickListener { dismiss() }
+            }
         }
     }
     

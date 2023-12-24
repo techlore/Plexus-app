@@ -19,12 +19,14 @@
 
 package tech.techlore.plexus.fragments.bottomsheets
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
@@ -61,6 +63,9 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
         
         // Proceed
         footerBinding.positiveButton.apply {
+            setBackgroundColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError))
+            iconTint = ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
+            setTextColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
             text = getString(R.string.proceed)
             setOnClickListener {
                 EncryptedPreferenceManager(requireContext()).apply {

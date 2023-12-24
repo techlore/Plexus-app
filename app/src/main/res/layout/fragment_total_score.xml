@@ -50,7 +50,6 @@
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/de_Googled"
         android:textSize="@dimen/text_18"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -63,7 +62,7 @@
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/total_ratings"
         android:textSize="@dimen/text_17"
-        android:textColor="@color/color_control_normal"/>
+        android:textColor="?attr/colorControlNormal"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/dgCircle"
@@ -86,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="@id/dgCircle"
         android:text="0/4"
         android:textSize="@dimen/text_20"
-        android:textColor="@color/color_onSurface"/>
+        android:textColor="?attr/colorOnSurface"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/dgGoldProgress"
@@ -117,7 +116,6 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/gold_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -130,7 +128,6 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <!--####################################################-->
@@ -164,7 +161,6 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/silver_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -177,7 +173,6 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <!--####################################################-->
@@ -211,7 +206,6 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/bronze_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -224,7 +218,6 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <!--####################################################-->
@@ -258,7 +251,6 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/broken_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -271,7 +263,6 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <!--####################################################-->
@@ -311,7 +302,6 @@
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/microG"
         android:textSize="@dimen/text_18"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -324,7 +314,7 @@
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/total_ratings"
         android:textSize="@dimen/text_17"
-        android:textColor="@color/color_control_normal"/>
+        android:textColor="?attr/colorControlNormal"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/mgCircle"
@@ -347,7 +337,7 @@
         app:layout_constraintEnd_toEndOf="@id/mgCircle"
         android:text="0/4"
         android:textSize="@dimen/text_20"
-        android:textColor="@color/color_onSurface"/>
+        android:textColor="?attr/colorOnSurface"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/mgGoldProgress"
@@ -378,7 +368,6 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/broken_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -391,7 +380,6 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <!--####################################################-->
@@ -425,7 +413,6 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/silver_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -438,7 +425,6 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <!--####################################################-->
@@ -472,7 +458,6 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/bronze_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -485,7 +470,6 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <!--####################################################-->
@@ -519,7 +503,6 @@
         android:drawablePadding="@dimen/margin_8"
         android:text="@string/broken_title"
         android:textSize="@dimen/text_16"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -532,7 +515,6 @@
         android:layout_marginEnd="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:text="0%"
-        android:textColor="@color/color_onSurface"
         style="@style/MediumBoldText"/>
 
     <Space
