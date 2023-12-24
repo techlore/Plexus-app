@@ -32,6 +32,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
+import tech.techlore.plexus.databinding.DividerHorizontalBinding
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 
@@ -92,8 +93,9 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         }
         
         // Material You
-        bottomSheetBinding.materialYouSwitch.apply {
-            if (Build.VERSION.SDK_INT >= 31) {
+        if (Build.VERSION.SDK_INT >= 31) {
+            DividerHorizontalBinding.bind(bottomSheetBinding.root).divider.isVisible = true
+            bottomSheetBinding.materialYouSwitch.apply {
                 isVisible = true
                 isChecked = preferenceManager.getBooleanDefValFalse(MATERIAL_YOU)
                 setOnCheckedChangeListener { _, isChecked ->

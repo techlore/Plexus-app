@@ -22,6 +22,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_12"
@@ -36,8 +37,7 @@
         android:id="@+id/themeChipGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8"
-        android:layout_marginBottom="@dimen/margin_16"
+        android:layout_marginVertical="@dimen/margin_8"
         android:paddingHorizontal="@dimen/margin_22"
         app:chipSpacingVertical="@dimen/margin_2.5"
         app:singleSelection="true"
@@ -74,7 +74,10 @@
         layout="@layout/divider_horizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginHorizontal="@dimen/margin_20"/>
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_12"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/materialYouSwitch"
@@ -93,7 +96,9 @@
         android:textAlignment="viewStart"
         android:textColor="?attr/colorOnSurface"
         android:textSize="@dimen/text_16"
-        android:checked="false"/>
+        android:checked="false"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <include layout="@layout/bottom_sheet_footer"/>
 
