@@ -9189,6 +9189,15 @@
     "MG_Notes": "X"
   },
   {
+    "Application": "Yemeksepeti",
+    "Package": "com.inovel.app.yemeksepeti",
+    "Version": "22.7.0",
+    "DG_Rating": 1,
+    "MG_Rating": "X",
+    "DG_Notes": "Unusable",
+    "MG_Notes": "X"
+  },
+  {
     "Application": "Yes, that dress!",
     "Package": "com.zjcgame.superdress",
     "Version": "0.0.0",
