@@ -4286,11 +4286,11 @@
   {
     "Application": "Komoot",
     "Package": "de.komoot.android",
-    "Version": "0.0.0",
-    "DG_Rating": 4,
-    "MG_Rating": 4,
-    "DG_Notes": "No reported issues",
-    "MG_Notes": "No reported issues"
+    "Version": "2022.25.7",
+    "DG_Rating": "X",
+    "MG_Rating": 1,
+    "DG_Notes": "X",
+    "MG_Notes": "Cannot login, receiving '13:Disabled' error"
   },
   {
     "Application": "Koofr",
