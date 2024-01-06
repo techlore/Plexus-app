@@ -8859,9 +8859,9 @@
     "Application": "Waze",
     "Package": "com.waze",
     "Version": "0.0.0",
-    "DG_Rating": 1,
+    "DG_Rating": 4,
     "MG_Rating": 4,
-    "DG_Notes": "Unusable-maps don't load",
+    "DG_Notes": "Location requires GPS fix",
     "MG_Notes": "No reported issues"
   },
   {
