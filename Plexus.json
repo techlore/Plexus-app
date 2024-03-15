@@ -1476,6 +1476,15 @@
     "MG_Notes": "X"
   },
   {
+    "Application": "Catima",
+    "Package": "me.hackerchick.catima",
+    "Version": "2.16.3",
+    "DG_Rating": 4,
+    "MG_Rating": 4,
+    "DG_Notes": "No reported issues",
+    "MG_Notes": "No reported issues"
+  },
+  {
     "Application": "c:geo",
     "Package": "cgeo.geocaching",
     "Version": "0.0.0",
@@ -6633,6 +6642,15 @@
     "MG_Notes": "No reported issues"
   },
   {
+    "Application": "Raise To Answer",
+    "Package": "me.hackerchick.raisetoanswer",
+    "Version": "3.6.5",
+    "DG_Rating": 4,
+    "MG_Rating": 4,
+    "DG_Notes": "No reported issues",
+    "MG_Notes": "No reported issues"
+  },
+  {
     "Application": "Rat On A Scooter XL",
     "Package": "com.donutgames.ratonascooterxl",
     "Version": "0.0.0",
@@ -7090,6 +7108,15 @@
     "MG_Rating": "X",
     "DG_Notes": "Google Play Services Warning, but no effect",
     "MG_Notes": "X"
+  },
+  {
+    "Application": "Share To Inputstick",
+    "Package": "me.hackerchick.sharetoinputstick",
+    "Version": "3.5.2",
+    "DG_Rating": 4,
+    "MG_Rating": 4,
+    "DG_Notes": "No reported issues",
+    "MG_Notes": "No reported issues"
   },
   {
     "Application": "Sharedr",
