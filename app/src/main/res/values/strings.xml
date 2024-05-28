@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <resources>
@@ -53,10 +51,9 @@
     <string name="submit_rating">Submit rating</string>
     <string name="my_account">My account</string>
     <string name="my_ratings">My ratings</string>
-    <string name="report_issue">Report an issue</string>
-    <string name="menu_settings">Settings</string>
-    <string name="theme">Theme</string>
     <string name="delete_account">Delete account</string>
+    <string name="settings">Settings</string>
+    <string name="theme">Theme</string>
     <string name="about">About</string>
 
     <!--#########################################################################################-->
@@ -101,7 +98,7 @@
         If the above terms &amp; conditions are violated, your account will be deleted along with any ratings you\'ve submitted.</string>
     <string name="verification">Verification</string>
 
-    <!--OTP verification fragment-->
+    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Enter the verification code sent to\n%1$s</string>
     <string name="verification_code">Verification code</string>
     <string name="verifying_code">Please wait, verifying code …</string>
@@ -116,13 +113,6 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
-    <string name="videos">Videos</string>
-    <string name="text">Text</string>
-
-    <!--Help videos fragment-->
-    <string name="introduction">Introduction</string>
-    <string name="navigation">Navigation</string>
-    <string name="submissions">Submissions</string>
 
     <!--Help text fragment-->
     <string name="icons">Icons</string>
@@ -141,12 +131,12 @@
 
     <!--About fragment-->
     <string name="version">Version</string>
-    <string name="by_techlore">by Techlore</string>
     <string name="privacy_policy">Privacy policy</string>
-    <string name="third_party_licenses">Third party licenses</string>
+    <string name="report_issue">Report an issue</string>
     <string name="support_us">Support us</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="visit_techlore">Visit Techlore</string>
+    <string name="third_party_licenses">Third party licenses</string>
 
     <!--#########################################################################################-->
 

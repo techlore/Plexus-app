@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <resources>
@@ -37,10 +35,12 @@
 
     <!--Filter chips theme-->
     <style name="NotTestedFilterChipTheme" parent="BaseFilterChipStyle">
-        <item name="chipBackgroundColor">@android:color/transparent</item>
+        <item name="chipBackgroundColor">@color/chip_bg_color</item>
         <item name="chipStrokeColor">@color/chip_stroke_color</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="android:text">@string/na</item>
+        <item name="checkedIconTint">@color/chip_text_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
     </style>
 
     <style name="BrokenFilterChipTheme" parent="BaseFilterChipStyle">
@@ -79,7 +79,7 @@
     </style>
 
     <style name="SystemDefaultChipTheme" parent="BaseThemeChipStyle">
-        <item name="closeIcon">@drawable/ic_system_default</item>
+        <item name="closeIcon">@drawable/ic_follow_system</item>
         <item name="android:text">@string/follow_system</item>
     </style>
 
@@ -109,12 +109,28 @@
 
     <!--#########################################################################################-->
 
+    <!--Linear progress indicator themes-->
+    <style name="GoldProgressIndicator" parent="BaseProgressIndicatorStyle">
+        <item name="indicatorColor">@color/color_gold_status</item>
+    </style>
+
+    <style name="SilverProgressIndicator" parent="BaseProgressIndicatorStyle">
+        <item name="indicatorColor">@color/color_silver_status</item>
+    </style>
+
+    <style name="BronzeProgressIndicator" parent="BaseProgressIndicatorStyle">
+        <item name="indicatorColor">@color/color_bronze_status</item>
+    </style>
+
+    <style name="BrokenProgressIndicator" parent="BaseProgressIndicatorStyle">
+        <item name="indicatorColor">@color/color_broken_status</item>
+    </style>
+
+    <!--#########################################################################################-->
+
     <!--Bottom sheet theme-->
     <style name="BottomSheetTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
-        <item name="android:backgroundDimAmount">0.50</item>
-        <item name="android:windowEnterAnimation">@anim/fade_in_slide_from_bottom</item>
-        <item name="android:windowExitAnimation">@anim/fade_out_slide_to_bottom</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 

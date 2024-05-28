@@ -1,39 +1,37 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package tech.techlore.plexus.fragments.verification
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.text.isDigitsOnly
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
@@ -65,43 +63,24 @@ class CodeVerificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         verificationActivity = (requireActivity() as VerificationActivity)
+        var job: Job? = null
         
         // Title
         fragmentBinding.titleText.text = getString(R.string.enter_code_sent_to_email,
                                                    verificationActivity.emailString)
         
         // Edit text
-        fragmentBinding.codeText.addTextChangedListener(object : TextWatcher {
-            
-            var delayTimer: CountDownTimer? = null
-            
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                
-                fragmentBinding.codeTextBox.error = null
-                
-                // Introduce a subtle delay
-                // so text is checked after typing is finished
-                delayTimer?.cancel()
-                
-                delayTimer = object : CountDownTimer(200, 100) {
-                    
-                    override fun onTick(millisUntilFinished: Long) {}
-                    
-                    // On timer finish, perform task
-                    override fun onFinish() {
-                        fragmentBinding.doneButton.isEnabled =
-                            charSequence.isNotEmpty()
-                            && charSequence.isDigitsOnly()
-                            && charSequence.length == 6
-                    }
-                    
-                }.start()
-            }
-            
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        fragmentBinding.codeText.doOnTextChanged { charSequence, _, _, _ ->
+            job?.cancel()
+            job =
+                lifecycleScope.launch {
+                    delay(200)
+                    fragmentBinding.doneButton.isEnabled =
+                        charSequence!!.isNotEmpty()
+                        && charSequence.isDigitsOnly()
+                        && charSequence.length == 6
+                }
+        }
         
         // Done
         fragmentBinding.doneButton.setOnClickListener {

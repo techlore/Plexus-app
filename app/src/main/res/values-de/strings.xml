@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <resources>
@@ -56,9 +54,10 @@
     <string name="favorites">Favoriten</string>
     <string name="contribute">Beitragen</string>
     <string name="submit_rating">Bewertung abgeben</string>
+    <string name="my_account">Mein Kkonto</string>
     <string name="my_ratings">Meine bewertungen</string>
-    <string name="report_issue">Ein problem melden</string>
-    <string name="menu_settings">Einstellungen</string>
+    <string name="delete_account">Konto l\u00F6schen</string>
+    <string name="settings">Einstellungen</string>
     <string name="theme">Thema</string>
     <string name="about">\u00DCber</string>
 
@@ -87,6 +86,31 @@
 
     <!--#########################################################################################-->
 
+    <!--Email verification fragment-->
+    <string name="email">Email</string>
+    <string name="verify_to_get_started">\u00DCberpr\u00FCfen sie ihre email, um loszulegen</string>
+    <string name="verify">\u00DCberpr\u00FCfen sie</string>
+    <string name="terms_conditions_title">Bedingungen und konditionen</string>
+    <string name="terms_conditions_desc">Ihre email ist erforderlich, um apps an Plexus zu \u00FCbermitteln.
+        \nDiese email wird nur zu verifizierungszwecken verwendet und wird nach der verifizierung aus unseren systemen entfernt.
+        \n
+        \nDies geschieht aus folgenden gr\u00FCnden:
+        \n\u2022einen möglichen missbrauch unserer API zu verhindern.
+        \n\u2022die richtigkeit der \u00FCbermittelten Daten zu gew\u00E4hrleisten.
+        \n
+        \nSie k\u00F6nnen ihr konto auf diesem ger\u00E4t jederzeit l\u00F6schen.</string>
+    <string name="by_proceeding_agree_desc">Indem sie fortfahren, erkl\u00E4ren Sie sich mit der fairen Nutzung von Plexus einverstanden.
+        Wenn sie gegen die oben genannten bedingungen versto\u00DFen, wird ihr konto zusammen mit allen von ihnen abgegebenen bewertungen gel\u00F6scht.</string>
+    <string name="verification">\u00DCberpr\u00FCfung</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">Geben sie den an %1$s gesendeten verifizierungscode ein.</string>
+    <string name="verification_code">Verifizierungscode</string>
+    <string name="verifying_code">Bitte warten, code wird \u00FCberpr\u00FCft …</string>
+    <string name="incorrect_code">Falscher verifizierungscode.</string>
+
+    <!--#########################################################################################-->
+
     <!--Submit activity-->
     <string name="optional">optional</string>
     <string name="submit">Einreichen</string>
@@ -94,15 +118,9 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
-    <string name="videos">Videos</string>
-    <string name="text">Text</string>
-
-    <!--Help videos fragment-->
-    <string name="introduction">Einf\u00FChrung</string>
-    <string name="navigation">Navigation</string>
-    <string name="submissions">Einreichungen</string>
 
     <!--Help text fragment-->
+    <string name="icons">Icons</string>
     <string name="not_tested_subtitle">Nicht verf\u00FCgbar, die anwendung wurde nicht getestet</string>
     <string name="broken_title">Zerbrochen</string>
     <string name="broken_subtitle">Unbrauchbare, meist nicht zu \u00F6ffnende anwendungen</string>
@@ -112,15 +130,18 @@
     <string name="silver_subtitle">Fast alles funktioniert mit minimalen abstrichen</string>
     <string name="gold_title">Gold</string>
     <string name="gold_subtitle">Perfekte oder perfekt-\u00E4hnliche erfahrung</string>
-    <string name="icons">Was bedeuten die icons?</string>
+    <string name="other">Andere</string>
+    <string name="android_version_desc">Android versionen</string>
+    <string name="installation_source_desc">Installationsquelle von anwendungen</string>
 
     <!--About fragment-->
     <string name="version">Version</string>
     <string name="privacy_policy">Datenschutzbestimmungen</string>
-    <string name="third_party_licenses">Lizenzen</string>
+    <string name="report_issue">Ein problem melden</string>
     <string name="support_us">Unterst\u00FCtzen sie uns</string>
     <string name="view_on_github">Auf GitHub anschauen</string>
     <string name="visit_techlore">Besuche Techlore</string>
+    <string name="third_party_licenses">Lizenzen von drittanbietern</string>
 
     <!--#########################################################################################-->
 
@@ -144,13 +165,24 @@
     <string name="alphabetical">Alphabetisch</string>
     <string name="installed_from">Installiert von</string>
     <string name="any">Jede</string>
-    <string name="other">Andere</string>
     <string name="status">Status</string>
+
+    <!--Email verification-->
+    <string name="sending_code">Bitte warten, code senden …</string>
+    <string name="error_sending_code">Fehler beim senden des codes</string>
+
+    <!--Delete account-->
+    <string name="delete_account_desc">Wenn sie ihr konto l\u00F6schen:
+        \n\u2022 werden sie keine bewertungen mehr abgeben k\u00F6nnen.
+        \n\u2022 Alle zuvor abgegebenen bewertungen werden dauerhaft von diesem ger\u00E4t entfernt.
+        \n
+        \nSind sie sicher, dass sie fortfahren m\u00F6chten?</string>
 
     <!--Theme-->
     <string name="follow_system">System verfolgen</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
+    <string name="material_you">Material You\n(app neustart erforderlich)</string>
 
     <!--More options-->
     <string name="menu_share">Teilen</string>
@@ -173,6 +205,7 @@
     <string name="install_app_to_submit">Installieren sie %1$s um eine bewertung abzugeben</string>
     <string name="device_should_be_degoogled_or_microg">Das ger\u00E4t sollte entweder de-Googled sein oder microG haben, um eine bewertung abzugeben</string>
     <string name="rating_already_submitted">Bewertung bereits abgegeben f\u00FCr %1$s %2$s</string>
-    <string name="no_browsers">Es ist kein Browser auf diesem Ger\u00E4t installiert</string>
+    <string name="no_browsers">Es ist kein browser auf diesem ger\u00E4t installiert</string>
+    <string name="deleted_account_successfully">Konto erfolgreich gel\u00F6scht</string>
 
 </resources>

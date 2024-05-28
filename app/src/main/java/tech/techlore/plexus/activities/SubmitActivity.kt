@@ -1,33 +1,31 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package tech.techlore.plexus.activities
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
@@ -66,6 +64,7 @@ class SubmitActivity : AppCompatActivity() {
         installedFromString = intent.getStringExtra("installedFrom")!!
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
         val appManager = applicationContext as ApplicationManager
+        var job: Job? = null
         
         activityBinding.submitBottomAppBar.apply {
             setSupportActionBar(this)
@@ -109,38 +108,19 @@ class SubmitActivity : AppCompatActivity() {
         
         // Notes
         activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
-        activityBinding.submitNotesText.addTextChangedListener(object : TextWatcher {
-            
-            var delayTimer: CountDownTimer? = null
-            
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                
-                // Introduce a subtle delay
-                // so text is checked after typing is finished
-                delayTimer?.cancel()
-                
-                delayTimer = object : CountDownTimer(300, 100) {
-                    
-                    override fun onTick(millisUntilFinished: Long) {}
-                    
-                    // On timer finish, perform task
-                    override fun onFinish() {
-                        activityBinding.submitFab.isEnabled =
-                            charSequence.isEmpty()
-                            || (charSequence.length in 5..300
-                                && !hasBlockedWord(this@SubmitActivity, charSequence)
-                                && !hasRepeatedChars(charSequence)
-                                && !hasEmojis(charSequence)
-                                && !hasURL(charSequence))
-                    }
-                    
-                }.start()
+        activityBinding.submitNotesText.doOnTextChanged { charSequence, _, _, _ ->
+            job?.cancel()
+            job = lifecycleScope.launch {
+                delay(300)
+                activityBinding.submitFab.isEnabled =
+                    charSequence !!.isEmpty()
+                    || (charSequence.length in 5..300
+                        && ! hasBlockedWord(this@SubmitActivity, charSequence)
+                        && ! hasRepeatedChars(charSequence)
+                        && ! hasEmojis(charSequence)
+                        && ! hasURL(charSequence))
             }
-            
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        }
         
         // FAB
         activityBinding.submitFab.setOnClickListener {

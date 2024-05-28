@@ -1,20 +1,18 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package tech.techlore.plexus.fragments.bottomsheets
@@ -24,7 +22,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
@@ -32,9 +29,9 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
-import tech.techlore.plexus.databinding.DividerHorizontalBinding
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
+import tech.techlore.plexus.utils.UiUtils.Companion.setAppTheme
 
 class ThemeBottomSheet : BottomSheetDialogFragment() {
     
@@ -77,16 +74,7 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
             setOnCheckedStateChangeListener { _, checkedIds ->
                 val checkedChip = checkedIds.first()
                 preferenceManager.setInt(THEME, checkedChip)
-                when (checkedChip) {
-                    R.id.followSystem ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                    
-                    R.id.light ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    
-                    R.id.dark ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                }
+                setAppTheme(checkedChip)
                 dismiss()
                 
             }
@@ -94,12 +82,14 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         
         // Material You
         if (Build.VERSION.SDK_INT >= 31) {
-            DividerHorizontalBinding.bind(bottomSheetBinding.root).divider.isVisible = true
-            bottomSheetBinding.materialYouSwitch.apply {
-                isVisible = true
-                isChecked = preferenceManager.getBooleanDefValFalse(MATERIAL_YOU)
-                setOnCheckedChangeListener { _, isChecked ->
-                    preferenceManager.setBoolean(MATERIAL_YOU, isChecked)
+            bottomSheetBinding.apply {
+                divider.isVisible = true
+                materialYouSwitch.apply {
+                    isVisible = true
+                    isChecked = preferenceManager.getBoolean(MATERIAL_YOU, defValue = false)
+                    setOnCheckedChangeListener { _, isChecked ->
+                        preferenceManager.setBoolean(MATERIAL_YOU, isChecked)
+                    }
                 }
             }
         }

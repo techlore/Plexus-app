@@ -1,20 +1,18 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package tech.techlore.plexus.utils
@@ -22,9 +20,11 @@ package tech.techlore.plexus.utils
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -40,6 +40,22 @@ import tech.techlore.plexus.preferences.PreferenceManager
 class UiUtils {
     
     companion object {
+        
+        fun setAppTheme(selectedTheme: Int) {
+            when(selectedTheme) {
+                0 -> {
+                    if (Build.VERSION.SDK_INT >= 29){
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    }
+                    else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                }
+                R.id.followSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                R.id.light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                R.id.dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+        }
         
         // Horizontally scroll text,
         // if text is too long
@@ -115,15 +131,6 @@ class UiUtils {
                 in 2.0f..2.9f -> context.getString(R.string.bronze_title)
                 in 3.0f..3.9f -> context.getString(R.string.silver_title)
                 else -> context.getString(R.string.gold_title)
-            }
-        }
-        
-        fun mapScoreRangeToColor(context: Context, score: Float): Int {
-            return when(score) {
-                in 1.0f..1.9f -> context.resources.getColor(R.color.color_broken_status, context.theme)
-                in 2.0f..2.9f -> context.resources.getColor(R.color.color_bronze_status, context.theme)
-                in 3.0f..3.9f -> context.resources.getColor(R.color.color_silver_status, context.theme)
-                else -> context.resources.getColor(R.color.color_gold_status, context.theme)
             }
         }
         

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -37,55 +35,6 @@
         android:layout_marginBottom="?attr/actionBarSize"
         app:navGraph="@navigation/settings_fragments_nav_graph"
         app:defaultNavHost="true"/>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/helpRadioBottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:visibility="gone"
-        tools:visibility="visible"/>
-
-    <RadioGroup
-        android:id="@+id/helpRadioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="65dp"
-        android:background="@drawable/shape_radio_group"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioHelpText"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_40"
-            android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_radio_btn_bg"
-            android:checked="true"
-            android:button="@android:color/transparent"
-            android:paddingStart="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_16"
-            android:text="@string/text"
-            android:textSize="@dimen/text_16"
-            android:textColor="@color/radio_btn_text_color"/>
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioHelpVideos"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_40"
-            android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_radio_btn_bg"
-            android:button="@android:color/transparent"
-            android:paddingStart="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_16"
-            android:text="@string/videos"
-            android:textSize="@dimen/text_16"
-            android:textColor="@color/radio_btn_text_color"/>
-
-    </RadioGroup>
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

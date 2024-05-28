@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <resources>
 
-    <!--Main activity-->
-    <!--Nav view-->
-    <string name="plexus_report_issue_url" translatable="false">https://github.com/techlore/Plexus-app/issues</string>
-
-    <!--#########################################################################################-->
-
     <!--Settings activity-->
+
+    <!--Help fragment-->
+    <string name="apps_submit_proc_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/Help#apps-submission-procedure</string>
+
+    <!--About fragment-->
     <string name="plexus_privacy_policy_url" translatable="false">https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md</string>
+    <string name="plexus_report_issue_url" translatable="false">https://github.com/techlore/Plexus-app/issues</string>
     <string name="plexus_github_url" translatable="false">https://github.com/techlore/Plexus-app</string>
     <string name="techlore_website_url" translatable="false">https://www.techlore.tech</string>
 

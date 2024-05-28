@@ -1,29 +1,24 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package tech.techlore.plexus.appmanager
 
 import android.app.Application
-import android.os.Build
-import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
-import tech.techlore.plexus.R
 import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
 import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -33,6 +28,7 @@ import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
+import tech.techlore.plexus.utils.UiUtils.Companion.setAppTheme
 
 class ApplicationManager : Application() {
     
@@ -53,24 +49,10 @@ class ApplicationManager : Application() {
         super.onCreate()
 
         // Theme
-        when (preferenceManager.getInt(THEME)) {
-
-            0 -> {
-                if (Build.VERSION.SDK_INT >= 29){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                }
-                else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                }
-            }
-            R.id.followSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            R.id.light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            R.id.dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-
-        }
+        setAppTheme(preferenceManager.getInt(THEME))
         
         // Material you
-        if (preferenceManager.getBooleanDefValFalse(MATERIAL_YOU)) {
+        if (preferenceManager.getBoolean(MATERIAL_YOU, defValue = false)) {
             DynamicColors.applyToActivitiesIfAvailable(this)
         }
     }

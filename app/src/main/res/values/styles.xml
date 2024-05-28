@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <resources>
@@ -124,9 +122,9 @@
     </style>
 
     <style name="BaseThemeChipStyle" parent="BaseChipStyle">
-        <item name="chipBackgroundColor">@color/chip_bg_color</item>
+        <item name="chipBackgroundColor">@color/theme_chip_bg_color</item>
         <item name="chipCornerRadius">@dimen/margin_12</item>
-        <item name="chipStrokeColor">@color/chip_stroke_color</item>
+        <item name="chipStrokeColor">@color/theme_chip_stroke_color</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="closeIconEndPadding">@dimen/margin_4</item>
         <item name="closeIconStartPadding">@dimen/margin_8</item>
@@ -145,6 +143,15 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <!--#########################################################################################-->
+
+    <!--Base linear progress indicator style-->
+    <style name="BaseProgressIndicatorStyle" parent="Widget.Material3.LinearProgressIndicator">
+        <item name="trackCornerRadius">@dimen/margin_8</item>
+        <item name="trackThickness">@dimen/margin_50</item>
+        <item name="trackStopIndicatorSize">0dp</item>
     </style>
 
     <!--#########################################################################################-->

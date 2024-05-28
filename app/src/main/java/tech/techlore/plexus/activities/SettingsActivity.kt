@@ -1,20 +1,18 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package tech.techlore.plexus.activities
@@ -54,24 +52,7 @@ class SettingsActivity : AppCompatActivity() {
         
         supportActionBar?.setDisplayShowTitleEnabled(false)
         
-        activityBinding.helpRadioBottomAppBar.isVisible = displayFragmentId == R.id.helpTextFragment
-        
         navController.navigate(displayFragmentId)
-        
-        activityBinding.helpRadioGroup.apply {
-            isVisible = displayFragmentId == R.id.helpTextFragment
-            if (isVisible) {
-                check(R.id.radioHelpText)
-                setOnCheckedChangeListener { _, checkedId ->
-                    val action =
-                        when (checkedId) {
-                            R.id.radioHelpVideos -> R.id.action_helpTextFragment_to_helpVideosFragment
-                            else -> R.id.action_helpVideosFragment_to_helpTextFragment
-                        }
-                    navController.navigate(action)
-                }
-            }
-        }
     }
     
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {

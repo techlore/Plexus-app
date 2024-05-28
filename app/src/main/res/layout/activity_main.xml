@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -42,48 +40,47 @@
         android:id="@+id/dimBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
+        android:background="#55000000"
         android:alpha="0.0"/>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
         android:id="@+id/bottomNavContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_peekHeight="@dimen/margin_75"
+        app:behavior_hideable="false"
+        android:backgroundTint="?attr/colorSurfaceContainer"
+        app:shouldRemoveExpandedCorners="true"
+        app:shapeAppearance="@style/BottomSheetShapeStyle"
+        style="@style/Widget.Material3.BottomSheet"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbarBottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/colorSurfaceContainer"
-                    app:navigationIcon="@drawable/ic_nav_view"
-                    app:contentInsetStartWithNavigation="0dp"
-                    app:titleTextColor="@color/color_onSurface"/>
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/navView"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbarBottom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/margin_12"
-                android:background="?attr/colorSurfaceContainer"
-                app:menu="@menu/menu_nav_view"
-                style="@style/NavViewStyle"/>
+                android:background="@android:color/transparent"
+                app:navigationIcon="@drawable/ic_nav_view"
+                app:contentInsetStartWithNavigation="0dp"
+                app:titleTextColor="?attr/colorOnSurface"/>
 
-        </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:paddingTop="@dimen/margin_12"
+            android:background="@android:color/transparent"
+            app:menu="@menu/menu_nav_view"
+            style="@style/NavViewStyle"/>
+
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

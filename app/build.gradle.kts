@@ -1,26 +1,28 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.ksp)
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 android {
@@ -33,6 +35,7 @@ android {
         targetSdk = 34
         versionCode = 200
         versionName = "2.0.0"
+        setProperty("archivesBaseName", "Plexus_v$versionName")
     }
 
     buildTypes {
@@ -52,50 +55,37 @@ android {
         viewBinding = true
         buildConfig = true
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.material3)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.security.crypto.ktx)
 
     // Navigation components
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation(libs.bundles.navigation)
 
     // Jackson kotlin module
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
+    implementation(libs.jackson.kotlin)
 
     // Retrofit2
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
+    implementation(libs.bundles.retrofit2)
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation(libs.bundles.room)
+    ksp(libs.androidx.room.compiler)
     
     // Coil
-    implementation("io.coil-kt:coil:2.5.0")
+    implementation(libs.coil)
     
     // FastScroll
-    implementation("com.github.StellarSand:AndroidFastScroll-kt:v1.0.3")
+    implementation(libs.androidFastScrollKt)
 
     // jsoup
-    implementation("org.jsoup:jsoup:1.17.1")
+    implementation(libs.jsoup)
 
     // Lottie
-    implementation("com.airbnb.android:lottie:6.2.0")
+    implementation(libs.lottie)
 }

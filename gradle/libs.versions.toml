@@ -1,0 +1,64 @@
+#
+#     Copyright (C) 2022-present Techlore
+#
+#     This program is free software: you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation, either version 3 of the License, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
+[versions]
+androidGradle = "8.4.1"
+androidKotlin = "1.9.23"
+ksp = "1.9.23-1.0.19"
+appcompat = "1.6.1"
+coreKtx = "1.13.1"
+material3 = "1.12.0"
+swiperefreshlayout = "1.1.0"
+securityCryptoKtx = "1.1.0-alpha06"
+navigationKtx = "2.7.7"
+jacksonKt = "2.17.1"
+retrofit2 = "2.11.0"
+room = "2.6.1"
+coil = "2.6.0"
+androidfastscrollKt = "v1.0.3"
+jsoup = "1.17.2"
+lottie = "6.4.1"
+
+[libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+material3 = { module = "com.google.android.material:material", version.ref = "material3" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
+androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationKtx" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationKtx" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationKtx" }
+jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonKt" }
+retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
+retrofit2-converter-jackson = { module = "com.squareup.retrofit2:converter-jackson", version.ref = "retrofit2" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+androidFastScrollKt = { module = "com.github.StellarSand:AndroidFastScroll-kt", version.ref = "androidfastscrollKt" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+
+[bundles]
+navigation = ["androidx-navigation-runtime-ktx", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
+retrofit2 = ["retrofit2", "retrofit2-converter-jackson"]
+room = ["androidx-room-runtime", "androidx-room-ktx"]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradle" }
+android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "androidKotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <resources>
@@ -25,6 +23,8 @@
     Ensure proper encoding of characters
         à = \u00E0
         è = \u00E8
+        È = \u00C8
+        ò = \u00F2
         ù = \u00F9
     -->
 
@@ -50,9 +50,10 @@
     <string name="favorites">Preferiti</string>
     <string name="contribute">Contribuire</string>
     <string name="submit_rating">Invia la valutazione</string>
+    <string name="my_account">Il mio account</string>
     <string name="my_ratings">Le mie valutazioni</string>
-    <string name="report_issue">Segnala un problema</string>
-    <string name="menu_settings">Impostazioni</string>
+    <string name="delete_account">Eliminare l\'account</string>
+    <string name="settings">Impostazioni</string>
     <string name="theme">Tema</string>
     <string name="about">Info</string>
 
@@ -81,6 +82,30 @@
 
     <!--#########################################################################################-->
 
+    <!--Email verification fragment-->
+    <string name="email">Email</string>
+    <string name="verify_to_get_started">Verifica il tuo indirizzo email per iniziare</string>
+    <string name="verify">Verifica</string>
+    <string name="terms_conditions_title">Termini e condizioni</string>
+    <string name="terms_conditions_desc">L\'email \u00E8 necessaria per inviare le apps a Plexus.
+        \nL\'email sar\u00E0 utilizzata solo a scopo di verifica e sar\u00E0 rimossa dai nostri sistemi dopo la verifica.
+        \n
+        \nQuesto viene fatto per:
+        \n\u2022 prevenire potenziali abusi delle nostre API.
+        \n\u2022 garantire l\'accuratezza dei dati inviati.
+        \nL\'utente pu\u00F2 cancellare il proprio account da questo dispositivo in qualsiasi momento.</string>
+    <string name="by_proceeding_agree_desc">Procedendo, l\'utente accetta l\'uso corretto di Plexus.
+        Se i termini e le condizioni di cui sopra vengono violati, il vostro account verr\u00E0 cancellato insieme a tutte le valutazioni che avete inviato.</string>
+    <string name="verification">Verifica</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">Inserire il codice di verifica inviato a\n%1$s</string>
+    <string name="verification_code">Codice di verifica</string>
+    <string name="verifying_code">Attendere, verifica del codice …</string>
+    <string name="incorrect_code">Codice di verifica errato.</string>
+
+    <!--#########################################################################################-->
+
     <!--Submit activity-->
     <string name="optional">opzionale</string>
     <string name="submit">Invia</string>
@@ -88,15 +113,9 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
-    <string name="videos">Videos</string>
-    <string name="text">Testo</string>
-
-    <!--Help videos fragment-->
-    <string name="introduction">Introduzione</string>
-    <string name="navigation">Navigazione</string>
-    <string name="submissions">Invii</string>
 
     <!--Help text fragment-->
+    <string name="icons">Icone</string>
     <string name="not_tested_subtitle">Non disponibile, l\'applicazione non \u00E8 stata testata</string>
     <string name="broken_title">Rotto</string>
     <string name="broken_subtitle">Inutilizzabili, per lo pi\u00F9 app che non riescono ad aprirsi</string>
@@ -106,15 +125,18 @@
     <string name="silver_subtitle">Funziona quasi tutto, con minimi accorgimenti</string>
     <string name="gold_title">Oro</string>
     <string name="gold_subtitle">Esperienza perfetta o simile alla perfezione</string>
-    <string name="icons">Cosa significano le icone?</string>
+    <string name="other">Altro</string>
+    <string name="android_version_desc">Versioni Android</string>
+    <string name="installation_source_desc">Fonte di installazione delle apps</string>
 
     <!--About fragment-->
     <string name="version">Versione</string>
     <string name="privacy_policy">Politica sulla Riservatezza</string>
-    <string name="third_party_licenses">Licenze</string>
+    <string name="report_issue">Segnala un problema</string>
     <string name="support_us">Sosteneteci</string>
     <string name="view_on_github">Vedi su GitHub</string>
     <string name="visit_techlore">Visita Techlore</string>
+    <string name="third_party_licenses">Licenze di terze parti</string>
 
     <!--#########################################################################################-->
 
@@ -138,13 +160,24 @@
     <string name="alphabetical">Alfabetico</string>
     <string name="installed_from">Installato da</string>
     <string name="any">Qualsiasi</string>
-    <string name="other">Altro</string>
     <string name="status">Stato</string>
+
+    <!--Email verification-->
+    <string name="sending_code">Attendere, invio del codice …</string>
+    <string name="error_sending_code">Errore durante l\'invio del codice</string>
+
+    <!--Delete account-->
+    <string name="delete_account_desc">Se cancelli il tuo account:
+        \n\u2022 non sar\u00E0 pi\u00F9 possibile inviare valutazioni.
+        \n\u2022 tutte le valutazioni precedentemente inviate saranno rimosse in modo permanente da questo dispositivo.
+        \n
+        \n\u00C8 sicuro di voler procedere?</string>
 
     <!--Theme-->
     <string name="follow_system">Segui il sistema</string>
     <string name="light">Chiaro</string>
     <string name="dark">Scuro</string>
+    <string name="material_you">Material You\n(richiede il riavvio dell\'app)</string>
 
     <!--More options-->
     <string name="menu_share">Condividere</string>
@@ -168,5 +201,6 @@
     <string name="device_should_be_degoogled_or_microg">Il dispositivo deve essere de-Googled o avere il microG per inviare la valutazione</string>
     <string name="rating_already_submitted">Valutazione gi\u00E0 inviata per %1$s %2$s</string>
     <string name="no_browsers">Nessun browser installato sul dispositivo</string>
+    <string name="deleted_account_successfully">Account cancellato con successo</string>
 
 </resources>

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2022-present Techlore
+  ~     Copyright (C) 2022-present Techlore
   ~
-  ~  This file is part of Plexus.
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
   ~
-  ~  Plexus is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  (at your option) any later version.
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
   ~
-  ~  Plexus is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <resources>
@@ -48,9 +46,10 @@
     <string name="favorites">Favorieten</string>
     <string name="contribute">Bijdrage leveren</string>
     <string name="submit_rating">Beoordeling indienen</string>
+    <string name="my_account">Mijn account</string>
     <string name="my_ratings">Mijn beoordelingen</string>
-    <string name="report_issue">Een probleem melden</string>
-    <string name="menu_settings">Instellingen</string>
+    <string name="delete_account">Account verwijderen</string>
+    <string name="settings">Instellingen</string>
     <string name="theme">Thema</string>
     <string name="about">Over</string>
 
@@ -79,6 +78,31 @@
 
     <!--#########################################################################################-->
 
+    <!--Email verification fragment-->
+    <string name="email">Email</string>
+    <string name="verify_to_get_started">Controleer je email om te beginnen</string>
+    <string name="verify">Controleer</string>
+    <string name="terms_conditions_title">Algemene voorwaarden</string>
+    <string name="terms_conditions_desc">Uw email is vereist voor het indienen van apps bij Plexus.
+        \nDit email wordt alleen gebruikt voor verificatiedoeleinden en wordt na verificatie uit onze systemen verwijderd.
+        \n
+        \nDit wordt gedaan om:
+        \n\u2022 potentieel misbruik van onze API te voorkomen.
+        \n\u2022 de nauwkeurigheid van de ingediende gegevens te garanderen.
+        \n
+        \nU kunt uw account op elk gewenst moment van dit apparaat verwijderen.</string>
+    <string name="by_proceeding_agree_desc">Door verder te gaan, ga je akkoord met het eerlijke gebruik van Plexus.
+        Als de bovenstaande voorwaarden worden geschonden, wordt je account verwijderd, samen met alle beoordelingen die je hebt ingediend.</string>
+    <string name="verification">Verificatie</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">Voer de verificatiecode in die is verzonden naar\n%1$s</string>
+    <string name="verification_code">Verificatiecode</string>
+    <string name="verifying_code">Even geduld, code wordt geverifieerd …</string>
+    <string name="incorrect_code">Onjuiste verificatiecode.</string>
+
+    <!--#########################################################################################-->
+
     <!--Submit activity-->
     <string name="optional">optionele</string>
     <string name="submit">Dien in</string>
@@ -86,15 +110,9 @@
     <!--#########################################################################################-->
 
     <!--Settings activity-->
-    <string name="videos">Videos</string>
-    <string name="text">Tekst</string>
-
-    <!--Help videos fragment-->
-    <string name="introduction">Inleiding</string>
-    <string name="navigation">Navigatie</string>
-    <string name="submissions">Inzendingen</string>
 
     <!--Help text fragment-->
+    <string name="icons">Iconen</string>
     <string name="not_tested_subtitle">Niet beschikbaar, app is niet getest</string>
     <string name="broken_title">Gebroken</string>
     <string name="broken_subtitle">Onbruikbaar, meestal apps die niet openen</string>
@@ -104,15 +122,18 @@
     <string name="silver_subtitle">Bijna alles werkt met minimale beperkingen</string>
     <string name="gold_title">Goud</string>
     <string name="gold_subtitle">Perfecte of perfect lijkende ervaring</string>
-    <string name="icons">Wat betekenen de iconen?</string>
+    <string name="other">Andere</string>
+    <string name="android_version_desc">Android versies</string>
+    <string name="installation_source_desc">Installatiebron van apps</string>
 
     <!--About fragment-->
     <string name="version">Versie</string>
     <string name="privacy_policy">Privacybeleid</string>
-    <string name="third_party_licenses">Licenties</string>
+    <string name="report_issue">Een probleem melden</string>
     <string name="support_us">Steun ons</string>
     <string name="view_on_github">Bekijk op GitHub</string>
     <string name="visit_techlore">Bezoek Techlore</string>
+    <string name="third_party_licenses">Licenties van derden</string>
 
     <!--#########################################################################################-->
 
@@ -136,13 +157,24 @@
     <string name="alphabetical">Alfabetisch</string>
     <string name="installed_from">Ge\u00EFnstalleerd van</string>
     <string name="any">Ieder</string>
-    <string name="other">Andere</string>
     <string name="status">Status</string>
+
+    <!--Email verification-->
+    <string name="sending_code">Even geduld, code wordt verzonden …</string>
+    <string name="error_sending_code">Fout bij verzenden code</string>
+
+    <!--Delete account-->
+    <string name="delete_account_desc">Als je je account verwijdert:
+        \n\u2022 kun je geen beoordelingen meer geven.
+        \n\u2022 worden alle eerder ingediende beoordelingen permanent verwijderd van dit apparaat.
+        \n
+        \nWeet u zeker dat u wilt doorgaan?</string>
 
     <!--Theme-->
     <string name="follow_system">Systeem volgen</string>
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
+    <string name="material_you">Material You\n(app opnieuw opstarten vereist)</string>
 
     <!--More options-->
     <string name="menu_share">Delen</string>
@@ -166,5 +198,6 @@
     <string name="device_should_be_degoogled_or_microg">Apparaat moet de-Googled zijn of microG hebben om beoordeling in te dienen</string>
     <string name="rating_already_submitted">Beoordeling reeds ingediend voor %1$s %2$s</string>
     <string name="no_browsers">Geen browsers ge\u00EFnstalleerd op dit apparaat</string>
+    <string name="deleted_account_successfully">Account succesvol verwijderd</string>
 
 </resources>

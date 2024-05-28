@@ -1,33 +1,32 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package tech.techlore.plexus.activities
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.MenuProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -46,11 +45,14 @@ import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 class MainActivity : AppCompatActivity(), MenuProvider {
     
     lateinit var activityBinding: ActivityMainBinding
-    lateinit var bottomSheetBehavior: BottomSheetBehavior<CoordinatorLayout>
+    lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
     var clickedNavItem = 0
     var selectedNavItem = 0
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
+    private var surfaceContainerLowColor = 0
+    private var surfaceContainerColor = 0
+    private var surfaceColor = 0
     
     private companion object {
         const val BOTTOM_NAV_SLIDE_UP_THRESHOLD = 0.02
@@ -110,11 +112,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                             activityBinding.toolbarBottom.title =
                                 navController.currentDestination !!.label.toString()
                         }
-                        
-                        R.id.nav_report_issue -> openURL(this@MainActivity,
-                                                         getString(R.string.plexus_report_issue_url),
-                                                         activityBinding.mainCoordLayout,
-                                                         activityBinding.bottomNavContainer)
                         
                         R.id.nav_delete_account -> DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
                         
@@ -201,19 +198,19 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     }
     
     private fun updateUiOnSlide(thresholdCrossed: Boolean) {
-        var surfaceContainerLowColor: Int
-        var surfaceContainerColor: Int
-        
         if (thresholdCrossed) {
             activityBinding.apply {
                 toolbarBottom.apply {
                     title = null
                     menu.clear()
-                    surfaceContainerLowColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceContainerLow)
-                    setBackgroundColor(surfaceContainerLowColor)
                 }
-                navView.setBackgroundColor(MaterialColors.getColor(navView, com.google.android.material.R.attr.colorSurfaceContainerLow))
+                bottomNavContainer.apply {
+                    surfaceContainerLowColor =
+                        surfaceContainerLowColor.takeIf { it != 0 } ?: MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceContainer)
+                    backgroundTintList = ColorStateList.valueOf(surfaceContainerLowColor)
+                }
             }
+            
             window.apply {
                 statusBarColor = surfaceContainerLowColor
                 navigationBarColor = surfaceContainerLowColor
@@ -223,14 +220,19 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             activityBinding.apply {
                 toolbarBottom.apply {
                     title = navController.currentDestination!!.label.toString()
-                    surfaceContainerColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceContainer)
-                    setBackgroundColor(surfaceContainerColor)
                 }
                 invalidateMenu()
-                navView.setBackgroundColor(surfaceContainerColor)
+                bottomNavContainer.apply {
+                    surfaceContainerColor =
+                        surfaceContainerColor.takeIf { it != 0 } ?: MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceContainer)
+                    backgroundTintList = ColorStateList.valueOf(surfaceContainerColor)
+                }
             }
+            
             window.apply {
-                statusBarColor = MaterialColors.getColor(activityBinding.mainCoordLayout, com.google.android.material.R.attr.colorSurface)
+                surfaceColor =
+                    surfaceColor.takeIf { it != 0 } ?: MaterialColors.getColor(activityBinding.mainCoordLayout, com.google.android.material.R.attr.colorSurface)
+                statusBarColor = surfaceColor
                 navigationBarColor = surfaceContainerColor
             }
         }
@@ -261,7 +263,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
             
             R.id.main_menu_help -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java)
-                                                     .putExtra("frag", R.id.helpTextFragment))
+                                                     .putExtra("frag", R.id.helpFragment))
             
         }
         

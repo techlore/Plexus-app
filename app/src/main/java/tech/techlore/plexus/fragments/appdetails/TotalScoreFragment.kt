@@ -1,32 +1,30 @@
 /*
- * Copyright (c) 2022-present Techlore
+ *     Copyright (C) 2022-present Techlore
  *
- *  This file is part of Plexus.
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
  *
- *  Plexus is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  *
- *  Plexus is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Plexus.  If not, see <https://www.gnu.org/licenses/>.
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package tech.techlore.plexus.fragments.appdetails
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -34,13 +32,13 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.FragmentTotalScoreBinding
 import tech.techlore.plexus.models.ratingrange.RatingRange
-import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToColor
 
 class TotalScoreFragment : Fragment() {
     
     private var _binding: FragmentTotalScoreBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var detailsActivity: AppDetailsActivity
+    private var dgScore = 0.0f
     private var mgScore = 0.0f
     
     override fun onCreateView(inflater: LayoutInflater,
@@ -54,8 +52,9 @@ class TotalScoreFragment : Fragment() {
     
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
+        
         detailsActivity = requireActivity() as AppDetailsActivity
+        dgScore = detailsActivity.app.dgScore
         mgScore = detailsActivity.app.mgScore
         val totalDgRatings = detailsActivity.app.totalDgRatings
         val totalMgRatings = detailsActivity.app.totalMgRatings
@@ -68,12 +67,12 @@ class TotalScoreFragment : Fragment() {
             // This will prevent calculations
             // everytime user switches from user ratings fragment to this one
             if (!detailsActivity.totalScoreCalculated) {
-    
+                
                 val ratingRanges = listOf(RatingRange("gold", 4.0f, 4.0f),
                                           RatingRange("silver", 3.0f, 3.9f),
                                           RatingRange("bronze", 2.0f, 2.9f),
                                           RatingRange("broken", 1.0f, 1.9f))
-    
+                
                 val ratingCounts = mutableMapOf<Pair<String?, String>, Int>()
                 for (rating in detailsActivity.ratingsList) {
                     for (range in ratingRanges) {
@@ -84,7 +83,7 @@ class TotalScoreFragment : Fragment() {
                         }
                     }
                 }
-    
+                
                 val dgGoldRatingsCount = ratingCounts["native" to "gold"] ?: 0
                 val dgSilverRatingsCount = ratingCounts["native" to "silver"] ?: 0
                 val dgBronzeRatingsCount = ratingCounts["native" to "bronze"] ?: 0
@@ -93,7 +92,7 @@ class TotalScoreFragment : Fragment() {
                 val mgSilverRatingsCount = ratingCounts["micro_g" to "silver"] ?: 0
                 val mgBronzeRatingsCount = ratingCounts["micro_g" to "bronze"] ?: 0
                 val mgBrokenRatingsCount = ratingCounts["micro_g" to "broken"] ?: 0
-    
+                
                 detailsActivity.dgGoldRatingsPercent = calcPercent(dgGoldRatingsCount, totalDgRatings)
                 detailsActivity.dgSilverRatingsPercent = calcPercent(dgSilverRatingsCount, totalDgRatings)
                 detailsActivity.dgBronzeRatingsPercent = calcPercent(dgBronzeRatingsCount, totalDgRatings)
@@ -102,13 +101,13 @@ class TotalScoreFragment : Fragment() {
                 detailsActivity.mgSilverRatingsPercent = calcPercent(mgSilverRatingsCount, totalMgRatings)
                 detailsActivity.mgBronzeRatingsPercent = calcPercent(mgBronzeRatingsCount, totalMgRatings)
                 detailsActivity.mgBrokenRatingsPercent = calcPercent(mgBrokenRatingsCount, totalMgRatings)
-    
+                
                 detailsActivity.totalScoreCalculated = true
             }
             
             // Update UI with all results
             withContext(Dispatchers.Main) {
-                fragmentBinding.dgAvgScore.text = "${removeDotZeroFromFloat(detailsActivity.app.dgScore)}/4"
+                fragmentBinding.dgAvgScore.text = "${removeDotZeroFromFloat(dgScore)}/4"
                 fragmentBinding.dgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalDgRatings"
                 setDgProgressAndPercent(detailsActivity.dgGoldRatingsPercent,
                                         detailsActivity.dgSilverRatingsPercent,
@@ -125,14 +124,31 @@ class TotalScoreFragment : Fragment() {
         }
     }
     
+    private fun calcPercent(ratingsCount: Int, totalRatings: Int): Float {
+        return if (totalRatings == 0 || ratingsCount == 0) 0.0f else {
+            val result = (ratingsCount.toFloat() / totalRatings.toFloat()) * 100.0f
+            ((result * 10.0f).toInt().toFloat()) / 10.0f // Limit result to 1 decimal place without rounding off
+        }
+    }
+    
     private fun removeDotZeroFromFloat(avgScore: Float): String {
         return avgScore.toString().removeSuffix(".0")
     }
     
-    private fun calcPercent(ratingsCount: Int, totalRatings: Int): Float {
-        return if (totalRatings == 0) 0.0f else {
-            val result = (ratingsCount.toFloat() / totalRatings.toFloat()) * 100.0f
-            ((result * 10.0f).toInt().toFloat()) / 10.0f // Limit result to 1 decimal place without rounding off
+    private fun mapScoreRangeToColor(context: Context, score: Float): Int {
+        return when(score) {
+            0.0f -> 0
+            in 1.0f..1.9f -> context.resources.getColor(R.color.color_broken_status, context.theme)
+            in 2.0f..2.9f -> context.resources.getColor(R.color.color_bronze_status, context.theme)
+            in 3.0f..3.9f -> context.resources.getColor(R.color.color_silver_status, context.theme)
+            else -> context.resources.getColor(R.color.color_gold_status, context.theme)
+        }
+    }
+    
+    private fun mapScoreRangeToProgress(score: Float): Int {
+        return when(score) {
+            0.0f -> 0
+            else -> ((score / 4.0f) * 100.0f ).toInt()
         }
     }
     
@@ -142,11 +158,8 @@ class TotalScoreFragment : Fragment() {
                                         dgBronzeRatingsPercent: Float,
                                         dgBrokenRatingsPercent: Float) {
         fragmentBinding.dgCircle.apply {
-            when (detailsActivity.app.dgScore) {
-                0.0f -> MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary)
-                else -> setIndicatorColor(mapScoreRangeToColor(requireContext(), detailsActivity.app.dgScore))
-            }
-            setProgressCompat(100, true)
+            setIndicatorColor(mapScoreRangeToColor(requireContext(), dgScore))
+            setProgressCompat(mapScoreRangeToProgress(dgScore), true)
         }
         
         fragmentBinding.dgGoldProgress.setProgressCompat(dgGoldRatingsPercent.toInt(), true)
@@ -167,11 +180,8 @@ class TotalScoreFragment : Fragment() {
         // No need to animate progress indicators here
         // as they won't be shown unless scrolled
         fragmentBinding.mgCircle.apply {
-            when (mgScore) {
-                0.0f -> MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary)
-                else -> setIndicatorColor(mapScoreRangeToColor(requireContext(), mgScore))
-            }
-            fragmentBinding.mgCircle.progress = 100
+            setIndicatorColor(mapScoreRangeToColor(requireContext(), mgScore))
+            progress = mapScoreRangeToProgress(mgScore)
         }
         fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()
         fragmentBinding.mgGoldPercent.text = "${removeDotZeroFromFloat(mgGoldRatingsPercent)}%"
