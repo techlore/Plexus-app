@@ -112,7 +112,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBarRadio"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="65dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="63dp"/>
 
@@ -121,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="@dimen/margin_75"
         android:background="@drawable/shape_radio_group"
         android:orientation="horizontal"
         android:visibility="gone"

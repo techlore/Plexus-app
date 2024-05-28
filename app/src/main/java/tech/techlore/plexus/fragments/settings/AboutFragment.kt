@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import tech.techlore.plexus.BuildConfig
 import tech.techlore.plexus.R
@@ -67,32 +68,32 @@ class AboutFragment : Fragment() {
                     getString(R.string.plexus_report_issue_url),
                     settingsActivity.activityBinding.settingsCoordLayout,
                     settingsActivity.activityBinding.toolbarBottom)
-            
-            // Support us
-            fragmentBinding.supportUs.setOnClickListener {
-                settingsActivity.navController.navigate(R.id.action_aboutFragment_to_supportUsFragment)
-            }
-            
-            // View on GitHub
-            fragmentBinding.viewOnGitHub.setOnClickListener {
-                openURL(settingsActivity,
-                        getString(R.string.plexus_github_url),
-                        settingsActivity.activityBinding.settingsCoordLayout,
-                        settingsActivity.activityBinding.toolbarBottom)
-            }
-            
-            // Visit Techlore
-            fragmentBinding.visitTechlore.setOnClickListener {
-                openURL(settingsActivity,
-                        getString(R.string.techlore_website_url),
-                        settingsActivity.activityBinding.settingsCoordLayout,
-                        settingsActivity.activityBinding.toolbarBottom)
-            }
-            
-            // Third party licenses
-            fragmentBinding.licenses.setOnClickListener {
-                settingsActivity.navController.navigate(R.id.action_aboutFragment_to_licensesFragment)
-            }
+        }
+        
+        // Support us
+        fragmentBinding.supportUs.setOnClickListener {
+            settingsActivity.navController.navigate(R.id.action_aboutFragment_to_supportUsFragment)
+        }
+        
+        // View on GitHub
+        fragmentBinding.viewOnGitHub.setOnClickListener {
+            openURL(settingsActivity,
+                    getString(R.string.plexus_github_url),
+                    settingsActivity.activityBinding.settingsCoordLayout,
+                    settingsActivity.activityBinding.toolbarBottom)
+        }
+        
+        // Visit Techlore
+        fragmentBinding.visitTechlore.setOnClickListener {
+            openURL(settingsActivity,
+                    getString(R.string.techlore_website_url),
+                    settingsActivity.activityBinding.settingsCoordLayout,
+                    settingsActivity.activityBinding.toolbarBottom)
+        }
+        
+        // Third party licenses
+        fragmentBinding.licenses.setOnClickListener {
+            settingsActivity.navController.navigate(R.id.action_aboutFragment_to_licensesFragment)
         }
     }
     

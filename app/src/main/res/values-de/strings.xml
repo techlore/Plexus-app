@@ -119,7 +119,7 @@
 
     <!--Settings activity-->
 
-    <!--Help text fragment-->
+    <!--Help fragment-->
     <string name="icons">Icons</string>
     <string name="not_tested_subtitle">Nicht verf\u00FCgbar, die anwendung wurde nicht getestet</string>
     <string name="broken_title">Zerbrochen</string>
@@ -133,6 +133,7 @@
     <string name="other">Andere</string>
     <string name="android_version_desc">Android versionen</string>
     <string name="installation_source_desc">Installationsquelle von anwendungen</string>
+    <string name="apps_submit_proc">Verfahren zur einreichung von apps</string>
 
     <!--About fragment-->
     <string name="version">Version</string>

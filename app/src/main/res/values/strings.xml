@@ -114,7 +114,7 @@
 
     <!--Settings activity-->
 
-    <!--Help text fragment-->
+    <!--Help fragment-->
     <string name="icons">Icons</string>
     <string name="not_tested_subtitle">Not available, app has not been tested</string>
     <string name="broken_title">Broken</string>
@@ -128,6 +128,7 @@
     <string name="other">Other</string>
     <string name="android_version_desc">Android versions</string>
     <string name="installation_source_desc">Installation source of apps</string>
+    <string name="apps_submit_proc">Apps submission procedure</string>
 
     <!--About fragment-->
     <string name="version">Version</string>

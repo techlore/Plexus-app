@@ -116,7 +116,7 @@
 
     <!--Settings activity-->
 
-    <!--Help text fragment-->
+    <!--Help fragment-->
     <string name="icons">Iconos</string>
     <string name="not_tested_subtitle">No disponible, la app no se ha probado</string>
     <string name="broken_title">Roto</string>
@@ -130,6 +130,7 @@
     <string name="other">Otros</string>
     <string name="android_version_desc">Versiones para Android</string>
     <string name="installation_source_desc">Fuente de instalaci\u00F3n de las apps</string>
+    <string name="apps_submit_proc">Procedimiento de presentaci\u00F3n de solicitudes</string>
 
     <!--About fragment-->
     <string name="version">Versi\u00F3n</string>

@@ -483,7 +483,7 @@
                 android:layout_marginEnd="@dimen/margin_16"
                 android:padding="@dimen/margin_20"
                 android:background="@drawable/shape_card_with_ripple"
-                android:text="Apps submission procedure"
+                android:text="@string/apps_submit_proc"
                 android:textSize="@dimen/text_18"
                 style="@style/MediumBoldText"
                 android:drawableEnd="@drawable/ic_apps_submit_proc"/>
