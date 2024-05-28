@@ -39,3 +39,5 @@ This app does not contain any trackers, you can check the [εxodus report](https
 
 ## Changes to our privacy policy
 We reserve the right to modify this Privacy Policy and our Terms of Use as needed. If any changes are made, we will post them on this page to ensure you are always aware of the information we collect, how we use it, and when we disclose it. It is your responsibility to review any updates to this Privacy Policy. If you disagree with any modifications, if and when such changes may be made to this Privacy Policy, you must stop using this application.
+
+**Last modified: Sep 13, 2023**

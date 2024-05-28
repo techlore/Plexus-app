@@ -7,5 +7,6 @@
 - Ajout de la possibilité de filtrer les applications installées.
 - Ajout d'une option permettant de vérifier si une application est disponible à la fois sur Google Play et sur F-Droid.
 - Prise en charge de plusieurs versions d'applications.
-- Ajout d'icônes thématiques pour Android 13 et plus.
-- Amélioration des traductions en allemand et en français.
+- Ajout du thème Material You pour Android 12 et supérieur.
+- Ajout d'icônes thématiques pour Android 13 et supérieur.
+- Amélioration des traductions en allemand (par @KerstinMaur) et en français (par @Rathmox).

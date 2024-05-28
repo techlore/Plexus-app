@@ -1,5 +1,5 @@
 - Se ha pasado de un sistema basado en la puntuación a otro más sencillo basado en el estado.
-- Rediseño completo para mejorar la accesibilidad en todos los tamaños de pantalla y adaptarse al modo de uso con una sola mano.
+- Rediseño completo para mejorar la accesibilidad en todos los tamaños de pantalla y adaptar el modo de uso con una sola mano.
 - Los envíos se realizan directamente desde la aplicación, lo que simplifica y agiliza el proceso.
 - Se solucionó el problema de la posición incorrecta de las ventanas emergentes durante el desplazamiento rápido.
 - Eliminación del parpadeo de las listas durante las búsquedas.
@@ -7,5 +7,6 @@
 - Se ha añadido la posibilidad de filtrar las aplicaciones instaladas.
 - Se ha añadido una opción para comprobar si una aplicación está disponible tanto en Google Play como en F-Droid.
 - Soporte para múltiples versiones de aplicaciones.
-- Se han incluido iconos temáticos para Android 13 y versiones superiores.
-- Mejoras en las traducciones al alemán y al francés.
+- Añadido el tema Material You para Android 12 y superiores.
+- Incluidos iconos temáticos para Android 13 y superiores.
+- Mejoradas las traducciones al alemán (por @KerstinMaur) y al francés (por @Rathmox).

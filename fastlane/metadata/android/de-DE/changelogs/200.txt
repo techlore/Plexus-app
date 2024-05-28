@@ -1,11 +1,12 @@
 - Umstellung von einem punktebasierten System auf ein benutzerfreundlicheres statusbasiertes System.
-- Umfassende Neugestaltung mit dem Ziel, die Zugänglichkeit auf allen Bildschirmgrößen zu verbessern und den Einhandmodus zu ermöglichen.
-- Einführung von Einreichungen direkt aus der App, was den Prozess vereinfacht und rationalisiert.
+- Umfassende Neugestaltung mit dem Ziel, die Zugänglichkeit auf allen Bildschirmgrößen zu verbessern und die Bedienung mit einer Hand zu ermöglichen.
+- Einführung von Einreichungen direkt aus der App, um den Prozess zu vereinfachen und zu rationalisieren.
 - Behebung des Problems falscher Popup-Positionen beim schnellen Scrollen.
 - Das Flackern der Liste bei der Suche wurde beseitigt.
 - Es wurde eine Favoritenfunktion eingeführt, mit der Sie Ihre beliebtesten Apps einfach markieren und aufrufen können.
 - Es wurde die Möglichkeit hinzugefügt, installierte Apps zu filtern.
 - Es wurde eine Option hinzugefügt, mit der überprüft werden kann, ob eine App sowohl bei Google Play als auch bei F-Droid verfügbar ist.
-- Unterstützung für mehrere Versionen von Apps wurde bereitgestellt.
-- Thematische Icons für Android 13 und höher wurden hinzugefügt.
-- Die deutsche und französische Übersetzung wurde verbessert.
+- Unterstützung für mehrere Versionen von Apps wurde zugefügt.
+- Hinzufügen des Themas Material You für Android 12 und höher.
+- Thematische Icons für Android 13 und höher hinzugefügt.
+- Verbesserte deutsche (von @KerstinMaur) und französische (von @Rathmox) Übersetzungen.

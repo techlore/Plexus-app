@@ -1,11 +1,12 @@
-- Overgang van een score-gebaseerd systeem naar een gebruiksvriendelijker status-gebaseerd systeem.
-- Uitgebreid herontwerp gericht op verbetering van de toegankelijkheid voor alle schermformaten en geschikt voor gebruik met één hand.
-- Inzendingen rechtstreeks vanuit de app geïmplementeerd, waardoor het proces wordt vereenvoudigd en gestroomlijnd.
-- Het probleem van onjuiste popup posities tijdens snel scrollen aangepakt.
+- Overgestapt van een score-gebaseerd systeem naar een gebruiksvriendelijker status-gebaseerd systeem.
+- Uitgebreid herontwerp gericht op het verbeteren van de toegankelijkheid voor alle schermformaten en het gebruik met één hand.
+- Inzendingen werden direct vanuit de app geïmplementeerd, waardoor het proces werd vereenvoudigd en gestroomlijnd.
+- Het probleem van onjuiste popup-posities tijdens snel scrollen aangepakt.
 - Geen flikkerende lijsten meer tijdens zoekopdrachten.
-- Introductie van een favorietenfunctie om gemakkelijk je meest geliefde apps te markeren en te openen.
+- Een favorietenfunctie geïntroduceerd om eenvoudig je meest geliefde apps te markeren en te openen.
 - De mogelijkheid toegevoegd om geïnstalleerde apps te filteren.
 - Een optie toegevoegd om te controleren of een app beschikbaar is op zowel Google Play als F-Droid.
 - Ondersteuning geboden voor meerdere versies van apps.
-- Thema-pictogrammen toegevoegd voor Android 13 en hoger.
-- Duitse en Franse vertalingen verbeterd.
+- Material You-thema toegevoegd voor Android 12 en hoger.
+- Themapictogrammen toegevoegd voor Android 13 en hoger.
+- Duitse (door @KerstinMaur) en Franse (door @Rathmox) vertalingen verbeterd.
