@@ -8,16 +8,6 @@ Android app for [Plexus](https://plexus.techlore.tech)
 <img src="https://img.shields.io/f-droid/v/tech.techlore.plexus?logo=FDroid&color=green&style=for-the-badge" alt="F-Droid Version"> <img src="https://img.shields.io/github/v/release/techlore/Plexus-app?logo=GitHub&label=GitHub&color=212121&style=for-the-badge" alt="GitHub Version">
 
 
-## Important updates as of Dec 31, 2022
-Hey everyone, thanks for visiting the repo & thank you to all contributors. Plexus is going through a massive transition right now:
-
-- [The Plexus application has been released](#download)
-- [The Plexus data in that repo is now in JSON format](https://github.com/techlore/Plexus-app/blob/main/Plexus.json) meaning we now have two different datasets, at least temporarily. (The website has its own data as well)
-- The JSON format is already better than the terrible CSV format in the website repo, but the JSON format is actually temporary. We are working on an API to avoid the entire GitHub submission workflow.
-- Because so many changes are happening at once, we will not be accepting pull requests until our new workflow is completed. Once it's completed, we will be manually porting over your submissions to the new data and closing the PRs.
-- Once everything is completed, all submissions will only be done via the application. We don't have an estimate yet, but it'll be the best ever experience once this is completed, enabling anyone to easily submit apps in an automated fashion in bulk.
-
-
 ## Contents
 - [Wiki](#wiki)
 - [Screenshots](#screenshots)
@@ -44,9 +34,61 @@ To learn more about what Plexus is and what it does, please visit the [wiki](htt
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
 alt='Get it on F-Droid'
 height="80">](https://f-droid.org/packages/tech.techlore.plexus)
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
+alt="Get it on IzzyOnDroid"
+height="80">](https://apt.izzysoft.de/fdroid/index/apk/tech.techlore.plexus?repo=main)
 [<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png"
 alt="Get it on GitHub"
 height="80">](https://github.com/techlore/Plexus-app/releases/latest)
+
+### Verify integrity if downloaded from GitHub
+To verify the integrity of the `.apk`/`.aab` files, if downloaded from GitHub, perform the following steps:
+
+<details>
+  <summary><b>Windows</b></summary>
+
+1. Open Powershell by searching for it in the `Start menu` OR by pressing `Win + r` and typing `powershell`
+2. Change directory to the downloaded path
+   ```
+   cd "C:\path\to\downloaded\file"
+   ```
+   Example:
+   ```
+   cd "C:\Users\JohnDoe\Downloads"
+   ```
+3. Compute the SHA-256 Hash
+   ```
+   Get-FileHash -Algorithm SHA256 -Path "filename"
+   ```
+   Example:
+   ```
+   Get-FileHash -Algorithm SHA256 -Path "Plexus_v2.0.0.apk"
+   ```
+4. The computed hash value should be exactly the same as the one provided in the `.sha256` file on GitHub.
+</details>
+
+<details>
+  <summary><b>Linux & macOS</b></summary>
+
+1. Open terminal
+2. Change directory to the downloaded path
+   ```
+   cd /path/to/downloaded/file
+   ```
+   Example:
+   ```
+   cd /home/JohnDoe/Downloads/
+   ```
+3. Compute the SHA-256 Hash
+   ```
+   sha256sum filename
+   ```
+   Example:
+   ```
+   sha256sum Plexus_v2.0.0.apk
+   ```
+4. The computed hash value should be exactly the same as the one provided in the `.sha256` file on GitHub.
+</details>
 
 
 ## Changelog

@@ -3,7 +3,7 @@
 
 ## v2.0.0
 - Transitioned from a score-based system to a more user-friendly status-based system.
-- Comprehensive redesign aimed at enhancing accessibility across all screen sizes and accommodating one-handed mode.
+- Redesigned for better accessibility.
 - Implemented submissions directly from the app, simplifying & streamlining the process.
 - Addressed the issue of incorrect popup positions during fast scrolling.
 - Eliminated list flickering during searches.

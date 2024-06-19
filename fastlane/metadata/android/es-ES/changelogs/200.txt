@@ -1,5 +1,5 @@
 - Se ha pasado de un sistema basado en la puntuación a otro más sencillo basado en el estado.
-- Rediseño completo para mejorar la accesibilidad en todos los tamaños de pantalla y adaptar el modo de uso con una sola mano.
+- Rediseñado para mejorar la accesibilidad.
 - Los envíos se realizan directamente desde la aplicación, lo que simplifica y agiliza el proceso.
 - Se solucionó el problema de la posición incorrecta de las ventanas emergentes durante el desplazamiento rápido.
 - Eliminación del parpadeo de las listas durante las búsquedas.

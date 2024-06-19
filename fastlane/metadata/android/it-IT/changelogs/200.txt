@@ -1,5 +1,5 @@
 - Passaggio da un sistema basato sul punteggio a un sistema più semplice basato sullo stato.
-- Riprogettazione completa volta a migliorare l'accessibilità su tutte le dimensioni dello schermo e ad accogliere la modalità a una mano.
+- Riprogettato per una migliore accessibilità.
 - Implementato l'invio delle candidature direttamente dall'app, semplificando e snellendo il processo.
 - È stato risolto il problema della posizione errata dei popup durante lo scorrimento veloce.
 - Eliminato lo sfarfallio degli elenchi durante le ricerche.

@@ -1,5 +1,5 @@
 - Passage d'un système basé sur les notes à un système plus convivial basé sur le statut.
-- Refonte complète visant à améliorer l'accessibilité sur toutes les tailles d'écran et à permettre l'utilisation d'une seule main.
+- Redessiné pour une meilleure accessibilité.
 - Mise en œuvre des soumissions directement à partir de l'application, ce qui simplifie et rationalise le processus.
 - Résolution du problème de la position incorrecte des fenêtres contextuelles en cas de défilement rapide.
 - Élimination du scintillement des listes lors des recherches.

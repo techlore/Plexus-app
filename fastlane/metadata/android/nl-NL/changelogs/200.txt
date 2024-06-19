@@ -1,5 +1,5 @@
 - Overgestapt van een score-gebaseerd systeem naar een gebruiksvriendelijker status-gebaseerd systeem.
-- Uitgebreid herontwerp gericht op het verbeteren van de toegankelijkheid voor alle schermformaten en het gebruik met één hand.
+- Opnieuw ontworpen voor betere toegankelijkheid.
 - Inzendingen werden direct vanuit de app geïmplementeerd, waardoor het proces werd vereenvoudigd en gestroomlijnd.
 - Het probleem van onjuiste popup-posities tijdens snel scrollen aangepakt.
 - Geen flikkerende lijsten meer tijdens zoekopdrachten.
