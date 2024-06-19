@@ -33,8 +33,8 @@ android {
         applicationId = "tech.techlore.plexus"
         minSdk = 23
         targetSdk = 34
-        versionCode = 200
-        versionName = "2.0.0"
+        versionCode = 201
+        versionName = "2.0.1"
         setProperty("archivesBaseName", "Plexus_v$versionName")
     }
 

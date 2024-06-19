@@ -40,4 +40,4 @@
 ###################################################################################
 
 # Model classes proguard rules
--keep,allowobfuscation class tech.techlore.plexus.models.** { *; }
+-keep class tech.techlore.plexus.models.** { *; }

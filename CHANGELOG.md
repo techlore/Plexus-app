@@ -1,6 +1,11 @@
 # CHANGELOG
 
 
+
+## v2.0.1
+- Fixed issue while verifying email.
+
+
 ## v2.0.0
 - Transitioned from a score-based system to a more user-friendly status-based system.
 - Redesigned for better accessibility.
