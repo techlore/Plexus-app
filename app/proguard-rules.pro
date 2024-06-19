@@ -37,12 +37,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# Prevent minify from removing model classes
--keep class tech.techlore.plexus.models.** { *; }
+###################################################################################
 
-# Prevent minify from removing retrofit2
--keepattributes Signature
--keepattributes Exceptions
--keep class retrofit2.** { *; }
--keep interface retrofit2.** { *; }
--dontwarn retrofit2.**
+# Model classes proguard rules
+-keep,allowobfuscation class tech.techlore.plexus.models.** { *; }
