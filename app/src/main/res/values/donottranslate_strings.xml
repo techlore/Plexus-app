@@ -39,6 +39,8 @@
     <string name="exodus" translatable="false">Exodus Privacy</string>
     <string name="apk" translatable="false">apk</string>
 
+    <string name="email" translatable="false">Email</string>
+
     <string name="liberapay" translatable="false">Liberapay</string>
     <string name="monero" translatable="false">Monero</string>
     <string name="monero_address" translatable="false">85WHr5GxHmZLQzHk25zbDhbzwzS9pSKLmLka5S6tgfoM7F58QnMMgVYDAuFX3YTn4SNhnrybREvcs34vtof2whuQEf8H66P</string>

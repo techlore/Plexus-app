@@ -27,6 +27,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.request.CachePolicy
@@ -170,13 +171,16 @@ class UiUtils {
                              context.getString(R.string.apk))
                     
                     else ->
-                        Pair(ContextCompat.getDrawable(context, R.drawable.ic_cancel),
-                             context.getString(R.string.na))
+                        Pair(null,
+                             "")
                 }
             
             textView.apply {
-                setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
-                text = installedFromText
+                isVisible = icon != null
+                if (isVisible){
+                    setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+                    text = installedFromText
+                }
             }
         }
         

@@ -79,7 +79,6 @@
     <!--#########################################################################################-->
 
     <!--Email verification fragment-->
-    <string name="email">Email</string>
     <string name="verify_to_get_started">Controleer je email om te beginnen</string>
     <string name="verify">Controleer</string>
     <string name="terms_conditions_title">Algemene voorwaarden</string>

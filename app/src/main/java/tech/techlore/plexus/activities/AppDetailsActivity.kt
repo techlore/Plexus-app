@@ -18,6 +18,7 @@
 package tech.techlore.plexus.activities
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -26,6 +27,7 @@ import android.view.MenuItem
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -94,6 +96,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         val ANIM_INTERPOLATOR = AccelerateDecelerateInterpolator()
     }
     
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -129,13 +132,11 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
             
-            activityBinding.detailsInstalledVersion.text =
-                if (app.installedVersion.isEmpty()) {
-                    "${getString(R.string.installed)}: ${getString(R.string.na)}"
-                }
-                else {
+            activityBinding.detailsInstalledVersion.apply {
+                isVisible = !app.installedVersion.isEmpty()
+                if (isVisible) text =
                     "${getString(R.string.installed)}: ${app.installedVersion} (${app.installedBuild})"
-                }
+            }
             
             setInstalledFromTextViewStyle(this@AppDetailsActivity,
                                           app.installedFrom,

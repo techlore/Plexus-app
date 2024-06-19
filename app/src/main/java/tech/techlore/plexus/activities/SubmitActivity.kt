@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.activities
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
@@ -81,12 +82,8 @@ class SubmitActivity : AppCompatActivity() {
         
         activityBinding.submitName.text = nameString
         activityBinding.submitPackageName.text = packageNameString
-        activityBinding.submitInstalledVersion.text =
-            if (installedVersion.isEmpty()) {
-                "${getString(R.string.installed)}: ${getString(R.string.na)}"
-            } else {
-                "${getString(R.string.installed)}: $installedVersion (${installedBuild})"
-            }
+        @SuppressLint("SetTextI18n")
+        activityBinding.submitInstalledVersion.text = "${getString(R.string.installed)}: $installedVersion (${installedBuild})"
         
         setInstalledFromTextViewStyle(this@SubmitActivity,
                                       installedFromString,

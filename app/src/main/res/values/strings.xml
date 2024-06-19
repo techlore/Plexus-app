@@ -82,7 +82,6 @@
     <!--#########################################################################################-->
 
     <!--Email verification fragment-->
-    <string name="email">Email</string>
     <string name="verify_to_get_started">Verify your email to get started</string>
     <string name="verify">Verify</string>
     <string name="terms_conditions_title">Terms &amp; conditions</string>

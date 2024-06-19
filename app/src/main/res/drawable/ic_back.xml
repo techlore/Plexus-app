@@ -20,5 +20,5 @@
     android:viewportWidth="960" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path
         android:fillColor="@android:color/white"
-        android:pathData="M382 480l294 294q15 15 14.5 35T675 844q-15 15-35 15t-35-15L297 537q-12-12-18-27t-6-30q0-15 6-30t18-27l308-308q15-15 35.5-14.5T676 116q15 15 15 35t-15 35L382 480z"/>
+        android:pathData="M313 520l196 196q12 12 11.5 28T508 772q-12 11-28 11.5T452 772L188 508q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l264-264q11-11 27.5-11t28.5 11q12 12 12 28.5T508 245L313 440h447q17 0 28.5 11.5T800 480q0 17-11.5 28.5T760 520H313z"/>
 </vector>

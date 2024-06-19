@@ -104,16 +104,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/margin_10"
-                android:paddingStart="@dimen/margin_8"
-                android:paddingEnd="@dimen/margin_16"
-                android:background="@drawable/shape_outline"
-                android:backgroundTint="@color/color_installed_from"
-                android:drawableStart="@drawable/ic_google_play"
-                android:drawablePadding="@dimen/margin_8"
-                android:drawableTint="?attr/colorOnSurface"
-                android:text="@string/google_play_alt"
-                android:textSize="@dimen/text_16"
-                android:textColor="?attr/colorOnSurface"/>
+                style="@style/InstalledFromTextViewTheme"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/dgMgText"
@@ -206,7 +197,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/submitBottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_back"/>
 
