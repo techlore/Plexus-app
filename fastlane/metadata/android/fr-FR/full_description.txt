@@ -1,4 +1,4 @@
-<b>Supprimez la peur de la compatibilité des applications Android sur les appareils de-Googled.</b>
+<b>Ne craignez plus la compatibilité des applications sur les appareils Android de-Googled.</b>
 
-Lorsque les utilisateurs passent à une ROM dégooglisée comme <a href="https://calyxos.org/">CalyxOS</a> ou <a href="https://lineageos.org/">LineageOS</a>, ils doivent ouvrir leurs applications en espérant qu'elles fonctionnent correctement. Plexus vise à éviter les devinettes, en permettant aux utilisateurs de savoir exactement quelles applications fonctionnent lorsqu'ils flashent une nouvelle ROM.
-Plexus prend en charge les ROM sans Google Play Services comme <i>LineageOS</i>, ainsi que les ROM avec <a href="https://microg.org/">microG</a> (une alternative open source aux Google Play Services) comme <i>CalyxOS</i>.
+Plexus vous permet de savoir exactement quelles applications fonctionnent lorsque vous flashez une nouvelle ROM.
+Plexus prend en charge les ROMs sans Google Play Services comme <i>LineageOS</i>, ainsi que les ROMs avec microG (une alternative open source aux Google Play Services) comme <i>CalyxOS</i>.

@@ -1,4 +1,4 @@
-<b>Verwijder de angst voor de compatibiliteit van de Android-app op de-Googled-apparaten.</b>
+<b>Weg met de angst voor app-compatibiliteit op de-Googled Android-apparaten.</b>
 
-Wanneer gebruikers overstappen op een gede-googlede ROM zoals <a href="https://calyxos.org/">CalyxOS</a> of <a href="https://lineageos.org/">LineageOS</a>, worden ze geconfronteerd met het openen van hun apps in de hoop dat ze goed werken. Plexus wil het raadspel verslaan, zodat gebruikers precies weten welke apps werken wanneer ze een nieuwe ROM flashen.
-Plexus ondersteunt ROMs zonder Google Play Services zoals <i>LineageOS</i>, maar ook ROMs met <a href="https://microg.org/">microG</a> (een open source alternatief voor Google Play Services) zoals <i>CalyxOS</i>.
+Met Plexus weet je precies welke apps werken als je een nieuwe ROM flasht.
+Plexus ondersteunt ROMs zonder Google Play Services zoals <i>LineageOS</i>, maar ook ROMs met microG (een open source alternatief voor Google Play Services) zoals <i>CalyxOS</i>.
