@@ -2,6 +2,11 @@
 
 
 
+## v2.0.2
+- Fixed unable to submit ratings with microG
+
+
+
 ## v2.0.1
 - Fixed issue while verifying email.
 
