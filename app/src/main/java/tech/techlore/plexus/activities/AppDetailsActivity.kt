@@ -27,7 +27,6 @@ import android.view.MenuItem
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -167,7 +166,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      getString(R.string.install_app_to_submit, app.name),
                                      activityBinding.bottomAppBarRadio)
                     
-                    !appManager.deviceIsDeGoogled || !appManager.deviceIsMicroG ->
+                    !appManager.isDeviceDeGoogled && !appManager.isDeviceMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
                                      activityBinding.bottomAppBarRadio)

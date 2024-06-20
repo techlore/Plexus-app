@@ -33,8 +33,8 @@ android {
         applicationId = "tech.techlore.plexus"
         minSdk = 23
         targetSdk = 34
-        versionCode = 201
-        versionName = "2.0.1"
+        versionCode = 202
+        versionName = "2.0.2"
         setProperty("archivesBaseName", "Plexus_v$versionName")
     }
 
@@ -42,6 +42,7 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
+            vcsInfo.include = false // https://f-droid.org/docs/Reproducible_Builds/#vcs-info
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         /*getByName("debug") {

@@ -91,7 +91,7 @@ class SubmitActivity : AppCompatActivity() {
         
         activityBinding.dgMgText.apply {
             val (statusIcon, statusText) =
-                if (appManager.deviceIsMicroG) {
+                if (appManager.isDeviceMicroG) {
                     Pair(ContextCompat.getDrawable(context, R.drawable.ic_microg),
                          "${getString(R.string.microG)} ${getString(R.string.status)}")
                 }

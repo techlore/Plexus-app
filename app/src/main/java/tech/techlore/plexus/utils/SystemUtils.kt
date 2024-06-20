@@ -19,9 +19,10 @@ package tech.techlore.plexus.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.widget.Toast
 import tech.techlore.plexus.appmanager.ApplicationManager
-import tech.techlore.plexus.utils.PackageUtils.Companion.getAppCertificate
-import tech.techlore.plexus.utils.PackageUtils.Companion.isAppInstalled
 
 class SystemUtils {
     
@@ -35,21 +36,38 @@ class SystemUtils {
                                        "com.google.android.gsf",
                                        "com.android.vending")
             
-            val microGCertificate = "O=NOGAPPS Project,C=DE"
             val packageManager = context.packageManager
-    
+            
             val gappsCount =
                 gappsPackages.count { packageName ->
                     isAppInstalled(packageManager, packageName)
                 }
             
-            val microGCount =
-                gappsPackages.count { packageName ->
-                    microGCertificate == getAppCertificate(packageManager, packageName)
+            var microGCount =
+                if (gappsCount > 0) {
+                    gappsPackages.count { packageName ->
+                        ! packageManager.getApplicationLabel(getAppInfo(packageManager, packageName)).toString()
+                            .startsWith("Google", ignoreCase = true)
+                    }
                 }
-    
-            appManager.deviceIsMicroG = gappsCount == microGCount
-            appManager.deviceIsDeGoogled = gappsCount == 0
+                else -1
+            
+            appManager.isDeviceMicroG = gappsCount == microGCount
+            appManager.isDeviceDeGoogled = gappsCount == 0
+        }
+        
+        private fun getAppInfo(packageManager: PackageManager, packageName: String): ApplicationInfo {
+            return packageManager.getApplicationInfo(packageName, 0)
+        }
+        
+        private fun isAppInstalled(packageManager: PackageManager, packageName: String): Boolean {
+            return try {
+                getAppInfo(packageManager, packageName)
+                true
+            }
+            catch (e: PackageManager.NameNotFoundException) {
+                false
+            }
         }
         
         @SuppressLint("PrivateApi")

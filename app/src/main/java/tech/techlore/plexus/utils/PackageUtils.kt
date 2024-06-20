@@ -81,7 +81,7 @@ class PackageUtils {
             }
         }
     
-        fun getAppCertificate(packageManager: PackageManager,
+        private fun getAppCertificate(packageManager: PackageManager,
                               packageName: String): String? {
             return try {
                 val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
@@ -99,16 +99,6 @@ class PackageUtils {
         private fun isAppFromFdroid(packageManager: PackageManager, packageName: String): Boolean {
             val fdroidCertificate = "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK"
             return fdroidCertificate == getAppCertificate(packageManager, packageName)
-        }
-        
-        fun isAppInstalled(packageManager: PackageManager, packageName: String): Boolean {
-            return try {
-                packageManager.getApplicationInfo(packageName, 0)
-                true
-            }
-            catch (e: PackageManager.NameNotFoundException) {
-                false
-            }
         }
         
     }

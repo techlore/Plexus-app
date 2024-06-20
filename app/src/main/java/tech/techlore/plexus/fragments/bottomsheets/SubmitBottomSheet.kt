@@ -113,7 +113,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                             romBuild = Build.DISPLAY,
                             androidVersion = getAndroidVersionString(),
                             installedFrom = submitActivity.installedFromString,
-                            ratingType = if (appManager.deviceIsMicroG) "micro_g" else "native",
+                            ratingType = if (appManager.isDeviceMicroG) "micro_g" else "native",
                             score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
                             notes = submitActivity.activityBinding.submitNotesText.text.toString())
         postRatingRoot = PostRatingRoot(rating)
