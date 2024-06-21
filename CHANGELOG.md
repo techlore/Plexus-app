@@ -1,10 +1,12 @@
 # CHANGELOG
 
 
+## v2.0.3
+- Disabled proguard to keep necessary features required for app functionality.
+
 
 ## v2.0.2
 - Fixed unable to submit ratings with microG
-
 
 
 ## v2.0.1

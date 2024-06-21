@@ -1,0 +1,11 @@
+- Transitioned to a user-friendly status-based system
+- Redesigned for better accessibility
+- Implemented submissions directly from the app
+- Fixed popup position issues during fast scrolling
+- Eliminated list flickering during searches
+- Introduced a favorites feature
+- Added app filtering and cross-store availability check
+- Supported multiple app versions
+- Included Material You theme (Android 12+)
+- Themed icons (Android 13+)
+- Improved German(by @KerstinMaur) and French(by @Rathmox) translations

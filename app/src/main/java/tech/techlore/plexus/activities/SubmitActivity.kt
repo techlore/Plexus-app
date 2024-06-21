@@ -121,11 +121,11 @@ class SubmitActivity : AppCompatActivity() {
         
         // FAB
         activityBinding.submitFab.setOnClickListener {
-            submitData()
+            showSubmitBtmSheet()
         }
     }
     
-    private fun submitData() {
+    private fun showSubmitBtmSheet() {
         
         lifecycleScope.launch {
             if (hasNetwork(this@SubmitActivity) && hasInternet()) {
@@ -134,7 +134,7 @@ class SubmitActivity : AppCompatActivity() {
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveButtonClickListener = { submitData() },
+                                     positiveButtonClickListener = { showSubmitBtmSheet() },
                                      negativeButtonClickListener = {})
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
