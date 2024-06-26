@@ -26,6 +26,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -146,6 +147,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             
             if (!submitActivity.isInPlexusData) {
                 getIconUrl()
+                postAppRoot.postApp.iconUrl = iconUrl
                 postApp()
             }
             else {
@@ -253,7 +255,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             // Sometimes on F-Droid when the original icon of the app is not provided,
             // we get the F-Droid logo as the icon.
             // Example: Fennec (https://f-droid.org/en/packages/org.mozilla.fennec_fdroid)
-            // When this happens, assign throw 404 error
+            // When this happens, throw 404 error
             if (url?.startsWith("https://f-droid.org/assets/fdroid-logo") == true) {
                 throw HttpStatusException("Icon not found on F-Droid", 404, fdroidUrl)
             }
