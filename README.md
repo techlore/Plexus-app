@@ -31,6 +31,8 @@ To learn more about what Plexus is and what it does, please visit the [wiki](htt
 
 
 ## Download
+Reproducible builds are enabled, allowing you to install and upgrade the app from any of the following sources:
+
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
 alt='Get it on F-Droid'
 height="80">](https://f-droid.org/packages/tech.techlore.plexus)
