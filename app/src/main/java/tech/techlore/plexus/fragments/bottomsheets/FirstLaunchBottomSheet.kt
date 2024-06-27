@@ -116,8 +116,8 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
         }
     }
     
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
         requireActivity().finish()
     }

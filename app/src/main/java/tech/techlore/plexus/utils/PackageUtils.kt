@@ -48,7 +48,6 @@ class PackageUtils {
                         // Add scanned apps to list
                         if (it.packageName !in setOf("tech.techlore.plexus",
                                                      "com.android.vending",
-                                                     "org.fdroid.fdroid",
                                                      "com.google.android.gms",
                                                      "com.google.android.gsf",
                                                      "org.microg.gms.droidguard",
@@ -59,7 +58,11 @@ class PackageUtils {
                                     "fdroid"
                                 }
                                 else if (packageManager.getInstallerPackageName(it.packageName)
-                                    in setOf("com.android.packageinstaller", "com.google.android.packageinstaller")) {
+                                    in setOf("com.android.packageinstaller",
+                                             "com.google.android.packageinstaller",
+                                             "com.samsung.android.packageinstaller",
+                                             "com.miui.packageinstaller",
+                                             "com.miui.global.packageinstaller")) {
                                     "apk"
                                 }
                                 else {
@@ -80,9 +83,9 @@ class PackageUtils {
                 installedAppsList
             }
         }
-    
+        
         private fun getAppCertificate(packageManager: PackageManager,
-                              packageName: String): String? {
+                                      packageName: String): String? {
             return try {
                 val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
                 val certificateFactory = CertificateFactory.getInstance("X.509")
