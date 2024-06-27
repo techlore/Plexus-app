@@ -110,12 +110,12 @@ class SubmitActivity : AppCompatActivity() {
             job = lifecycleScope.launch {
                 delay(300)
                 activityBinding.submitFab.isEnabled =
-                    charSequence !!.isEmpty()
+                    charSequence!!.isEmpty()
                     || (charSequence.length in 5..300
-                        && ! hasBlockedWord(this@SubmitActivity, charSequence)
-                        && ! hasRepeatedChars(charSequence)
-                        && ! hasEmojis(charSequence)
-                        && ! hasURL(charSequence))
+                        && !hasBlockedWord(this@SubmitActivity, charSequence)
+                        && !hasRepeatedChars(charSequence)
+                        && !hasEmojis(charSequence)
+                        && !hasURL(charSequence))
             }
         }
         

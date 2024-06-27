@@ -26,7 +26,7 @@ class TextUtils {
     companion object {
         
         fun hasRepeatedChars(charSequence: CharSequence): Boolean {
-            val repeatedCharsRegex = """^(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
+            val repeatedCharsRegex = """^(?s)(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
             // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc.
             // while still allowing real words like coffee, committee etc.
             return repeatedCharsRegex.find(charSequence) == null
