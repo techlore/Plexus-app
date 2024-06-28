@@ -104,6 +104,7 @@ class UiUtils {
                             .memoryCachePolicy(CachePolicy.ENABLED)
                             .placeholder(R.drawable.ic_apk)
                             .fallback(R.drawable.ic_apk)
+                            .error(R.drawable.ic_apk)
                             .target(this)
                             .build()
                     
