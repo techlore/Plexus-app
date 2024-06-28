@@ -45,6 +45,7 @@ interface MainDataDao {
         
         existingData?.apply {
             name = mainData.name
+            iconUrl = mainData.iconUrl
             dgScore = mainData.dgScore
             totalDgRatings = mainData.totalDgRatings
             mgScore = mainData.mgScore
