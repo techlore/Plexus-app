@@ -28,6 +28,7 @@
         <item>AncientOS</item>
         <item>AOKP</item>
 		<item>AOSiP</item>
+		<item>AOSPExtended</item>
 		<item>ArrowOS</item>
 		<item>Bliss ROM</item>
 		<item>CalyxOS</item>
@@ -66,6 +67,7 @@
 		<item>Project Awaken</item>
 		<item>Project Blaze</item>
 		<item>Project Elixir</item>
+		<item>Project Xtended</item>
 		<item>Project Zephyrus</item>
 		<item>Resurrection Remix</item>
 		<item>riceDroid</item>
@@ -76,6 +78,5 @@
 		<item>VoidUI</item>
 		<item>VoltageOS</item>
 		<item>xdroidOSS</item>
-		<item>Xtended</item>
     </string-array>
 </resources>
