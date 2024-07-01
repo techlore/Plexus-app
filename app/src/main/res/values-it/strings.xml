@@ -30,7 +30,7 @@
 
     <!--Splash activity-->
     <string name="retrieving_data">Recuperando i dati</string>
-    <string name="scan_installed">Scansionando le appplicazione installate</string>
+    <string name="scan_installed">Scansionando le appplicazioni installate</string>
 
     <!--#########################################################################################-->
 
@@ -148,7 +148,7 @@
     <string name="done">Fatto</string>
     <string name="cancel">Annulla</string>
     <string name="dismiss">Chiudi</string>
-    <string name="exit">Chiudi</string>
+    <string name="exit">Esci</string>
     <string name="retry">Riprova</string>
     <string name="skip">Salta</string>
 
@@ -196,7 +196,7 @@
     <string name="wait_submitting_data">Si prega di attendere, invio dei dati in corso…</string>
     <string name="submit_success">Inviato con successo</string>
     <string name="submit_error">Errore durante l\'invio dei dati</string>
-    <string name="thanks_for_submitting">Grazie per aver inviato i dati e per aver aiutato la comunit\u00E0.</string>
+    <string name="thanks_for_submitting">Grazie per aver contribuito a Plexus e per aver aiutato la comunit\u00E0.</string>
 
     <!--#########################################################################################-->
 
