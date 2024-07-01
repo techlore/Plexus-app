@@ -17,13 +17,11 @@
 
 package tech.techlore.plexus.fragments.bottomsheets.settings
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
@@ -32,7 +30,6 @@ import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
-import tech.techlore.plexus.utils.UiUtils.Companion.setAppTheme
 
 // Reuse "Theme" bottom sheet layout
 class DefaultViewBottomSheet : BottomSheetDialogFragment() {
@@ -56,17 +53,17 @@ class DefaultViewBottomSheet : BottomSheetDialogFragment() {
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.setText(R.string.default_view)
         
         bottomSheetBinding.followSystem.apply {
-            closeIcon = ContextCompat.getDrawable(context, R.drawable.ic_plexus_data)
+            closeIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_plexus_data)
             text = getString(R.string.plexus_data)
         }
         
         bottomSheetBinding.light.apply {
-            closeIcon = ContextCompat.getDrawable(context, R.drawable.ic_installed_apps)
+            closeIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_installed_apps)
             text = getString(R.string.installed_apps)
         }
         
         bottomSheetBinding.dark.apply {
-            closeIcon = ContextCompat.getDrawable(context, R.drawable.ic_fav_outline)
+            closeIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_fav_outline)
             text = getString(R.string.favorites)
         }
         

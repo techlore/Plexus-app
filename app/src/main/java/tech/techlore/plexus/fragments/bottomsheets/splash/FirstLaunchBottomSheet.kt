@@ -103,7 +103,7 @@ class FirstLaunchBottomSheet : BottomSheetDialogFragment() {
         // Proceed
         bottomSheetBinding.proceedButton.setOnClickListener {
             startActivity(Intent(requireActivity(), SettingsActivity::class.java)
-                              .putExtra("frag", R.id.helpFragment))
+                              .putExtra("fragId", R.id.helpFragment))
             onDestroy()
         }
         

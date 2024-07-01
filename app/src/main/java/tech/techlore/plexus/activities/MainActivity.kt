@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
-    private var defaultView = 0
-    private var defaultSelectedNavItem = 0
+    private var defaultFragment = 0
+    var defaultSelectedNavItem = 0
     var clickedNavItem = 0
     var selectedNavItem = 0
     private var surfaceContainerLowColor = 0
@@ -74,25 +74,26 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         val navMyAccountItems = listOf(R.id.nav_my_ratings, R.id.nav_delete_account)
         val encPreferenceManager = EncryptedPreferenceManager(this)
         
+        // Set default view
         // Theme bottom sheet was reused for this purpose
         // Don't get confused by the "R.id.followSystem" & "R.id.light"
         when ((applicationContext as ApplicationManager).preferenceManager.getInt(DEF_VIEW, R.id.followSystem)) {
             R.id.followSystem -> {
-                defaultView = R.id.plexusDataFragment
+                defaultFragment = R.id.plexusDataFragment
                 defaultSelectedNavItem = R.id.nav_plexus_data
             }
             R.id.light -> {
-                defaultView = R.id.installedAppsFragment
+                defaultFragment = R.id.installedAppsFragment
                 defaultSelectedNavItem = R.id.nav_installed_apps
             }
             else -> {
-                defaultView = R.id.favoritesFragment
+                defaultFragment = R.id.favoritesFragment
                 defaultSelectedNavItem = R.id.nav_fav
             }
         }
         
         // Set start destination as default view
-        navGraph.setStartDestination(defaultView)
+        navGraph.setStartDestination(defaultFragment)
         navController.setGraph(navGraph, intent.extras)
         
         activityBinding.toolbarBottom.apply {
@@ -299,7 +300,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED ->
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 
-                navController.currentDestination?.id != defaultView -> {
+                navController.currentDestination?.id != defaultFragment -> {
                     clickedNavItem = defaultSelectedNavItem
                     selectedNavItem = clickedNavItem
                     displayFragment(clickedNavItem)

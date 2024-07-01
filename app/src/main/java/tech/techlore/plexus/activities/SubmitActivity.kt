@@ -123,7 +123,7 @@ class SubmitActivity : AppCompatActivity() {
         
         // FAB
         activityBinding.submitFab.setOnClickListener {
-            if ((applicationContext as ApplicationManager).preferenceManager.getBoolean(CONF_BEFORE_SUBMIT)) {
+            if ((applicationContext as ApplicationManager).preferenceManager.getBoolean(CONF_BEFORE_SUBMIT, defValue = false)) {
                 ConfirmSubmitBottomSheet().show(supportFragmentManager, "ConfirmSubmitBottomSheet")
             }
             else {

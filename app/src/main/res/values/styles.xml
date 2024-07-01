@@ -161,6 +161,8 @@
     <!--Bottom sheet rounded corners-->
     <style name="BottomSheetShapeStyle" parent="ShapeAppearance.Material3.LargeComponent">
         <item name="cornerSize">@dimen/margin_16</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
     <!--Bottom sheet buttons-->
