@@ -40,7 +40,7 @@ import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import kotlin.collections.ArrayList
 
-class SubmitRatingFragment :
+class InstalledAppsFragment :
     Fragment(),
     MainDataItemAdapter.OnItemClickListener {
     
@@ -73,7 +73,7 @@ class SubmitRatingFragment :
             
             // Forcefully set toolbar title
             // to avoid issues when navigating from "My ratings" using fab
-            mainActivity.activityBinding.toolbarBottom.title = getString(R.string.submit_rating)
+            mainActivity.activityBinding.toolbarBottom.title = getString(R.string.installed_apps)
             
             installedAppsList =
                 miniRepository.miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
@@ -85,7 +85,7 @@ class SubmitRatingFragment :
             }
             else {
                 installedAppItemAdapter = MainDataItemAdapter(installedAppsList,
-                                                              this@SubmitRatingFragment,
+                                                              this@InstalledAppsFragment,
                                                               lifecycleScope)
                 fragmentBinding.recyclerView.apply {
                     addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))

@@ -30,25 +30,16 @@
             android:title="@string/plexus_data" />
 
         <item
+            android:id="@+id/nav_installed_apps"
+            android:icon="@drawable/ic_installed_apps"
+            android:title="@string/installed_apps" />
+
+        <item
             android:id="@+id/nav_fav"
             android:icon="@drawable/ic_fav_outline"
             android:title="@string/favorites" />
 
     </group>
-
-    <item android:title="@string/contribute">
-        <menu>
-            <group android:checkableBehavior="single"
-                android:id="@+id/group_contribute">
-
-                <item
-                    android:id="@+id/nav_submit_rating"
-                    android:icon="@drawable/ic_edit"
-                    android:title="@string/submit_rating" />
-
-            </group>
-        </menu>
-    </item>
 
     <item android:title="@string/my_account">
         <menu>
@@ -69,23 +60,9 @@
         </menu>
     </item>
 
-    <item android:title="@string/settings">
-        <menu>
-            <group android:checkableBehavior="single"
-                android:id="@+id/group_settings">
-
-                <item
-                    android:id="@+id/nav_theme"
-                    android:icon="@drawable/ic_theme"
-                    android:title="@string/theme"/>
-
-                <item
-                    android:id="@+id/nav_about"
-                    android:icon="@drawable/ic_about"
-                    android:title="@string/about"/>
-
-            </group>
-        </menu>
-    </item>
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings"/>
 
 </menu>

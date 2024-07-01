@@ -28,8 +28,8 @@
         android:name="tech.techlore.plexus.fragments.main.PlexusDataFragment"
         android:label="@string/plexus_data" >
         <action
-            android:id="@+id/action_plexusDataFragment_to_submitRatingFragment"
-            app:destination="@id/submitRatingFragment"
+            android:id="@+id/action_plexusDataFragment_to_installedAppsFragment"
+            app:destination="@id/installedAppsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
@@ -69,8 +69,8 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"/>
         <action
-            android:id="@+id/action_favoritesFragment_to_submitRatingFragment"
-            app:destination="@id/submitRatingFragment"
+            android:id="@+id/action_favoritesFragment_to_installedAppsFragment"
+            app:destination="@id/installedAppsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
@@ -92,32 +92,32 @@
     </fragment>
 
     <fragment
-        android:id="@+id/submitRatingFragment"
-        android:name="tech.techlore.plexus.fragments.main.SubmitRatingFragment"
-        android:label="@string/submit_rating" >
+        android:id="@+id/installedAppsFragment"
+        android:name="tech.techlore.plexus.fragments.main.InstalledAppsFragment"
+        android:label="@string/installed_apps" >
         <action
-            android:id="@+id/action_submitRatingFragment_to_plexusDataFragment"
+            android:id="@+id/action_installedAppsFragment_to_plexusDataFragment"
             app:destination="@id/plexusDataFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"/>
         <action
-            android:id="@+id/action_submitRatingFragment_to_favoritesFragment"
+            android:id="@+id/action_installedAppsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"/>
         <action
-            android:id="@+id/action_submitRatingFragment_self"
-            app:destination="@id/submitRatingFragment"
+            android:id="@+id/action_installedAppsFragment_self"
+            app:destination="@id/installedAppsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"/>
         <action
-            android:id="@+id/action_submitRatingFragment_to_myRatingsFragment"
+            android:id="@+id/action_installedAppsFragment_to_myRatingsFragment"
             app:destination="@id/myRatingsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
@@ -130,8 +130,8 @@
         android:name="tech.techlore.plexus.fragments.main.MyRatingsFragment"
         android:label="@string/my_ratings" >
         <action
-            android:id="@+id/action_myRatingsFragment_to_submitRatingFragment"
-            app:destination="@id/submitRatingFragment"
+            android:id="@+id/action_myRatingsFragment_to_installedAppsFragment"
+            app:destination="@id/installedAppsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"

@@ -34,22 +34,24 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.color.MaterialColors
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityMainBinding
-import tech.techlore.plexus.fragments.bottomsheets.DeleteAccountBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.SortBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.ThemeBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.main.DeleteAccountBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
-import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 
 class MainActivity : AppCompatActivity(), MenuProvider {
     
     lateinit var activityBinding: ActivityMainBinding
     lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
-    var clickedNavItem = 0
-    var selectedNavItem = 0
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
+    private var defaultView = 0
+    private var defaultSelectedNavItem = 0
+    var clickedNavItem = 0
+    var selectedNavItem = 0
     private var surfaceContainerLowColor = 0
     private var surfaceContainerColor = 0
     private var surfaceColor = 0
@@ -68,23 +70,45 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         bottomSheetBehavior = BottomSheetBehavior.from(activityBinding.bottomNavContainer)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
+        val navGraph = navController.navInflater.inflate(R.navigation.main_fragments_nav_graph)
         val navMyAccountItems = listOf(R.id.nav_my_ratings, R.id.nav_delete_account)
         val encPreferenceManager = EncryptedPreferenceManager(this)
+        
+        // Theme bottom sheet was reused for this purpose
+        // Don't get confused by the "R.id.followSystem" & "R.id.light"
+        when ((applicationContext as ApplicationManager).preferenceManager.getInt(DEF_VIEW, R.id.followSystem)) {
+            R.id.followSystem -> {
+                defaultView = R.id.plexusDataFragment
+                defaultSelectedNavItem = R.id.nav_plexus_data
+            }
+            R.id.light -> {
+                defaultView = R.id.installedAppsFragment
+                defaultSelectedNavItem = R.id.nav_installed_apps
+            }
+            else -> {
+                defaultView = R.id.favoritesFragment
+                defaultSelectedNavItem = R.id.nav_fav
+            }
+        }
+        
+        // Set start destination as default view
+        navGraph.setStartDestination(defaultView)
+        navController.setGraph(navGraph, intent.extras)
         
         activityBinding.toolbarBottom.apply {
             setSupportActionBar(this)
             supportActionBar?.setDisplayShowTitleEnabled(false)
-            title = navController.currentDestination!!.label.toString()
+            title = navController.currentDestination?.label.toString()
         }
         
         // To set nav view item background, check selected item
-        selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: R.id.nav_plexus_data
+        selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: defaultSelectedNavItem
         
         // Nav view items
         activityBinding.navView.setNavigationItemSelectedListener { navMenuItem: MenuItem ->
             
             when (navMenuItem.itemId) {
-                R.id.nav_plexus_data, R.id.nav_fav, R.id.nav_submit_rating, R.id.nav_my_ratings ->
+                R.id.nav_plexus_data, R.id.nav_installed_apps, R.id.nav_fav, R.id.nav_my_ratings ->
                     selectedNavItem = navMenuItem.itemId
             }
             
@@ -107,19 +131,16 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                     
                     when (clickedNavItem) {
                         
-                        R.id.nav_plexus_data, R.id.nav_fav, R.id.nav_submit_rating, R.id.nav_my_ratings -> {
+                        R.id.nav_plexus_data, R.id.nav_installed_apps, R.id.nav_fav, R.id.nav_my_ratings -> {
                             displayFragment(clickedNavItem)
-                            activityBinding.toolbarBottom.title =
-                                navController.currentDestination !!.label.toString()
+                            activityBinding.toolbarBottom.title = navController.currentDestination?.label.toString()
                         }
                         
                         R.id.nav_delete_account -> DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
                         
-                        R.id.nav_theme -> ThemeBottomSheet().show(supportFragmentManager, "ThemeBottomSheet")
-                        
-                        R.id.nav_about -> startActivity(Intent(this@MainActivity,
-                                                               SettingsActivity::class.java)
-                                                            .putExtra("frag", R.id.aboutFragment))
+                        R.id.nav_settings -> startActivity(Intent(this@MainActivity,
+                                                                  SettingsActivity::class.java)
+                                                               .putExtra("fragId", R.id.settingsFragment))
                     }
                     
                     
@@ -170,28 +191,28 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
     // Setup fragments
     fun displayFragment(clickedItem: Int) {
-        val currentFragment = navController.currentDestination!!
+        val currentFragment = navController.currentDestination
         
         val actionsMap =
-            mapOf(Pair(R.id.favoritesFragment, R.id.nav_plexus_data) to R.id.action_favoritesFragment_to_plexusDataFragment,
-                  Pair(R.id.submitRatingFragment, R.id.nav_plexus_data) to R.id.action_submitRatingFragment_to_plexusDataFragment,
+            mapOf(Pair(R.id.installedAppsFragment, R.id.nav_plexus_data) to R.id.action_installedAppsFragment_to_plexusDataFragment,
+                  Pair(R.id.favoritesFragment, R.id.nav_plexus_data) to R.id.action_favoritesFragment_to_plexusDataFragment,
                   Pair(R.id.myRatingsFragment, R.id.nav_plexus_data) to R.id.action_myRatingsFragment_to_plexusDataFragment,
                   Pair(R.id.plexusDataFragment, R.id.nav_fav) to R.id.action_plexusDataFragment_to_favoritesFragment,
-                  Pair(R.id.submitRatingFragment, R.id.nav_fav) to R.id.action_submitRatingFragment_to_favoritesFragment,
+                  Pair(R.id.installedAppsFragment, R.id.nav_fav) to R.id.action_installedAppsFragment_to_favoritesFragment,
                   Pair(R.id.myRatingsFragment, R.id.nav_fav) to R.id.action_myRatingsFragment_to_favoritesFragment,
-                  Pair(R.id.plexusDataFragment, R.id.nav_submit_rating) to R.id.action_plexusDataFragment_to_submitRatingFragment,
-                  Pair(R.id.favoritesFragment, R.id.nav_submit_rating) to R.id.action_favoritesFragment_to_submitRatingFragment,
-                  Pair(R.id.myRatingsFragment, R.id.nav_submit_rating) to R.id.action_myRatingsFragment_to_submitRatingFragment,
+                  Pair(R.id.plexusDataFragment, R.id.nav_installed_apps) to R.id.action_plexusDataFragment_to_installedAppsFragment,
+                  Pair(R.id.favoritesFragment, R.id.nav_installed_apps) to R.id.action_favoritesFragment_to_installedAppsFragment,
+                  Pair(R.id.myRatingsFragment, R.id.nav_installed_apps) to R.id.action_myRatingsFragment_to_installedAppsFragment,
                   Pair(R.id.plexusDataFragment, R.id.nav_my_ratings) to R.id.action_plexusDataFragment_to_myRatingsFragment,
-                  Pair(R.id.favoritesFragment, R.id.nav_my_ratings) to R.id.action_favoritesFragment_to_myRatingsFragment,
-                  Pair(R.id.submitRatingFragment, R.id.nav_my_ratings) to R.id.action_submitRatingFragment_to_myRatingsFragment)
+                  Pair(R.id.installedAppsFragment, R.id.nav_my_ratings) to R.id.action_installedAppsFragment_to_myRatingsFragment,
+                  Pair(R.id.favoritesFragment, R.id.nav_my_ratings) to R.id.action_favoritesFragment_to_myRatingsFragment)
         
-        val action = actionsMap[Pair(currentFragment.id, clickedItem)] ?: 0
+        val action = actionsMap[Pair(currentFragment?.id, clickedItem)] ?: 0
         
         // java.lang.IllegalArgumentException:
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
-        if (clickedItem != currentFragment.id && action != 0) {
+        if (clickedItem != currentFragment?.id && action != 0) {
             activityBinding.navView.setCheckedItem(selectedNavItem)
             navController.navigate(action)
         }
@@ -263,7 +284,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
             
             R.id.main_menu_help -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java)
-                                                     .putExtra("frag", R.id.helpFragment))
+                                                     .putExtra("fragId", R.id.helpFragment))
             
         }
         
@@ -278,11 +299,11 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED ->
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 
-                navController.currentDestination!!.label.toString() != getString(R.string.plexus_data) -> {
-                    clickedNavItem = R.id.nav_plexus_data
+                navController.currentDestination?.id != defaultView -> {
+                    clickedNavItem = defaultSelectedNavItem
                     selectedNavItem = clickedNavItem
                     displayFragment(clickedNavItem)
-                    activityBinding.toolbarBottom.title = navController.currentDestination!!.label.toString()
+                    activityBinding.toolbarBottom.title = navController.currentDestination?.label.toString()
                 }
                 
                 else -> finish()
