@@ -24,7 +24,7 @@
     <!--Help fragment-->
     <string name="apps_submit_proc_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/Help#apps-submission-procedure</string>
 
-    <!--About fragment-->
+    <!--Settings fragment-->
     <string name="plexus_privacy_policy_url" translatable="false">https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md</string>
     <string name="plexus_report_issue_url" translatable="false">https://github.com/techlore/Plexus-app/issues</string>
     <string name="plexus_github_url" translatable="false">https://github.com/techlore/Plexus-app</string>

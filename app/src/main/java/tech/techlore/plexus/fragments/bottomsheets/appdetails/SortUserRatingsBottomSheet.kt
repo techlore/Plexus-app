@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets
+package tech.techlore.plexus.fragments.bottomsheets.appdetails
 
 import android.app.Dialog
 import android.os.Bundle
@@ -28,13 +28,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.MyRatingsDetailsActivity
+import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortRatingsBinding
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
-class SortMyRatingsDetailsBottomSheet : BottomSheetDialogFragment() {
+class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortRatingsBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -56,7 +56,7 @@ class SortMyRatingsDetailsBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val detailsActivity = requireActivity() as MyRatingsDetailsActivity
+        val detailsActivity = requireActivity() as AppDetailsActivity
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
@@ -130,6 +130,8 @@ class SortMyRatingsDetailsBottomSheet : BottomSheetDialogFragment() {
             else if (detailsActivity.statusRadio == R.id.ratingsRadioMgStatus) {
                 detailsActivity.mgStatusSort = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
             }
+            
+            detailsActivity.listIsSorted = false // Set to false so list is sorted on fragment refresh
             
             dismiss()
             refreshFragment(detailsActivity.navController)

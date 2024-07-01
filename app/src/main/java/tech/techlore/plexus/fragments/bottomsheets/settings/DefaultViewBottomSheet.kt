@@ -15,13 +15,15 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets
+package tech.techlore.plexus.fragments.bottomsheets.settings
 
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
@@ -29,11 +31,11 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.utils.UiUtils.Companion.setAppTheme
 
-class ThemeBottomSheet : BottomSheetDialogFragment() {
+// Reuse "Theme" bottom sheet layout
+class DefaultViewBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetThemeBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -51,46 +53,34 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
         
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.setText(R.string.theme)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.setText(R.string.default_view)
         
-        // Show system default option only on SDK 29 and above
-        bottomSheetBinding.followSystem.isVisible = Build.VERSION.SDK_INT >= 29
+        bottomSheetBinding.followSystem.apply {
+            closeIcon = ContextCompat.getDrawable(context, R.drawable.ic_plexus_data)
+            text = getString(R.string.plexus_data)
+        }
+        
+        bottomSheetBinding.light.apply {
+            closeIcon = ContextCompat.getDrawable(context, R.drawable.ic_installed_apps)
+            text = getString(R.string.installed_apps)
+        }
+        
+        bottomSheetBinding.dark.apply {
+            closeIcon = ContextCompat.getDrawable(context, R.drawable.ic_fav_outline)
+            text = getString(R.string.favorites)
+        }
         
         // Chip group
         bottomSheetBinding.themeChipGroup.apply {
             
             // Default checked chip
-            if (preferenceManager.getInt(THEME) == 0) {
-                if (Build.VERSION.SDK_INT >= 29) {
-                    preferenceManager.setInt(THEME, R.id.followSystem)
-                }
-                else {
-                    preferenceManager.setInt(THEME, R.id.light)
-                }
-            }
-            check(preferenceManager.getInt(THEME))
+            check(preferenceManager.getInt(DEF_VIEW, R.id.followSystem))
             
             // On selecting option
             setOnCheckedStateChangeListener { _, checkedIds ->
                 val checkedChip = checkedIds.first()
-                preferenceManager.setInt(THEME, checkedChip)
-                setAppTheme(checkedChip)
+                preferenceManager.setInt(DEF_VIEW, checkedChip)
                 dismiss()
-                
-            }
-        }
-        
-        // Material You
-        if (Build.VERSION.SDK_INT >= 31) {
-            bottomSheetBinding.apply {
-                divider.isVisible = true
-                materialYouSwitch.apply {
-                    isVisible = true
-                    isChecked = preferenceManager.getBoolean(MATERIAL_YOU, defValue = false)
-                    setOnCheckedChangeListener { _, isChecked ->
-                        preferenceManager.setBoolean(MATERIAL_YOU, isChecked)
-                    }
-                }
             }
         }
         

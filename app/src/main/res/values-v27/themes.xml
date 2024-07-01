@@ -19,19 +19,19 @@
 
 <resources>
 
+    <!--App light theme-->
+    <style name="AppTheme" parent="BaseAppStyle">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <!--#########################################################################################-->
+
     <!--Splash light theme-->
     <style name="SplashTheme" parent="BaseSplashStyle">
         <item name="android:navigationBarColor">@color/grey_900</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
-    </style>
-
-    <!--#########################################################################################-->
-
-    <!--App light theme-->
-    <style name="AppTheme" parent="BaseAppStyle">
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
 </resources>

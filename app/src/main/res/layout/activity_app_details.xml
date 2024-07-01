@@ -169,7 +169,7 @@
         app:menuAlignmentMode="start"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/submitBtn"
+        android:id="@+id/rateBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_10"
@@ -179,7 +179,7 @@
         app:icon="@drawable/ic_edit"
         app:iconGravity="textStart"
         app:iconPadding="@dimen/margin_8"
-        android:text="@string/submit"
+        android:text="@string/rate"
         android:textSize="@dimen/text_16"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

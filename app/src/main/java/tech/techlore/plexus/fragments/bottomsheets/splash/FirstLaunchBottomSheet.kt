@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets
+package tech.techlore.plexus.fragments.bottomsheets.splash
 
 import android.animation.Animator
 import android.app.Dialog

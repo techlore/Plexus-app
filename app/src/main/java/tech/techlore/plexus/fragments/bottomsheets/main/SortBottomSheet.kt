@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets
+package tech.techlore.plexus.fragments.bottomsheets.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -54,7 +54,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
         val isInstalledAppsFragment =
-            navController.currentDestination!!.id in setOf(R.id.submitRatingFragment, R.id.favoritesFragment)
+            navController.currentDestination!!.id in setOf(R.id.installedAppsFragment, R.id.favoritesFragment)
         val isMyRatingsFragment =
             navController.currentDestination!!.id == R.id.myRatingsFragment
         

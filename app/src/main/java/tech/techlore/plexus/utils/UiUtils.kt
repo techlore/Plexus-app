@@ -71,8 +71,8 @@ class UiUtils {
             val action =
                 when(navController.currentDestination!!.id) {
                     R.id.plexusDataFragment -> R.id.action_plexusDataFragment_self
+                    R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
                     R.id.favoritesFragment -> R.id.action_favoritesFragment_self
-                    R.id.submitRatingFragment -> R.id.action_submitRatingFragment_self
                     R.id.myRatingsFragment -> R.id.action_myRatingsFragment_self
                     R.id.userRatingsFragment -> R.id.action_userRatingsFragment_self
                     else -> R.id.action_myRatingsDetailsFragment_self

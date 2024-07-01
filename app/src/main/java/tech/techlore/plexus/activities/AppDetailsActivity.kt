@@ -40,10 +40,10 @@ import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.fragments.bottomsheets.RomSelectionBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.SortUserRatingsBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.appdetails.RomSelectionBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.appdetails.MoreOptionsBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.appdetails.SortUserRatingsBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
@@ -159,7 +159,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 } == true
             
             // Submit
-            activityBinding.submitBtn.setOnClickListener {
+            activityBinding.rateBtn.setOnClickListener {
                 when {
                     !app.isInstalled ->
                         showSnackbar(activityBinding.detailsCoordLayout,
@@ -305,7 +305,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         when(menuItem.itemId) {
             
             R.id.details_menu_help -> startActivity(Intent(this@AppDetailsActivity, SettingsActivity::class.java)
-                                                        .putExtra("frag", R.id.helpFragment))
+                                                        .putExtra("fragId", R.id.helpFragment))
             
             R.id.menu_sort_user_ratings -> SortUserRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
             

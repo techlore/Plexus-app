@@ -46,19 +46,17 @@
 
     <!--Nav view-->
     <string name="plexus_data">Plexus data</string>
+    <string name="installed_apps">Installed apps</string>
     <string name="favorites">Favorites</string>
-    <string name="contribute">Contribute</string>
-    <string name="submit_rating">Submit rating</string>
     <string name="my_account">My account</string>
     <string name="my_ratings">My ratings</string>
     <string name="delete_account">Delete account</string>
     <string name="settings">Settings</string>
-    <string name="theme">Theme</string>
-    <string name="about">About</string>
 
     <!--#########################################################################################-->
 
     <!--App details activity-->
+    <string name="rate">Rate</string>
     <string name="app">App</string>
     <string name="package_name">Package</string>
     <string name="total_score">Total score</string>
@@ -113,6 +111,20 @@
 
     <!--Settings activity-->
 
+    <!--Settings fragment-->
+    <string name="theme">Theme</string>
+    <string name="material_you">Material You\n(requires app restart)</string>
+    <string name="default_view">Default view</string>
+    <string name="conf_before_submit">Confirm before submitting</string>
+    <string name="about">About</string>
+    <string name="version">Version</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="report_issue">Report an issue</string>
+    <string name="support_us">Support us</string>
+    <string name="view_on_github">View on GitHub</string>
+    <string name="visit_techlore">Visit Techlore</string>
+    <string name="third_party_licenses">Third party licenses</string>
+
     <!--Help fragment-->
     <string name="icons">Icons</string>
     <string name="not_tested_subtitle">Not available, app has not been tested</string>
@@ -128,15 +140,6 @@
     <string name="android_version_desc">Android versions</string>
     <string name="installation_source_desc">Installation source of apps</string>
     <string name="apps_submit_proc">Apps submission procedure</string>
-
-    <!--About fragment-->
-    <string name="version">Version</string>
-    <string name="privacy_policy">Privacy policy</string>
-    <string name="report_issue">Report an issue</string>
-    <string name="support_us">Support us</string>
-    <string name="view_on_github">View on GitHub</string>
-    <string name="visit_techlore">Visit Techlore</string>
-    <string name="third_party_licenses">Third party licenses</string>
 
     <!--#########################################################################################-->
 
@@ -177,7 +180,6 @@
     <string name="follow_system">Follow system</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
-    <string name="material_you">Material You\n(requires app restart)</string>
 
     <!--More options-->
     <string name="menu_share">Share</string>
@@ -189,6 +191,7 @@
     <string name="proceed">Proceed</string>
 
     <!--Submit-->
+    <string name="about_to_submit">You are about to submit a rating. Are you sure you want to proceed?</string>
     <string name="wait_submitting_data">Please wait, submitting data …</string>
     <string name="submit_success">Submitted successfully</string>
     <string name="submit_error">Error while submitting data</string>

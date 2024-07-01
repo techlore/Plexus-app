@@ -19,16 +19,16 @@
 
 <resources>
 
-    <!--Splash light theme-->
-    <style name="SplashTheme" parent="BaseSplashStyle">
-        <item name="android:windowLightStatusBar">false</item>
+    <!--App light theme-->
+    <style name="AppTheme" parent="BaseAppStyle">
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <!--#########################################################################################-->
 
-    <!--App light theme-->
-    <style name="AppTheme" parent="BaseAppStyle">
-        <item name="android:windowLightStatusBar">true</item>
+    <!--Splash light theme-->
+    <style name="SplashTheme" parent="BaseSplashStyle">
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <!--#########################################################################################-->

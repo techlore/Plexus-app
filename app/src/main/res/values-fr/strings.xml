@@ -50,19 +50,17 @@
 
     <!--Nav view-->
     <string name="plexus_data">Donn\u00E9s Plexus</string>
+    <string name="installed_apps">Apps install\u00E9es</string>
     <string name="favorites">Favoris</string>
-    <string name="contribute">Contribuer</string>
-    <string name="submit_rating">Soumettre une \u00E9valuation</string>
     <string name="my_account">Mon compte</string>
     <string name="my_ratings">Mes \u00E9valuations</string>
     <string name="delete_account">Supprimer le compte</string>
     <string name="settings">R\u00E9glages</string>
-    <string name="theme">Th\u00E8me</string>
-    <string name="about">A propos</string>
 
     <!--#########################################################################################-->
 
     <!--App details activity-->
+    <string name="rate">Rate</string>
     <string name="app">Application</string>
     <string name="package_name">Nom du paquet</string>
     <string name="total_score">Score total</string>
@@ -117,6 +115,20 @@
 
     <!--Settings activity-->
 
+    <!--Settings fragment-->
+    <string name="theme">Th\u00E8me</string>
+    <string name="material_you">Material You\n(\u00E9cessite le red\u00E9marrage de l\'app)</string>
+    <string name="default_view">Vue par d\u00E9faut</string>
+    <string name="conf_before_submit">Confirmer avant de soumettre</string>
+    <string name="about">A propos</string>
+    <string name="version">Version</string>
+    <string name="privacy_policy">Politique de confidentialit\u00E9</string>
+    <string name="report_issue">Signaler un probl\u00E8me</string>
+    <string name="support_us">Soutenez nous</string>
+    <string name="view_on_github">Voir sur GitHub</string>
+    <string name="visit_techlore">Visiter Techlore</string>
+    <string name="third_party_licenses">Licences de code tiers</string>
+
     <!--Help fragment-->
     <string name="icons">Ic\u00F4nes</string>
     <string name="not_tested_subtitle">Non disponible, l\'application n\'a pas \u00E9t\u00E9 test\u00E9e</string>
@@ -132,15 +144,6 @@
     <string name="android_version_desc">Android versions</string>
     <string name="installation_source_desc">Source d\'installation des apps</string>
     <string name="apps_submit_proc">Proc\u00E9dure de soumission des candidatures</string>
-
-    <!--About fragment-->
-    <string name="version">Version</string>
-    <string name="privacy_policy">Politique de confidentialit\u00E9</string>
-    <string name="report_issue">Signaler un probl\u00E8me</string>
-    <string name="support_us">Soutenez nous</string>
-    <string name="view_on_github">Voir sur GitHub</string>
-    <string name="visit_techlore">Visiter Techlore</string>
-    <string name="third_party_licenses">Licences de code tiers</string>
 
     <!--#########################################################################################-->
 
@@ -181,7 +184,6 @@
     <string name="follow_system">Suivre le syst\u00E8me</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
-    <string name="material_you">Material You\n(\u00E9cessite le red\u00E9marrage de l\'app)</string>
 
     <!--More options-->
     <string name="menu_share">Partager</string>
@@ -193,6 +195,7 @@
     <string name="proceed">Proc\u00E9der</string>
 
     <!--Submit-->
+    <string name="about_to_submit">Vous \u00EAtes sur le point de soumettre une \u00E9valuation. \u00CAtes-vous s\u00FBr de vouloir continuer?</string>
     <string name="wait_submitting_data">Veuillez patienter, l\'envoi des donn\u00E9es …</string>
     <string name="submit_success">Soumis avec succ\u00E8s</string>
     <string name="submit_error">Erreur lors de la transmission des donn\u00E9es</string>

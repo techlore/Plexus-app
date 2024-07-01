@@ -21,7 +21,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
@@ -43,16 +42,16 @@ class SettingsActivity : AppCompatActivity() {
         
         navHostFragment = supportFragmentManager.findFragmentById(R.id.settingsNavHost) as NavHostFragment
         navController = navHostFragment.navController
-        val displayFragmentId = intent.extras?.getInt("frag")!!
+        val navGraph = navController.navInflater.inflate(R.navigation.settings_fragments_nav_graph)
         
         activityBinding.toolbarBottom.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         }
-        
         supportActionBar?.setDisplayShowTitleEnabled(false)
         
-        navController.navigate(displayFragmentId)
+        navGraph.setStartDestination(intent.extras?.getInt("fragId")!!)
+        navController.setGraph(navGraph, intent.extras)
     }
     
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -69,11 +68,11 @@ class SettingsActivity : AppCompatActivity() {
                 }
                 
                 navController.currentDestination?.id == R.id.licensesFragment -> {
-                    navController.navigate(R.id.action_licensesFragment_to_aboutFragment)
+                    navController.navigate(R.id.action_licensesFragment_to_settingsFragment)
                 }
                 
                 navController.currentDestination?.id == R.id.supportUsFragment -> {
-                    navController.navigate(R.id.action_supportUsFragment_to_aboutFragment)
+                    navController.navigate(R.id.action_supportUsFragment_to_settingsFragment)
                 }
                 
                 else -> finish()

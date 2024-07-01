@@ -31,8 +31,10 @@ import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
-import tech.techlore.plexus.fragments.bottomsheets.NoNetworkBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.SubmitBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.submit.ConfirmSubmitBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.submit.SubmitBottomSheet
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
@@ -121,12 +123,16 @@ class SubmitActivity : AppCompatActivity() {
         
         // FAB
         activityBinding.submitFab.setOnClickListener {
-            showSubmitBtmSheet()
+            if ((applicationContext as ApplicationManager).preferenceManager.getBoolean(CONF_BEFORE_SUBMIT)) {
+                ConfirmSubmitBottomSheet().show(supportFragmentManager, "ConfirmSubmitBottomSheet")
+            }
+            else {
+                showSubmitBtmSheet()
+            }
         }
     }
     
-    private fun showSubmitBtmSheet() {
-        
+    fun showSubmitBtmSheet() {
         lifecycleScope.launch {
             if (hasNetwork(this@SubmitActivity) && hasInternet()) {
                 activityBinding.submitFab.isEnabled = false

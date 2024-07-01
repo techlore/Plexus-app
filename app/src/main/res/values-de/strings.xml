@@ -51,19 +51,17 @@
 
     <!--Nav view-->
     <string name="plexus_data">Plexus daten</string>
+    <string name="installed_apps">Installierte apps</string>
     <string name="favorites">Favoriten</string>
-    <string name="contribute">Beitragen</string>
-    <string name="submit_rating">Bewertung abgeben</string>
     <string name="my_account">Mein Kkonto</string>
     <string name="my_ratings">Meine bewertungen</string>
     <string name="delete_account">Konto l\u00F6schen</string>
     <string name="settings">Einstellungen</string>
-    <string name="theme">Thema</string>
-    <string name="about">\u00DCber</string>
 
     <!--#########################################################################################-->
 
     <!--App details activity-->
+    <string name="rate">Rate</string>
     <string name="app">App</string>
     <string name="package_name">Paketname</string>
     <string name="total_score">Gesamtpunktzahl</string>
@@ -118,6 +116,20 @@
 
     <!--Settings activity-->
 
+    <!--Settings fragment-->
+    <string name="theme">Thema</string>
+    <string name="material_you">Material You\n(app neustart erforderlich)</string>
+    <string name="default_view">Standardansicht</string>
+    <string name="conf_before_submit">Best\u00E4tigen sie vor dem absenden</string>
+    <string name="about">\u00DCber</string>
+    <string name="version">Version</string>
+    <string name="privacy_policy">Datenschutzbestimmungen</string>
+    <string name="report_issue">Ein problem melden</string>
+    <string name="support_us">Unterst\u00FCtzen sie uns</string>
+    <string name="view_on_github">Auf GitHub anschauen</string>
+    <string name="visit_techlore">Besuche Techlore</string>
+    <string name="third_party_licenses">Lizenzen von drittanbietern</string>
+
     <!--Help fragment-->
     <string name="icons">Icons</string>
     <string name="not_tested_subtitle">Nicht verf\u00FCgbar, die anwendung wurde nicht getestet</string>
@@ -133,15 +145,6 @@
     <string name="android_version_desc">Android versionen</string>
     <string name="installation_source_desc">Installationsquelle von anwendungen</string>
     <string name="apps_submit_proc">Verfahren zur einreichung von apps</string>
-
-    <!--About fragment-->
-    <string name="version">Version</string>
-    <string name="privacy_policy">Datenschutzbestimmungen</string>
-    <string name="report_issue">Ein problem melden</string>
-    <string name="support_us">Unterst\u00FCtzen sie uns</string>
-    <string name="view_on_github">Auf GitHub anschauen</string>
-    <string name="visit_techlore">Besuche Techlore</string>
-    <string name="third_party_licenses">Lizenzen von drittanbietern</string>
 
     <!--#########################################################################################-->
 
@@ -182,7 +185,6 @@
     <string name="follow_system">System verfolgen</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
-    <string name="material_you">Material You\n(app neustart erforderlich)</string>
 
     <!--More options-->
     <string name="menu_share">Teilen</string>
@@ -194,6 +196,7 @@
     <string name="proceed">Weiter</string>
 
     <!--Submit-->
+    <string name="about_to_submit">Sie sind im begriff, eine bewertung abzugeben. Sind sie sicher, dass sie fortfahren m\u00F6chten?</string>
     <string name="wait_submitting_data">Bitte warten, daten \u00FCbermitteln …</string>
     <string name="submit_success">Erfolgreich eingereicht</string>
     <string name="submit_error">Fehler bei der \u00FCbermittlung von daten</string>

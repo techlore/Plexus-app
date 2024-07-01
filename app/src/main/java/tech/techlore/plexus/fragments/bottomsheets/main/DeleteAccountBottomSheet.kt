@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets
+package tech.techlore.plexus.fragments.bottomsheets.main
 
 import android.content.res.ColorStateList
 import android.os.Bundle

@@ -45,7 +45,7 @@ class NetworkUtils {
             return try {
                 withContext(Dispatchers.IO) {
                     val socket = Socket()
-                    socket.connect(InetSocketAddress("plexus.fly.dev", 443), 5000)
+                    socket.connect(InetSocketAddress("plexus.fly.dev", 443), 10000)
                     socket.close()
                     true
                 }

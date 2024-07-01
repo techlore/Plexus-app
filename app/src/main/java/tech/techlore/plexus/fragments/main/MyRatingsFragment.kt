@@ -101,8 +101,8 @@ class MyRatingsFragment :
             fragmentBinding.newRatingFab.apply {
                 isVisible = true
                 setOnClickListener {
-                    mainActivity.selectedNavItem = R.id.nav_submit_rating
-                    mainActivity.clickedNavItem = R.id.nav_submit_rating
+                    mainActivity.selectedNavItem = R.id.nav_installed_apps
+                    mainActivity.clickedNavItem = R.id.nav_installed_apps
                     mainActivity.displayFragment(mainActivity.clickedNavItem)
                 }
             }

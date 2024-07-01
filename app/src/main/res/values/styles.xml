@@ -19,17 +19,6 @@
 
 <resources>
 
-    <!--Base splash style-->
-    <style name="BaseSplashStyle" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="backgroundColor">@color/grey_900</item>
-        <item name="colorPrimaryDark">@color/grey_900</item>
-
-        <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
-    </style>
-
-    <!--#########################################################################################-->
-
     <!--Base app style-->
     <style name="BaseAppStyle" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
@@ -83,6 +72,14 @@
         <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
+    </style>
+
+    <!--#########################################################################################-->
+
+    <!--Base splash style-->
+    <style name="BaseSplashStyle" parent="BaseAppStyle">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:statusBarColor">@color/grey_900</item>
     </style>
 
     <!--#########################################################################################-->

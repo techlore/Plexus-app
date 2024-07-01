@@ -33,8 +33,8 @@ import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.fragments.bottomsheets.MoreOptionsBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.SortMyRatingsDetailsBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.appdetails.MoreOptionsBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.myratingsdetails.SortMyRatingsDetailsBottomSheet
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -114,7 +114,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             
             navController.navigate(R.id.myRatingsDetailsFragment)
             
-            activityBinding.submitBtn.isVisible = false
+            activityBinding.rateBtn.isVisible = false
         }
     }
     
@@ -126,7 +126,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
         when(menuItem.itemId) {
             
             R.id.details_menu_help -> startActivity(Intent(this@MyRatingsDetailsActivity, SettingsActivity::class.java)
-                                                        .putExtra("frag", R.id.helpFragment))
+                                                        .putExtra("fragId", R.id.helpFragment))
             
             R.id.menu_sort_user_ratings -> SortMyRatingsDetailsBottomSheet().show(supportFragmentManager, "SortMyRatingsBottomSheet")
             

@@ -18,41 +18,75 @@
 package tech.techlore.plexus.fragments.settings
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import tech.techlore.plexus.BuildConfig
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SettingsActivity
-import tech.techlore.plexus.databinding.FragmentAboutBinding
+import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.databinding.FragmentSettingsBinding
+import tech.techlore.plexus.fragments.bottomsheets.settings.DefaultViewBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.settings.ThemeBottomSheet
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
-class AboutFragment : Fragment() {
+class SettingsFragment : Fragment() {
     
-    private var _binding: FragmentAboutBinding? = null
+    private var _binding: FragmentSettingsBinding? = null
     private val fragmentBinding get() = _binding!!
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        _binding = FragmentAboutBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return fragmentBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val settingsActivity = requireActivity() as SettingsActivity
-        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.about)
+        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.settings)
+        val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
         
         // Version
         @SuppressLint("SetTextI18n")
-        fragmentBinding.aboutVersion.text =
-            "${getString(R.string.version)}: ${BuildConfig.VERSION_NAME}"
+        fragmentBinding.aboutVersion.text = "${getString(R.string.version)}: ${BuildConfig.VERSION_NAME}"
         
+        // Theme
+        fragmentBinding.theme.setOnClickListener {
+            ThemeBottomSheet().show(parentFragmentManager, "ThemeBottomSheet")
+        }
+        
+        // Material You
+        fragmentBinding.materialYouSwitch.apply {
+            if (Build.VERSION.SDK_INT >= 31) {
+                isVisible = true
+                isChecked = preferenceManager.getBoolean(MATERIAL_YOU, defValue = false)
+                setOnCheckedChangeListener { _, isChecked ->
+                    preferenceManager.setBoolean(MATERIAL_YOU, isChecked)
+                }
+            }
+        }
+        
+        // Default view
+        fragmentBinding.defaultView.setOnClickListener {
+            DefaultViewBottomSheet().show(parentFragmentManager, "DefaultViewBottomSheet")
+        }
+        
+        // Confirm before submitting
+        fragmentBinding.confBeforeSubmitSwitch.apply {
+            isChecked = preferenceManager.getBoolean(CONF_BEFORE_SUBMIT, defValue = false)
+            setOnCheckedChangeListener { _, isChecked ->
+                preferenceManager.setBoolean(CONF_BEFORE_SUBMIT, isChecked)
+            }
+        }
         
         // Privacy policy
         fragmentBinding.privacyPolicy.setOnClickListener {
@@ -72,7 +106,7 @@ class AboutFragment : Fragment() {
         
         // Support us
         fragmentBinding.supportUs.setOnClickListener {
-            settingsActivity.navController.navigate(R.id.action_aboutFragment_to_supportUsFragment)
+            settingsActivity.navController.navigate(R.id.action_settingsFragment_to_supportUsFragment)
         }
         
         // View on GitHub
@@ -93,7 +127,7 @@ class AboutFragment : Fragment() {
         
         // Third party licenses
         fragmentBinding.licenses.setOnClickListener {
-            settingsActivity.navController.navigate(R.id.action_aboutFragment_to_licensesFragment)
+            settingsActivity.navController.navigate(R.id.action_settingsFragment_to_licensesFragment)
         }
     }
     
