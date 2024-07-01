@@ -1,6 +1,16 @@
 # CHANGELOG
 
 
+## v2.0.5
+- Fixed an issue where app icons were not being uploaded.
+- Introduced a fallback icon when no app icon is available.
+- Added an option to set default view on app startup.
+- Added a confirmation option to prevent accidental submissions.
+- The notes field now supports line breaks.
+- Default colors have been adjusted to align with the brand icon.
+- Renamed "Submit rating" to "Installed apps".
+
+
 ## v2.0.3
 - Disabled proguard to keep necessary features required for app functionality.
 

@@ -1,0 +1,7 @@
+- Probleem verholpen waarbij app-pictogrammen niet werden geüpload.
+- Een fallback-pictogram geïntroduceerd wanneer er geen app-pictogram beschikbaar is.
+- Een optie toegevoegd om de standaardweergave in te stellen bij het opstarten van de app.
+- Een bevestigingsoptie toegevoegd om per ongeluk indienen te voorkomen.
+- Het notitieveld ondersteunt nu regeleinden.
+- Standaardkleuren zijn aangepast aan het merkicoon.
+- Hernoemd "Beoordeling indienen" naar "Geïnstalleerde apps".

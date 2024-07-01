@@ -1,0 +1,7 @@
+- Ein Problem wurde behoben, bei dem die App-Symbole nicht hochgeladen wurden.
+- Es wurde ein Fallback-Symbol eingeführt, wenn kein App-Symbol verfügbar ist.
+- Es wurde eine Option hinzugefügt, um die Standardansicht beim Start der App festzulegen.
+- Es wurde eine Bestätigungsoption hinzugefügt, um versehentliche Übertragungen zu verhindern.
+- Das Notizfeld unterstützt nun Zeilenumbrüche.
+- Die Standardfarben wurden an das Markensymbol angepasst.
+- Umbenennung von "Bewertung abgeben" in "Installierte Apps".

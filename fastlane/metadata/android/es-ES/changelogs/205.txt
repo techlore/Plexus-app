@@ -1,0 +1,7 @@
+- Se ha corregido un problema por el que no se cargaban los iconos de las aplicaciones.
+- Se ha introducido un icono de reserva cuando no hay ningún icono de aplicación disponible.
+- Se ha añadido una opción para establecer la vista predeterminada al iniciar la aplicación.
+- Se ha añadido una opción de confirmación para evitar envíos accidentales.
+- El campo de notas ahora admite saltos de línea.
+- Se han ajustado los colores por defecto para alinearlos con el icono de la marca.
+- Se ha cambiado el nombre de "Enviar valoración" a "Aplicaciones instaladas".
