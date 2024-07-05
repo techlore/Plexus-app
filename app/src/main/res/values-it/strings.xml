@@ -178,7 +178,7 @@
         \n\u00C8 sicuro di voler procedere?</string>
 
     <!--Theme-->
-    <string name="follow_system">Segui l'impostazione di sistema</string>
+    <string name="follow_system">Segui l\'impostazione di sistema</string>
     <string name="light">Chiaro</string>
     <string name="dark">Scuro</string>
 
@@ -192,7 +192,7 @@
     <string name="proceed">Procedi</string>
 
     <!--Submit-->
-    <string name="about_to_submit">Stai per inviare una valutazione. Procedere con l'invio?</string>
+    <string name="about_to_submit">Stai per inviare una valutazione. Procedere con l\'invio?</string>
     <string name="wait_submitting_data">Si prega di attendere, invio dei dati in corso…</string>
     <string name="submit_success">Inviato con successo</string>
     <string name="submit_error">Errore durante l\'invio dei dati</string>
