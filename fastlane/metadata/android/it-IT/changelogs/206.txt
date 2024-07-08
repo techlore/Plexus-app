@@ -5,3 +5,4 @@
 - Il campo note ora supporta le interruzioni di riga.
 - I colori predefiniti sono stati adattati per allinearsi all'icona del marchio.
 - Rinominato "Invia valutazione" in "App installate".
+- Traduzioni italiane migliorate (da @gandbg).

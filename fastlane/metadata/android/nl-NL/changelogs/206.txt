@@ -5,3 +5,4 @@
 - Het notitieveld ondersteunt nu regeleinden.
 - Standaardkleuren zijn aangepast aan het merkicoon.
 - Hernoemd "Beoordeling indienen" naar "Geïnstalleerde apps".
+- Verbeterde Italiaanse vertalingen (door @gandbg)

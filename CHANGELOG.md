@@ -1,6 +1,10 @@
 # CHANGELOG
 
 
+## v2.0.6
+- Improved Italian translations (by [@gandbg](https://github.com/gandbg)).
+
+
 ## v2.0.5
 - Fixed an issue where app icons were not being uploaded.
 - Introduced a fallback icon when no app icon is available.

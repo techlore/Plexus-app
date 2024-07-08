@@ -102,7 +102,7 @@ Privacy policy is located [here](https://github.com/techlore/Plexus-app/blob/mai
 
 
 ## Issues
-If you find bugs or have suggestions, please report it to the [issue tracker](https://github.com/techlore/Plexus-app/issues). We encourage you to search for existing issues before opening a new one. Any duplicates will be closed immediately.
+If you find bugs or have suggestions, please report it to the [issue tracker](https://github.com/techlore/Plexus-app/issues). We encourage you to search for existing issues before opening a new one. Any duplicates will be closed.
 
 
 ## Contributing

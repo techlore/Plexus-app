@@ -5,3 +5,4 @@
 - The notes field now supports line breaks.
 - Default colors have been adjusted to align with the brand icon.
 - Renamed "Submit rating" to "Installed apps".
+- Improved Italian translations (by @gandbg).

@@ -5,3 +5,4 @@
 - El campo de notas ahora admite saltos de línea.
 - Se han ajustado los colores por defecto para alinearlos con el icono de la marca.
 - Se ha cambiado el nombre de "Enviar valoración" a "Aplicaciones instaladas".
+- Mejora de las traducciones al italiano (por @gandbg).

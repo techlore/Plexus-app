@@ -5,3 +5,4 @@
 - Le champ "notes" prend désormais en charge les sauts de ligne.
 - Les couleurs par défaut ont été ajustées pour s'aligner sur l'icône de la marque.
 - Renommé "Submit rating" en "Installed apps".
+- Amélioration des traductions en italien (par @gandbg).

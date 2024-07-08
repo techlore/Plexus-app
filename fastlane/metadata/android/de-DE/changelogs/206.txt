@@ -5,3 +5,4 @@
 - Das Notizfeld unterstützt nun Zeilenumbrüche.
 - Die Standardfarben wurden an das Markensymbol angepasst.
 - Umbenennung von "Bewertung abgeben" in "Installierte Apps".
+- Verbesserte italienische Übersetzungen (von @gandbg).
