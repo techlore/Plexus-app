@@ -139,7 +139,6 @@
                     android:id="@+id/submitBroken"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     style="@style/BrokenFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
@@ -174,6 +173,7 @@
                 android:layout_marginBottom="@dimen/margin_16"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
+                android:enabled="false"
                 app:counterEnabled="true"
                 app:counterMaxLength="300"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
@@ -207,6 +207,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_done"
         app:layout_anchor="@id/submitBottomAppBar"
+        android:enabled="false"
         android:contentDescription="@string/submit"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

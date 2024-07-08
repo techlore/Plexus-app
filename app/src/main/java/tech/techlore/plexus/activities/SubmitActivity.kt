@@ -105,6 +105,12 @@ class SubmitActivity : AppCompatActivity() {
             text = statusText
         }
         
+        // Chip group
+        activityBinding.submitStatusChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+            activityBinding.submitFab.isEnabled = !checkedIds.isEmpty()
+            activityBinding.submitNotesBox.isEnabled = !checkedIds.isEmpty()
+        }
+        
         // Notes
         activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
         activityBinding.submitNotesText.doOnTextChanged { charSequence, _, _, _ ->
