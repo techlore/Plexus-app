@@ -5,7 +5,8 @@
 
 Android app for [Plexus](https://plexus.techlore.tech)
 
-<img src="https://img.shields.io/f-droid/v/tech.techlore.plexus?logo=FDroid&color=green&style=for-the-badge" alt="F-Droid Version"> <img src="https://img.shields.io/github/v/release/techlore/Plexus-app?logo=GitHub&label=GitHub&color=212121&style=for-the-badge" alt="GitHub Version">
+<!--<img src="https://img.shields.io/f-droid/v/tech.techlore.plexus?logo=FDroid&color=green&style=for-the-badge" alt="F-Droid Version">-->
+<img src="https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/tech.techlore.plexus&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAA4VBMVEXn9cuv7wDB9iGp4x2k5gKh3B6k3SyAxAGd4ASo6gCv5SCW2gHA7UTB6V+EwiOw3lK36zC+422d1yO78SWs3kfR7JhQiw2751G7+QCz8gCKzgGq3zay5DSm2jrF9jZLfwmNyiC77zXO7oaYzjW37CLj9Lze8LLA43uz3mK19ACR1QBcnRO78R6ExBek1kbE8FLI6nSPu0jH5YJxtQ2b1RiAmz53uwF7pitZkAeX1w7I72TY8KTO8HXD7La+0pKizWBzhExqjytpmR+UzSTA5Ctzy3uv1nOv3gyF3UuCsDRHcEx7M2pHAAAAS3RSTlP//////////////////////////////////////////////////////////////////////////////////////////////////wDLGfCsAAAB9ElEQVRIx72W53biMBCFhY0L7g0bTAktQEwgdMhuerbO+z/Q2sBiY0uKcvacnX8a3Y/R8YyuQPDJQP8KoExcro6ZC6C4TQXQx/oLABV3cfozgBgL/AWY9ScAsR7oBCD2AmSAoD8A+J3cWYECdBEaVm2z+U1hAuDx4fr6a08PGuuf6cmys5QvMEz0c12zhPWaAYBq9emp9/DlTrMUXsBOaw5Yjl5elrG+u9tYAxbAtjeL+Z3Wdl83Ovfr3BQyYAZBoLXbHDfQ2hykTSEAAIu+2LRcl4tD6UCm67jPCvD4/ON5YRhGpzOdrlar74fT5IcvOxDD0Xg0nvU7hjGVttv+0vYyAgyQdNgeey3Hce5DSZqN9GZmvzh8UO0F3thsiY4gqGoUtuL2AeaKpom5brVMryEKvCyXZVX0urd0wOxy4qwh8jxfLlcqZafpYoH0MzQGnNI/6CulOASFc/NWlZ17ADEG3oWjvn5TEvjbfJuyrnFaSfdyrK/f1Gp1tTAHF750aqgUJUCsr5UizFUv3EeQwmOFekmVmABDCiNVlqNwOwEqcM75vp+s/asrKpAmdxM/Gbnfuz0j8OYnPw2v9AqZ5Nt+f7hikwkw2T3Fc2l2jzdcst3DpwGCnvQ+EPUEu8c/STSAqMfZPeX5IQK0J+a//zn5MP4Am7ISN/4mSV8AAAAASUVORK5CYII=&color=3BCCFF&label=IzzyOnDroid&style=for-the-badge" alt="IzzyOnDroid Version"> <img src="https://img.shields.io/github/v/release/techlore/Plexus-app?logo=GitHub&label=GitHub&color=212121&style=for-the-badge" alt="GitHub Version">
 
 
 ## Contents
@@ -33,12 +34,9 @@ To learn more about what Plexus is and what it does, please visit the [wiki](htt
 ## Download
 Reproducible builds are enabled, allowing you to install and upgrade the app from any of the following sources, interchangeably:
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-alt='Get it on F-Droid'
-height="80">](https://f-droid.org/packages/tech.techlore.plexus)
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
 alt="Get it on IzzyOnDroid"
-height="80">](https://apt.izzysoft.de/fdroid/index/apk/tech.techlore.plexus?repo=main)
+height="80">](https://apt.izzysoft.de/fdroid/index/apk/tech.techlore.plexus)
 [<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png"
 alt="Get it on GitHub"
 height="80">](https://github.com/techlore/Plexus-app/releases/latest)
@@ -102,7 +100,9 @@ Privacy policy is located [here](https://github.com/techlore/Plexus-app/blob/mai
 
 
 ## Issues
-If you find bugs or have suggestions, please report it to the [issue tracker](https://github.com/techlore/Plexus-app/issues). We encourage you to search for existing issues before opening a new one. Any duplicates will be closed.
+If you find bugs or have suggestions, please report it to the [issue tracker](https://github.com/techlore/Plexus-app/issues).
+- Make sure you're on the latest version before reporting any issues.
+- We encourage you to search for existing issues before opening a new one. Any duplicates will be closed.
 
 
 ## Contributing

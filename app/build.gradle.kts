@@ -51,6 +51,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }*/
     }
+    
+    dependenciesInfo {
+        includeInApk = false // Disables dependency metadata when building APKs.
+        includeInBundle = false // Disables dependency metadata when building Android App Bundles.
+    }
 
     buildFeatures {
         viewBinding = true
