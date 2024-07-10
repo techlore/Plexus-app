@@ -1,0 +1,59 @@
+name: Bug report
+description:  Report a bug or issue with the app
+title: "[Issue]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: desc
+    attributes:
+      label: Description
+      description: A clear & concise description of what the issue is.
+    validations:
+      required: true
+  - type: textarea
+    id: repsteps
+    attributes:
+      label: Steps to reproduce the behaviour
+      description: Provide a clear and concise description of the issue alongside steps to reproduce it.
+      placeholder: |
+        1. Go to ...
+        2. Tap on ...
+        3. See error
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device
+      description: The device this issue occurs on.
+      options:
+        - de-Googled
+        - microG
+        - Both de-Googled & microG
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error messages/logs
+      description: |
+        If possible, provide the errors messages/logs to make it easier to identify the issue. Check [here](https://developer.android.com/studio/debug/bug-report) to know how to get the logs.
+    validations:
+      required: false
+  - type: textarea
+    id: addcontext
+    attributes:
+      label: Additional context
+      description: Any other relevant information or context that can help us understand the issue.
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Terms
+      description: By submitting this issue, you acknowledge that:
+      options:
+        - label: This issue occurs on the [lastest version](https://github.com/techlore/Plexus-app/releases/latest).
+          required: true
+        - label: This is not a duplicate of another issue.
+          required: true
