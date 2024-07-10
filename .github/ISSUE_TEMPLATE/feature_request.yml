@@ -24,7 +24,7 @@ body:
       label: Terms
       description: By submitting this feature request, you acknowledge the following
       options:
-        - label: This issue is not present in the [latest version](https://github.com/techlore/Plexus-app/releases/latest).
+        - label: This feature is not present in the [latest version](https://github.com/techlore/Plexus-app/releases/latest).
           required: true
         - label: This is not a duplicate of another feature request.
           required: true

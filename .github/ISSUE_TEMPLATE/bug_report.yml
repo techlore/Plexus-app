@@ -13,7 +13,7 @@ body:
   - type: textarea
     id: repsteps
     attributes:
-      label: Steps to reproduce the behaviour
+      label: Steps to reproduce the issue
       placeholder: |
         1. Go to ...
         2. Tap on ...
@@ -36,7 +36,7 @@ body:
     attributes:
       label: Error messages/logs
       description: |
-        If possible, provide the error messages/logs to make it easier to identify the issue. Check [here](https://developer.android.com/studio/debug/bug-report) to know how to get the logs.
+        If possible, provide the error messages/logs to make it easier to identify the issue. Check [here](https://developer.android.com/studio/debug/bug-report) to learn how to get the logs.
     validations:
       required: false
   - type: textarea

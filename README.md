@@ -10,7 +10,8 @@ Android app for [Plexus](https://plexus.techlore.tech)
 
 
 ## Contents
-- [Wiki](#wiki)
+- [Overview](#overview)
+- [Help & FAQs](#help--faqs)
 - [Screenshots](#screenshots)
 - [Download](#download)
 - [Changelog](#changelog)
@@ -21,8 +22,17 @@ Android app for [Plexus](https://plexus.techlore.tech)
 - [License](#license)
 
 
-## Wiki
-To learn more about what Plexus is and what it does, please visit the [wiki](https://github.com/techlore/Plexus-app/wiki).
+## Overview
+Google Play Services are essential components on most Android devices. They allow you to access your Google account seamlessly and provide Google-specific features for apps that depend on them.
+<br>However, when you flash custom ROMs without Google Play Services or opt for alternatives like [microG](https://microg.org/), certain apps may encounter issues — either not functioning at all or experiencing limitations in specific features.
+
+Plexus provides detailed insights into app compatibility whether you’re using ROMs without Google Play Services (like _LineageOS_) or ROMs with microG (such as _CalyxOS_). It helps you identify which apps work, don’t work or have limited features.
+<br>All the information is crowdsourced by the community, for the community.
+
+
+## Help & FAQs
+- Visit the [Help page](https://github.com/techlore/Plexus-app/wiki/Help) to familiarize yourself with the all the indicators in the app & know how to submit ratings.
+- Visit the [FAQs page](https://github.com/techlore/Plexus-app/wiki/FAQs) for answers to common questions.
 
 
 ## Screenshots

@@ -1,4 +1,7 @@
 <b>Remove the fear of app compatibility on de-Googled Android devices.</b>
 
-Plexus allows you to know exactly which apps work, when you flash a new ROM.
-Plexus supports ROMs with no Google Play Services like <i>LineageOS</i>, as well as ROMs with microG (an open source alternative of Google Play Services) like <i>CalyxOS</i>.
+Google Play Services are essential components on most Android devices. They allow you to access your Google account seamlessly and provide Google-specific features for apps that depend on them.
+However, when you flash custom ROMs without Google Play Services or opt for alternatives like microG, certain apps may encounter issues — either not functioning at all or experiencing limitations in specific features.
+
+Plexus provides detailed insights into app compatibility whether you’re using ROMs without Google Play Services (like <i>LineageOS</i>) or ROMs with microG (such as <i>CalyxOS</i>). It helps you identify which apps work, don’t work or have limited features.
+All the information is crowdsourced by the community, for the community.

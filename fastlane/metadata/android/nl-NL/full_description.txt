@@ -1,4 +1,7 @@
 <b>Weg met de angst voor app-compatibiliteit op de-Googled Android-apparaten.</b>
 
-Met Plexus weet je precies welke apps werken als je een nieuwe ROM flasht.
-Plexus ondersteunt ROMs zonder Google Play Services zoals <i>LineageOS</i>, maar ook ROMs met microG (een open source alternatief voor Google Play Services) zoals <i>CalyxOS</i>.
+Google Play-services zijn essentiële componenten op de meeste Android-apparaten. Ze geven u naadloos toegang tot uw Google-account en bieden Google-specifieke functies voor apps die ervan afhankelijk zijn.
+Wanneer u echter aangepaste ROM's flasht zonder Google Play-services of kiest voor alternatieven zoals microG, kunnen bepaalde apps problemen tegenkomen: ze werken helemaal niet of ondervinden beperkingen in specifieke functies.
+
+Plexus biedt gedetailleerd inzicht in app-compatibiliteit, of u nu ROM's gebruikt zonder Google Play-services (zoals <i>LineageOS</i>) of ROM's met microG (zoals <i>CalyxOS</i>). Het helpt u te identificeren welke apps werken, niet werken of beperkte functies hebben.
+Alle informatie wordt verzameld door de gemeenschap, voor de gemeenschap.
