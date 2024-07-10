@@ -51,7 +51,7 @@ body:
     id: terms
     attributes:
       label: Terms
-      description: By submitting this issue, you acknowledge that:
+      description: By submitting this issue, you acknowledge the following
       options:
         - label: This issue occurs on the [lastest version](https://github.com/techlore/Plexus-app/releases/latest).
           required: true
