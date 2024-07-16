@@ -43,7 +43,7 @@
                 android:layout_width="@dimen/margin_64"
                 android:layout_height="@dimen/margin_64"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_8"
                 android:src="@drawable/ic_apk"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
@@ -120,45 +120,35 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="63dp"/>
 
-    <RadioGroup
-        android:id="@+id/detailsRadioGroup"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/detailsToggleGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="@dimen/margin_75"
-        android:background="@drawable/shape_radio_group"
-        android:orientation="horizontal"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        app:checkedButton="@id/toggleTotalScore"
         android:visibility="gone"
         tools:visibility="visible">
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioTotalScore"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/toggleTotalScore"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_40"
-            android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_radio_btn_bg"
-            android:checked="true"
-            android:button="@android:color/transparent"
-            android:paddingStart="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_16"
+            android:layout_height="wrap_content"
             android:text="@string/total_score"
             android:textSize="@dimen/text_16"
-            android:textColor="@color/radio_btn_text_color"/>
+            style="?attr/materialButtonOutlinedStyle"/>
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioUserRatings"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/toggleUserRatings"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_40"
-            android:layout_margin="@dimen/margin_4"
-            android:background="@drawable/shape_radio_btn_bg"
-            android:button="@android:color/transparent"
-            android:paddingStart="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_16"
+            android:layout_height="wrap_content"
             android:text="@string/user_ratings"
             android:textSize="@dimen/text_16"
-            android:textColor="@color/radio_btn_text_color"/>
+            style="?attr/materialButtonOutlinedStyle"/>
 
-    </RadioGroup>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -171,8 +161,8 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/rateBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_height="56dp"
+        android:layout_marginBottom="6dp"
         android:layout_marginEnd="@dimen/margin_16"
         android:paddingHorizontal="@dimen/margin_20"
         android:layout_gravity="bottom|end"
@@ -180,6 +170,7 @@
         app:iconGravity="textStart"
         app:iconPadding="@dimen/margin_8"
         android:text="@string/rate"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        style="?attr/floatingActionButtonStyle"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

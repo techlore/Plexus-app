@@ -49,17 +49,17 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    suspend fun miniPlexusDataListFromDB(statusRadioPref: Int,
+    suspend fun miniPlexusDataListFromDB(statusToggleBtnPref: Int,
                                          orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
             val preferenceManager = appManager.preferenceManager
             
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radioDgStatus, DG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
             
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radioMgStatus, MG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sortZA
             
@@ -71,7 +71,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
     }
     
     suspend fun miniInstalledAppsListFromDB(installedFromPref: Int,
-                                            statusRadioPref: Int,
+                                            statusToggleBtnPref: Int,
                                             orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
@@ -86,10 +86,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                 }
     
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radioDgStatus, DG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
     
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radioMgStatus, MG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sortZA
             
@@ -101,7 +101,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
     }
     
     suspend fun miniFavListFromDB(installedFromPref: Int,
-                                  statusRadioPref: Int,
+                                  statusToggleBtnPref: Int,
                                   orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
@@ -116,10 +116,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                 }
     
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radioDgStatus, DG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
     
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusRadioPref, R.id.radioMgStatus, MG_STATUS_SORT)
+                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sortZA
             
@@ -130,10 +130,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
     }
     
     private fun getScoreRange(preferenceManager: PreferenceManager,
-                              statusRadioPref: Int,
-                              radioBtnId: Int,
+                              statusToggleBtnPref: Int,
+                              toggleBtnId: Int,
                               sortKey: String): Pair<Float, Float> {
-        return if (statusRadioPref == radioBtnId) {
+        return if (statusToggleBtnPref == toggleBtnId) {
             mapStatusChipToScoreRange(preferenceManager, sortKey)
         } else {
             Pair(-1.0f, -1.0f)

@@ -72,8 +72,7 @@ class PackageUtils {
                             installedAppsList
                                 .add(MainData(name = it.loadLabel(packageManager).toString(),
                                               packageName = it.packageName,
-                                              installedVersion =
-                                              packageManager.getPackageInfo(it.packageName, 0).versionName,
+                                              installedVersion = packageManager.getPackageInfo(it.packageName, 0).versionName,
                                               installedBuild = packageManager.getPackageInfo(it.packageName, 0).versionCode,
                                               installedFrom = installedFrom,
                                               isInstalled = true))

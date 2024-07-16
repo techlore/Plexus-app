@@ -35,7 +35,7 @@ import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import kotlin.collections.ArrayList
@@ -77,7 +77,7 @@ class InstalledAppsFragment :
             
             installedAppsList =
                 miniRepository.miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
-                                                           statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                           statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
                                                            orderPref = preferenceManager.getInt(A_Z_SORT))
             
             if (installedAppsList.isEmpty()) {
@@ -110,7 +110,7 @@ class InstalledAppsFragment :
                 installedAppItemAdapter
                     .updateList(miniRepository
                                     .miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
-                                                                 statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                                 statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
                                                                  orderPref = preferenceManager.getInt(A_Z_SORT)))
                 appManager.isDataUpdated = false
             }
@@ -131,7 +131,7 @@ class InstalledAppsFragment :
             installedAppItemAdapter
                 .updateList(miniRepository
                                 .miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
-                                                             statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                                             statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
                                                              orderPref = preferenceManager.getInt(A_Z_SORT)))
         }
     }

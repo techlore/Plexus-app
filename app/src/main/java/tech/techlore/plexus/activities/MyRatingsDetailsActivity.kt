@@ -58,7 +58,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     lateinit var selectedRomString: String
     lateinit var selectedAndroidString: String
     var installedFromChip = R.id.ratingsChipInstalledAny
-    var statusRadio = R.id.ratingsRadioAnyStatus
+    var statusToggleBtn = R.id.ratingsToggleAnyStatus
     var dgStatusSort = 0
     var mgStatusSort = 0
     

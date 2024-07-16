@@ -25,7 +25,7 @@ class PreferenceManager(context: Context) {
         // Shared pref keys
         const val IS_FIRST_LAUNCH = "is_first_launch"
         const val A_Z_SORT = "a_z_sort"
-        const val STATUS_RADIO = "status_radio"
+        const val STATUS_TOGGLE = "status_toggle"
         const val DG_STATUS_SORT = "dg_status_sort"
         const val MG_STATUS_SORT = "mg_status_sort"
         const val INSTALLED_FROM_SORT = "installed_from_sort"

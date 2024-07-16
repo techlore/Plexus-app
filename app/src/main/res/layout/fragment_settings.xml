@@ -36,7 +36,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_gravity="center"
             android:background="@color/grey_800"
             android:src="@drawable/ic_launcher_foreground"

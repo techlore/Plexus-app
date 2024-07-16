@@ -125,14 +125,14 @@ class UserRatingsFragment : Fragment() {
                 }
     
                 // Status sort
-                if (detailsActivity.statusRadio != R.id.ratingsRadioAnyStatus) {
-                    googleLib = if (detailsActivity.statusRadio == R.id.ratingsRadioDgStatus) "native" else "micro_g"
+                if (detailsActivity.statusToggleBtn != R.id.ratingsToggleAnyStatus) {
+                    googleLib = if (detailsActivity.statusToggleBtn == R.id.ratingsToggleDgStatus) "native" else "micro_g"
                     detailsActivity.sortedRatingsList =
                         detailsActivity.sortedRatingsList.filter { ratings ->
                             ratings.ratingType == googleLib
                         } as ArrayList<Rating>
         
-                    if (detailsActivity.statusRadio == R.id.ratingsRadioDgStatus
+                    if (detailsActivity.statusToggleBtn == R.id.ratingsToggleDgStatus
                         && detailsActivity.dgStatusSort != R.id.ratingsSortAny) {
                         dgScore = mapStatusChipIdToRatingScore(detailsActivity.dgStatusSort)
                         detailsActivity.sortedRatingsList =
@@ -140,7 +140,7 @@ class UserRatingsFragment : Fragment() {
                                 ratings.ratingScore!!.ratingScore == dgScore
                             } as ArrayList<Rating>
                     }
-                    else if (detailsActivity.statusRadio == R.id.ratingsRadioMgStatus
+                    else if (detailsActivity.statusToggleBtn == R.id.ratingsToggleMgStatus
                              && detailsActivity.mgStatusSort != R.id.ratingsSortAny) {
                         mgScore = mapStatusChipIdToRatingScore(detailsActivity.mgStatusSort)
                         detailsActivity.sortedRatingsList =

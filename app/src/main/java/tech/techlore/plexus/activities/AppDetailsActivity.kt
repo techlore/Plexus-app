@@ -85,7 +85,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     lateinit var selectedRomString: String
     lateinit var selectedAndroidString: String
     var installedFromChip = R.id.ratingsChipInstalledAny
-    var statusRadio = R.id.ratingsRadioAnyStatus
+    var statusToggleBtn = R.id.ratingsToggleAnyStatus
     var dgStatusSort = 0
     var mgStatusSort = 0
     
@@ -141,16 +141,18 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                           app.installedFrom,
                                           activityBinding.detailsInstalledFrom)
             
-            // Radio group/buttons
-            activityBinding.detailsRadioGroup.setOnCheckedChangeListener{_, checkedId: Int ->
-                activityBinding.nestedScrollView.apply {
-                    if (scrollX != 0 || scrollY != 0) {
-                        post {
-                            scrollTo(0, 0)
+            // Toggle button group
+            activityBinding.detailsToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+                if (isChecked) {
+                    activityBinding.nestedScrollView.apply {
+                        if (scrollX != 0 || scrollY != 0) {
+                            post {
+                                scrollTo(0, 0)
+                            }
                         }
                     }
+                    displayFragment(checkedId)
                 }
-                displayFragment(checkedId)
             }
             
             val myRatingExists =
@@ -222,15 +224,15 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         val action =
             when (checkedItem) {
                 NAV_FROM_PROG_TO_TOTAL_SCORE -> R.id.action_fragmentProgressView_to_totalScoreFragment
-                R.id.radioTotalScore -> R.id.action_userRatingsFragment_to_totalScoreFragment
-                R.id.radioUserRatings -> R.id.action_totalScoreFragment_to_userRatingsFragment
+                R.id.toggleTotalScore -> R.id.action_userRatingsFragment_to_totalScoreFragment
+                R.id.toggleUserRatings -> R.id.action_totalScoreFragment_to_userRatingsFragment
                 else -> 0
             }
         
         // java.lang.IllegalArgumentException:
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
-        if (checkedItem != navController.currentDestination!!.id && action != 0) {
+        if (checkedItem != navController.currentDestination?.id && action != 0) {
             navController.navigate(action)
         }
     }
@@ -277,11 +279,11 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 }
                 
                 displayFragment(NAV_FROM_PROG_TO_TOTAL_SCORE)
-                ObjectAnimator.ofFloat(activityBinding.detailsRadioGroup, "alpha", 0f, 1f)
+                ObjectAnimator.ofFloat(activityBinding.detailsToggleGroup, "alpha", 0f, 1f)
                     .apply {
                         duration = ANIM_DURATION
                         interpolator = ANIM_INTERPOLATOR
-                        activityBinding.detailsRadioGroup.isVisible = true
+                        activityBinding.detailsToggleGroup.isVisible = true
                         start()
                     }
             }

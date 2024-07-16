@@ -35,7 +35,7 @@ import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
@@ -72,9 +72,9 @@ class PlexusDataFragment :
         
         lifecycleScope.launch{
             plexusDataList =
-                miniRepository.miniPlexusDataListFromDB(statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                miniRepository.miniPlexusDataListFromDB(statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
                                                         orderPref = preferenceManager.getInt(A_Z_SORT))
-    
+            
             if (plexusDataList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
             }
@@ -88,7 +88,7 @@ class PlexusDataFragment :
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
             }
-    
+            
             // Swipe refresh layout
             fragmentBinding.swipeRefreshLayout.apply {
                 setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
@@ -104,7 +104,7 @@ class PlexusDataFragment :
             lifecycleScope.launch{
                 plexusDataItemAdapter
                     .updateList(miniRepository
-                                    .miniPlexusDataListFromDB(statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                    .miniPlexusDataListFromDB(statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
                                                               orderPref = preferenceManager.getInt(A_Z_SORT)))
                 appManager.isDataUpdated = false
             }
@@ -125,7 +125,7 @@ class PlexusDataFragment :
                 mainRepository.plexusDataIntoDB(requireContext())
                 plexusDataItemAdapter
                     .updateList(miniRepository
-                                    .miniPlexusDataListFromDB(statusRadioPref = preferenceManager.getInt(STATUS_RADIO),
+                                    .miniPlexusDataListFromDB(statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
                                                               orderPref = preferenceManager.getInt(A_Z_SORT)))
                 fragmentBinding.swipeRefreshLayout.isRefreshing = false
             }

@@ -91,24 +91,23 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         // Installed from chip checked by default
         bottomSheetBinding.ratingsInstalledFromChipGroup.check(detailsActivity.installedFromChip)
         
-        // Status radio group
-        bottomSheetBinding.ratingsStatusRadioGroup.apply {
-            check(detailsActivity.statusRadio)
-            setOnCheckedChangeListener { _, checkedId: Int ->
-                bottomSheetBinding.ratingsStatusChipGroup.isVisible =
-                    checkedId != R.id.ratingsRadioAnyStatus
+        // Status toggle button group
+        bottomSheetBinding.ratingsStatusToggleGroup.apply {
+            check(detailsActivity.statusToggleBtn)
+            addOnButtonCheckedListener { _, checkedId, isChecked ->
+                if (isChecked) bottomSheetBinding.ratingsStatusChipGroup.isVisible = checkedId != R.id.ratingsToggleAnyStatus
             }
         }
         
         // Status chip group visibility
         bottomSheetBinding.ratingsStatusChipGroup.apply {
-            when (detailsActivity.statusRadio) {
-                R.id.ratingsRadioDgStatus -> {
+            when (detailsActivity.statusToggleBtn) {
+                R.id.ratingsToggleDgStatus -> {
                     isVisible = true
                     // Default DG status checked chip
                     check(detailsActivity.dgStatusSort)
                 }
-                R.id.ratingsRadioMgStatus -> {
+                R.id.ratingsToggleMgStatus -> {
                     isVisible = true
                     // Default MG status checked chip
                     check(detailsActivity.mgStatusSort)
@@ -123,11 +122,11 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
             detailsActivity.selectedRomString = bottomSheetBinding.ratingsRomDropdownMenu.text.toString()
             detailsActivity.selectedAndroidString = bottomSheetBinding.ratingsAndroidDropdownMenu.text.toString()
             detailsActivity.installedFromChip = bottomSheetBinding.ratingsInstalledFromChipGroup.checkedChipId
-            detailsActivity.statusRadio = bottomSheetBinding.ratingsStatusRadioGroup.checkedRadioButtonId
-            if (detailsActivity.statusRadio == R.id.ratingsRadioDgStatus) {
+            detailsActivity.statusToggleBtn = bottomSheetBinding.ratingsStatusToggleGroup.checkedButtonId
+            if (detailsActivity.statusToggleBtn == R.id.ratingsToggleDgStatus) {
                 detailsActivity.dgStatusSort = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
             }
-            else if (detailsActivity.statusRadio == R.id.ratingsRadioMgStatus) {
+            else if (detailsActivity.statusToggleBtn == R.id.ratingsToggleMgStatus) {
                 detailsActivity.mgStatusSort = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
             }
             

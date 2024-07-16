@@ -33,7 +33,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_RADIO
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
 class SortBottomSheet(private val navController: NavController) : BottomSheetDialogFragment() {
@@ -79,27 +79,27 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             }
         }
     
-        // Status radio group
+        // Status toggle button group
         if (!isMyRatingsFragment) {
-            bottomSheetBinding.statusRadioGroup.apply {
-                if (preferenceManager.getInt(STATUS_RADIO) == 0) {
-                    preferenceManager.setInt(STATUS_RADIO, R.id.radioAnyStatus)
+            bottomSheetBinding.statusToggleGroup.apply {
+                if (preferenceManager.getInt(STATUS_TOGGLE) == 0) {
+                    preferenceManager.setInt(STATUS_TOGGLE, R.id.toggleAnyStatus)
                 }
-                check(preferenceManager.getInt(STATUS_RADIO))
-                setOnCheckedChangeListener { _, checkedId: Int ->
-                    bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.radioAnyStatus
+                check(preferenceManager.getInt(STATUS_TOGGLE))
+                addOnButtonCheckedListener { _, checkedId, isChecked ->
+                    if (isChecked) bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.toggleAnyStatus
                 }
             }
         }
         else {
             bottomSheetBinding.sortStatusText.isVisible = false
-            bottomSheetBinding.statusRadioGroup.isVisible = false
+            bottomSheetBinding.statusToggleGroup.isVisible = false
         }
     
         // Status chip group
-        if (bottomSheetBinding.statusRadioGroup.isVisible) {
+        if (bottomSheetBinding.statusToggleGroup.isVisible) {
             bottomSheetBinding.statusChipGroup.apply {
-                if (preferenceManager.getInt(STATUS_RADIO) == R.id.radioDgStatus) {
+                if (preferenceManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
                     isVisible = true
             
                     // Default de-Googled status checked chip
@@ -108,7 +108,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
                     }
                     check(preferenceManager.getInt(DG_STATUS_SORT))
                 }
-                else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radioMgStatus) {
+                else if (preferenceManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
                     isVisible = true
             
                     // Default microG status checked chip
@@ -129,13 +129,13 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
                                      bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
             if (isInstalledAppsFragment) preferenceManager.setInt(INSTALLED_FROM_SORT,
                                                                   bottomSheetBinding.installedFromChipGroup.checkedChipId)
-            preferenceManager.setInt(STATUS_RADIO,
-                                     bottomSheetBinding.statusRadioGroup.checkedRadioButtonId)
-            if (preferenceManager.getInt(STATUS_RADIO) == R.id.radioDgStatus) {
+            preferenceManager.setInt(STATUS_TOGGLE,
+                                     bottomSheetBinding.statusToggleGroup.checkedButtonId)
+            if (preferenceManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
                 preferenceManager.setInt(DG_STATUS_SORT,
                                          bottomSheetBinding.statusChipGroup.checkedChipId)
             }
-            else if (preferenceManager.getInt(STATUS_RADIO) == R.id.radioMgStatus) {
+            else if (preferenceManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
                 preferenceManager.setInt(MG_STATUS_SORT,
                                          bottomSheetBinding.statusChipGroup.checkedChipId)
             }
