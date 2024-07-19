@@ -136,6 +136,8 @@
             android:id="@+id/toggleTotalScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:icon="@drawable/ic_done"
+            app:iconSize="@dimen/margin_18"
             android:text="@string/total_score"
             android:textSize="@dimen/text_16"
             style="?attr/materialButtonOutlinedStyle"/>
@@ -144,6 +146,7 @@
             android:id="@+id/toggleUserRatings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:iconSize="@dimen/margin_18"
             android:text="@string/user_ratings"
             android:textSize="@dimen/text_16"
             style="?attr/materialButtonOutlinedStyle"/>
@@ -167,8 +170,6 @@
         android:paddingHorizontal="@dimen/margin_20"
         android:layout_gravity="bottom|end"
         app:icon="@drawable/ic_edit"
-        app:iconGravity="textStart"
-        app:iconPadding="@dimen/margin_8"
         android:text="@string/rate"
         android:textSize="@dimen/text_16"
         style="?attr/floatingActionButtonStyle"/>

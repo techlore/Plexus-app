@@ -23,10 +23,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.button.MaterialButton
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
@@ -95,7 +97,14 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.ratingsStatusToggleGroup.apply {
             check(detailsActivity.statusToggleBtn)
             addOnButtonCheckedListener { _, checkedId, isChecked ->
-                if (isChecked) bottomSheetBinding.ratingsStatusChipGroup.isVisible = checkedId != R.id.ratingsToggleAnyStatus
+                if (isChecked) {
+                    findViewById<MaterialButton>(checkedId).icon =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_done) // Add checkmark icon
+                    bottomSheetBinding.ratingsStatusChipGroup.isVisible = checkedId != R.id.ratingsToggleAnyStatus
+                }
+                else {
+                    findViewById<MaterialButton>(checkedId).icon = null // Remove checkmark icon
+                }
             }
         }
         

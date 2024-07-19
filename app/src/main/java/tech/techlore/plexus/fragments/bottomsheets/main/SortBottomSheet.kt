@@ -21,9 +21,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.button.MaterialButton
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
@@ -53,6 +55,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
+        val checkIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
         val isInstalledAppsFragment =
             navController.currentDestination!!.id in setOf(R.id.installedAppsFragment, R.id.favoritesFragment)
         val isMyRatingsFragment =
@@ -85,9 +88,17 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
                 if (preferenceManager.getInt(STATUS_TOGGLE) == 0) {
                     preferenceManager.setInt(STATUS_TOGGLE, R.id.toggleAnyStatus)
                 }
-                check(preferenceManager.getInt(STATUS_TOGGLE))
+                val selectedToggle =  preferenceManager.getInt(STATUS_TOGGLE)
+                check(selectedToggle)
+                findViewById<MaterialButton>(selectedToggle).icon = checkIcon
                 addOnButtonCheckedListener { _, checkedId, isChecked ->
-                    if (isChecked) bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.toggleAnyStatus
+                    if (isChecked) {
+                        findViewById<MaterialButton>(checkedId).icon = checkIcon // Add checkmark icon
+                        bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.toggleAnyStatus
+                    }
+                    else {
+                        findViewById<MaterialButton>(checkedId).icon = null // Remove checkmark icon
+                    }
                 }
             }
         }

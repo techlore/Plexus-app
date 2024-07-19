@@ -154,6 +154,7 @@
             android:id="@+id/toggleAnyStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:iconSize="@dimen/margin_18"
             android:text="@string/any"
             android:textSize="@dimen/text_16"
             style="?attr/materialButtonOutlinedStyle"/>
@@ -162,6 +163,7 @@
             android:id="@+id/toggleDgStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:iconSize="@dimen/margin_18"
             android:text="@string/de_Googled"
             android:textSize="@dimen/text_16"
             style="?attr/materialButtonOutlinedStyle"/>
@@ -170,6 +172,7 @@
             android:id="@+id/toggleMgStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:iconSize="@dimen/margin_18"
             android:text="@string/microG"
             android:textSize="@dimen/text_16"
             style="?attr/materialButtonOutlinedStyle"/>

@@ -27,11 +27,13 @@ import android.view.MenuItem
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -151,7 +153,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                             }
                         }
                     }
+                    findViewById<MaterialButton>(checkedId).icon =
+                        ContextCompat.getDrawable(this@AppDetailsActivity, R.drawable.ic_done) // Add checkmark icon
                     displayFragment(checkedId)
+                }
+                else {
+                    findViewById<MaterialButton>(checkedId).icon = null // Remove checkmark icon
                 }
             }
             
