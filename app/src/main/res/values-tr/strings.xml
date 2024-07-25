@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!--
+    Ensure proper encoding of characters when translating to other languages.
+    example: ä as \u00E4, é as \u00E9 etc.
+
+    + = \u002B
+    & = &amp;
+    -->
+
+    <!--Splash activity -->
+    <string name="retrieving_data">Veriler al\u0131n\u0131yor</string>
+    <string name="scan_installed">Y\u00FCkl\u00FC uygulamalar taran\u0131yor</string>
+
+    <!--#########################################################################################-->
+
+    <!--Main activity-->
+    <string name="no_apps_found">Uygulama bulunamad\u0131</string>
+
+    <!--My ratings fragment-->
+    <string name="no_ratings_available">De\u011Ferlendirme mevcut de\u011Fil</string>
+    <string name="submit_first_rating">İlk de\u011Ferlendirmenizi g\u00F6ndermek i\u00E7in \u002B simgesine dokunun</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_search">Ara</string>
+    <string name="menu_sort">S\u0131rala</string>
+
+    <!--Nav view-->
+    <string name="plexus_data">Plexus verileri</string>
+    <string name="installed_apps">Y\u00FCkl\u00FC uygulamalar</string>
+    <string name="favorites">Favoriler</string>
+    <string name="my_account">Hesab\u0131m</string>
+    <string name="my_ratings">De\u011Ferlendirmelerim</string>
+    <string name="delete_account">Hesab\u0131 sil</string>
+    <string name="settings">Ayarlar</string>
+
+    <!--#########################################################################################-->
+
+    <!--App details activity-->
+    <string name="rate">De\u011Ferlendir</string>
+    <string name="app">Uygulama</string>
+    <string name="package_name">Paket ad\u0131</string>
+    <string name="total_score">Toplam puan</string>
+    <string name="user_ratings">De\u011Ferlendirmeler</string>
+    <string name="installed">Y\u00FCkl\u00FC</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_help">Yard\u0131m</string>
+    <string name="menu_more">Daha fazla se\u00E7enek</string>
+    <string name="new_submission">Yeni g\u00F6nderim</string>
+
+    <!--Progress bar fragment-->
+    <string name="retrieving_ratings">De\u011Ferlendirmeler al\u0131n\u0131yor</string>
+
+    <!--Total score fragment-->
+    <string name="total_ratings">Toplam de\u011Ferlendirme</string>
+
+    <!--User ratings fragment-->
+    <string name="notes">Notlar</string>
+
+    <!--#########################################################################################-->
+
+    <!--Email verification fragment-->
+    <string name="verify_to_get_started">Ba\u015Flamak i\u00E7in e-postan\u0131z\u0131 do\u011Frulay\u0131n</string>
+    <string name="verify">Do\u011Frula</string>
+    <string name="terms_conditions_title">\u015Eartlar &amp; ko\u015Fullar</string>
+    <string name="terms_conditions_desc">Plexus\'a uygulama g\u00F6ndermek i\u00E7in e-postan\u0131z gereklidir.
+        \nBu e-posta yaln\u0131zca do\u011Frulama ama\u00E7l\u0131 kullan\u0131lacak ve do\u011Frulama sonras\u0131 sistemlerimizden silinecektir.
+        \n
+        \nBu i\u015Flem \u015Fu ama\u00E7larla yap\u0131l\u0131r:
+        \n\u2022 API\'mizin olas\u0131 k\u00F6t\u00FCye kullan\u0131m\u0131n\u0131 \u00F6nlemek.
+        \n\u2022 g\u00F6nderilen verilerin do\u011Frulu\u011Funu sa\u011Flamak.
+        \n
+        \nHesab\u0131n\u0131z\u0131 istedi\u011Finiz zaman bu cihazdan silebilirsiniz.</string>
+    <string name="by_proceeding_agree_desc">Devam ederek, Plexus\'un adil kullan\u0131m\u0131n\u0131 kabul etmi\u015F olursunuz.
+        Yukar\u0131daki \u015Fartlar &amp; ko\u015Fullar ihlal edilirse, hesab\u0131n\u0131z g\u00F6nderdi\u011Finiz t\u00FCm de\u011Ferlendirmelerle birlikte silinecektir.</string>
+    <string name="verification">Do\u011Frulama</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">%1$s adresine g\u00F6nderilen do\u011Frulama kodunu girin</string>
+    <string name="verification_code">Do\u011Frulama kodu</string>
+    <string name="verifying_code">L\u00FCtfen bekleyin, kod do\u011Frulan\u0131yor \u2026</string>
+    <string name="incorrect_code">Yanl\u0131\u015F do\u011Frulama kodu.</string>
+
+    <!--#########################################################################################-->
+
+    <!--Submit activity-->
+    <string name="optional">iste\u011Fe ba\u011Fl\u0131</string>
+    <string name="submit">G\u00F6nder</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+
+    <!--Settings fragment-->
+    <string name="theme">Tema</string>
+    <string name="material_you">Material You\n(uygulaman\u0131n yeniden ba\u015Flat\u0131lmas\u0131n\u0131 gerektirir)</string>
+    <string name="default_view">Varsay\u0131lan g\u00F6r\u00FCn\u00FCm</string>
+    <string name="conf_before_submit">G\u00F6ndermeden \u00F6nce onayla</string>
+    <string name="about">Hakk\u0131nda</string>
+    <string name="version">S\u00FCr\u00FCm</string>
+    <string name="privacy_policy">Gizlilik politikas\u0131</string>
+    <string name="report_issue">Sorun bildir</string>
+    <string name="support_us">Bizi destekle</string>
+    <string name="view_on_github">GitHub\'da g\u00F6r\u00FCnt\u00FCle</string>
+    <string name="visit_techlore">Techlore\'u ziyaret et</string>
+    <string name="third_party_licenses">\u00DC\u00E7\u00FCnc\u00FC taraf lisanslar\u0131</string>
+
+    <!--Help fragment-->
+    <string name="icons">Simgeler</string>
+    <string name="not_tested_subtitle">Mevcut de\u011Fil, uygulama test edilmedi</string>
+    <string name="broken_title">Bozuk</string>
+    <string name="broken_subtitle">Kullan\u0131lamaz, \u00E7o\u011Funlukla a\u00E7\u0131lmayan uygulamalar</string>
+    <string name="bronze_title">Bronz</string>
+    <string name="bronze_subtitle">Eksik veya bozuk i\u015Flevlerle kabul edilebilir</string>
+    <string name="silver_title">G\u00FCm\u00FC\u015F</string>
+    <string name="silver_subtitle">Minimal sorunlarla neredeyse her \u015Fey \u00E7al\u0131\u015F\u0131yor</string>
+    <string name="gold_title">Alt\u0131n</string>
+    <string name="gold_subtitle">M\u00FCkemmel veya m\u00FCkemmele yak\u0131n deneyim</string>
+    <string name="other">Di\u011Fer</string>
+    <string name="android_version_desc">Android s\u00FCr\u00FCmleri</string>
+    <string name="installation_source_desc">Uygulamalar\u0131n y\u00FCkleme kayna\u011F\u0131</string>
+    <string name="apps_submit_proc">Uygulama g\u00F6nderim prosed\u00FCr\u00FC</string>
+
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <string name="done">Tamam</string>
+    <string name="cancel">\u0130ptal</string>
+    <string name="dismiss">Kapat</string>
+    <string name="exit">\u00C7\u0131k\u0131\u015F</string>
+    <string name="retry">Yeniden dene</string>
+    <string name="skip">Atla</string>
+
+    <!--No Network/Internet-->
+    <string name="no_network_title">A\u011F/\u0130nternet Ba\u011Flant\u0131s\u0131 Yok</string>
+    <string name="no_network_subtitle">Wi-Fi veya mobil veriye ba\u011Flan\u0131n ve yeniden deneyin.
+        Zaten ba\u011Fl\u0131ysan\u0131z, internet ba\u011Flant\u0131s\u0131 oldu\u011Fundan emin olun.</string>
+
+    <!--First launch-->
+    <string name="welcome_text_desc">Uygulaman\u0131n ilk kullan\u0131c\u0131s\u0131 olarak, l\u00FCtfen simgeler ve durum g\u00F6stergeleriyle tan\u0131\u015Fmak i\u00E7in bir dakikan\u0131z\u0131 ay\u0131r\u0131n.</string>
+
+    <!--Sort-->
+    <string name="alphabetical">Alfabetik</string>
+    <string name="installed_from">Y\u00FCkleme kayna\u011F\u0131</string>
+    <string name="any">Herhangi biri</string>
+    <string name="status">Durum</string>
+
+    <!--Email verification-->
+    <string name="sending_code">L\u00FCtfen bekleyin, kod g\u00F6nderiliyor \u2026</string>
+    <string name="error_sending_code">Kod g\u00F6nderilirken hata olu\u015Ftu</string>
+
+    <!--Delete account-->
+    <string name="delete_account_desc">Hesab\u0131n\u0131z\u0131 silerseniz:
+        \n\u2022 de\u011Ferlendirme g\u00F6nderemeyeceksiniz.
+        \n\u2022 daha \u00F6nce g\u00F6nderilen t\u00FCm de\u011Ferlendirmeler bu cihazdan kal\u0131c\u0131 olarak kald\u0131r\u0131lacakt\u0131r.
+        \n
+        \nDevam etmek istedi\u011Finizden emin misiniz?</string>
+
+    <!--Theme-->
+    <string name="follow_system">Sistem ayar\u0131n\u0131 kullan</string>
+    <string name="light">A\u00E7\u0131k</string>
+    <string name="dark">Koyu</string>
+
+    <!--More options-->
+    <string name="menu_share">Payla\u015F</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">Gelecekteki t\u00FCm g\u00F6nderileriniz bu se\u00E7imi dikkate alacak ve daha sonra de\u011Fi\u015Ftirilemez.</string>
+    <string name="select_correct_rom">L\u00FCtfen bu cihaza y\u00FCkl\u00FC olan do\u011Fru ROM\'u se\u00E7in.</string>
+    <string name="select">Se\u00E7</string>
+    <string name="proceed">Devam et</string>
+
+    <!--Submit-->
+    <string name="about_to_submit">Bir de\u011Ferlendirme g\u00F6ndermek \u00FCzeresiniz. Devam etmek istedi\u011Finizden emin misiniz?</string>
+    <string name="wait_submitting_data">L\u00FCtfen bekleyin, veriler g\u00F6nderiliyor \u2026</string>
+    <string name="submit_success">Ba\u015Far\u0131yla g\u00F6nderildi</string>
+    <string name="submit_error">Veri g\u00F6nderilirken hata olu\u015Ftu</string>
+    <string name="thanks_for_submitting">Veri g\u00F6nderdi\u011Finiz ve toplulu\u011Fa yard\u0131m etti\u011Finiz i\u00E7in te\u015Fekk\u00FCr ederiz.</string>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbars-->
+    <string name="install_app_to_submit">De\u011Ferlendirme g\u00F6ndermek i\u00E7in %1$s y\u00FCkleyin</string>
+    <string name="device_should_be_degoogled_or_microg">De\u011Ferlendirme g\u00F6ndermek i\u00E7in cihaz ya Google\'dan ar\u0131nd\u0131r\u0131lm\u0131\u015F olmal\u0131 ya da microG y\u00FCkl\u00FC olmal\u0131d\u0131r</string>
+    <string name="rating_already_submitted">%1$s %2$s i\u00E7in de\u011Ferlendirme zaten g\u00F6nderilmi\u015F</string>
+    <string name="no_browsers">Bu cihazda y\u00FCkl\u00FC taray\u0131c\u0131 yok</string>
+    <string name="deleted_account_successfully">Hesap ba\u015Far\u0131yla silindi</string>
+
+</resources>
