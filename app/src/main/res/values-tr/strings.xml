@@ -60,7 +60,7 @@
     <string name="app">Uygulama</string>
     <string name="package_name">Paket ad\u0131</string>
     <string name="total_score">Toplam puan</string>
-    <string name="user_ratings">Kullan\u0131c\u0131 de\u011Ferlendirmeleri</string>
+    <string name="user_ratings">De\u011Ferlendirmeleri</string>
     <string name="installed">Y\u00FCkl\u00FC</string>
 
     <!--Toolbar menu-->
