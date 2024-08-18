@@ -112,14 +112,18 @@ class SubmitActivity : AppCompatActivity() {
         }
         
         // Notes
-        activityBinding.submitNotesBox.hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
+        val maxTextLength: Int
+        activityBinding.submitNotesBox.apply {
+            hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
+            maxTextLength = counterMaxLength
+        }
         activityBinding.submitNotesText.doOnTextChanged { charSequence, _, _, _ ->
             job?.cancel()
             job = lifecycleScope.launch {
                 delay(300)
                 activityBinding.submitFab.isEnabled =
                     charSequence!!.isEmpty()
-                    || (charSequence.length in 5..300
+                    || (charSequence.length in 5..maxTextLength
                         && !hasBlockedWord(this@SubmitActivity, charSequence)
                         && !hasRepeatedChars(charSequence)
                         && !hasEmojis(charSequence)
