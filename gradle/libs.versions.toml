@@ -16,9 +16,9 @@
 #
 
 [versions]
-androidGradle = "8.5.1"
-androidKotlin = "2.0.0" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto picked up)
-ksp = "2.0.0-1.0.23" # https://github.com/google/ksp/releases/latest (latest version is not auto picked up)
+androidGradle = "8.5.2"
+androidKotlin = "2.0.10" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
+ksp = "2.0.10-1.0.24" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.0"
 coreKtx = "1.13.1"
 material3 = "1.12.0"
@@ -31,7 +31,7 @@ room = "2.6.1"
 coil = "2.7.0"
 androidfastscrollKt = "v1.0.3"
 jsoup = "1.18.1"
-lottie = "6.4.1"
+lottie = "6.5.0"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
