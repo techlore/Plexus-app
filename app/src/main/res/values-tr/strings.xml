@@ -20,11 +20,20 @@
 <resources>
 
     <!--
-    Ensure proper encoding of characters when translating to other languages.
-    example: ä as \u00E4, é as \u00E9 etc.
-
-    + = \u002B
-    & = &amp;
+    Ensure proper encoding of characters
+        + = \u002B
+        & = &amp;
+        ç = \u00E7
+        Ç = \u00C7
+        ğ = \u011F
+        ı = \u0131
+        İ = \u0130
+        ö = \u00F6
+        Ö = \u00D6
+        ü = \u00FC
+        Ü = \u00DC
+        ş = \u015F
+        Ş = \u015E
     -->
 
     <!--Splash activity -->

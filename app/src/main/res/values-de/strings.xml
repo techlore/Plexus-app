@@ -65,7 +65,7 @@
     <string name="app">App</string>
     <string name="package_name">Paketname</string>
     <string name="total_score">Gesamtpunktzahl</string>
-    <string name="user_ratings">Benutzer bewertungen</string>
+    <string name="user_ratings">Bewertungen</string>
     <string name="installed">Installierte</string>
 
     <!--Toolbar menu-->
