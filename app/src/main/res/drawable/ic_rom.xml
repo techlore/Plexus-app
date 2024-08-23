@@ -1,0 +1,20 @@
+<!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="960" android:viewportHeight="960" android:tint="?attr/colorControlNormal">
+    <path android:fillColor="@android:color/white" android:pathData="M280 920q-33 0-56.5-23.5T200 840V120q0-33 23.5-56.5T280 40h400q33 0 56.5 23.5T760 120v720q0 33-23.5 56.5T680 920H280zm0-120v40h400v-40H280zm0-80h400V240H280v480zm160-234V360q0-17 11.5-28.5T480 320q17 0 28.5 11.5T520 360v126l36-35q11-11 27.5-11t28.5 12q11 11 11 28t-11 28L508 612q-12 12-28 12t-28-12L348 508q-11-11-11.5-27.5T348 452q11-11 27.5-11.5T404 451l36 35zM280 160h400v-40H280v40zm0 0v-40 40zm0 640v40-40z"/>
+</vector>

@@ -175,7 +175,7 @@
                 android:layout_marginEnd="@dimen/margin_16"
                 android:enabled="false"
                 app:counterEnabled="true"
-                app:counterMaxLength="500"
+                app:counterMaxLength="350"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -68,7 +68,7 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
                 job = lifecycleScope.launch {
                     delay(350)
                     if (searchString.isNotEmpty()) {
-                            searchDataList = miniRepository.searchFromDb(searchString)
+                            searchDataList = miniRepository.searchInDb(searchString)
                             if (searchDataList.isEmpty()) {
                                 activityBinding.searchRv.adapter = null
                                 activityBinding.emptySearchView.visibility = View.VISIBLE

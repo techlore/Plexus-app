@@ -33,9 +33,9 @@ class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : Re
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
-        val version: MaterialTextView = itemView.findViewById(R.id.ratingsVersion)
-        val rom: MaterialTextView = itemView.findViewById(R.id.ratingsRom)
         val notes: MaterialTextView = itemView.findViewById(R.id.ratingsNotes)
+        val version: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
+        val rom: MaterialTextView = itemView.findViewById(R.id.ratingsRomSubtitle)
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratingsAndroidVersion)
         val installedFrom: MaterialTextView = itemView.findViewById(R.id.ratingsInstalledFrom)
         val status: MaterialTextView = itemView.findViewById(R.id.ratingsStatus)
@@ -55,9 +55,6 @@ class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : Re
         val userRating = aListViewItems[position]
         val context = holder.itemView.context
         
-        holder.version.text = "${context.getString(R.string.version)}: ${userRating.version} (${userRating.buildNumber})"
-        holder.rom.text = "${context.getString(R.string.rom)}: ${userRating.romName} (${userRating.romBuild})"
-        
         // Notes
         if (!userRating.notes.isNullOrEmpty()) {
             holder.notes.text = userRating.notes
@@ -66,6 +63,8 @@ class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : Re
             holder.notes.isVisible = false
         }
         
+        holder.version.text = "${userRating.version} (${userRating.buildNumber})"
+        holder.rom.text = "${userRating.romName} (${userRating.romBuild})"
         holder.androidVersion.text = userRating.androidVersion
         
         // Installed from

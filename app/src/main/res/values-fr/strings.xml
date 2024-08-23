@@ -22,6 +22,7 @@
     <!--
     Ensure proper encoding of characters
         à = \u00E0
+        ç = \u00E7
         è = \u00E8
         é = \u00E9
         ê = \u00EA
@@ -73,7 +74,7 @@
     <string name="new_submission">Nouvelle \u00E9valuation</string>
 
     <!--Progress bar fragment-->
-    <string name="retrieving_ratings">R\u00E9cup\u00E9ration des évaluations</string>
+    <string name="retrieving_ratings">R\u00E9cup\u00E9ration des \u00E9valuations</string>
 
     <!--Total score fragment-->
     <string name="total_ratings">Nombre total d\'\u00E9valuations</string>
@@ -95,7 +96,7 @@
         \n\u2022garantir l\'exactitude des donn\u00E9es soumises.
         \n
         \nVous pouvez supprimer votre compte de cet appareil \u00E0 tout moment.</string>
-    <string name="by_proceeding_agree_desc">En poursuivant, vous acceptez d\'utiliser Plexus de façon juste et honnête.
+    <string name="by_proceeding_agree_desc">En poursuivant, vous acceptez d\'utiliser Plexus de fa\u00E7on juste et honn\u00EAte.
         En cas de violation des conditions susmentionn\u00E9es, votre compte sera supprim\u00E9 ainsi que toutes les \u00E9valuations que vous avez soumises.</string>
     <string name="verification">V\u00E9rification</string>
 
@@ -143,7 +144,7 @@
     <string name="other">Autres</string>
     <string name="android_version_desc">Versions d\'Android</string>
     <string name="installation_source_desc">Source d\'installation des apps</string>
-    <string name="apps_submit_proc">Proc\u00E9dure de soumission des évaluations</string>
+    <string name="apps_submit_proc">Proc\u00E9dure de soumission des \u00E9valuations</string>
 
     <!--#########################################################################################-->
 
@@ -158,7 +159,7 @@
     <!--No Network/Internet-->
     <string name="no_network_title">Pas de r\u00E9seau</string>
     <string name="no_network_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es cellulaires et r\u00E9essayez.
-        Si le r\u00E9seau est actif, assurez-vous que la connexion à internet fonctionne.</string>
+        Si le r\u00E9seau est actif, assurez-vous que la connexion \u00E0 internet fonctionne.</string>
 
     <!--First launch-->
     <string name="welcome_text_desc">Si vous utilisez l\'app pour la premi\u00E8re fois, prenez le temps de vous familiariser avec les ic\u00F4nes et les indicateurs de statut.</string>
@@ -181,7 +182,7 @@
         \n\u00CAtes-vous s\u00FBr.e de vouloir continuer?</string>
 
     <!--Theme-->
-    <string name="follow_system">Selon le réglage syst\u00E8me</string>
+    <string name="follow_system">Selon le r\u00E9glage syst\u00E8me</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
 

@@ -45,8 +45,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginHorizontal="@dimen/margin_12"
                 android:background="@drawable/shape_card"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -110,8 +109,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginHorizontal="@dimen/margin_12"
                 android:background="@drawable/shape_card"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -332,8 +330,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginHorizontal="@dimen/margin_12"
                 android:background="@drawable/shape_card"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -479,8 +476,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginHorizontal="@dimen/margin_12"
                 android:padding="@dimen/margin_20"
                 android:background="@drawable/shape_card_with_ripple"
                 android:text="@string/apps_submit_proc"

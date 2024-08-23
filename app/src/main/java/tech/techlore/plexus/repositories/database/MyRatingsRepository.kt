@@ -24,33 +24,33 @@ import tech.techlore.plexus.dao.MyRatingsDao
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 
-class MyRatingsRepository(private val ratingsDao: MyRatingsDao) {
+class MyRatingsRepository(private val myRatingsDao: MyRatingsDao) {
     
     suspend fun insertOrUpdateMyRatings(name: String,
                                         packageName: String,
                                         iconUrl: String?,
                                         myRatingDetails: MyRatingDetails) {
         return withContext(Dispatchers.IO){
-            ratingsDao.insertOrUpdateMyRatings(name, packageName, iconUrl, myRatingDetails)
+            myRatingsDao.insertOrUpdateMyRatings(name, packageName, iconUrl, myRatingDetails)
         }
     }
     
     suspend fun getMyRatingsByPackage(packageName: String): MyRating? {
         return withContext(Dispatchers.IO) {
-            ratingsDao.getMyRatingsByPackage(packageName)
+            myRatingsDao.getMyRatingsByPackage(packageName)
         }
     }
     
     suspend fun getSortedMyRatingsByName(orderPref: Int): ArrayList<MyRating> {
         return withContext(Dispatchers.IO) {
             val isAsc = orderPref != R.id.sortZA
-            ratingsDao.getSortedMyRatingsByName(isAsc) as ArrayList<MyRating>
+            myRatingsDao.getSortedMyRatingsByName(isAsc) as ArrayList<MyRating>
         }
     }
     
     suspend fun deleteAllRatings() {
         withContext(Dispatchers.IO){
-            ratingsDao.deleteAllRatings()
+            myRatingsDao.deleteAllRatings()
         }
     }
     

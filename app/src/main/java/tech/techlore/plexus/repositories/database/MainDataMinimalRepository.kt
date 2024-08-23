@@ -152,10 +152,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    suspend fun searchFromDb(searchQuery: String): ArrayList<MainDataMinimal> {
+    suspend fun searchInDb(searchQuery: String): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             mainDataDao
-                .searchFromDb(searchQuery)
+                .searchInDb(searchQuery.trim())
                 .map { mapToMinimalData(it) }
                     as ArrayList<MainDataMinimal>
         }
