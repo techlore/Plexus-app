@@ -21,7 +21,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.widget.Toast
 import tech.techlore.plexus.appmanager.ApplicationManager
 
 class SystemUtils {
@@ -38,35 +37,32 @@ class SystemUtils {
             
             val packageManager = context.packageManager
             
-            val gappsCount =
-                gappsPackages.count { packageName ->
-                    isAppInstalled(packageManager, packageName)
+            val installedGappsPackagesList =
+                gappsPackages.filter { packageName ->
+                    getAppInfo(packageManager, packageName) != null
                 }
             
-            var microGCount =
-                if (gappsCount > 0) {
-                    gappsPackages.count { packageName ->
-                        ! packageManager.getApplicationLabel(getAppInfo(packageManager, packageName)).toString()
-                            .startsWith("Google", ignoreCase = true)
+            val microGCount =
+                if (installedGappsPackagesList.isNotEmpty()) {
+                    installedGappsPackagesList.count { packageName ->
+                        val appLabel =
+                            getAppInfo(packageManager, packageName)?.let {
+                                packageManager.getApplicationLabel(it).toString()
+                            }
+                        appLabel?.let { !it.startsWith("Google", ignoreCase = true) } ?: false
                     }
                 }
                 else -1
             
-            appManager.isDeviceMicroG = gappsCount == microGCount
-            appManager.isDeviceDeGoogled = gappsCount == 0
+            appManager.isDeviceMicroG = installedGappsPackagesList.size == microGCount
+            appManager.isDeviceDeGoogled = installedGappsPackagesList.isEmpty()
         }
         
-        private fun getAppInfo(packageManager: PackageManager, packageName: String): ApplicationInfo {
-            return packageManager.getApplicationInfo(packageName, 0)
-        }
-        
-        private fun isAppInstalled(packageManager: PackageManager, packageName: String): Boolean {
+        private fun getAppInfo(packageManager: PackageManager, packageName: String): ApplicationInfo? {
             return try {
-                getAppInfo(packageManager, packageName)
-                true
-            }
-            catch (e: PackageManager.NameNotFoundException) {
-                false
+                packageManager.getApplicationInfo(packageName, 0)
+            } catch (e: PackageManager.NameNotFoundException) {
+                null
             }
         }
         
