@@ -23,6 +23,7 @@ import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class ApiManager {
     
@@ -37,6 +38,9 @@ class ApiManager {
                         maxRequests = 8 // Max parallel network requests (default is 64)
                     }
                 )
+                .connectTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
+                .readTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
+                .writeTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
                 .build()
         
         
