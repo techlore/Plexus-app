@@ -42,6 +42,7 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
+import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 
 class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     
@@ -105,6 +106,19 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             setInstalledFromTextViewStyle(this@MyRatingsDetailsActivity,
                                           app.installedFrom,
                                           activityBinding.detailsInstalledFrom)
+            
+            // Show FAB on scroll
+            activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                if (scrollY == 0) {
+                    activityBinding.scrollTopFab.hide()
+                }
+                else activityBinding.scrollTopFab.show()
+            }
+            
+            // Scroll to top FAB
+            activityBinding.scrollTopFab.setOnClickListener {
+                scrollToTop(activityBinding.nestedScrollView)
+            }
             
             activityBinding.bottomAppBarRadio.isVisible = false
             navController.navigate(R.id.myRatingsDetailsFragment)

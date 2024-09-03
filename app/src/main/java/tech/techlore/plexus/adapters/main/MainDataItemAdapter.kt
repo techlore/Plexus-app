@@ -130,7 +130,10 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
     
     // Fast scroll popup
     override fun getPopupText(view: View, position: Int): CharSequence {
-        return aListViewItems[position].name.substring(0, 1)
+        return aListViewItems[position].name.first().let {
+            if (it.isLowerCase()) it.uppercase()
+            else it
+        }.toString()
     }
     
     fun updateList(newList: ArrayList<MainDataMinimal>){

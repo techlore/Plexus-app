@@ -143,6 +143,21 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                           app.installedFrom,
                                           activityBinding.detailsInstalledFrom)
             
+            // Show FAB on scroll
+            activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                if (activityBinding.detailsToggleGroup.checkedButtonId == R.id.toggleUserRatings) {
+                    if (scrollY == 0) {
+                        activityBinding.scrollTopFab.hide()
+                    }
+                    else activityBinding.scrollTopFab.show()
+                }
+            }
+            
+            // Scroll to top FAB
+            activityBinding.scrollTopFab.setOnClickListener {
+                scrollToTop(activityBinding.nestedScrollView)
+            }
+            
             // Toggle button group
             activityBinding.detailsToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {
@@ -150,6 +165,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     findViewById<MaterialButton>(checkedId).icon =
                         ContextCompat.getDrawable(this@AppDetailsActivity, R.drawable.ic_done) // Add checkmark icon
                     displayFragment(checkedId)
+                    if (checkedId == R.id.toggleTotalScore) {
+                        activityBinding.scrollTopFab.apply {
+                            if (isVisible) {
+                                hide()
+                            }
+                        }
+                    }
                 }
                 else {
                     findViewById<MaterialButton>(checkedId).icon = null // Remove checkmark icon
@@ -220,17 +242,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         
     }
     
-    /*fun scrollToTop() {
-        activityBinding.nestedScrollView.apply {
-            if (scrollY != 0) {
-                post {
-                    fling(0)
-                    smoothScrollTo(0, 0)
-                }
-            }
-        }
-    }*/
-    
     // Setup fragments
     private fun displayFragment(checkedItem: Int) {
         val action =
@@ -249,8 +260,16 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         }
     }
     
+    private fun showViewWithAnimation() {
+        ObjectAnimator.ofFloat(activityBinding.detailsToggleGroup, "alpha", 0f, 1f).apply {
+            duration = ANIM_DURATION
+            interpolator = ANIM_INTERPOLATOR
+            activityBinding.detailsToggleGroup.isVisible = true
+            start()
+        }
+    }
+    
     private fun retrieveRatings() {
-        
         lifecycleScope.launch {
             if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
                 val apiRepository = appManager.apiRepository
@@ -291,13 +310,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 }
                 
                 displayFragment(NAV_FROM_PROG_TO_TOTAL_SCORE)
-                ObjectAnimator.ofFloat(activityBinding.detailsToggleGroup, "alpha", 0f, 1f)
-                    .apply {
-                        duration = ANIM_DURATION
-                        interpolator = ANIM_INTERPOLATOR
-                        activityBinding.detailsToggleGroup.isVisible = true
-                        start()
-                    }
+                showViewWithAnimation()
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),

@@ -36,7 +36,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/margin_4"
             android:paddingVertical="@dimen/margin_8">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -196,7 +195,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_back"/>
+        app:navigationIcon="@drawable/ic_back"
+        app:contentInsetStartWithNavigation="0dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_8"
+            android:text="@string/rate"
+            android:textColor="?attr/colorOnSurface"
+            style="@style/TextAppearance.Material3.TitleLarge"/>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/submitFab"

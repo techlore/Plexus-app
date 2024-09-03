@@ -126,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="145dp"
+        android:layout_marginBottom="143dp"
         android:layout_marginEnd="@dimen/margin_16"
         android:src="@drawable/ic_scroll_to_top"
         android:visibility="gone"
@@ -136,7 +136,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBarRadio"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="63dp"/>
 

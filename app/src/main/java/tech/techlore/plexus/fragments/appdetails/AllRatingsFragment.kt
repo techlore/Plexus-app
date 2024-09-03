@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textview.MaterialTextView
@@ -35,7 +34,6 @@ import tech.techlore.plexus.databinding.FragmentRatingsDetailsBinding
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
-import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 
 class AllRatingsFragment : Fragment() {
     
@@ -170,28 +168,10 @@ class AllRatingsFragment : Fragment() {
                 }
             }
         }
-        
-        // Show FAB on scroll
-        detailsActivity.activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            if (scrollY == 0) {
-                detailsActivity.activityBinding.scrollTopFab.hide()
-            }
-            else detailsActivity.activityBinding.scrollTopFab.show()
-        }
-        
-        // Scroll to top FAB
-        detailsActivity.activityBinding.scrollTopFab.setOnClickListener {
-            scrollToTop(detailsActivity.activityBinding.nestedScrollView)
-        }
     }
     
     override fun onDestroyView() {
         super.onDestroyView()
-        detailsActivity.activityBinding.scrollTopFab.apply {
-            if (isVisible) {
-                hide()
-            }
-        }
         _binding = null
     }
     

@@ -54,7 +54,6 @@ class TotalScoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         detailsActivity = requireActivity() as AppDetailsActivity
-        detailsActivity.activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, _, _, _ -> }
         dgScore = detailsActivity.app.dgScore
         mgScore = detailsActivity.app.mgScore
         val totalDgRatings = detailsActivity.app.totalDgRatings
