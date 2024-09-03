@@ -63,14 +63,14 @@
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/version"
-            android:textColor="?attr/colorControlNormal"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="@dimen/text_17"
             style="@style/MediumBoldText"/>
 
         <include
             layout="@layout/divider_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"/>

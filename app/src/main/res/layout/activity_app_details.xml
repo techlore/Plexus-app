@@ -30,63 +30,66 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
         android:layout_marginBottom="125dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/detailsAppIcon"
-                android:layout_width="@dimen/margin_64"
-                android:layout_height="@dimen/margin_64"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_8"
+                android:layout_width="@dimen/margin_55"
+                android:layout_height="@dimen/margin_55"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/detailsName"
+                app:layout_constraintBottom_toBottomOf="@id/detailsInstalledFrom"
+                android:layout_marginStart="@dimen/margin_12"
                 android:src="@drawable/ic_apk"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/detailsName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:paddingStart="@dimen/margin_16"
-                android:paddingEnd="@dimen/margin_16"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/detailsAppIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_12"
                 android:text="@string/app"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_20"
+                android:textAlignment="viewStart"
+                android:textSize="@dimen/text_17"
                 style="@style/MediumBoldText"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/detailsPackageName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/detailsName"
+                app:layout_constraintStart_toStartOf="@id/detailsName"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_2.5"
                 android:text="@string/package_name"
-                android:textColor="?attr/colorOnSurface"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_18"/>
+                android:textAlignment="viewStart"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="@dimen/text_16"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/detailsInstalledVersion"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/detailsPackageName"
+                app:layout_constraintStart_toStartOf="@id/detailsName"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_2.5"
+                android:layout_marginEnd="@dimen/margin_12"
                 android:text="@string/installed"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_17"
-                android:textColor="?attr/colorControlNormal"
+                android:textAlignment="viewStart"
+                android:textSize="@dimen/text_16"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
@@ -94,9 +97,10 @@
                 android:id="@+id/detailsInstalledFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_32"
-                android:layout_gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/detailsInstalledVersion"
+                app:layout_constraintStart_toStartOf="@id/detailsName"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_8"
                 android:visibility="gone"
                 tools:visibility="visible"
                 style="@style/InstalledFromTextViewTheme"/>
@@ -105,13 +109,29 @@
                 android:id="@+id/detailsNavHost"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/detailsInstalledFrom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 app:navGraph="@navigation/details_fragments_nav_graph"
                 app:defaultNavHost="true"/>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scrollTopFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="145dp"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:src="@drawable/ic_scroll_to_top"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:ignore="ContentDescription"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBarRadio"

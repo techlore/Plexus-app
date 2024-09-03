@@ -62,7 +62,6 @@
     <string name="package_name">Nome del pacchetto</string>
     <string name="total_score">Punteggio totale</string>
     <string name="user_ratings">Valutazioni</string>
-    <string name="installed">Installato</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Aiuto</string>

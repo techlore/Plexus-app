@@ -15,10 +15,6 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <stroke
-        android:color="?attr/colorOutlineVariant"
-        android:width="1dp"/>
-    <corners android:radius="@dimen/margin_12"/>
-</shape>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="960" android:viewportHeight="960" android:tint="?attr/colorControlNormal">
+    <path android:fillColor="@android:color/white" android:pathData="M200 200q-17 0-28.5-11.5T160 160q0-17 11.5-28.5T200 120h560q17 0 28.5 11.5T800 160q0 17-11.5 28.5T760 200H200zm280 640q-17 0-28.5-11.5T440 800V432l-76 76q-11 11-28 11t-28-11q-11-11-11-28t11-28l144-144q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l144 144q11 11 11 28t-11 28q-11 11-28 11t-28-11l-76-76v368q0 17-11.5 28.5T480 840z"/>
+</vector>

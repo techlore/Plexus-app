@@ -33,8 +33,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:paddingBottom="@dimen/margin_75"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:background="?attr/colorSurface"
+        android:clipToPadding="false"
         tools:listitem="@layout/item_ratings_details_recycler_view" />
 
     <ViewStub

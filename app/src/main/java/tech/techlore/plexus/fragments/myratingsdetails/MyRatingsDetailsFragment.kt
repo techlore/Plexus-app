@@ -34,6 +34,7 @@ import tech.techlore.plexus.databinding.FragmentRatingsDetailsBinding
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.utils.UiUtils
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
+import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 
 class MyRatingsDetailsFragment : Fragment() {
     
@@ -159,6 +160,19 @@ class MyRatingsDetailsFragment : Fragment() {
                     fragmentBinding.userRatingsRv.adapter = myRatingsItemAdapter
                 }
             }
+        }
+        
+        // Show FAB on scroll
+        detailsActivity.activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            if (scrollY == 0) {
+                detailsActivity.activityBinding.scrollTopFab.hide()
+            }
+            else detailsActivity.activityBinding.scrollTopFab.show()
+        }
+        
+        // Scroll to top FAB
+        detailsActivity.activityBinding.scrollTopFab.setOnClickListener {
+            scrollToTop(detailsActivity.activityBinding.nestedScrollView)
         }
     }
     

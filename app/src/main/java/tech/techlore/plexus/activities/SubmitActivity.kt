@@ -85,7 +85,7 @@ class SubmitActivity : AppCompatActivity() {
         activityBinding.submitName.text = nameString
         activityBinding.submitPackageName.text = packageNameString
         @SuppressLint("SetTextI18n")
-        activityBinding.submitInstalledVersion.text = "${getString(R.string.installed)}: $installedVersion (${installedBuild})"
+        activityBinding.submitInstalledVersion.text = "$installedVersion (${installedBuild})"
         
         setInstalledFromTextViewStyle(this@SubmitActivity,
                                       installedFromString,
@@ -107,8 +107,8 @@ class SubmitActivity : AppCompatActivity() {
         
         // Chip group
         activityBinding.submitStatusChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
-            activityBinding.submitFab.isEnabled = !checkedIds.isEmpty()
-            activityBinding.submitNotesBox.isEnabled = !checkedIds.isEmpty()
+            activityBinding.submitFab.isEnabled = checkedIds.isNotEmpty()
+            activityBinding.submitNotesBox.isEnabled = checkedIds.isNotEmpty()
         }
         
         // Notes

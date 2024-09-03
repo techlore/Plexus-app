@@ -163,7 +163,7 @@
     <color name="color_surfaceContainerHigh_highContrast">#F7E4E1</color>
     <color name="color_surfaceContainerHighest_highContrast">#F1DEDC</color>
 
-    <color name="color_scrollbar">#B8B8B8</color>
+    <color name="color_scrollbar">#A19CA0</color>
     <color name="color_url">#1976D2</color>
 
     <!--Status colors-->

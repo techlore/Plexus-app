@@ -17,7 +17,7 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,92 +26,94 @@
     android:layout_marginHorizontal="@dimen/margin_12"
     android:layout_marginTop="@dimen/margin_4"
     android:layout_marginBottom="@dimen/margin_12"
-    android:paddingStart="@dimen/margin_8"
-    android:paddingEnd="@dimen/margin_8"
-    android:paddingTop="@dimen/margin_8"
-    android:paddingBottom="@dimen/margin_12"
-    android:background="@drawable/shape_card_with_ripple"
     tools:context=".adapters.main.MainDataItemAdapter">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/icon"
-        android:layout_width="@dimen/margin_45"
-        android:layout_height="@dimen/margin_45"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/name"
-        app:layout_constraintBottom_toBottomOf="@id/dgStatus"
-        android:src="@drawable/ic_apk"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/name"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintEnd_toStartOf="@id/fav"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_4"
-        android:ellipsize="marquee"
-        android:text="@string/app"
-        android:textAlignment="viewStart"
-        android:textSize="@dimen/text_17"
-        style="@style/MediumBoldText"/>
+        android:paddingHorizontal="@dimen/margin_8"
+        android:paddingTop="@dimen/margin_8"
+        android:paddingBottom="@dimen/margin_12">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/packageName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/name"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintEnd_toStartOf="@id/fav"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_2.5"
-        android:ellipsize="marquee"
-        android:text="@string/package_name"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_16"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/margin_45"
+            android:layout_height="@dimen/margin_45"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/name"
+            app:layout_constraintBottom_toBottomOf="@id/dgStatus"
+            android:src="@drawable/ic_apk"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dgStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toBottomOf="@id/packageName"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_12"
-        android:drawableStart="@drawable/ic_degoogled"
-        android:text="@string/na"
-        style="@style/BaseChipLikeTextViewStyle"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintEnd_toStartOf="@id/fav"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_4"
+            android:ellipsize="marquee"
+            android:text="@string/app"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mgStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toBottomOf="@id/packageName"
-        app:layout_constraintStart_toEndOf="@id/dgStatus"
-        android:layout_marginStart="@dimen/margin_12"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_12"
-        android:drawableStart="@drawable/ic_microg"
-        android:text="@string/na"
-        style="@style/BaseChipLikeTextViewStyle"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/packageName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintEnd_toStartOf="@id/fav"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:ellipsize="marquee"
+            android:text="@string/package_name"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="@dimen/text_16"/>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/fav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/name"
-        app:layout_constraintBottom_toBottomOf="@id/name"
-        android:layout_marginTop="@dimen/margin_2.5"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:button="@drawable/ic_fav"
-        app:buttonTint="@color/fav_icon_color"
-        android:contentDescription="@string/favorites"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dgStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_32"
+            app:layout_constraintTop_toBottomOf="@id/packageName"
+            app:layout_constraintStart_toStartOf="@id/name"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:drawableStart="@drawable/ic_degoogled"
+            android:text="@string/na"
+            style="@style/BaseChipLikeTextViewStyle"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mgStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_32"
+            app:layout_constraintTop_toBottomOf="@id/packageName"
+            app:layout_constraintStart_toEndOf="@id/dgStatus"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:drawableStart="@drawable/ic_microg"
+            android:text="@string/na"
+            style="@style/BaseChipLikeTextViewStyle"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/name"
+            app:layout_constraintBottom_toBottomOf="@id/name"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:button="@drawable/ic_fav"
+            app:buttonTint="@color/fav_icon_color"
+            android:contentDescription="@string/favorites"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

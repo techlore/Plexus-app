@@ -48,7 +48,7 @@
         android:gravity="center"
         android:text="@string/wait_submitting_data"
         android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="?attr/colorOnSurfaceVariant"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/heartView"
@@ -79,7 +79,7 @@
         android:layout_marginEnd="@dimen/margin_16"
         android:text="@string/thanks_for_submitting"
         android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:visibility="invisible"
         tools:visibility="visible"/>
 

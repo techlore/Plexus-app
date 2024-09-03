@@ -97,7 +97,7 @@ class MyRatingsFragment :
                 }
             }
             
-            // New rating fab
+            // New rating FAB
             fragmentBinding.newRatingFab.apply {
                 isVisible = true
                 setOnClickListener {

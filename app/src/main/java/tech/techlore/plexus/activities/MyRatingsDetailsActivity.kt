@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -44,7 +45,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 
 class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     
-    private lateinit var activityBinding: ActivityAppDetailsBinding
+    lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     private lateinit var preferenceManager: PreferenceManager
@@ -98,22 +99,15 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
             
-            activityBinding.detailsInstalledVersion.text =
-                if (app.installedVersion.isEmpty()) {
-                    "${getString(R.string.installed)}: ${getString(R.string.na)}"
-                }
-                else {
-                    "${getString(R.string.installed)}: ${app.installedVersion} (${app.installedBuild})"
-                }
+            @SuppressLint("SetTextI18n")
+            activityBinding.detailsInstalledVersion.text = "${app.installedVersion} (${app.installedBuild})"
             
             setInstalledFromTextViewStyle(this@MyRatingsDetailsActivity,
                                           app.installedFrom,
                                           activityBinding.detailsInstalledFrom)
             
             activityBinding.bottomAppBarRadio.isVisible = false
-            
             navController.navigate(R.id.myRatingsDetailsFragment)
-            
             activityBinding.rateBtn.isVisible = false
         }
     }

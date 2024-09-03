@@ -50,7 +50,7 @@
         android:paddingEnd="@dimen/margin_25"
         android:text="@string/welcome_text_desc"
         android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:visibility="gone"
         tools:visibility="visible"/>
 

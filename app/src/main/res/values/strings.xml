@@ -61,7 +61,6 @@
     <string name="package_name">Package</string>
     <string name="total_score">Total score</string>
     <string name="user_ratings">Ratings</string>
-    <string name="installed">Installed</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Help</string>

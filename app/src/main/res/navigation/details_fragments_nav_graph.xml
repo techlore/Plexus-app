@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/userRatingsFragment"
-        android:name="tech.techlore.plexus.fragments.appdetails.UserRatingsFragment"
+        android:name="tech.techlore.plexus.fragments.appdetails.AllRatingsFragment"
         android:label="@string/user_ratings"
         tools:layout="@layout/fragment_ratings_details">
         <action

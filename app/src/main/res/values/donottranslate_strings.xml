@@ -26,6 +26,8 @@
 
     <string name="na" translatable="false">NA</string>
 
+    <string name="installed" translatable="false">Installed</string>
+
     <string name="rom" translatable="false">ROM</string>
     <string name="android" translatable="false">Android</string>
 

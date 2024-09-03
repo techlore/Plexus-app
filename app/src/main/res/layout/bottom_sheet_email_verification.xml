@@ -48,7 +48,7 @@
         android:textAlignment="center"
         android:text="@string/sending_code"
         android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="?attr/colorOnSurfaceVariant"/>
 
     <include layout="@layout/bottom_sheet_footer"/>
 

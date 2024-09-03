@@ -66,7 +66,6 @@
     <string name="package_name">Nom du paquet</string>
     <string name="total_score">Score total</string>
     <string name="user_ratings">\u00C9valuations</string>
-    <string name="installed">Install\u00E9</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Aide</string>

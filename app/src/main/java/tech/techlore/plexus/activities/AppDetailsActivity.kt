@@ -57,11 +57,12 @@ import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
+import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
 class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
-    private lateinit var activityBinding: ActivityAppDetailsBinding
+    lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     private lateinit var packageNameString: String
@@ -134,9 +135,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             activityBinding.detailsPackageName.text = app.packageName
             
             activityBinding.detailsInstalledVersion.apply {
-                isVisible = !app.installedVersion.isEmpty()
-                if (isVisible) text =
-                    "${getString(R.string.installed)}: ${app.installedVersion} (${app.installedBuild})"
+                isVisible = app.installedVersion.isNotEmpty()
+                if (isVisible) text = "${app.installedVersion} (${app.installedBuild})"
             }
             
             setInstalledFromTextViewStyle(this@AppDetailsActivity,
@@ -146,13 +146,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             // Toggle button group
             activityBinding.detailsToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {
-                    activityBinding.nestedScrollView.apply {
-                        if (scrollX != 0 || scrollY != 0) {
-                            post {
-                                scrollTo(0, 0)
-                            }
-                        }
-                    }
+                    scrollToTop(activityBinding.nestedScrollView)
                     findViewById<MaterialButton>(checkedId).icon =
                         ContextCompat.getDrawable(this@AppDetailsActivity, R.drawable.ic_done) // Add checkmark icon
                     displayFragment(checkedId)
@@ -167,7 +161,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     it.version == app.installedVersion
                 } == true
             
-            // Submit
+            // Rate
             activityBinding.rateBtn.setOnClickListener {
                 when {
                     !app.isInstalled ->
@@ -225,6 +219,17 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         }
         
     }
+    
+    /*fun scrollToTop() {
+        activityBinding.nestedScrollView.apply {
+            if (scrollY != 0) {
+                post {
+                    fling(0)
+                    smoothScrollTo(0, 0)
+                }
+            }
+        }
+    }*/
     
     // Setup fragments
     private fun displayFragment(checkedItem: Int) {

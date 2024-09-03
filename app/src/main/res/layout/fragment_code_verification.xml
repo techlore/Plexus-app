@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:text="@string/verifying_code"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textAlignment="center"
         android:visibility="gone"
         tools:visibility="visible"/>

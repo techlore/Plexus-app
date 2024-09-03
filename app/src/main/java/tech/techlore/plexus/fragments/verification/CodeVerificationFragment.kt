@@ -95,9 +95,8 @@ class CodeVerificationFragment : Fragment() {
         val apiRepository = (requireContext().applicationContext as ApplicationManager).apiRepository
         val verifyDeviceCall = apiRepository.verifyDevice(VerifyDevice(deviceId = verificationActivity.deviceId,
                                                                        code = fragmentBinding.codeText.text.toString()))
-        val response = withContext(Dispatchers.IO) {
-            verifyDeviceCall.execute()
-        }
+        val response = withContext(Dispatchers.IO) { verifyDeviceCall.execute() }
+        
         if (response.isSuccessful) {
             val verifyDeviceResponse =
                 response.body()?.string()?.let {

@@ -47,6 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/retrieving_ratings"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="?attr/colorOnSurfaceVariant"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

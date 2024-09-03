@@ -17,7 +17,7 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,129 +26,135 @@
     android:layout_marginHorizontal="@dimen/margin_12"
     android:layout_marginTop="@dimen/margin_4"
     android:layout_marginBottom="@dimen/margin_12"
-    android:paddingHorizontal="@dimen/margin_8"
-    android:paddingTop="@dimen/margin_4"
-    android:paddingBottom="@dimen/margin_12"
-    android:background="@drawable/shape_card"
     tools:context=".adapters.appdetails.UserRatingsItemAdapter">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ratingsNotes"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/margin_4"
-        android:layout_marginTop="@dimen/margin_8"
-        android:padding="@dimen/margin_10"
-        android:background="@drawable/shape_outline"
-        android:backgroundTint="?attr/colorSurfaceContainerHighest"
-        android:text="@string/notes"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_17"/>
+        android:paddingHorizontal="@dimen/margin_8"
+        android:paddingTop="@dimen/margin_4"
+        android:paddingBottom="@dimen/margin_12">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ratingsVersionTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ratingsNotes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_8"
-        android:drawableStart="@drawable/ic_version"
-        android:drawablePadding="@dimen/margin_8"
-        android:text="@string/version"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_17"
-        style="@style/MediumBoldText"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_8"
+            android:padding="@dimen/margin_10"
+            android:background="@drawable/shape_outline"
+            android:backgroundTint="?attr/colorSurfaceContainerHighest"
+            android:text="@string/notes"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="@dimen/text_17"
+            android:textIsSelectable="true"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ratingsVersionSubtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ratingsVersionTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/margin_40"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_2.5"
-        android:text="@string/version"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorControlNormal"
-        android:textSize="@dimen/text_16"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsVersionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ratingsNotes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_8"
+            android:drawableStart="@drawable/ic_version"
+            android:drawablePadding="@dimen/margin_8"
+            android:text="@string/version"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ratingsRomTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ratingsVersionSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_8"
-        android:drawableStart="@drawable/ic_rom"
-        android:drawablePadding="@dimen/margin_8"
-        android:text="@string/rom"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_17"
-        style="@style/MediumBoldText"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsVersionSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ratingsVersionTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/margin_40"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:text="@string/version"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="@dimen/text_16"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ratingsRomSubtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ratingsRomTitle"
-        app:layout_constraintStart_toStartOf="@id/ratingsRomTitle"
-        app:layout_constraintEnd_toEndOf="@id/ratingsRomTitle"
-        android:layout_marginStart="@dimen/margin_40"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_2.5"
-        android:text="@string/rom"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorControlNormal"
-        android:textSize="@dimen/text_16"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsRomTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ratingsVersionSubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_8"
+            android:drawableStart="@drawable/ic_rom"
+            android:drawablePadding="@dimen/margin_8"
+            android:text="@string/rom"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ratingsAndroidVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toBottomOf="@id/ratingsRomSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center"
-        android:layout_marginStart="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_12"
-        style="@style/AndroidVersionTextViewTheme"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsRomSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ratingsRomTitle"
+            app:layout_constraintStart_toStartOf="@id/ratingsRomTitle"
+            app:layout_constraintEnd_toEndOf="@id/ratingsRomTitle"
+            android:layout_marginStart="@dimen/margin_40"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_2.5"
+            android:text="@string/rom"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="@dimen/text_16"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ratingsInstalledFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toTopOf="@id/ratingsAndroidVersion"
-        app:layout_constraintBottom_toBottomOf="@id/ratingsAndroidVersion"
-        app:layout_constraintStart_toEndOf="@id/ratingsAndroidVersion"
-        android:gravity="center"
-        android:layout_marginStart="@dimen/margin_12"
-        style="@style/InstalledFromTextViewTheme"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsAndroidVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_32"
+            app:layout_constraintTop_toBottomOf="@id/ratingsRomSubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_12"
+            style="@style/AndroidVersionTextViewTheme"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ratingsStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_32"
-        app:layout_constraintTop_toBottomOf="@id/ratingsAndroidVersion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/ratingsAndroidVersion"
-        android:layout_marginTop="14dp"
-        android:paddingStart="@dimen/margin_8"
-        android:paddingEnd="@dimen/margin_16"
-        android:gravity="center"
-        android:drawablePadding="@dimen/margin_8"
-        android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorOnSurface"
-        style="@style/BaseChipLikeTextViewStyle"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsInstalledFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_32"
+            app:layout_constraintTop_toTopOf="@id/ratingsAndroidVersion"
+            app:layout_constraintBottom_toBottomOf="@id/ratingsAndroidVersion"
+            app:layout_constraintStart_toEndOf="@id/ratingsAndroidVersion"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/margin_12"
+            style="@style/InstalledFromTextViewTheme"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_32"
+            app:layout_constraintTop_toBottomOf="@id/ratingsAndroidVersion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/ratingsAndroidVersion"
+            android:layout_marginTop="14dp"
+            android:paddingStart="@dimen/margin_8"
+            android:paddingEnd="@dimen/margin_16"
+            android:gravity="center"
+            android:drawablePadding="@dimen/margin_8"
+            android:textSize="@dimen/text_16"
+            android:textColor="?attr/colorOnSurface"
+            style="@style/BaseChipLikeTextViewStyle"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -39,7 +39,7 @@
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/alphabetical"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="?attr/colorOnSurfaceVariant"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.chip.ChipGroup
@@ -80,7 +80,7 @@
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/installed_from"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="?attr/colorOnSurfaceVariant"
         style="@style/MediumBoldText"
         android:visibility="gone"
         tools:visibility="visible"/>
@@ -135,7 +135,7 @@
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/status"
         android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="?attr/colorOnSurfaceVariant"
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.button.MaterialButtonToggleGroup

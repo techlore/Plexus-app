@@ -46,7 +46,7 @@ class HelpFragment : Fragment() {
         
         toolbar.title = getString(R.string.menu_help)
         
-        fragmentBinding.appsSubmitProc.setOnClickListener {
+        fragmentBinding.appsSubmitProcCard.setOnClickListener {
             openURL(settingsActivity,
                     getString(R.string.apps_submit_proc_url),
                     fragmentBinding.helpCoordLayout,

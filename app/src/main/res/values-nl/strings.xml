@@ -58,7 +58,6 @@
     <string name="package_name">Verpakkingsnaam</string>
     <string name="total_score">Totale score</string>
     <string name="user_ratings">Beoordelingen</string>
-    <string name="installed">Ge\u00EFnstalleerd</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Helpen</string>

@@ -33,13 +33,13 @@
         android:id="@+id/descText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_16"
         android:paddingStart="@dimen/margin_25"
         android:paddingEnd="@dimen/margin_25"
         android:text="@string/no_network_subtitle"
         android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"/>
+        android:textColor="?attr/colorOnSurfaceVariant"/>
 
     <include
         layout="@layout/bottom_sheet_footer"/>

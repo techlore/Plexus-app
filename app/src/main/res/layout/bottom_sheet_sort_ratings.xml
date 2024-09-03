@@ -32,10 +32,10 @@
         layout="@layout/bottom_sheet_header"/>
 
     <include
+        layout="@layout/divider_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin_8"
-        layout="@layout/divider_horizontal"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                 android:layout_marginBottom="@dimen/margin_4"
                 android:text="@string/installed_from"
                 android:textSize="@dimen/text_16"
-                android:textColor="?attr/colorControlNormal"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 style="@style/MediumBoldText"/>
 
             <com.google.android.material.chip.ChipGroup
@@ -160,7 +160,7 @@
                 android:layout_marginBottom="@dimen/margin_4"
                 android:text="@string/status"
                 android:textSize="@dimen/text_16"
-                android:textColor="?attr/colorControlNormal"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 style="@style/MediumBoldText"/>
 
             <com.google.android.material.button.MaterialButtonToggleGroup

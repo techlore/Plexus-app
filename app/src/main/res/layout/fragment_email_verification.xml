@@ -86,7 +86,7 @@
             android:layout_marginBottom="@dimen/margin_8"
             android:layout_marginHorizontal="@dimen/margin_10"
             android:text="@string/by_proceeding_agree_desc"
-            android:textColor="?attr/colorControlNormal"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="@dimen/text_16"/>
 
         <com.google.android.material.button.MaterialButton

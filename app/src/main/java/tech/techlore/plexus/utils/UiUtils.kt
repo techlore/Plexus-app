@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.request.CachePolicy
@@ -219,6 +220,17 @@ class UiUtils {
                 R.id.ratingsChipInstalledGooglePlayAlt -> "google_play_alternative"
                 R.id.ratingsChipInstalledFdroid -> "fdroid"
                 else -> "apk"
+            }
+        }
+        
+        fun scrollToTop(nestedScrollView: NestedScrollView) {
+            nestedScrollView.apply {
+                if (scrollY != 0) {
+                    post {
+                        fling(0)
+                        smoothScrollTo(0, 0)
+                    }
+                }
             }
         }
         
