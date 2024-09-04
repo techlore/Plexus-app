@@ -29,7 +29,7 @@ class ApiManager {
     
     companion object {
         
-        private const val API_BASE_URL = "https://plexus.fly.dev/api/v1/"
+        private const val API_BASE_URL = "https://plexus.techlore.tech/api/v1/"
         
         private val okHttpClient =
             OkHttpClient.Builder()

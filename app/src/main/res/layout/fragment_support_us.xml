@@ -26,7 +26,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -82,8 +83,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/plexus_liberapay_url"
                 android:textColor="@color/color_url"
-                android:textSize="@dimen/text_17"
-                android:textIsSelectable="true"/>
+                android:textSize="@dimen/text_17"/>
 
             <Space
                 android:id="@+id/liberapayCardBottomSpace"

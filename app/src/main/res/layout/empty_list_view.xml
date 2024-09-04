@@ -19,7 +19,6 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -34,7 +33,7 @@
         android:gravity="center"
         android:textSize="@dimen/text_17"
         android:textColor="?attr/colorOnSurfaceVariant"
-        app:drawableTopCompat="@drawable/ic_no_apps"
-        android:drawablePadding="@dimen/margin_10"/>
+        android:drawableTop="@drawable/ic_no_apps"
+        android:drawablePadding="@dimen/margin_8"/>
 
 </LinearLayout>
