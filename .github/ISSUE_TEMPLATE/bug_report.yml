@@ -36,7 +36,9 @@ body:
     attributes:
       label: Error messages/logs
       description: |
-        If possible, provide the error messages/logs to make it easier to identify the issue. Check [here](https://developer.android.com/studio/debug/bug-report) to learn how to get the logs.
+        To help diagnose the issue more effectively, please provide any relevant error messages or logs.
+        This is mandatory if the app is crashing.
+        You can easily capture & share logs using the [LogFox](https://github.com/F0x1d/LogFox) app.
     validations:
       required: false
   - type: textarea
