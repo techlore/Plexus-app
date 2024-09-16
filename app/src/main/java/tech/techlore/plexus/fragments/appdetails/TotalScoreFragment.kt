@@ -56,8 +56,8 @@ class TotalScoreFragment : Fragment() {
         detailsActivity = requireActivity() as AppDetailsActivity
         dgScore = detailsActivity.app.dgScore
         mgScore = detailsActivity.app.mgScore
-        val totalDgRatings = detailsActivity.app.totalDgRatings
-        val totalMgRatings = detailsActivity.app.totalMgRatings
+        val totalDgRatingsCount = detailsActivity.totalDgRatingsCount
+        val totalMgRatingsCount = detailsActivity.totalMgRatingsCount
         
         lifecycleScope.launch(Dispatchers.Default) {
             // Perform calculations in default dispatcher
@@ -66,7 +66,7 @@ class TotalScoreFragment : Fragment() {
             // Only perform calculations if it was not done already
             // This will prevent calculations
             // everytime user switches from user ratings fragment to this one
-            if (!detailsActivity.totalScoreCalculated) {
+            if (!detailsActivity.isTotalScoreCalculated) {
                 
                 val ratingRanges = listOf(RatingRange("gold", 4.0f, 4.0f),
                                           RatingRange("silver", 3.0f, 3.9f),
@@ -93,33 +93,37 @@ class TotalScoreFragment : Fragment() {
                 val mgBronzeRatingsCount = ratingCounts["micro_g" to "bronze"] ?: 0
                 val mgBrokenRatingsCount = ratingCounts["micro_g" to "broken"] ?: 0
                 
-                detailsActivity.dgGoldRatingsPercent = calcPercent(dgGoldRatingsCount, totalDgRatings)
-                detailsActivity.dgSilverRatingsPercent = calcPercent(dgSilverRatingsCount, totalDgRatings)
-                detailsActivity.dgBronzeRatingsPercent = calcPercent(dgBronzeRatingsCount, totalDgRatings)
-                detailsActivity.dgBrokenRatingsPercent = calcPercent(dgBrokenRatingsCount, totalDgRatings)
-                detailsActivity.mgGoldRatingsPercent = calcPercent(mgGoldRatingsCount, totalMgRatings)
-                detailsActivity.mgSilverRatingsPercent = calcPercent(mgSilverRatingsCount, totalMgRatings)
-                detailsActivity.mgBronzeRatingsPercent = calcPercent(mgBronzeRatingsCount, totalMgRatings)
-                detailsActivity.mgBrokenRatingsPercent = calcPercent(mgBrokenRatingsCount, totalMgRatings)
+                detailsActivity.dgGoldRatingsPercent = calcPercent(dgGoldRatingsCount, totalDgRatingsCount)
+                detailsActivity.dgSilverRatingsPercent = calcPercent(dgSilverRatingsCount, totalDgRatingsCount)
+                detailsActivity.dgBronzeRatingsPercent = calcPercent(dgBronzeRatingsCount, totalDgRatingsCount)
+                detailsActivity.dgBrokenRatingsPercent = calcPercent(dgBrokenRatingsCount, totalDgRatingsCount)
+                detailsActivity.mgGoldRatingsPercent = calcPercent(mgGoldRatingsCount, totalMgRatingsCount)
+                detailsActivity.mgSilverRatingsPercent = calcPercent(mgSilverRatingsCount, totalMgRatingsCount)
+                detailsActivity.mgBronzeRatingsPercent = calcPercent(mgBronzeRatingsCount, totalMgRatingsCount)
+                detailsActivity.mgBrokenRatingsPercent = calcPercent(mgBrokenRatingsCount, totalMgRatingsCount)
                 
-                detailsActivity.totalScoreCalculated = true
+                detailsActivity.isTotalScoreCalculated = true
             }
             
             // Update UI with all results
             withContext(Dispatchers.Main) {
                 fragmentBinding.dgAvgScore.text = "${removeDotZeroFromFloat(dgScore)}/4"
-                fragmentBinding.dgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalDgRatings"
-                setDgProgressAndPercent(detailsActivity.dgGoldRatingsPercent,
-                                        detailsActivity.dgSilverRatingsPercent,
-                                        detailsActivity.dgBronzeRatingsPercent,
-                                        detailsActivity.dgBrokenRatingsPercent)
+                fragmentBinding.totalDgRatingsCount.text = "${getString(R.string.ratings)}: $totalDgRatingsCount"
+                setProgressAndPercent(dgScore,
+                                      true,
+                                      detailsActivity.dgGoldRatingsPercent,
+                                      detailsActivity.dgSilverRatingsPercent,
+                                      detailsActivity.dgBronzeRatingsPercent,
+                                      detailsActivity.dgBrokenRatingsPercent)
                 
                 fragmentBinding.mgAvgScore.text = "${removeDotZeroFromFloat(mgScore)}/4"
-                fragmentBinding.mgTotalRatings.text = "${getString(R.string.total_ratings)}: $totalMgRatings"
-                setMgProgressAndPercent(detailsActivity.mgGoldRatingsPercent,
-                                        detailsActivity.mgSilverRatingsPercent,
-                                        detailsActivity.mgBronzeRatingsPercent,
-                                        detailsActivity.mgBrokenRatingsPercent)
+                fragmentBinding.totalMgRatingsCount.text = "${getString(R.string.ratings)}: $totalMgRatingsCount"
+                setProgressAndPercent(mgScore,
+                                      false,
+                                      detailsActivity.mgGoldRatingsPercent,
+                                      detailsActivity.mgSilverRatingsPercent,
+                                      detailsActivity.mgBronzeRatingsPercent,
+                                      detailsActivity.mgBrokenRatingsPercent)
             }
         }
     }
@@ -153,44 +157,41 @@ class TotalScoreFragment : Fragment() {
     }
     
     @SuppressLint("SetTextI18n")
-    private fun setDgProgressAndPercent(dgGoldRatingsPercent: Float,
-                                        dgSilverRatingsPercent: Float,
-                                        dgBronzeRatingsPercent: Float,
-                                        dgBrokenRatingsPercent: Float) {
-        fragmentBinding.dgCircle.apply {
-            setIndicatorColor(mapScoreRangeToColor(requireContext(), dgScore))
-            setProgressCompat(mapScoreRangeToProgress(dgScore), true)
-        }
+    private fun setProgressAndPercent(score: Float,
+                                      isDg: Boolean,
+                                      goldRatingsPercent: Float,
+                                      silverRatingsPercent: Float,
+                                      bronzeRatingsPercent: Float,
+                                      brokenRatingsPercent: Float) {
         
-        fragmentBinding.dgGoldProgress.setProgressCompat(dgGoldRatingsPercent.toInt(), true)
-        fragmentBinding.dgGoldPercent.text = "${removeDotZeroFromFloat(dgGoldRatingsPercent)}%"
-        fragmentBinding.dgSilverProgress.setProgressCompat(dgSilverRatingsPercent.toInt(), true)
-        fragmentBinding.dgSilverPercent.text = "${removeDotZeroFromFloat(dgSilverRatingsPercent)}%"
-        fragmentBinding.dgBronzeProgress.setProgressCompat(dgBronzeRatingsPercent.toInt(), true)
-        fragmentBinding.dgBronzePercent.text = "${removeDotZeroFromFloat(dgBronzeRatingsPercent)}%"
-        fragmentBinding.dgBrokenProgress.setProgressCompat(dgBrokenRatingsPercent.toInt(), true)
-        fragmentBinding.dgBrokenPercent.text = "${removeDotZeroFromFloat(dgBrokenRatingsPercent)}%"
-    }
-    
-    @SuppressLint("SetTextI18n")
-    private fun setMgProgressAndPercent(mgGoldRatingsPercent: Float,
-                                        mgSilverRatingsPercent: Float,
-                                        mgBronzeRatingsPercent: Float,
-                                        mgBrokenRatingsPercent: Float) {
-        // No need to animate progress indicators here
-        // as they won't be shown unless scrolled
-        fragmentBinding.mgCircle.apply {
-            setIndicatorColor(mapScoreRangeToColor(requireContext(), mgScore))
-            progress = mapScoreRangeToProgress(mgScore)
+        if (isDg) {
+            fragmentBinding.dgCircle.apply {
+                setIndicatorColor(mapScoreRangeToColor(requireContext(), score))
+                setProgressCompat(mapScoreRangeToProgress(score), true)
+            }
+            fragmentBinding.dgGoldProgress.setProgressCompat(goldRatingsPercent.toInt(), true)
+            fragmentBinding.dgGoldPercent.text = "${removeDotZeroFromFloat(goldRatingsPercent)}%"
+            fragmentBinding.dgSilverProgress.setProgressCompat(silverRatingsPercent.toInt(), true)
+            fragmentBinding.dgSilverPercent.text = "${removeDotZeroFromFloat(silverRatingsPercent)}%"
+            fragmentBinding.dgBronzeProgress.setProgressCompat(bronzeRatingsPercent.toInt(), true)
+            fragmentBinding.dgBronzePercent.text = "${removeDotZeroFromFloat(bronzeRatingsPercent)}%"
+            fragmentBinding.dgBrokenProgress.setProgressCompat(brokenRatingsPercent.toInt(), true)
+            fragmentBinding.dgBrokenPercent.text = "${removeDotZeroFromFloat(brokenRatingsPercent)}%"
         }
-        fragmentBinding.mgGoldProgress.progress = mgGoldRatingsPercent.toInt()
-        fragmentBinding.mgGoldPercent.text = "${removeDotZeroFromFloat(mgGoldRatingsPercent)}%"
-        fragmentBinding.mgSilverProgress.progress = mgSilverRatingsPercent.toInt()
-        fragmentBinding.mgSilverPercent.text = "${removeDotZeroFromFloat(mgSilverRatingsPercent)}%"
-        fragmentBinding.mgBronzeProgress.progress = mgBronzeRatingsPercent.toInt()
-        fragmentBinding.mgBronzePercent.text = "${removeDotZeroFromFloat(mgBronzeRatingsPercent)}%"
-        fragmentBinding.mgBrokenProgress.progress = mgBrokenRatingsPercent.toInt()
-        fragmentBinding.mgBrokenPercent.text = "${removeDotZeroFromFloat(mgBrokenRatingsPercent)}%"
+        else {
+            fragmentBinding.mgCircle.apply {
+                setIndicatorColor(mapScoreRangeToColor(requireContext(), score))
+                setProgressCompat(mapScoreRangeToProgress(score), true)
+            }
+            fragmentBinding.mgGoldProgress.progress = goldRatingsPercent.toInt()
+            fragmentBinding.mgGoldPercent.text = "${removeDotZeroFromFloat(goldRatingsPercent)}%"
+            fragmentBinding.mgSilverProgress.progress = silverRatingsPercent.toInt()
+            fragmentBinding.mgSilverPercent.text = "${removeDotZeroFromFloat(silverRatingsPercent)}%"
+            fragmentBinding.mgBronzeProgress.progress = bronzeRatingsPercent.toInt()
+            fragmentBinding.mgBronzePercent.text = "${removeDotZeroFromFloat(bronzeRatingsPercent)}%"
+            fragmentBinding.mgBrokenProgress.progress = brokenRatingsPercent.toInt()
+            fragmentBinding.mgBrokenPercent.text = "${removeDotZeroFromFloat(brokenRatingsPercent)}%"
+        }
     }
     
     override fun onDestroyView() {

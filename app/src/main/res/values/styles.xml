@@ -94,7 +94,6 @@
     <!--Nav view style-->
     <style name="NavViewStyle" parent="Widget.Material3.NavigationView">
         <item name="itemTextAppearance">@style/NavViewText</item>
-        <item name="itemIconSize">@dimen/margin_22</item>
     </style>
 
     <!--Nav view items texts style-->
@@ -124,7 +123,7 @@
         <item name="chipStrokeColor">@color/theme_chip_stroke_color</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="closeIconEndPadding">@dimen/margin_4</item>
-        <item name="closeIconStartPadding">@dimen/margin_8</item>
+        <item name="closeIconStartPadding">@dimen/margin_4</item>
         <item name="closeIconSize">24dp</item>
         <item name="chipIconSize">24dp</item>
     </style>

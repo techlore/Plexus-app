@@ -20,7 +20,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_12"
@@ -67,36 +66,6 @@
             style="@style/DarkChipTheme"/>
 
     </com.google.android.material.chip.ChipGroup>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="@dimen/margin_20"
-        android:layout_marginTop="@dimen/margin_12"
-        android:visibility="gone"
-        tools:visibility="visible"/>
-
-    <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/materialYouSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_35"
-        android:paddingEnd="@dimen/margin_25"
-        android:layout_marginBottom="@dimen/margin_16"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:drawableStart="@drawable/ic_material_you"
-        android:drawablePadding="@dimen/margin_16"
-        android:text="@string/material_you"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_16"
-        android:checked="false"
-        android:visibility="gone"
-        tools:visibility="visible"/>
 
     <include layout="@layout/bottom_sheet_footer"/>
 

@@ -62,7 +62,7 @@
     <string name="app">App</string>
     <string name="package_name">Paquete</string>
     <string name="total_score">Puntuaci\u00F3n total</string>
-    <string name="user_ratings">Valoraciones</string>
+    <string name="ratings">Valoraciones</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Ayudar</string>

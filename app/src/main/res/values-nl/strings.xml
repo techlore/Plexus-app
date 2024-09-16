@@ -57,7 +57,7 @@
     <string name="app">Sollicitatie</string>
     <string name="package_name">Verpakkingsnaam</string>
     <string name="total_score">Totale score</string>
-    <string name="user_ratings">Beoordelingen</string>
+    <string name="ratings">Beoordelingen</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Helpen</string>

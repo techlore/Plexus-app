@@ -69,7 +69,7 @@
     <string name="app">Uygulama</string>
     <string name="package_name">Paket ad\u0131</string>
     <string name="total_score">Toplam puan</string>
-    <string name="user_ratings">De\u011Ferlendirmeler</string>
+    <string name="ratings">De\u011Ferlendirmeler</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Yard\u0131m</string>

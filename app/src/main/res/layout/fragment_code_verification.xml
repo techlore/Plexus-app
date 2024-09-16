@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:drawableStart="@drawable/ic_otp"
-        android:drawablePadding="@dimen/margin_12"
+        android:drawablePadding="@dimen/margin_8"
         android:text="@string/enter_code_sent_to_email"
         android:textSize="@dimen/text_18"
         style="@style/MediumBoldText"/>
@@ -42,7 +42,8 @@
         android:id="@+id/codeTextBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginBottom="@dimen/margin_8"
         app:errorEnabled="true"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
@@ -59,7 +60,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/doneButton"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:iconGravity="textStart"
         app:iconPadding="@dimen/margin_8"

@@ -103,6 +103,8 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             @SuppressLint("SetTextI18n")
             activityBinding.detailsInstalledVersion.text = "${app.installedVersion} (${app.installedBuild})"
             
+            activityBinding.detailsTotalRatingsCount.isVisible = false
+            
             setInstalledFromTextViewStyle(this@MyRatingsDetailsActivity,
                                           app.installedFrom,
                                           activityBinding.detailsInstalledFrom)

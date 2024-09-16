@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/userRatingsFragment"
         android:name="tech.techlore.plexus.fragments.appdetails.AllRatingsFragment"
-        android:label="@string/user_ratings"
+        android:label="@string/ratings"
         tools:layout="@layout/fragment_ratings_details">
         <action
             android:id="@+id/action_userRatingsFragment_to_totalScoreFragment"
@@ -73,7 +73,7 @@
     <fragment
         android:id="@+id/myRatingsDetailsFragment"
         android:name="tech.techlore.plexus.fragments.myratingsdetails.MyRatingsDetailsFragment"
-        android:label="@string/user_ratings"
+        android:label="@string/ratings"
         tools:layout="@layout/fragment_ratings_details">
         <action
             android:id="@+id/action_myRatingsDetailsFragment_self"

@@ -68,9 +68,11 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private lateinit var packageNameString: String
     private lateinit var appManager: ApplicationManager
     lateinit var app: MainData
+    var totalDgRatingsCount = 0
+    var totalMgRatingsCount = 0
     var ratingsList = ArrayList<Rating>()
     private var hasRatings = false
-    var totalScoreCalculated = false
+    var isTotalScoreCalculated = false
     var dgGoldRatingsPercent = 0.0f
     var dgSilverRatingsPercent = 0.0f
     var dgBronzeRatingsPercent = 0.0f
@@ -138,6 +140,11 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 isVisible = app.installedVersion.isNotEmpty()
                 if (isVisible) text = "${app.installedVersion} (${app.installedBuild})"
             }
+            
+            totalDgRatingsCount = app.totalDgRatings
+            totalMgRatingsCount = app.totalMgRatings
+            activityBinding.detailsTotalRatingsCount.text =
+                "${getString(R.string.total_ratings)}: ${(totalDgRatingsCount + totalMgRatingsCount)}"
             
             setInstalledFromTextViewStyle(this@AppDetailsActivity,
                                           app.installedFrom,

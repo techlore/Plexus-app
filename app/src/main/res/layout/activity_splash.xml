@@ -47,6 +47,6 @@
         android:layout_marginBottom="100dp"
         android:text="@string/retrieving_data"
         android:textSize="@dimen/text_17"
-        android:textColor="#E4E2E6"/>
+        android:textColor="#F1DEDC"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

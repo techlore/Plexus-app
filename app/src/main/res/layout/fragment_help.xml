@@ -69,7 +69,7 @@
                 android:layout_marginEnd="@dimen/margin_12"
                 android:layout_marginTop="@dimen/margin_16"
                 android:drawableStart="@drawable/ic_degoogled"
-                android:drawablePadding="@dimen/margin_12"
+                android:drawablePadding="@dimen/margin_8"
                 android:text="@string/de_Googled"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="@dimen/text_17" />
@@ -84,7 +84,7 @@
                 android:layout_marginEnd="@dimen/margin_12"
                 android:layout_marginTop="@dimen/margin_20"
                 android:drawableStart="@drawable/ic_microg"
-                android:drawablePadding="@dimen/margin_12"
+                android:drawablePadding="@dimen/margin_8"
                 android:text="@string/microG"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="@dimen/text_17" />

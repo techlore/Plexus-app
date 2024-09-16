@@ -40,11 +40,11 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/detailsAppIcon"
-                android:layout_width="@dimen/margin_55"
-                android:layout_height="@dimen/margin_55"
+                android:layout_width="@dimen/margin_64"
+                android:layout_height="@dimen/margin_64"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/detailsName"
-                app:layout_constraintBottom_toBottomOf="@id/detailsInstalledFrom"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginStart="@dimen/margin_12"
                 android:src="@drawable/ic_apk"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
@@ -53,11 +53,10 @@
                 android:id="@+id/detailsName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/detailsAppIcon"
                 app:layout_constraintStart_toEndOf="@id/detailsAppIcon"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginHorizontal="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_12"
                 android:text="@string/app"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/text_17"
@@ -94,10 +93,24 @@
                 tools:visibility="visible"/>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/detailsTotalRatingsCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/detailsInstalledVersion"
+                app:layout_constraintStart_toStartOf="@id/detailsName"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_2.5"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:text="@string/total_ratings"
+                android:textAlignment="viewStart"
+                android:textSize="@dimen/text_16"
+                android:textColor="?attr/colorOnSurfaceVariant"/>
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/detailsInstalledFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_32"
-                app:layout_constraintTop_toBottomOf="@id/detailsInstalledVersion"
+                app:layout_constraintTop_toBottomOf="@id/detailsTotalRatingsCount"
                 app:layout_constraintStart_toStartOf="@id/detailsName"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/margin_8"
@@ -169,7 +182,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:iconSize="@dimen/margin_18"
-            android:text="@string/user_ratings"
+            android:text="@string/ratings"
             android:textSize="@dimen/text_16"
             style="?attr/materialButtonOutlinedStyle"/>
 

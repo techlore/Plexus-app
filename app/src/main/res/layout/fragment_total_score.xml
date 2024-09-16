@@ -51,14 +51,14 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dgTotalRatings"
+        android:id="@+id/totalDgRatingsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/dgText"
         app:layout_constraintStart_toStartOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginStart="@dimen/margin_20"
-        android:text="@string/total_ratings"
+        android:text="@string/ratings"
         android:textSize="@dimen/text_16"
         android:textColor="?attr/colorOnSurfaceVariant"/>
 
@@ -66,7 +66,7 @@
         android:id="@+id/dgCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dgTotalRatings"
+        app:layout_constraintTop_toBottomOf="@id/totalDgRatingsCount"
         app:layout_constraintStart_toStartOf="@id/dgCard"
         app:layout_constraintEnd_toEndOf="@id/dgCard"
         android:layout_marginTop="@dimen/margin_10"
@@ -270,14 +270,14 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mgTotalRatings"
+        android:id="@+id/totalMgRatingsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/mgText"
         app:layout_constraintStart_toStartOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginStart="@dimen/margin_20"
-        android:text="@string/total_ratings"
+        android:text="@string/ratings"
         android:textSize="@dimen/text_16"
         android:textColor="?attr/colorOnSurfaceVariant"/>
 
@@ -285,7 +285,7 @@
         android:id="@+id/mgCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mgTotalRatings"
+        app:layout_constraintTop_toBottomOf="@id/totalMgRatingsCount"
         app:layout_constraintStart_toStartOf="@id/mgCard"
         app:layout_constraintEnd_toEndOf="@id/mgCard"
         android:layout_marginTop="@dimen/margin_10"

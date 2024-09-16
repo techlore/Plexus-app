@@ -41,12 +41,12 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_google_play"
+        android:drawablePadding="@dimen/margin_8"
         android:text="@string/google_play"
         android:textAlignment="viewStart"
         android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_16"
-        android:drawableStart="@drawable/ic_google_play"
-        android:drawablePadding="@dimen/margin_12"/>
+        android:textSize="@dimen/text_16"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/fdroid"
@@ -57,12 +57,12 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_fdroid"
+        android:drawablePadding="@dimen/margin_8"
         android:text="@string/fdroid"
         android:textAlignment="viewStart"
         android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_16"
-        android:drawableStart="@drawable/ic_fdroid"
-        android:drawablePadding="@dimen/margin_12"/>
+        android:textSize="@dimen/text_16"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/exodus"
@@ -73,12 +73,12 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_exodus"
+        android:drawablePadding="@dimen/margin_8"
         android:text="@string/exodus"
         android:textAlignment="viewStart"
         android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_16"
-        android:drawableStart="@drawable/ic_exodus"
-        android:drawablePadding="@dimen/margin_12"/>
+        android:textSize="@dimen/text_16"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/share"
@@ -90,12 +90,12 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_share"
+        android:drawablePadding="@dimen/margin_8"
         android:text="@string/menu_share"
         android:textAlignment="viewStart"
         android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_16"
-        android:drawableStart="@drawable/ic_share"
-        android:drawablePadding="@dimen/margin_12"/>
+        android:textSize="@dimen/text_16"/>
 
     <include layout="@layout/bottom_sheet_footer"/>
 
