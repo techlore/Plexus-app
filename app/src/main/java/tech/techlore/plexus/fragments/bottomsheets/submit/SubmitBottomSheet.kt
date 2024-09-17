@@ -185,50 +185,44 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         val response = withContext(Dispatchers.IO) {
             apiRepository.postApp(deviceToken, postAppRoot).execute()
         }
-        if (response.code() == 401) {
-            // Unauthorized, renew token
-            renewDeviceToken()
-            postApp()
-        }
-        else if (response.isSuccessful || response.code() == 422) {
-            // Request was successful or app already exists
-            submitActivity.isInPlexusData = true
-            postRating()
-        }
-        else {
-            // Request failed
-            postFailed(response.code())
+        when {
+            response.code() == 401 -> {
+                // Unauthorized, renew token
+                renewDeviceToken()
+                postApp()
+            }
+            response.isSuccessful || response.code() == 422 -> {
+                // Request was successful or app already exists
+                submitActivity.isInPlexusData = true
+                postRating()
+            }
+            else -> onPostFailed(response.code()) // Request failed
         }
     }
     
     private suspend fun postRating() {
         val response = withContext(Dispatchers.IO) {
-            apiRepository
-                .postRating(deviceToken,
-                            submitActivity.packageNameString,
-                            postRatingRoot)
-                .execute()
+            apiRepository.postRating(deviceToken, submitActivity.packageNameString, postRatingRoot).execute()
         }
-        if (response.code() == 401) {
-            // Unauthorized, renew token
-            renewDeviceToken()
-            postRating()
-        }
-        else if (response.isSuccessful) {
-            // Request was successful
-            ratingCreated = true
-            val responseBody = response.body()!!.string()
-            val jsonObject = JSONObject(responseBody)
-            val dataObject = jsonObject.getJSONObject("data")
-            postedRatingId = dataObject.getString("id") // Store id of the posted rating
-        }
-        else {
-            // Request failed
-            postFailed(response.code())
+        when {
+            response.code() == 401 -> {
+                // Unauthorized, renew token
+                renewDeviceToken()
+                postRating()
+            }
+            response.isSuccessful -> {
+                // Request was successful
+                ratingCreated = true
+                val responseBody = response.body()!!.string()
+                val jsonObject = JSONObject(responseBody)
+                val dataObject = jsonObject.getJSONObject("data")
+                postedRatingId = dataObject.getString("id") // Store id of the posted rating
+            }
+            else -> onPostFailed(response.code()) // Request failed
         }
     }
     
-    private fun postFailed(responseCode: Int) {
+    private fun onPostFailed(responseCode: Int) {
         changeAnimView(R.raw.lottie_error, false)
         bottomSheetBinding.submitStatusText.text = "${getString(R.string.submit_error)}: $responseCode"
         bottomSheetBinding.doneButton.apply {
@@ -272,9 +266,16 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                     }
                 val element = document.selectFirst("meta[property=og:image]")
                 iconUrl = element?.attr("content")
-            } catch (e: HttpStatusException) {
+            }
+            // Sometimes play.google.com maybe blocked by user's DNS
+            // java.net.ConnectException: Failed to connect to play.google.com/0.0.0.0:443
+            // If that happens or any other exception occurs (like 404), then return null
+            catch (e: Exception) {
                 iconUrl = null
             }
+        }
+        catch (e: Exception) {
+            iconUrl = null
         }
         
         return iconUrl
@@ -293,7 +294,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             deviceToken = encPreferenceManager.getString(DEVICE_TOKEN)!!
         }
         else {
-            postFailed(response.code())
+            onPostFailed(response.code())
         }
     }
     
@@ -317,7 +318,6 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     }
     
     private suspend fun updateMyRatingInDb(rating: PostRating) {
-        val myRatingsRepository = (requireContext().applicationContext as ApplicationManager).myRatingsRepository
         val myRatingDetails = MyRatingDetails(id = postedRatingId!!,
                                               version = rating.version,
                                               buildNumber = rating.buildNumber,
@@ -329,7 +329,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                               myRatingScore = rating.score,
                                               notes = rating.notes)
         
-        myRatingsRepository
+        appManager.myRatingsRepository
             .insertOrUpdateMyRatings(name = submitActivity.nameString,
                                      packageName = submitActivity.packageNameString,
                                      iconUrl = iconUrl,
