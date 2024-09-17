@@ -40,8 +40,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/detailsAppIcon"
-                android:layout_width="@dimen/margin_64"
-                android:layout_height="@dimen/margin_64"
+                android:layout_width="@dimen/margin_55"
+                android:layout_height="@dimen/margin_55"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="@dimen/margin_8"

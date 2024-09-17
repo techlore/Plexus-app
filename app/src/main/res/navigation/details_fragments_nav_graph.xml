@@ -44,9 +44,7 @@
             android:id="@+id/action_totalScoreFragment_to_userRatingsFragment"
             app:destination="@id/userRatingsFragment"
             app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:exitAnim="@android:anim/fade_out"/>
     </fragment>
 
     <fragment
@@ -58,9 +56,7 @@
             android:id="@+id/action_userRatingsFragment_to_totalScoreFragment"
             app:destination="@id/totalScoreFragment"
             app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:exitAnim="@android:anim/fade_out"/>
         <action
             android:id="@+id/action_userRatingsFragment_self"
             app:destination="@id/userRatingsFragment"

@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.repositories.database
 
+import android.annotation.SuppressLint
 import android.content.Context
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -30,46 +31,50 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.LAST_UPDATED
 import tech.techlore.plexus.utils.PackageUtils.Companion.scannedInstalledAppsList
 import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedScore
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.TimeZone
 
 class MainDataRepository(private val mainDataDao: MainDataDao) {
     
     suspend fun plexusDataIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
-            val apiRepository = (context.applicationContext as ApplicationManager).apiRepository
-            val appsCall = apiRepository.getAppsWithScores(pageNumber = 1)
+            val appManager = context.applicationContext as ApplicationManager
+            val apiRepository = appManager.apiRepository
+            val lastUpdated = appManager.preferenceManager.getString(LAST_UPDATED)
+            val currentDateTime = Date()
+            val appsCall = apiRepository.getAppsWithScores(pageNumber = 1, lastUpdated)
             val appsResponse = appsCall.awaitResponse()
             val imageLoader = ImageLoader.Builder(context).build()
             val imageRequest = ImageRequest.Builder(context)
             
             if (appsResponse.isSuccessful) {
                 appsResponse.body()?.let { getAppsRoot ->
-                    
                     // Insert/update all apps in db
                     onRequestSuccessful(getAppsRoot, imageLoader, imageRequest)
-                    
                     // Retrieve remaining apps in parallel
                     if (getAppsRoot.meta.totalPages > 1) {
                         val requests = mutableListOf<Deferred<Unit>>()
                         for (pageNumber in 2 .. getAppsRoot.meta.totalPages) {
                             val request = async {
-                                val remAppsCall = apiRepository.getAppsWithScores(pageNumber)
+                                val remAppsCall = apiRepository.getAppsWithScores(pageNumber, lastUpdated)
                                 val remAppsResponse = remAppsCall.awaitResponse()
                                 if (remAppsResponse.isSuccessful) {
                                     remAppsResponse.body()?.let { root ->
                                         onRequestSuccessful(root, imageLoader, imageRequest)
                                     }
                                 }
-                                
                             }
                             requests.add(request)
                         }
-                        
                         // Wait for all requests to complete
                         requests.awaitAll()
                     }
                 }
+                appManager.preferenceManager.setString(LAST_UPDATED, formatDateTimeRFC3339(currentDateTime))
             }
         }
     }
@@ -98,6 +103,13 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                                                    mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
                                                    totalMgRatings = appData.scoresRoot.mgScore.totalRatings))
         }
+    }
+    
+    @SuppressLint("SimpleDateFormat")
+    private fun formatDateTimeRFC3339(dateTime: Date): String {
+        return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }.format(dateTime)
     }
     
     suspend fun installedAppsIntoDB(context: Context) {

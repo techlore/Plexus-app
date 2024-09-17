@@ -30,8 +30,8 @@ import tech.techlore.plexus.models.post.rating.PostRatingRoot
 
 class ApiRepository(private val apiService: ApiService) {
     
-    fun getAppsWithScores(pageNumber: Int): Call<GetAppsRoot> {
-        return apiService.getAppsWithScores(pageNumber)
+    fun getAppsWithScores(pageNumber: Int, lastUpdated: String?): Call<GetAppsRoot> {
+        return apiService.getAppsWithScores(pageNumber, lastUpdated)
     }
     
     fun getSingleAppWithScores(packageName: String): Call<GetSingleAppRoot> {

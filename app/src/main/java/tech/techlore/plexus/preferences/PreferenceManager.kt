@@ -24,6 +24,7 @@ class PreferenceManager(context: Context) {
     companion object {
         // Shared pref keys
         const val IS_FIRST_LAUNCH = "is_first_launch"
+        const val LAST_UPDATED = "last_updated"
         const val A_Z_SORT = "a_z_sort"
         const val STATUS_TOGGLE = "status_toggle"
         const val DG_STATUS_SORT = "dg_status_sort"
@@ -38,6 +39,17 @@ class PreferenceManager(context: Context) {
 
     private val sharedPreferences =
         context.getSharedPreferences("tech.techlore.plexus_prefs", Context.MODE_PRIVATE)
+    
+    fun getString(key: String, defValue: String = ""): String? {
+        return sharedPreferences.getString(key, defValue)
+    }
+    
+    fun setString(key: String, value: String) {
+        sharedPreferences.edit().apply {
+            putString(key, value)
+            apply()
+        }
+    }
 
     fun getInt(key: String, defValue: Int = 0): Int {
         return sharedPreferences.getInt(key, defValue)

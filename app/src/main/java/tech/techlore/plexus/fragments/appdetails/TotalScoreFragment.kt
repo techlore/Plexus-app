@@ -183,6 +183,8 @@ class TotalScoreFragment : Fragment() {
                 setIndicatorColor(mapScoreRangeToColor(requireContext(), score))
                 setProgressCompat(mapScoreRangeToProgress(score), true)
             }
+            // No need to animate progress indicators here,
+            // as they won't be shown unless scrolled
             fragmentBinding.mgGoldProgress.progress = goldRatingsPercent.toInt()
             fragmentBinding.mgGoldPercent.text = "${removeDotZeroFromFloat(goldRatingsPercent)}%"
             fragmentBinding.mgSilverProgress.progress = silverRatingsPercent.toInt()

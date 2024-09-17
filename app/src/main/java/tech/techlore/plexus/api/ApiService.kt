@@ -37,7 +37,8 @@ import tech.techlore.plexus.models.post.rating.PostRatingRoot
 interface ApiService {
     
     @GET("apps?scores=true&limit=150")
-    fun getAppsWithScores(@Query("page") pageNumber: Int): Call<GetAppsRoot>
+    fun getAppsWithScores(@Query("page") pageNumber: Int,
+                          @Query("last_updated") lastUpdated: String?): Call<GetAppsRoot>
     
     @GET("apps/{packageName}?scores=true")
     fun getSingleAppWithScores(@Path("packageName") packageName: String): Call<GetSingleAppRoot>

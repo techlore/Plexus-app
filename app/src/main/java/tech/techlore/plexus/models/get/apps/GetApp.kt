@@ -18,6 +18,7 @@
 package tech.techlore.plexus.models.get.apps
 
 import androidx.room.TypeConverters
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import tech.techlore.plexus.converters.get.ScoresRootConverter
 import tech.techlore.plexus.models.get.scores.ScoresRoot
@@ -27,6 +28,10 @@ data class GetApp(
     
     @JsonProperty("name")
     val name: String,
+    
+    @JsonProperty("updated_at")
+    @JsonIgnore
+    val updatedAt: String,
     
     @JsonProperty("package")
     val packageName: String,
