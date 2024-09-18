@@ -56,6 +56,7 @@
     <string name="rate">Rate</string>
     <string name="app">Sollicitatie</string>
     <string name="package_name">Verpakkingsnaam</string>
+    <string name="scroll_to_top">Scroll naar boven</string>
     <string name="total_score">Totale score</string>
     <string name="ratings">Beoordelingen</string>
 

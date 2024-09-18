@@ -64,6 +64,7 @@
     <string name="rate">Rate</string>
     <string name="app">App</string>
     <string name="package_name">Paketname</string>
+    <string name="scroll_to_top">Nach oben bl\u00E4ttern</string>
     <string name="total_score">Gesamtpunktzahl</string>
     <string name="ratings">Bewertungen</string>
 

@@ -59,6 +59,7 @@
     <string name="rate">Rate</string>
     <string name="app">App</string>
     <string name="package_name">Package</string>
+    <string name="scroll_to_top">Scroll to top</string>
     <string name="total_score">Total score</string>
     <string name="ratings">Ratings</string>
 

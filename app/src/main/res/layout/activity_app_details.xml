@@ -144,7 +144,7 @@
         android:src="@drawable/ic_scroll_to_top"
         android:visibility="gone"
         tools:visibility="visible"
-        tools:ignore="ContentDescription"/>
+        android:contentDescription="@string/scroll_to_top"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBarRadio"
