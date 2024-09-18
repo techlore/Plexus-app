@@ -1,8 +1,15 @@
 # CHANGELOG
 
 
+## v2.0.7
+- Quicker subsequent launches & data refreshes by retrieving only updated data instead of the entire dataset.
+- Some bug fixes & UI improvements.
+- Added Turkish translations (by [mikropsoft](https://github.com/mikropsoft)).
+- Improved French translations (by [ThatIsAPseudo](https://github.com/ThatIsAPseudo)).
+
+
 ## v2.0.6
-- Improved Italian translations (by [@gandbg](https://github.com/gandbg)).
+- Improved Italian translations (by [gandbg](https://github.com/gandbg)).
 
 
 ## v2.0.5
@@ -39,7 +46,7 @@
 - Provided support for multiple versions of apps.
 - Added Material You theme for Android 12 and above.
 - Included themed icons for Android 13 and above.
-- Improved German (by [@KerstinMaur](https://github.com/KerstinMaur)) and French (by [@Rathmox](https://github.com/Rathmox)) translations.
+- Improved German (by [KerstinMaur](https://github.com/KerstinMaur)) and French (by [Alerymin](https://github.com/Alerymin)) translations.
 
 
 ## v1.0.0

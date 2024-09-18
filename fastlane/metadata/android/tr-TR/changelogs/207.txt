@@ -1,0 +1,4 @@
+- Tüm veri kümesi yerine yalnızca güncellenmiş verileri alarak daha hızlı sonraki başlatmalar ve veri yenilemeleri.
+- Bazı hata düzeltmeleri ve kullanıcı arayüzü iyileştirmeleri.
+- Türkçe çeviriler eklendi (@mikropsoft tarafından).
+- Geliştirilmiş Fransızca çeviriler (@ThatIsAPseudo tarafından).

@@ -1,0 +1,4 @@
+- Lanzamientos posteriores y actualizaciones de datos más rápidos al recuperar sólo los datos actualizados en lugar de todo el conjunto de datos.
+- Algunas correcciones de errores y mejoras de la interfaz de usuario.
+- Añadidas traducciones al turco (por @mikropsoft).
+- Mejoras en las traducciones al francés (por @ThatIsAPseudo).

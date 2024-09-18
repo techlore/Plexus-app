@@ -1,0 +1,7 @@
+<b>Google'dan kaldırılmış Android cihazlarda uygulama uyumluluğu korkusunu ortadan kaldırın.</b>
+
+Google Play Hizmetleri çoğu Android cihazda temel bileşenlerdir. Google hesabınıza sorunsuz bir şekilde erişmenizi sağlar ve bunlara bağlı uygulamalar için Google'a özgü özellikler sunar.
+Ancak, Google Play Hizmetleri olmadan özel ROM'lar flaş ettiğinizde veya microG gibi alternatifleri tercih ettiğinizde, belirli uygulamalar sorunlarla karşılaşabilir; hiç çalışmayabilir veya belirli özelliklerde sınırlamalar yaşayabilir.
+
+Plexus, Google Play Hizmetleri olmayan ROM'lar (örneğin <i>LineageOS</i>) veya microG içeren ROM'lar (örneğin <i>CalyxOS</i>) kullanıyor olsanız da uygulama uyumluluğu hakkında ayrıntılı bilgiler sağlar. Hangi uygulamaların çalıştığını, çalışmadığını veya sınırlı özelliklere sahip olduğunu belirlemenize yardımcı olur.
+Tüm bilgiler topluluk tarafından topluluk için toplu olarak sağlanır.

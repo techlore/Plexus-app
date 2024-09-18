@@ -1,0 +1,4 @@
+- Quicker subsequent launches & data refreshes by retrieving only updated data instead of the entire dataset.
+- Some bug fixes & UI improvements.
+- Added Turkish translations (by @mikropsoft).
+- Improved French translations (by @ThatIsAPseudo).

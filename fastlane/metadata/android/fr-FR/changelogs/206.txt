@@ -1,8 +1,0 @@
-- Correction d'un problème où les icônes des applications n'étaient pas téléchargées.
-- Introduction d'une icône de repli lorsqu'aucune icône d'application n'est disponible.
-- Ajout d'une option pour définir l'affichage par défaut au démarrage de l'application.
-- Ajout d'une option de confirmation pour éviter les soumissions accidentelles.
-- Le champ "notes" prend désormais en charge les sauts de ligne.
-- Les couleurs par défaut ont été ajustées pour s'aligner sur l'icône de la marque.
-- Renommé "Submit rating" en "Installed apps".
-- Amélioration des traductions en italien (par @gandbg).

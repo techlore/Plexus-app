@@ -21,6 +21,7 @@
   - [German](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-de/strings.xml)
   - [Italian](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-it/strings.xml)
   - [Spanish](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-es/strings.xml)
+  - [Turkish](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-tr/strings.xml)
 
 ### Code
 - Do not submit pull requests to update gradle, dependencies or SDK.

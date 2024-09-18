@@ -1,8 +1,0 @@
-- È stato risolto un problema per cui le icone delle app non venivano caricate.
-- Introdotta un'icona di riserva quando non è disponibile un'icona dell'app.
-- Aggiunta un'opzione per impostare la vista predefinita all'avvio dell'app.
-- Aggiunta un'opzione di conferma per evitare invii accidentali.
-- Il campo note ora supporta le interruzioni di riga.
-- I colori predefiniti sono stati adattati per allinearsi all'icona del marchio.
-- Rinominato "Invia valutazione" in "App installate".
-- Traduzioni italiane migliorate (da @gandbg).
