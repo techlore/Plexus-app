@@ -16,7 +16,7 @@
 #
 
 [versions]
-androidGradle = "8.6.0"
+androidGradle = "8.6.1"
 androidKotlin = "2.0.20" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
 ksp = "2.0.20-1.0.25" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.0"
@@ -24,7 +24,7 @@ coreKtx = "1.13.1"
 material3 = "1.12.0"
 swiperefreshlayout = "1.1.0"
 securityCryptoKtx = "1.1.0-alpha06"
-navigationKtx = "2.8.0"
+navigationKtx = "2.8.1"
 jacksonKt = "2.17.2"
 retrofit2 = "2.11.0"
 room = "2.6.1"
