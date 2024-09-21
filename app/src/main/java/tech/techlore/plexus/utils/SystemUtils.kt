@@ -29,8 +29,6 @@ class SystemUtils {
         
         fun isDeviceDeGoogledOrMicroG(context: Context) {
             
-            val appManager = (context.applicationContext as ApplicationManager)
-            
             val gappsPackages = listOf("com.google.android.gms",
                                        "com.google.android.gsf",
                                        "com.android.vending")
@@ -43,40 +41,44 @@ class SystemUtils {
                 }
             
             val microGCount =
-                if (installedGappsPackagesList.isNotEmpty()) {
-                    installedGappsPackagesList.count { packageName ->
-                        val appLabel =
-                            getAppInfo(packageManager, packageName)?.let {
-                                packageManager.getApplicationLabel(it).toString()
-                            }
-                        appLabel?.let { !it.startsWith("Google", ignoreCase = true) } ?: false
+                when {
+                    installedGappsPackagesList.isNotEmpty() -> {
+                        installedGappsPackagesList.count { packageName ->
+                            val appLabel =
+                                getAppInfo(packageManager, packageName)?.let {
+                                    packageManager.getApplicationLabel(it).toString()
+                                }
+                            appLabel?.let { ! it.startsWith("Google", ignoreCase = true) } ?: false
+                        }
                     }
+                    else -> - 1
                 }
-                else -1
             
-            appManager.isDeviceMicroG = installedGappsPackagesList.size == microGCount
-            appManager.isDeviceDeGoogled = installedGappsPackagesList.isEmpty()
+            (context.applicationContext as ApplicationManager). apply {
+                isDeviceMicroG = installedGappsPackagesList.size == microGCount
+                isDeviceDeGoogled = installedGappsPackagesList.isEmpty()
+            }
         }
         
         private fun getAppInfo(packageManager: PackageManager, packageName: String): ApplicationInfo? {
             return try {
                 packageManager.getApplicationInfo(packageName, 0)
-            } catch (e: PackageManager.NameNotFoundException) {
+            }
+            catch (e: PackageManager.NameNotFoundException) {
                 null
             }
         }
         
         @SuppressLint("PrivateApi")
         fun getSystemProperty(propertyName: String): String? {
-            val propertyValue: String? =
-                try {
-                    val systemProperties = Class.forName("android.os.SystemProperties")
-                    val getProperty = systemProperties.getMethod("get", String::class.java)
-                    getProperty.invoke(null, propertyName) as? String
-                } catch (e: Exception) {
-                    null
-                }
-            return propertyValue
+            return try {
+                val systemProperties = Class.forName("android.os.SystemProperties")
+                val getProperty = systemProperties.getMethod("get", String::class.java)
+                getProperty.invoke(null, propertyName) as? String
+            }
+            catch (e: Exception) {
+                null
+            }
         }
         
     }

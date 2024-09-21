@@ -54,25 +54,22 @@ class PackageUtils {
                                                      "org.microg.unifiednlp")){
                             
                             val installedFrom =
-                                if (isAppFromFdroid(packageManager, it.packageName)) {
-                                    "fdroid"
-                                }
-                                else if (packageManager.getInstallerPackageName(it.packageName)
-                                    in setOf("com.android.packageinstaller",
-                                             "com.google.android.packageinstaller",
-                                             "com.samsung.android.packageinstaller",
-                                             "com.miui.packageinstaller",
-                                             "com.miui.global.packageinstaller")) {
-                                    "apk"
-                                }
-                                else {
-                                    "google_play_alternative"
+                                when {
+                                    isAppFromFdroid(packageManager, it.packageName) -> "fdroid"
+                                    packageManager.getInstallerPackageName(it.packageName)
+                                            in setOf("com.android.packageinstaller",
+                                                     "com.google.android.packageinstaller",
+                                                     "com.samsung.android.packageinstaller",
+                                                     "com.miui.packageinstaller",
+                                                     "com.miui.global.packageinstaller") -> "apk"
+                                    else -> "google_play_alternative"
+                                    
                                 }
                             
                             installedAppsList
                                 .add(MainData(name = it.loadLabel(packageManager).toString(),
                                               packageName = it.packageName,
-                                              installedVersion = packageManager.getPackageInfo(it.packageName, 0).versionName,
+                                              installedVersion = packageManager.getPackageInfo(it.packageName, 0).versionName ?: "",
                                               installedBuild = packageManager.getPackageInfo(it.packageName, 0).versionCode,
                                               installedFrom = installedFrom,
                                               isInstalled = true))

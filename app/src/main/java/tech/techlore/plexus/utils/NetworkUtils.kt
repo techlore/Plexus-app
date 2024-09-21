@@ -49,7 +49,8 @@ class NetworkUtils {
                     socket.close()
                     true
                 }
-            } catch (e: IOException) {
+            }
+            catch (e: IOException) {
                 false
             }
         }
