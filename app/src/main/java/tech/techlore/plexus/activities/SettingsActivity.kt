@@ -18,8 +18,10 @@
 package tech.techlore.plexus.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -35,6 +37,10 @@ class SettingsActivity : AppCompatActivity() {
     lateinit var navController: NavController
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.isNavigationBarContrastEnforced = false
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -44,11 +50,10 @@ class SettingsActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.settings_fragments_nav_graph)
         
-        activityBinding.toolbarBottom.apply {
+        activityBinding.settingsBottomAppBar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         }
-        supportActionBar?.setDisplayShowTitleEnabled(false)
         
         navGraph.setStartDestination(intent.extras?.getInt("fragId")!!)
         navController.setGraph(navGraph, intent.extras)
@@ -65,14 +70,6 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
                     finish()
                     overridePendingTransition(R.anim.slide_from_start, R.anim.slide_to_end)
-                }
-                
-                navController.currentDestination?.id == R.id.licensesFragment -> {
-                    navController.navigate(R.id.action_licensesFragment_to_settingsFragment)
-                }
-                
-                navController.currentDestination?.id == R.id.supportUsFragment -> {
-                    navController.navigate(R.id.action_supportUsFragment_to_settingsFragment)
                 }
                 
                 else -> finish()

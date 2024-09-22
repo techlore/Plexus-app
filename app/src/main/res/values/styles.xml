@@ -68,8 +68,6 @@
         <item name="colorSurfaceContainerHigh">@color/color_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/color_surfaceContainerHighest</item>
 
-        <item name="android:statusBarColor">?attr/colorSurface</item>
-        <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
     </style>

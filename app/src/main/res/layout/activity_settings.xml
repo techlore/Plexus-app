@@ -32,25 +32,25 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
         app:navGraph="@navigation/settings_fragments_nav_graph"
         app:defaultNavHost="true"/>
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/settingsBottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurfaceContainer"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        app:navigationIcon="@drawable/ic_back"
+        app:contentInsetStartWithNavigation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbarBottom"
-            android:layout_width="match_parent"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/settingsBottomAppBarTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_back"
-            android:background="@android:color/transparent"
-            app:contentInsetStartWithNavigation="0dp"
-            app:titleTextColor="?attr/colorOnSurface"/>
+            android:layout_marginStart="@dimen/margin_8"
+            android:textColor="?attr/colorOnSurface"
+            style="@style/TextAppearance.Material3.TitleLarge"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -24,8 +24,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:paddingTop="@dimen/margin_12"
-    android:paddingBottom="@dimen/margin_16">
+    android:paddingVertical="@dimen/margin_8">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animView"

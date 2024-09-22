@@ -28,23 +28,24 @@
     tools:context=".activities.SubmitActivity">
 
     <ScrollView
+        android:id="@+id/submitScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-        android:layout_marginBottom="80dp">
+        android:clipToPadding="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/margin_8">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/submitAppIcon"
                 android:layout_width="@dimen/margin_55"
                 android:layout_height="@dimen/margin_55"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/submitName"
-                app:layout_constraintBottom_toBottomOf="@id/submitInstalledFrom"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginStart="@dimen/margin_12"
                 android:src="@drawable/ic_apk"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
@@ -53,11 +54,10 @@
                 android:id="@+id/submitName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/submitAppIcon"
                 app:layout_constraintStart_toEndOf="@id/submitAppIcon"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginHorizontal="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_8"
                 android:text="@string/app"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/text_17"
@@ -112,7 +112,7 @@
                 android:layout_marginTop="@dimen/margin_35"
                 android:layout_marginStart="@dimen/margin_16"
                 android:drawableStart="@drawable/ic_degoogled"
-                android:drawablePadding="@dimen/margin_12"
+                android:drawablePadding="@dimen/margin_8"
                 android:text="@string/status"
                 android:textSize="@dimen/text_17"
                 style="@style/MediumBoldText"/>

@@ -15,35 +15,48 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.settings
+package tech.techlore.plexus.fragments.bottomsheets.settings
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.view.isVisible
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SettingsActivity
 import tech.techlore.plexus.adapters.settings.LicenseItemAdapter
-import tech.techlore.plexus.databinding.FragmentLicensesBinding
+import tech.techlore.plexus.databinding.BottomSheetFooterBinding
+import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
+import tech.techlore.plexus.databinding.BottomSheetLicensesBinding
 import tech.techlore.plexus.models.license.License
 
-class LicensesFragment : Fragment() {
+class LicensesBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: FragmentLicensesBinding? = null
-    private val fragmentBinding get() = _binding!!
+    private var _binding: BottomSheetLicensesBinding? = null
+    private val bottomSheetBinding get() = _binding!!
     private lateinit var licenseList: ArrayList<License>
+    
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+    }
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        _binding = FragmentLicensesBinding.inflate(inflater, container, false)
-        return fragmentBinding.root
+        _binding = BottomSheetLicensesBinding.inflate(inflater, container, false)
+        return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        (requireActivity() as SettingsActivity).activityBinding.toolbarBottom.title = getString(R.string.third_party_licenses)
+        // Title
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.third_party_licenses)
         
         licenseList = ArrayList<License>().apply {
     
@@ -108,7 +121,16 @@ class LicensesFragment : Fragment() {
                         getString(R.string.monero_icon_license_url)))
         }
         
-        fragmentBinding.licensesRecyclerView.adapter = LicenseItemAdapter(licenseList)
+        bottomSheetBinding.licensesRecyclerView.adapter = LicenseItemAdapter(licenseList,
+                                                                             requireActivity() as SettingsActivity)
+        
+        BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
+            positiveButton.isVisible = false
+            negativeButton.apply {
+                text = getString(R.string.dismiss)
+                setOnClickListener { dismiss() }
+            }
+        }
     }
     
     override fun onDestroyView() {

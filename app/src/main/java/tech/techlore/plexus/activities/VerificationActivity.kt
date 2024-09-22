@@ -17,8 +17,10 @@
 
 package tech.techlore.plexus.activities
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -40,6 +42,10 @@ class VerificationActivity : AppCompatActivity() {
     var deviceId = ""
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.isNavigationBarContrastEnforced = false
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivityVerificationBinding.inflate(layoutInflater)
@@ -54,7 +60,7 @@ class VerificationActivity : AppCompatActivity() {
         installedFromString = intent.getStringExtra("installedFrom")!!
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
     
-        activityBinding.verificationToolbarBottom.apply {
+        activityBinding.verificationBottomAppBar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         }
@@ -63,9 +69,9 @@ class VerificationActivity : AppCompatActivity() {
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            finish()
             startDetailsActivity(this@VerificationActivity, packageNameString)
             overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+            finish()
         }
     }
 }

@@ -69,29 +69,13 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.security.crypto.ktx)
-
-    // Navigation components
     implementation(libs.bundles.navigation)
-
-    // Jackson kotlin module
     implementation(libs.jackson.kotlin)
-
-    // Retrofit2
     implementation(libs.bundles.retrofit2)
-
-    // Room
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
-    
-    // Coil
     implementation(libs.coil)
-    
-    // FastScroll
     implementation(libs.androidFastScrollKt)
-
-    // jsoup
     implementation(libs.jsoup)
-
-    // Lottie
     implementation(libs.lottie)
 }

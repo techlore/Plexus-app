@@ -23,7 +23,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import tech.techlore.plexus.BuildConfig
 import tech.techlore.plexus.R
@@ -31,10 +35,13 @@ import tech.techlore.plexus.activities.SettingsActivity
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.FragmentSettingsBinding
 import tech.techlore.plexus.fragments.bottomsheets.settings.DefaultViewBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.settings.LicensesBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.settings.SupportUsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.settings.ThemeBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 
 class SettingsFragment : Fragment() {
     
@@ -52,8 +59,21 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val settingsActivity = requireActivity() as SettingsActivity
-        settingsActivity.activityBinding.toolbarBottom.title = getString(R.string.settings)
+        settingsActivity.activityBinding.settingsBottomAppBarTitle.text = getString(R.string.settings)
         val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
+        
+        // Adjust scrollview for edge to edge
+        ViewCompat.setOnApplyWindowInsetsListener(fragmentBinding.settingsScrollView) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                        or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(left = insets.left,
+                            top = insets.top,
+                            right = insets.right)
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 80f)
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         
         // Version
         @SuppressLint("SetTextI18n")
@@ -93,7 +113,7 @@ class SettingsFragment : Fragment() {
             openURL(settingsActivity,
                     getString(R.string.plexus_privacy_policy_url),
                     settingsActivity.activityBinding.settingsCoordLayout,
-                    settingsActivity.activityBinding.toolbarBottom)
+                    settingsActivity.activityBinding.settingsBottomAppBar)
         }
         
         // Report an issue
@@ -101,12 +121,12 @@ class SettingsFragment : Fragment() {
             openURL(settingsActivity,
                     getString(R.string.plexus_report_issue_url),
                     settingsActivity.activityBinding.settingsCoordLayout,
-                    settingsActivity.activityBinding.toolbarBottom)
+                    settingsActivity.activityBinding.settingsBottomAppBar)
         }
         
         // Support us
         fragmentBinding.supportUs.setOnClickListener {
-            settingsActivity.navController.navigate(R.id.action_settingsFragment_to_supportUsFragment)
+            SupportUsBottomSheet().show(parentFragmentManager, "SupportUsBottomSheet")
         }
         
         // View on GitHub
@@ -114,7 +134,7 @@ class SettingsFragment : Fragment() {
             openURL(settingsActivity,
                     getString(R.string.plexus_github_url),
                     settingsActivity.activityBinding.settingsCoordLayout,
-                    settingsActivity.activityBinding.toolbarBottom)
+                    settingsActivity.activityBinding.settingsBottomAppBar)
         }
         
         // Visit Techlore
@@ -122,12 +142,12 @@ class SettingsFragment : Fragment() {
             openURL(settingsActivity,
                     getString(R.string.techlore_website_url),
                     settingsActivity.activityBinding.settingsCoordLayout,
-                    settingsActivity.activityBinding.toolbarBottom)
+                    settingsActivity.activityBinding.settingsBottomAppBar)
         }
         
         // Third party licenses
         fragmentBinding.licenses.setOnClickListener {
-            settingsActivity.navController.navigate(R.id.action_settingsFragment_to_licensesFragment)
+            LicensesBottomSheet().show(parentFragmentManager, "LicensesBottomSheet")
         }
     }
     

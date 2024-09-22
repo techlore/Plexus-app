@@ -20,6 +20,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="@dimen/margin_8"
@@ -29,42 +30,34 @@
     <include
         layout="@layout/bottom_sheet_header"/>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/themeChipGroup"
+    <include
+        layout="@layout/divider_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_8"
-        android:paddingHorizontal="@dimen/margin_22"
-        app:chipSpacingVertical="@dimen/margin_2.5"
-        app:singleSelection="true"
-        app:selectionRequired="true">
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_8"/>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/followSystem"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/licensesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_75"
-            android:layoutDirection="rtl"
-            android:checked="true"
-            app:closeIconEnabled="true"
-            style="@style/SystemDefaultChipTheme"/>
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+            tools:listitem="@layout/item_licenses_recycler_view"/>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/light"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_75"
-            android:layoutDirection="rtl"
-            app:closeIconEnabled="true"
-            style="@style/LightChipTheme"/>
+    </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/dark"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_75"
-            android:layoutDirection="rtl"
-            app:closeIconEnabled="true"
-            style="@style/DarkChipTheme"/>
-
-    </com.google.android.material.chip.ChipGroup>
+    <include layout="@layout/divider_horizontal"/>
 
     <include layout="@layout/bottom_sheet_footer"/>
 

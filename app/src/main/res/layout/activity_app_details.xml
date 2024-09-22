@@ -30,9 +30,10 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="128dp"
+        android:clipToPadding="false"
         android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-        android:layout_marginBottom="125dp">
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -139,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="143dp"
+        android:layout_marginBottom="145dp"
         android:layout_marginEnd="@dimen/margin_16"
         android:src="@drawable/ic_scroll_to_top"
         android:visibility="gone"
@@ -147,11 +148,11 @@
         android:contentDescription="@string/scroll_to_top"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBarRadio"
+        android:id="@+id/bottom_app_bar_toggle_group"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="63dp"/>
+        android:layout_marginBottom="80dp"/>
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/detailsToggleGroup"
@@ -160,7 +161,7 @@
         android:layout_gravity="center|bottom"
         android:gravity="center"
         android:layout_marginHorizontal="@dimen/margin_4"
-        android:layout_marginBottom="@dimen/margin_75"
+        android:layout_marginBottom="80dp"
         app:singleSelection="true"
         app:selectionRequired="true"
         app:checkedButton="@id/toggleTotalScore"
@@ -178,7 +179,7 @@
             style="?attr/materialButtonOutlinedStyle"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/toggleUserRatings"
+            android:id="@+id/toggleRatings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:iconSize="@dimen/margin_18"
@@ -191,7 +192,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_back"
         app:menuAlignmentMode="start"/>
@@ -200,7 +201,7 @@
         android:id="@+id/rateBtn"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="@dimen/margin_12"
         android:layout_marginEnd="@dimen/margin_16"
         android:paddingHorizontal="@dimen/margin_20"
         android:layout_gravity="bottom|end"

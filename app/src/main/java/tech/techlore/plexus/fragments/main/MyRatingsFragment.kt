@@ -23,7 +23,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textview.MaterialTextView
@@ -40,6 +43,8 @@ import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
+import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 
 class MyRatingsFragment :
     Fragment(),
@@ -66,6 +71,19 @@ class MyRatingsFragment :
         mainActivity = requireActivity() as MainActivity
         val appManager = requireContext().applicationContext as ApplicationManager
         myRatingsRepository = appManager.myRatingsRepository
+        
+        // Adjust UI components for edge to edge
+        adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
+        ViewCompat.setOnApplyWindowInsetsListener(fragmentBinding.newRatingFab) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                        or WindowInsetsCompat.Type.displayCutout())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                leftMargin = insets.left + convertDpToPx(requireContext(), 16f)
+                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 16f)
+            }
+            
+            WindowInsetsCompat.CONSUMED
+        }
         
         lifecycleScope.launch{
             myRatingsList =

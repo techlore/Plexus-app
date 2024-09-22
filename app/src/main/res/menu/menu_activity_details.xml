@@ -37,6 +37,6 @@
         android:id="@+id/menu_more"
         android:icon="@drawable/ic_overflow_menu"
         android:title="@string/menu_more"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
 </menu>

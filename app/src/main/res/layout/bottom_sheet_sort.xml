@@ -23,8 +23,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingTop="@dimen/margin_12"
-    android:paddingBottom="@dimen/margin_8"
+    android:paddingVertical="@dimen/margin_8"
     android:orientation="vertical"
     android:layout_gravity="center">
 

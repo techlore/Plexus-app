@@ -42,15 +42,13 @@ class HelpFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val settingsActivity = requireActivity() as SettingsActivity
-        val toolbar = settingsActivity.activityBinding.toolbarBottom
-        
-        toolbar.title = getString(R.string.menu_help)
+        settingsActivity.activityBinding.settingsBottomAppBarTitle.text = getString(R.string.menu_help)
         
         fragmentBinding.appsSubmitProcCard.setOnClickListener {
             openURL(settingsActivity,
                     getString(R.string.apps_submit_proc_url),
                     fragmentBinding.helpCoordLayout,
-                    toolbar)
+                    settingsActivity.activityBinding.settingsBottomAppBar)
         }
     }
     

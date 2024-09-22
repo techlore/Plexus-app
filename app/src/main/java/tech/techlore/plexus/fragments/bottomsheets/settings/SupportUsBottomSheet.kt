@@ -17,68 +17,49 @@
 
 package tech.techlore.plexus.fragments.bottomsheets.settings
 
+import android.app.Dialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetThemeBinding
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
+import tech.techlore.plexus.databinding.BottomSheetSupportUsBinding
 
-// Reuse "Theme" bottom sheet layout
-class DefaultViewBottomSheet : BottomSheetDialogFragment() {
+class SupportUsBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetThemeBinding? = null
+    private var _binding: BottomSheetSupportUsBinding? = null
     private val bottomSheetBinding get() = _binding!!
+    
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+    }
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        
-        _binding = BottomSheetThemeBinding.inflate(inflater, container, false)
+    
+        _binding = BottomSheetSupportUsBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
-        
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.default_view)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.support_us)
         
-        bottomSheetBinding.followSystem.apply {
-            closeIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_plexus_data)
-            text = getString(R.string.plexus_data)
-        }
-        
-        bottomSheetBinding.light.apply {
-            closeIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_installed_apps)
-            text = getString(R.string.installed_apps)
-        }
-        
-        bottomSheetBinding.dark.apply {
-            closeIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_fav_outline)
-            text = getString(R.string.favorites)
-        }
-        
-        // Chip group
-        bottomSheetBinding.themeChipGroup.apply {
-            
-            // Default checked chip
-            check(preferenceManager.getInt(DEF_VIEW, R.id.followSystem))
-            
-            // On selecting option
-            setOnCheckedStateChangeListener { _, checkedIds ->
-                val checkedChip = checkedIds.first()
-                preferenceManager.setInt(DEF_VIEW, checkedChip)
-                dismiss()
-            }
+        // Liberapay
+        bottomSheetBinding.liberapayUrl.setOnClickListener {
+            requireActivity().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.plexus_liberapay_url))))
         }
         
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
@@ -94,4 +75,5 @@ class DefaultViewBottomSheet : BottomSheetDialogFragment() {
         super.onDestroyView()
         _binding = null
     }
+    
 }

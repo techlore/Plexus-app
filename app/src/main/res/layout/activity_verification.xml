@@ -33,26 +33,26 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_75"
+        android:layout_marginBottom="80dp"
         app:navGraph="@navigation/verification_fragments_nav_graph"
         app:defaultNavHost="true"/>
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/verificationBottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?attr/colorSurfaceContainer">
+        app:navigationIcon="@drawable/ic_back"
+        app:contentInsetStartWithNavigation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/verificationToolbarBottom"
-            android:layout_width="match_parent"
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_back"
-            android:background="@android:color/transparent"
-            app:contentInsetStartWithNavigation="0dp"
-            app:title="@string/verification"
-            app:titleTextColor="?attr/colorOnSurface"/>
+            android:layout_marginStart="@dimen/margin_8"
+            android:text="@string/verification"
+            android:textColor="?attr/colorOnSurface"
+            style="@style/TextAppearance.Material3.TitleLarge"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

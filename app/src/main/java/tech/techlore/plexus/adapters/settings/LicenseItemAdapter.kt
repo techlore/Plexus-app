@@ -17,6 +17,8 @@
 
 package tech.techlore.plexus.adapters.settings
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,9 +27,9 @@ import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SettingsActivity
 import tech.techlore.plexus.models.license.License
-import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
-class LicenseItemAdapter(private val aListViewItems: ArrayList<License>) : RecyclerView.Adapter<LicenseItemAdapter.ListViewHolder>() {
+class LicenseItemAdapter(private val aListViewItems: ArrayList<License>,
+                         private val settingsActivity: SettingsActivity) : RecyclerView.Adapter<LicenseItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
@@ -46,15 +48,11 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>) : Recyc
     override fun onBindViewHolder(holder: LicenseItemAdapter.ListViewHolder, position: Int) {
         
         val license = aListViewItems[position]
-        val settingsActivity = holder.itemView.context as SettingsActivity
         
         holder.licenseTitle.apply {
             text = license.licenseTitle
             setOnClickListener{
-                openURL(settingsActivity,
-                        license.url,
-                        settingsActivity.activityBinding.settingsCoordLayout,
-                        settingsActivity.activityBinding.toolbarBottom)
+                settingsActivity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(license.url)))
             }
         }
         

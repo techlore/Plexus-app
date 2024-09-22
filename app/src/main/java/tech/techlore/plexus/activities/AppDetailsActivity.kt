@@ -20,16 +20,23 @@ package tech.techlore.plexus.activities
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -54,6 +61,7 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_
 import tech.techlore.plexus.utils.IntentUtils.Companion.startSubmitActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
@@ -102,6 +110,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.isNavigationBarContrastEnforced = false
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         addMenuProvider(this)
@@ -118,6 +130,32 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
+        
+        // Adjust UI components for edge to edge
+        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.nestedScrollView) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                        or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(left = insets.left,
+                            top = insets.top,
+                            right = insets.right)
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom + convertDpToPx(this@AppDetailsActivity, 128f)
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+        mapOf(activityBinding.scrollTopFab to 145f,
+              activityBinding.bottomAppBarToggleGroup to 80f,
+              activityBinding.detailsToggleGroup to 80f,
+              activityBinding.rateBtn to 12f).forEach { (view, margin) ->
+            ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
+                v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    bottomMargin =
+                        windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom +
+                        convertDpToPx(this@AppDetailsActivity, margin)
+                }
+                WindowInsetsCompat.CONSUMED
+            }
+        }
         
         activityBinding.bottomAppBar.apply {
             setSupportActionBar(this)
@@ -152,7 +190,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             
             // Show FAB on scroll
             activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-                if (activityBinding.detailsToggleGroup.checkedButtonId == R.id.toggleUserRatings) {
+                if (activityBinding.detailsToggleGroup.checkedButtonId == R.id.toggleRatings) {
                     if (scrollY == 0) {
                         activityBinding.scrollTopFab.hide()
                     }
@@ -196,12 +234,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     !app.isInstalled ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.install_app_to_submit, app.name),
-                                     activityBinding.bottomAppBarRadio)
+                                     activityBinding.bottomAppBarToggleGroup)
                     
                     !appManager.isDeviceDeGoogled && !appManager.isDeviceMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
-                                     activityBinding.bottomAppBarRadio)
+                                     activityBinding.bottomAppBarToggleGroup)
                     
                     encPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                         RomSelectionBottomSheet().show(supportFragmentManager, "RomSelectionBottomSheet")
@@ -215,13 +253,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                           .putExtra("installedBuild", app.installedBuild)
                                           .putExtra("installedFrom", app.installedFrom)
                                           .putExtra("isInPlexusData", app.isInPlexusData))
+                        overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
                         finish()
                     }
                     
                     myRatingExists ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.rating_already_submitted, app.name, app.installedVersion),
-                                     activityBinding.bottomAppBarRadio)
+                                     activityBinding.bottomAppBarToggleGroup)
                     
                     else -> {
                         startSubmitActivity(this@AppDetailsActivity,
@@ -231,6 +270,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                             app.installedBuild,
                                             app.installedFrom,
                                             app.isInPlexusData)
+                        overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
                         finish()
                     }
                 }
@@ -255,7 +295,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             when (checkedItem) {
                 NAV_FROM_PROG_TO_TOTAL_SCORE -> R.id.action_fragmentProgressView_to_totalScoreFragment
                 R.id.toggleTotalScore -> R.id.action_userRatingsFragment_to_totalScoreFragment
-                R.id.toggleUserRatings -> R.id.action_totalScoreFragment_to_userRatingsFragment
+                R.id.toggleRatings -> R.id.action_totalScoreFragment_to_userRatingsFragment
                 else -> 0
             }
         
@@ -348,7 +388,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                        mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore),
                                        mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore),
                                        activityBinding.detailsCoordLayout,
-                                       activityBinding.bottomAppBarRadio)
+                                       activityBinding.bottomAppBarToggleGroup)
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
             
         }

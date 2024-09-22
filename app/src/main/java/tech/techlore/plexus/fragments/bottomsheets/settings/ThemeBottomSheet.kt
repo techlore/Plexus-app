@@ -50,7 +50,7 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
         
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.setText(R.string.theme)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.theme)
         
         // Show system default option only on SDK 29 and above
         bottomSheetBinding.followSystem.isVisible = Build.VERSION.SDK_INT >= 29

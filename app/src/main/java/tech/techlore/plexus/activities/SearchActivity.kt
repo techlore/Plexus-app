@@ -17,8 +17,10 @@
 
 package tech.techlore.plexus.activities
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
@@ -38,6 +40,10 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
     private lateinit var searchDataList: ArrayList<MainDataMinimal>
     
     public override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.isNavigationBarContrastEnforced = false
+        }
         super.onCreate(savedInstanceState)
         val activityBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
@@ -47,7 +53,7 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
         var job: Job? = null
         
         // Bottom toolbar as actionbar
-        activityBinding.searchToolbarBottom.apply {
+        activityBinding.searchBottomAppBar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         }

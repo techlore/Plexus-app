@@ -19,6 +19,7 @@ package tech.techlore.plexus.activities
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -26,8 +27,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -54,13 +58,16 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     var selectedNavItem = 0
     private var surfaceContainerLowColor = 0
     private var surfaceContainerColor = 0
-    private var surfaceColor = 0
     
     private companion object {
         const val BOTTOM_NAV_SLIDE_UP_THRESHOLD = 0.02
     }
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.isNavigationBarContrastEnforced = false
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         addMenuProvider(this)
@@ -124,14 +131,25 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 
                 // Set background clickable,
                 // only when bottom sheet is not collapsed
-                activityBinding.dimBg.isClickable = newState != BottomSheetBehavior.STATE_COLLAPSED
+                activityBinding.scrimBg.isClickable = newState != BottomSheetBehavior.STATE_COLLAPSED
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    activityBinding.toolbarBottom.navigationIcon = null
+                }
+                else {
+                    activityBinding.toolbarBottom.navigationIcon = ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_nav_view)
+                }
+                
+                /*if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    animateStatusBarColor(surfaceContainerLowColor, true)
+                }
+                else {
+                    animateStatusBarColor(Color.TRANSPARENT, false)
+                }*/
                 
                 // Perform all onClick actions from nav view
                 // after bottom sheet is collapsed
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                    
                     when (clickedNavItem) {
-                        
                         R.id.nav_plexus_data, R.id.nav_installed_apps, R.id.nav_fav, R.id.nav_my_ratings -> {
                             displayFragment(clickedNavItem)
                             activityBinding.toolbarBottom.title = navController.currentDestination?.label.toString()
@@ -144,7 +162,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                                                                .putExtra("fragId", R.id.settingsFragment))
                     }
                     
-                    
                     // Set to 0,
                     // otherwise if bottom sheet is dragged up and no item is clicked
                     // then on bottom sheet collapse, same action will be triggered again.
@@ -154,7 +171,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 
-                activityBinding.dimBg.alpha = slideOffset * 2f // Dim background on sliding up
+                activityBinding.scrimBg.alpha = slideOffset * 2f // Dim background on sliding up
                 
                 activityBinding.navView.apply {
                     navMyAccountItems.forEach {
@@ -165,12 +182,18 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 }
                 
                 // Hide toolbar title and menu on slide up
-                if (slideOffset > BOTTOM_NAV_SLIDE_UP_THRESHOLD) updateUiOnSlide(true)
-                else updateUiOnSlide(false)
+                if (slideOffset > BOTTOM_NAV_SLIDE_UP_THRESHOLD) {
+                    updateUiOnSlide(true)
+                    activityBinding.navView.isVisible = true
+                }
+                else {
+                    updateUiOnSlide(false)
+                    activityBinding.navView.isVisible = false
+                }
                 
-                // Collapse nav view on clicking background
-                // just like dialogs and bottom sheets
-                activityBinding.dimBg.setOnClickListener{
+                // Collapse nav view on clicking background (scrim)
+                // just like modal bottom sheets & dialogs
+                activityBinding.scrimBg.setOnClickListener{
                     if ( bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED ) {
                         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                     }
@@ -184,7 +207,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 when (bottomSheetBehavior.state) {
                     BottomSheetBehavior.STATE_COLLAPSED -> BottomSheetBehavior.STATE_HALF_EXPANDED
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> BottomSheetBehavior.STATE_EXPANDED
-                    BottomSheetBehavior.STATE_EXPANDED -> BottomSheetBehavior.STATE_COLLAPSED
                     else -> 0
                 }
         }
@@ -232,11 +254,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                     backgroundTintList = ColorStateList.valueOf(surfaceContainerLowColor)
                 }
             }
-            
-            window.apply {
-                statusBarColor = surfaceContainerLowColor
-                navigationBarColor = surfaceContainerLowColor
-            }
         }
         else {
             activityBinding.apply {
@@ -249,13 +266,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                         surfaceContainerColor.takeIf { it != 0 } ?: MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceContainer)
                     backgroundTintList = ColorStateList.valueOf(surfaceContainerColor)
                 }
-            }
-            
-            window.apply {
-                surfaceColor =
-                    surfaceColor.takeIf { it != 0 } ?: MaterialColors.getColor(activityBinding.mainCoordLayout, com.google.android.material.R.attr.colorSurface)
-                statusBarColor = surfaceColor
-                navigationBarColor = surfaceContainerColor
             }
         }
     }

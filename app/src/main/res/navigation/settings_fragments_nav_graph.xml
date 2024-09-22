@@ -28,40 +28,6 @@
         android:name="tech.techlore.plexus.fragments.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" >
-        <action
-            android:id="@+id/action_settingsFragment_to_licensesFragment"
-            app:destination="@id/licensesFragment"
-            app:enterAnim="@anim/fade_in_slide_from_end"
-            app:exitAnim="@anim/no_movement"/>
-        <action
-            android:id="@+id/action_settingsFragment_to_supportUsFragment"
-            app:destination="@id/supportUsFragment"
-            app:enterAnim="@anim/fade_in_slide_from_end"
-            app:exitAnim="@anim/no_movement"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/licensesFragment"
-        android:name="tech.techlore.plexus.fragments.settings.LicensesFragment"
-        android:label="@string/third_party_licenses"
-        tools:layout="@layout/fragment_licenses" >
-        <action
-            android:id="@+id/action_licensesFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/no_movement"
-            app:exitAnim="@anim/fade_out_slide_to_end"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/supportUsFragment"
-        android:name="tech.techlore.plexus.fragments.settings.SupportUsFragment"
-        android:label="@string/support_us"
-        tools:layout="@layout/fragment_support_us">
-        <action
-            android:id="@+id/action_supportUsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/no_movement"
-            app:exitAnim="@anim/fade_out_slide_to_end"/>
     </fragment>
 
     <fragment

@@ -31,7 +31,8 @@
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:background="?attr/colorSurface"
-        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginBottom="80dp"
+        android:fitsSystemWindows="true"
         android:clipToPadding="false"
         tools:listitem="@layout/item_main_recycler_view" />
 
@@ -47,19 +48,13 @@
         android:drawablePadding="@dimen/margin_10"
         android:visibility="gone"/>
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/searchBottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurfaceContainer"
-        android:layout_gravity="bottom">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/searchToolbarBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_back"
-            android:background="@android:color/transparent"
-            app:contentInsetStartWithNavigation="0dp">
+        android:layout_gravity="bottom"
+        app:navigationIcon="@drawable/ic_back"
+        app:contentInsetStartWithNavigation="0dp">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
@@ -73,8 +68,6 @@
                 <requestFocus/>
             </androidx.appcompat.widget.SearchView>
 
-        </com.google.android.material.appbar.MaterialToolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -21,8 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="@dimen/margin_12"
-    android:paddingBottom="@dimen/margin_8"
+    android:paddingVertical="@dimen/margin_8"
     android:orientation="vertical"
     android:layout_gravity="center">
 

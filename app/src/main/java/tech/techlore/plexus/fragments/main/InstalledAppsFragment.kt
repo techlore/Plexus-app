@@ -38,6 +38,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FR
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
+import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
 import kotlin.collections.ArrayList
 
 class InstalledAppsFragment :
@@ -68,6 +69,9 @@ class InstalledAppsFragment :
         preferenceManager = appManager.preferenceManager
         mainActivity = requireActivity() as MainActivity
         miniRepository = appManager.miniRepository
+        
+        // Adjust recycler view for edge to edge
+        adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
         
         lifecycleScope.launch {
             

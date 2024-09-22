@@ -19,10 +19,17 @@ package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
@@ -42,6 +49,7 @@ import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
 import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
 import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 
 class SubmitActivity : AppCompatActivity() {
@@ -55,6 +63,10 @@ class SubmitActivity : AppCompatActivity() {
     var isInPlexusData = true
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.isNavigationBarContrastEnforced = false
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivitySubmitBinding.inflate(layoutInflater)
@@ -68,6 +80,19 @@ class SubmitActivity : AppCompatActivity() {
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
         val appManager = applicationContext as ApplicationManager
         var job: Job? = null
+        
+        // Adjust scrollview for edge to edge
+        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.submitScrollView) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                        or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(left = insets.left,
+                            top = insets.top,
+                            right = insets.right)
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom + convertDpToPx(this@SubmitActivity, 80f)
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         
         activityBinding.submitBottomAppBar.apply {
             setSupportActionBar(this)

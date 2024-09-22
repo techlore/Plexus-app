@@ -23,10 +23,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -39,6 +44,7 @@ import tech.techlore.plexus.fragments.bottomsheets.myratingsdetails.SortMyRating
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
@@ -82,6 +88,19 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
         val mainRepository = appManager.mainRepository
         val myRatingsRepository = appManager.myRatingsRepository
         
+        // Adjust nested scrollview for edge to edge
+        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.nestedScrollView) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                        or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(left = insets.left,
+                            top = insets.top,
+                            right = insets.right)
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom + convertDpToPx(this@MyRatingsDetailsActivity, 80f)
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+        
         activityBinding.bottomAppBar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
@@ -122,7 +141,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                 scrollToTop(activityBinding.nestedScrollView)
             }
             
-            activityBinding.bottomAppBarRadio.isVisible = false
+            activityBinding.bottomAppBarToggleGroup.isVisible = false
             navController.navigate(R.id.myRatingsDetailsFragment)
             activityBinding.rateBtn.isVisible = false
         }
@@ -145,7 +164,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                                        mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.dgScore),
                                        mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.mgScore),
                                        activityBinding.detailsCoordLayout,
-                                       activityBinding.bottomAppBarRadio)
+                                       activityBinding.bottomAppBarToggleGroup)
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
             
         }

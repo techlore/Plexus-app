@@ -37,7 +37,7 @@
         app:defaultNavHost="true"/>
 
     <View
-        android:id="@+id/dimBg"
+        android:id="@+id/scrim_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#55000000"
@@ -76,10 +76,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:paddingTop="@dimen/margin_12"
             android:background="@android:color/transparent"
             app:menu="@menu/menu_nav_view"
-            style="@style/NavViewStyle"/>
+            style="@style/NavViewStyle"
+            android:visibility="gone"/>
 
     </FrameLayout>
 

@@ -27,9 +27,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.core.widget.NestedScrollView
 import androidx.navigation.NavController
+import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.CachePolicy
 import coil.request.ImageRequest
@@ -57,6 +61,24 @@ class UiUtils {
                 R.id.light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 R.id.dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
+        }
+        
+        // Adjust recyclerview for edge to edge
+        fun adjustRecyclerView(context: Context, recyclerView: RecyclerView) {
+            ViewCompat.setOnApplyWindowInsetsListener(recyclerView) { v, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                            or WindowInsetsCompat.Type.displayCutout())
+                v.updatePadding(left = insets.left,
+                                top = insets.top + convertDpToPx(context, 10f),
+                                right = insets.right,
+                                bottom = insets.bottom + convertDpToPx(context, 10f))
+                
+                WindowInsetsCompat.CONSUMED
+            }
+        }
+        
+        fun convertDpToPx(context: Context, dp: Float): Int {
+            return (dp * context.resources.displayMetrics.density).toInt()
         }
         
         // Horizontally scroll text,

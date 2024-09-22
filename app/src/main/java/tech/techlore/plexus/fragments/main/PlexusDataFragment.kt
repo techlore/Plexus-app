@@ -40,6 +40,7 @@ import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
 
 class PlexusDataFragment :
     Fragment(),
@@ -69,6 +70,9 @@ class PlexusDataFragment :
         preferenceManager = appManager.preferenceManager
         mainActivity = requireActivity() as MainActivity
         miniRepository = appManager.miniRepository
+        
+        // Adjust recycler view for edge to edge
+        adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
         
         lifecycleScope.launch{
             plexusDataList =

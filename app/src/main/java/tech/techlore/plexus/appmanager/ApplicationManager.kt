@@ -35,12 +35,10 @@ class ApplicationManager : Application() {
     val preferenceManager by lazy { PreferenceManager(this) }
     private val apiService by lazy { apiBuilder() }
     private val database by lazy { getDatabase(this) }
-    
     val apiRepository by lazy { ApiRepository(apiService) }
     val mainRepository by lazy { MainDataRepository(database.mainDataDao()) }
     val miniRepository by lazy { MainDataMinimalRepository(this, database.mainDataDao()) }
     val myRatingsRepository by lazy { MyRatingsRepository(database.myRatingsDao()) }
-    
     var isDeviceMicroG = false
     var isDeviceDeGoogled = false
     var isDataUpdated = false

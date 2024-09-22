@@ -17,16 +17,27 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/supportUsCoordLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/margin_8">
 
-    <ScrollView
+    <include
+        layout="@layout/bottom_sheet_header"/>
+
+    <include
+        layout="@layout/divider_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +53,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginHorizontal="@dimen/margin_16"/>
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:backgroundTint="@android:color/transparent"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/liberapayText"
@@ -105,7 +117,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_20"
                 android:layout_marginBottom="@dimen/margin_16"
-                android:layout_marginHorizontal="@dimen/margin_16"/>
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:backgroundTint="@android:color/transparent"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/moneroText"
@@ -160,6 +173,11 @@
                 app:layout_constraintEnd_toEndOf="@id/moneroCard"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/divider_horizontal"/>
+
+    <include layout="@layout/bottom_sheet_footer"/>
+
+</LinearLayout>
