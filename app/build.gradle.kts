@@ -64,8 +64,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.bundles.androidxCoreComponents)
     implementation(libs.material3)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.security.crypto.ktx)

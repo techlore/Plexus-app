@@ -97,7 +97,7 @@ class UiUtils {
                     R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
                     R.id.favoritesFragment -> R.id.action_favoritesFragment_self
                     R.id.myRatingsFragment -> R.id.action_myRatingsFragment_self
-                    R.id.userRatingsFragment -> R.id.action_userRatingsFragment_self
+                    R.id.allRatingsFragment -> R.id.action_allRatingsFragment_self
                     else -> R.id.action_myRatingsDetailsFragment_self
                 }
             

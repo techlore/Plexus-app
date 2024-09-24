@@ -40,11 +40,10 @@ class FragmentProgressView : Fragment() {
     
     override fun onDestroyView() {
         super.onDestroyView()
-        fragmentBinding.progressIndicatorAnim.apply {
-            pauseAnimation()
-            isVisible = false
+        fragmentBinding.apply {
+            loadingIndicator.isVisible = false
+            retrievingRatingsText.isVisible = false
         }
-        fragmentBinding.retrievingRatingsText.isVisible = false
         _binding = null
     }
 }

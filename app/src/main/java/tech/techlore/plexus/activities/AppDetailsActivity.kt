@@ -53,6 +53,7 @@ import tech.techlore.plexus.fragments.bottomsheets.appdetails.RomSelectionBottom
 import tech.techlore.plexus.fragments.bottomsheets.appdetails.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.appdetails.SortUserRatingsBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
@@ -294,8 +295,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         val action =
             when (checkedItem) {
                 NAV_FROM_PROG_TO_TOTAL_SCORE -> R.id.action_fragmentProgressView_to_totalScoreFragment
-                R.id.toggleTotalScore -> R.id.action_userRatingsFragment_to_totalScoreFragment
-                R.id.toggleRatings -> R.id.action_totalScoreFragment_to_userRatingsFragment
+                R.id.toggleTotalScore -> R.id.action_allRatingsFragment_to_totalScoreFragment
+                R.id.toggleRatings -> R.id.action_totalScoreFragment_to_allRatingsFragment
                 else -> 0
             }
         
@@ -372,17 +373,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         menuInflater.inflate(R.menu.menu_activity_details, menu)
         
         menu.findItem(R.id.menu_sort_user_ratings).isVisible =
-            navController.currentDestination!!.id == R.id.userRatingsFragment
+            navController.currentDestination!!.id == R.id.allRatingsFragment
     }
     
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when(menuItem.itemId) {
-            
-            R.id.details_menu_help -> startActivity(Intent(this@AppDetailsActivity, SettingsActivity::class.java)
-                                                        .putExtra("fragId", R.id.helpFragment))
-            
+            R.id.details_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
             R.id.menu_sort_user_ratings -> SortUserRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
-            
             R.id.menu_more ->
                 MoreOptionsBottomSheet(app.name, app.packageName,
                                        mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore),
@@ -390,7 +387,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                        activityBinding.detailsCoordLayout,
                                        activityBinding.bottomAppBarToggleGroup)
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
-            
         }
         
         return true

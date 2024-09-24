@@ -40,6 +40,7 @@ import com.google.android.material.color.MaterialColors
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityMainBinding
+import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.main.DeleteAccountBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
@@ -154,12 +155,8 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                             displayFragment(clickedNavItem)
                             activityBinding.toolbarBottom.title = navController.currentDestination?.label.toString()
                         }
-                        
                         R.id.nav_delete_account -> DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
-                        
-                        R.id.nav_settings -> startActivity(Intent(this@MainActivity,
-                                                                  SettingsActivity::class.java)
-                                                               .putExtra("fragId", R.id.settingsFragment))
+                        R.id.nav_settings -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                     }
                     
                     // Set to 0,
@@ -286,17 +283,12 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         
         when (menuItem.itemId) {
-            
             R.id.menu_search -> {
                 startActivity(Intent(this, SearchActivity::class.java))
                 overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
             }
-            
             R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
-            
-            R.id.main_menu_help -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java)
-                                                     .putExtra("fragId", R.id.helpFragment))
-            
+            R.id.main_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
         }
         
         return true

@@ -70,24 +70,24 @@
         android:enabled="false"
         style="@style/PositiveButtonStyle"/>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/infoAnim"
+    <com.google.android.material.loadingindicator.LoadingIndicator
+        android:id="@+id/loadingIndicator"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/margin_8"
-        android:scaleX="1.8"
-        android:scaleY="1.8"
-        app:lottie_rawRes="@raw/lottie_progress_indicator"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_gravity="center"
+        app:indicatorColor="?attr/colorPrimary"
+        app:indicatorSize="48dp"
+        app:containerWidth="68dp"
+        app:containerHeight="68dp"
+        style="@style/Widget.Material3.LoadingIndicator.Contained"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/infoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/verifying_code"
+        android:layout_marginTop="@dimen/margin_12"
         android:textSize="@dimen/text_16"
         android:textColor="?attr/colorOnSurfaceVariant"
         android:textAlignment="center"

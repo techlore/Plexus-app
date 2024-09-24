@@ -21,7 +21,8 @@ androidKotlin = "2.0.20" # https://github.com/JetBrains/kotlin/releases/latest (
 ksp = "2.0.20-1.0.25" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.0"
 coreKtx = "1.13.1"
-material3 = "1.12.0"
+splashscreen = "1.0.1"
+material3 = "1.13.0-alpha06"
 swiperefreshlayout = "1.1.0"
 securityCryptoKtx = "1.1.0-alpha06"
 navigationKtx = "2.8.1"
@@ -36,6 +37,7 @@ lottie = "6.5.2"
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 material3 = { module = "com.google.android.material:material", version.ref = "material3" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
@@ -54,6 +56,7 @@ jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 
 [bundles]
+androidxCoreComponents = ["androidx-appcompat", "androidx-core-ktx", "androidx-core-splashscreen"]
 navigation = ["androidx-navigation-runtime-ktx", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
 retrofit2 = ["retrofit2", "retrofit2-converter-jackson"]
 room = ["androidx-room-runtime", "androidx-room-ktx"]

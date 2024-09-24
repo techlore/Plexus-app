@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/appIcon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_8"
+        android:background="@color/grey_800"
+        android:src="@drawable/ic_launcher_foreground"
+        android:scaleType="center"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/appIcon"
+        app:layout_constraintEnd_toEndOf="@id/appIcon"
+        app:layout_constraintTop_toBottomOf="@id/appIcon"
+        android:layout_marginTop="@dimen/margin_4"
+        android:text="@string/plexus"
+        android:textSize="@dimen/text_20"
+        style="@style/MediumBoldText"/>
+
+    <com.google.android.material.loadingindicator.LoadingIndicator
+        android:id="@+id/firstLoadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:indicatorColor="?attr/colorPrimary"
+        app:indicatorSize="68dp"
+        app:containerWidth="88dp"
+        app:containerHeight="88dp"
+        style="@style/Widget.Material3.LoadingIndicator.Contained"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/helloAnimView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleX="2.5"
+        android:scaleY="2.5"
+        app:lottie_rawRes="@raw/lottie_hello"
+        app:lottie_colorFilter="?attr/colorPrimary"
+        app:lottie_speed="1.02"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"
+        android:visibility="gone"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/progressText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/firstLoadingIndicator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_12"
+        app:layout_goneMarginTop="@dimen/margin_40"
+        android:text="@string/retrieving_data"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_17"
+        android:textColor="?attr/colorOnSurfaceVariant"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/firstSkipBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+        app:icon="@drawable/ic_cancel"
+        android:text="@string/skip"
+        android:textSize="@dimen/text_16"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/firstProceedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+        app:icon="@drawable/ic_done"
+        android:text="@string/proceed"
+        android:textSize="@dimen/text_16"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,6 @@
 package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -40,6 +39,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.fragments.bottomsheets.appdetails.MoreOptionsBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.myratingsdetails.SortMyRatingsDetailsBottomSheet
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
@@ -154,8 +154,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when(menuItem.itemId) {
             
-            R.id.details_menu_help -> startActivity(Intent(this@MyRatingsDetailsActivity, SettingsActivity::class.java)
-                                                        .putExtra("fragId", R.id.helpFragment))
+            R.id.details_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
             
             R.id.menu_sort_user_ratings -> SortMyRatingsDetailsBottomSheet().show(supportFragmentManager, "SortMyRatingsBottomSheet")
             

@@ -41,25 +41,25 @@
         android:label="@string/total_score"
         tools:layout="@layout/fragment_total_score">
         <action
-            android:id="@+id/action_totalScoreFragment_to_userRatingsFragment"
-            app:destination="@id/userRatingsFragment"
+            android:id="@+id/action_totalScoreFragment_to_allRatingsFragment"
+            app:destination="@id/allRatingsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"/>
     </fragment>
 
     <fragment
-        android:id="@+id/userRatingsFragment"
+        android:id="@+id/allRatingsFragment"
         android:name="tech.techlore.plexus.fragments.appdetails.AllRatingsFragment"
         android:label="@string/ratings"
         tools:layout="@layout/fragment_ratings_details">
         <action
-            android:id="@+id/action_userRatingsFragment_to_totalScoreFragment"
+            android:id="@+id/action_allRatingsFragment_to_totalScoreFragment"
             app:destination="@id/totalScoreFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"/>
         <action
-            android:id="@+id/action_userRatingsFragment_self"
-            app:destination="@id/userRatingsFragment"
+            android:id="@+id/action_allRatingsFragment_self"
+            app:destination="@id/allRatingsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"

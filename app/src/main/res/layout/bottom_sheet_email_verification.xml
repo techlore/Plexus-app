@@ -26,21 +26,22 @@
     android:orientation="vertical"
     android:layout_gravity="center">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/anim"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <com.google.android.material.loadingindicator.LoadingIndicator
+        android:id="@+id/loadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:scaleX="1.8"
-        android:scaleY="1.8"
-        app:lottie_rawRes="@raw/lottie_progress_indicator"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true"/>
+        app:indicatorColor="?attr/colorPrimary"
+        app:indicatorSize="48dp"
+        app:containerWidth="68dp"
+        app:containerHeight="68dp"
+        style="@style/Widget.Material3.LoadingIndicator.Contained"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_16"
         android:paddingStart="@dimen/margin_25"
         android:paddingEnd="@dimen/margin_25"

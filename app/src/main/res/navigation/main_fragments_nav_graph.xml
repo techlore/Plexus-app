@@ -17,8 +17,7 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_fragments_nav_graph"
     app:startDestination="@id/plexusDataFragment">
@@ -58,40 +57,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="tech.techlore.plexus.fragments.main.FavoritesFragment"
-        android:label="@string/favorites" >
-        <action
-            android:id="@+id/action_favoritesFragment_to_plexusDataFragment"
-            app:destination="@id/plexusDataFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
-        <action
-            android:id="@+id/action_favoritesFragment_to_installedAppsFragment"
-            app:destination="@id/installedAppsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
-        <action
-            android:id="@+id/action_favoritesFragment_self"
-            app:destination="@id/favoritesFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
-        <action
-            android:id="@+id/action_favoritesFragment_to_myRatingsFragment"
-            app:destination="@id/myRatingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
-    </fragment>
-
-    <fragment
         android:id="@+id/installedAppsFragment"
         android:name="tech.techlore.plexus.fragments.main.InstalledAppsFragment"
         android:label="@string/installed_apps" >
@@ -118,6 +83,40 @@
             app:popExitAnim="@android:anim/fade_out"/>
         <action
             android:id="@+id/action_installedAppsFragment_to_myRatingsFragment"
+            app:destination="@id/myRatingsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="tech.techlore.plexus.fragments.main.FavoritesFragment"
+        android:label="@string/favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_plexusDataFragment"
+            app:destination="@id/plexusDataFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+        <action
+            android:id="@+id/action_favoritesFragment_to_installedAppsFragment"
+            app:destination="@id/installedAppsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+        <action
+            android:id="@+id/action_favoritesFragment_self"
+            app:destination="@id/favoritesFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+        <action
+            android:id="@+id/action_favoritesFragment_to_myRatingsFragment"
             app:destination="@id/myRatingsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
