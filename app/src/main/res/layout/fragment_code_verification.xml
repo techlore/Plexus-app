@@ -71,7 +71,7 @@
         style="@style/PositiveButtonStyle"/>
 
     <com.google.android.material.loadingindicator.LoadingIndicator
-        android:id="@+id/loadingIndicator"
+        android:id="@+id/infoAnim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_20"
