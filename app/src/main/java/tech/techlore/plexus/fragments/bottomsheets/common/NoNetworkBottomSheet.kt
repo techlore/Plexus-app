@@ -24,7 +24,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -85,7 +84,6 @@ class NoNetworkBottomSheet(
     
         // Retry
         footerBinding.positiveButton.apply {
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_retry)
             text = getString(R.string.retry)
             setOnClickListener {
                 dismiss()

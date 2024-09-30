@@ -90,7 +90,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/margin_16"
         android:text="@string/cancel"
-        style="@style/NegativeButtonStyle"
+        style="@style/Widget.Material3.Button.TextButton.Dialog"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -102,7 +102,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/margin_16"
         android:text="@string/done"
-        style="@style/PositiveButtonStyle"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:visibility="gone"
         tools:visibility="visible"/>
 

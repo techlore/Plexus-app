@@ -126,33 +126,32 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
         // Proceed
         footerBinding.positiveButton.apply {
             isEnabled = false
-            
-            job = lifecycleScope.launch {
-                for (i in 5 downTo 1) {
-                    withContext(Dispatchers.Main) {
-                        @SuppressLint("SetTextI18n")
-                        text = "${getString(R.string.proceed)} ${i}s"
+            job =
+                lifecycleScope.launch {
+                    for (i in 5 downTo 1) {
+                        withContext(Dispatchers.Main) {
+                            @SuppressLint("SetTextI18n")
+                            text = "${getString(R.string.proceed)} ${i}s"
+                        }
+                        delay(1000)
                     }
-                    delay(1000)
+                    withContext(Dispatchers.Main) {
+                        text = getString(R.string.proceed)
+                        isEnabled = bottomSheetBinding.romDropdownMenu.text.toString() != allRomsDropdownList[0]
+                        job = null
+                    }
                 }
-                withContext(Dispatchers.Main) {
-                    text = getString(R.string.proceed)
-                    isEnabled = bottomSheetBinding.romDropdownMenu.text.toString() != allRomsDropdownList[0]
-                    job = null
-                }
-            }
-            
             setOnClickListener {
                 preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
                 dismiss()
                 val detailsActivity = requireActivity() as AppDetailsActivity
-                detailsActivity.startActivity(Intent(detailsActivity, VerificationActivity::class.java)
+                /*detailsActivity.startActivity(Intent(detailsActivity, VerificationActivity::class.java)
                                                   .putExtra("name", detailsActivity.app.name)
                                                   .putExtra("packageName", detailsActivity.app.packageName)
                                                   .putExtra("installedVersion", detailsActivity.app.installedVersion)
                                                   .putExtra("installedBuild", detailsActivity.app.installedBuild)
                                                   .putExtra("installedFrom", detailsActivity.app.installedFrom)
-                                                  .putExtra("isInPlexusData", detailsActivity.app.isInPlexusData))
+                                                  .putExtra("isInPlexusData", detailsActivity.app.isInPlexusData))*/
                 
                 detailsActivity.finish()
             }

@@ -17,12 +17,10 @@
 
 package tech.techlore.plexus.fragments.bottomsheets.main
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.color.MaterialColors
@@ -63,8 +61,6 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
         // Proceed
         footerBinding.positiveButton.apply {
             setBackgroundColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError))
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete_account)
-            iconTint = ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
             setTextColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
             text = getString(R.string.proceed)
             setOnClickListener {

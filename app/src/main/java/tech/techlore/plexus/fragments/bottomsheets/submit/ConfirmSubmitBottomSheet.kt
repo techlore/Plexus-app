@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.activities.SubmitActivity
 import tech.techlore.plexus.databinding.BottomSheetDeleteAccountBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
@@ -45,10 +46,10 @@ class ConfirmSubmitBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val submitActivity = requireActivity() as SubmitActivity
+        val submitActivity = requireActivity() as AppDetailsActivity
         
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = submitActivity.nameString
+        //BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = submitActivity.nameString
         
         bottomSheetBinding.welcomeTextDesc.text = getString(R.string.about_to_submit)
         
@@ -57,7 +58,7 @@ class ConfirmSubmitBottomSheet : BottomSheetDialogFragment() {
             text = getString(R.string.proceed)
             setOnClickListener {
                 dismiss()
-                submitActivity.showSubmitBtmSheet()
+                //submitActivity.showSubmitBtmSheet()
             }
         }
         

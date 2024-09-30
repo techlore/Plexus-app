@@ -59,14 +59,14 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/a_z"
-            style="@style/NotTestedFilterChipTheme" />
+            style="@style/NotTestedFilterChipTheme"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sortZA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/z_a"
-            style="@style/NotTestedFilterChipTheme" />
+            style="@style/NotTestedFilterChipTheme"/>
 
     </com.google.android.material.chip.ChipGroup>
 

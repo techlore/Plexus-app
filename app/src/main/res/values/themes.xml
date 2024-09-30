@@ -128,18 +128,33 @@
         <item name="android:text">@string/apk</item>
     </style>
 
+    <style name="dgScoreChipTheme" parent="BaseThemeChipStyle">
+        <item name="closeIcon">@drawable/ic_degoogled</item>
+        <item name="closeIconTint">@null</item>
+        <item name="android:text">@string/de_Googled</item>
+    </style>
+
+    <style name="mgScoreChipTheme" parent="BaseThemeChipStyle">
+        <item name="closeIcon">@drawable/ic_microg</item>
+        <item name="closeIconTint">@null</item>
+        <item name="android:text">@string/microG</item>
+    </style>
+
     <style name="SystemDefaultChipTheme" parent="BaseThemeChipStyle">
         <item name="closeIcon">@drawable/ic_theme_system</item>
+        <item name="chipIconSize">24dp</item>
         <item name="android:text">@string/follow_system</item>
     </style>
 
     <style name="LightChipTheme" parent="BaseThemeChipStyle">
         <item name="closeIcon">@drawable/ic_theme_light</item>
+        <item name="chipIconSize">24dp</item>
         <item name="android:text">@string/light</item>
     </style>
 
     <style name="DarkChipTheme" parent="BaseThemeChipStyle">
         <item name="closeIcon">@drawable/ic_theme_dark</item>
+        <item name="chipIconSize">24dp</item>
         <item name="android:text">@string/dark</item>
     </style>
 

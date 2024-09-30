@@ -96,11 +96,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
+            app:icon="@drawable/ic_done"
+            app:iconSize="18dp"
             app:iconGravity="textStart"
             app:iconPadding="@dimen/margin_8"
             android:text="@string/proceed"
-            android:enabled="false"
-            style="@style/PositiveButtonStyle"/>
+            android:textSize="@dimen/text_16"
+            android:enabled="false"/>
 
     </LinearLayout>
 </ScrollView>

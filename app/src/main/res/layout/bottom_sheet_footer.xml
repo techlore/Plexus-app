@@ -22,7 +22,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginBottom="@dimen/margin_4"
-    android:paddingStart="@dimen/margin_8"
+    android:paddingStart="@dimen/margin_4"
     android:paddingEnd="@dimen/margin_16"
     android:paddingTop="@dimen/margin_8"
     android:gravity="end">
@@ -32,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
-        style="@style/NegativeButtonStyle"/>
+        android:textSize="@dimen/text_16"
+        style="@style/Widget.Material3.Button.TextButton.Dialog"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/positiveButton"
@@ -40,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16"
         android:text="@string/done"
-        style="@style/PositiveButtonStyle"/>
+        android:textSize="@dimen/text_16"
+        style="@style/Widget.Material3.Button.TonalButton"/>
 
 </LinearLayout>

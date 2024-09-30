@@ -166,7 +166,6 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 }
                 bottomSheetBinding.thanksText.isVisible = true
                 bottomSheetBinding.doneButton.apply {
-                    icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
                     text = getString(R.string.done)
                     isVisible = true
                 }
@@ -226,7 +225,6 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         changeAnimView(R.raw.lottie_error, false)
         bottomSheetBinding.submitStatusText.text = "${getString(R.string.submit_error)}: $responseCode"
         bottomSheetBinding.doneButton.apply {
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_retry)
             text = getString(R.string.retry)
             isVisible = true
         }

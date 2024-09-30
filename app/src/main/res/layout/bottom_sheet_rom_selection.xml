@@ -58,10 +58,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/margin_10"
-        android:layout_marginBottom="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_25"
-        android:layout_marginEnd="@dimen/margin_25"
+        android:layout_marginVertical="@dimen/margin_8"
+        android:layout_marginHorizontal="@dimen/margin_25"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
         <AutoCompleteTextView

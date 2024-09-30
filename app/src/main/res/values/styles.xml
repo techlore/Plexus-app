@@ -53,14 +53,11 @@
     </style>
 
     <style name="BaseThemeChipStyle" parent="BaseChipStyle">
-        <item name="chipBackgroundColor">@color/theme_chip_bg_color</item>
-        <item name="chipCornerRadius">@dimen/margin_12</item>
-        <item name="chipStrokeColor">@color/theme_chip_stroke_color</item>
+        <item name="chipBackgroundColor">@color/chip_bg_color</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
         <item name="chipStrokeWidth">1dp</item>
-        <item name="closeIconEndPadding">@dimen/margin_4</item>
-        <item name="closeIconStartPadding">@dimen/margin_4</item>
         <item name="closeIconSize">24dp</item>
-        <item name="chipIconSize">24dp</item>
+        <item name="closeIconStartPadding">@dimen/margin_4</item>
     </style>
 
     <!--#########################################################################################-->
@@ -97,27 +94,6 @@
         <item name="cornerSize">@dimen/margin_16</item>
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
-    </style>
-
-    <!--Bottom sheet buttons-->
-    <style name="NegativeButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:paddingStart">@dimen/margin_16</item>
-        <item name="android:paddingEnd">@dimen/margin_20</item>
-        <item name="android:gravity">center</item>
-        <item name="icon">@drawable/ic_cancel</item>
-        <item name="iconSize">18dp</item>
-        <item name="iconPadding">@dimen/margin_4</item>
-        <item name="android:textSize">@dimen/text_16</item>
-    </style>
-
-    <style name="PositiveButtonStyle" parent="Widget.Material3.Button.TonalButton">
-        <item name="android:paddingStart">@dimen/margin_16</item>
-        <item name="android:paddingEnd">@dimen/margin_20</item>
-        <item name="android:gravity">center</item>
-        <item name="icon">@drawable/ic_done</item>
-        <item name="iconSize">18dp</item>
-        <item name="iconPadding">@dimen/margin_4</item>
-        <item name="android:textSize">@dimen/text_16</item>
     </style>
 
     <!--#########################################################################################-->

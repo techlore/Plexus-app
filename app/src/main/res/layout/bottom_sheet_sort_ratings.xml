@@ -178,7 +178,6 @@
                     android:id="@+id/ratingsToggleAnyStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_done"
                     app:iconSize="@dimen/margin_18"
                     android:text="@string/any"
                     android:textSize="@dimen/text_16"

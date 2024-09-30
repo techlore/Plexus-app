@@ -15,35 +15,46 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.appdetails
+package tech.techlore.plexus.fragments.bottomsheets.submit
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import tech.techlore.plexus.databinding.FragmentProgressViewBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.databinding.BottomSheetFooterBinding
+import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
+import tech.techlore.plexus.databinding.BottomSheetStartSubmitBinding
 
-class FragmentProgressView : Fragment() {
+class StartSubmitBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: FragmentProgressViewBinding ? = null
-    private val fragmentBinding get() = _binding!!
+    private var _binding: BottomSheetStartSubmitBinding? = null
+    private val bottomSheetBinding get() = _binding!!
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentProgressViewBinding.inflate(inflater, container, false)
-        return fragmentBinding.root
+        
+        _binding = BottomSheetStartSubmitBinding.inflate(inflater, container, false)
+        return bottomSheetBinding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        
+        // Title
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
+        BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
+            negativeButton.setOnClickListener {
+                ConfirmSubmitBottomSheet().show(parentFragmentManager, "")
+            }
+        }
     }
     
     override fun onDestroyView() {
         super.onDestroyView()
-        fragmentBinding.apply {
-            loadingIndicator.isVisible = false
-            retrievingRatingsText.isVisible = false
-        }
         _binding = null
     }
 }

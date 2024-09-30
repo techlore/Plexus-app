@@ -18,6 +18,7 @@
 package tech.techlore.plexus.fragments.bottomsheets.common
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -68,17 +69,21 @@ class HelpBottomSheet : BottomSheetDialogFragment() {
             negativeButton.apply {
                 text = getString(R.string.dismiss)
                 setOnClickListener {
-                    (requireContext().applicationContext as ApplicationManager).preferenceManager.apply {
-                        if (getBoolean(IS_FIRST_LAUNCH)) {
-                            setBoolean(IS_FIRST_LAUNCH, false)
-                            requireActivity().finish()
-                        }
-                    }
                     dismiss()
                 }
             }
         }
         
+    }
+    
+    override fun onDismiss(dialog: DialogInterface) {
+        (requireContext().applicationContext as ApplicationManager).preferenceManager.apply {
+            if (getBoolean(IS_FIRST_LAUNCH)) {
+                setBoolean(IS_FIRST_LAUNCH, false)
+                requireActivity().finish()
+            }
+        }
+        super.onDismiss(dialog)
     }
     
     override fun onDestroyView() {

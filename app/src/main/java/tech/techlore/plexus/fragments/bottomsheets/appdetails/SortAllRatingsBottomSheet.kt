@@ -36,7 +36,7 @@ import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortRatingsBinding
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
-class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
+class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortRatingsBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -59,6 +59,7 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val detailsActivity = requireActivity() as AppDetailsActivity
+        val checkIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
@@ -96,10 +97,10 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
         // Status toggle button group
         bottomSheetBinding.ratingsStatusToggleGroup.apply {
             check(detailsActivity.statusToggleBtn)
+            findViewById<MaterialButton>(checkedButtonId).icon = checkIcon // Add checkmark icon
             addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {
-                    findViewById<MaterialButton>(checkedId).icon =
-                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_done) // Add checkmark icon
+                    findViewById<MaterialButton>(checkedId).icon = checkIcon // Add checkmark icon
                     bottomSheetBinding.ratingsStatusChipGroup.isVisible = checkedId != R.id.ratingsToggleAnyStatus
                 }
                 else {
@@ -139,7 +140,7 @@ class SortUserRatingsBottomSheet : BottomSheetDialogFragment() {
                 detailsActivity.mgStatusSort = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
             }
             
-            detailsActivity.listIsSorted = false // Set to false so list is sorted on fragment refresh
+            detailsActivity.isListSorted = false // Set to false so list is sorted on fragment refresh
             
             dismiss()
             refreshFragment(detailsActivity.navController)

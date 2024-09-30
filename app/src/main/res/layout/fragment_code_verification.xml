@@ -64,11 +64,13 @@
         android:id="@+id/doneButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:icon="@drawable/ic_done"
+        app:iconSize="18dp"
         app:iconGravity="textStart"
         app:iconPadding="@dimen/margin_8"
         android:text="@string/done"
-        android:enabled="false"
-        style="@style/PositiveButtonStyle"/>
+        android:textSize="@dimen/text_16"
+        android:enabled="false"/>
 
     <com.google.android.material.loadingindicator.LoadingIndicator
         android:id="@+id/infoAnim"

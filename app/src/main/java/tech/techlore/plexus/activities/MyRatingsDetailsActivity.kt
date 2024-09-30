@@ -101,7 +101,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             WindowInsetsCompat.CONSUMED
         }
         
-        activityBinding.bottomAppBar.apply {
+        activityBinding.detailsBottomAppBar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         }
@@ -122,7 +122,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             @SuppressLint("SetTextI18n")
             activityBinding.detailsInstalledVersion.text = "${app.installedVersion} (${app.installedBuild})"
             
-            activityBinding.detailsTotalRatingsCount.isVisible = false
+            activityBinding.totalRatingsCount.isVisible = false
             
             setInstalledFromTextViewStyle(this@MyRatingsDetailsActivity,
                                           app.installedFrom,
@@ -141,7 +141,6 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                 scrollToTop(activityBinding.nestedScrollView)
             }
             
-            activityBinding.bottomAppBarToggleGroup.isVisible = false
             navController.navigate(R.id.myRatingsDetailsFragment)
             activityBinding.rateBtn.isVisible = false
         }
@@ -163,7 +162,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                                        mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.dgScore),
                                        mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.mgScore),
                                        activityBinding.detailsCoordLayout,
-                                       activityBinding.bottomAppBarToggleGroup)
+                                       activityBinding.detailsBottomAppBar)
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
             
         }

@@ -104,10 +104,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
-        app:icon="@drawable/ic_cancel"
         android:text="@string/skip"
         android:textSize="@dimen/text_16"
-        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        style="@style/Widget.Material3.Button.TextButton"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -119,7 +118,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
-        app:icon="@drawable/ic_done"
         android:text="@string/proceed"
         android:textSize="@dimen/text_16"
         style="@style/Widget.Material3.Button.TonalButton"
