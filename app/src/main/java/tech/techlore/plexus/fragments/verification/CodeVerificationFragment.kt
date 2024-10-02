@@ -34,9 +34,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.VerificationActivity
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.FragmentCodeVerificationBinding
 import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.device.VerifyDevice
@@ -44,7 +44,7 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ID
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
-import tech.techlore.plexus.utils.IntentUtils.Companion.startSubmitActivity
+import tech.techlore.plexus.repositories.api.ApiRepository
 
 class CodeVerificationFragment : Fragment() {
     
@@ -78,7 +78,6 @@ class CodeVerificationFragment : Fragment() {
                     fragmentBinding.doneButton.isEnabled =
                         charSequence!!.isNotEmpty()
                         && charSequence.isDigitsOnly()
-                        && charSequence.length == 6
                 }
         }
         
@@ -92,9 +91,9 @@ class CodeVerificationFragment : Fragment() {
     }
     
     private suspend fun verifyDevice() {
-        val apiRepository = (requireContext().applicationContext as ApplicationManager).apiRepository
-        val verifyDeviceCall = apiRepository.verifyDevice(VerifyDevice(deviceId = verificationActivity.deviceId,
-                                                                       code = fragmentBinding.codeText.text.toString()))
+        val verifyDeviceCall =
+            get<ApiRepository>().verifyDevice(VerifyDevice(deviceId = verificationActivity.deviceId,
+                                                           code = fragmentBinding.codeText.text.toString()))
         val response = withContext(Dispatchers.IO) { verifyDeviceCall.execute() }
         
         if (response.isSuccessful) {
@@ -113,13 +112,7 @@ class CodeVerificationFragment : Fragment() {
                     hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken, 0)
                 }
             }
-            startSubmitActivity(verificationActivity,
-                                verificationActivity.nameString,
-                                verificationActivity.packageNameString,
-                                verificationActivity.installedVersionString,
-                                verificationActivity.installedBuild,
-                                verificationActivity.installedFromString,
-                                verificationActivity.isInPlexusData)
+            requireActivity().finish()
         }
         else {
             showInfo(false)

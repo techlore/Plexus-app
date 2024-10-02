@@ -30,14 +30,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.BuildConfig
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySettingsBinding
 import tech.techlore.plexus.fragments.bottomsheets.settings.DefaultViewBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.settings.LicensesBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.settings.SupportUsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.settings.ThemeBottomSheet
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
@@ -47,6 +48,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 class SettingsActivity : AppCompatActivity() {
     
     private lateinit var activityBinding: ActivitySettingsBinding
+    private val prefManager by inject<PreferenceManager>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -57,8 +59,6 @@ class SettingsActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-        
-        val preferenceManager = (applicationContext as ApplicationManager).preferenceManager
         
         // Adjust scrollview for edge to edge
         ViewCompat.setOnApplyWindowInsetsListener(activityBinding.settingsScrollView) { v, windowInsets ->
@@ -91,9 +91,9 @@ class SettingsActivity : AppCompatActivity() {
         activityBinding.materialYouSwitch.apply {
             if (Build.VERSION.SDK_INT >= 31) {
                 isVisible = true
-                isChecked = preferenceManager.getBoolean(MATERIAL_YOU, defValue = false)
+                isChecked = prefManager.getBoolean(MATERIAL_YOU, defValue = false)
                 setOnCheckedChangeListener { _, isChecked ->
-                    preferenceManager.setBoolean(MATERIAL_YOU, isChecked)
+                    prefManager.setBoolean(MATERIAL_YOU, isChecked)
                 }
             }
         }
@@ -105,9 +105,9 @@ class SettingsActivity : AppCompatActivity() {
         
         // Confirm before submitting
         activityBinding.confBeforeSubmitSwitch.apply {
-            isChecked = preferenceManager.getBoolean(CONF_BEFORE_SUBMIT, defValue = false)
+            isChecked = prefManager.getBoolean(CONF_BEFORE_SUBMIT, defValue = false)
             setOnCheckedChangeListener { _, isChecked ->
-                preferenceManager.setBoolean(CONF_BEFORE_SUBMIT, isChecked)
+                prefManager.setBoolean(CONF_BEFORE_SUBMIT, isChecked)
             }
         }
         
@@ -158,12 +158,9 @@ class SettingsActivity : AppCompatActivity() {
     
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            
-            val preferenceManager = (applicationContext as ApplicationManager).preferenceManager
-            
             when {
-                preferenceManager.getBoolean(IS_FIRST_LAUNCH) -> {
-                    preferenceManager.setBoolean(IS_FIRST_LAUNCH, false)
+                prefManager.getBoolean(IS_FIRST_LAUNCH) -> {
+                    prefManager.setBoolean(IS_FIRST_LAUNCH, false)
                     startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
                     finish()
                     overridePendingTransition(R.anim.slide_from_start, R.anim.slide_to_end)

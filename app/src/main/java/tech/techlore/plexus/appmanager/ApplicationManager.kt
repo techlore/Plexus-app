@@ -19,40 +19,35 @@ package tech.techlore.plexus.appmanager
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors
-import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
-import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
+import org.koin.android.ext.android.get
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import tech.techlore.plexus.koin_di.appModule
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
-import tech.techlore.plexus.repositories.api.ApiRepository
-import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
-import tech.techlore.plexus.repositories.database.MainDataRepository
-import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.setAppTheme
 
 class ApplicationManager : Application() {
     
-    val preferenceManager by lazy { PreferenceManager(this) }
-    private val apiService by lazy { apiBuilder() }
-    private val database by lazy { getDatabase(this) }
-    val apiRepository by lazy { ApiRepository(apiService) }
-    val mainRepository by lazy { MainDataRepository(database.mainDataDao()) }
-    val miniRepository by lazy { MainDataMinimalRepository(this, database.mainDataDao()) }
-    val myRatingsRepository by lazy { MyRatingsRepository(database.myRatingsDao()) }
-    var isDeviceMicroG = false
-    var isDeviceDeGoogled = false
-    var isDataUpdated = false
-    
     override fun onCreate() {
         super.onCreate()
-
-        // Theme
-        setAppTheme(preferenceManager.getInt(THEME))
         
-        // Material you
-        if (preferenceManager.getBoolean(MATERIAL_YOU, defValue = false)) {
-            DynamicColors.applyToActivitiesIfAvailable(this)
+        startKoin {
+            androidContext(this@ApplicationManager)
+            modules(appModule)
         }
+        
+        get<PreferenceManager>().apply {
+            // Theme
+            setAppTheme(getInt(THEME))
+            
+            // Material you
+            if (getBoolean(MATERIAL_YOU, defValue = false)) {
+                DynamicColors.applyToActivitiesIfAvailable(this@ApplicationManager)
+            }
+        }
+        
     }
     
 }

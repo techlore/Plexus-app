@@ -23,6 +23,7 @@ appcompat = "1.7.0"
 coreKtx = "1.13.1"
 splashscreen = "1.0.1"
 material3 = "1.13.0-alpha06"
+koin = "4.0.0"
 swiperefreshlayout = "1.1.0"
 securityCryptoKtx = "1.1.0-alpha06"
 navigationKtx = "2.8.1"
@@ -39,6 +40,8 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 material3 = { module = "com.google.android.material:material", version.ref = "material3" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationKtx" }
@@ -57,6 +60,7 @@ lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 
 [bundles]
 androidxCoreComponents = ["androidx-appcompat", "androidx-core-ktx", "androidx-core-splashscreen"]
+koin = ["koin-core", "koin-android"]
 navigation = ["androidx-navigation-runtime-ktx", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
 retrofit2 = ["retrofit2", "retrofit2-converter-jackson"]
 room = ["androidx-room-runtime", "androidx-room-ktx"]

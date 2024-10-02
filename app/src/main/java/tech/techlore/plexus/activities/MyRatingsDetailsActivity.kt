@@ -35,6 +35,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
@@ -44,6 +45,8 @@ import tech.techlore.plexus.fragments.bottomsheets.myratingsdetails.SortMyRating
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.repositories.database.MainDataRepository
+import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
@@ -55,7 +58,6 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
-    private lateinit var preferenceManager: PreferenceManager
     private lateinit var app: MainData
     private lateinit var packageNameString: String
     lateinit var myRating: MyRating
@@ -77,16 +79,14 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        val appManager = applicationContext as ApplicationManager
-        preferenceManager = appManager.preferenceManager
         navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         packageNameString = intent.getStringExtra("packageName")!!
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
-        val mainRepository = appManager.mainRepository
-        val myRatingsRepository = appManager.myRatingsRepository
+        val mainRepository by inject<MainDataRepository>()
+        val myRatingsRepository by inject<MyRatingsRepository>()
         
         // Adjust nested scrollview for edge to edge
         ViewCompat.setOnApplyWindowInsetsListener(activityBinding.nestedScrollView) { v, windowInsets ->

@@ -25,21 +25,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
+import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
 import kotlin.collections.ArrayList
+import kotlin.getValue
 
 class InstalledAppsFragment :
     Fragment(),
@@ -47,12 +50,11 @@ class InstalledAppsFragment :
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
-    private lateinit var appManager: ApplicationManager
     private lateinit var mainActivity: MainActivity
     private lateinit var installedAppItemAdapter: MainDataItemAdapter
     private lateinit var installedAppsList: ArrayList<MainDataMinimal>
-    private lateinit var preferenceManager: PreferenceManager
-    private lateinit var miniRepository: MainDataMinimalRepository
+    private val prefManager by inject<PreferenceManager>()
+    private val miniRepository by inject<MainDataMinimalRepository>()
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -65,10 +67,7 @@ class InstalledAppsFragment :
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        appManager = requireContext().applicationContext as ApplicationManager
-        preferenceManager = appManager.preferenceManager
         mainActivity = requireActivity() as MainActivity
-        miniRepository = appManager.miniRepository
         
         // Adjust recycler view for edge to edge
         adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
@@ -80,9 +79,9 @@ class InstalledAppsFragment :
             mainActivity.activityBinding.toolbarBottom.title = getString(R.string.installed_apps)
             
             installedAppsList =
-                miniRepository.miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
-                                                           statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
-                                                           orderPref = preferenceManager.getInt(A_Z_SORT))
+                miniRepository.miniInstalledAppsListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                                                           statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                                                           orderPref = prefManager.getInt(A_Z_SORT))
             
             if (installedAppsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
@@ -109,14 +108,14 @@ class InstalledAppsFragment :
     
     override fun onResume() {
         super.onResume()
-        if (appManager.isDataUpdated) {
+        if (DataState.isDataUpdated) {
             lifecycleScope.launch {
                 installedAppItemAdapter
                     .updateList(miniRepository
-                                    .miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
-                                                                 statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
-                                                                 orderPref = preferenceManager.getInt(A_Z_SORT)))
-                appManager.isDataUpdated = false
+                                    .miniInstalledAppsListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                                                                 statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                                                                 orderPref = prefManager.getInt(A_Z_SORT)))
+                DataState.isDataUpdated = false
             }
         }
     }
@@ -129,14 +128,14 @@ class InstalledAppsFragment :
     
     private fun refreshInstalledApps() {
         lifecycleScope.launch {
-            val mainRepository = appManager.mainRepository
+            val mainRepository by inject<MainDataRepository>()
             mainRepository.installedAppsIntoDB(requireContext())
             fragmentBinding.swipeRefreshLayout.isRefreshing = false
             installedAppItemAdapter
                 .updateList(miniRepository
-                                .miniInstalledAppsListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
-                                                             statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
-                                                             orderPref = preferenceManager.getInt(A_Z_SORT)))
+                                .miniInstalledAppsListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                                                             statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                                                             orderPref = prefManager.getInt(A_Z_SORT)))
         }
     }
     

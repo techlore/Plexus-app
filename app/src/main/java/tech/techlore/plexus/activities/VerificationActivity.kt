@@ -26,18 +26,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityVerificationBinding
-import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
 class VerificationActivity : AppCompatActivity() {
     
     lateinit var activityBinding: ActivityVerificationBinding
     lateinit var navController: NavController
-    lateinit var nameString: String
-    lateinit var packageNameString: String
-    lateinit var installedVersionString: String
-    var installedBuild = 0
-    lateinit var installedFromString: String
-    var isInPlexusData = true
     var emailString = ""
     var deviceId = ""
     
@@ -53,12 +46,6 @@ class VerificationActivity : AppCompatActivity() {
     
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.verificationNavHost) as NavHostFragment
         navController = navHostFragment.navController
-        nameString = intent.getStringExtra("name")!!
-        packageNameString = intent.getStringExtra("packageName")!!
-        installedVersionString = intent.getStringExtra("installedVersion")!!
-        installedBuild = intent.getIntExtra("installedBuild", 0)
-        installedFromString = intent.getStringExtra("installedFrom")!!
-        isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
     
         activityBinding.verificationBottomAppBar.apply {
             setSupportActionBar(this)
@@ -69,8 +56,6 @@ class VerificationActivity : AppCompatActivity() {
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            startDetailsActivity(this@VerificationActivity, packageNameString)
-            overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
             finish()
         }
     }

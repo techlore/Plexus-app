@@ -35,13 +35,15 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySubmitBinding
 import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.submit.ConfirmSubmitBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.submit.SubmitBottomSheet
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
+import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
@@ -51,6 +53,7 @@ import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
 import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
+import kotlin.getValue
 
 class SubmitActivity : AppCompatActivity() {
     
@@ -78,7 +81,6 @@ class SubmitActivity : AppCompatActivity() {
         installedBuild = intent.getIntExtra("installedBuild", 0)
         installedFromString = intent.getStringExtra("installedFrom")!!
         isInPlexusData = intent.getBooleanExtra("isInPlexusData", true)
-        val appManager = applicationContext as ApplicationManager
         var job: Job? = null
         
         // Adjust scrollview for edge to edge
@@ -118,7 +120,7 @@ class SubmitActivity : AppCompatActivity() {
         
         activityBinding.dgMgText.apply {
             val (statusIcon, statusText) =
-                if (appManager.isDeviceMicroG) {
+                if (DeviceState.isDeviceMicroG) {
                     Pair(ContextCompat.getDrawable(context, R.drawable.ic_microg),
                          "${getString(R.string.microG)} ${getString(R.string.status)}")
                 }
@@ -158,7 +160,8 @@ class SubmitActivity : AppCompatActivity() {
         
         // FAB
         activityBinding.submitFab.setOnClickListener {
-            if ((applicationContext as ApplicationManager).preferenceManager.getBoolean(CONF_BEFORE_SUBMIT, defValue = false)) {
+            val prefManager by inject<PreferenceManager>()
+            if (prefManager.getBoolean(CONF_BEFORE_SUBMIT, defValue = false)) {
                 ConfirmSubmitBottomSheet().show(supportFragmentManager, "ConfirmSubmitBottomSheet")
             }
             else {

@@ -26,25 +26,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import retrofit2.awaitResponse
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.LAST_UPDATED
+import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.utils.PackageUtils.Companion.scannedInstalledAppsList
 import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedScore
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
 
-class MainDataRepository(private val mainDataDao: MainDataDao) {
+class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
+    
+    val apiRepository by inject<ApiRepository>()
+    val prefManager by inject<PreferenceManager>()
     
     suspend fun plexusDataIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
-            val appManager = context.applicationContext as ApplicationManager
-            val apiRepository = appManager.apiRepository
-            val lastUpdated = appManager.preferenceManager.getString(LAST_UPDATED)
+            val lastUpdated = prefManager.getString(LAST_UPDATED)
             val currentDateTime = Date()
             val appsCall = apiRepository.getAppsWithScores(pageNumber = 1, lastUpdated)
             val appsResponse = appsCall.awaitResponse()
@@ -74,7 +78,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
                         requests.awaitAll()
                     }
                 }
-                appManager.preferenceManager.setString(LAST_UPDATED, formatDateTimeRFC3339(currentDateTime))
+                prefManager.setString(LAST_UPDATED, formatDateTimeRFC3339(currentDateTime))
             }
         }
     }
@@ -151,9 +155,8 @@ class MainDataRepository(private val mainDataDao: MainDataDao) {
         }
     }
     
-    suspend fun updateSingleApp(context: Context, packageName: String) {
+    suspend fun updateSingleApp(packageName: String) {
         withContext(Dispatchers.IO) {
-            val apiRepository = (context.applicationContext as ApplicationManager).apiRepository
             val singleAppCall = apiRepository.getSingleAppWithScores(packageName)
             val singleAppResponse = singleAppCall.awaitResponse()
             if (singleAppResponse.isSuccessful) {

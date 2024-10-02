@@ -29,11 +29,12 @@ import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetHelpBinding
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 
 class HelpBottomSheet : BottomSheetDialogFragment() {
@@ -77,7 +78,7 @@ class HelpBottomSheet : BottomSheetDialogFragment() {
     }
     
     override fun onDismiss(dialog: DialogInterface) {
-        (requireContext().applicationContext as ApplicationManager).preferenceManager.apply {
+        get<PreferenceManager>().apply {
             if (getBoolean(IS_FIRST_LAUNCH)) {
                 setBoolean(IS_FIRST_LAUNCH, false)
                 requireActivity().finish()

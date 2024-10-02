@@ -26,7 +26,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieDrawable
@@ -40,9 +39,10 @@ import org.json.JSONObject
 import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SubmitActivity
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetSubmitBinding
 import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.myratings.MyRatingDetails
@@ -50,10 +50,14 @@ import tech.techlore.plexus.models.post.app.PostApp
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.rating.PostRating
 import tech.techlore.plexus.models.post.rating.PostRatingRoot
+import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
 import tech.techlore.plexus.repositories.api.ApiRepository
+import tech.techlore.plexus.repositories.database.MainDataRepository
+import tech.techlore.plexus.repositories.database.MyRatingsRepository
+import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
 @SuppressLint("SetTextI18n")
@@ -62,10 +66,9 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetSubmitBinding? = null
     private val bottomSheetBinding get() = _binding!!
     private lateinit var submitActivity: SubmitActivity
-    private lateinit var encPreferenceManager: EncryptedPreferenceManager
+    private val encPrefManager by inject<EncryptedPreferenceManager>()
     private lateinit var deviceToken: String
-    private lateinit var appManager: ApplicationManager
-    private lateinit var apiRepository: ApiRepository
+    private val apiRepository by inject<ApiRepository>()
     private lateinit var postAppRoot: PostAppRoot
     private lateinit var rating: PostRating
     private lateinit var postRatingRoot: PostRatingRoot
@@ -100,20 +103,17 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         submitActivity = requireActivity() as SubmitActivity
-        encPreferenceManager = EncryptedPreferenceManager(requireContext())
-        deviceToken = encPreferenceManager.getString(DEVICE_TOKEN)!!
-        appManager = requireContext().applicationContext as ApplicationManager
-        apiRepository = appManager.apiRepository
+        deviceToken = encPrefManager.getString(DEVICE_TOKEN)!!
         postAppRoot = PostAppRoot(PostApp(name = submitActivity.nameString,
                                           packageName = submitActivity.packageNameString,
                                           iconUrl = iconUrl))
         rating = PostRating(version = submitActivity.installedVersion,
                             buildNumber = submitActivity.installedBuild,
-                            romName = encPreferenceManager.getString(DEVICE_ROM)!!,
+                            romName = encPrefManager.getString(DEVICE_ROM)!!,
                             romBuild = Build.DISPLAY,
                             androidVersion = getAndroidVersionString(),
                             installedFrom = submitActivity.installedFromString,
-                            ratingType = if (appManager.isDeviceMicroG) "micro_g" else "native",
+                            ratingType = if (DeviceState.isDeviceMicroG) "micro_g" else "native",
                             score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
                             notes = submitActivity.activityBinding.submitNotesText.text.toString())
         postRatingRoot = PostRatingRoot(rating)
@@ -142,7 +142,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     
     private fun submitData() {
         lifecycleScope.launch {
-            val mainRepository = appManager.mainRepository
+            val mainRepository by inject<MainDataRepository>()
             
             if (!submitActivity.isInPlexusData) {
                 getIconUrl()
@@ -155,9 +155,8 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             
             if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                 updateMyRatingInDb(rating)
-                mainRepository.updateSingleApp(context = requireContext(),
-                                               packageName = submitActivity.packageNameString)
-                appManager.isDataUpdated = true
+                mainRepository.updateSingleApp(packageName = submitActivity.packageNameString)
+                DataState.isDataUpdated = true
                 changeAnimView(R.raw.lottie_success, false)
                 bottomSheetBinding.submitStatusText.text = getString(R.string.submit_success)
                 bottomSheetBinding.heartView.apply {
@@ -288,8 +287,8 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 response.body()?.string()?.let {
                     jacksonObjectMapper().readValue(it, VerifyDeviceResponseRoot::class.java)
                 }
-            encPreferenceManager.setString(DEVICE_TOKEN, verifyDeviceResponse?.deviceToken!!.token)
-            deviceToken = encPreferenceManager.getString(DEVICE_TOKEN)!!
+            encPrefManager.setString(DEVICE_TOKEN, verifyDeviceResponse?.deviceToken!!.token)
+            deviceToken = encPrefManager.getString(DEVICE_TOKEN)!!
         }
         else {
             onPostFailed(response.code())
@@ -327,11 +326,10 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                               myRatingScore = rating.score,
                                               notes = rating.notes)
         
-        appManager.myRatingsRepository
-            .insertOrUpdateMyRatings(name = submitActivity.nameString,
-                                     packageName = submitActivity.packageNameString,
-                                     iconUrl = iconUrl,
-                                     myRatingDetails = myRatingDetails)
+        get<MyRatingsRepository>().insertOrUpdateMyRatings(name = submitActivity.nameString,
+                                                    packageName = submitActivity.packageNameString,
+                                                    iconUrl = iconUrl,
+                                                    myRatingDetails = myRatingDetails)
     }
     
     override fun onDestroyView() {

@@ -37,14 +37,15 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.color.MaterialColors
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.main.DeleteAccountBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 
 class MainActivity : AppCompatActivity(), MenuProvider {
@@ -85,7 +86,8 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Set default view
         // Theme bottom sheet was reused for this purpose
         // Don't get confused by the "R.id.followSystem" & "R.id.light"
-        when ((applicationContext as ApplicationManager).preferenceManager.getInt(DEF_VIEW, R.id.followSystem)) {
+        val prefManager by inject<PreferenceManager>()
+        when (prefManager.getInt(DEF_VIEW, R.id.followSystem)) {
             R.id.followSystem -> {
                 defaultFragment = R.id.plexusDataFragment
                 defaultSelectedNavItem = R.id.nav_plexus_data

@@ -26,11 +26,12 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
@@ -54,7 +55,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
+        val prefManager by inject<PreferenceManager>()
         val checkIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
         val isInstalledAppsFragment =
             navController.currentDestination!!.id in setOf(R.id.installedAppsFragment, R.id.favoritesFragment)
@@ -65,30 +66,30 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
     
         // Default alphabetical checked chip
-        if (preferenceManager.getInt(A_Z_SORT) == 0) {
-            preferenceManager.setInt(A_Z_SORT, R.id.sortAZ)
+        if (prefManager.getInt(A_Z_SORT) == 0) {
+            prefManager.setInt(A_Z_SORT, R.id.sortAZ)
         }
-        bottomSheetBinding.alphabeticalChipGroup.check(preferenceManager.getInt(A_Z_SORT))
+        bottomSheetBinding.alphabeticalChipGroup.check(prefManager.getInt(A_Z_SORT))
         
         // Installed from chip group
         if (isInstalledAppsFragment) {
             bottomSheetBinding.sortInstalledFromText.isVisible = true
             bottomSheetBinding.installedFromChipGroup.apply {
                 isVisible = true
-                if (preferenceManager.getInt(INSTALLED_FROM_SORT) == 0) {
-                    preferenceManager.setInt(INSTALLED_FROM_SORT, R.id.sortInstalledAny)
+                if (prefManager.getInt(INSTALLED_FROM_SORT) == 0) {
+                    prefManager.setInt(INSTALLED_FROM_SORT, R.id.sortInstalledAny)
                 }
-                check(preferenceManager.getInt(INSTALLED_FROM_SORT))
+                check(prefManager.getInt(INSTALLED_FROM_SORT))
             }
         }
     
         // Status toggle button group
         if (!isMyRatingsFragment) {
             bottomSheetBinding.statusToggleGroup.apply {
-                if (preferenceManager.getInt(STATUS_TOGGLE) == 0) {
-                    preferenceManager.setInt(STATUS_TOGGLE, R.id.toggleAnyStatus)
+                if (prefManager.getInt(STATUS_TOGGLE) == 0) {
+                    prefManager.setInt(STATUS_TOGGLE, R.id.toggleAnyStatus)
                 }
-                val selectedToggle =  preferenceManager.getInt(STATUS_TOGGLE)
+                val selectedToggle =  prefManager.getInt(STATUS_TOGGLE)
                 check(selectedToggle)
                 findViewById<MaterialButton>(selectedToggle).icon = checkIcon
                 addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -110,23 +111,23 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         // Status chip group
         if (bottomSheetBinding.statusToggleGroup.isVisible) {
             bottomSheetBinding.statusChipGroup.apply {
-                if (preferenceManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
+                if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
                     isVisible = true
             
                     // Default de-Googled status checked chip
-                    if (preferenceManager.getInt(DG_STATUS_SORT) == 0) {
-                        preferenceManager.setInt(DG_STATUS_SORT, R.id.sortNotTested)
+                    if (prefManager.getInt(DG_STATUS_SORT) == 0) {
+                        prefManager.setInt(DG_STATUS_SORT, R.id.sortNotTested)
                     }
-                    check(preferenceManager.getInt(DG_STATUS_SORT))
+                    check(prefManager.getInt(DG_STATUS_SORT))
                 }
-                else if (preferenceManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
+                else if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
                     isVisible = true
             
                     // Default microG status checked chip
-                    if (preferenceManager.getInt(MG_STATUS_SORT) == 0) {
-                        preferenceManager.setInt(MG_STATUS_SORT, R.id.sortNotTested)
+                    if (prefManager.getInt(MG_STATUS_SORT) == 0) {
+                        prefManager.setInt(MG_STATUS_SORT, R.id.sortNotTested)
                     }
-                    check(preferenceManager.getInt(MG_STATUS_SORT))
+                    check(prefManager.getInt(MG_STATUS_SORT))
                 }
                 else {
                     isVisible = false
@@ -136,19 +137,19 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     
         // Done
         footerBinding.positiveButton.setOnClickListener {
-            preferenceManager.setInt(A_Z_SORT,
-                                     bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
-            if (isInstalledAppsFragment) preferenceManager.setInt(INSTALLED_FROM_SORT,
-                                                                  bottomSheetBinding.installedFromChipGroup.checkedChipId)
-            preferenceManager.setInt(STATUS_TOGGLE,
-                                     bottomSheetBinding.statusToggleGroup.checkedButtonId)
-            if (preferenceManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
-                preferenceManager.setInt(DG_STATUS_SORT,
-                                         bottomSheetBinding.statusChipGroup.checkedChipId)
+            prefManager.setInt(A_Z_SORT,
+                               bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
+            if (isInstalledAppsFragment) prefManager.setInt(INSTALLED_FROM_SORT,
+                                                            bottomSheetBinding.installedFromChipGroup.checkedChipId)
+            prefManager.setInt(STATUS_TOGGLE,
+                               bottomSheetBinding.statusToggleGroup.checkedButtonId)
+            if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
+                prefManager.setInt(DG_STATUS_SORT,
+                                   bottomSheetBinding.statusChipGroup.checkedChipId)
             }
-            else if (preferenceManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
-                preferenceManager.setInt(MG_STATUS_SORT,
-                                         bottomSheetBinding.statusChipGroup.checkedChipId)
+            else if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
+                prefManager.setInt(MG_STATUS_SORT,
+                                   bottomSheetBinding.statusChipGroup.checkedChipId)
             }
         
             dismiss()

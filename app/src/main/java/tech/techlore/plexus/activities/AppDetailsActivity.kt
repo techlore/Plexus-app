@@ -47,9 +47,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.inject
 import retrofit2.awaitResponse
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.fragments.bottomsheets.appdetails.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.appdetails.RomSelectionBottomSheet
@@ -60,10 +60,14 @@ import tech.techlore.plexus.fragments.bottomsheets.submit.StartSubmitBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.ratingrange.RatingRange
+import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
+import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
+import tech.techlore.plexus.repositories.database.MyRatingsRepository
+import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
@@ -74,14 +78,15 @@ import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
+import kotlin.getValue
 
 class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
     private lateinit var activityBinding: ActivityAppDetailsBinding
     lateinit var navController: NavController
     private lateinit var packageNameString: String
-    private lateinit var appManager: ApplicationManager
-    private lateinit var mainRepository: MainDataRepository
+    private val apiRepository by inject<ApiRepository>()
+    private val mainRepository by inject<MainDataRepository>()
     private lateinit var app: MainData
     private var ratingsList = ArrayList<Rating>()
     private var hasRatings = false
@@ -128,9 +133,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         packageNameString = intent.getStringExtra("packageName")!!
-        appManager = applicationContext as ApplicationManager
-        mainRepository = appManager.mainRepository
-        val myRatingsRepository = appManager.myRatingsRepository
+        val myRatingsRepository by inject<MyRatingsRepository>()
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
@@ -211,7 +214,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      getString(R.string.install_app_to_submit, app.name),
                                      activityBinding.detailsBottomAppBar)
                     
-                    !appManager.isDeviceDeGoogled && !appManager.isDeviceMicroG ->
+                    !DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
                                      activityBinding.detailsBottomAppBar)
@@ -220,16 +223,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         RomSelectionBottomSheet().show(supportFragmentManager, "RomSelectionBottomSheet")
                     
                     !encPreferenceManager.getBoolean(IS_REGISTERED) -> {
-                        startActivity(Intent(this@AppDetailsActivity,
-                                             VerificationActivity::class.java)
-                                          .putExtra("name", app.name)
-                                          .putExtra("packageName", app.packageName)
-                                          .putExtra("installedVersion", app.installedVersion)
-                                          .putExtra("installedBuild", app.installedBuild)
-                                          .putExtra("installedFrom", app.installedFrom)
-                                          .putExtra("isInPlexusData", app.isInPlexusData))
+                        startActivity(Intent(this@AppDetailsActivity, VerificationActivity::class.java))
                         overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
-                        finish()
                     }
                     
                     myRatingExists ->
@@ -267,7 +262,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private fun retrieveRatings() {
         lifecycleScope.launch {
             if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
-                val apiRepository = appManager.apiRepository
                 val ratingsCall = apiRepository.getRatings(packageName = app.packageName, pageNumber = 1)
                 val ratingsResponse = ratingsCall.awaitResponse()
                 
@@ -303,9 +297,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                             requests.awaitAll()
                         }
                     }
+                    
+                    afterRatingsRetrieved()
                 }
-                
-                afterRatingsRetrieved()
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
@@ -323,10 +317,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             // Since the latest ratings, scores etc. are already retrieved & calculated,
             // update in db
             if (hasRatings) {
-                mainRepository.updateSingleApp(context = this@AppDetailsActivity,
-                                               packageName = packageNameString)
+                mainRepository.updateSingleApp(packageName = packageNameString)
                 app = mainRepository.getAppByPackage(packageNameString)!!
-                appManager.isDataUpdated = true
+                DataState.isDataUpdated = true
             }
             
             withContext(Dispatchers.Default) {
@@ -374,7 +367,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             
             // Chip group
             activityBinding.totalScoreChipGroup.apply {
-                check(if (appManager.isDeviceMicroG) R.id.mgScoreChip
+                check(if (DeviceState.isDeviceMicroG) R.id.mgScoreChip
                       else R.id.dgScoreChip)
                 setOnCheckedStateChangeListener { group, _ ->
                     displayTotalScore(
@@ -392,7 +385,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 showViewWithAnimation(it)
             }
             
-            displayTotalScore(isMicroG = appManager.isDeviceMicroG)
+            displayTotalScore(isMicroG = DeviceState.isDeviceMicroG)
             
             activityBinding.totalRatingsCount.apply {
                 text = "${getString(R.string.total_ratings)}: ${(app.totalDgRatings + app.totalMgRatings)}"

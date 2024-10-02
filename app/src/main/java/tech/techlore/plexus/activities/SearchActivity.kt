@@ -28,11 +28,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 
 class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListener {
@@ -48,7 +49,7 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
         val activityBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        val miniRepository = (applicationContext as ApplicationManager).miniRepository
+        val miniRepository by inject<MainDataMinimalRepository>()
         searchDataList = ArrayList()
         var job: Job? = null
         

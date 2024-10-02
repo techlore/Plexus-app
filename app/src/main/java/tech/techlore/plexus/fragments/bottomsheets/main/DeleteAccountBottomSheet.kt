@@ -25,9 +25,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetDeleteAccountBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
@@ -36,6 +36,7 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEV
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
+import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
 class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
@@ -70,7 +71,7 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
                     deleteString(DEVICE_ROM)
                     setBoolean(IS_REGISTERED, false)
                     lifecycleScope.launch {
-                        (requireContext().applicationContext as ApplicationManager).myRatingsRepository.deleteAllRatings()
+                        get<MyRatingsRepository>().deleteAllRatings()
                     }
                 }
                 dismiss()

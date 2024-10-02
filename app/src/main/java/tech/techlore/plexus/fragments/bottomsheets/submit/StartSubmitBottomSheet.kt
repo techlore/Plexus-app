@@ -22,12 +22,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetStartSubmitBinding
+import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
+import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
+import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
+import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
 
 class StartSubmitBottomSheet : BottomSheetDialogFragment() {
     
@@ -44,14 +52,42 @@ class StartSubmitBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
+        var job: Job? = null
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
-        BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
-            negativeButton.setOnClickListener {
-                ConfirmSubmitBottomSheet().show(parentFragmentManager, "")
+        
+        // Chip group
+        bottomSheetBinding.submitStatusChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+            footerBinding.positiveButton.isEnabled = checkedIds.isNotEmpty()
+            bottomSheetBinding.submitNotesBox.isEnabled = checkedIds.isNotEmpty()
+        }
+        
+        // Notes
+        val maxTextLength: Int
+        bottomSheetBinding.submitNotesBox.apply {
+            hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
+            maxTextLength = counterMaxLength
+        }
+        bottomSheetBinding.submitNotesText.doOnTextChanged { charSequence, _, _, _ ->
+            job?.cancel()
+            job = lifecycleScope.launch {
+                delay(300)
+                footerBinding.positiveButton.isEnabled =
+                    charSequence!!.isEmpty()
+                    || (charSequence.length in 5..maxTextLength
+                        && !hasBlockedWord(requireContext(), charSequence)
+                        && !hasRepeatedChars(charSequence)
+                        && !hasEmojis(charSequence)
+                        && !hasURL(charSequence))
             }
         }
-    }
+        
+        footerBinding.negativeButton.setOnClickListener {
+                ConfirmSubmitBottomSheet().show(parentFragmentManager, "ConfirmSubmitBottomSheet")
+            }
+        }
     
     override fun onDestroyView() {
         super.onDestroyView()

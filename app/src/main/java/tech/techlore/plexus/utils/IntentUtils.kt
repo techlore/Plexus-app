@@ -25,7 +25,6 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
-import tech.techlore.plexus.activities.SubmitActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
 class IntentUtils {
@@ -36,24 +35,6 @@ class IntentUtils {
         fun startDetailsActivity(activityFrom: Activity, packageName: String) {
             activityFrom.startActivity(Intent(activityFrom, AppDetailsActivity::class.java)
                                            .putExtra("packageName", packageName))
-        }
-        
-        fun startSubmitActivity(activityFrom: Activity,
-                                name: String,
-                                packageName: String,
-                                installedVersion: String,
-                                installedBuild: Int,
-                                installedFrom: String,
-                                isInPlexusData: Boolean) {
-            activityFrom.startActivity(Intent(activityFrom, SubmitActivity::class.java)
-                                           .putExtra("name", name)
-                                           .putExtra("packageName", packageName)
-                                           .putExtra("installedVersion", installedVersion)
-                                           .putExtra("installedBuild", installedBuild)
-                                           .putExtra("installedFrom", installedFrom)
-                                           .putExtra("isInPlexusData", isInPlexusData))
-            activityFrom.finish()
-            activityFrom.overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
         }
         
         // Open links

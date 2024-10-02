@@ -32,12 +32,14 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityFirstBinding
 import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
+import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.SystemUtils.Companion.isDeviceDeGoogledOrMicroG
@@ -73,7 +75,8 @@ class FirstActivity : AppCompatActivity() {
     private fun retrieveData() {
         lifecycleScope.launch{
             if (hasNetwork(this@FirstActivity) && hasInternet()) {
-                (applicationContext as ApplicationManager).mainRepository.apply {
+                val mainRepository by inject<MainDataRepository>()
+                mainRepository.apply {
                     plexusDataIntoDB(this@FirstActivity)
                     activityBinding.progressText.text = getString(R.string.scan_installed)
                     installedAppsIntoDB(this@FirstActivity)
@@ -91,7 +94,8 @@ class FirstActivity : AppCompatActivity() {
     }
     
     private fun afterDataRetrieved() {
-        (applicationContext as ApplicationManager).preferenceManager.apply {
+        val prefManager by inject<PreferenceManager>()
+        prefManager.apply {
             if (getBoolean(IS_FIRST_LAUNCH)) {
                 val fadeOut = AlphaAnimation(1.0f, 0.0f).apply { duration = 300L }
                 activityBinding.apply {

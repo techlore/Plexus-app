@@ -24,21 +24,21 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import okhttp3.ResponseBody
+import org.koin.android.ext.android.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.VerificationActivity
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetEmailVerificationBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.models.get.responses.RegisterDeviceResponse
 import tech.techlore.plexus.models.post.device.RegisterDevice
+import tech.techlore.plexus.repositories.api.ApiRepository
 import java.util.UUID
 
 class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialogFragment() {
@@ -79,7 +79,6 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
         
         // Retry
         footerBinding.positiveButton.apply {
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_retry)
             text = getString(R.string.retry)
             isEnabled = false
             setOnClickListener {
@@ -96,7 +95,7 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
     }
     
     private fun registerDevice() {
-        val apiRepository = (requireContext().applicationContext as ApplicationManager).apiRepository
+        val apiRepository by inject<ApiRepository>()
         val randomId = UUID.randomUUID().toString()
         val registerDeviceCall = apiRepository.registerDevice(RegisterDevice(email = email,
                                                                              deviceId = randomId))

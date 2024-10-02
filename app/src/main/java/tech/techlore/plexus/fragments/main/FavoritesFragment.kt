@@ -25,12 +25,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.FavoriteItemAdapter
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
@@ -45,12 +46,11 @@ class FavoritesFragment:
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
-    private lateinit var appManager: ApplicationManager
     private lateinit var mainActivity: MainActivity
     private lateinit var favItemAdapter: FavoriteItemAdapter
     private lateinit var favList: ArrayList<MainDataMinimal>
-    private lateinit var preferenceManager: PreferenceManager
-    private lateinit var miniRepository: MainDataMinimalRepository
+    private val prefManager by inject<PreferenceManager>()
+    private val miniRepository by inject<MainDataMinimalRepository>()
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -63,19 +63,16 @@ class FavoritesFragment:
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        appManager = requireContext().applicationContext as ApplicationManager
-        preferenceManager = appManager.preferenceManager
         mainActivity = requireActivity() as MainActivity
-        miniRepository = appManager.miniRepository
         
         // Adjust recycler view for edge to edge
         adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
         
         lifecycleScope.launch{
             favList =
-                miniRepository.miniFavListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
-                                                 statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
-                                                 orderPref = preferenceManager.getInt(A_Z_SORT))
+                miniRepository.miniFavListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                                                 statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                                                 orderPref = prefManager.getInt(A_Z_SORT))
     
             if (favList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
@@ -98,14 +95,14 @@ class FavoritesFragment:
     
     override fun onResume() {
         super.onResume()
-        if (appManager.isDataUpdated) {
+        if (DataState.isDataUpdated) {
             lifecycleScope.launch{
                 favItemAdapter
                     .updateList(miniRepository
-                                    .miniFavListFromDB(installedFromPref = preferenceManager.getInt(INSTALLED_FROM_SORT),
-                                                       statusToggleBtnPref = preferenceManager.getInt(STATUS_TOGGLE),
-                                                       orderPref = preferenceManager.getInt(A_Z_SORT)))
-                appManager.isDataUpdated = false
+                                    .miniFavListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                                                       statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                                                       orderPref = prefManager.getInt(A_Z_SORT)))
+                DataState.isDataUpdated = false
             }
         }
     }

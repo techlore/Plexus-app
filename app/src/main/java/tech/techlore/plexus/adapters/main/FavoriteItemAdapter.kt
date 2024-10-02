@@ -31,9 +31,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.PopupTextProvider
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
@@ -43,7 +45,7 @@ import kotlin.collections.ArrayList
 class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>,
                           private val clickListener: OnItemClickListener,
                           private val coroutineScope: CoroutineScope) :
-    RecyclerView.Adapter<FavoriteItemAdapter.ListViewHolder>(), PopupTextProvider {
+    RecyclerView.Adapter<FavoriteItemAdapter.ListViewHolder>(), KoinComponent, PopupTextProvider {
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -116,7 +118,7 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
             setOnCheckedChangeListener{ _, isChecked ->
                 favorite.isFav = isChecked
                 coroutineScope.launch {
-                    (context.applicationContext as ApplicationManager).miniRepository.updateFav(favorite)
+                    get<MainDataMinimalRepository>().updateFav(favorite)
                 }
                 
                 val currentPosition = holder.bindingAdapterPosition

@@ -24,11 +24,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 
 // Reuse "Theme" bottom sheet layout
@@ -47,7 +48,7 @@ class DefaultViewBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
+        val prefManager by inject<PreferenceManager>()
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.default_view)
@@ -71,12 +72,12 @@ class DefaultViewBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.themeChipGroup.apply {
             
             // Default checked chip
-            check(preferenceManager.getInt(DEF_VIEW, R.id.followSystem))
+            check(prefManager.getInt(DEF_VIEW, R.id.followSystem))
             
             // On selecting option
             setOnCheckedStateChangeListener { _, checkedIds ->
                 val checkedChip = checkedIds.first()
-                preferenceManager.setInt(DEF_VIEW, checkedChip)
+                prefManager.setInt(DEF_VIEW, checkedChip)
                 dismiss()
             }
         }

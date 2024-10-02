@@ -32,19 +32,21 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.MyRatingsDetailsActivity
 import tech.techlore.plexus.adapters.main.MyRatingsItemAdapter
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
+import kotlin.getValue
 
 class MyRatingsFragment :
     Fragment(),
@@ -55,7 +57,6 @@ class MyRatingsFragment :
     private lateinit var mainActivity: MainActivity
     private lateinit var myRatingsItemAdapter: MyRatingsItemAdapter
     private lateinit var myRatingsList: ArrayList<MyRating>
-    private lateinit var myRatingsRepository: MyRatingsRepository
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -69,8 +70,8 @@ class MyRatingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         mainActivity = requireActivity() as MainActivity
-        val appManager = requireContext().applicationContext as ApplicationManager
-        myRatingsRepository = appManager.myRatingsRepository
+        val prefManager by inject<PreferenceManager>()
+        val myRatingsRepository by inject<MyRatingsRepository>()
         
         // Adjust UI components for edge to edge
         adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
@@ -87,7 +88,7 @@ class MyRatingsFragment :
         
         lifecycleScope.launch{
             myRatingsList =
-                myRatingsRepository.getSortedMyRatingsByName(orderPref = appManager.preferenceManager.getInt(A_Z_SORT))
+                myRatingsRepository.getSortedMyRatingsByName(orderPref = prefManager.getInt(A_Z_SORT))
             
             if (myRatingsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
@@ -96,7 +97,7 @@ class MyRatingsFragment :
                     .apply {
                         setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
                         text =
-                            if (appManager.preferenceManager.getBoolean(IS_FIRST_SUBMISSION)) {
+                            if (prefManager.getBoolean(IS_FIRST_SUBMISSION)) {
                                 getString(R.string.no_ratings_available) +
                                 "\n\n" +
                                 getString(R.string.submit_first_rating)

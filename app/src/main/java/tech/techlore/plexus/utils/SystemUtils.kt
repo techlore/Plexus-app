@@ -21,7 +21,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.objects.DeviceState
 
 class SystemUtils {
     
@@ -48,13 +48,13 @@ class SystemUtils {
                                 getAppInfo(packageManager, packageName)?.let {
                                     packageManager.getApplicationLabel(it).toString()
                                 }
-                            appLabel?.let { ! it.startsWith("Google", ignoreCase = true) } ?: false
+                            appLabel?.let { !it.startsWith("Google", ignoreCase = true) } ?: false
                         }
                     }
                     else -> - 1
                 }
             
-            (context.applicationContext as ApplicationManager). apply {
+            DeviceState.apply {
                 isDeviceMicroG = installedGappsPackagesList.size == microGCount
                 isDeviceDeGoogled = installedGappsPackagesList.isEmpty()
             }

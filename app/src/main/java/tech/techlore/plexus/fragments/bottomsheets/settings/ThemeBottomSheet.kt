@@ -24,11 +24,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
+import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 import tech.techlore.plexus.utils.UiUtils.Companion.setAppTheme
 
@@ -47,7 +48,7 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val preferenceManager = (requireContext().applicationContext as ApplicationManager).preferenceManager
+        val prefManager by inject<PreferenceManager>()
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.theme)
@@ -59,20 +60,20 @@ class ThemeBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.themeChipGroup.apply {
             
             // Default checked chip
-            if (preferenceManager.getInt(THEME) == 0) {
+            if (prefManager.getInt(THEME) == 0) {
                 if (Build.VERSION.SDK_INT >= 29) {
-                    preferenceManager.setInt(THEME, R.id.followSystem)
+                    prefManager.setInt(THEME, R.id.followSystem)
                 }
                 else {
-                    preferenceManager.setInt(THEME, R.id.light)
+                    prefManager.setInt(THEME, R.id.light)
                 }
             }
-            check(preferenceManager.getInt(THEME))
+            check(prefManager.getInt(THEME))
             
             // On selecting option
             setOnCheckedStateChangeListener { _, checkedIds ->
                 val checkedChip = checkedIds.first()
-                preferenceManager.setInt(THEME, checkedChip)
+                prefManager.setInt(THEME, checkedChip)
                 setAppTheme(checkedChip)
                 dismiss()
                 

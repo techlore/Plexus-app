@@ -20,8 +20,9 @@ package tech.techlore.plexus.repositories.database
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.minimal.MainDataMinimal
@@ -30,10 +31,11 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SO
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToScoreRange
+import kotlin.getValue
 
-class MainDataMinimalRepository(private val context: Context, private val mainDataDao: MainDataDao) {
+class MainDataMinimalRepository(private val context: Context, private val mainDataDao: MainDataDao): KoinComponent {
     
-    private val appManager = context.applicationContext as ApplicationManager
+    private val prefManager by inject<PreferenceManager>()
     
     private suspend fun mapToMinimalData(mainData: MainData): MainDataMinimal {
         return withContext(Dispatchers.IO) {
@@ -53,13 +55,11 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                                          orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
-            val preferenceManager = appManager.preferenceManager
-            
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
+                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
             
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
+                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sortZA
             
@@ -75,8 +75,6 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                                             orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
-            val preferenceManager = appManager.preferenceManager
-            
             val installedFrom =
                 when(installedFromPref) {
                     R.id.sortInstalledGooglePlayAlt -> "google_play_alternative"
@@ -86,10 +84,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                 }
     
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
+                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
     
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
+                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sortZA
             
@@ -105,8 +103,6 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                                   orderPref: Int): ArrayList<MainDataMinimal> {
         return withContext(Dispatchers.IO) {
             
-            val preferenceManager = appManager.preferenceManager
-            
             val installedFrom =
                 when(installedFromPref) {
                     R.id.sortInstalledGooglePlayAlt -> "google_play_alternative"
@@ -116,10 +112,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                 }
     
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
+                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
     
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(preferenceManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
+                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
             
             val isAsc = orderPref != R.id.sortZA
             

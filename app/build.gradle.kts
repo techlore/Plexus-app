@@ -66,6 +66,7 @@ android {
 dependencies {
     implementation(libs.bundles.androidxCoreComponents)
     implementation(libs.material3)
+    implementation(libs.bundles.koin)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.security.crypto.ktx)
     implementation(libs.bundles.navigation)
