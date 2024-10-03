@@ -72,12 +72,6 @@
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustNothing"/>
 
-        <!--Submit Activity-->
-        <activity
-            android:name=".activities.SubmitActivity"
-            android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="adjustPan"/>
-
         <!-- Settings activity -->
         <activity
             android:name=".activities.SettingsActivity"

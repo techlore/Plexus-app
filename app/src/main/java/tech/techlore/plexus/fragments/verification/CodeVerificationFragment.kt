@@ -24,7 +24,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.text.isDigitsOnly
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +40,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.databinding.FragmentCodeVerificationBinding
 import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
@@ -45,6 +50,7 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEV
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
 import tech.techlore.plexus.repositories.api.ApiRepository
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 
 class CodeVerificationFragment : Fragment() {
     
@@ -64,6 +70,19 @@ class CodeVerificationFragment : Fragment() {
         
         verificationActivity = (requireActivity() as VerificationActivity)
         var job: Job? = null
+        
+        // Adjust linear layout for edge to edge
+        ViewCompat.setOnApplyWindowInsetsListener(fragmentBinding.codeVerificationLayout) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                        or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(left = insets.left,
+                            top = insets.top,
+                            right = insets.right)
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 80f)
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         
         // Title
         fragmentBinding.titleText.text = getString(R.string.enter_code_sent_to_email,

@@ -21,13 +21,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/codeVerificationLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/margin_16"
-    android:gravity="center"
-    android:fitsSystemWindows="true"
-    android:clipToPadding="false">
+    android:gravity="center">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/titleText"
@@ -82,7 +81,9 @@
         app:indicatorSize="48dp"
         app:containerWidth="68dp"
         app:containerHeight="68dp"
-        style="@style/Widget.Material3.LoadingIndicator.Contained"/>
+        style="@style/Widget.Material3.LoadingIndicator.Contained"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/infoText"

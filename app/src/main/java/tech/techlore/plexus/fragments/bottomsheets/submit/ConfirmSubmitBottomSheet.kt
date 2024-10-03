@@ -24,7 +24,6 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
-import tech.techlore.plexus.activities.SubmitActivity
 import tech.techlore.plexus.databinding.BottomSheetDeleteAccountBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding

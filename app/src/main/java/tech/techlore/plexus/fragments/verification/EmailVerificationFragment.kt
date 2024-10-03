@@ -21,6 +21,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.core.widget.doBeforeTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +40,7 @@ import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmail
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 
 class EmailVerificationFragment : Fragment() {
     
@@ -53,6 +58,19 @@ class EmailVerificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         var job: Job? = null
+        
+        // Adjust scrollview for edge to edge
+        ViewCompat.setOnApplyWindowInsetsListener(fragmentBinding.emailVerificationScrollView) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                        or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(left = insets.left,
+                            top = insets.top,
+                            right = insets.right)
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 80f)
+            }
+            WindowInsetsCompat.CONSUMED
+        }
         
         fragmentBinding.emailText.doBeforeTextChanged { charSequence, _, _, _ ->
             job?.cancel()

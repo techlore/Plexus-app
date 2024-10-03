@@ -26,7 +26,7 @@
     android:paddingVertical="@dimen/margin_8"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context=".fragments.settings.HelpFragment">
+    tools:context=".fragments.bottomsheets.common.HelpBottomSheet">
 
     <include
         layout="@layout/bottom_sheet_header"/>
@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:scrollbars="vertical"
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
 
         <androidx.constraintlayout.widget.ConstraintLayout

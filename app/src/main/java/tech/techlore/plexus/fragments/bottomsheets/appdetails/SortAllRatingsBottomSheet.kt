@@ -64,12 +64,12 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
         
-        // Version dropdown
-        bottomSheetBinding.ratingsVersionDropdownMenu.apply {
+        // App version dropdown
+        bottomSheetBinding.ratingsAppVerDropdownMenu.apply {
             setText(detailsActivity.selectedVersionString)
             val versionAdapter = ArrayAdapter(requireContext(),
                                               R.layout.item_dropdown_menu,
-                                              detailsActivity.differentVersionsList)
+                                              detailsActivity.differentLists[0])
             setAdapter(versionAdapter)
         }
         
@@ -78,7 +78,7 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
             setText(detailsActivity.selectedRomString)
             val romAdapter = ArrayAdapter(requireContext(),
                                           R.layout.item_dropdown_menu,
-                                          detailsActivity.differentRomsList)
+                                          detailsActivity.differentLists[1])
             setAdapter(romAdapter)
         }
         
@@ -87,16 +87,16 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
             setText(detailsActivity.selectedAndroidString)
             val androidAdapter = ArrayAdapter(requireContext(),
                                               R.layout.item_dropdown_menu,
-                                              detailsActivity.differentAndroidsList)
+                                              detailsActivity.differentLists[2])
             setAdapter(androidAdapter)
         }
         
         // Installed from chip checked by default
-        bottomSheetBinding.ratingsInstalledFromChipGroup.check(detailsActivity.installedFromChip)
+        bottomSheetBinding.ratingsInstalledFromChipGroup.check(detailsActivity.installedFromChipId)
         
         // Status toggle button group
         bottomSheetBinding.ratingsStatusToggleGroup.apply {
-            check(detailsActivity.statusToggleBtn)
+            check(detailsActivity.statusToggleBtnId)
             findViewById<MaterialButton>(checkedButtonId).icon = checkIcon // Add checkmark icon
             addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {
@@ -111,16 +111,16 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
         
         // Status chip group visibility
         bottomSheetBinding.ratingsStatusChipGroup.apply {
-            when (detailsActivity.statusToggleBtn) {
+            when (detailsActivity.statusToggleBtnId) {
                 R.id.ratingsToggleDgStatus -> {
                     isVisible = true
                     // Default DG status checked chip
-                    check(detailsActivity.dgStatusSort)
+                    check(detailsActivity.dgStatusSortChipId)
                 }
                 R.id.ratingsToggleMgStatus -> {
                     isVisible = true
                     // Default MG status checked chip
-                    check(detailsActivity.mgStatusSort)
+                    check(detailsActivity.mgStatusSortChipId)
                 }
                 else -> isVisible = false
             }
@@ -128,16 +128,16 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
         
         // Done
         footerBinding.positiveButton.setOnClickListener {
-            detailsActivity.selectedVersionString = bottomSheetBinding.ratingsVersionDropdownMenu.text.toString()
+            detailsActivity.selectedVersionString = bottomSheetBinding.ratingsAppVerDropdownMenu.text.toString()
             detailsActivity.selectedRomString = bottomSheetBinding.ratingsRomDropdownMenu.text.toString()
             detailsActivity.selectedAndroidString = bottomSheetBinding.ratingsAndroidDropdownMenu.text.toString()
-            detailsActivity.installedFromChip = bottomSheetBinding.ratingsInstalledFromChipGroup.checkedChipId
-            detailsActivity.statusToggleBtn = bottomSheetBinding.ratingsStatusToggleGroup.checkedButtonId
-            if (detailsActivity.statusToggleBtn == R.id.ratingsToggleDgStatus) {
-                detailsActivity.dgStatusSort = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
+            detailsActivity.installedFromChipId = bottomSheetBinding.ratingsInstalledFromChipGroup.checkedChipId
+            detailsActivity.statusToggleBtnId = bottomSheetBinding.ratingsStatusToggleGroup.checkedButtonId
+            if (detailsActivity.statusToggleBtnId == R.id.ratingsToggleDgStatus) {
+                detailsActivity.dgStatusSortChipId = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
             }
-            else if (detailsActivity.statusToggleBtn == R.id.ratingsToggleMgStatus) {
-                detailsActivity.mgStatusSort = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
+            else if (detailsActivity.statusToggleBtnId == R.id.ratingsToggleMgStatus) {
+                detailsActivity.mgStatusSortChipId = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
             }
             
             detailsActivity.isListSorted = false // Set to false so list is sorted on fragment refresh

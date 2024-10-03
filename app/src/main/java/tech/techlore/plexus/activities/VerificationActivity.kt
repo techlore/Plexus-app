@@ -57,6 +57,7 @@ class VerificationActivity : AppCompatActivity() {
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             finish()
+            overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
         }
     }
 }

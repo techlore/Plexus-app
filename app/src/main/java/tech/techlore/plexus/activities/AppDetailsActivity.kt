@@ -32,6 +32,7 @@ import android.view.animation.DecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -87,8 +88,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private lateinit var packageNameString: String
     private val apiRepository by inject<ApiRepository>()
     private val mainRepository by inject<MainDataRepository>()
-    private lateinit var app: MainData
-    private var ratingsList = ArrayList<Rating>()
+    lateinit var app: MainData
+    private var ratingsList = arrayListOf<Rating>()
     private var hasRatings = false
     private var dgGoldRatingsPercent = 0.0f
     private var dgSilverRatingsPercent = 0.0f
@@ -100,19 +101,19 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private var mgBrokenRatingsPercent = 0.0f
     var sortedRatingsList = arrayListOf<Rating>()
     var isListSorted = false
-    var differentVersionsList = listOf<String>()
-    var differentRomsList = listOf<String>()
-    var differentAndroidsList = listOf<String>()
+    var differentLists = arrayOf<List<String>>()
     lateinit var selectedVersionString: String
     lateinit var selectedRomString: String
     lateinit var selectedAndroidString: String
-    var installedFromChip = R.id.ratingsChipInstalledAny
-    var statusToggleBtn = R.id.ratingsToggleAnyStatus
-    var dgStatusSort = 0
-    var mgStatusSort = 0
+    var installedFromChipId = R.id.ratingsChipInstalledAny
+    var statusToggleBtnId = R.id.ratingsToggleAnyStatus
+    var dgStatusSortChipId = 0
+    var mgStatusSortChipId = 0
+    var submitStatusCheckedChipId = 0
+    var submitNotes = ""
     
     private companion object {
-        const val ANIM_DURATION = 500L
+        const val ANIM_DURATION = 400L
         val SHOW_ANIM_INTERPOLATOR = DecelerateInterpolator()
         val HIDE_ANIM_INTERPOLATOR = AccelerateInterpolator()
     }
@@ -247,6 +248,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             interpolator = SHOW_ANIM_INTERPOLATOR
             view.isVisible = true
             start()
+        }.doOnEnd {
+            // Show animated progress after recyclerview is shown,
+            // otherwise progress bars animation looks stuck if recyclerview has too many rows
+            if (view == activityBinding.detailsNavHost) {
+                setTotalScore(isMicroG = DeviceState.isDeviceMicroG)
+            }
         }
     }
     
@@ -350,17 +357,18 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 
                 // Get different versions, ROMs & androids from ratings list
                 // and store them in a separate list to show in sort ratings bottom sheet
-                differentVersionsList =
-                    listOf(getString(R.string.any)) +
-                    ratingsList.map { "${it.version} (${it.buildNumber})" }.distinct()
-                
-                differentRomsList =
-                    listOf(getString(R.string.any)) +
-                    ratingsList.map { it.romName }.distinct()
-                
-                differentAndroidsList =
-                    listOf(getString(R.string.any)) +
-                    ratingsList.map { it.androidVersion }.distinct()
+                differentLists =
+                    arrayOf(
+                        // App version
+                        listOf(getString(R.string.any)) +
+                        ratingsList.map { "${it.version} (${it.buildNumber})" }.distinct(),
+                        // ROMs
+                        listOf(getString(R.string.any)) +
+                        ratingsList.map { it.romName }.distinct(),
+                        // Android versions
+                        listOf(getString(R.string.any)) +
+                        ratingsList.map { it.androidVersion }.distinct()
+                    )
                 
                 sortRatings()
             }
@@ -370,32 +378,32 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 check(if (DeviceState.isDeviceMicroG) R.id.mgScoreChip
                       else R.id.dgScoreChip)
                 setOnCheckedStateChangeListener { group, _ ->
-                    displayTotalScore(
+                    setTotalScore(
                         when (group.checkedChipId) {
                             R.id.mgScoreChip -> true
                             else -> false
-                        })
+                        }
+                    )
                 }
             }
             
-            listOf(activityBinding.loadingIndicator, activityBinding.retrievingRatingsText).forEach {
-                hideViewWithAnimation(it)
-            }
-            listOf(activityBinding.totalScoreText, activityBinding.totalScoreCard).forEach {
-                showViewWithAnimation(it)
+            // Set all ratings fragment
+            navController.navInflater.inflate(R.navigation.details_fragments_nav_graph).apply {
+                setStartDestination(R.id.allRatingsFragment)
+                navController.setGraph(this, intent.extras)
             }
             
-            displayTotalScore(isMicroG = DeviceState.isDeviceMicroG)
+            listOf(activityBinding.loadingIndicator, activityBinding.retrievingRatingsText,
+                   activityBinding.totalScoreText, activityBinding.totalScoreCard).forEachIndexed { index, view ->
+                if (index < 2) hideViewWithAnimation(view)
+                else showViewWithAnimation(view)
+            }
             
             activityBinding.totalRatingsCount.apply {
                 text = "${getString(R.string.total_ratings)}: ${(app.totalDgRatings + app.totalMgRatings)}"
                 showViewWithAnimation(this)
             }
             
-            // Set all ratings fragment
-            val navGraph = navController.navInflater.inflate(R.navigation.details_fragments_nav_graph)
-            navGraph.setStartDestination(R.id.allRatingsFragment)
-            navController.setGraph(navGraph, intent.extras)
             showViewWithAnimation(activityBinding.detailsNavHost)
         }
     }
@@ -429,7 +437,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     }
     
     @SuppressLint("SetTextI18n")
-    private fun displayTotalScore(isMicroG: Boolean) {
+    private fun setTotalScore(isMicroG: Boolean) {
         val ratingsCount: Int
         val score: Float
         val goldRatingsPercent: Float
@@ -474,41 +482,47 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     
     fun sortRatings() {
         sortedRatingsList =
-            ratingsList
-                .asSequence()
-                .filter { // App version sort
-                    selectedVersionString == getString(R.string.any)
-                    || it.version == selectedVersionString.substringBefore(" (")
-                }
-                .filter { // ROM sort
-                    selectedRomString == getString(R.string.any)
-                    || it.romName == selectedRomString
-                }
-                .filter { // Android version sort
-                    selectedAndroidString == getString(R.string.any)
-                    || it.androidVersion == selectedAndroidString
-                }
-                .filter { // Installed from sort
-                    installedFromChip == R.id.ratingsChipInstalledAny
-                    || it.installedFrom == mapInstalledFromChipIdToString(installedFromChip)
-                }
-                .filter { // Status sort
-                    statusToggleBtn == R.id.ratingsToggleAnyStatus
-                    || it.ratingType == (if (statusToggleBtn == R.id.ratingsToggleDgStatus) "native" else "micro_g")
-                }
-                .filter { // Status sort
-                    when {
-                        statusToggleBtn == R.id.ratingsToggleDgStatus && dgStatusSort != R.id.ratingsSortAny -> {
-                            it.ratingScore!!.ratingScore == mapStatusChipIdToRatingScore(dgStatusSort)
-                        }
-                        statusToggleBtn == R.id.ratingsToggleMgStatus && mgStatusSort != R.id.ratingsSortAny -> {
-                            it.ratingScore!!.ratingScore == mapStatusChipIdToRatingScore(mgStatusSort)
-                        }
-                        else -> true // Include all ratings if no specific status is selected
-                    }
-                }
-                .toList()
-                .let { ArrayList(it) }
+            ArrayList<Rating>(
+                ratingsList
+                    .filter { rating ->
+                        val appVerMatches =
+                            selectedVersionString == getString(R.string.any)
+                            || rating.version == selectedVersionString.substringBefore(" (")
+                        
+                        val romMatches =
+                            selectedRomString == getString(R.string.any)
+                            || rating.romName == selectedRomString
+                        
+                        val androidMatches =
+                            selectedAndroidString == getString(R.string.any)
+                            || rating.androidVersion == selectedAndroidString
+                        
+                        val installedFromMatches =
+                            installedFromChipId == R.id.ratingsChipInstalledAny
+                            || rating.installedFrom == mapInstalledFromChipIdToString(installedFromChipId)
+                        
+                        val statusToggleMatches =
+                            statusToggleBtnId == R.id.ratingsToggleAnyStatus
+                            || rating.ratingType == (if (statusToggleBtnId == R.id.ratingsToggleDgStatus) "native" else "micro_g")
+                        
+                        val statusChipMatches =
+                            when {
+                                statusToggleBtnId == R.id.ratingsToggleDgStatus
+                                && dgStatusSortChipId != R.id.ratingsSortAny -> {
+                                    rating.ratingScore?.ratingScore == mapStatusChipIdToRatingScore(dgStatusSortChipId)
+                                }
+                                statusToggleBtnId == R.id.ratingsToggleMgStatus
+                                && mgStatusSortChipId != R.id.ratingsSortAny -> {
+                                    rating.ratingScore?.ratingScore == mapStatusChipIdToRatingScore(mgStatusSortChipId)
+                                }
+                                else -> true
+                            }
+                        
+                        appVerMatches && romMatches
+                        && androidMatches && installedFromMatches
+                        && statusToggleMatches && statusChipMatches
+                        
+                    })
         
         isListSorted = true
     }

@@ -37,14 +37,12 @@ import androidx.navigation.fragment.NavHostFragment
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.fragments.bottomsheets.appdetails.MoreOptionsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.myratingsdetails.SortMyRatingsDetailsBottomSheet
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
-import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
@@ -152,11 +150,8 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when(menuItem.itemId) {
-            
             R.id.details_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
-            
             R.id.menu_sort_user_ratings -> SortMyRatingsDetailsBottomSheet().show(supportFragmentManager, "SortMyRatingsBottomSheet")
-            
             R.id.menu_more ->
                 MoreOptionsBottomSheet(app.name, packageNameString,
                                        mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.dgScore),

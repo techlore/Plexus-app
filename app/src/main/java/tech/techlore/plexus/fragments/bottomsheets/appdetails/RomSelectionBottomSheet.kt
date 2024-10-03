@@ -144,16 +144,9 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
             setOnClickListener {
                 preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
                 dismiss()
-                val detailsActivity = requireActivity() as AppDetailsActivity
-                /*detailsActivity.startActivity(Intent(detailsActivity, VerificationActivity::class.java)
-                                                  .putExtra("name", detailsActivity.app.name)
-                                                  .putExtra("packageName", detailsActivity.app.packageName)
-                                                  .putExtra("installedVersion", detailsActivity.app.installedVersion)
-                                                  .putExtra("installedBuild", detailsActivity.app.installedBuild)
-                                                  .putExtra("installedFrom", detailsActivity.app.installedFrom)
-                                                  .putExtra("isInPlexusData", detailsActivity.app.isInPlexusData))*/
-                
-                detailsActivity.finish()
+                (requireActivity() as AppDetailsActivity).apply {
+                    startActivity(Intent(this, VerificationActivity::class.java))
+                }
             }
         }
         

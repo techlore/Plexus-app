@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -29,9 +30,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetStartSubmitBinding
+import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
 import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
@@ -52,11 +55,26 @@ class StartSubmitBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        var job: Job? = null
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        var job: Job? = null
+        val detailsActivity = requireActivity() as AppDetailsActivity
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
+        
+        bottomSheetBinding.dgMgText.apply {
+            val (statusIcon, statusText) =
+                if (DeviceState.isDeviceMicroG) {
+                    Pair(ContextCompat.getDrawable(context, R.drawable.ic_microg),
+                         "${getString(R.string.microG)} ${getString(R.string.status)}")
+                }
+                else {
+                    Pair(ContextCompat.getDrawable(context, R.drawable.ic_degoogled),
+                         "${getString(R.string.de_Googled)} ${getString(R.string.status)}")
+                }
+            setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
+            text = statusText
+        }
         
         // Chip group
         bottomSheetBinding.submitStatusChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
@@ -84,10 +102,19 @@ class StartSubmitBottomSheet : BottomSheetDialogFragment() {
             }
         }
         
-        footerBinding.negativeButton.setOnClickListener {
-                ConfirmSubmitBottomSheet().show(parentFragmentManager, "ConfirmSubmitBottomSheet")
+        footerBinding.positiveButton.apply {
+            text = getString(R.string.submit)
+            setOnClickListener{
+                detailsActivity.submitStatusCheckedChipId = bottomSheetBinding.submitStatusChipGroup.checkedChipId
+                detailsActivity.submitNotes = bottomSheetBinding.submitNotesText.text.toString()
+                SubmitBottomSheet().show(parentFragmentManager, "SubmitBottomSheet")
             }
         }
+        
+        footerBinding.negativeButton.setOnClickListener {
+            ConfirmSubmitBottomSheet().show(parentFragmentManager, "ConfirmSubmitBottomSheet")
+        }
+    }
     
     override fun onDestroyView() {
         super.onDestroyView()

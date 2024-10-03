@@ -64,7 +64,7 @@ class SortMyRatingsDetailsBottomSheet : BottomSheetDialogFragment() {
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
         
         // Version dropdown
-        bottomSheetBinding.ratingsVersionDropdownMenu.apply {
+        bottomSheetBinding.ratingsAppVerDropdownMenu.apply {
             setText(detailsActivity.selectedVersionString)
             val versionAdapter = ArrayAdapter(requireContext(),
                                               R.layout.item_dropdown_menu,
@@ -127,7 +127,7 @@ class SortMyRatingsDetailsBottomSheet : BottomSheetDialogFragment() {
         
         // Done
         footerBinding.positiveButton.setOnClickListener {
-            detailsActivity.selectedVersionString = bottomSheetBinding.ratingsVersionDropdownMenu.text.toString()
+            detailsActivity.selectedVersionString = bottomSheetBinding.ratingsAppVerDropdownMenu.text.toString()
             detailsActivity.selectedRomString = bottomSheetBinding.ratingsRomDropdownMenu.text.toString()
             detailsActivity.selectedAndroidString = bottomSheetBinding.ratingsAndroidDropdownMenu.text.toString()
             detailsActivity.installedFromChip = bottomSheetBinding.ratingsInstalledFromChipGroup.checkedChipId

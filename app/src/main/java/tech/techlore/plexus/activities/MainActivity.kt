@@ -26,6 +26,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -79,7 +80,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         bottomSheetBehavior = BottomSheetBehavior.from(activityBinding.bottomNavContainer)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
-        val navGraph = navController.navInflater.inflate(R.navigation.main_fragments_nav_graph)
         val navMyAccountItems = listOf(R.id.nav_my_ratings, R.id.nav_delete_account)
         val encPreferenceManager = EncryptedPreferenceManager(this)
         
@@ -103,8 +103,10 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         }
         
         // Set start destination as default view
-        navGraph.setStartDestination(defaultFragment)
-        navController.setGraph(navGraph, intent.extras)
+        navController.navInflater.inflate(R.navigation.main_fragments_nav_graph).apply {
+            setStartDestination(defaultFragment)
+            navController.setGraph(this, intent.extras)
+        }
         
         activityBinding.toolbarBottom.apply {
             setSupportActionBar(this)
@@ -117,12 +119,10 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         
         // Nav view items
         activityBinding.navView.setNavigationItemSelectedListener { navMenuItem: MenuItem ->
-            
             when (navMenuItem.itemId) {
                 R.id.nav_plexus_data, R.id.nav_installed_apps, R.id.nav_fav, R.id.nav_my_ratings ->
                     selectedNavItem = navMenuItem.itemId
             }
-            
             clickedNavItem = navMenuItem.itemId
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // Close nav view
             true
@@ -141,13 +141,6 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 else {
                     activityBinding.toolbarBottom.navigationIcon = ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_nav_view)
                 }
-                
-                /*if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                    animateStatusBarColor(surfaceContainerLowColor, true)
-                }
-                else {
-                    animateStatusBarColor(Color.TRANSPARENT, false)
-                }*/
                 
                 // Perform all onClick actions from nav view
                 // after bottom sheet is collapsed

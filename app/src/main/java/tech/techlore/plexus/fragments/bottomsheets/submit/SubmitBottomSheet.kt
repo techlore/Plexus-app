@@ -42,7 +42,7 @@ import org.jsoup.nodes.Document
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.SubmitActivity
+import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetSubmitBinding
 import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.myratings.MyRatingDetails
@@ -65,7 +65,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSubmitBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var submitActivity: SubmitActivity
+    private lateinit var detailsActivity: AppDetailsActivity
     private val encPrefManager by inject<EncryptedPreferenceManager>()
     private lateinit var deviceToken: String
     private val apiRepository by inject<ApiRepository>()
@@ -102,20 +102,20 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        submitActivity = requireActivity() as SubmitActivity
+        detailsActivity = requireActivity() as AppDetailsActivity
         deviceToken = encPrefManager.getString(DEVICE_TOKEN)!!
-        postAppRoot = PostAppRoot(PostApp(name = submitActivity.nameString,
-                                          packageName = submitActivity.packageNameString,
+        postAppRoot = PostAppRoot(PostApp(name = detailsActivity.app.name,
+                                          packageName = detailsActivity.app.packageName,
                                           iconUrl = iconUrl))
-        rating = PostRating(version = submitActivity.installedVersion,
-                            buildNumber = submitActivity.installedBuild,
+        rating = PostRating(version = detailsActivity.app.installedVersion,
+                            buildNumber = detailsActivity.app.installedBuild,
                             romName = encPrefManager.getString(DEVICE_ROM)!!,
                             romBuild = Build.DISPLAY,
                             androidVersion = getAndroidVersionString(),
-                            installedFrom = submitActivity.installedFromString,
+                            installedFrom = detailsActivity.app.installedFrom,
                             ratingType = if (DeviceState.isDeviceMicroG) "micro_g" else "native",
-                            score = mapStatusChipIdToRatingScore(submitActivity.activityBinding.submitStatusChipGroup.checkedChipId),
-                            notes = submitActivity.activityBinding.submitNotesText.text.toString())
+                            score = mapStatusChipIdToRatingScore(detailsActivity.submitStatusCheckedChipId),
+                            notes = detailsActivity.submitNotes)
         postRatingRoot = PostRatingRoot(rating)
         
         submitData()
@@ -125,7 +125,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             setOnClickListener {
                 if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                     dismiss()
-                    submitActivity.finish()
+                    detailsActivity.finish()
                 }
                 else {
                     isVisible = false
@@ -144,7 +144,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         lifecycleScope.launch {
             val mainRepository by inject<MainDataRepository>()
             
-            if (!submitActivity.isInPlexusData) {
+            if (!detailsActivity.app.isInPlexusData) {
                 getIconUrl()
                 postAppRoot.postApp.iconUrl = iconUrl
                 postApp()
@@ -155,7 +155,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             
             if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                 updateMyRatingInDb(rating)
-                mainRepository.updateSingleApp(packageName = submitActivity.packageNameString)
+                mainRepository.updateSingleApp(packageName = detailsActivity.app.packageName)
                 DataState.isDataUpdated = true
                 changeAnimView(R.raw.lottie_success, false)
                 bottomSheetBinding.submitStatusText.text = getString(R.string.submit_success)
@@ -191,7 +191,6 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             }
             response.isSuccessful || response.code() == 422 -> {
                 // Request was successful or app already exists
-                submitActivity.isInPlexusData = true
                 postRating()
             }
             else -> onPostFailed(response.code()) // Request failed
@@ -200,7 +199,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     
     private suspend fun postRating() {
         val response = withContext(Dispatchers.IO) {
-            apiRepository.postRating(deviceToken, submitActivity.packageNameString, postRatingRoot).execute()
+            apiRepository.postRating(deviceToken, detailsActivity.app.packageName, postRatingRoot).execute()
         }
         when {
             response.code() == 401 -> {
@@ -228,12 +227,11 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             isVisible = true
         }
         bottomSheetBinding.cancelButton.isVisible = true
-        submitActivity.activityBinding.submitFab.isEnabled = true
     }
     
     private suspend fun getIconUrl(): String? {
         var document: Document
-        val fdroidUrl = "${getString(R.string.fdroid_url)}${submitActivity.packageNameString}/"
+        val fdroidUrl = "${getString(R.string.fdroid_url)}${detailsActivity.app.packageName}/"
         
         try {
             document =
@@ -259,7 +257,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             try {
                 document =
                     withContext(Dispatchers.IO) {
-                        Jsoup.connect("${getString(R.string.google_play_url)}${submitActivity.packageNameString}").get()
+                        Jsoup.connect("${getString(R.string.google_play_url)}${detailsActivity.app.packageName}").get()
                     }
                 val element = document.selectFirst("meta[property=og:image]")
                 iconUrl = element?.attr("content")
@@ -321,15 +319,15 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                                               romName = rating.romName,
                                               romBuild = rating.romBuild,
                                               androidVersion = rating.androidVersion,
-                                              installedFrom = submitActivity.installedFromString,
+                                              installedFrom = detailsActivity.app.installedFrom,
                                               googleLib = rating.ratingType,
                                               myRatingScore = rating.score,
                                               notes = rating.notes)
         
-        get<MyRatingsRepository>().insertOrUpdateMyRatings(name = submitActivity.nameString,
-                                                    packageName = submitActivity.packageNameString,
-                                                    iconUrl = iconUrl,
-                                                    myRatingDetails = myRatingDetails)
+        get<MyRatingsRepository>().insertOrUpdateMyRatings(name = detailsActivity.app.name,
+                                                           packageName = detailsActivity.app.packageName,
+                                                           iconUrl = iconUrl,
+                                                           myRatingDetails = myRatingDetails)
     }
     
     override fun onDestroyView() {

@@ -106,7 +106,7 @@
         android:layout_marginBottom="@dimen/margin_16"
         android:text="@string/skip"
         android:textSize="@dimen/text_16"
-        style="@style/Widget.Material3.Button.TextButton"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:visibility="gone"
         tools:visibility="visible"/>
 
