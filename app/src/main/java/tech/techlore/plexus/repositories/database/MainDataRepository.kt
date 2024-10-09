@@ -43,16 +43,16 @@ import java.util.TimeZone
 
 class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
-    val apiRepository by inject<ApiRepository>()
-    val prefManager by inject<PreferenceManager>()
+    private val apiRepository by inject<ApiRepository>()
     
     suspend fun plexusDataIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
+            val prefManager by inject<PreferenceManager>()
             val lastUpdated = prefManager.getString(LAST_UPDATED)
             val currentDateTime = Date()
             val appsCall = apiRepository.getAppsWithScores(pageNumber = 1, lastUpdated)
             val appsResponse = appsCall.awaitResponse()
-            val imageLoader = ImageLoader.Builder(context).build()
+            val imageLoader by inject<ImageLoader>()
             val imageRequest = ImageRequest.Builder(context)
             
             if (appsResponse.isSuccessful) {
@@ -120,25 +120,21 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
         withContext(Dispatchers.IO) {
             
             val installedApps = scannedInstalledAppsList(context)
-            val databaseApps = mainDataDao.getInstalledApps() as ArrayList<MainData>
+            val installedAppsPackageNames = installedApps.map { it.packageName }.toSet()
             
-            // Find uninstalled apps
-            val uninstalledApps = databaseApps.filterNot { databaseApp ->
-                installedApps.any { installedApp ->
-                    installedApp.packageName == databaseApp.packageName
-                }
-            }
-            
-            // Delete uninstalled apps from db
-            uninstalledApps.forEach {
-                if (!it.isInPlexusData) {
-                    mainDataDao.delete(it)
-                }
-                else {
-                    it.isInstalled = false
-                    it.installedVersion = ""
-                    it.installedFrom = ""
-                    mainDataDao.update(it)
+            // Find & delete uninstalled apps from db
+            mainDataDao.getInstalledApps().forEach {
+                if (it.packageName !in installedAppsPackageNames) {
+                    when {
+                        !it.isInPlexusData-> mainDataDao.delete(it)
+                        else ->
+                            it.apply {
+                                isInstalled = false
+                                installedVersion = ""
+                                installedFrom = ""
+                                mainDataDao.update(it)
+                            }
+                    }
                 }
             }
             

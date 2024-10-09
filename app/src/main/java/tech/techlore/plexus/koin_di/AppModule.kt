@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.koin_di
 
+import coil.ImageLoader
 import org.koin.dsl.module
 import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
 import tech.techlore.plexus.database.MainDatabase
@@ -32,6 +33,7 @@ val appModule =
     module {
         single { PreferenceManager(get()) }
         single { EncryptedPreferenceManager(get()) }
+        single { ImageLoader.Builder(get()).build() }
         single { apiBuilder() }
         single { ApiRepository(get()) }
         single { getDatabase(get()) }

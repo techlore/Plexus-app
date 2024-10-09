@@ -22,6 +22,7 @@ import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
+import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
@@ -40,12 +41,14 @@ import coil.request.ImageRequest
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.preferences.PreferenceManager
 
 class UiUtils {
     
-    companion object {
+    companion object : KoinComponent {
         
         fun setAppTheme(selectedTheme: Int) {
             when(selectedTheme) {
@@ -60,6 +63,12 @@ class UiUtils {
                 R.id.followSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 R.id.light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 R.id.dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+        }
+        
+        fun setNavBarContrastEnforced(window: Window) {
+            if (Build.VERSION.SDK_INT >= 29) {
+                window.isNavigationBarContrastEnforced = false
             }
         }
         
@@ -112,9 +121,9 @@ class UiUtils {
             imageView.apply {
                 if (isInstalled) {
                     try {
-                        setImageDrawable(context.packageManager.getApplicationIcon(packageName))
                         // Don't use Coil to load icons directly to ImageView
                         // as there's a delay in displaying icons when fast scrolling
+                        setImageDrawable(context.packageManager.getApplicationIcon(packageName))
                     }
                     catch (e: PackageManager.NameNotFoundException) {
                         e.printStackTrace()
@@ -128,12 +137,11 @@ class UiUtils {
                             .placeholder(R.drawable.ic_apk)
                             .fallback(R.drawable.ic_apk)
                             .error(R.drawable.ic_apk)
+                            .crossfade(true)
                             .target(this)
                             .build()
                     
-                    ImageLoader.Builder(context)
-                        .build()
-                        .enqueue(imageRequest)
+                    get<ImageLoader>().enqueue(imageRequest)
                 }
             }
         }
