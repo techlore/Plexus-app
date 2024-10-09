@@ -17,7 +17,6 @@
 
 package tech.techlore.plexus.activities
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -35,6 +34,7 @@ import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
+import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListener {
     
@@ -42,9 +42,7 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
     
     public override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        if (Build.VERSION.SDK_INT >= 29) {
-            window.isNavigationBarContrastEnforced = false
-        }
+        setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         val activityBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)

@@ -40,7 +40,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.databinding.FragmentCodeVerificationBinding
 import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
@@ -120,7 +119,7 @@ class CodeVerificationFragment : Fragment() {
                 response.body()?.string()?.let {
                     jacksonObjectMapper().readValue(it, VerifyDeviceResponseRoot::class.java)
                 }
-            EncryptedPreferenceManager(requireContext()).apply {
+            get<EncryptedPreferenceManager>().apply {
                 setString(DEVICE_TOKEN, verifyDeviceResponse?.deviceToken!!.token)
                 setString(DEVICE_ID, verificationActivity.deviceId)
                 setBoolean(IS_REGISTERED, true)

@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.submit
+package tech.techlore.plexus.fragments.bottomsheets.appdetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,10 +45,10 @@ class ConfirmSubmitBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val submitActivity = requireActivity() as AppDetailsActivity
+        val detailsActivity = requireActivity() as AppDetailsActivity
         
         // Title
-        //BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = submitActivity.nameString
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = detailsActivity.app.name
         
         bottomSheetBinding.welcomeTextDesc.text = getString(R.string.about_to_submit)
         
@@ -57,7 +57,7 @@ class ConfirmSubmitBottomSheet : BottomSheetDialogFragment() {
             text = getString(R.string.proceed)
             setOnClickListener {
                 dismiss()
-                //submitActivity.showSubmitBtmSheet()
+                detailsActivity.showSubmitBtmSheet()
             }
         }
         

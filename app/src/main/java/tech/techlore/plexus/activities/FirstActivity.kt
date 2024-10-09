@@ -19,7 +19,6 @@ package tech.techlore.plexus.activities
 
 import android.animation.Animator
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
@@ -31,29 +30,39 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.color.DynamicColors
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
+import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityFirstBinding
 import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.SystemUtils.Companion.isDeviceDeGoogledOrMicroG
+import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class FirstActivity : AppCompatActivity() {
     
     private lateinit var activityBinding: ActivityFirstBinding
+    private val prefManager by inject<PreferenceManager>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
-        enableEdgeToEdge()
-        if (Build.VERSION.SDK_INT >= 29) {
-            window.isNavigationBarContrastEnforced = false
+        // Material you
+        // set this here instead of in Application class,
+        // or else Dynamic Colors will not be applied to this activity
+        if (prefManager.getBoolean (MATERIAL_YOU, defValue = false)) {
+            DynamicColors.applyToActivityIfAvailable(this)
+            DynamicColors.applyToActivitiesIfAvailable(applicationContext as ApplicationManager) // For other activities
         }
+        enableEdgeToEdge()
+        setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         activityBinding = ActivityFirstBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
@@ -94,7 +103,6 @@ class FirstActivity : AppCompatActivity() {
     }
     
     private fun afterDataRetrieved() {
-        val prefManager by inject<PreferenceManager>()
         prefManager.apply {
             if (getBoolean(IS_FIRST_LAUNCH)) {
                 val fadeOut = AlphaAnimation(1.0f, 0.0f).apply { duration = 300L }

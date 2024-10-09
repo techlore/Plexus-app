@@ -44,6 +44,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
+import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class SettingsActivity : AppCompatActivity() {
     
@@ -52,9 +53,7 @@ class SettingsActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        if (Build.VERSION.SDK_INT >= 29) {
-            window.isNavigationBarContrastEnforced = false
-        }
+        setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivitySettingsBinding.inflate(layoutInflater)

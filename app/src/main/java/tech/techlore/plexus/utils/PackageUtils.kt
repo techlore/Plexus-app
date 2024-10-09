@@ -35,7 +35,7 @@ class PackageUtils {
             return withContext(Dispatchers.IO) {
                 
                 val packageManager = context.packageManager
-                val installedAppsList = ArrayList<MainData>()
+                val installedAppsList = arrayListOf<MainData>()
                 
                 packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
                     // Only scan for user installed apps

@@ -28,7 +28,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import okhttp3.ResponseBody
-import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.get
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -95,10 +95,9 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
     }
     
     private fun registerDevice() {
-        val apiRepository by inject<ApiRepository>()
         val randomId = UUID.randomUUID().toString()
-        val registerDeviceCall = apiRepository.registerDevice(RegisterDevice(email = email,
-                                                                             deviceId = randomId))
+        val registerDeviceCall = get<ApiRepository>().registerDevice(RegisterDevice(email = email,
+                                                                                    deviceId = randomId))
         registerDeviceCall.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {

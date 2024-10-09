@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.submit
+package tech.techlore.plexus.fragments.bottomsheets.appdetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,7 +40,7 @@ import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
 import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
 import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
 
-class StartSubmitBottomSheet : BottomSheetDialogFragment() {
+class RateBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetStartSubmitBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -105,9 +105,11 @@ class StartSubmitBottomSheet : BottomSheetDialogFragment() {
         footerBinding.positiveButton.apply {
             text = getString(R.string.submit)
             setOnClickListener{
-                detailsActivity.submitStatusCheckedChipId = bottomSheetBinding.submitStatusChipGroup.checkedChipId
-                detailsActivity.submitNotes = bottomSheetBinding.submitNotesText.text.toString()
-                SubmitBottomSheet().show(parentFragmentManager, "SubmitBottomSheet")
+                detailsActivity.apply {
+                    submitStatusCheckedChipId = bottomSheetBinding.submitStatusChipGroup.checkedChipId
+                    submitNotes = bottomSheetBinding.submitNotesText.text.toString()
+                    showSubmitBtmSheet()
+                }
             }
         }
         

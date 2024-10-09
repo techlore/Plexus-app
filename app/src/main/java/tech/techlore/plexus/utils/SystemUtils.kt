@@ -48,7 +48,7 @@ class SystemUtils {
                                 getAppInfo(packageManager, packageName)?.let {
                                     packageManager.getApplicationLabel(it).toString()
                                 }
-                            appLabel?.let { !it.startsWith("Google", ignoreCase = true) } ?: false
+                            appLabel?.let { !it.startsWith("Google", ignoreCase = true) } == true
                         }
                     }
                     else -> - 1

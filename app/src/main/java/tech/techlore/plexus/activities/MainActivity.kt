@@ -19,14 +19,12 @@ package tech.techlore.plexus.activities
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +46,7 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
+import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class MainActivity : AppCompatActivity(), MenuProvider {
     
@@ -68,9 +67,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        if (Build.VERSION.SDK_INT >= 29) {
-            window.isNavigationBarContrastEnforced = false
-        }
+        setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         addMenuProvider(this)
@@ -81,12 +78,12 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
         val navMyAccountItems = listOf(R.id.nav_my_ratings, R.id.nav_delete_account)
-        val encPreferenceManager = EncryptedPreferenceManager(this)
+        val prefManager by inject<PreferenceManager>()
+        val encPreferenceManager by inject<EncryptedPreferenceManager>()
         
         // Set default view
         // Theme bottom sheet was reused for this purpose
         // Don't get confused by the "R.id.followSystem" & "R.id.light"
-        val prefManager by inject<PreferenceManager>()
         when (prefManager.getInt(DEF_VIEW, R.id.followSystem)) {
             R.id.followSystem -> {
                 defaultFragment = R.id.plexusDataFragment

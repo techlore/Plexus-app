@@ -20,7 +20,6 @@ package tech.techlore.plexus.activities
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -57,7 +56,8 @@ import tech.techlore.plexus.fragments.bottomsheets.appdetails.RomSelectionBottom
 import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.appdetails.SortAllRatingsBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.submit.StartSubmitBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.appdetails.RateBottomSheet
+import tech.techlore.plexus.fragments.bottomsheets.appdetails.SubmitBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.ratingrange.RatingRange
@@ -78,6 +78,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyl
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
+import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.getValue
 
@@ -121,16 +122,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        if (Build.VERSION.SDK_INT >= 29) {
-            window.isNavigationBarContrastEnforced = false
-        }
+        setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         addMenuProvider(this)
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        val encPreferenceManager = EncryptedPreferenceManager(this)
+        val encPreferenceManager by inject<EncryptedPreferenceManager>()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         packageNameString = intent.getStringExtra("packageName")!!
@@ -233,7 +232,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      getString(R.string.rating_already_submitted, app.name, app.installedVersion),
                                      activityBinding.detailsBottomAppBar)
                     
-                    else -> StartSubmitBottomSheet().show(supportFragmentManager, "StartSubmitBottomSheet")
+                    else -> RateBottomSheet().show(supportFragmentManager, "RateBottomSheet")
                 }
             }
             
@@ -525,6 +524,20 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     })
         
         isListSorted = true
+    }
+    
+    fun showSubmitBtmSheet() {
+        lifecycleScope.launch {
+            if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
+                SubmitBottomSheet().show(supportFragmentManager, "SubmitBottomSheet")
+            }
+            else {
+                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
+                                     positiveButtonClickListener = { showSubmitBtmSheet() },
+                                     negativeButtonClickListener = {})
+                    .show(supportFragmentManager, "NoNetworkBottomSheet")
+            }
+        }
     }
     
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

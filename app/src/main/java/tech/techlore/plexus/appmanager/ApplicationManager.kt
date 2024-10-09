@@ -18,13 +18,11 @@
 package tech.techlore.plexus.appmanager
 
 import android.app.Application
-import com.google.android.material.color.DynamicColors
 import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import tech.techlore.plexus.koin_di.appModule
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
 import tech.techlore.plexus.utils.UiUtils.Companion.setAppTheme
 
@@ -38,16 +36,8 @@ class ApplicationManager : Application() {
             modules(appModule)
         }
         
-        get<PreferenceManager>().apply {
-            // Theme
-            setAppTheme(getInt(THEME))
-            
-            // Material you
-            if (getBoolean(MATERIAL_YOU, defValue = false)) {
-                DynamicColors.applyToActivitiesIfAvailable(this@ApplicationManager)
-            }
-        }
-        
+        // Theme
+        setAppTheme(get<PreferenceManager>().getInt(THEME))
     }
     
 }

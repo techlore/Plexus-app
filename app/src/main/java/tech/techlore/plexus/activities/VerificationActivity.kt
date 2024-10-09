@@ -17,7 +17,6 @@
 
 package tech.techlore.plexus.activities
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -26,6 +25,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityVerificationBinding
+import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class VerificationActivity : AppCompatActivity() {
     
@@ -36,9 +36,7 @@ class VerificationActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        if (Build.VERSION.SDK_INT >= 29) {
-            window.isNavigationBarContrastEnforced = false
-        }
+        setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivityVerificationBinding.inflate(layoutInflater)
