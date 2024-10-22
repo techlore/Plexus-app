@@ -17,17 +17,16 @@
 
 package tech.techlore.plexus.models.get.scores
 
-import androidx.room.TypeConverters
-import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.get.ScoreConverter
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@TypeConverters(ScoreConverter::class)
+@Serializable
 data class ScoresRoot(
     
-    @JsonProperty("native")
+    @SerialName("native")
     var dgScore: Score,
     
-    @JsonProperty("micro_g")
+    @SerialName("micro_g")
     var mgScore: Score
 
 )

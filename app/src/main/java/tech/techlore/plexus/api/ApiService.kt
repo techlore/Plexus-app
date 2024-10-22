@@ -29,6 +29,8 @@ import retrofit2.http.Query
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.get.apps.GetSingleAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
+import tech.techlore.plexus.models.get.responses.RegisterDeviceResponse
+import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
@@ -48,16 +50,13 @@ interface ApiService {
                    @Query("page") pageNumber: Int): Call<RatingsRoot>
     
     @POST("devices/register")
-    @Headers("Content-Type: application/json")
-    fun registerDevice(@Body registerDevice: RegisterDevice): Call<ResponseBody>
+    fun registerDevice(@Body registerDevice: RegisterDevice): Call<RegisterDeviceResponse>
     
     @POST("devices/verify")
-    @Headers("Content-Type: application/json")
-    fun verifyDevice(@Body verifyDevice: VerifyDevice): Call<ResponseBody>
+    fun verifyDevice(@Body verifyDevice: VerifyDevice): Call<VerifyDeviceResponseRoot>
     
     @POST("devices/renew")
-    @Headers("Content-Type: application/json")
-    fun renewDevice(@Header("Authorization") authToken: String): Call<ResponseBody>
+    fun renewDevice(@Header("Authorization") authToken: String): Call<VerifyDeviceResponseRoot>
     
     @POST("apps")
     @Headers("Content-Type: application/json")

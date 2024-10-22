@@ -17,12 +17,12 @@
 
 package tech.techlore.plexus.api
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import kotlinx.serialization.json.Json
 import okhttp3.Dispatcher
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import java.util.concurrent.TimeUnit
 
 class ApiManager {
@@ -43,12 +43,13 @@ class ApiManager {
                 .writeTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
                 .build()
         
+        private val json = Json { ignoreUnknownKeys = true }
         
         fun apiBuilder(): ApiService {
             val retrofit = Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .client(okHttpClient)
-                .addConverterFactory(JacksonConverterFactory.create(ObjectMapper().registerKotlinModule()))
+                .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
                 .build()
             
             return retrofit.create(ApiService::class.java)

@@ -16,18 +16,18 @@
 #
 
 [versions]
-androidGradle = "8.7.0"
-androidKotlin = "2.0.20" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
-ksp = "2.0.20-1.0.25" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
+androidGradle = "8.7.1"
+androidKotlin = "2.0.21" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
+ksp = "2.0.21-1.0.25" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.0"
 coreKtx = "1.13.1"
 splashscreen = "1.0.1"
-material3 = "1.13.0-alpha06"
+material3 = "1.13.0-alpha07"
 koin = "4.0.0"
 swiperefreshlayout = "1.1.0"
 securityCryptoKtx = "1.1.0-alpha06"
-navigationKtx = "2.8.2"
-jacksonKt = "2.18.0"
+navigationKtx = "2.8.3"
+kotlinxSerialization = "1.7.3"
 retrofit2 = "2.11.0"
 room = "2.6.1"
 coil = "2.7.0"
@@ -40,16 +40,15 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 material3 = { module = "com.google.android.material:material", version.ref = "material3" }
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationKtx" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationKtx" }
-jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonKt" }
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm", version.ref = "kotlinxSerialization" }
 retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
-retrofit2-converter-jackson = { module = "com.squareup.retrofit2:converter-jackson", version.ref = "retrofit2" }
+retrofit2-converter-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit2" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
@@ -60,12 +59,12 @@ lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 
 [bundles]
 androidxCoreComponents = ["androidx-appcompat", "androidx-core-ktx", "androidx-core-splashscreen"]
-koin = ["koin-core", "koin-android"]
 navigation = ["androidx-navigation-runtime-ktx", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
-retrofit2 = ["retrofit2", "retrofit2-converter-jackson"]
+retrofit2 = ["retrofit2", "retrofit2-converter-kotlinx-serialization"]
 room = ["androidx-room-runtime", "androidx-room-ktx"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradle" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "androidKotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "androidKotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

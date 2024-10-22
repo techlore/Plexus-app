@@ -17,14 +17,16 @@
 
 package tech.techlore.plexus.models.post.device
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class VerifyDevice (
     
-    @JsonProperty("device_id")
+    @SerialName("device_id")
     var deviceId: String,
     
-    @JsonProperty("code")
+    @SerialName("code")
     var code: String
 
 )

@@ -17,17 +17,19 @@
 
 package tech.techlore.plexus.models.post.app
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PostApp(
     
-    @JsonProperty("name")
+    @SerialName("name")
     var name: String,
     
-    @JsonProperty("package")
+    @SerialName("package")
     var packageName: String,
     
-    @JsonProperty("icon_url")
+    @SerialName("icon_url")
     var iconUrl: String? = null
     
 )

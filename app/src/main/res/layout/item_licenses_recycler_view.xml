@@ -43,7 +43,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:text="@string/jackson"
+        android:text="@string/retrofit"
         android:textAlignment="viewStart"
         android:textColor="@color/color_url"
         android:textSize="@dimen/text_18"

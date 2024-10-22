@@ -17,14 +17,13 @@
 
 package tech.techlore.plexus.models.get.responses
 
-import androidx.room.TypeConverters
-import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.get.DeviceTokenConverter
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@TypeConverters(DeviceTokenConverter::class)
+@Serializable
 data class VerifyDeviceResponseRoot (
     
-    @JsonProperty("data")
+    @SerialName("data")
     var deviceToken: DeviceToken
     
 )

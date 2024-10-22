@@ -17,11 +17,13 @@
 
 package tech.techlore.plexus.models.get.responses
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class RegisterDeviceResponse (
     
-    @JsonProperty("message")
+    @SerialName("message")
     var message: String
     
 )

@@ -29,7 +29,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieDrawable
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
@@ -41,10 +40,10 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetSubmitBinding
-import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.models.post.app.PostApp
 import tech.techlore.plexus.models.post.app.PostAppRoot
@@ -198,24 +197,24 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     }
     
     private suspend fun postRating() {
-        val response = withContext(Dispatchers.IO) {
-            apiRepository.postRating(deviceToken, detailsActivity.app.packageName, postRatingRoot).execute()
-        }
+        val postRatingResponse =
+            apiRepository.postRating(deviceToken, detailsActivity.app.packageName, postRatingRoot).awaitResponse()
+        
         when {
-            response.code() == 401 -> {
+            postRatingResponse.code() == 401 -> {
                 // Unauthorized, renew token
                 renewDeviceToken()
                 postRating()
             }
-            response.isSuccessful -> {
+            postRatingResponse.isSuccessful -> {
                 // Request was successful
                 ratingCreated = true
-                val responseBody = response.body()!!.string()
+                val responseBody = postRatingResponse.body()!!.string()
                 val jsonObject = JSONObject(responseBody)
                 val dataObject = jsonObject.getJSONObject("data")
                 postedRatingId = dataObject.getString("id") // Store id of the posted rating
             }
-            else -> onPostFailed(response.code()) // Request failed
+            else -> onPostFailed(postRatingResponse.code()) // Request failed
         }
     }
     
@@ -277,19 +276,16 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     }
     
     private suspend fun renewDeviceToken() {
-        val response = withContext(Dispatchers.IO) {
-            apiRepository.renewDevice(deviceToken).execute()
-        }
-        if (response.isSuccessful) {
-            val verifyDeviceResponse =
-                response.body()?.string()?.let {
-                    jacksonObjectMapper().readValue(it, VerifyDeviceResponseRoot::class.java)
-                }
-            encPrefManager.setString(DEVICE_TOKEN, verifyDeviceResponse?.deviceToken!!.token)
-            deviceToken = encPrefManager.getString(DEVICE_TOKEN)!!
+        val renewDeviceTokenResponse = apiRepository.renewDevice(deviceToken).awaitResponse()
+        
+        if (renewDeviceTokenResponse.isSuccessful) {
+            renewDeviceTokenResponse.body()?.let {
+                encPrefManager.setString(DEVICE_TOKEN, it.deviceToken.token)
+                deviceToken = encPrefManager.getString(DEVICE_TOKEN)!!
+            }
         }
         else {
-            onPostFailed(response.code())
+            onPostFailed(renewDeviceTokenResponse.code())
         }
     }
     

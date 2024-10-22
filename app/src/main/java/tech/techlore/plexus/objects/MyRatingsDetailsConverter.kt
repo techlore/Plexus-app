@@ -15,25 +15,25 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.converters.post
+package tech.techlore.plexus.objects
 
 import androidx.room.TypeConverter
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import tech.techlore.plexus.models.post.rating.PostRating
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.json.Json
+import tech.techlore.plexus.models.myratings.MyRatingDetails
 
-object PostRatingConverter {
+object MyRatingsDetailsConverter {
     
-    private val objectMapper = jacksonObjectMapper()
+    private val json = Json { ignoreUnknownKeys = true }
     
     @TypeConverter
-    fun fromJsonToPostRating(json: String): PostRating {
-        return objectMapper.readValue(json)
+    fun fromJsonToMyRatingsDetails(ratingsDetailsString: String): List<MyRatingDetails> {
+        return json.decodeFromString(ratingsDetailsString)
     }
     
     @TypeConverter
-    fun fromPostRatingToJson(postRating: PostRating): String {
-        return objectMapper.writeValueAsString(postRating)
+    fun fromMyRatingsDetailsToJson(ratingsDetails: List<MyRatingDetails>): String {
+        return json.encodeToString(ListSerializer(MyRatingDetails.serializer()), ratingsDetails)
     }
     
 }

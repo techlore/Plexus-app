@@ -24,19 +24,16 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import okhttp3.ResponseBody
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.databinding.BottomSheetEmailVerificationBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
-import tech.techlore.plexus.models.get.responses.RegisterDeviceResponse
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.repositories.api.ApiRepository
 import java.util.UUID
@@ -75,57 +72,53 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
         
         footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         
-        registerDevice()
-        
-        // Retry
-        footerBinding.positiveButton.apply {
-            text = getString(R.string.retry)
-            isEnabled = false
-            setOnClickListener {
+        lifecycleScope.launch {
+            registerDevice()
+            
+            // Retry
+            footerBinding.positiveButton.apply {
+                text = getString(R.string.retry)
                 isEnabled = false
-                bottomSheetBinding.textView.text = getString(R.string.sending_code)
-                registerDevice()
-            }
-        }
-        
-        // Cancel
-        footerBinding.negativeButton.setOnClickListener {
-            dismiss()
-        }
-    }
-    
-    private fun registerDevice() {
-        val randomId = UUID.randomUUID().toString()
-        val registerDeviceCall = get<ApiRepository>().registerDevice(RegisterDevice(email = email,
-                                                                                    deviceId = randomId))
-        registerDeviceCall.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    val registerDeviceResponse =
-                        response.body()?.string()?.let {
-                            jacksonObjectMapper().readValue(it, RegisterDeviceResponse::class.java)
-                        }
-                    if (registerDeviceResponse?.message?.startsWith("Passcode sent") == true) {
-                        dismiss()
-                        (requireActivity() as VerificationActivity).apply {
-                            emailString = email
-                            deviceId = randomId
-                            navController.navigate(R.id.action_emailVerificationFragment_to_codeVerificationFragment)
-                        }
+                setOnClickListener {
+                    isEnabled = false
+                    bottomSheetBinding.textView.text = getString(R.string.sending_code)
+                    lifecycleScope.launch {
+                        registerDevice()
                     }
-                    else {
-                        onPostFailed(getString(R.string.error_sending_code))
-                    }
-                }
-                else {
-                    onPostFailed("${getString(R.string.error_sending_code)}: ${response.code()}")
                 }
             }
             
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                onPostFailed(getString(R.string.error_sending_code))
+            // Cancel
+            footerBinding.negativeButton.setOnClickListener {
+                dismiss()
             }
-        })
+        }
+    }
+    
+    private suspend fun registerDevice() {
+        val randomId = UUID.randomUUID().toString()
+        val registerDeviceCall =
+            get<ApiRepository>().registerDevice(RegisterDevice(email = email, deviceId = randomId))
+        val registerDeviceResponse = registerDeviceCall.awaitResponse()
+        
+        if (registerDeviceResponse.isSuccessful) {
+            registerDeviceResponse.body()?.let {
+                if (it.message.startsWith("Passcode sent") == true) {
+                    dismiss()
+                    (requireActivity() as VerificationActivity).apply {
+                        emailString = email
+                        deviceId = randomId
+                        navController.navigate(R.id.action_emailVerificationFragment_to_codeVerificationFragment)
+                    }
+                }
+                else {
+                    onPostFailed(getString(R.string.error_sending_code))
+                }
+            }
+        }
+        else {
+            onPostFailed("${getString(R.string.error_sending_code)}: ${registerDeviceResponse.code()}")
+        }
     }
     
     private fun onPostFailed(message: String) {

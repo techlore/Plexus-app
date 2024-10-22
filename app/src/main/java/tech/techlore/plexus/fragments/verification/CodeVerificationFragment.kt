@@ -32,17 +32,14 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
+import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.databinding.FragmentCodeVerificationBinding
-import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.device.VerifyDevice
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ID
@@ -112,25 +109,23 @@ class CodeVerificationFragment : Fragment() {
         val verifyDeviceCall =
             get<ApiRepository>().verifyDevice(VerifyDevice(deviceId = verificationActivity.deviceId,
                                                            code = fragmentBinding.codeText.text.toString()))
-        val response = withContext(Dispatchers.IO) { verifyDeviceCall.execute() }
+        val verifyDeviceResponse = verifyDeviceCall.awaitResponse()
         
-        if (response.isSuccessful) {
-            val verifyDeviceResponse =
-                response.body()?.string()?.let {
-                    jacksonObjectMapper().readValue(it, VerifyDeviceResponseRoot::class.java)
-                }
-            get<EncryptedPreferenceManager>().apply {
-                setString(DEVICE_TOKEN, verifyDeviceResponse?.deviceToken!!.token)
-                setString(DEVICE_ID, verificationActivity.deviceId)
-                setBoolean(IS_REGISTERED, true)
-            }
-            fragmentBinding.infoText.isVisible = false
-            (requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
-                if (isAcceptingText) {
-                    hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken, 0)
-                }
-            }
-            requireActivity().finish()
+        if (verifyDeviceResponse.isSuccessful) {
+             verifyDeviceResponse.body()?.let {
+                 get<EncryptedPreferenceManager>().apply {
+                     setString(DEVICE_TOKEN, it.deviceToken.token)
+                     setString(DEVICE_ID, verificationActivity.deviceId)
+                     setBoolean(IS_REGISTERED, true)
+                 }
+                 fragmentBinding.infoText.isVisible = false
+                 (requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+                     if (isAcceptingText) {
+                         hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken, 0)
+                     }
+                 }
+                 requireActivity().finish()
+             }
         }
         else {
             showInfo(false)

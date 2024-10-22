@@ -18,6 +18,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.kotlin.plugin.serialization)
     alias(libs.plugins.ksp)
 }
 
@@ -27,12 +28,12 @@ kotlin {
 
 android {
     namespace = "tech.techlore.plexus"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "tech.techlore.plexus"
         minSdk = 23
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 207
         versionName = "2.0.7"
         setProperty("archivesBaseName", "Plexus_v$versionName")
@@ -40,8 +41,8 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             vcsInfo.include = false // https://f-droid.org/docs/Reproducible_Builds/#vcs-info
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -66,11 +67,11 @@ android {
 dependencies {
     implementation(libs.bundles.androidxCoreComponents)
     implementation(libs.material3)
-    implementation(libs.bundles.koin)
+    implementation(libs.koin.android)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.security.crypto.ktx)
     implementation(libs.bundles.navigation)
-    implementation(libs.jackson.kotlin)
+    implementation(libs.kotlinx.serialization)
     implementation(libs.bundles.retrofit2)
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)

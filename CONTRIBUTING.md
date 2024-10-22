@@ -11,6 +11,7 @@
 ## Contributing to the app
 
 ### Translations
+- Remember to insert a backslash (`\`) before any apostrophe (`'`).
 - Make sure the characters are properly encoded when translating strings (example: `ä` as `\u00E4`, `é` as `\u00E9` etc).
   <br>You can use websites like [Compart](https://www.compart.com/en/unicode), [Symbl](https://symbl.cc/en/unicode/table/) or something else.
   <br>Example: `é` would be shown as `U+00E9` on these websites, so just convert it to `\u00E9` for the android strings.

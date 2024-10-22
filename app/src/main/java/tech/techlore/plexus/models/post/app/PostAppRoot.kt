@@ -17,12 +17,13 @@
 
 package tech.techlore.plexus.models.post.app
 
-import androidx.room.TypeConverters
-import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.post.PostAppConverter
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@TypeConverters(PostAppConverter::class)
+@Serializable
 data class PostAppRoot(
-    @JsonProperty("app")
+    
+    @SerialName("app")
     var postApp: PostApp
+    
 )

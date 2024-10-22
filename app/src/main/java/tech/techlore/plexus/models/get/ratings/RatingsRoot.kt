@@ -17,15 +17,17 @@
 
 package tech.techlore.plexus.models.get.ratings
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import tech.techlore.plexus.models.get.common.Meta
 
+@Serializable
 data class RatingsRoot (
     
-    @JsonProperty("data")
+    @SerialName("data")
     val ratingsData: ArrayList<Rating>,
     
-    @JsonProperty("meta")
+    @SerialName("meta")
     val meta: Meta
     
 )

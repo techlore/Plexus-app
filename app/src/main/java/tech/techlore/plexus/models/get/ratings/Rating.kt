@@ -18,47 +18,46 @@
 package tech.techlore.plexus.models.get.ratings
 
 import androidx.room.Embedded
-import androidx.room.TypeConverters
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.get.RatingScoreConverter
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
-@TypeConverters(RatingScoreConverter::class)
+@Serializable
 data class Rating(
     
-    @JsonProperty("id")
+    @SerialName("id")
     var id: String,
     
-    @JsonProperty("app_package")
-    @JsonIgnore
-    var packageName: String,
+    @SerialName("app_package")
+    @Transient
+    var packageName: String = "",
     
-    @JsonProperty("app_version")
+    @SerialName("app_version")
     var version: String,
     
-    @JsonProperty("app_build_number")
+    @SerialName("app_build_number")
     var buildNumber: Int,
     
-    @JsonProperty("rom_name")
+    @SerialName("rom_name")
     var romName: String,
     
-    @JsonProperty("rom_build")
+    @SerialName("rom_build")
     var romBuild: String,
     
-    @JsonProperty("android_version")
+    @SerialName("android_version")
     var androidVersion: String,
     
-    @JsonProperty("installation_source")
+    @SerialName("installation_source")
     var installedFrom: String,
     
-    @JsonProperty("rating_type")
+    @SerialName("rating_type")
     var ratingType: String? = null,
     
-    @JsonProperty("score")
+    @SerialName("score")
     @Embedded
     var ratingScore: RatingScore? = null,
     
-    @JsonProperty("notes")
+    @SerialName("notes")
     var notes: String? = null
 
 )

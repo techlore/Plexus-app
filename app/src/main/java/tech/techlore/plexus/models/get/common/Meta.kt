@@ -17,24 +17,26 @@
 
 package tech.techlore.plexus.models.get.common
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
+@Serializable
 data class Meta(
     
-    @JsonProperty("limit")
-    @JsonIgnore
-    val limit: Int,
+    @SerialName("limit")
+    @Transient
+    val limit: Int = 0,
     
-    @JsonProperty("page_number")
-    @JsonIgnore
-    val pageNumber: Int,
+    @SerialName("page_number")
+    @Transient
+    val pageNumber: Int = 0,
     
-    @JsonProperty("total_count")
-    @JsonIgnore
-    val totalCount: Int,
+    @SerialName("total_count")
+    @Transient
+    val totalCount: Int = 0,
     
-    @JsonProperty("total_pages")
+    @SerialName("total_pages")
     val totalPages: Int
     
 )

@@ -17,15 +17,17 @@
 
 package tech.techlore.plexus.models.get.apps
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import tech.techlore.plexus.models.get.common.Meta
 
+@Serializable
 data class GetAppsRoot (
     
-    @JsonProperty("data")
+    @SerialName("data")
     val appData: ArrayList<GetApp>,
     
-    @JsonProperty("meta")
+    @SerialName("meta")
     val meta: Meta
     
 )

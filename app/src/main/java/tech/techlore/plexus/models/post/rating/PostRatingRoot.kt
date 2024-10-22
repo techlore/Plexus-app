@@ -17,12 +17,13 @@
 
 package tech.techlore.plexus.models.post.rating
 
-import androidx.room.TypeConverters
-import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.post.PostRatingConverter
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@TypeConverters(PostRatingConverter::class)
+@Serializable
 data class PostRatingRoot(
-    @JsonProperty("rating")
+    
+    @SerialName("rating")
     var postRating: PostRating
+    
 )

@@ -31,7 +31,6 @@
     <string name="techlore_website_url" translatable="false">https://www.techlore.tech</string>
 
     <!--Licenses fragment-->
-    <string name="jackson_license_url" translatable="false">https://github.com/FasterXML/jackson-module-kotlin/blob/2.15/LICENSE</string>
     <string name="retrofit_license_url" translatable="false">https://github.com/square/retrofit/blob/master/LICENSE.txt</string>
     <string name="coil_license_url" translatable="false">https://github.com/coil-kt/coil/blob/main/LICENSE.txt</string>
     <string name="fastscroll_license_url" translatable="false">https://github.com/StellarSand/AndroidFastScroll-kt/blob/master/LICENSE</string>

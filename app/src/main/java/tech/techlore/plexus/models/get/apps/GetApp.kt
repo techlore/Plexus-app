@@ -17,29 +17,28 @@
 
 package tech.techlore.plexus.models.get.apps
 
-import androidx.room.TypeConverters
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-import tech.techlore.plexus.converters.get.ScoresRootConverter
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import tech.techlore.plexus.models.get.scores.ScoresRoot
 
-@TypeConverters(ScoresRootConverter::class)
+@Serializable
 data class GetApp(
     
-    @JsonProperty("name")
+    @SerialName("name")
     val name: String,
     
-    @JsonProperty("updated_at")
-    @JsonIgnore
-    val updatedAt: String,
+    @SerialName("updated_at")
+    @Transient
+    val updatedAt: String = "",
     
-    @JsonProperty("package")
+    @SerialName("package")
     val packageName: String,
     
-    @JsonProperty("icon_url")
+    @SerialName("icon_url")
     var iconUrl: String? = null,
 
-    @JsonProperty("scores")
+    @SerialName("scores")
     val scoresRoot: ScoresRoot
     
 )

@@ -17,16 +17,18 @@
 
 package tech.techlore.plexus.models.get.ratings
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
+@Serializable
 data class RatingScore (
     
-    @JsonProperty("numerator")
+    @SerialName("numerator")
     var ratingScore: Int = 0,
     
-    @JsonProperty("denominator")
-    @JsonIgnore
+    @SerialName("denominator")
+    @Transient
     var ratingsDenominator: Int = 0
 
 )

@@ -20,8 +20,10 @@ package tech.techlore.plexus.models.myratings
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import tech.techlore.plexus.converters.myratings.MyRatingsDetailsConverter
+import kotlinx.serialization.Serializable
+import tech.techlore.plexus.objects.MyRatingsDetailsConverter
 
+@Serializable
 @Entity(tableName = "my_ratings_table")
 @TypeConverters(MyRatingsDetailsConverter::class)
 data class MyRating(

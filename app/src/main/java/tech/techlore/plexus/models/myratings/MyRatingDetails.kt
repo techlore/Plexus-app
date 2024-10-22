@@ -18,7 +18,9 @@
 package tech.techlore.plexus.models.myratings
 
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class MyRatingDetails(
     
     @PrimaryKey

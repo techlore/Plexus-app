@@ -23,6 +23,8 @@ import tech.techlore.plexus.api.ApiService
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.get.apps.GetSingleAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
+import tech.techlore.plexus.models.get.responses.RegisterDeviceResponse
+import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
@@ -42,15 +44,15 @@ class ApiRepository(private val apiService: ApiService) {
         return apiService.getRatings(packageName, pageNumber)
     }
     
-    fun registerDevice(registerDevice: RegisterDevice): Call<ResponseBody> {
+    fun registerDevice(registerDevice: RegisterDevice): Call<RegisterDeviceResponse> {
         return apiService.registerDevice(registerDevice)
     }
     
-    fun verifyDevice(verifyDevice: VerifyDevice): Call<ResponseBody> {
+    fun verifyDevice(verifyDevice: VerifyDevice): Call<VerifyDeviceResponseRoot> {
         return apiService.verifyDevice(verifyDevice)
     }
     
-    fun renewDevice(authToken: String): Call<ResponseBody> {
+    fun renewDevice(authToken: String): Call<VerifyDeviceResponseRoot> {
         return apiService.renewDevice("Bearer $authToken")
     }
     

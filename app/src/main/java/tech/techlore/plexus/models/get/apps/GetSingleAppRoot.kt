@@ -17,10 +17,13 @@
 
 package tech.techlore.plexus.models.get.apps
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-import com.fasterxml.jackson.annotation.JsonProperty
-
+@Serializable
 data class GetSingleAppRoot(
-    @JsonProperty("data")
+    
+    @SerialName("data")
     val appData: GetApp
+    
 )

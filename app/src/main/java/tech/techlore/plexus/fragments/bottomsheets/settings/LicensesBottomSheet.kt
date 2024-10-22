@@ -60,11 +60,6 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
         
         licenseList = ArrayList<License>().apply {
     
-            // Jackson
-            add(License(getString(R.string.jackson),
-                        getString(R.string.apache_2_0_license),
-                        getString(R.string.jackson_license_url)))
-    
             // Retrofit
             add(License(getString(R.string.retrofit),
                         "${getString(R.string.copyright_square)}\n\n${getString(R.string.apache_2_0_license)}",

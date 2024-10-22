@@ -22,6 +22,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
@@ -50,6 +51,16 @@ class IntentUtils {
                 showSnackbar(coordinatorLayout,
                              activity.getString(R.string.no_browsers),
                              anchorView)
+            }
+        }
+        fun openURL(activity: Activity,
+                    URL: String) {
+            try {
+                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL)))
+            }
+            // If no browser installed, show toast
+            catch (e: ActivityNotFoundException) {
+                Toast.makeText(activity, activity.getString(R.string.no_browsers), Toast.LENGTH_SHORT).show()
             }
         }
         

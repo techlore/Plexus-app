@@ -17,24 +17,25 @@
 
 package tech.techlore.plexus.models.get.scores
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-
+@Serializable
 data class Score(
     
-    @JsonProperty("numerator")
+    @SerialName("numerator")
     var score: Float,
     
-    @JsonProperty("denominator")
-    @JsonIgnore
-    var denominator: Float,
+    @SerialName("denominator")
+    @Transient
+    var denominator: Float = 0.0f,
     
-    @JsonProperty("rating_type")
-    @JsonIgnore
-    var ratingType: String,
+    @SerialName("rating_type")
+    @Transient
+    var ratingType: String = "",
     
-    @JsonProperty("total_count")
+    @SerialName("total_count")
     var totalRatings: Int
     
 )

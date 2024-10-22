@@ -33,7 +33,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetStartSubmitBinding
+import tech.techlore.plexus.databinding.BottomSheetRateBinding
 import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
@@ -42,14 +42,14 @@ import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
 
 class RateBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetStartSubmitBinding? = null
+    private var _binding: BottomSheetRateBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        _binding = BottomSheetStartSubmitBinding.inflate(inflater, container, false)
+        _binding = BottomSheetRateBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     

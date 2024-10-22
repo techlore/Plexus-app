@@ -47,7 +47,6 @@
     <string name="monero" translatable="false">Monero</string>
     <string name="monero_address" translatable="false">85WHr5GxHmZLQzHk25zbDhbzwzS9pSKLmLka5S6tgfoM7F58QnMMgVYDAuFX3YTn4SNhnrybREvcs34vtof2whuQEf8H66P</string>
 
-    <string name="jackson" translatable="false">Jackson</string>
     <string name="retrofit" translatable="false">Retrofit</string>
     <string name="coil" translatable="false">Coil</string>
     <string name="fastscroll" translatable="false">AndroidFastScroll-kt</string>

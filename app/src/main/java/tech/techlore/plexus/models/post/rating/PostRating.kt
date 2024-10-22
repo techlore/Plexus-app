@@ -17,34 +17,36 @@
 
 package tech.techlore.plexus.models.post.rating
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PostRating(
     
-    @JsonProperty("app_version")
+    @SerialName("app_version")
     var version: String,
     
-    @JsonProperty("app_build_number")
+    @SerialName("app_build_number")
     var buildNumber: Int,
     
-    @JsonProperty("rom_name")
+    @SerialName("rom_name")
     var romName: String,
     
-    @JsonProperty("rom_build")
+    @SerialName("rom_build")
     var romBuild: String,
     
-    @JsonProperty("android_version")
+    @SerialName("android_version")
     var androidVersion: String,
     
-    @JsonProperty("installation_source")
+    @SerialName("installation_source")
     var installedFrom: String,
     
-    @JsonProperty("rating_type")
+    @SerialName("rating_type")
     var ratingType: String,
     
-    @JsonProperty("score")
+    @SerialName("score")
     var score: Int,
     
-    @JsonProperty("notes")
+    @SerialName("notes")
     var notes: String,
 )
