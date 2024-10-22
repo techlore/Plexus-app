@@ -114,9 +114,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     var submitNotes = ""
     
     private companion object {
-        const val ANIM_DURATION = 400L
-        val SHOW_ANIM_INTERPOLATOR = DecelerateInterpolator()
-        val HIDE_ANIM_INTERPOLATOR = AccelerateInterpolator()
+        private const val ANIM_DURATION = 400L
+        private val SHOW_ANIM_INTERPOLATOR = DecelerateInterpolator()
+        private val HIDE_ANIM_INTERPOLATOR = AccelerateInterpolator()
     }
     
     @SuppressLint("SetTextI18n")
@@ -150,7 +150,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             }
             WindowInsetsCompat.CONSUMED
         }
-        mapOf(activityBinding.scrollTopFab to 100f,
+        mapOf(activityBinding.scrollTopFab to 105f,
               activityBinding.rateBtn to 12f).forEach { (view, margin) ->
             ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
                 v.updateLayoutParams<ViewGroup.MarginLayoutParams> {

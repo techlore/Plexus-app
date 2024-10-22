@@ -80,7 +80,7 @@ class MyRatingsFragment :
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 leftMargin = insets.left + convertDpToPx(requireContext(), 16f)
-                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 16f)
+                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 25f)
             }
             
             WindowInsetsCompat.CONSUMED

@@ -24,6 +24,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
@@ -50,6 +51,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
+import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     
@@ -71,6 +73,8 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     var mgStatusSort = 0
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         addMenuProvider(this)
@@ -126,6 +130,9 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                                           app.installedFrom,
                                           activityBinding.detailsInstalledFrom)
             
+            activityBinding.loadingIndicator.isVisible = false
+            activityBinding.retrievingRatingsText.isVisible = false
+            
             // Show FAB on scroll
             activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
                 if (scrollY == 0) {
@@ -139,7 +146,17 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                 scrollToTop(activityBinding.nestedScrollView)
             }
             
-            navController.navigate(R.id.myRatingsDetailsFragment)
+            activityBinding.totalRatingsCount.apply {
+                @SuppressLint("SetTextI18n")
+                text = "${getString(R.string.my_ratings)}: ${(myRating.ratingsDetails.size)}"
+                isVisible = true
+            }
+            
+            navController.navInflater.inflate(R.navigation.details_fragments_nav_graph).apply {
+                setStartDestination(R.id.myRatingsDetailsFragment)
+                navController.setGraph(this, intent.extras)
+            }
+            activityBinding.detailsNavHost.isVisible = true
             activityBinding.rateBtn.isVisible = false
         }
     }
