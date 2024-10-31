@@ -27,14 +27,16 @@
     & = &amp;
     -->
 
-    <!--Splash activity -->
+    <!--First activity -->
     <string name="retrieving_data">Retrieving data</string>
     <string name="scan_installed">Scanning installed apps</string>
+    <string name="skip">Skip</string>
 
     <!--#########################################################################################-->
 
     <!--Main activity-->
     <string name="no_apps_found">No apps found</string>
+    <string name="new_submission">New submission</string>
 
     <!--My ratings fragment-->
     <string name="no_ratings_available">No ratings available</string>
@@ -59,23 +61,15 @@
     <string name="rate">Rate</string>
     <string name="app">App</string>
     <string name="package_name">Package</string>
-    <string name="scroll_to_top">Scroll to top</string>
+    <string name="retrieving_ratings">Retrieving ratings</string>
     <string name="total_score">Total score</string>
+    <string name="total_ratings">Total ratings</string>
     <string name="ratings">Ratings</string>
+    <string name="scroll_to_top">Scroll to top</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Help</string>
     <string name="menu_more">More options</string>
-    <string name="new_submission">New submission</string>
-
-    <!--Progress bar fragment-->
-    <string name="retrieving_ratings">Retrieving ratings</string>
-
-    <!--Total score fragment-->
-    <string name="total_ratings">Total ratings</string>
-
-    <!--User ratings fragment-->
-    <string name="notes">Notes</string>
 
     <!--#########################################################################################-->
 
@@ -103,15 +97,7 @@
 
     <!--#########################################################################################-->
 
-    <!--Submit activity-->
-    <string name="optional">optional</string>
-    <string name="submit">Submit</string>
-
-    <!--#########################################################################################-->
-
     <!--Settings activity-->
-
-    <!--Settings fragment-->
     <string name="theme">Theme</string>
     <string name="material_you">Material You\n(requires app restart)</string>
     <string name="default_view">Default view</string>
@@ -125,7 +111,24 @@
     <string name="visit_techlore">Visit Techlore</string>
     <string name="third_party_licenses">Third party licenses</string>
 
-    <!--Help fragment-->
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="exit">Exit</string>
+    <string name="retry">Retry</string>
+
+    <!--No Network/Internet-->
+    <string name="no_network_title">No Network/Internet</string>
+    <string name="no_network_subtitle">Connect to Wi-Fi or mobile data and retry.
+        If already connected, make sure it has an internet connection.</string>
+
+    <!--First launch-->
+    <string name="welcome_text_desc">As a first-time user of the app, please take a moment to familiarize yourself with the icons and status indicators.</string>
+
+    <!--Help-->
     <string name="icons">Icons</string>
     <string name="not_tested_subtitle">Not available, app has not been tested</string>
     <string name="broken_title">Broken</string>
@@ -140,24 +143,7 @@
     <string name="android_version_desc">Android versions</string>
     <string name="installation_source_desc">Installation source of apps</string>
     <string name="apps_submit_proc">Apps submission procedure</string>
-
-    <!--#########################################################################################-->
-
-    <!--Bottom sheets-->
-    <string name="done">Done</string>
-    <string name="cancel">Cancel</string>
-    <string name="dismiss">Dismiss</string>
-    <string name="exit">Exit</string>
-    <string name="retry">Retry</string>
-    <string name="skip">Skip</string>
-
-    <!--No Network/Internet-->
-    <string name="no_network_title">No Network/Internet</string>
-    <string name="no_network_subtitle">Connect to Wi-Fi or mobile data and retry.
-        If already connected, make sure it has an internet connection.</string>
-
-    <!--First launch-->
-    <string name="welcome_text_desc">As a first-time user of the app, please take a moment to familiarize yourself with the icons and status indicators.</string>
+    <string name="faqs">Frequently asked questions</string>
 
     <!--Sort-->
     <string name="alphabetical">Alphabetical</string>
@@ -176,11 +162,6 @@
         \n
         \nAre you sure you want to proceed?</string>
 
-    <!--Theme-->
-    <string name="follow_system">Follow system</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
-
     <!--More options-->
     <string name="menu_share">Share</string>
 
@@ -190,12 +171,22 @@
     <string name="select">Select</string>
     <string name="proceed">Proceed</string>
 
+    <!--Rate-->
+    <string name="notes">Notes</string>
+    <string name="optional">optional</string>
+    <string name="submit">Submit</string>
+
     <!--Submit-->
     <string name="about_to_submit">You are about to submit a rating. Are you sure you want to proceed?</string>
     <string name="wait_submitting_data">Please wait, submitting data …</string>
     <string name="submit_success">Submitted successfully</string>
     <string name="submit_error">Error while submitting data</string>
     <string name="thanks_for_submitting">Thank you for submitting data and helping the community.</string>
+
+    <!--Theme-->
+    <string name="follow_system">Follow system</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 
     <!--#########################################################################################-->
 

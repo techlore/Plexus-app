@@ -23,13 +23,13 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import tech.techlore.plexus.objects.DeviceState
 
-class SystemUtils {
+class DeviceUtils {
     
     companion object {
         
         fun isDeviceDeGoogledOrMicroG(context: Context) {
             
-            val gappsPackages = listOf("com.google.android.gms",
+            val gappsPackages = arrayOf("com.google.android.gms",
                                        "com.google.android.gsf",
                                        "com.android.vending")
             
@@ -64,7 +64,7 @@ class SystemUtils {
             return try {
                 packageManager.getApplicationInfo(packageName, 0)
             }
-            catch (e: PackageManager.NameNotFoundException) {
+            catch (_: PackageManager.NameNotFoundException) {
                 null
             }
         }
@@ -76,7 +76,7 @@ class SystemUtils {
                 val getProperty = systemProperties.getMethod("get", String::class.java)
                 getProperty.invoke(null, propertyName) as? String
             }
-            catch (e: Exception) {
+            catch (_: Exception) {
                 null
             }
         }

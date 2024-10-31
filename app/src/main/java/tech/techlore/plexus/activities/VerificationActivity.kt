@@ -29,7 +29,6 @@ import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class VerificationActivity : AppCompatActivity() {
     
-    lateinit var activityBinding: ActivityVerificationBinding
     lateinit var navController: NavController
     var emailString = ""
     var deviceId = ""
@@ -39,7 +38,7 @@ class VerificationActivity : AppCompatActivity() {
         setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-        activityBinding = ActivityVerificationBinding.inflate(layoutInflater)
+        val activityBinding = ActivityVerificationBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
     
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.verificationNavHost) as NavHostFragment

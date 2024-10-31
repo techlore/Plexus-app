@@ -61,8 +61,16 @@ class HelpBottomSheet : BottomSheetDialogFragment() {
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_help)
         
+        // Apps submit procedure
         bottomSheetBinding.appsSubmitProcCard.setOnClickListener {
-            requireActivity().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.apps_submit_proc_url))))
+            requireActivity().startActivity(Intent(Intent.ACTION_VIEW,
+                                                   Uri.parse(getString(R.string.apps_submit_proc_url))))
+        }
+        
+        // FAQ
+        bottomSheetBinding.faqsCard.setOnClickListener {
+            requireActivity().startActivity(Intent(Intent.ACTION_VIEW,
+                                                   Uri.parse(getString(R.string.faqs_url))))
         }
         
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {

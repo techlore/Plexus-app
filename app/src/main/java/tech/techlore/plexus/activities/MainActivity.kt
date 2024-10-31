@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         bottomSheetBehavior = BottomSheetBehavior.from(activityBinding.bottomNavContainer)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
-        val navMyAccountItems = listOf(R.id.nav_my_ratings, R.id.nav_delete_account)
+        val navMyAccountItems = arrayOf(R.id.nav_my_ratings, R.id.nav_delete_account)
         val prefManager by inject<PreferenceManager>()
         val encPreferenceManager by inject<EncryptedPreferenceManager>()
         

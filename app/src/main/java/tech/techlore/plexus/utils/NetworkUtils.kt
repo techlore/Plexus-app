@@ -29,7 +29,7 @@ import java.net.Socket
 class NetworkUtils {
     
     companion object {
-    
+        
         // Check network availability
         suspend fun hasNetwork(context: Context): Boolean {
             return withContext(Dispatchers.IO) {
@@ -38,15 +38,16 @@ class NetworkUtils {
                 capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             }
         }
-    
+        
         // Check if network has internet connection
         // Must be called in background thread
         suspend fun hasInternet(): Boolean {
             return try {
                 withContext(Dispatchers.IO) {
-                    val socket = Socket()
-                    socket.connect(InetSocketAddress("plexus.techlore.tech", 443), 10000)
-                    socket.close()
+                    Socket().apply {
+                        connect(InetSocketAddress("plexus.techlore.tech", 443), 10000)
+                        close()
+                    }
                     true
                 }
             }

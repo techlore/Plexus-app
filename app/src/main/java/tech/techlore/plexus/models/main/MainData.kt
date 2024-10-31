@@ -40,7 +40,7 @@ data class MainData(
     
     var installedVersion: String = "",
     
-    var installedBuild: Int = 0,
+    var installedBuild: Long = 0L,
     
     var installedFrom: String = "",
     

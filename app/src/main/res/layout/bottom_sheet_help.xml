@@ -484,7 +484,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/otherCard"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginHorizontal="@dimen/margin_12"
@@ -496,6 +495,31 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_20"
                     android:text="@string/apps_submit_proc"
+                    android:textSize="@dimen/text_17"
+                    style="@style/MediumBoldText"
+                    android:drawableEnd="@drawable/ic_open_in_browser"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--######################################################-->
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/faqsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/appsSubmitProcCard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_16"
+                android:backgroundTint="@android:color/transparent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_20"
+                    android:text="@string/faqs"
                     android:textSize="@dimen/text_17"
                     style="@style/MediumBoldText"
                     android:drawableEnd="@drawable/ic_open_in_browser"/>

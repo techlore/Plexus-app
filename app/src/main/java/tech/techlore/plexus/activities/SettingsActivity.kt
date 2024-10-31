@@ -48,7 +48,6 @@ import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class SettingsActivity : AppCompatActivity() {
     
-    private lateinit var activityBinding: ActivitySettingsBinding
     private val prefManager by inject<PreferenceManager>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
         setNavBarContrastEnforced(window)
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-        activityBinding = ActivitySettingsBinding.inflate(layoutInflater)
+        val activityBinding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
         // Adjust scrollview for edge to edge

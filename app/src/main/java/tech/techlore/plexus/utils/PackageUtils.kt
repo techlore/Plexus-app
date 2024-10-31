@@ -20,6 +20,7 @@ package tech.techlore.plexus.utils
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.models.main.MainData
@@ -56,21 +57,19 @@ class PackageUtils {
                             val installedFrom =
                                 when {
                                     isAppFromFdroid(packageManager, it.packageName) -> "fdroid"
-                                    packageManager.getInstallerPackageName(it.packageName)
-                                            in setOf("com.android.packageinstaller",
-                                                     "com.google.android.packageinstaller",
-                                                     "com.samsung.android.packageinstaller",
-                                                     "com.miui.packageinstaller",
-                                                     "com.miui.global.packageinstaller") -> "apk"
+                                    isAppFromApk(packageManager, it.packageName) -> "apk"
                                     else -> "google_play_alternative"
-                                    
                                 }
+                            
+                            val packageInfo = packageManager.getPackageInfo(it.packageName, 0)
                             
                             installedAppsList
                                 .add(MainData(name = it.loadLabel(packageManager).toString(),
                                               packageName = it.packageName,
-                                              installedVersion = packageManager.getPackageInfo(it.packageName, 0).versionName ?: "",
-                                              installedBuild = packageManager.getPackageInfo(it.packageName, 0).versionCode,
+                                              installedVersion = packageInfo.versionName ?: "",
+                                              installedBuild =
+                                              if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode
+                                              else packageInfo.versionCode.toLong(),
                                               installedFrom = installedFrom,
                                               isInstalled = true))
                         }
@@ -83,14 +82,24 @@ class PackageUtils {
         private fun getAppCertificate(packageManager: PackageManager,
                                       packageName: String): String? {
             return try {
-                val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-                val certificateFactory = CertificateFactory.getInstance("X.509")
-                val signature = packageInfo.signatures.first()
-                val inputStream = ByteArrayInputStream(signature.toByteArray())
-                val x509Certificate = certificateFactory.generateCertificate(inputStream) as X509Certificate
-                x509Certificate.subjectX500Principal.name
+                val packageInfo =
+                    packageManager.getPackageInfo(packageName,
+                                                  if (Build.VERSION.SDK_INT >= 28) PackageManager.GET_SIGNING_CERTIFICATES
+                                                  else PackageManager.GET_SIGNATURES)
+                val signature =
+                    if (Build.VERSION.SDK_INT >= 28) {
+                        val signingInfo = packageInfo.signingInfo
+                        when {
+                            signingInfo?.hasMultipleSigners() == true -> signingInfo.apkContentsSigners.first()
+                            else -> signingInfo?.signingCertificateHistory?.first()
+                        }
+                    }
+                    else packageInfo.signatures?.first()
+                val inputStream = ByteArrayInputStream(signature?.toByteArray())
+                (CertificateFactory.getInstance("X.509").generateCertificate(inputStream) as X509Certificate)
+                    .subjectX500Principal.name
             }
-            catch (e: PackageManager.NameNotFoundException) {
+            catch (_: Exception) {
                 null
             }
         }
@@ -98,6 +107,21 @@ class PackageUtils {
         private fun isAppFromFdroid(packageManager: PackageManager, packageName: String): Boolean {
             val fdroidCertificate = "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK"
             return fdroidCertificate == getAppCertificate(packageManager, packageName)
+        }
+        
+        private fun isAppFromApk(packageManager: PackageManager, packageName: String): Boolean {
+            val packageInstallers =
+                setOf("com.android.packageinstaller",
+                      "com.google.android.packageinstaller",
+                      "com.samsung.android.packageinstaller",
+                      "com.miui.packageinstaller",
+                      "com.miui.global.packageinstaller",
+                      "com.asus.packageinstaller")
+            
+            return if (Build.VERSION.SDK_INT >= 30)
+                packageManager.getInstallSourceInfo(packageName).installingPackageName in packageInstallers
+            else
+                packageManager.getInstallerPackageName(packageName) in packageInstallers
         }
         
     }

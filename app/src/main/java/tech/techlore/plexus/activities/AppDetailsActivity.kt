@@ -102,7 +102,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private var mgBrokenRatingsPercent = 0.0f
     var sortedRatingsList = arrayListOf<Rating>()
     var isListSorted = false
-    var differentLists = arrayOf<List<String>>()
+    var differentLists = arrayOf<Array<String>>()
     lateinit var selectedVersionString: String
     lateinit var selectedRomString: String
     lateinit var selectedAndroidString: String
@@ -242,12 +242,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     }
     
     private fun showViewWithAnimation(view: View) {
-        ObjectAnimator.ofFloat(view, "alpha", 0.4f, 1f).apply {
+        ObjectAnimator.ofFloat(view, "alpha", 0f, 1f).apply {
             duration = ANIM_DURATION
             interpolator = SHOW_ANIM_INTERPOLATOR
-            view.isVisible = true
             start()
         }.doOnEnd {
+            view.isVisible = true
             // Show animated progress after recyclerview is shown,
             // otherwise progress bars animation looks stuck if recyclerview has too many rows
             if (view == activityBinding.detailsNavHost) {
@@ -260,9 +260,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         ObjectAnimator.ofFloat(view, "alpha", 1f, 0f).apply {
             duration = ANIM_DURATION
             interpolator = HIDE_ANIM_INTERPOLATOR
-            view.isVisible = false
             start()
-        }
+        }.doOnEnd { view.isVisible = false }
     }
     
     private fun retrieveRatings() {
@@ -354,18 +353,18 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 mgBronzeRatingsPercent = calcPercent(ratingCounts["micro_g" to "bronze"] ?: 0, app.totalMgRatings)
                 mgBrokenRatingsPercent = calcPercent(ratingCounts["micro_g" to "broken"] ?: 0, app.totalMgRatings)
                 
-                // Get different versions, ROMs & androids from ratings list
+                // Get different app versions, ROMs & android versions from ratings list
                 // and store them in a separate list to show in sort ratings bottom sheet
                 differentLists =
                     arrayOf(
                         // App version
-                        listOf(getString(R.string.any)) +
+                        arrayOf(getString(R.string.any)) +
                         ratingsList.map { "${it.version} (${it.buildNumber})" }.distinct(),
                         // ROMs
-                        listOf(getString(R.string.any)) +
+                        arrayOf(getString(R.string.any)) +
                         ratingsList.map { it.romName }.distinct(),
                         // Android versions
-                        listOf(getString(R.string.any)) +
+                        arrayOf(getString(R.string.any)) +
                         ratingsList.map { it.androidVersion }.distinct()
                     )
                 
@@ -392,7 +391,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 navController.setGraph(this, intent.extras)
             }
             
-            listOf(activityBinding.loadingIndicator, activityBinding.retrievingRatingsText,
+            arrayOf(activityBinding.loadingIndicator, activityBinding.retrievingRatingsText,
                    activityBinding.totalScoreText, activityBinding.totalScoreCard).forEachIndexed { index, view ->
                 if (index < 2) hideViewWithAnimation(view)
                 else showViewWithAnimation(view)

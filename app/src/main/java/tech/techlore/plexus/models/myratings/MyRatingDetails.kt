@@ -28,7 +28,7 @@ data class MyRatingDetails(
     
     var version: String,
     
-    var buildNumber: Int,
+    var buildNumber: Long,
     
     var romName: String,
     

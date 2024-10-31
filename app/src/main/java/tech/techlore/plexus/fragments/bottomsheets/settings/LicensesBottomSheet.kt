@@ -38,7 +38,6 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetLicensesBinding? = null
     private val bottomSheetBinding get() = _binding!!
-    private lateinit var licenseList: ArrayList<License>
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
@@ -58,63 +57,64 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.third_party_licenses)
         
-        licenseList = ArrayList<License>().apply {
-    
-            // Retrofit
-            add(License(getString(R.string.retrofit),
-                        "${getString(R.string.copyright_square)}\n\n${getString(R.string.apache_2_0_license)}",
-                        getString(R.string.retrofit_license_url)))
-            
-            // Coil
-            add(License(getString(R.string.coil),
-                        "${getString(R.string.copyright_coil)}\n\n${getString(R.string.apache_2_0_license)}",
-                        getString(R.string.coil_license_url)))
-    
-            // FastScroll
-            add(License(getString(R.string.fastscroll),
-                        "${getString(R.string.copyright_fastscroll)}\n\n${getString(R.string.apache_2_0_license)}",
-                        getString(R.string.fastscroll_license_url)))
-            
-            // jsoup
-            add(License(getString(R.string.jsoup),
-                        "${getString(R.string.copyright_jsoup)}\n\n${getString(R.string.mit_license)}",
-                        getString(R.string.jsoup_license_url)))
-    
-            // lottie-android
-            add(License(getString(R.string.lottie_android),
-                        getString(R.string.apache_2_0_license),
-                        getString(R.string.lottie_android_license_url)))
-    
-            // LottieFiles
-            add(License(getString(R.string.lottie_files),
-                        getString(R.string.lottie_files_license),
-                        getString(R.string.lottie_files_license_url)))
-    
-            // F-Droid icon
-            add(License(getString(R.string.fdroid_icon),
-                        getString(R.string.cc_3_0_license),
-                        getString(R.string.fdroid_icon_license_url)))
-            
-            // Exodus icon
-            add(License(getString(R.string.exodus_icon),
-                        getString(R.string.agpl_3_0_license),
-                        getString(R.string.exodus_icon_license_url)))
-    
-            // microG icon
-            add(License(getString(R.string.microG_icon),
-                        getString(R.string.apache_2_0_license),
-                        getString(R.string.microG_icon_license_url)))
-            
-            // Liberapay icon
-            add(License(getString(R.string.liberapay_icon),
-                        getString(R.string.cc0_1_0_universal_public_domain_license),
-                        getString(R.string.liberapay_icon_license_url)))
-    
-            // Monero icon
-            add(License(getString(R.string.monero_icon),
-                        getString(R.string.cc_3_0_license),
-                        getString(R.string.monero_icon_license_url)))
-        }
+        val licenseList =
+            ArrayList<License>().apply {
+                
+                // Retrofit
+                add(License(getString(R.string.retrofit),
+                            "${getString(R.string.copyright_square)}\n\n${getString(R.string.apache_2_0_license)}",
+                            getString(R.string.retrofit_license_url)))
+                
+                // Coil
+                add(License(getString(R.string.coil),
+                            "${getString(R.string.copyright_coil)}\n\n${getString(R.string.apache_2_0_license)}",
+                            getString(R.string.coil_license_url)))
+                
+                // FastScroll
+                add(License(getString(R.string.fastscroll),
+                            "${getString(R.string.copyright_fastscroll)}\n\n${getString(R.string.apache_2_0_license)}",
+                            getString(R.string.fastscroll_license_url)))
+                
+                // jsoup
+                add(License(getString(R.string.jsoup),
+                            "${getString(R.string.copyright_jsoup)}\n\n${getString(R.string.mit_license)}",
+                            getString(R.string.jsoup_license_url)))
+                
+                // lottie-android
+                add(License(getString(R.string.lottie_android),
+                            getString(R.string.apache_2_0_license),
+                            getString(R.string.lottie_android_license_url)))
+                
+                // LottieFiles
+                add(License(getString(R.string.lottie_files),
+                            getString(R.string.lottie_files_license),
+                            getString(R.string.lottie_files_license_url)))
+                
+                // F-Droid icon
+                add(License(getString(R.string.fdroid_icon),
+                            getString(R.string.cc_3_0_license),
+                            getString(R.string.fdroid_icon_license_url)))
+                
+                // Exodus icon
+                add(License(getString(R.string.exodus_icon),
+                            getString(R.string.agpl_3_0_license),
+                            getString(R.string.exodus_icon_license_url)))
+                
+                // microG icon
+                add(License(getString(R.string.microG_icon),
+                            getString(R.string.apache_2_0_license),
+                            getString(R.string.microG_icon_license_url)))
+                
+                // Liberapay icon
+                add(License(getString(R.string.liberapay_icon),
+                            getString(R.string.cc0_1_0_universal_public_domain_license),
+                            getString(R.string.liberapay_icon_license_url)))
+                
+                // Monero icon
+                add(License(getString(R.string.monero_icon),
+                            getString(R.string.cc_3_0_license),
+                            getString(R.string.monero_icon_license_url)))
+            }
         
         bottomSheetBinding.licensesRecyclerView.adapter = LicenseItemAdapter(licenseList,
                                                                              requireActivity() as SettingsActivity)

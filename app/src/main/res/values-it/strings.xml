@@ -28,14 +28,16 @@
         ù = \u00F9
     -->
 
-    <!--Splash activity-->
+    <!--First activity-->
     <string name="retrieving_data">Recuperando i dati</string>
     <string name="scan_installed">Scansionando le appplicazioni installate</string>
+    <string name="skip">Salta</string>
 
     <!--#########################################################################################-->
 
     <!--Main activity-->
     <string name="no_apps_found">Nessuna appplicazione trovata</string>
+    <string name="new_submission">Nuovo invio</string>
 
     <!--My ratings fragment-->
     <string name="no_ratings_available">Nessuna valutazione disponibile</string>
@@ -60,23 +62,15 @@
     <string name="rate">Valutazione</string>
     <string name="app">Applicazione</string>
     <string name="package_name">Nome del pacchetto</string>
-    <string name="scroll_to_top">Scorri in alto</string>
+    <string name="retrieving_ratings">Recupero delle valutazioni</string>
     <string name="total_score">Punteggio totale</string>
+    <string name="total_ratings">Valutazioni totali</string>
     <string name="ratings">Valutazioni</string>
+    <string name="scroll_to_top">Scorri in alto</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Aiuto</string>
     <string name="menu_more">Altro</string>
-    <string name="new_submission">Nuovo invio</string>
-
-    <!--Progress bar fragment-->
-    <string name="retrieving_ratings">Recupero delle valutazioni</string>
-
-    <!--Total score fragment-->
-    <string name="total_ratings">Valutazioni totali</string>
-
-    <!--User ratings fragment-->
-    <string name="notes">Appunti</string>
 
     <!--#########################################################################################-->
 
@@ -104,15 +98,7 @@
 
     <!--#########################################################################################-->
 
-    <!--Submit activity-->
-    <string name="optional">opzionale</string>
-    <string name="submit">Invia</string>
-
-    <!--#########################################################################################-->
-
     <!--Settings activity-->
-
-    <!--Settings fragment-->
     <string name="theme">Tema</string>
     <string name="material_you">Material You\n(richiede il riavvio dell\'app)</string>
     <string name="default_view">Vista predefinita</string>
@@ -126,7 +112,24 @@
     <string name="visit_techlore">Visita Techlore</string>
     <string name="third_party_licenses">Licenze dei componenti terze parti</string>
 
-    <!--Help fragment-->
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <string name="done">Fatto</string>
+    <string name="cancel">Annulla</string>
+    <string name="dismiss">Chiudi</string>
+    <string name="exit">Esci</string>
+    <string name="retry">Riprova</string>
+
+    <!--No Network/Internet-->
+    <string name="no_network_title">Nessuna connesione nternet</string>
+    <string name="no_network_subtitle">Connettiti a una rete Wi-Fi o ai dati mobili e riprova.
+        Se gi\u00E0 connesso, assicurarsi di avere una connessione ad Internet.</string>
+
+    <!--First launch-->
+    <string name="welcome_text_desc">Come utente novizio, si consiglia di prendere familiarizzazione con le icone e gli indicatori di stato.</string>
+
+    <!--Help-->
     <string name="icons">Icone</string>
     <string name="not_tested_subtitle">Non disponibile, l\'applicazione non \u00E8 stata testata</string>
     <string name="broken_title">Rotto</string>
@@ -141,24 +144,7 @@
     <string name="android_version_desc">Versioni di Android</string>
     <string name="installation_source_desc">Fonte di installazione delle applicazioni</string>
     <string name="apps_submit_proc">Procedura di invio delle applicazioni</string>
-
-    <!--#########################################################################################-->
-
-    <!--Bottom sheets-->
-    <string name="done">Fatto</string>
-    <string name="cancel">Annulla</string>
-    <string name="dismiss">Chiudi</string>
-    <string name="exit">Esci</string>
-    <string name="retry">Riprova</string>
-    <string name="skip">Salta</string>
-
-    <!--No Network/Internet-->
-    <string name="no_network_title">Nessuna connesione nternet</string>
-    <string name="no_network_subtitle">Connettiti a una rete Wi-Fi o ai dati mobili e riprova.
-        Se gi\u00E0 connesso, assicurarsi di avere una connessione ad Internet.</string>
-
-    <!--First launch-->
-    <string name="welcome_text_desc">Come utente novizio, si consiglia di prendere familiarizzazione con le icone e gli indicatori di stato.</string>
+    <string name="faqs">Domande frequenti</string>
 
     <!--Sort-->
     <string name="alphabetical">Alfabetico</string>
@@ -177,11 +163,6 @@
         \n
         \n\u00C8 sicuro di voler procedere?</string>
 
-    <!--Theme-->
-    <string name="follow_system">Segui l\'impostazione di sistema</string>
-    <string name="light">Chiaro</string>
-    <string name="dark">Scuro</string>
-
     <!--More options-->
     <string name="menu_share">Condividi</string>
 
@@ -191,12 +172,22 @@
     <string name="select">Seleziona</string>
     <string name="proceed">Procedi</string>
 
+    <!--Rate-->
+    <string name="notes">Appunti</string>
+    <string name="optional">opzionale</string>
+    <string name="submit">Invia</string>
+
     <!--Submit-->
     <string name="about_to_submit">Stai per inviare una valutazione. Procedere con l\'invio?</string>
     <string name="wait_submitting_data">Si prega di attendere, invio dei dati in corso…</string>
     <string name="submit_success">Inviato con successo</string>
     <string name="submit_error">Errore durante l\'invio dei dati</string>
     <string name="thanks_for_submitting">Grazie per aver contribuito a Plexus e per aver aiutato la comunit\u00E0.</string>
+
+    <!--Theme-->
+    <string name="follow_system">Segui l\'impostazione di sistema</string>
+    <string name="light">Chiaro</string>
+    <string name="dark">Scuro</string>
 
     <!--#########################################################################################-->
 

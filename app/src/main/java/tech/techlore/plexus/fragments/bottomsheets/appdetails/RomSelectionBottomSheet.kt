@@ -40,7 +40,7 @@ import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetRomSelectionBinding
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
-import tech.techlore.plexus.utils.SystemUtils.Companion.getSystemProperty
+import tech.techlore.plexus.utils.DeviceUtils.Companion.getSystemProperty
 
 class RomSelectionBottomSheet : BottomSheetDialogFragment() {
     
@@ -79,7 +79,7 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
                     .replace(" ", "")
             }
         
-        val allRomsDropdownList = listOf(getString(R.string.select)) +
+        val allRomsDropdownList = arrayOf(getString(R.string.select)) +
                                   "Stock (${Build.MANUFACTURER} ${Build.MODEL})" +
                                   customRomsList
         
@@ -113,10 +113,9 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
                 // not present in truncatedCustomRomsList
             )
             
-            val adapter = ArrayAdapter(requireContext(),
-                                       R.layout.item_dropdown_menu,
-                                       allRomsDropdownList)
-            setAdapter(adapter)
+            setAdapter(ArrayAdapter(requireContext(),
+                                    R.layout.item_dropdown_menu,
+                                    allRomsDropdownList))
             
             setOnItemClickListener { _, _, position, _ ->
                 footerBinding.positiveButton.isEnabled = position != 0 && job == null

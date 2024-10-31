@@ -20,17 +20,28 @@
 <resources>
 
     <!--Settings activity-->
-
-    <!--Help fragment-->
-    <string name="apps_submit_proc_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/Help#apps-submission-procedure</string>
-
-    <!--Settings fragment-->
     <string name="plexus_privacy_policy_url" translatable="false">https://github.com/techlore/Plexus-app/blob/main/PRIVACY.md</string>
     <string name="plexus_report_issue_url" translatable="false">https://github.com/techlore/Plexus-app/issues</string>
     <string name="plexus_github_url" translatable="false">https://github.com/techlore/Plexus-app</string>
     <string name="techlore_website_url" translatable="false">https://www.techlore.tech</string>
 
-    <!--Licenses fragment-->
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+
+    <!--Help-->
+    <string name="apps_submit_proc_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/Help#apps-submission-procedure</string>
+    <string name="faqs_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/FAQs</string>
+
+    <!--More options-->
+    <string name="google_play_url" translatable="false">https://play.google.com/store/apps/details?id=</string>
+    <string name="fdroid_url" translatable="false">https://f-droid.org/packages/</string>
+    <string name="exodus_url" translatable="false">https://reports.exodus-privacy.eu.org/en/reports/search/</string>
+
+    <!--Support us-->
+    <string name="plexus_liberapay_url" translatable="false">https://liberapay.com/Plexus</string>
+
+    <!--Licenses-->
     <string name="retrofit_license_url" translatable="false">https://github.com/square/retrofit/blob/master/LICENSE.txt</string>
     <string name="coil_license_url" translatable="false">https://github.com/coil-kt/coil/blob/main/LICENSE.txt</string>
     <string name="fastscroll_license_url" translatable="false">https://github.com/StellarSand/AndroidFastScroll-kt/blob/master/LICENSE</string>
@@ -42,16 +53,5 @@
     <string name="microG_icon_license_url" translatable="false">https://microg.org/</string>
     <string name="liberapay_icon_license_url" translatable="false">https://liberapay.com/about/logos</string>
     <string name="monero_icon_license_url" translatable="false">https://www.getmonero.org/legal/</string>
-
-    <!--Support us fragment-->
-    <string name="plexus_liberapay_url" translatable="false">https://liberapay.com/Plexus</string>
-
-    <!--#########################################################################################-->
-
-    <!--Bottom sheets-->
-    <!--More options-->
-    <string name="google_play_url" translatable="false">https://play.google.com/store/apps/details?id=</string>
-    <string name="fdroid_url" translatable="false">https://f-droid.org/packages/</string>
-    <string name="exodus_url" translatable="false">https://reports.exodus-privacy.eu.org/en/reports/search/</string>
 
 </resources>

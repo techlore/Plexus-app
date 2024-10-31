@@ -35,7 +35,9 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
@@ -44,12 +46,15 @@ import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.fragments.bottomsheets.myratingsdetails.SortMyRatingsDetailsBottomSheet
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
+import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
@@ -60,17 +65,17 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     lateinit var navController: NavController
     private lateinit var app: MainData
     private lateinit var packageNameString: String
-    lateinit var myRating: MyRating
-    var differentVersionsList = listOf<String>()
-    var differentRomsList = listOf<String>()
-    var differentAndroidsList = listOf<String>()
+    private lateinit var myRating: MyRating
+    var sortedMyRatingsDetailsList = arrayListOf<MyRatingDetails>()
+    var isListSorted = false
+    var differentLists = arrayOf<Array<String>>()
     lateinit var selectedVersionString: String
     lateinit var selectedRomString: String
     lateinit var selectedAndroidString: String
-    var installedFromChip = R.id.ratingsChipInstalledAny
-    var statusToggleBtn = R.id.ratingsToggleAnyStatus
-    var dgStatusSort = 0
-    var mgStatusSort = 0
+    var installedFromChipId = R.id.ratingsChipInstalledAny
+    var statusToggleBtnId = R.id.ratingsToggleAnyStatus
+    var dgStatusSortChipId = 0
+    var mgStatusSortChipId = 0
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -156,9 +161,76 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                 setStartDestination(R.id.myRatingsDetailsFragment)
                 navController.setGraph(this, intent.extras)
             }
+            
             activityBinding.detailsNavHost.isVisible = true
             activityBinding.rateBtn.isVisible = false
+            
+            withContext(Dispatchers.Default) {
+                // Get different app versions, ROMs & android versions from ratings details list
+                // and store them in a separate list to show in sort my ratings details bottom sheet
+                differentLists =
+                    arrayOf(
+                        // App version
+                        arrayOf(getString(R.string.any)) +
+                        myRating.ratingsDetails.map { "${it.version} (${it.buildNumber})" }.distinct(),
+                        // ROMs
+                        arrayOf(getString(R.string.any)) +
+                        myRating.ratingsDetails.map { it.romName }.distinct(),
+                        // Android versions
+                        arrayOf(getString(R.string.any)) +
+                        myRating.ratingsDetails.map { it.androidVersion }.distinct()
+                    )
+                
+                sortMyRatingsDetails()
+            }
         }
+    }
+    
+    fun sortMyRatingsDetails() {
+        sortedMyRatingsDetailsList =
+            ArrayList<MyRatingDetails>(
+                myRating.ratingsDetails
+                    .filter { rating ->
+                        val appVerMatches =
+                            selectedVersionString == getString(R.string.any)
+                            || rating.version == selectedVersionString.substringBefore(" (")
+                        
+                        val romMatches =
+                            selectedRomString == getString(R.string.any)
+                            || rating.romName == selectedRomString
+                        
+                        val androidMatches =
+                            selectedAndroidString == getString(R.string.any)
+                            || rating.androidVersion == selectedAndroidString
+                        
+                        val installedFromMatches =
+                            installedFromChipId == R.id.ratingsChipInstalledAny
+                            || rating.installedFrom == mapInstalledFromChipIdToString(installedFromChipId)
+                        
+                        val statusToggleMatches =
+                            statusToggleBtnId == R.id.ratingsToggleAnyStatus
+                            || rating.googleLib == (if (statusToggleBtnId == R.id.ratingsToggleDgStatus) "native" else "micro_g")
+                        
+                        val statusChipMatches =
+                            when {
+                                statusToggleBtnId == R.id.ratingsToggleDgStatus
+                                && dgStatusSortChipId != R.id.ratingsSortAny -> {
+                                    rating.myRatingScore == mapStatusChipIdToRatingScore(dgStatusSortChipId)
+                                }
+                                statusToggleBtnId == R.id.ratingsToggleMgStatus
+                                && mgStatusSortChipId != R.id.ratingsSortAny -> {
+                                    rating.myRatingScore == mapStatusChipIdToRatingScore(mgStatusSortChipId)
+                                }
+                                else -> true
+                            }
+                        
+                        appVerMatches && romMatches
+                        && androidMatches && installedFromMatches
+                        && statusToggleMatches && statusChipMatches
+                        
+                    })
+        
+        isListSorted = true
     }
     
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

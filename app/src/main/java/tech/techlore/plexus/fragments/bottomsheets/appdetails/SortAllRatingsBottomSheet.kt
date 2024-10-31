@@ -67,28 +67,25 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
         // App version dropdown
         bottomSheetBinding.ratingsAppVerDropdownMenu.apply {
             setText(detailsActivity.selectedVersionString)
-            val versionAdapter = ArrayAdapter(requireContext(),
-                                              R.layout.item_dropdown_menu,
-                                              detailsActivity.differentLists[0])
-            setAdapter(versionAdapter)
+            setAdapter(ArrayAdapter(requireContext(),
+                                    R.layout.item_dropdown_menu,
+                                    detailsActivity.differentLists[0]))
         }
         
         // Rom dropdown
         bottomSheetBinding.ratingsRomDropdownMenu.apply {
             setText(detailsActivity.selectedRomString)
-            val romAdapter = ArrayAdapter(requireContext(),
-                                          R.layout.item_dropdown_menu,
-                                          detailsActivity.differentLists[1])
-            setAdapter(romAdapter)
+            setAdapter(ArrayAdapter(requireContext(),
+                                    R.layout.item_dropdown_menu,
+                                    detailsActivity.differentLists[1]))
         }
         
         // Android dropdown
         bottomSheetBinding.ratingsAndroidDropdownMenu.apply {
             setText(detailsActivity.selectedAndroidString)
-            val androidAdapter = ArrayAdapter(requireContext(),
-                                              R.layout.item_dropdown_menu,
-                                              detailsActivity.differentLists[2])
-            setAdapter(androidAdapter)
+            setAdapter(ArrayAdapter(requireContext(),
+                                    R.layout.item_dropdown_menu,
+                                    detailsActivity.differentLists[2]))
         }
         
         // Installed from chip checked by default

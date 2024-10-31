@@ -34,7 +34,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -210,9 +212,9 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 // Request was successful
                 ratingCreated = true
                 val responseBody = postRatingResponse.body()!!.string()
-                val jsonObject = JSONObject(responseBody)
-                val dataObject = jsonObject.getJSONObject("data")
-                postedRatingId = dataObject.getString("id") // Store id of the posted rating
+                val jsonElement = Json.parseToJsonElement(responseBody)
+                val dataObject = jsonElement.jsonObject["data"]?.jsonObject
+                postedRatingId = dataObject?.get("id")?.jsonPrimitive?.content // Store id of the posted rating
             }
             else -> onPostFailed(postRatingResponse.code()) // Request failed
         }
@@ -250,7 +252,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 iconUrl = url
             }
         }
-        catch (e: HttpStatusException) {
+        catch (_: HttpStatusException) {
             // If 404 error from F-Droid or icon not found,
             // then try connecting to Google Play
             try {
@@ -264,11 +266,11 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             // Sometimes play.google.com maybe blocked by user's DNS
             // java.net.ConnectException: Failed to connect to play.google.com/0.0.0.0:443
             // If that happens or any other exception occurs (like 404), then return null
-            catch (e: Exception) {
+            catch (_: Exception) {
                 iconUrl = null
             }
         }
-        catch (e: Exception) {
+        catch (_: Exception) {
             iconUrl = null
         }
         

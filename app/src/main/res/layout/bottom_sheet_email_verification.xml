@@ -30,6 +30,7 @@
         android:id="@+id/loadingIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
         android:layout_gravity="center"
         app:indicatorColor="?attr/colorPrimary"
         app:indicatorSize="48dp"

@@ -44,7 +44,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.SystemUtils.Companion.isDeviceDeGoogledOrMicroG
+import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class FirstActivity : AppCompatActivity() {
