@@ -16,11 +16,11 @@
 #
 
 [versions]
-androidGradle = "8.7.1"
+androidGradle = "8.7.2"
 androidKotlin = "2.0.21" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
 ksp = "2.0.21-1.0.25" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.0"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 splashscreen = "1.0.1"
 material3 = "1.13.0-alpha07"
 koin = "4.0.0"
@@ -28,12 +28,12 @@ swiperefreshlayout = "1.1.0"
 securityCryptoKtx = "1.1.0-alpha06"
 navigationKtx = "2.8.3"
 kotlinxSerialization = "1.7.3"
-retrofit2 = "2.11.0"
+ktor = "3.0.1"
 room = "2.6.1"
-coil = "2.7.0"
-androidfastscrollKt = "v1.0.3"
+coil = "3.0.1"
+androidfastscrollKt = "v1.0.8"
 jsoup = "1.18.1"
-lottie = "6.5.2"
+lottie = "6.6.0"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -47,12 +47,15 @@ androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-run
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationKtx" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
-retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
-retrofit2-converter-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit2" }
+ktor = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-engine = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-converter-kotlinx-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+coil-network = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 androidFastScrollKt = { module = "com.github.StellarSand:AndroidFastScroll-kt", version.ref = "androidfastscrollKt" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
@@ -60,8 +63,9 @@ lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 [bundles]
 androidxCoreComponents = ["androidx-appcompat", "androidx-core-ktx", "androidx-core-splashscreen"]
 navigation = ["androidx-navigation-runtime-ktx", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
-retrofit2 = ["retrofit2", "retrofit2-converter-kotlinx-serialization"]
+ktor = ["ktor", "ktor-engine", "ktor-content-negotiation", "ktor-converter-kotlinx-serialization"]
 room = ["androidx-room-runtime", "androidx-room-ktx"]
+coil = ["coil", "coil-network"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradle" }
