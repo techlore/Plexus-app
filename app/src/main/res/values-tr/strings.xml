@@ -39,6 +39,7 @@
     <!--First activity -->
     <string name="retrieving_data">Veriler al\u0131n\u0131yor</string>
     <string name="scan_installed">Y\u00FCkl\u00FC uygulamalar taran\u0131yor</string>
+    <string name="welcome_text_desc">Uygulaman\u0131n ilk kullan\u0131c\u0131s\u0131 olarak, l\u00FCtfen simgeler ve durum g\u00F6stergeleriyle tan\u0131\u015Fmak i\u00E7in bir dakikan\u0131z\u0131 ay\u0131r\u0131n.</string>
     <string name="skip">Atla</string>
 
     <!--#########################################################################################-->
@@ -130,12 +131,10 @@
     <string name="retry">Yeniden dene</string>
 
     <!--No Network/Internet-->
+    <string name="error_occurred_title">Bir hata olu\u015Ftu</string>
     <string name="no_network_title">A\u011F/\u0130nternet Ba\u011Flant\u0131s\u0131 Yok</string>
     <string name="no_network_subtitle">Wi-Fi veya mobil veriye ba\u011Flan\u0131n ve yeniden deneyin.
         Zaten ba\u011Fl\u0131ysan\u0131z, internet ba\u011Flant\u0131s\u0131 oldu\u011Fundan emin olun.</string>
-
-    <!--First launch-->
-    <string name="welcome_text_desc">Uygulaman\u0131n ilk kullan\u0131c\u0131s\u0131 olarak, l\u00FCtfen simgeler ve durum g\u00F6stergeleriyle tan\u0131\u015Fmak i\u00E7in bir dakikan\u0131z\u0131 ay\u0131r\u0131n.</string>
 
     <!--Help-->
     <string name="icons">Simgeler</string>

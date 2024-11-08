@@ -26,7 +26,7 @@
     android:paddingVertical="@dimen/margin_8"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context=".fragments.bottomsheets.common.HelpBottomSheet">
+    tools:context=".bottomsheets.common.HelpBottomSheet">
 
     <include
         layout="@layout/bottom_sheet_header"/>

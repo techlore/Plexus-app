@@ -34,10 +34,10 @@ import org.koin.android.ext.android.inject
 import tech.techlore.plexus.BuildConfig
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivitySettingsBinding
-import tech.techlore.plexus.fragments.bottomsheets.settings.DefaultViewBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.settings.LicensesBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.settings.SupportUsBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.settings.ThemeBottomSheet
+import tech.techlore.plexus.bottomsheets.settings.DefaultViewBottomSheet
+import tech.techlore.plexus.bottomsheets.settings.LicensesBottomSheet
+import tech.techlore.plexus.bottomsheets.settings.SupportUsBottomSheet
+import tech.techlore.plexus.bottomsheets.settings.ThemeBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH

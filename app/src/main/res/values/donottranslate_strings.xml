@@ -47,7 +47,7 @@
     <string name="monero" translatable="false">Monero</string>
     <string name="monero_address" translatable="false">85WHr5GxHmZLQzHk25zbDhbzwzS9pSKLmLka5S6tgfoM7F58QnMMgVYDAuFX3YTn4SNhnrybREvcs34vtof2whuQEf8H66P</string>
 
-    <string name="retrofit" translatable="false">Retrofit</string>
+    <string name="ktor" translatable="false">Ktor</string>
     <string name="coil" translatable="false">Coil</string>
     <string name="fastscroll" translatable="false">AndroidFastScroll-kt</string>
     <string name="jsoup" translatable="false">jsoup</string>
@@ -59,7 +59,6 @@
     <string name="liberapay_icon" translatable="false">Liberapay icon</string>
     <string name="monero_icon" translatable="false">Monero icon</string>
 
-    <string name="copyright_square" translatable="false">Copyright \u00A9 2013 Square, Inc.</string>
     <string name="copyright_coil" translatable="false">Copyright \u00A9 2023 Coil Contributors</string>
     <string name="copyright_fastscroll" translatable="false">Copyright \u00A9 2023-present StellarSand</string>
     <string name="copyright_jsoup" translatable="false">Copyright \u00A9 2009–2023 Jonathan Hedley</string>

@@ -15,14 +15,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.appdetails
+package tech.techlore.plexus.bottomsheets.appdetails
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
@@ -34,9 +33,7 @@ class MoreOptionsBottomSheet(
     private val nameString: String,
     private val packageNameString: String,
     private val dgStatus: String,
-    private val mgStatus: String,
-    private val coordinatorLayout: CoordinatorLayout,
-    private val anchorView: View
+    private val mgStatus: String
 ) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetMoreOptionsBinding? = null
@@ -63,19 +60,19 @@ class MoreOptionsBottomSheet(
         // Play store
         bottomSheetBinding.playStore.setOnClickListener {
             dismiss()
-            openURL(requireActivity(), playStoreString, coordinatorLayout, anchorView)
+            openURL(requireActivity(), playStoreString)
         }
         
         // F-Droid
         bottomSheetBinding.fdroid.setOnClickListener {
             dismiss()
-            openURL(requireActivity(), fdroidString, coordinatorLayout, anchorView)
+            openURL(requireActivity(), fdroidString)
         }
         
         // Exodus Privacy
         bottomSheetBinding.exodus.setOnClickListener {
             dismiss()
-            openURL(requireActivity(), exodusString, coordinatorLayout, anchorView)
+            openURL(requireActivity(), exodusString)
         }
         
         // Share

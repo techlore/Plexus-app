@@ -32,6 +32,7 @@
     <!--First activity-->
     <string name="retrieving_data">Recuperaci\u00F3n de datos</string>
     <string name="scan_installed">Escaneo de aplicaciones instaladas</string>
+    <string name="welcome_text_desc">Si es la primera vez que utilizas la app, t\u00F3mate un momento para familiarizarte con los iconos y los indicadores de estado.</string>
     <string name="skip">Saltar</string>
 
     <!--#########################################################################################-->
@@ -123,12 +124,10 @@
     <string name="retry">Rever</string>
 
     <!--No Network/Internet-->
+    <string name="error_occurred_title">Se ha producido un error</string>
     <string name="no_network_title">Sin Red/Internet</string>
     <string name="no_network_subtitle">Conéctese a datos Wi-Fi o m\u00F3viles y vuelva a intentarlo.
         Si ya est\u00E1 conectado, aseg\u00FArese de que tenga una conexi\u00F3n a internet.</string>
-
-    <!--First launch-->
-    <string name="welcome_text_desc">Si es la primera vez que utilizas la app, t\u00F3mate un momento para familiarizarte con los iconos y los indicadores de estado.</string>
 
     <!--Help-->
     <string name="icons">Iconos</string>

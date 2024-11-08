@@ -40,7 +40,7 @@
         android:id="@+id/scrim_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#55000000"
+        android:background="#60000000"
         android:alpha="0.0"/>
 
     <FrameLayout

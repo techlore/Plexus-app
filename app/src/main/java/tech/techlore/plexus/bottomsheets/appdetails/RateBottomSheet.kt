@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.appdetails
+package tech.techlore.plexus.bottomsheets.appdetails
 
 import android.os.Bundle
 import android.view.LayoutInflater

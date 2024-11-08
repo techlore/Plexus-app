@@ -81,6 +81,15 @@ interface MainDataDao {
     @Query("""
         SELECT * FROM main_table
         WHERE isInPlexusData
+        AND NOT isInstalled
+        AND dgScore = 0
+        AND mgScore = 0
+        """)
+    suspend fun getNonRatedPlexusDataApps(): List<MainData>
+    
+    @Query("""
+        SELECT * FROM main_table
+        WHERE isInPlexusData
         AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY

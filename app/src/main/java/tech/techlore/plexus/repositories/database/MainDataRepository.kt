@@ -19,8 +19,6 @@ package tech.techlore.plexus.repositories.database
 
 import android.annotation.SuppressLint
 import android.content.Context
-import coil.ImageLoader
-import coil.request.ImageRequest
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -28,7 +26,6 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import retrofit2.awaitResponse
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.main.MainData
@@ -45,67 +42,52 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
     private val apiRepository by inject<ApiRepository>()
     
-    suspend fun plexusDataIntoDB(context: Context) {
+    suspend fun plexusDataIntoDB() {
         withContext(Dispatchers.IO) {
             val prefManager by inject<PreferenceManager>()
             val lastUpdated = prefManager.getString(LAST_UPDATED)
             val currentDateTime = Date()
-            val appsCall = apiRepository.getAppsWithScores(pageNumber = 1, lastUpdated)
-            val appsResponse = appsCall.awaitResponse()
-            val imageLoader by inject<ImageLoader>()
-            val imageRequest = ImageRequest.Builder(context)
+            val appsResponse = apiRepository.getAppsWithScores(pageNumber = 1, lastUpdated)
             
-            if (appsResponse.isSuccessful) {
-                appsResponse.body()?.let { getAppsRoot ->
-                    // Insert/update all apps in db
-                    onRequestSuccessful(getAppsRoot, imageLoader, imageRequest)
-                    // Retrieve remaining apps in parallel
-                    if (getAppsRoot.meta.totalPages > 1) {
-                        val requests = mutableListOf<Deferred<Unit>>()
-                        for (pageNumber in 2 .. getAppsRoot.meta.totalPages) {
-                            val request = async {
-                                val remAppsCall = apiRepository.getAppsWithScores(pageNumber, lastUpdated)
-                                val remAppsResponse = remAppsCall.awaitResponse()
-                                if (remAppsResponse.isSuccessful) {
-                                    remAppsResponse.body()?.let { root ->
-                                        onRequestSuccessful(root, imageLoader, imageRequest)
-                                    }
-                                }
-                            }
-                            requests.add(request)
+            // Insert/update all apps in db
+            onRequestSuccessful(appsResponse)
+            // Retrieve remaining apps in parallel
+            if (appsResponse.meta.totalPages > 1) {
+                val requests = mutableListOf<Deferred<Unit>>()
+                (2 .. appsResponse.meta.totalPages).forEach { pageNumber ->
+                    val request =
+                        async {
+                            val remAppsResponse = apiRepository.getAppsWithScores(pageNumber, lastUpdated)
+                            onRequestSuccessful(remAppsResponse)
                         }
-                        // Wait for all requests to complete
-                        requests.awaitAll()
-                    }
+                    requests.add(request)
                 }
-                prefManager.setString(LAST_UPDATED, formatDateTimeRFC3339(currentDateTime))
+                requests.awaitAll() // Wait for all requests to complete
             }
+            
+            // Non rated apps were removed from Plexus DB recently,
+            // so delete those apps from local DB too
+            // This will be removed after few versions, as by then local DB won't have any such apps
+            mainDataDao.getNonRatedPlexusDataApps().takeIf { it.isNotEmpty() }?.forEach {
+                mainDataDao.delete(it)
+            }
+            
+            prefManager.setString(LAST_UPDATED, formatDateTimeRFC3339(currentDateTime))
         }
     }
     
-    private suspend fun onRequestSuccessful(getAppsRoot: GetAppsRoot,
-                                            imageLoader: ImageLoader,
-                                            imageRequest: ImageRequest.Builder) {
+    private suspend fun onRequestSuccessful(getAppsRoot: GetAppsRoot) {
         // Insert/update all apps in db
         getAppsRoot.appData.forEach { appData ->
-            
-            appData.iconUrl?.let { iconUrl ->
-                val preloadRequest =
-                    imageRequest
-                        .data(iconUrl)
-                        .size(150, 150)
-                        .build()
-                imageLoader.enqueue(preloadRequest)
-            }
-            
-            mainDataDao
-                .insertOrUpdatePlexusData(MainData(name = appData.name,
-                                                   packageName = appData.packageName,
-                                                   iconUrl = appData.iconUrl ?: "",
-                                                   dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
-                                                   totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
-                                                   mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
-                                                   totalMgRatings = appData.scoresRoot.mgScore.totalRatings))
+            mainDataDao.insertOrUpdatePlexusData(
+                MainData(name = appData.name,
+                         packageName = appData.packageName,
+                         iconUrl = appData.iconUrl ?: "",
+                         dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
+                         totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
+                         mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
+                         totalMgRatings = appData.scoresRoot.mgScore.totalRatings)
+            )
         }
     }
     
@@ -118,7 +100,6 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
     suspend fun installedAppsIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
-            
             val installedApps = scannedInstalledAppsList(context)
             val installedAppsPackageNames = installedApps.map { it.packageName }.toSet()
             
@@ -153,22 +134,17 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
     suspend fun updateSingleApp(packageName: String) {
         withContext(Dispatchers.IO) {
-            val singleAppCall = apiRepository.getSingleAppWithScores(packageName)
-            val singleAppResponse = singleAppCall.awaitResponse()
-            if (singleAppResponse.isSuccessful) {
-                singleAppResponse.body()?.let { getSingleAppRoot ->
-                    val appData = getSingleAppRoot.appData
-                    mainDataDao
-                        .insertOrUpdatePlexusData(MainData(name = appData.name,
-                                                           packageName = appData.packageName,
-                                                           iconUrl = appData.iconUrl ?: "",
-                                                           dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
-                                                           totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
-                                                           mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
-                                                           totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
-                                                           isInPlexusData = true))
-                }
-            }
+            val singleAppResponse = apiRepository.getSingleAppWithScores(packageName)
+            val appData = singleAppResponse.appData
+            mainDataDao
+                .insertOrUpdatePlexusData(MainData(name = appData.name,
+                                                   packageName = appData.packageName,
+                                                   iconUrl = appData.iconUrl ?: "",
+                                                   dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
+                                                   totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
+                                                   mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
+                                                   totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
+                                                   isInPlexusData = true))
         }
     }
     

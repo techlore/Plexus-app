@@ -33,8 +33,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.FragmentEmailVerificationBinding
-import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.verification.EmailVerificationBottomSheet
+import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.bottomsheets.verification.EmailVerificationBottomSheet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord

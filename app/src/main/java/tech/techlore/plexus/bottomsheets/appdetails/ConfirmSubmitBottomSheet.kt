@@ -15,59 +15,55 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.settings
+package tech.techlore.plexus.bottomsheets.appdetails
 
-import android.app.Dialog
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.AppDetailsActivity
+import tech.techlore.plexus.databinding.BottomSheetDeleteAccountBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetSupportUsBinding
 
-class SupportUsBottomSheet : BottomSheetDialogFragment() {
+// Reuse "Delete Account" bottom sheet layout
+class ConfirmSubmitBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetSupportUsBinding? = null
-    private val bottomSheetBinding get() = _binding!!
-    
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-    }
+    private var _binding: BottomSheetDeleteAccountBinding? = null
+    private val bottomSheetBinding get() = _binding !!
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
-        _binding = BottomSheetSupportUsBinding.inflate(inflater, container, false)
+        
+        _binding = BottomSheetDeleteAccountBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.support_us)
+        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        val detailsActivity = requireActivity() as AppDetailsActivity
         
-        // Liberapay
-        bottomSheetBinding.liberapayUrl.setOnClickListener {
-            requireActivity().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.plexus_liberapay_url))))
+        // Title
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = detailsActivity.app.name
+        
+        bottomSheetBinding.welcomeTextDesc.text = getString(R.string.about_to_submit)
+        
+        // Proceed
+        footerBinding.positiveButton.apply {
+            text = getString(R.string.proceed)
+            setOnClickListener {
+                dismiss()
+                detailsActivity.showSubmitBtmSheet()
+            }
         }
         
-        BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
-            positiveButton.isVisible = false
-            negativeButton.apply {
-                text = getString(R.string.dismiss)
-                setOnClickListener { dismiss() }
-            }
+        // Cancel
+        footerBinding.negativeButton.setOnClickListener {
+            dismiss()
         }
     }
     
@@ -75,5 +71,4 @@ class SupportUsBottomSheet : BottomSheetDialogFragment() {
         super.onDestroyView()
         _binding = null
     }
-    
 }

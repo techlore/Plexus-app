@@ -35,14 +35,16 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.NestedScrollView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.request.CachePolicy
-import coil.request.ImageRequest
+import coil3.load
+import coil3.request.error
+import coil3.request.fallback
+import coil3.request.placeholder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
+import org.koin.core.qualifier.named
 import tech.techlore.plexus.R
 import tech.techlore.plexus.preferences.PreferenceManager
 
@@ -130,18 +132,12 @@ class UiUtils {
                     }
                 }
                 else {
-                    val imageRequest =
-                        ImageRequest.Builder(context)
-                            .data(iconUrl)
-                            .memoryCachePolicy(CachePolicy.ENABLED)
-                            .placeholder(R.drawable.ic_apk)
-                            .fallback(R.drawable.ic_apk)
-                            .error(R.drawable.ic_apk)
-                            .crossfade(true)
-                            .target(this)
-                            .build()
-                    
-                    get<ImageLoader>().enqueue(imageRequest)
+                    load(iconUrl) {
+                        size(get<Int>(named("displayedIconSize")))
+                        placeholder(R.drawable.ic_apk)
+                        fallback(R.drawable.ic_apk)
+                        error(R.drawable.ic_apk)
+                    }
                 }
             }
         }

@@ -19,6 +19,7 @@ package tech.techlore.plexus.utils
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import kotlinx.coroutines.Dispatchers
@@ -34,34 +35,27 @@ class PackageUtils {
         
         suspend fun scannedInstalledAppsList(context: Context): List<MainData> {
             return withContext(Dispatchers.IO) {
-                
                 val packageManager = context.packageManager
                 val installedAppsList = arrayListOf<MainData>()
                 
-                packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-                    // Only scan for user installed apps
-                    // OR system apps updated by user
+                packageManager.getInstalledApplications(0)
+                    // Only scan for user installed apps,
+                    // OR
+                    // system apps updated by user
                     .filter {
                         it.flags and ApplicationInfo.FLAG_SYSTEM != 1
                         || it.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
                     }
-                    .mapNotNull {
+                    .map {
                         // Add scanned apps to list
                         if (it.packageName !in setOf("tech.techlore.plexus",
                                                      "com.android.vending",
                                                      "com.google.android.gms",
                                                      "com.google.android.gsf",
                                                      "org.microg.gms.droidguard",
-                                                     "org.microg.unifiednlp")){
+                                                     "org.microg.unifiednlp")) {
                             
-                            val installedFrom =
-                                when {
-                                    isAppFromFdroid(packageManager, it.packageName) -> "fdroid"
-                                    isAppFromApk(packageManager, it.packageName) -> "apk"
-                                    else -> "google_play_alternative"
-                                }
-                            
-                            val packageInfo = packageManager.getPackageInfo(it.packageName, 0)
+                            val packageInfo = getPackageInfoWithSigCerts(packageManager, it.packageName)
                             
                             installedAppsList
                                 .add(MainData(name = it.loadLabel(packageManager).toString(),
@@ -70,7 +64,12 @@ class PackageUtils {
                                               installedBuild =
                                               if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode
                                               else packageInfo.versionCode.toLong(),
-                                              installedFrom = installedFrom,
+                                              installedFrom =
+                                              when {
+                                                  isAppFromFdroid(packageInfo) -> "fdroid"
+                                                  isAppFromApk(packageManager, it.packageName) -> "apk"
+                                                  else -> "google_play_alternative"
+                                              },
                                               isInstalled = true))
                         }
                     }
@@ -79,13 +78,15 @@ class PackageUtils {
             }
         }
         
-        private fun getAppCertificate(packageManager: PackageManager,
-                                      packageName: String): String? {
+        private fun getPackageInfoWithSigCerts(packageManager: PackageManager,
+                                               packageName: String): PackageInfo {
+            return packageManager.getPackageInfo(packageName,
+                                                 if (Build.VERSION.SDK_INT >= 28) PackageManager.GET_SIGNING_CERTIFICATES
+                                                 else PackageManager.GET_SIGNATURES)
+        }
+        
+        private fun getAppCertificate(packageInfo: PackageInfo): String? {
             return try {
-                val packageInfo =
-                    packageManager.getPackageInfo(packageName,
-                                                  if (Build.VERSION.SDK_INT >= 28) PackageManager.GET_SIGNING_CERTIFICATES
-                                                  else PackageManager.GET_SIGNATURES)
                 val signature =
                     if (Build.VERSION.SDK_INT >= 28) {
                         val signingInfo = packageInfo.signingInfo
@@ -104,9 +105,8 @@ class PackageUtils {
             }
         }
         
-        private fun isAppFromFdroid(packageManager: PackageManager, packageName: String): Boolean {
-            val fdroidCertificate = "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK"
-            return fdroidCertificate == getAppCertificate(packageManager, packageName)
+        private fun isAppFromFdroid(packageInfo: PackageInfo): Boolean {
+            return getAppCertificate(packageInfo) == "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK"
         }
         
         private fun isAppFromApk(packageManager: PackageManager, packageName: String): Boolean {

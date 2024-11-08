@@ -40,26 +40,26 @@ class IntentUtils {
         
         // Open links
         fun openURL(activity: Activity,
-                    URL: String,
+                    url: String,
                     coordinatorLayout: CoordinatorLayout,
                     anchorView: View?) {
             try {
-                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL)))
+                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
             // If no browser installed, show snackbar
-            catch (e: ActivityNotFoundException) {
+            catch (_: ActivityNotFoundException) {
                 showSnackbar(coordinatorLayout,
                              activity.getString(R.string.no_browsers),
                              anchorView)
             }
         }
         fun openURL(activity: Activity,
-                    URL: String) {
+                    url: String) {
             try {
-                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL)))
+                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
             // If no browser installed, show toast
-            catch (e: ActivityNotFoundException) {
+            catch (_: ActivityNotFoundException) {
                 Toast.makeText(activity, activity.getString(R.string.no_browsers), Toast.LENGTH_SHORT).show()
             }
         }

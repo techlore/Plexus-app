@@ -48,16 +48,15 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
-import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.fragments.bottomsheets.appdetails.MoreOptionsBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.appdetails.RomSelectionBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.appdetails.SortAllRatingsBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.appdetails.RateBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.appdetails.SubmitBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.MoreOptionsBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.RomSelectionBottomSheet
+import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.SortAllRatingsBottomSheet
+import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.RateBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.SubmitBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.ratingrange.RatingRange
@@ -267,43 +266,50 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private fun retrieveRatings() {
         lifecycleScope.launch {
             if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
-                val ratingsCall = apiRepository.getRatings(packageName = app.packageName, pageNumber = 1)
-                val ratingsResponse = ratingsCall.awaitResponse()
-                
-                if (ratingsResponse.isSuccessful) {
-                    ratingsResponse.body()?.let { ratingsRoot ->
-                        ratingsRoot.ratingsData.apply {
-                            if (isNotEmpty()) {
-                                hasRatings = true
-                                ratingsList.addAll(this)
-                            }
-                        }
-                        
-                        // No need to store the ratings list in database, as:
-                        // 1. It's not used anywhere else, except details activity
-                        // 2. We're already retrieving the latest ratings everytime in details activity
-                        
-                        // Retrieve remaining ratings in parallel
-                        if (ratingsRoot.meta.totalPages > 1) {
-                            val requests = mutableListOf<Deferred<Unit>>()
-                            for (pageNumber in 2..ratingsRoot.meta.totalPages) {
-                                val request = async {
-                                    val remRatingsCall = apiRepository.getRatings(app.packageName, pageNumber)
-                                    val remRatingsResponse = remRatingsCall.awaitResponse()
-                                    if (remRatingsResponse.isSuccessful) {
-                                        remRatingsResponse.body()?.let { root ->
-                                            ratingsList.addAll(root.ratingsData)
-                                        }
-                                    }
-                                }
-                                requests.add(request)
-                            }
-                            // Wait for all requests to complete
-                            requests.awaitAll()
+                try {
+                    val ratingsResponse = apiRepository.getRatings(packageName = app.packageName, pageNumber = 1)
+                    
+                    ratingsResponse.ratingsData.apply {
+                        if (isNotEmpty()) {
+                            hasRatings = true
+                            ratingsList.addAll(this)
                         }
                     }
                     
+                    // Retrieve remaining ratings in parallel
+                    // No need to store the ratings list in database, as:
+                    // 1. It's not used anywhere else, except details activity
+                    // 2. We're already retrieving the latest ratings everytime in details activity
+                    if (ratingsResponse.meta.totalPages > 1) {
+                        val requests = mutableListOf<Deferred<Boolean>>()
+                        (2 .. ratingsResponse.meta.totalPages).forEach { pageNumber ->
+                            val request =
+                                async {
+                                    val remRatingsResponse = apiRepository.getRatings(app.packageName, pageNumber)
+                                    ratingsList.addAll(remRatingsResponse.ratingsData)
+                                }
+                            requests.add(request)
+                        }
+                        requests.awaitAll() // Wait for all requests to complete
+                    }
+                    
+                    // Since the latest ratings are already retrieved,
+                    // get latest score of current app & update in DB
+                    if (hasRatings) {
+                        mainRepository.updateSingleApp(packageName = packageNameString)
+                        app = mainRepository.getAppByPackage(packageNameString) !!
+                        DataState.isDataUpdated = true
+                    }
+                    
                     afterRatingsRetrieved()
+                }
+                catch (e: Exception) {
+                    NoNetworkBottomSheet(isNoNetworkError = false,
+                                         exception = e,
+                                         negativeButtonText = getString(R.string.exit),
+                                         positiveButtonClickListener = { retrieveRatings() },
+                                         negativeButtonClickListener = { finish() })
+                        .show(supportFragmentManager, "NoNetworkBottomSheet")
                 }
             }
             else {
@@ -319,14 +325,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     @SuppressLint("SetTextI18n")
     private fun afterRatingsRetrieved(){
         lifecycleScope.launch {
-            // Since the latest ratings, scores etc. are already retrieved & calculated,
-            // update in db
-            if (hasRatings) {
-                mainRepository.updateSingleApp(packageName = packageNameString)
-                app = mainRepository.getAppByPackage(packageNameString)!!
-                DataState.isDataUpdated = true
-            }
-            
             withContext(Dispatchers.Default) {
                 val ratingRanges = listOf(RatingRange("gold", 4.0f, 4.0f),
                                           RatingRange("silver", 3.0f, 3.9f),
@@ -336,8 +334,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 val ratingCounts = mutableMapOf<Pair<String?, String>, Int>()
                 for (rating in ratingsList) {
                     for (range in ratingRanges) {
-                        if (rating.ratingScore!!.ratingScore >= range.minValue
-                            && rating.ratingScore!!.ratingScore <= range.maxValue) {
+                        if (rating.ratingScore !!.ratingScore >= range.minValue
+                            && rating.ratingScore !!.ratingScore <= range.maxValue) {
                             val key = rating.ratingType to range.status
                             ratingCounts[key] = (ratingCounts[key] ?: 0) + 1
                         }
@@ -392,7 +390,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             }
             
             arrayOf(activityBinding.loadingIndicator, activityBinding.retrievingRatingsText,
-                   activityBinding.totalScoreText, activityBinding.totalScoreCard).forEachIndexed { index, view ->
+                    activityBinding.totalScoreText, activityBinding.totalScoreCard).forEachIndexed { index, view ->
                 if (index < 2) hideViewWithAnimation(view)
                 else showViewWithAnimation(view)
             }
@@ -548,11 +546,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             R.id.details_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
             R.id.menu_sort_user_ratings -> SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
             R.id.menu_more ->
-                MoreOptionsBottomSheet(app.name, app.packageName,
+                MoreOptionsBottomSheet(app.name,
+                                       packageNameString,
                                        mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore),
-                                       mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore),
-                                       activityBinding.detailsCoordLayout,
-                                       activityBinding.detailsBottomAppBar)
+                                       mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore))
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
         }
         

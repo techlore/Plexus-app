@@ -89,10 +89,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/doneButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_12"
         android:text="@string/cancel"
-        android:textSize="@dimen/text_16"
-        style="@style/Widget.Material3.Button.TextButton.Dialog"
+        style="@style/NegativeButtonStyle"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -104,8 +103,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/margin_16"
         android:text="@string/done"
-        android:textSize="@dimen/text_16"
-        style="@style/Widget.Material3.Button.TextButton.Dialog"
+        style="@style/PositiveButtonStyle"
         android:visibility="gone"
         tools:visibility="visible"/>
 

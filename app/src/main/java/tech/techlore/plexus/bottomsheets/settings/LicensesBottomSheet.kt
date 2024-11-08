@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.settings
+package tech.techlore.plexus.bottomsheets.settings
 
 import android.app.Dialog
 import android.os.Bundle
@@ -60,10 +60,10 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
         val licenseList =
             ArrayList<License>().apply {
                 
-                // Retrofit
-                add(License(getString(R.string.retrofit),
-                            "${getString(R.string.copyright_square)}\n\n${getString(R.string.apache_2_0_license)}",
-                            getString(R.string.retrofit_license_url)))
+                // Ktor
+                add(License(getString(R.string.ktor),
+                            getString(R.string.apache_2_0_license),
+                            getString(R.string.ktor_license_url)))
                 
                 // Coil
                 add(License(getString(R.string.coil),

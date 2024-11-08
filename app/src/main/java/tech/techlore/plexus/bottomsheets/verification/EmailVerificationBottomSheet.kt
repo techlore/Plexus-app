@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.verification
+package tech.techlore.plexus.bottomsheets.verification
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -29,7 +29,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.databinding.BottomSheetEmailVerificationBinding
@@ -72,38 +71,34 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
         
         footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         
-        lifecycleScope.launch {
-            registerDevice()
-            
-            // Retry
-            footerBinding.positiveButton.apply {
-                text = getString(R.string.retry)
+        registerDevice()
+        
+        // Retry
+        footerBinding.positiveButton.apply {
+            text = getString(R.string.retry)
+            isEnabled = false
+            setOnClickListener {
                 isEnabled = false
-                setOnClickListener {
-                    isEnabled = false
-                    bottomSheetBinding.textView.text = getString(R.string.sending_code)
-                    lifecycleScope.launch {
-                        registerDevice()
-                    }
-                }
+                bottomSheetBinding.textView.text = getString(R.string.sending_code)
+                registerDevice()
             }
-            
-            // Cancel
-            footerBinding.negativeButton.setOnClickListener {
-                dismiss()
-            }
+        }
+        
+        // Cancel
+        footerBinding.negativeButton.setOnClickListener {
+            dismiss()
         }
     }
     
-    private suspend fun registerDevice() {
-        val randomId = UUID.randomUUID().toString()
-        val registerDeviceCall =
-            get<ApiRepository>().registerDevice(RegisterDevice(email = email, deviceId = randomId))
-        val registerDeviceResponse = registerDeviceCall.awaitResponse()
-        
-        if (registerDeviceResponse.isSuccessful) {
-            registerDeviceResponse.body()?.let {
-                if (it.message.startsWith("Passcode sent") == true) {
+    private fun registerDevice() {
+        lifecycleScope.launch {
+            val randomId = UUID.randomUUID().toString()
+            try {
+                val registerDeviceResponse =
+                    get<ApiRepository>().registerDevice(RegisterDevice(email = email,
+                                                                       deviceId = randomId))
+                
+                if (registerDeviceResponse.message.startsWith("Passcode sent") == true) {
                     dismiss()
                     (requireActivity() as VerificationActivity).apply {
                         emailString = email
@@ -115,9 +110,9 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
                     onPostFailed(getString(R.string.error_sending_code))
                 }
             }
-        }
-        else {
-            onPostFailed("${getString(R.string.error_sending_code)}: ${registerDeviceResponse.code()}")
+            catch (e: Exception) {
+                onPostFailed("${getString(R.string.error_sending_code)}: $e")
+            }
         }
     }
     

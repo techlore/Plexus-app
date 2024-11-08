@@ -25,12 +25,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
@@ -121,16 +122,26 @@ class PlexusDataFragment :
     }
     
     private fun refreshData() {
-        
         lifecycleScope.launch{
             if (hasNetwork(requireContext()) && hasInternet()) {
-                val mainRepository by inject<MainDataRepository>()
-                mainRepository.plexusDataIntoDB(requireContext())
-                plexusDataItemAdapter
-                    .updateList(miniRepository
-                                    .miniPlexusDataListFromDB(statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                              orderPref = prefManager.getInt(A_Z_SORT)))
-                fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                try {
+                    get<MainDataRepository>().plexusDataIntoDB()
+                    plexusDataItemAdapter
+                        .updateList(miniRepository
+                                        .miniPlexusDataListFromDB(statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                                                                  orderPref = prefManager.getInt(A_Z_SORT)))
+                    fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                }
+                catch (e: Exception) {
+                    NoNetworkBottomSheet(isNoNetworkError = false,
+                                         exception = e,
+                                         negativeButtonText = getString(R.string.exit),
+                                         positiveButtonClickListener = { refreshData() },
+                                         negativeButtonClickListener = {
+                                             fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                                         })
+                        .show(parentFragmentManager, "NoNetworkBottomSheet")
+                }
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),

@@ -94,6 +94,14 @@
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
+    <!--Bottom sheet buttons-->
+    <style name="NegativeButtonStyle" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+    <style name="PositiveButtonStyle" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
     <!--#########################################################################################-->
 
     <!--Snackbar text style-->

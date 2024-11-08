@@ -31,6 +31,7 @@
     <!--First activity-->
     <string name="retrieving_data">Recuperando i dati</string>
     <string name="scan_installed">Scansionando le appplicazioni installate</string>
+    <string name="welcome_text_desc">Come utente novizio, si consiglia di prendere familiarizzazione con le icone e gli indicatori di stato.</string>
     <string name="skip">Salta</string>
 
     <!--#########################################################################################-->
@@ -122,12 +123,10 @@
     <string name="retry">Riprova</string>
 
     <!--No Network/Internet-->
+    <string name="error_occurred_title">Si \u00E8 verificato un errore</string>
     <string name="no_network_title">Nessuna connesione nternet</string>
     <string name="no_network_subtitle">Connettiti a una rete Wi-Fi o ai dati mobili e riprova.
         Se gi\u00E0 connesso, assicurarsi di avere una connessione ad Internet.</string>
-
-    <!--First launch-->
-    <string name="welcome_text_desc">Come utente novizio, si consiglia di prendere familiarizzazione con le icone e gli indicatori di stato.</string>
 
     <!--Help-->
     <string name="icons">Icone</string>

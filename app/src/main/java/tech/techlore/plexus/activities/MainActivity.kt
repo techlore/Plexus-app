@@ -39,9 +39,9 @@ import com.google.android.material.color.MaterialColors
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityMainBinding
-import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.main.DeleteAccountBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.main.SortBottomSheet
+import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
+import tech.techlore.plexus.bottomsheets.main.DeleteAccountBottomSheet
+import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
 import tech.techlore.plexus.preferences.PreferenceManager

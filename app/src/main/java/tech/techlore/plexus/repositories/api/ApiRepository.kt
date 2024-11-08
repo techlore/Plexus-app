@@ -17,14 +17,13 @@
 
 package tech.techlore.plexus.repositories.api
 
-import okhttp3.ResponseBody
-import retrofit2.Call
+import io.ktor.client.statement.HttpResponse
 import tech.techlore.plexus.api.ApiService
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.get.apps.GetSingleAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
-import tech.techlore.plexus.models.get.responses.RegisterDeviceResponse
-import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
+import tech.techlore.plexus.models.get.device.RegisterDeviceResponse
+import tech.techlore.plexus.models.get.device.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
@@ -32,38 +31,38 @@ import tech.techlore.plexus.models.post.rating.PostRatingRoot
 
 class ApiRepository(private val apiService: ApiService) {
     
-    fun getAppsWithScores(pageNumber: Int, lastUpdated: String?): Call<GetAppsRoot> {
+    suspend fun getAppsWithScores(pageNumber: Int, lastUpdated: String?): GetAppsRoot {
         return apiService.getAppsWithScores(pageNumber, lastUpdated)
     }
     
-    fun getSingleAppWithScores(packageName: String): Call<GetSingleAppRoot> {
+    suspend fun getSingleAppWithScores(packageName: String): GetSingleAppRoot {
         return apiService.getSingleAppWithScores(packageName)
     }
     
-    fun getRatings(packageName: String, pageNumber: Int): Call<RatingsRoot> {
+    suspend fun getRatings(packageName: String, pageNumber: Int): RatingsRoot {
         return apiService.getRatings(packageName, pageNumber)
     }
     
-    fun registerDevice(registerDevice: RegisterDevice): Call<RegisterDeviceResponse> {
+    suspend fun registerDevice(registerDevice: RegisterDevice): RegisterDeviceResponse {
         return apiService.registerDevice(registerDevice)
     }
     
-    fun verifyDevice(verifyDevice: VerifyDevice): Call<VerifyDeviceResponseRoot> {
+    suspend fun verifyDevice(verifyDevice: VerifyDevice): VerifyDeviceResponseRoot {
         return apiService.verifyDevice(verifyDevice)
     }
     
-    fun renewDevice(authToken: String): Call<VerifyDeviceResponseRoot> {
-        return apiService.renewDevice("Bearer $authToken")
+    suspend fun renewDevice(authToken: String): VerifyDeviceResponseRoot {
+        return apiService.renewDevice(authToken)
     }
     
-    fun postApp(authToken: String, postAppRoot: PostAppRoot): Call<ResponseBody> {
-        return apiService.postApp("Bearer $authToken", postAppRoot)
+    suspend fun postApp(authToken: String, postAppRoot: PostAppRoot): HttpResponse {
+        return apiService.postApp(authToken, postAppRoot)
     }
     
-    fun postRating(authToken: String,
-                   packageName: String,
-                   postRatingRoot: PostRatingRoot): Call<ResponseBody> {
-        return apiService.postRating("Bearer $authToken",
+    suspend fun postRating(authToken: String,
+                           packageName: String,
+                           postRatingRoot: PostRatingRoot): HttpResponse {
+        return apiService.postRating(authToken,
                                      packageName,
                                      postRatingRoot)
     }

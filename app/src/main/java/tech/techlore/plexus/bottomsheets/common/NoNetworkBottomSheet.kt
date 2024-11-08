@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.common
+package tech.techlore.plexus.bottomsheets.common
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -33,6 +33,8 @@ import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetNoNetworkBinding
 
 class NoNetworkBottomSheet(
+    private val isNoNetworkError: Boolean = true,
+    private val exception: Exception? = null,
     private val negativeButtonText: String,
     private val positiveButtonClickListener: () -> Unit,
     private val negativeButtonClickListener: () -> Unit
@@ -60,7 +62,7 @@ class NoNetworkBottomSheet(
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
+        
         _binding = BottomSheetNoNetworkBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
@@ -73,7 +75,9 @@ class NoNetworkBottomSheet(
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).apply {
             dragHandle.isVisible = false
             bottomSheetTitle.apply {
-                text = getString(R.string.no_network_title)
+                text =
+                    if (isNoNetworkError) getString(R.string.no_network_title)
+                    else getString(R.string.error_occurred_title)
                 // Set margin top to 12 dp, since drag handle is not visible now
                 val params = layoutParams as ViewGroup.MarginLayoutParams
                 val topMargin = (12 * requireContext().resources.displayMetrics.density).toInt()
@@ -81,7 +85,10 @@ class NoNetworkBottomSheet(
                 requestLayout()
             }
         }
-    
+        
+        // Description
+        if (!isNoNetworkError) bottomSheetBinding.descText.text = exception.toString()
+        
         // Retry
         footerBinding.positiveButton.apply {
             text = getString(R.string.retry)
@@ -90,7 +97,7 @@ class NoNetworkBottomSheet(
                 positiveButtonClickListener.invoke()
             }
         }
-    
+        
         // Exit/Cancel
         footerBinding.negativeButton.apply {
             text = negativeButtonText

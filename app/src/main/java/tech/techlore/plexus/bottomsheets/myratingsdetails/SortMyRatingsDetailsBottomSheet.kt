@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.appdetails
+package tech.techlore.plexus.bottomsheets.myratingsdetails
 
 import android.app.Dialog
 import android.os.Bundle
@@ -30,13 +30,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.AppDetailsActivity
+import tech.techlore.plexus.activities.MyRatingsDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortRatingsBinding
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
-class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
+class SortMyRatingsDetailsBottomSheet : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortRatingsBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -58,34 +58,37 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val detailsActivity = requireActivity() as AppDetailsActivity
+        val detailsActivity = requireActivity() as MyRatingsDetailsActivity
         val checkIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
         
-        // App version dropdown
+        // Version dropdown
         bottomSheetBinding.ratingsAppVerDropdownMenu.apply {
             setText(detailsActivity.selectedVersionString)
-            setAdapter(ArrayAdapter(requireContext(),
-                                    R.layout.item_dropdown_menu,
-                                    detailsActivity.differentLists[0]))
+            val versionAdapter = ArrayAdapter(requireContext(),
+                                              R.layout.item_dropdown_menu,
+                                              detailsActivity.differentLists[0])
+            setAdapter(versionAdapter)
         }
         
         // Rom dropdown
         bottomSheetBinding.ratingsRomDropdownMenu.apply {
             setText(detailsActivity.selectedRomString)
-            setAdapter(ArrayAdapter(requireContext(),
-                                    R.layout.item_dropdown_menu,
-                                    detailsActivity.differentLists[1]))
+            val romAdapter = ArrayAdapter(requireContext(),
+                                          R.layout.item_dropdown_menu,
+                                          detailsActivity.differentLists[1])
+            setAdapter(romAdapter)
         }
         
         // Android dropdown
         bottomSheetBinding.ratingsAndroidDropdownMenu.apply {
             setText(detailsActivity.selectedAndroidString)
-            setAdapter(ArrayAdapter(requireContext(),
-                                    R.layout.item_dropdown_menu,
-                                    detailsActivity.differentLists[2]))
+            val androidAdapter = ArrayAdapter(requireContext(),
+                                              R.layout.item_dropdown_menu,
+                                              detailsActivity.differentLists[2])
+            setAdapter(androidAdapter)
         }
         
         // Installed from chip checked by default
@@ -97,7 +100,7 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
             findViewById<MaterialButton>(checkedButtonId).icon = checkIcon // Add checkmark icon
             addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {
-                    findViewById<MaterialButton>(checkedId).icon = checkIcon // Add checkmark icon
+                    findViewById<MaterialButton>(checkedId).icon = checkIcon// Add checkmark icon
                     bottomSheetBinding.ratingsStatusChipGroup.isVisible = checkedId != R.id.ratingsToggleAnyStatus
                 }
                 else {

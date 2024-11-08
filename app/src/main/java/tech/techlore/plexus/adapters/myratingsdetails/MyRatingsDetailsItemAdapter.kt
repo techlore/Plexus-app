@@ -63,9 +63,8 @@ class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetai
             holder.notes.isVisible = false
         }
         
-        holder.version.text = "${context.getString(R.string.version)}: ${myRatingsDetails.version} (${myRatingsDetails.buildNumber})"
-        holder.rom.text = "${context.getString(R.string.rom)}: ${myRatingsDetails.romName} (${myRatingsDetails.romBuild})"
-        
+        holder.version.text = "${myRatingsDetails.version} (${myRatingsDetails.buildNumber})"
+        holder.rom.text = "${myRatingsDetails.romName} (${myRatingsDetails.romBuild})"
         holder.androidVersion.text = myRatingsDetails.androidVersion
         
         // Installed from

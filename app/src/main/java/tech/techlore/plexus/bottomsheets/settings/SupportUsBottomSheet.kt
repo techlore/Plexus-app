@@ -15,12 +15,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.common
+package tech.techlore.plexus.bottomsheets.settings
 
 import android.app.Dialog
-import android.content.DialogInterface
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,17 +26,15 @@ import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetHelpBinding
-import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
+import tech.techlore.plexus.databinding.BottomSheetSupportUsBinding
+import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
-class HelpBottomSheet : BottomSheetDialogFragment() {
+class SupportUsBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetHelpBinding? = null
+    private var _binding: BottomSheetSupportUsBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -51,48 +46,28 @@ class HelpBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        
-        _binding = BottomSheetHelpBinding.inflate(inflater, container, false)
+    
+        _binding = BottomSheetSupportUsBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_help)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.support_us)
         
-        // Apps submit procedure
-        bottomSheetBinding.appsSubmitProcCard.setOnClickListener {
-            requireActivity().startActivity(Intent(Intent.ACTION_VIEW,
-                                                   Uri.parse(getString(R.string.apps_submit_proc_url))))
-        }
-        
-        // FAQ
-        bottomSheetBinding.faqsCard.setOnClickListener {
-            requireActivity().startActivity(Intent(Intent.ACTION_VIEW,
-                                                   Uri.parse(getString(R.string.faqs_url))))
+        // Liberapay
+        bottomSheetBinding.liberapayUrl.setOnClickListener {
+            openURL(requireActivity(), getString(R.string.plexus_liberapay_url))
         }
         
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
             positiveButton.isVisible = false
             negativeButton.apply {
                 text = getString(R.string.dismiss)
-                setOnClickListener {
-                    dismiss()
-                }
+                setOnClickListener { dismiss() }
             }
         }
-        
-    }
-    
-    override fun onDismiss(dialog: DialogInterface) {
-        get<PreferenceManager>().apply {
-            if (getBoolean(IS_FIRST_LAUNCH)) {
-                setBoolean(IS_FIRST_LAUNCH, false)
-                requireActivity().finish()
-            }
-        }
-        super.onDismiss(dialog)
     }
     
     override fun onDestroyView() {

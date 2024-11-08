@@ -41,9 +41,9 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.fragments.bottomsheets.appdetails.MoreOptionsBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.myratingsdetails.SortMyRatingsDetailsBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.MoreOptionsBottomSheet
+import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
+import tech.techlore.plexus.bottomsheets.myratingsdetails.SortMyRatingsDetailsBottomSheet
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.models.myratings.MyRatingDetails
@@ -242,11 +242,10 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             R.id.details_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
             R.id.menu_sort_user_ratings -> SortMyRatingsDetailsBottomSheet().show(supportFragmentManager, "SortMyRatingsBottomSheet")
             R.id.menu_more ->
-                MoreOptionsBottomSheet(app.name, packageNameString,
+                MoreOptionsBottomSheet(app.name,
+                                       packageNameString,
                                        mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.dgScore),
-                                       mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.mgScore),
-                                       activityBinding.detailsCoordLayout,
-                                       activityBinding.detailsBottomAppBar)
+                                       mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.mgScore))
                     .show(supportFragmentManager, "MoreOptionsBottomSheet")
             
         }

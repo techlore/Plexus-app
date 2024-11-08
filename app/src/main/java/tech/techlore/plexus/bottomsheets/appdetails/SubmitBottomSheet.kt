@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.appdetails
+package tech.techlore.plexus.bottomsheets.appdetails
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -31,6 +31,7 @@ import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -42,7 +43,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
-import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetSubmitBinding
@@ -181,46 +181,46 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     }
     
     private suspend fun postApp() {
-        val response = withContext(Dispatchers.IO) {
-            apiRepository.postApp(deviceToken, postAppRoot).execute()
+        val postAppResponse = withContext(Dispatchers.IO) {
+            apiRepository.postApp(deviceToken, postAppRoot)
         }
-        when {
-            response.code() == 401 -> {
+        when (postAppResponse.status.value) {
+            401 -> {
                 // Unauthorized, renew token
                 renewDeviceToken()
                 postApp()
             }
-            response.isSuccessful || response.code() == 422 -> {
+            in (200 .. 299), 422 -> {
                 // Request was successful or app already exists
                 postRating()
             }
-            else -> onPostFailed(response.code()) // Request failed
+            else -> onPostFailed(postAppResponse.status.value.toString()) // Request failed
         }
     }
     
     private suspend fun postRating() {
         val postRatingResponse =
-            apiRepository.postRating(deviceToken, detailsActivity.app.packageName, postRatingRoot).awaitResponse()
+            apiRepository.postRating(deviceToken, detailsActivity.app.packageName, postRatingRoot)
         
-        when {
-            postRatingResponse.code() == 401 -> {
+        when (postRatingResponse.status.value) {
+            401 -> {
                 // Unauthorized, renew token
                 renewDeviceToken()
                 postRating()
             }
-            postRatingResponse.isSuccessful -> {
+            in (200 .. 299) -> {
                 // Request was successful
                 ratingCreated = true
-                val responseBody = postRatingResponse.body()!!.string()
+                val responseBody = postRatingResponse.bodyAsText()
                 val jsonElement = Json.parseToJsonElement(responseBody)
                 val dataObject = jsonElement.jsonObject["data"]?.jsonObject
                 postedRatingId = dataObject?.get("id")?.jsonPrimitive?.content // Store id of the posted rating
             }
-            else -> onPostFailed(postRatingResponse.code()) // Request failed
+            else -> onPostFailed(postRatingResponse.status.value.toString()) // Request failed
         }
     }
     
-    private fun onPostFailed(responseCode: Int) {
+    private fun onPostFailed(responseCode: String) {
         changeAnimView(R.raw.lottie_error, false)
         bottomSheetBinding.submitStatusText.text = "${getString(R.string.submit_error)}: $responseCode"
         bottomSheetBinding.doneButton.apply {
@@ -278,16 +278,13 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     }
     
     private suspend fun renewDeviceToken() {
-        val renewDeviceTokenResponse = apiRepository.renewDevice(deviceToken).awaitResponse()
-        
-        if (renewDeviceTokenResponse.isSuccessful) {
-            renewDeviceTokenResponse.body()?.let {
-                encPrefManager.setString(DEVICE_TOKEN, it.deviceToken.token)
-                deviceToken = encPrefManager.getString(DEVICE_TOKEN)!!
-            }
+        try {
+            val renewDeviceTokenResponse = apiRepository.renewDevice(deviceToken)
+            encPrefManager.setString(DEVICE_TOKEN, renewDeviceTokenResponse.deviceToken.token)
+            deviceToken = encPrefManager.getString(DEVICE_TOKEN) !!
         }
-        else {
-            onPostFailed(renewDeviceTokenResponse.code())
+        catch (e: Exception) {
+            onPostFailed(e.toString())
         }
     }
     

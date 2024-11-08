@@ -17,42 +17,44 @@
 
 package tech.techlore.plexus.api
 
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import okhttp3.Dispatcher
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import java.util.concurrent.TimeUnit
 
 class ApiManager {
     
     companion object {
         
-        private const val API_BASE_URL = "https://plexus.techlore.tech/api/v1/"
-        
         private val okHttpClient =
-            OkHttpClient.Builder()
-                .dispatcher(
-                    Dispatcher().apply {
-                        maxRequests = 8 // Max parallel network requests (default is 64)
+            HttpClient(OkHttp) {
+                engine {
+                    config {
+                        dispatcher(
+                            Dispatcher().apply {
+                                maxRequests = 8 // Max parallel network requests (default is 64)
+                            }
+                        )
+                        connectTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
+                        readTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
+                        writeTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
+                        followRedirects(true)
                     }
-                )
-                .connectTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
-                .readTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
-                .writeTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
-                .build()
-        
-        private val json = Json { ignoreUnknownKeys = true }
+                }
+                install(ContentNegotiation) {
+                    json(
+                        Json {
+                            ignoreUnknownKeys = true
+                        }
+                    )
+                }
+            }
         
         fun apiBuilder(): ApiService {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .client(okHttpClient)
-                .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-                .build()
-            
-            return retrofit.create(ApiService::class.java)
+            return ApiService(okHttpClient)
         }
     }
 }

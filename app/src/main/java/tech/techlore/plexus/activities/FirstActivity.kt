@@ -19,6 +19,8 @@ package tech.techlore.plexus.activities
 
 import android.animation.Animator
 import android.content.Intent
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
@@ -31,20 +33,23 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.DynamicColors
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityFirstBinding
-import tech.techlore.plexus.fragments.bottomsheets.common.HelpBottomSheet
-import tech.techlore.plexus.fragments.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
+import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class FirstActivity : AppCompatActivity() {
@@ -82,16 +87,25 @@ class FirstActivity : AppCompatActivity() {
     }
     
     private fun retrieveData() {
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             if (hasNetwork(this@FirstActivity) && hasInternet()) {
-                val mainRepository by inject<MainDataRepository>()
-                mainRepository.apply {
-                    plexusDataIntoDB(this@FirstActivity)
-                    activityBinding.progressText.text = getString(R.string.scan_installed)
-                    installedAppsIntoDB(this@FirstActivity)
+                try {
+                    get<MainDataRepository>().apply {
+                        plexusDataIntoDB()
+                        activityBinding.progressText.text = getString(R.string.scan_installed)
+                        installedAppsIntoDB(this@FirstActivity)
+                    }
+                    isDeviceDeGoogledOrMicroG()
+                    afterDataRetrieved()
                 }
-                isDeviceDeGoogledOrMicroG(this@FirstActivity)
-                afterDataRetrieved()
+                catch (e: Exception) {
+                    NoNetworkBottomSheet(isNoNetworkError = false,
+                                         exception = e,
+                                         negativeButtonText = getString(R.string.exit),
+                                         positiveButtonClickListener = { retrieveData() },
+                                         negativeButtonClickListener = { finishAndRemoveTask() })
+                        .show(supportFragmentManager, "NoNetworkBottomSheet")
+                }
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.exit),
@@ -99,6 +113,40 @@ class FirstActivity : AppCompatActivity() {
                                      negativeButtonClickListener = { finishAndRemoveTask() })
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
+        }
+    }
+    
+    private suspend fun isDeviceDeGoogledOrMicroG() {
+        val gappsPackages = arrayOf("com.google.android.gms",
+                                    "com.google.android.gsf",
+                                    "com.android.vending")
+        
+        var microGCount = 0
+        var installedGappsCount = 0
+        
+        withContext(Dispatchers.IO) {
+            gappsPackages.forEach {
+                getAppInfo(packageManager, it)?.let { appInfo ->
+                    installedGappsCount ++
+                    if (!packageManager.getApplicationLabel(appInfo)
+                            .startsWith("Google", ignoreCase = true))
+                        microGCount ++
+                }
+            }
+            
+            DeviceState.apply {
+                isDeviceMicroG = installedGappsCount == microGCount
+                isDeviceDeGoogled = installedGappsCount == 0
+            }
+        }
+    }
+    
+    private fun getAppInfo(packageManager: PackageManager, packageName: String): ApplicationInfo? {
+        return try {
+            packageManager.getApplicationInfo(packageName, 0)
+        }
+        catch (_: PackageManager.NameNotFoundException) {
+            null
         }
     }
     

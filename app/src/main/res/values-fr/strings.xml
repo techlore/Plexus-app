@@ -35,6 +35,7 @@
     <!--First activity-->
     <string name="retrieving_data">R\u00E9cup\u00E9ration des donn\u00E9es</string>
     <string name="scan_installed">Analyse des applications install\u00E9es</string>
+    <string name="welcome_text_desc">Si vous utilisez l\'app pour la premi\u00E8re fois, prenez le temps de vous familiariser avec les ic\u00F4nes et les indicateurs de statut.</string>
     <string name="skip">Passer</string>
 
     <!--#########################################################################################-->
@@ -126,12 +127,10 @@
     <string name="retry">R\u00E9essayer</string>
 
     <!--No Network/Internet-->
+    <string name="error_occurred_title">Une erreur s\'est produite</string>
     <string name="no_network_title">Pas de r\u00E9seau</string>
     <string name="no_network_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es cellulaires et r\u00E9essayez.
         Si le r\u00E9seau est actif, assurez-vous que la connexion \u00E0 internet fonctionne.</string>
-
-    <!--First launch-->
-    <string name="welcome_text_desc">Si vous utilisez l\'app pour la premi\u00E8re fois, prenez le temps de vous familiariser avec les ic\u00F4nes et les indicateurs de statut.</string>
 
     <!--Help-->
     <string name="icons">Ic\u00F4nes</string>

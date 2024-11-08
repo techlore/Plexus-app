@@ -17,7 +17,9 @@
 
 package tech.techlore.plexus.koin_di
 
-import coil.ImageLoader
+import coil3.ImageLoader
+import coil3.request.crossfade
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
 import tech.techlore.plexus.database.MainDatabase
@@ -28,12 +30,14 @@ import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 
 val appModule =
     module {
         single { PreferenceManager(get()) }
         single { EncryptedPreferenceManager(get()) }
-        single { ImageLoader.Builder(get()).build() }
+        single { ImageLoader.Builder(get()).crossfade(true).build() }
+        single(named("displayedIconSize")) { convertDpToPx(get(), 55f) }
         single { apiBuilder() }
         single { ApiRepository(get()) }
         single { getDatabase(get()) }

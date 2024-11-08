@@ -15,15 +15,15 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.get.responses
+package tech.techlore.plexus.models.get.device
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DeviceToken (
+data class VerifyDeviceResponseRoot (
     
-    @SerialName("token")
-    var token: String
+    @SerialName("data")
+    var deviceToken: DeviceToken
     
 )

@@ -35,6 +35,7 @@
     <!--First activity-->
     <string name="retrieving_data">Daten abrufen</string>
     <string name="scan_installed">Installierte apps scannen</string>
+    <string name="welcome_text_desc">Wenn sie die app zum ersten mal benutzen, nehmen sie sich bitte einen moment zeit, um sich mit den symbolen und statusanzeigen vertraut zu machen.</string>
     <string name="skip">\u00DCberspringen</string>
 
     <!--#########################################################################################-->
@@ -126,12 +127,10 @@
     <string name="retry">Wiederholen</string>
 
     <!--No Network/Internet-->
+    <string name="error_occurred_title">Es ist ein Fehler aufgetreten</string>
     <string name="no_network_title">Kein Netzwerk/Internet</string>
     <string name="no_network_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
         Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
-
-    <!--First launch-->
-    <string name="welcome_text_desc">Wenn sie die app zum ersten mal benutzen, nehmen sie sich bitte einen moment zeit, um sich mit den symbolen und statusanzeigen vertraut zu machen.</string>
 
     <!--Help-->
     <string name="icons">Icons</string>

@@ -42,7 +42,7 @@
     <string name="plexus_liberapay_url" translatable="false">https://liberapay.com/Plexus</string>
 
     <!--Licenses-->
-    <string name="retrofit_license_url" translatable="false">https://github.com/square/retrofit/blob/master/LICENSE.txt</string>
+    <string name="ktor_license_url" translatable="false">https://github.com/ktorio/ktor/blob/main/LICENSE</string>
     <string name="coil_license_url" translatable="false">https://github.com/coil-kt/coil/blob/main/LICENSE.txt</string>
     <string name="fastscroll_license_url" translatable="false">https://github.com/StellarSand/AndroidFastScroll-kt/blob/master/LICENSE</string>
     <string name="jsoup_license_url" translatable="false">https://github.com/jhy/jsoup/blob/master/LICENSE</string>

@@ -30,6 +30,7 @@
     <!--First activity -->
     <string name="retrieving_data">Retrieving data</string>
     <string name="scan_installed">Scanning installed apps</string>
+    <string name="welcome_text_desc">As a first-time user of the app, please take a moment to familiarize yourself with the icons and status indicators.</string>
     <string name="skip">Skip</string>
 
     <!--#########################################################################################-->
@@ -121,12 +122,10 @@
     <string name="retry">Retry</string>
 
     <!--No Network/Internet-->
+    <string name="error_occurred_title">An error occurred</string>
     <string name="no_network_title">No Network/Internet</string>
     <string name="no_network_subtitle">Connect to Wi-Fi or mobile data and retry.
         If already connected, make sure it has an internet connection.</string>
-
-    <!--First launch-->
-    <string name="welcome_text_desc">As a first-time user of the app, please take a moment to familiarize yourself with the icons and status indicators.</string>
 
     <!--Help-->
     <string name="icons">Icons</string>

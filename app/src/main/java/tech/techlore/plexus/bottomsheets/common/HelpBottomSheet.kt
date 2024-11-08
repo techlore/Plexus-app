@@ -15,82 +15,86 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.fragments.bottomsheets.settings
+package tech.techlore.plexus.bottomsheets.common
 
-import android.os.Build
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetThemeBinding
+import tech.techlore.plexus.databinding.BottomSheetHelpBinding
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.THEME
-import tech.techlore.plexus.utils.UiUtils.Companion.setAppTheme
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
+import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
-class ThemeBottomSheet : BottomSheetDialogFragment() {
+class HelpBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetThemeBinding? = null
+    private var _binding: BottomSheetHelpBinding? = null
     private val bottomSheetBinding get() = _binding!!
+    
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+    }
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        _binding = BottomSheetThemeBinding.inflate(inflater, container, false)
+        _binding = BottomSheetHelpBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val prefManager by inject<PreferenceManager>()
-        
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.theme)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_help)
         
-        // Show system default option only on SDK 29 and above
-        bottomSheetBinding.followSystem.isVisible = Build.VERSION.SDK_INT >= 29
+        // Apps submit procedure
+        bottomSheetBinding.appsSubmitProcCard.setOnClickListener {
+            openURL(requireActivity(), getString(R.string.apps_submit_proc_url))
+        }
         
-        // Chip group
-        bottomSheetBinding.themeChipGroup.apply {
-            
-            // Default checked chip
-            if (prefManager.getInt(THEME) == 0) {
-                if (Build.VERSION.SDK_INT >= 29) {
-                    prefManager.setInt(THEME, R.id.followSystem)
-                }
-                else {
-                    prefManager.setInt(THEME, R.id.light)
-                }
-            }
-            check(prefManager.getInt(THEME))
-            
-            // On selecting option
-            setOnCheckedStateChangeListener { _, checkedIds ->
-                val checkedChip = checkedIds.first()
-                prefManager.setInt(THEME, checkedChip)
-                setAppTheme(checkedChip)
-                dismiss()
-                
-            }
+        // FAQ
+        bottomSheetBinding.faqsCard.setOnClickListener {
+            openURL(requireActivity(), getString(R.string.faqs_url))
         }
         
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
             positiveButton.isVisible = false
             negativeButton.apply {
                 text = getString(R.string.dismiss)
-                setOnClickListener { dismiss() }
+                setOnClickListener {
+                    dismiss()
+                }
             }
         }
+        
+    }
+    
+    override fun onDismiss(dialog: DialogInterface) {
+        get<PreferenceManager>().apply {
+            if (getBoolean(IS_FIRST_LAUNCH)) {
+                setBoolean(IS_FIRST_LAUNCH, false)
+                requireActivity().finish()
+            }
+        }
+        super.onDismiss(dialog)
     }
     
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+    
 }

@@ -36,7 +36,7 @@ data class Rating(
     var version: String,
     
     @SerialName("app_build_number")
-    var buildNumber: Int,
+    var buildNumber: Long,
     
     @SerialName("rom_name")
     var romName: String,

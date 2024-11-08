@@ -36,9 +36,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import retrofit2.awaitResponse
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.VerificationActivity
+import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.databinding.FragmentCodeVerificationBinding
 import tech.techlore.plexus.models.post.device.VerifyDevice
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
@@ -46,6 +46,8 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEV
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
 import tech.techlore.plexus.repositories.api.ApiRepository
+import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
+import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 
 class CodeVerificationFragment : Fragment() {
@@ -99,36 +101,42 @@ class CodeVerificationFragment : Fragment() {
         // Done
         fragmentBinding.doneButton.setOnClickListener {
             showInfo(true)
-            lifecycleScope.launch {
-                verifyDevice()
-            }
+            verifyDevice()
         }
     }
     
-    private suspend fun verifyDevice() {
-        val verifyDeviceCall =
-            get<ApiRepository>().verifyDevice(VerifyDevice(deviceId = verificationActivity.deviceId,
-                                                           code = fragmentBinding.codeText.text.toString()))
-        val verifyDeviceResponse = verifyDeviceCall.awaitResponse()
-        
-        if (verifyDeviceResponse.isSuccessful) {
-             verifyDeviceResponse.body()?.let {
-                 get<EncryptedPreferenceManager>().apply {
-                     setString(DEVICE_TOKEN, it.deviceToken.token)
-                     setString(DEVICE_ID, verificationActivity.deviceId)
-                     setBoolean(IS_REGISTERED, true)
-                 }
-                 fragmentBinding.infoText.isVisible = false
-                 (requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
-                     if (isAcceptingText) {
-                         hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken, 0)
-                     }
-                 }
-                 requireActivity().finish()
-             }
-        }
-        else {
-            showInfo(false)
+    private fun verifyDevice() {
+        lifecycleScope.launch {
+            if (hasNetwork(requireContext()) && hasInternet()) {
+                try {
+                    val verifyDeviceResponse =
+                        get<ApiRepository>().verifyDevice(VerifyDevice(deviceId = verificationActivity.deviceId,
+                                                                       code = fragmentBinding.codeText.text.toString()))
+                    
+                    get<EncryptedPreferenceManager>().apply {
+                        setString(DEVICE_TOKEN, verifyDeviceResponse.deviceToken.token)
+                        setString(DEVICE_ID, verificationActivity.deviceId)
+                        setBoolean(IS_REGISTERED, true)
+                    }
+                    fragmentBinding.infoText.isVisible = false
+                    (requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+                        if (isAcceptingText) {
+                            hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken,
+                                                    0)
+                        }
+                    }
+                    requireActivity().finish()
+                }
+                catch (_: Exception) {
+                    showInfo(false)
+                }
+            }
+            else {
+                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
+                                     positiveButtonClickListener = { verifyDevice() },
+                                     negativeButtonClickListener = {})
+                    .show(parentFragmentManager, "NoNetworkBottomSheet")
+            }
         }
     }
     

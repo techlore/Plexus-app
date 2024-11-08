@@ -17,53 +17,103 @@
 
 package tech.techlore.plexus.api
 
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.parameter
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.request.url
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.get.apps.GetSingleAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
-import tech.techlore.plexus.models.get.responses.RegisterDeviceResponse
-import tech.techlore.plexus.models.get.responses.VerifyDeviceResponseRoot
+import tech.techlore.plexus.models.get.device.RegisterDeviceResponse
+import tech.techlore.plexus.models.get.device.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
 import tech.techlore.plexus.models.post.rating.PostRatingRoot
 
-interface ApiService {
+class ApiService(private val okHttpClient: HttpClient) {
     
-    @GET("apps?scores=true&limit=150")
-    fun getAppsWithScores(@Query("page") pageNumber: Int,
-                          @Query("last_updated") lastUpdated: String?): Call<GetAppsRoot>
+    private companion object {
+        private const val API_BASE_URL = "https://plexus.techlore.tech/api/v1"
+    }
     
-    @GET("apps/{packageName}?scores=true")
-    fun getSingleAppWithScores(@Path("packageName") packageName: String): Call<GetSingleAppRoot>
+    suspend fun getAppsWithScores(pageNumber: Int, lastUpdated: String?): GetAppsRoot {
+        return okHttpClient.get {
+            url("${API_BASE_URL}/apps")
+            contentType(ContentType.Application.Json)
+            parameter("scores", true)
+            parameter("limit", 150)
+            parameter("page", pageNumber)
+            parameter("last_updated", lastUpdated)
+        }.body()
+    }
     
-    @GET("apps/{packageName}/ratings?limit=150")
-    fun getRatings(@Path("packageName") packageName: String,
-                   @Query("page") pageNumber: Int): Call<RatingsRoot>
+    suspend fun getSingleAppWithScores(packageName: String): GetSingleAppRoot {
+        return okHttpClient.get {
+            url("${API_BASE_URL}/apps/${packageName}")
+            contentType(ContentType.Application.Json)
+            parameter("scores", true)
+        }.body()
+    }
     
-    @POST("devices/register")
-    fun registerDevice(@Body registerDevice: RegisterDevice): Call<RegisterDeviceResponse>
+    suspend fun getRatings(packageName: String, pageNumber: Int): RatingsRoot {
+        return okHttpClient.get {
+            url("${API_BASE_URL}/apps/${packageName}/ratings")
+            contentType(ContentType.Application.Json)
+            parameter("limit", 150)
+            parameter("page", pageNumber)
+        }.body()
+    }
     
-    @POST("devices/verify")
-    fun verifyDevice(@Body verifyDevice: VerifyDevice): Call<VerifyDeviceResponseRoot>
+    suspend fun registerDevice(registerDevice: RegisterDevice): RegisterDeviceResponse {
+        return okHttpClient.post {
+            url("${API_BASE_URL}/devices/register")
+            contentType(ContentType.Application.Json)
+            setBody(registerDevice)
+        }.body()
+    }
     
-    @POST("devices/renew")
-    fun renewDevice(@Header("Authorization") authToken: String): Call<VerifyDeviceResponseRoot>
+    suspend fun verifyDevice(verifyDevice: VerifyDevice): VerifyDeviceResponseRoot {
+        return okHttpClient.post {
+            url("${API_BASE_URL}/devices/verify")
+            contentType(ContentType.Application.Json)
+            setBody(verifyDevice)
+        }.body()
+    }
     
-    @POST("apps")
-    fun postApp(@Header("Authorization") authToken: String,
-                @Body postAppRoot: PostAppRoot): Call<ResponseBody>
+    suspend fun renewDevice(authToken: String): VerifyDeviceResponseRoot {
+        return okHttpClient.post {
+            url("${API_BASE_URL}/devices/renew")
+            contentType(ContentType.Application.Json)
+            header("Authorization", "Bearer $authToken")
+        }.body()
+    }
     
-    @POST("apps/{packageName}/ratings")
-    fun postRating(@Header("Authorization") authToken: String,
-                   @Path("packageName") packageName: String,
-                   @Body postRatingRoot: PostRatingRoot): Call<ResponseBody>
+    suspend fun postApp(authToken: String, postAppRoot: PostAppRoot): HttpResponse {
+        return okHttpClient.post {
+            url("${API_BASE_URL}/apps")
+            contentType(ContentType.Application.Json)
+            header("Authorization", "Bearer $authToken")
+            setBody(postAppRoot)
+        }
+    }
+    
+    suspend fun postRating(authToken: String,
+                           packageName: String,
+                           postRatingRoot: PostRatingRoot): HttpResponse {
+        return okHttpClient.post {
+            url("${API_BASE_URL}/apps/${packageName}/ratings")
+            contentType(ContentType.Application.Json)
+            header("Authorization", "Bearer $authToken")
+            setBody(postRatingRoot)
+        }
+    }
     
 }
