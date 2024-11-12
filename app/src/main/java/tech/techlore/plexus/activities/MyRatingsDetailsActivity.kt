@@ -22,7 +22,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +29,6 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -101,10 +99,9 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(left = insets.left,
                             top = insets.top,
-                            right = insets.right)
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = insets.bottom + convertDpToPx(this@MyRatingsDetailsActivity, 80f)
-            }
+                            right = insets.right,
+                            bottom = insets.bottom + convertDpToPx(this@MyRatingsDetailsActivity, 80f))
+            
             WindowInsetsCompat.CONSUMED
         }
         
@@ -149,6 +146,11 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
                 scrollToTop(activityBinding.nestedScrollView)
+                // Show bottom app bar on scroll up,
+                // otherwise when scrollview reaches top, bottom app bar stays hidden.
+                activityBinding.detailsBottomAppBar.apply {
+                    if (isScrolledDown) performShow()
+                }
             }
             
             activityBinding.totalRatingsCount.apply {

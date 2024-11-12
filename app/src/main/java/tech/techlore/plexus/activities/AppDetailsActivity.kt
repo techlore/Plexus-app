@@ -41,6 +41,7 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior.STATE_SCROLLED_DOWN
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -113,7 +114,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     var submitNotes = ""
     
     private companion object {
-        private const val ANIM_DURATION = 400L
+        private const val SLIDE_UP_ANIM_DURATION = 300L
+        private const val SLIDE_DOWN_ANIM_DURATION = 175L
+        private const val FADE_ANIM_DURATION = 400L
         private val SHOW_ANIM_INTERPOLATOR = DecelerateInterpolator()
         private val HIDE_ANIM_INTERPOLATOR = AccelerateInterpolator()
     }
@@ -143,10 +146,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(left = insets.left,
                             top = insets.top,
-                            right = insets.right)
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = insets.bottom + convertDpToPx(this@AppDetailsActivity, 80f)
-            }
+                            right = insets.right,
+                            bottom = insets.bottom + convertDpToPx(this@AppDetailsActivity, 80f))
+            
             WindowInsetsCompat.CONSUMED
         }
         mapOf(activityBinding.scrollTopFab to 105f,
@@ -164,6 +166,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         activityBinding.detailsBottomAppBar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+            // Rate button behavior
+            addOnScrollStateChangedListener { _, newState ->
+                when (newState) {
+                    STATE_SCROLLED_DOWN -> hideViewWithSlideDown(activityBinding.rateBtn)
+                    else -> activityBinding.rateBtn.apply { if (!isVisible) showViewWithSlideUp(this) }
+                }
+            }
         }
         
         lifecycleScope.launch {
@@ -198,6 +207,11 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
                 scrollToTop(activityBinding.nestedScrollView)
+                // Show bottom app bar on scroll up,
+                // otherwise when scrollview reaches top, bottom app bar stays hidden.
+                activityBinding.detailsBottomAppBar.apply {
+                    if (isScrolledDown) performShow()
+                }
             }
             
             val myRatingExists =
@@ -240,9 +254,26 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         
     }
     
-    private fun showViewWithAnimation(view: View) {
+    private fun showViewWithSlideUp(view: View) {
+        ObjectAnimator.ofFloat(view, "translationY", 300f, 0f).apply {
+            duration = SLIDE_UP_ANIM_DURATION
+            interpolator = SHOW_ANIM_INTERPOLATOR
+            view.isVisible = true
+            start()
+        }
+    }
+    
+    private fun hideViewWithSlideDown(view: View) {
+        ObjectAnimator.ofFloat(view, "translationY", 0f, 300f).apply {
+            duration = SLIDE_DOWN_ANIM_DURATION
+            interpolator = HIDE_ANIM_INTERPOLATOR
+            start()
+        }.doOnEnd { view.isVisible = false }
+    }
+    
+    private fun showViewWithFadeIn(view: View) {
         ObjectAnimator.ofFloat(view, "alpha", 0f, 1f).apply {
-            duration = ANIM_DURATION
+            duration = FADE_ANIM_DURATION
             interpolator = SHOW_ANIM_INTERPOLATOR
             start()
         }.doOnEnd {
@@ -255,9 +286,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         }
     }
     
-    private fun hideViewWithAnimation(view: View) {
+    private fun hideViewWithFadeOut(view: View) {
         ObjectAnimator.ofFloat(view, "alpha", 1f, 0f).apply {
-            duration = ANIM_DURATION
+            duration = FADE_ANIM_DURATION
             interpolator = HIDE_ANIM_INTERPOLATOR
             start()
         }.doOnEnd { view.isVisible = false }
@@ -391,16 +422,16 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             
             arrayOf(activityBinding.loadingIndicator, activityBinding.retrievingRatingsText,
                     activityBinding.totalScoreText, activityBinding.totalScoreCard).forEachIndexed { index, view ->
-                if (index < 2) hideViewWithAnimation(view)
-                else showViewWithAnimation(view)
+                if (index < 2) hideViewWithFadeOut(view)
+                else showViewWithFadeIn(view)
             }
             
             activityBinding.totalRatingsCount.apply {
                 text = "${getString(R.string.total_ratings)}: ${(app.totalDgRatings + app.totalMgRatings)}"
-                showViewWithAnimation(this)
+                showViewWithFadeIn(this)
             }
             
-            showViewWithAnimation(activityBinding.detailsNavHost)
+            showViewWithFadeIn(activityBinding.detailsNavHost)
         }
     }
     

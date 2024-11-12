@@ -30,7 +30,6 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_80"
         android:clipToPadding="false"
         android:scrollbars="vertical"
         android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
@@ -441,7 +440,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_back"
-        app:menuAlignmentMode="start"/>
+        app:menuAlignmentMode="start"
+        app:hideOnScroll="true"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/rateBtn"

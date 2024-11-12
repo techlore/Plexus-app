@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     private var surfaceContainerColor = 0
     
     private companion object {
-        const val BOTTOM_NAV_SLIDE_UP_THRESHOLD = 0.02
+        private const val BOTTOM_NAV_SLIDE_UP_THRESHOLD = 0.02
     }
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
                 when (bottomSheetBehavior.state) {
                     BottomSheetBehavior.STATE_COLLAPSED -> BottomSheetBehavior.STATE_HALF_EXPANDED
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> BottomSheetBehavior.STATE_EXPANDED
-                    else -> 0
+                    else -> BottomSheetBehavior.STATE_COLLAPSED
                 }
         }
     }
