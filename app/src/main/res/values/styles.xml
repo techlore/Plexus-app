@@ -26,13 +26,8 @@
 
     <!--#########################################################################################-->
 
-    <!--Nav view style-->
-    <style name="NavViewStyle" parent="Widget.Material3.NavigationView">
-        <item name="itemTextAppearance">@style/NavViewText</item>
-    </style>
-
-    <!--Nav view items texts style-->
-    <style name="NavViewText" parent="TextAppearance.Material3.ActionBar.Title">
+    <!--Nav view items text style-->
+    <style name="NavViewText" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
@@ -61,7 +56,7 @@
     <!--#########################################################################################-->
 
     <!--Base chip like text view style-->
-    <style name="BaseChipLikeTextViewStyle" parent="TextAppearance.Material3.ActionBar.Title">
+    <style name="BaseChipLikeTextViewStyle" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:paddingStart">@dimen/margin_8</item>
         <item name="android:paddingEnd">@dimen/margin_16</item>
         <item name="android:drawablePadding">@dimen/margin_8</item>

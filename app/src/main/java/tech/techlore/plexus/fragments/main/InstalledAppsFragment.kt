@@ -30,7 +30,6 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -76,7 +75,7 @@ class InstalledAppsFragment :
             
             // Forcefully set toolbar title
             // to avoid issues when navigating from "My ratings" using fab
-            mainActivity.activityBinding.toolbarBottom.title = getString(R.string.installed_apps)
+            mainActivity.activityBinding.mainBottomAppBarTitle.text = getString(R.string.installed_apps)
             
             installedAppsList =
                 miniRepository.miniInstalledAppsListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
@@ -91,7 +90,6 @@ class InstalledAppsFragment :
                                                               this@InstalledAppsFragment,
                                                               lifecycleScope)
                 fragmentBinding.recyclerView.apply {
-                    addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
                     adapter = installedAppItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }

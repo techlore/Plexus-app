@@ -32,55 +32,27 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_75"
+        android:layout_marginBottom="@dimen/margin_80"
         app:navGraph="@navigation/main_fragments_nav_graph"
         app:defaultNavHost="true"/>
 
-    <View
-        android:id="@+id/scrim_bg"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/mainBottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#60000000"
-        android:alpha="0.0"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:navigationIcon="@drawable/ic_nav_view"
+        app:contentInsetStartWithNavigation="0dp"
+        app:menuAlignmentMode="auto">
 
-    <FrameLayout
-        android:id="@+id/bottomNavContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:behavior_peekHeight="@dimen/margin_75"
-        app:behavior_hideable="false"
-        android:backgroundTint="?attr/colorSurfaceContainer"
-        app:shouldRemoveExpandedCorners="true"
-        app:shapeAppearance="@style/BottomSheetShapeStyle"
-        style="@style/Widget.Material3.BottomSheet"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mainBottomAppBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:textColor="?attr/colorOnSurface"
+            style="@style/TextAppearance.Material3.TitleLarge"/>
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbarBottom"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                app:navigationIcon="@drawable/ic_nav_view"
-                app:contentInsetStartWithNavigation="0dp"
-                app:titleTextColor="?attr/colorOnSurface"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            app:menu="@menu/menu_nav_view"
-            style="@style/NavViewStyle"
-            android:visibility="gone"/>
-
-    </FrameLayout>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

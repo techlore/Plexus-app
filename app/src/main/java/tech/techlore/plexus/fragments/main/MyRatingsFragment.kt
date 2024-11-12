@@ -38,7 +38,6 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.MyRatingsDetailsActivity
 import tech.techlore.plexus.adapters.main.MyRatingsItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
@@ -110,7 +109,6 @@ class MyRatingsFragment :
             else {
                 myRatingsItemAdapter = MyRatingsItemAdapter(myRatingsList, this@MyRatingsFragment)
                 fragmentBinding.recyclerView.apply {
-                    addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
                     adapter = myRatingsItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
@@ -121,8 +119,7 @@ class MyRatingsFragment :
                 isVisible = true
                 setOnClickListener {
                     mainActivity.selectedNavItem = R.id.nav_installed_apps
-                    mainActivity.clickedNavItem = R.id.nav_installed_apps
-                    mainActivity.displayFragment(mainActivity.clickedNavItem)
+                    mainActivity.displayFragment(R.id.nav_installed_apps)
                 }
             }
             

@@ -32,7 +32,6 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
-import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -87,7 +86,6 @@ class PlexusDataFragment :
                                                             this@PlexusDataFragment,
                                                             lifecycleScope)
                 fragmentBinding.recyclerView.apply {
-                    addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
                     adapter = plexusDataItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }

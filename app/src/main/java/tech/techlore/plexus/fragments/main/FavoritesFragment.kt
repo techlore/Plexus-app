@@ -29,7 +29,6 @@ import org.koin.android.ext.android.inject
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.FavoriteItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.listeners.RecyclerViewItemTouchListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -82,7 +81,6 @@ class FavoritesFragment:
                                                      this@FavoritesFragment,
                                                      lifecycleScope)
                 fragmentBinding.recyclerView.apply {
-                    addOnItemTouchListener(RecyclerViewItemTouchListener(mainActivity))
                     adapter = favItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
