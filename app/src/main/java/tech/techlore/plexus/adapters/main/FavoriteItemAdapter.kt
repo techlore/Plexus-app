@@ -38,7 +38,7 @@ import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
-import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
+import tech.techlore.plexus.utils.UiUtils.Companion.hScroll
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToColor
 import kotlin.collections.ArrayList
 
@@ -85,20 +85,21 @@ class FavoriteItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         val favorite = aListViewItems[position]
         val context = holder.itemView.context
         
-        displayAppIcon(context = context,
-                       imageView = holder.icon,
-                       isInstalled = favorite.isInstalled,
-                       packageName = favorite.packageName,
-                       iconUrl = favorite.iconUrl)
+        holder.icon.displayAppIcon(
+            context = context,
+            isInstalled = favorite.isInstalled,
+            packageName = favorite.packageName,
+            iconUrl = favorite.iconUrl
+        )
         
         holder.name.apply {
             text = favorite.name
-            hScrollText(this)
+            hScroll()
         }
         
         holder.packageName.apply {
             text = favorite.packageName
-            hScrollText(this)
+            hScroll()
         }
         
         holder.dgStatus.apply {

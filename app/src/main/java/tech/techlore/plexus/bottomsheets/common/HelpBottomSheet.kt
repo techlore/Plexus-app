@@ -62,12 +62,12 @@ class HelpBottomSheet : BottomSheetDialogFragment() {
         
         // Apps submit procedure
         bottomSheetBinding.appsSubmitProcCard.setOnClickListener {
-            openURL(requireActivity(), getString(R.string.apps_submit_proc_url))
+            requireActivity().openURL(getString(R.string.apps_submit_proc_url))
         }
         
         // FAQ
         bottomSheetBinding.faqsCard.setOnClickListener {
-            openURL(requireActivity(), getString(R.string.faqs_url))
+            requireActivity().openURL(getString(R.string.faqs_url))
         }
         
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {

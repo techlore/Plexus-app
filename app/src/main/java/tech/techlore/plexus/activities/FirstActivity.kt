@@ -50,6 +50,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class FirstActivity : AppCompatActivity() {
@@ -59,15 +60,14 @@ class FirstActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
-        // Material you
-        // set this here instead of in Application class,
+        // Set Material You here instead of in Application class,
         // or else Dynamic Colors will not be applied to this activity
         if (prefManager.getBoolean (MATERIAL_YOU, defValue = false)) {
             DynamicColors.applyToActivityIfAvailable(this)
             DynamicColors.applyToActivitiesIfAvailable(applicationContext as ApplicationManager) // For other activities
         }
         enableEdgeToEdge()
-        setNavBarContrastEnforced(window)
+        window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         activityBinding = ActivityFirstBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
@@ -126,10 +126,9 @@ class FirstActivity : AppCompatActivity() {
         
         withContext(Dispatchers.IO) {
             gappsPackages.forEach {
-                getAppInfo(packageManager, it)?.let { appInfo ->
+                getAppInfo(it)?.let { appInfo ->
                     installedGappsCount ++
-                    if (!packageManager.getApplicationLabel(appInfo)
-                            .startsWith("Google", ignoreCase = true))
+                    if (!packageManager.getApplicationLabel(appInfo).startsWith("Google", ignoreCase = true))
                         microGCount ++
                 }
             }
@@ -141,7 +140,7 @@ class FirstActivity : AppCompatActivity() {
         }
     }
     
-    private fun getAppInfo(packageManager: PackageManager, packageName: String): ApplicationInfo? {
+    private fun getAppInfo(packageName: String): ApplicationInfo? {
         return try {
             packageManager.getApplicationInfo(packageName, 0)
         }
@@ -210,6 +209,7 @@ class FirstActivity : AppCompatActivity() {
     override fun finish() {
         super.finish()
         startActivity(Intent(this@FirstActivity, MainActivity::class.java))
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        overrideTransition(enterAnim = android.R.anim.fade_in,
+                           exitAnim = android.R.anim.fade_out)
     }
 }

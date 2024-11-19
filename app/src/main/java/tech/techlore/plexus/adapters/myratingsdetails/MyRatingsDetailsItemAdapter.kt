@@ -26,8 +26,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.myratings.MyRatingDetails
-import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
-import tech.techlore.plexus.utils.UiUtils.Companion.setStatusTextViewStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyle
 
 class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetails>) : RecyclerView.Adapter<MyRatingsDetailsItemAdapter.ListViewHolder>() {
     
@@ -68,13 +68,12 @@ class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetai
         holder.androidVersion.text = myRatingsDetails.androidVersion
         
         // Installed from
-        setInstalledFromTextViewStyle(context, myRatingsDetails.installedFrom, holder.installedFrom)
+        holder.installedFrom.setInstalledFromStyle(context, myRatingsDetails.installedFrom)
         
         // Status
-        setStatusTextViewStyle(context,
-                               myRatingsDetails.googleLib,
-                               myRatingsDetails.myRatingScore,
-                               holder.status)
+        holder.status.setStatusStyle(context,
+                                     myRatingsDetails.googleLib,
+                                     myRatingsDetails.myRatingScore)
         
     }
     

@@ -36,6 +36,7 @@ import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
+import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class MainActivity : AppCompatActivity(), MenuProvider {
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        setNavBarContrastEnforced(window)
+        window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         addMenuProvider(this)
@@ -139,16 +140,15 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_activity_main, menu)
-        
         menu.findItem(R.id.menu_search).isVisible = selectedNavItem != R.id.nav_my_ratings
-        
     }
     
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.menu_search -> {
                 startActivity(Intent(this, SearchActivity::class.java))
-                overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
+                overrideTransition(enterAnim = R.anim.fade_in_slide_from_bottom,
+                                   exitAnim = R.anim.no_movement)
             }
             R.id.menu_sort -> SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
             R.id.main_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")

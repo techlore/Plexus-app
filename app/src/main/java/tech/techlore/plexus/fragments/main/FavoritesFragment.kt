@@ -37,7 +37,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FR
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
+import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 
 class FavoritesFragment:
     Fragment(),
@@ -65,7 +65,7 @@ class FavoritesFragment:
         mainActivity = requireActivity() as MainActivity
         
         // Adjust recycler view for edge to edge
-        adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
+        fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
         
         lifecycleScope.launch{
             favList =
@@ -108,7 +108,7 @@ class FavoritesFragment:
     // On click
     override fun onItemClick(position: Int) {
         val fav = favList[position]
-        startDetailsActivity(mainActivity, fav.packageName)
+        mainActivity.startDetailsActivity(fav.packageName)
     }
     
     override fun onDestroyView() {

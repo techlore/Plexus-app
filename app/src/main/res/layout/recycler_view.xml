@@ -37,11 +37,11 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:background="?attr/colorSurface"
             android:clipToPadding="false"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_10"
             tools:listitem="@layout/item_main_recycler_view"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -26,8 +26,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.get.ratings.Rating
-import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
-import tech.techlore.plexus.utils.UiUtils.Companion.setStatusTextViewStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyle
 
 class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
     
@@ -51,7 +51,7 @@ class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : Re
     
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-    
+        
         val userRating = aListViewItems[position]
         val context = holder.itemView.context
         
@@ -68,13 +68,12 @@ class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : Re
         holder.androidVersion.text = userRating.androidVersion
         
         // Installed from
-        setInstalledFromTextViewStyle(context, userRating.installedFrom, holder.installedFrom)
+        holder.installedFrom.setInstalledFromStyle(context, userRating.installedFrom)
         
         // Status
-        setStatusTextViewStyle(context,
-                               userRating.ratingType!!,
-                               userRating.ratingScore!!.ratingScore,
-                               holder.status)
+        holder.status.setStatusStyle(context,
+                                     userRating.ratingType!!,
+                                     userRating.ratingScore!!.ratingScore)
         
     }
     

@@ -72,7 +72,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
                 mainDataDao.delete(it)
             }
             
-            prefManager.setString(LAST_UPDATED, formatDateTimeRFC3339(currentDateTime))
+            prefManager.setString(LAST_UPDATED, currentDateTime.formatRFC3339())
         }
     }
     
@@ -83,19 +83,19 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
                 MainData(name = appData.name,
                          packageName = appData.packageName,
                          iconUrl = appData.iconUrl ?: "",
-                         dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
+                         dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
                          totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
-                         mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
+                         mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
                          totalMgRatings = appData.scoresRoot.mgScore.totalRatings)
             )
         }
     }
     
     @SuppressLint("SimpleDateFormat")
-    private fun formatDateTimeRFC3339(dateTime: Date): String {
+    private fun Date.formatRFC3339(): String {
         return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").apply {
             timeZone = TimeZone.getTimeZone("UTC")
-        }.format(dateTime)
+        }.format(this)
     }
     
     suspend fun installedAppsIntoDB(context: Context) {
@@ -140,9 +140,9 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
                 .insertOrUpdatePlexusData(MainData(name = appData.name,
                                                    packageName = appData.packageName,
                                                    iconUrl = appData.iconUrl ?: "",
-                                                   dgScore = truncatedScore(appData.scoresRoot.dgScore.score),
+                                                   dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
                                                    totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
-                                                   mgScore = truncatedScore(appData.scoresRoot.mgScore.score),
+                                                   mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
                                                    totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
                                                    isInPlexusData = true))
         }

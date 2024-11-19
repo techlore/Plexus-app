@@ -44,6 +44,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
+import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class SettingsActivity : AppCompatActivity() {
@@ -52,7 +53,7 @@ class SettingsActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        setNavBarContrastEnforced(window)
+        window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         val activityBinding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -111,16 +112,14 @@ class SettingsActivity : AppCompatActivity() {
         
         // Privacy policy
         activityBinding.privacyPolicy.setOnClickListener {
-            openURL(this,
-                    getString(R.string.plexus_privacy_policy_url),
+            openURL(getString(R.string.plexus_privacy_policy_url),
                     activityBinding.settingsCoordLayout,
                     activityBinding.settingsBottomAppBar)
         }
         
         // Report an issue
         activityBinding.reportIssue.setOnClickListener {
-            openURL(this,
-                    getString(R.string.plexus_report_issue_url),
+            openURL(getString(R.string.plexus_report_issue_url),
                     activityBinding.settingsCoordLayout,
                     activityBinding.settingsBottomAppBar)
         }
@@ -132,16 +131,14 @@ class SettingsActivity : AppCompatActivity() {
         
         // View on GitHub
         activityBinding.viewOnGitHub.setOnClickListener {
-            openURL(this,
-                    getString(R.string.plexus_github_url),
+            openURL(getString(R.string.plexus_github_url),
                     activityBinding.settingsCoordLayout,
                     activityBinding.settingsBottomAppBar)
         }
         
         // Visit Techlore
         activityBinding.visitTechlore.setOnClickListener {
-            openURL(this,
-                    getString(R.string.techlore_website_url),
+            openURL(getString(R.string.techlore_website_url),
                     activityBinding.settingsCoordLayout,
                     activityBinding.settingsBottomAppBar)
         }
@@ -161,7 +158,8 @@ class SettingsActivity : AppCompatActivity() {
                     prefManager.setBoolean(IS_FIRST_LAUNCH, false)
                     startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
                     finish()
-                    overridePendingTransition(R.anim.slide_from_start, R.anim.slide_to_end)
+                    overrideTransition(enterAnim = R.anim.slide_from_start,
+                                       exitAnim = R.anim.slide_to_end)
                 }
                 
                 else -> finish()

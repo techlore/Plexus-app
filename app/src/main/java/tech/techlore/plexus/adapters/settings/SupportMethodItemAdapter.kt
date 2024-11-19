@@ -20,42 +20,53 @@ package tech.techlore.plexus.adapters.settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SettingsActivity
-import tech.techlore.plexus.models.settings.License
+import tech.techlore.plexus.models.settings.SupportMethod
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
-class LicenseItemAdapter(private val aListViewItems: ArrayList<License>,
-                         private val settingsActivity: SettingsActivity) : RecyclerView.Adapter<LicenseItemAdapter.ListViewHolder>() {
+class SupportMethodItemAdapter (private val aListViewItems: ArrayList<SupportMethod>,
+                                private val settingsActivity: SettingsActivity) : RecyclerView.Adapter<SupportMethodItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
-        val licenseTitle: MaterialTextView = itemView.findViewById(R.id.licenseTitle)
-        val licenseDesc: MaterialTextView = itemView.findViewById(R.id.licenseDesc)
+        val supportMethodTitle: MaterialTextView = itemView.findViewById(R.id.supportMethodTitle)
+        val supportMethodQr: ShapeableImageView = itemView.findViewById(R.id.supportMethodQr)
+        val liberapayUrl: MaterialTextView = itemView.findViewById(R.id.liberapayUrl)
+        val moneroAddress: MaterialTextView = itemView.findViewById(R.id.moneroAddress)
         
     }
     
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ListViewHolder {
-        return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_licenses_recycler_view, parent, false)
+        return ListViewHolder(LayoutInflater.from(parent.context)
+                                  .inflate(R.layout.item_support_methods_recycler_view, parent, false)
         )
     }
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        val license = aListViewItems[position]
+        val supportMethod = aListViewItems[position]
         
-        holder.licenseTitle.apply {
-            text = license.title
+        holder.supportMethodTitle.apply {
+            text = supportMethod.title
+            setCompoundDrawablesWithIntrinsicBounds(supportMethod.titleIcon, 0, 0, 0)
+        }
+        
+        holder.supportMethodQr.setImageResource(supportMethod.qr)
+        
+        holder.liberapayUrl.apply {
+            isVisible = position == 0
             setOnClickListener{
-                settingsActivity.openURL(license.url)
+                settingsActivity.openURL(text.toString())
             }
         }
         
-        holder.licenseDesc.text = license.desc
+        holder.moneroAddress.isVisible = position == 1
     }
     
     override fun getItemCount(): Int {

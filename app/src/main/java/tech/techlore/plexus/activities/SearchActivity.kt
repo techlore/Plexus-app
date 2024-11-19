@@ -34,6 +34,8 @@ import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
+import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
+import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListener {
@@ -42,7 +44,7 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
     
     public override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        setNavBarContrastEnforced(window)
+        window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         val activityBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
@@ -50,6 +52,9 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
         val miniRepository by inject<MainDataMinimalRepository>()
         searchDataList = ArrayList()
         var job: Job? = null
+        
+        // Adjust recycler view for edge to edge
+        activityBinding.searchRv.adjustEdgeToEdge(this)
         
         // Bottom toolbar as actionbar
         activityBinding.searchBottomAppBar.apply {
@@ -101,11 +106,13 @@ class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListe
     // On click
     override fun onItemClick(position: Int) {
         val searchData = searchDataList[position]
-        startDetailsActivity(this@SearchActivity, searchData.packageName)
+        startDetailsActivity(searchData.packageName)
     }
     
     override fun finish() {
         super.finish()
-        overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+        overrideTransition(isClosingTransition = true,
+                           enterAnim = 0,
+                           exitAnim = R.anim.fade_out_slide_to_bottom)
     }
 }

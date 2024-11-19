@@ -15,10 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.license
+package tech.techlore.plexus.models.settings
 
 data class License(
-    val licenseTitle: String,
-    val licenseDesc: String,
+    val title: String,
+    val desc: String,
     val url: String
 )

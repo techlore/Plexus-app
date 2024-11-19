@@ -33,34 +33,32 @@ class IntentUtils {
     companion object {
         
         // App details activity
-        fun startDetailsActivity(activityFrom: Activity, packageName: String) {
-            activityFrom.startActivity(Intent(activityFrom, AppDetailsActivity::class.java)
-                                           .putExtra("packageName", packageName))
+        fun Activity.startDetailsActivity(packageName: String) {
+            startActivity(Intent(this, AppDetailsActivity::class.java)
+                              .putExtra("packageName", packageName))
         }
         
         // Open links
-        fun openURL(activity: Activity,
-                    url: String,
-                    coordinatorLayout: CoordinatorLayout,
-                    anchorView: View?) {
+        fun Activity.openURL(url: String,
+                             coordinatorLayout: CoordinatorLayout,
+                             anchorView: View?) {
             try {
-                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
             // If no browser installed, show snackbar
             catch (_: ActivityNotFoundException) {
                 showSnackbar(coordinatorLayout,
-                             activity.getString(R.string.no_browsers),
+                             getString(R.string.no_browsers),
                              anchorView)
             }
         }
-        fun openURL(activity: Activity,
-                    url: String) {
+        fun Activity.openURL(url: String) {
             try {
-                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
             // If no browser installed, show toast
             catch (_: ActivityNotFoundException) {
-                Toast.makeText(activity, activity.getString(R.string.no_browsers), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_browsers), Toast.LENGTH_SHORT).show()
             }
         }
         

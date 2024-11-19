@@ -74,10 +74,32 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_8"
             android:text="@string/terms_conditions_desc"
             android:textSize="@dimen/text_16"
             android:textColor="?attr/colorOnSurface"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/privacyPolicyCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:backgroundTint="@android:color/transparent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/margin_20"
+                android:paddingHorizontal="@dimen/margin_12"
+                android:drawableStart="@drawable/ic_privacy_policy"
+                android:drawablePadding="@dimen/margin_8"
+                android:text="@string/privacy_policy"
+                android:textSize="@dimen/text_17"
+                style="@style/MediumBoldText"
+                android:drawableEnd="@drawable/ic_open_in_browser"/>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <include layout="@layout/divider_horizontal"/>
 

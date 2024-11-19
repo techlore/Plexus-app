@@ -43,7 +43,7 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
-import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
+import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import kotlin.getValue
 
@@ -73,7 +73,7 @@ class MyRatingsFragment :
         val myRatingsRepository by inject<MyRatingsRepository>()
         
         // Adjust UI components for edge to edge
-        adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
+        fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
         ViewCompat.setOnApplyWindowInsetsListener(fragmentBinding.newRatingFab) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())

@@ -27,14 +27,16 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.SettingsActivity
+import tech.techlore.plexus.adapters.settings.SupportMethodItemAdapter
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetSupportUsBinding
-import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
+import tech.techlore.plexus.databinding.BottomSheetRecyclerViewBinding
+import tech.techlore.plexus.models.settings.SupportMethod
 
 class SupportUsBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetSupportUsBinding? = null
+    private var _binding: BottomSheetRecyclerViewBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -46,8 +48,8 @@ class SupportUsBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
-        _binding = BottomSheetSupportUsBinding.inflate(inflater, container, false)
+        
+        _binding = BottomSheetRecyclerViewBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
@@ -56,10 +58,22 @@ class SupportUsBottomSheet : BottomSheetDialogFragment() {
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.support_us)
         
-        // Liberapay
-        bottomSheetBinding.liberapayUrl.setOnClickListener {
-            openURL(requireActivity(), getString(R.string.plexus_liberapay_url))
-        }
+        val supportMethodsList =
+            arrayListOf<SupportMethod>().apply {
+                
+                // Liberapay
+                add(SupportMethod(title = getString(R.string.liberapay),
+                                  titleIcon = R.drawable.ic_liberapay,
+                                  qr = R.drawable.ic_liberapay_qr))
+                
+                // Monero
+                add(SupportMethod(title = getString(R.string.monero),
+                                  titleIcon = R.drawable.ic_monero,
+                                  qr = R.drawable.ic_monero_qr))
+            }
+        
+        bottomSheetBinding.recView.adapter = SupportMethodItemAdapter(supportMethodsList,
+                                                                      requireActivity() as SettingsActivity)
         
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
             positiveButton.isVisible = false

@@ -31,12 +31,12 @@ import tech.techlore.plexus.activities.SettingsActivity
 import tech.techlore.plexus.adapters.settings.LicenseItemAdapter
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetLicensesBinding
-import tech.techlore.plexus.models.license.License
+import tech.techlore.plexus.databinding.BottomSheetRecyclerViewBinding
+import tech.techlore.plexus.models.settings.License
 
 class LicensesBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetLicensesBinding? = null
+    private var _binding: BottomSheetRecyclerViewBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -48,7 +48,7 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        _binding = BottomSheetLicensesBinding.inflate(inflater, container, false)
+        _binding = BottomSheetRecyclerViewBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
@@ -58,7 +58,7 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.third_party_licenses)
         
         val licenseList =
-            ArrayList<License>().apply {
+            arrayListOf<License>().apply {
                 
                 // Ktor
                 add(License(getString(R.string.ktor),
@@ -116,8 +116,8 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
                             getString(R.string.monero_icon_license_url)))
             }
         
-        bottomSheetBinding.licensesRecyclerView.adapter = LicenseItemAdapter(licenseList,
-                                                                             requireActivity() as SettingsActivity)
+        bottomSheetBinding.recView.adapter = LicenseItemAdapter(licenseList,
+                                                                requireActivity() as SettingsActivity)
         
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
             positiveButton.isVisible = false

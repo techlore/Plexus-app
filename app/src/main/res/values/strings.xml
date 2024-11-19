@@ -87,7 +87,7 @@
         \n
         \nYou may delete your account from this device at any time.</string>
     <string name="by_proceeding_agree_desc">By proceeding, you agree to the fair usage of Plexus.
-        If the above terms &amp; conditions are violated, your account will be deleted along with any ratings you\'ve submitted.</string>
+        If the above terms &amp; conditions are violated, all the ratings submitted by you will be deleted.</string>
     <string name="verification">Verification</string>
 
     <!--Code verification fragment-->

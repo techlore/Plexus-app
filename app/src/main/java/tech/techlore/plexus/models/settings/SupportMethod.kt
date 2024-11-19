@@ -15,17 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.utils
+package tech.techlore.plexus.models.settings
 
-class ScoreUtils {
-    
-    companion object {
-        
-        fun Float.truncatedScore(): Float {
-            // Convert to 1 decimal place without rounding off
-            return ((this * 10.0f).toInt().toFloat()) / 10.0f
-        }
-        
-    }
-    
-}
+data class SupportMethod(
+    val title: String,
+    val titleIcon: Int,
+    val qr: Int,
+)

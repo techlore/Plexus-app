@@ -95,10 +95,10 @@ class RateBottomSheet : BottomSheetDialogFragment() {
                 footerBinding.positiveButton.isEnabled =
                     charSequence!!.isEmpty()
                     || (charSequence.length in 5..maxTextLength
-                        && !hasBlockedWord(requireContext(), charSequence)
-                        && !hasRepeatedChars(charSequence)
-                        && !hasEmojis(charSequence)
-                        && !hasURL(charSequence))
+                        && !charSequence.hasBlockedWord(requireContext())
+                        && !charSequence.hasRepeatedChars()
+                        && !charSequence.hasEmojis()
+                        && !charSequence.hasURL())
             }
         }
         

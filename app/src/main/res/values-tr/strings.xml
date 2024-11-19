@@ -96,7 +96,7 @@
         \n
         \nHesab\u0131n\u0131z\u0131 istedi\u011Finiz zaman bu cihazdan silebilirsiniz.</string>
     <string name="by_proceeding_agree_desc">Devam ederek, Plexus\'un adil kullan\u0131m\u0131n\u0131 kabul etmi\u015F olursunuz.
-        Yukar\u0131daki \u015Fartlar &amp; ko\u015Fullar ihlal edilirse, hesab\u0131n\u0131z g\u00F6nderdi\u011Finiz t\u00FCm de\u011Ferlendirmelerle birlikte silinecektir.</string>
+        Yukar\u0131daki \u015Fartlar &amp; ko\u015Fullar ihlal edilirse, taraf\u0131n\u0131zdan g\u00F6nderilen t\u00FCm derecelendirmeler silinecektir.</string>
     <string name="verification">Do\u011Frulama</string>
 
     <!--Code verification fragment-->

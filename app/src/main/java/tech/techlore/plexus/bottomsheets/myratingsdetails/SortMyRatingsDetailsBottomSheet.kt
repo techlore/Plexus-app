@@ -143,7 +143,7 @@ class SortMyRatingsDetailsBottomSheet : BottomSheetDialogFragment() {
             detailsActivity.isListSorted = false // Set to false so list is sorted on fragment refresh
             
             dismiss()
-            refreshFragment(detailsActivity.navController)
+            detailsActivity.navController.refreshFragment()
         }
         
         // Cancel

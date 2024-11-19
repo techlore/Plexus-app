@@ -25,20 +25,22 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityVerificationBinding
+import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class VerificationActivity : AppCompatActivity() {
     
+    lateinit var activityBinding: ActivityVerificationBinding
     lateinit var navController: NavController
     var emailString = ""
     var deviceId = ""
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        setNavBarContrastEnforced(window)
+        window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-        val activityBinding = ActivityVerificationBinding.inflate(layoutInflater)
+        activityBinding = ActivityVerificationBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
     
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.verificationNavHost) as NavHostFragment
@@ -54,7 +56,9 @@ class VerificationActivity : AppCompatActivity() {
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             finish()
-            overridePendingTransition(0, R.anim.fade_out_slide_to_bottom)
+            overrideTransition(isClosingTransition = true,
+                               enterAnim = 0,
+                               exitAnim = R.anim.fade_out_slide_to_bottom)
         }
     }
 }

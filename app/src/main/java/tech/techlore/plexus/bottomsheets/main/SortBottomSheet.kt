@@ -153,7 +153,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             }
         
             dismiss()
-            refreshFragment(navController)
+            navController.refreshFragment()
         }
     
         // Cancel

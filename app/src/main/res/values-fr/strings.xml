@@ -92,7 +92,7 @@
         \n
         \nVous pouvez supprimer votre compte de cet appareil \u00E0 tout moment.</string>
     <string name="by_proceeding_agree_desc">En poursuivant, vous acceptez d\'utiliser Plexus de fa\u00E7on juste et honn\u00EAte.
-        En cas de violation des conditions susmentionn\u00E9es, votre compte sera supprim\u00E9 ainsi que toutes les \u00E9valuations que vous avez soumises.</string>
+        En cas de violation des conditions susmentionn\u00E9es, toutes les \u00E9valuations que vous avez soumises seront supprim\u00E9es.</string>
     <string name="verification">V\u00E9rification</string>
 
     <!--Code verification fragment-->

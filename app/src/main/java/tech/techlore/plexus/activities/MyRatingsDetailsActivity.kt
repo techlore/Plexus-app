@@ -50,7 +50,7 @@ import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
-import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
@@ -77,7 +77,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        setNavBarContrastEnforced(window)
+        window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         addMenuProvider(this)
@@ -114,11 +114,12 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             app = mainRepository.getAppByPackage(packageNameString)!!
             myRating = myRatingsRepository.getMyRatingsByPackage(packageNameString)!!
             
-            displayAppIcon(context = this@MyRatingsDetailsActivity,
-                           imageView = activityBinding.detailsAppIcon,
-                           isInstalled = app.isInstalled,
-                           packageName = app.packageName,
-                           iconUrl = app.iconUrl)
+            activityBinding.detailsAppIcon.displayAppIcon(
+                context = this@MyRatingsDetailsActivity,
+                isInstalled = app.isInstalled,
+                packageName = app.packageName,
+                iconUrl = app.iconUrl
+            )
             
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
@@ -128,9 +129,10 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             
             activityBinding.totalRatingsCount.isVisible = false
             
-            setInstalledFromTextViewStyle(this@MyRatingsDetailsActivity,
-                                          app.installedFrom,
-                                          activityBinding.detailsInstalledFrom)
+            activityBinding.detailsInstalledFrom.setInstalledFromStyle(
+                context = this@MyRatingsDetailsActivity,
+                installedFrom = app.installedFrom
+            )
             
             activityBinding.loadingIndicator.isVisible = false
             activityBinding.retrievingRatingsText.isVisible = false
@@ -145,7 +147,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
-                scrollToTop(activityBinding.nestedScrollView)
+                activityBinding.nestedScrollView.scrollToTop()
                 // Show bottom app bar on scroll up,
                 // otherwise when scrollview reaches top, bottom app bar stays hidden.
                 activityBinding.detailsBottomAppBar.apply {

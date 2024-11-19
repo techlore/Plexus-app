@@ -25,32 +25,32 @@ class TextUtils {
     
     companion object {
         
-        fun hasRepeatedChars(charSequence: CharSequence): Boolean {
+        fun CharSequence.hasRepeatedChars(): Boolean {
             val repeatedCharsRegex = """^(?s)(?!.*(.+)\1{2,}).*$""".toRegex() // *insert regex meme here*
             // This regex prevents words like AAAAA, BBBBB, ABBBB, ABABABAB etc.
             // while still allowing real words like coffee, committee etc.
-            return repeatedCharsRegex.find(charSequence) == null
+            return repeatedCharsRegex.find(this) == null
         }
         
-        fun hasBlockedWord(context: Context, charSequence: CharSequence): Boolean {
+        fun CharSequence.hasBlockedWord(context: Context): Boolean {
             val blockedWords = context.resources.getStringArray(R.array.blocked_words)
             val blockedWordsPattern = blockedWords.joinToString("|") { Regex.escape(it) }
             val blockedWordsRegex =
                 "(?i)\\b($blockedWordsPattern)\\b".toRegex(setOf(RegexOption.IGNORE_CASE)) // *next regex meme goes here*
-            return blockedWordsRegex.find(charSequence) != null
+            return blockedWordsRegex.find(this) != null
         }
         
-        fun hasEmojis(charSequence: CharSequence): Boolean {
+        fun CharSequence.hasEmojis(): Boolean {
             val emojiRegex = Regex("[\\p{So}\\p{Sk}]") // This will block emojis and other unnecessary symbols
-            return emojiRegex.find(charSequence) != null
+            return emojiRegex.find(this) != null
         }
         
-        fun hasURL(charSequence: CharSequence): Boolean {
-            return Patterns.WEB_URL.matcher(charSequence).find()
+        fun CharSequence.hasURL(): Boolean {
+            return Patterns.WEB_URL.matcher(this).find()
         }
     
-        fun hasEmail(charSequence: CharSequence): Boolean {
-            return Patterns.EMAIL_ADDRESS.matcher(charSequence).find()
+        fun CharSequence.hasEmail(): Boolean {
+            return Patterns.EMAIL_ADDRESS.matcher(this).find()
         }
         
     }

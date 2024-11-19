@@ -25,16 +25,18 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
-import androidx.core.widget.doBeforeTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.databinding.FragmentEmailVerificationBinding
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.bottomsheets.verification.EmailVerificationBottomSheet
+import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
@@ -72,17 +74,25 @@ class EmailVerificationFragment : Fragment() {
             WindowInsetsCompat.CONSUMED
         }
         
-        fragmentBinding.emailText.doBeforeTextChanged { charSequence, _, _, _ ->
+        fragmentBinding.emailText.doOnTextChanged { charSequence, _, _, _ ->
             job?.cancel()
             job =
                 lifecycleScope.launch {
                     delay(200)
                     fragmentBinding.proceedBtn.isEnabled =
                         charSequence!!.isNotEmpty()
-                        && !hasBlockedWord(requireContext(), charSequence)
-                        && !hasEmojis(charSequence)
-                        && hasEmail(charSequence)
+                        && !charSequence.hasBlockedWord(requireContext())
+                        && !charSequence.hasEmojis()
+                        && charSequence.hasEmail()
                 }
+        }
+        
+        fragmentBinding.privacyPolicyCard.setOnClickListener {
+            (requireActivity() as VerificationActivity).apply {
+                openURL(getString(R.string.plexus_privacy_policy_url),
+                        activityBinding.verificationCoordLayout,
+                        activityBinding.verificationBottomAppBar)
+            }
         }
         
         // Proceed

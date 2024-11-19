@@ -60,19 +60,19 @@ class MoreOptionsBottomSheet(
         // Play store
         bottomSheetBinding.playStore.setOnClickListener {
             dismiss()
-            openURL(requireActivity(), playStoreString)
+            requireActivity().openURL(playStoreString)
         }
         
         // F-Droid
         bottomSheetBinding.fdroid.setOnClickListener {
             dismiss()
-            openURL(requireActivity(), fdroidString)
+            requireActivity().openURL(fdroidString)
         }
         
         // Exodus Privacy
         bottomSheetBinding.exodus.setOnClickListener {
             dismiss()
-            openURL(requireActivity(), exodusString)
+            requireActivity().openURL(exodusString)
         }
         
         // Share

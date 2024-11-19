@@ -17,6 +17,9 @@
 
 package tech.techlore.plexus.utils
 
+import android.app.Activity
+import android.app.Activity.OVERRIDE_TRANSITION_CLOSE
+import android.app.Activity.OVERRIDE_TRANSITION_OPEN
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
@@ -68,15 +71,15 @@ class UiUtils {
             }
         }
         
-        fun setNavBarContrastEnforced(window: Window) {
+        fun Window.setNavBarContrastEnforced() {
             if (Build.VERSION.SDK_INT >= 29) {
-                window.isNavigationBarContrastEnforced = false
+                isNavigationBarContrastEnforced = false
             }
         }
         
         // Adjust recyclerview for edge to edge
-        fun adjustRecyclerView(context: Context, recyclerView: RecyclerView) {
-            ViewCompat.setOnApplyWindowInsetsListener(recyclerView) { v, windowInsets ->
+        fun RecyclerView.adjustEdgeToEdge(context: Context) {
+            ViewCompat.setOnApplyWindowInsetsListener(this) { v, windowInsets ->
                 val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                             or WindowInsetsCompat.Type.displayCutout())
                 v.updatePadding(left = insets.left,
@@ -94,16 +97,29 @@ class UiUtils {
         
         // Horizontally scroll text,
         // if text is too long
-        fun hScrollText(textView: TextView) {
-            textView.apply {
+        fun TextView.hScroll() {
+            apply {
                 setSingleLine()
                 isSelected = true
             }
         }
         
-        fun refreshFragment(navController: NavController) {
+        fun Activity.overrideTransition(isClosingTransition: Boolean = false,
+                                        enterAnim: Int,
+                                        exitAnim: Int) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                overrideActivityTransition(
+                    if (isClosingTransition) OVERRIDE_TRANSITION_CLOSE else OVERRIDE_TRANSITION_OPEN,
+                    enterAnim,
+                    exitAnim
+                )
+            }
+            else overridePendingTransition(enterAnim, exitAnim)
+        }
+        
+        fun NavController.refreshFragment() {
             val action =
-                when(navController.currentDestination!!.id) {
+                when(currentDestination!!.id) {
                     R.id.plexusDataFragment -> R.id.action_plexusDataFragment_self
                     R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
                     R.id.favoritesFragment -> R.id.action_favoritesFragment_self
@@ -112,15 +128,14 @@ class UiUtils {
                     else -> R.id.action_myRatingsDetailsFragment_self
                 }
             
-            navController.navigate(action)
+            navigate(action)
         }
         
-        fun displayAppIcon(context: Context,
-                           imageView: ImageView,
-                           isInstalled: Boolean,
-                           packageName: String,
-                           iconUrl: String?) {
-            imageView.apply {
+        fun ImageView.displayAppIcon(context: Context,
+                                     isInstalled: Boolean,
+                                     packageName: String,
+                                     iconUrl: String?) {
+            apply {
                 if (isInstalled) {
                     try {
                         // Don't use Coil to load icons directly to ImageView
@@ -182,7 +197,7 @@ class UiUtils {
             }
         }
         
-        fun setInstalledFromTextViewStyle(context: Context, installedFrom: String, textView: MaterialTextView) {
+        fun MaterialTextView.setInstalledFromStyle(context: Context, installedFrom: String) {
             val (icon, installedFromText) =
                 when (installedFrom) {
                     
@@ -203,7 +218,7 @@ class UiUtils {
                              "")
                 }
             
-            textView.apply {
+            apply {
                 isVisible = icon != null
                 if (isVisible){
                     setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
@@ -212,10 +227,9 @@ class UiUtils {
             }
         }
         
-        fun setStatusTextViewStyle(context: Context,
-                                   googleLib: String,
-                                   ratingScore: Int,
-                                   textView: MaterialTextView) {
+        fun MaterialTextView.setStatusStyle(context: Context,
+                                            googleLib: String,
+                                            ratingScore: Int) {
             val statusIcon =
                 when (googleLib) {
                     "native" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
@@ -234,7 +248,7 @@ class UiUtils {
                                  context.resources.getColor(R.color.color_gold_status, context.theme))
                 }
             
-            textView.apply {
+            apply {
                 setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
                 text = statusString
                 backgroundTintList = ColorStateList.valueOf(backgroundTint)
@@ -249,8 +263,8 @@ class UiUtils {
             }
         }
         
-        fun scrollToTop(nestedScrollView: NestedScrollView) {
-            nestedScrollView.apply {
+        fun NestedScrollView.scrollToTop() {
+            apply {
                 if (scrollY != 0) {
                     post {
                         fling(0)

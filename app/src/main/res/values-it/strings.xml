@@ -88,7 +88,7 @@
         \n
         \nPotrai cancellare il tuo account da questo dispositivo in qualsiasi momento.</string>
     <string name="by_proceeding_agree_desc">Procedendo, accetti di usare Plexus in modo corretto.
-        Se i termini e le condizioni vengono violati, il tuo account verr\u00E0 cancellato insieme a tutte le valutazioni inviate.</string>
+        Se i termini e le condizioni vengono violati, tutte le valutazioni inviate dall\'utente verranno cancellate.</string>
     <string name="verification">Verifica</string>
 
     <!--Code verification fragment-->

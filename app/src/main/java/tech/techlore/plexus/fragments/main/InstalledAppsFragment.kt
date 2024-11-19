@@ -39,7 +39,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGL
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
+import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import kotlin.collections.ArrayList
 import kotlin.getValue
 
@@ -69,7 +69,7 @@ class InstalledAppsFragment :
         mainActivity = requireActivity() as MainActivity
         
         // Adjust recycler view for edge to edge
-        adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
+        fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
         
         lifecycleScope.launch {
             
@@ -121,7 +121,7 @@ class InstalledAppsFragment :
     // On click
     override fun onItemClick(position: Int) {
         val installedApp = installedAppsList[position]
-        startDetailsActivity(mainActivity, installedApp.packageName)
+        mainActivity.startDetailsActivity(installedApp.packageName)
     }
     
     private fun refreshInstalledApps() {

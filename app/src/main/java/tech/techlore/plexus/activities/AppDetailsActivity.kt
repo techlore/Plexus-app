@@ -74,9 +74,10 @@ import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
-import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromTextViewStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
+import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
@@ -124,7 +125,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        setNavBarContrastEnforced(window)
+        window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         addMenuProvider(this)
@@ -178,11 +179,12 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         lifecycleScope.launch {
             app = mainRepository.getAppByPackage(packageNameString)!!
             
-            displayAppIcon(context = this@AppDetailsActivity,
-                           imageView = activityBinding.detailsAppIcon,
-                           isInstalled = app.isInstalled,
-                           packageName = app.packageName,
-                           iconUrl = app.iconUrl)
+            activityBinding.detailsAppIcon.displayAppIcon(
+                context = this@AppDetailsActivity,
+                isInstalled = app.isInstalled,
+                packageName = app.packageName,
+                iconUrl = app.iconUrl
+            )
             
             activityBinding.detailsName.text = app.name
             activityBinding.detailsPackageName.text = app.packageName
@@ -192,9 +194,10 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 if (isVisible) text = "${app.installedVersion} (${app.installedBuild})"
             }
             
-            setInstalledFromTextViewStyle(this@AppDetailsActivity,
-                                          app.installedFrom,
-                                          activityBinding.detailsInstalledFrom)
+            activityBinding.detailsInstalledFrom.setInstalledFromStyle(
+                context = this@AppDetailsActivity,
+                installedFrom = app.installedFrom
+            )
             
             // Show FAB on scroll
             activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
@@ -206,7 +209,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
-                scrollToTop(activityBinding.nestedScrollView)
+                activityBinding.nestedScrollView.scrollToTop()
                 // Show bottom app bar on scroll up,
                 // otherwise when scrollview reaches top, bottom app bar stays hidden.
                 activityBinding.detailsBottomAppBar.apply {
@@ -237,7 +240,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     
                     !encPreferenceManager.getBoolean(IS_REGISTERED) -> {
                         startActivity(Intent(this@AppDetailsActivity, VerificationActivity::class.java))
-                        overridePendingTransition(R.anim.fade_in_slide_from_bottom, R.anim.no_movement)
+                        overrideTransition(enterAnim = R.anim.fade_in_slide_from_bottom,
+                                           exitAnim = R.anim.no_movement)
                     }
                     
                     myRatingExists ->

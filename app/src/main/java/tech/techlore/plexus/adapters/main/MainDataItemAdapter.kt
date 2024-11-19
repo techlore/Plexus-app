@@ -35,7 +35,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.utils.MainDataMinimalDiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
-import tech.techlore.plexus.utils.UiUtils.Companion.hScrollText
+import tech.techlore.plexus.utils.UiUtils.Companion.hScroll
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToColor
 import kotlin.collections.ArrayList
@@ -82,20 +82,21 @@ class MainDataItemAdapter(private val aListViewItems: ArrayList<MainDataMinimal>
         val mainDataMinimal = aListViewItems[position]
         val context = holder.itemView.context
         
-        displayAppIcon(context = context,
-                       imageView = holder.icon,
-                       isInstalled = mainDataMinimal.isInstalled,
-                       packageName = mainDataMinimal.packageName,
-                       iconUrl = mainDataMinimal.iconUrl)
+        holder.icon.displayAppIcon(
+            context = context,
+            isInstalled = mainDataMinimal.isInstalled,
+            packageName = mainDataMinimal.packageName,
+            iconUrl = mainDataMinimal.iconUrl
+        )
         
         holder.name.apply {
             text = mainDataMinimal.name
-            hScrollText(this)
+            hScroll()
         }
         
         holder.packageName.apply {
             text = mainDataMinimal.packageName
-            hScrollText(this)
+            hScroll()
         }
         
         holder.dgStatus.apply {

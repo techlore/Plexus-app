@@ -42,7 +42,7 @@ import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.UiUtils.Companion.adjustRecyclerView
+import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import kotlin.getValue
 
 class PlexusDataFragment :
@@ -71,7 +71,7 @@ class PlexusDataFragment :
         mainActivity = requireActivity() as MainActivity
         
         // Adjust recycler view for edge to edge
-        adjustRecyclerView(requireContext(), fragmentBinding.recyclerView)
+        fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
         
         lifecycleScope.launch{
             plexusDataList =
@@ -116,7 +116,7 @@ class PlexusDataFragment :
     // On click
     override fun onItemClick(position: Int) {
         val plexusData = plexusDataList[position]
-        startDetailsActivity(mainActivity, plexusData.packageName)
+        mainActivity.startDetailsActivity(plexusData.packageName)
     }
     
     private fun refreshData() {
