@@ -34,6 +34,7 @@ import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
+import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     
     lateinit var activityBinding: ActivityMainBinding
     lateinit var navController: NavController
+    private val prefManager by inject<PreferenceManager>()
     private var defaultFragment = 0
     var defaultSelectedNavItem = 0
     var selectedNavItem = 0
@@ -58,25 +60,8 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
-        val prefManager by inject<PreferenceManager>()
         
-        // Set default view
-        // Theme bottom sheet was reused for this purpose
-        // Don't get confused by the "R.id.followSystem" & "R.id.light"
-        when (prefManager.getInt(DEF_VIEW, R.id.followSystem)) {
-            R.id.followSystem -> {
-                defaultFragment = R.id.plexusDataFragment
-                defaultSelectedNavItem = R.id.nav_plexus_data
-            }
-            R.id.light -> {
-                defaultFragment = R.id.installedAppsFragment
-                defaultSelectedNavItem = R.id.nav_installed_apps
-            }
-            else -> {
-                defaultFragment = R.id.favoritesFragment
-                defaultSelectedNavItem = R.id.nav_fav
-            }
-        }
+        setDefaultView()
         
         // Set start destination as default view
         navController.navInflater.inflate(R.navigation.main_fragments_nav_graph).apply {
@@ -98,6 +83,26 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         
         // To set nav view item background, check selected item
         selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: defaultSelectedNavItem
+    }
+    
+    // Set default view
+    // Theme bottom sheet was reused for this purpose
+    // Don't get confused by the "R.id.followSystem" & "R.id.light"
+    private fun setDefaultView() {
+        when (prefManager.getInt(DEF_VIEW, R.id.followSystem)) {
+            R.id.followSystem -> {
+                defaultFragment = R.id.plexusDataFragment
+                defaultSelectedNavItem = R.id.nav_plexus_data
+            }
+            R.id.light -> {
+                defaultFragment = R.id.installedAppsFragment
+                defaultSelectedNavItem = R.id.nav_installed_apps
+            }
+            else -> {
+                defaultFragment = R.id.favoritesFragment
+                defaultSelectedNavItem = R.id.nav_fav
+            }
+        }
     }
     
     private fun showNavView() {
@@ -155,6 +160,14 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         }
         
         return true
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        AppState.apply {
+            if (isDefaultViewChanged) setDefaultView()
+            isDefaultViewChanged = false
+        }
     }
     
     // On back pressed

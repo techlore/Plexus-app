@@ -69,7 +69,7 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
             setText(detailsActivity.selectedVersionString)
             setAdapter(ArrayAdapter(requireContext(),
                                     R.layout.item_dropdown_menu,
-                                    detailsActivity.differentLists[0]))
+                                    detailsActivity.differentAppVerList))
         }
         
         // Rom dropdown
@@ -77,7 +77,7 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
             setText(detailsActivity.selectedRomString)
             setAdapter(ArrayAdapter(requireContext(),
                                     R.layout.item_dropdown_menu,
-                                    detailsActivity.differentLists[1]))
+                                    detailsActivity.differentRomsList))
         }
         
         // Android dropdown
@@ -85,7 +85,7 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
             setText(detailsActivity.selectedAndroidString)
             setAdapter(ArrayAdapter(requireContext(),
                                     R.layout.item_dropdown_menu,
-                                    detailsActivity.differentLists[2]))
+                                    detailsActivity.differentAndroidVerList))
         }
         
         // Installed from chip checked by default

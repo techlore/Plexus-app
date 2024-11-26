@@ -98,16 +98,14 @@ class UiUtils {
         // Horizontally scroll text,
         // if text is too long
         fun TextView.hScroll() {
-            apply {
-                setSingleLine()
-                isSelected = true
-            }
+            setSingleLine()
+            isSelected = true
         }
         
         fun Activity.overrideTransition(isClosingTransition: Boolean = false,
                                         enterAnim: Int,
                                         exitAnim: Int) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            if (Build.VERSION.SDK_INT >= 34) {
                 overrideActivityTransition(
                     if (isClosingTransition) OVERRIDE_TRANSITION_CLOSE else OVERRIDE_TRANSITION_OPEN,
                     enterAnim,
@@ -135,24 +133,22 @@ class UiUtils {
                                      isInstalled: Boolean,
                                      packageName: String,
                                      iconUrl: String?) {
-            apply {
-                if (isInstalled) {
-                    try {
-                        // Don't use Coil to load icons directly to ImageView
-                        // as there's a delay in displaying icons when fast scrolling
-                        setImageDrawable(context.packageManager.getApplicationIcon(packageName))
-                    }
-                    catch (e: PackageManager.NameNotFoundException) {
-                        e.printStackTrace()
-                    }
+            if (isInstalled) {
+                try {
+                    // Don't use Coil to load icons directly to ImageView
+                    // as there's a delay in displaying icons when fast scrolling
+                    setImageDrawable(context.packageManager.getApplicationIcon(packageName))
                 }
-                else {
-                    load(iconUrl) {
-                        size(get<Int>(named("displayedIconSize")))
-                        placeholder(R.drawable.ic_apk)
-                        fallback(R.drawable.ic_apk)
-                        error(R.drawable.ic_apk)
-                    }
+                catch (e: PackageManager.NameNotFoundException) {
+                    e.printStackTrace()
+                }
+            }
+            else {
+                load(iconUrl) {
+                    size(get<Int>(named("displayedIconSize")))
+                    placeholder(R.drawable.ic_apk)
+                    fallback(R.drawable.ic_apk)
+                    error(R.drawable.ic_apk)
                 }
             }
         }
@@ -218,12 +214,10 @@ class UiUtils {
                              "")
                 }
             
-            apply {
-                isVisible = icon != null
-                if (isVisible){
-                    setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
-                    text = installedFromText
-                }
+            isVisible = icon != null
+            if (isVisible){
+                setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+                text = installedFromText
             }
         }
         
@@ -248,11 +242,9 @@ class UiUtils {
                                  context.resources.getColor(R.color.color_gold_status, context.theme))
                 }
             
-            apply {
-                setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
-                text = statusString
-                backgroundTintList = ColorStateList.valueOf(backgroundTint)
-            }
+            setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
+            text = statusString
+            backgroundTintList = ColorStateList.valueOf(backgroundTint)
         }
         
         fun mapInstalledFromChipIdToString(installedFromChip: Int): String {
@@ -264,12 +256,10 @@ class UiUtils {
         }
         
         fun NestedScrollView.scrollToTop() {
-            apply {
-                if (scrollY != 0) {
-                    post {
-                        fling(0)
-                        smoothScrollTo(0, 0)
-                    }
+            if (scrollY != 0) {
+                post {
+                    fling(0)
+                    smoothScrollTo(0, 0)
                 }
             }
         }

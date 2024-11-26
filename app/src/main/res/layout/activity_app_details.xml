@@ -113,7 +113,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_20"
-                app:indicatorColor="?attr/colorPrimary"
+                app:indicatorColor="@array/loading_indicator_colors"
                 app:indicatorSize="48dp"
                 app:containerWidth="68dp"
                 app:containerHeight="68dp"

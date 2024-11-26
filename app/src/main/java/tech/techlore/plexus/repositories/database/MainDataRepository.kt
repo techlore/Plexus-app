@@ -65,13 +65,6 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
                 requests.awaitAll() // Wait for all requests to complete
             }
             
-            // Non rated apps were removed from Plexus DB recently,
-            // so delete those apps from local DB too
-            // This will be removed after few versions, as by then local DB won't have any such apps
-            mainDataDao.getNonRatedPlexusDataApps().takeIf { it.isNotEmpty() }?.forEach {
-                mainDataDao.delete(it)
-            }
-            
             prefManager.setString(LAST_UPDATED, currentDateTime.formatRFC3339())
         }
     }
@@ -96,6 +89,17 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
         return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").apply {
             timeZone = TimeZone.getTimeZone("UTC")
         }.format(this)
+    }
+    
+    suspend fun deleteNonRatedAppsFromDb() {
+        // Apps with no ratings were removed from Plexus DB recently,
+        // so delete those apps from local DB too.
+        // This will be removed after a few versions, as by then local DB won't have any such apps
+        withContext(Dispatchers.IO) {
+            mainDataDao.getNonRatedPlexusDataApps().takeIf { it.isNotEmpty() }?.forEach {
+                mainDataDao.delete(it)
+            }
+        }
     }
     
     suspend fun installedAppsIntoDB(context: Context) {
@@ -128,7 +132,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
     suspend fun getAppByPackage(packageName: String): MainData? {
         return withContext(Dispatchers.IO){
-            mainDataDao.getAppByPackage (packageName)
+            mainDataDao.getAppByPackage(packageName)
         }
     }
     
@@ -136,15 +140,16 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
         withContext(Dispatchers.IO) {
             val singleAppResponse = apiRepository.getSingleAppWithScores(packageName)
             val appData = singleAppResponse.appData
-            mainDataDao
-                .insertOrUpdatePlexusData(MainData(name = appData.name,
-                                                   packageName = appData.packageName,
-                                                   iconUrl = appData.iconUrl ?: "",
-                                                   dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
-                                                   totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
-                                                   mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
-                                                   totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
-                                                   isInPlexusData = true))
+            mainDataDao.insertOrUpdatePlexusData(
+                MainData(name = appData.name,
+                         packageName = appData.packageName,
+                         iconUrl = appData.iconUrl ?: "",
+                         dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
+                         totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
+                         mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
+                         totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
+                         isInPlexusData = true)
+            )
         }
     }
     

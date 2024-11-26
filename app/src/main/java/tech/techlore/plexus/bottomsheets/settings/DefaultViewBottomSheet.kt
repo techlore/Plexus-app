@@ -29,6 +29,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetThemeBinding
+import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 
@@ -78,6 +79,7 @@ class DefaultViewBottomSheet : BottomSheetDialogFragment() {
             setOnCheckedStateChangeListener { _, checkedIds ->
                 val checkedChip = checkedIds.first()
                 prefManager.setInt(DEF_VIEW, checkedChip)
+                AppState.isDefaultViewChanged = true
                 dismiss()
             }
         }

@@ -48,6 +48,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
@@ -103,7 +104,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private var mgBrokenRatingsPercent = 0.0f
     var sortedRatingsList = arrayListOf<Rating>()
     var isListSorted = false
-    var differentLists = arrayOf<Array<String>>()
+    var differentAppVerList = arrayOf<String>()
+    var differentRomsList = arrayOf<String>()
+    var differentAndroidVerList = arrayOf<String>()
     lateinit var selectedVersionString: String
     lateinit var selectedRomString: String
     lateinit var selectedAndroidString: String
@@ -136,7 +139,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         packageNameString = intent.getStringExtra("packageName")!!
-        val myRatingsRepository by inject<MyRatingsRepository>()
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
@@ -171,7 +173,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             addOnScrollStateChangedListener { _, newState ->
                 when (newState) {
                     STATE_SCROLLED_DOWN -> hideViewWithSlideDown(activityBinding.rateBtn)
-                    else -> activityBinding.rateBtn.apply { if (!isVisible) showViewWithSlideUp(this) }
+                    else -> activityBinding.rateBtn.apply { showViewWithSlideUp(this) }
                 }
             }
         }
@@ -218,7 +220,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             }
             
             val myRatingExists =
-                myRatingsRepository.getMyRatingsByPackage(app.packageName)?.ratingsDetails?.any {
+                get<MyRatingsRepository>().getMyRatingsByPackage(app.packageName)?.ratingsDetails?.any {
                     it.version == app.installedVersion
                 } == true
             
@@ -388,26 +390,24 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 
                 // Get different app versions, ROMs & android versions from ratings list
                 // and store them in a separate list to show in sort ratings bottom sheet
-                differentLists =
-                    arrayOf(
-                        // App version
-                        arrayOf(getString(R.string.any)) +
-                        ratingsList.map { "${it.version} (${it.buildNumber})" }.distinct(),
-                        // ROMs
-                        arrayOf(getString(R.string.any)) +
-                        ratingsList.map { it.romName }.distinct(),
-                        // Android versions
-                        arrayOf(getString(R.string.any)) +
-                        ratingsList.map { it.androidVersion }.distinct()
-                    )
+                differentAppVerList =
+                    arrayOf(getString(R.string.any)) +
+                    ratingsList.map { "${it.version} (${it.buildNumber})" }.distinct()
+                
+                differentRomsList =
+                    arrayOf(getString(R.string.any)) +
+                    ratingsList.map { it.romName }.distinct()
+                
+                differentAndroidVerList =
+                    arrayOf(getString(R.string.any)) +
+                    ratingsList.map { it.androidVersion }.distinct()
                 
                 sortRatings()
             }
             
             // Chip group
             activityBinding.totalScoreChipGroup.apply {
-                check(if (DeviceState.isDeviceMicroG) R.id.mgScoreChip
-                      else R.id.dgScoreChip)
+                check(if (DeviceState.isDeviceMicroG) R.id.mgScoreChip else R.id.dgScoreChip)
                 setOnCheckedStateChangeListener { group, _ ->
                     setTotalScore(
                         when (group.checkedChipId) {

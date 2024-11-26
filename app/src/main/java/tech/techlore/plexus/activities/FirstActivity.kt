@@ -92,6 +92,7 @@ class FirstActivity : AppCompatActivity() {
                 try {
                     get<MainDataRepository>().apply {
                         plexusDataIntoDB()
+                        deleteNonRatedAppsFromDb()
                         activityBinding.progressText.text = getString(R.string.scan_installed)
                         installedAppsIntoDB(this@FirstActivity)
                     }

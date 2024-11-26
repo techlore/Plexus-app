@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:indicatorColor="?attr/colorPrimary"
+        app:indicatorColor="@array/loading_indicator_colors"
         app:indicatorSize="68dp"
         app:containerWidth="88dp"
         app:containerHeight="88dp"

@@ -165,6 +165,18 @@
     <color name="color_scrollbar">#726B70</color>
     <color name="color_url">#42A5F5</color>
 
+    <!--Loading indicator colors-->
+    <color name="color_loading_indicator_1">#FFB4A2</color>
+    <color name="color_loading_indicator_2">#EFBF6D</color>
+    <color name="color_loading_indicator_3">#AFD18C</color>
+    <color name="color_loading_indicator_4">#94CDF6</color>
+    <integer-array name="loading_indicator_colors">
+        <item>@color/color_loading_indicator_1</item>
+        <item>@color/color_loading_indicator_2</item>
+        <item>@color/color_loading_indicator_3</item>
+        <item>@color/color_loading_indicator_4</item>
+    </integer-array>
+
     <!--Status colors-->
     <color name="color_broken_status">#BF0617</color>
     <color name="color_bronze_status">#97472A</color>

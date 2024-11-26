@@ -166,6 +166,18 @@
     <color name="color_scrollbar">#A19CA0</color>
     <color name="color_url">#1976D2</color>
 
+    <!--Loading indicator colors-->
+    <color name="color_loading_indicator_1">#D84119</color>
+    <color name="color_loading_indicator_2">#BE8600</color>
+    <color name="color_loading_indicator_3">#4B8509</color>
+    <color name="color_loading_indicator_4">#007FB4</color>
+    <integer-array name="loading_indicator_colors">
+        <item>@color/color_loading_indicator_1</item>
+        <item>@color/color_loading_indicator_2</item>
+        <item>@color/color_loading_indicator_3</item>
+        <item>@color/color_loading_indicator_4</item>
+    </integer-array>
+
     <!--Status colors-->
     <color name="color_broken_status">#FF9990</color>
     <color name="color_bronze_status">#C5B57D</color>
