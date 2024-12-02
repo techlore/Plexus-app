@@ -16,9 +16,9 @@
 #
 
 [versions]
-androidGradle = "8.7.2"
-androidKotlin = "2.0.21" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
-ksp = "2.0.21-1.0.25" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
+androidGradle = "8.7.3"
+androidKotlin = "2.1.0" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
+ksp = "2.1.0-1.0.29" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.0"
 coreKtx = "1.15.0"
 splashscreen = "1.0.1"
