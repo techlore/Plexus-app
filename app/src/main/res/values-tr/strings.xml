@@ -180,6 +180,7 @@
     <string name="proceed">Devam et</string>
 
     <!--Rate-->
+    <string name="issues_to_check_in_apps">Uygulamalarda kontrol edilmesi gereken yayg\u0131n sorunlar</string>
     <string name="notes">Notlar</string>
     <string name="optional">iste\u011Fe ba\u011Fl\u0131</string>
     <string name="submit">G\u00F6nder</string>

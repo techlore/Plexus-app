@@ -29,12 +29,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetRateBinding
 import tech.techlore.plexus.objects.DeviceState
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
+import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
 import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
@@ -61,6 +65,10 @@ class RateBottomSheet : BottomSheetDialogFragment() {
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
+        
+        bottomSheetBinding.commonIssuesCard.setOnClickListener {
+            requireActivity().openURL(getString(R.string.common_issues_url))
+        }
         
         bottomSheetBinding.dgMgText.apply {
             val (statusIcon, statusText) =
@@ -103,18 +111,22 @@ class RateBottomSheet : BottomSheetDialogFragment() {
         }
         
         footerBinding.positiveButton.apply {
+            isEnabled = false
             text = getString(R.string.submit)
-            setOnClickListener{
+            setOnClickListener {
                 detailsActivity.apply {
                     submitStatusCheckedChipId = bottomSheetBinding.submitStatusChipGroup.checkedChipId
                     submitNotes = bottomSheetBinding.submitNotesText.text.toString()
-                    showSubmitBtmSheet()
                 }
+                if (get<PreferenceManager>().getBoolean(CONF_BEFORE_SUBMIT, defValue = false)) {
+                    ConfirmSubmitBottomSheet().show(parentFragmentManager, "ConfirmSubmitBottomSheet")
+                }
+                else detailsActivity.showSubmitBtmSheet()
             }
         }
         
         footerBinding.negativeButton.setOnClickListener {
-            ConfirmSubmitBottomSheet().show(parentFragmentManager, "ConfirmSubmitBottomSheet")
+            dismiss()
         }
     }
     

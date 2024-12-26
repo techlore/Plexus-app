@@ -176,6 +176,7 @@
     <string name="proceed">Continuer</string>
 
     <!--Rate-->
+    <string name="issues_to_check_in_apps">Probl\u00E8mes courants \u00E0 v\u00E9rifier dans les apps</string>
     <string name="notes">Notes</string>
     <string name="optional">facultatif</string>
     <string name="submit">\u00C9valuer</string>

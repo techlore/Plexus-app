@@ -171,6 +171,7 @@
     <string name="proceed">Proceed</string>
 
     <!--Rate-->
+    <string name="issues_to_check_in_apps">Common issues to check in apps</string>
     <string name="notes">Notes</string>
     <string name="optional">optional</string>
     <string name="submit">Submit</string>

@@ -172,6 +172,7 @@
     <string name="proceed">Procedi</string>
 
     <!--Rate-->
+    <string name="issues_to_check_in_apps">Problemi comuni da controllare nelle app</string>
     <string name="notes">Appunti</string>
     <string name="optional">opzionale</string>
     <string name="submit">Invia</string>

@@ -168,6 +168,7 @@
     <string name="proceed">Ga verder</string>
 
     <!--Rate-->
+    <string name="issues_to_check_in_apps">Veelvoorkomende problemen om te controleren in apps</string>
     <string name="notes">Aantekeningen</string>
     <string name="optional">optionele</string>
     <string name="submit">Dien in</string>

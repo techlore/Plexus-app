@@ -40,13 +40,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/commonIssuesCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_12"
+                android:backgroundTint="@android:color/transparent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_20"
+                    android:text="@string/issues_to_check_in_apps"
+                    android:textSize="@dimen/text_17"
+                    style="@style/MediumBoldText"
+                    android:drawableEnd="@drawable/ic_open_in_browser"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/dgMgText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/commonIssuesCard"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_20"
                 android:drawableStart="@drawable/ic_degoogled"
                 android:drawablePadding="@dimen/margin_8"
                 android:text="@string/status"
@@ -104,6 +126,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_20"
                 android:layout_marginHorizontal="@dimen/margin_16"
+                android:enabled="false"
                 app:counterEnabled="true"
                 app:counterMaxLength="350"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox">

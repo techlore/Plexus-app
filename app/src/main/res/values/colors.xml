@@ -168,7 +168,7 @@
 
     <!--Loading indicator colors-->
     <color name="color_loading_indicator_1">#D84119</color>
-    <color name="color_loading_indicator_2">#BE8600</color>
+    <color name="color_loading_indicator_2">#CB9E32</color>
     <color name="color_loading_indicator_3">#4B8509</color>
     <color name="color_loading_indicator_4">#007FB4</color>
     <integer-array name="loading_indicator_colors">

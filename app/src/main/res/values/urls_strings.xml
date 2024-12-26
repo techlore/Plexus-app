@@ -38,6 +38,9 @@
     <string name="fdroid_url" translatable="false">https://f-droid.org/packages/</string>
     <string name="exodus_url" translatable="false">https://reports.exodus-privacy.eu.org/en/reports/search/</string>
 
+    <!--Rate-->
+    <string name="common_issues_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/Help#common-issues-to-check-in-apps</string>
+
     <!--Support us-->
     <string name="plexus_liberapay_url" translatable="false">https://liberapay.com/Plexus</string>
 
@@ -45,7 +48,7 @@
     <string name="ktor_license_url" translatable="false">https://github.com/ktorio/ktor/blob/main/LICENSE</string>
     <string name="coil_license_url" translatable="false">https://github.com/coil-kt/coil/blob/main/LICENSE.txt</string>
     <string name="fastscroll_license_url" translatable="false">https://github.com/StellarSand/AndroidFastScroll-kt/blob/master/LICENSE</string>
-    <string name="jsoup_license_url" translatable="false">https://github.com/jhy/jsoup/blob/master/LICENSE</string>
+    <string name="ksoup_license_url" translatable="false">https://github.com/fleeksoft/ksoup/blob/release/LICENSE.md</string>
     <string name="lottie_android_license_url" translatable="false">https://github.com/airbnb/lottie-android/blob/master/LICENSE</string>
     <string name="lottie_files_license_url" translatable="false">https://lottiefiles.com/page/license</string>
     <string name="fdroid_icon_license_url" translatable="false">https://f-droid.org/en/about/</string>
