@@ -90,8 +90,8 @@ interface MainDataDao {
     @Query("""
         SELECT * FROM main_table
         WHERE isInPlexusData
-        AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
-        AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
+        AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
+        AND ((mgScore BETWEEN :mgScoreFrom AND :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
         CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
         CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
@@ -108,8 +108,8 @@ interface MainDataDao {
         SELECT * FROM main_table
         WHERE isInstalled
         AND (installedFrom = :installedFrom OR :installedFrom = '')
-        AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
-        AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
+        AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
+        AND ((mgScore BETWEEN :mgScoreFrom AND :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
         CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
         CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
@@ -127,8 +127,8 @@ interface MainDataDao {
         SELECT * FROM main_table
         WHERE isFav
         AND (installedFrom = :installedFrom OR :installedFrom = '')
-        AND ((dgScore >= :dgScoreFrom AND dgScore <= :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
-        AND ((mgScore >= :mgScoreFrom AND mgScore <= :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
+        AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
+        AND ((mgScore BETWEEN :mgScoreFrom AND :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
         CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
         CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC

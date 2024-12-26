@@ -77,6 +77,6 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.bundles.coil)
     implementation(libs.androidFastScrollKt)
-    implementation(libs.jsoup)
+    implementation(libs.bundles.ksoup)
     implementation(libs.lottie)
 }

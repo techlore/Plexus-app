@@ -76,9 +76,9 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
                             getString(R.string.fastscroll_license_url)))
                 
                 // jsoup
-                add(License(getString(R.string.jsoup),
-                            "${getString(R.string.copyright_jsoup)}\n\n${getString(R.string.mit_license)}",
-                            getString(R.string.jsoup_license_url)))
+                add(License(getString(R.string.ksoup),
+                            "${getString(R.string.copyright_ksoup)}\n\n${getString(R.string.mit_license)}",
+                            getString(R.string.ksoup_license_url)))
                 
                 // lottie-android
                 add(License(getString(R.string.lottie_android),

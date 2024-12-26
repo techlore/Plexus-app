@@ -29,6 +29,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieDrawable
+import com.fleeksoft.ksoup.Ksoup
+import com.fleeksoft.ksoup.network.parseGetRequest
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.ktor.client.statement.bodyAsText
@@ -38,9 +40,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import org.jsoup.HttpStatusException
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
@@ -143,8 +142,6 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     
     private fun submitData() {
         lifecycleScope.launch {
-            val mainRepository by inject<MainDataRepository>()
-            
             if (!detailsActivity.app.isInPlexusData) {
                 getIconUrl()
                 postAppRoot.postApp.iconUrl = iconUrl
@@ -156,7 +153,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             
             if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                 updateMyRatingInDb(rating)
-                mainRepository.updateSingleApp(packageName = detailsActivity.app.packageName)
+                get<MainDataRepository>().updateSingleApp(packageName = detailsActivity.app.packageName)
                 DataState.isDataUpdated = true
                 changeAnimView(R.raw.lottie_success, false)
                 bottomSheetBinding.submitStatusText.text = getString(R.string.submit_success)
@@ -230,49 +227,23 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.cancelButton.isVisible = true
     }
     
+    private suspend fun parseIconUrlFromWebpage(url: String): String? {
+        val document = Ksoup.parseGetRequest(url)
+        return Ksoup.parseMetaData(document).ogImage
+    }
+    
     private suspend fun getIconUrl(): String? {
-        var document: Document
-        val fdroidUrl = "${getString(R.string.fdroid_url)}${detailsActivity.app.packageName}/"
+        val url = parseIconUrlFromWebpage("${getString(R.string.fdroid_url)}${detailsActivity.app.packageName}/")
         
-        try {
-            document =
-                withContext(Dispatchers.IO) {
-                    Jsoup.connect(fdroidUrl).get()
-                }
-            val element = document.selectFirst("meta[property=og:image]")
-            val url = element?.attr("content")
-            // Sometimes on F-Droid when the original icon of the app is not provided,
-            // we get the F-Droid logo as the icon.
-            // Example: Fennec (https://f-droid.org/en/packages/org.mozilla.fennec_fdroid)
-            // When this happens, throw 404 error
+        // Sometimes on F-Droid when the original icon of the app is not provided,
+        // we get the F-Droid logo as the icon.
+        // Example: Fennec (https://f-droid.org/en/packages/org.mozilla.fennec_fdroid)
+        // When this happens, check if icon exists on Google Play Store
+        iconUrl =
             if (url?.startsWith("https://f-droid.org/assets/fdroid-logo") == true) {
-                throw HttpStatusException("Icon not found on F-Droid", 404, fdroidUrl)
+                parseIconUrlFromWebpage("${getString(R.string.google_play_url)}${detailsActivity.app.packageName}")
             }
-            else {
-                iconUrl = url
-            }
-        }
-        catch (_: HttpStatusException) {
-            // If 404 error from F-Droid or icon not found,
-            // then try connecting to Google Play
-            try {
-                document =
-                    withContext(Dispatchers.IO) {
-                        Jsoup.connect("${getString(R.string.google_play_url)}${detailsActivity.app.packageName}").get()
-                    }
-                val element = document.selectFirst("meta[property=og:image]")
-                iconUrl = element?.attr("content")
-            }
-            // Sometimes play.google.com maybe blocked by user's DNS
-            // java.net.ConnectException: Failed to connect to play.google.com/0.0.0.0:443
-            // If that happens or any other exception occurs (like 404), then return null
-            catch (_: Exception) {
-                iconUrl = null
-            }
-        }
-        catch (_: Exception) {
-            iconUrl = null
-        }
+            else url
         
         return iconUrl
     }

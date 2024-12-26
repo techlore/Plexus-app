@@ -50,7 +50,7 @@
     <string name="ktor" translatable="false">Ktor</string>
     <string name="coil" translatable="false">Coil</string>
     <string name="fastscroll" translatable="false">AndroidFastScroll-kt</string>
-    <string name="jsoup" translatable="false">jsoup</string>
+    <string name="ksoup" translatable="false">Ksoup</string>
     <string name="lottie_android" translatable="false">lottie-android</string>
     <string name="lottie_files" translatable="false">LottieFiles</string>
     <string name="fdroid_icon" translatable="false">F-Droid icon</string>
@@ -61,6 +61,6 @@
 
     <string name="copyright_coil" translatable="false">Copyright \u00A9 2023 Coil Contributors</string>
     <string name="copyright_fastscroll" translatable="false">Copyright \u00A9 2023-present StellarSand</string>
-    <string name="copyright_jsoup" translatable="false">Copyright \u00A9 2009–2023 Jonathan Hedley</string>
+    <string name="copyright_ksoup" translatable="false">Copyright \u00A9 2016 Marco Gomiero</string>
 
 </resources>
