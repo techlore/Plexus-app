@@ -57,7 +57,7 @@ class ConfirmSubmitBottomSheet : BottomSheetDialogFragment() {
             text = getString(R.string.proceed)
             setOnClickListener {
                 dismiss()
-                detailsActivity.showSubmitBtmSheet()
+                detailsActivity.showSubmitBottomSheet()
             }
         }
         

@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.bottomsheets.appdetails
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,7 @@ import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetRateBinding
+import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
@@ -121,13 +123,20 @@ class RateBottomSheet : BottomSheetDialogFragment() {
                 if (get<PreferenceManager>().getBoolean(CONF_BEFORE_SUBMIT, defValue = false)) {
                     ConfirmSubmitBottomSheet().show(parentFragmentManager, "ConfirmSubmitBottomSheet")
                 }
-                else detailsActivity.showSubmitBtmSheet()
+                else detailsActivity.showSubmitBottomSheet()
             }
         }
         
         footerBinding.negativeButton.setOnClickListener {
             dismiss()
         }
+    }
+    
+    override fun onDismiss(dialog: DialogInterface) {
+        AppState.apply {
+            if (isVerificationSuccessful) isVerificationSuccessful = false
+        }
+        super.onDismiss(dialog)
     }
     
     override fun onDestroyView() {

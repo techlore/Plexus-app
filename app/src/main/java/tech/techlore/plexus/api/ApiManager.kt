@@ -23,11 +23,13 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import okhttp3.Dispatcher
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import java.util.concurrent.TimeUnit
 
 class ApiManager {
     
-    companion object {
+    companion object : KoinComponent {
         
         private val okHttpClient =
             HttpClient(OkHttp) {
@@ -45,11 +47,7 @@ class ApiManager {
                     }
                 }
                 install(ContentNegotiation) {
-                    json(
-                        Json {
-                            ignoreUnknownKeys = true
-                        }
-                    )
+                    json(get<Json>())
                 }
             }
         

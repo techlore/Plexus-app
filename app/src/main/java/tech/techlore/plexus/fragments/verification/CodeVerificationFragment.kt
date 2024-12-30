@@ -41,6 +41,7 @@ import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.databinding.FragmentCodeVerificationBinding
 import tech.techlore.plexus.models.post.device.VerifyDevice
+import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ID
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
@@ -121,10 +122,10 @@ class CodeVerificationFragment : Fragment() {
                     fragmentBinding.infoText.isVisible = false
                     (requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
                         if (isAcceptingText) {
-                            hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken,
-                                                    0)
+                            hideSoftInputFromWindow(verificationActivity.currentFocus?.windowToken, 0)
                         }
                     }
+                    AppState.isVerificationSuccessful = true
                     requireActivity().finish()
                 }
                 catch (_: Exception) {

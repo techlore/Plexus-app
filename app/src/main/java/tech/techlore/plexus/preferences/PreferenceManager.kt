@@ -22,7 +22,6 @@ import android.content.Context
 class PreferenceManager(context: Context) {
     
     companion object {
-        // Shared pref keys
         const val IS_FIRST_LAUNCH = "is_first_launch"
         const val LAST_UPDATED = "last_updated"
         const val A_Z_SORT = "a_z_sort"

@@ -62,6 +62,7 @@ import tech.techlore.plexus.bottomsheets.appdetails.SubmitBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.ratingrange.RatingRange
+import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
@@ -558,14 +559,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         isListSorted = true
     }
     
-    fun showSubmitBtmSheet() {
+    fun showSubmitBottomSheet() {
         lifecycleScope.launch {
             if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
                 SubmitBottomSheet().show(supportFragmentManager, "SubmitBottomSheet")
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveButtonClickListener = { showSubmitBtmSheet() },
+                                     positiveButtonClickListener = { showSubmitBottomSheet() },
                                      negativeButtonClickListener = {})
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
@@ -589,6 +590,14 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         }
         
         return true
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        if (AppState.isVerificationSuccessful) {
+            RateBottomSheet().show(supportFragmentManager, "RateBottomSheet")
+            AppState.isVerificationSuccessful = false
+        }
     }
     
     // On back pressed

@@ -151,60 +151,58 @@ class FirstActivity : AppCompatActivity() {
     }
     
     private fun afterDataRetrieved() {
-        prefManager.apply {
-            if (getBoolean(IS_FIRST_LAUNCH)) {
-                val fadeOut = AlphaAnimation(1.0f, 0.0f).apply { duration = 300L }
-                activityBinding.apply {
-                    firstLoadingIndicator.apply {
-                        isVisible = false
-                        startAnimation(fadeOut)
-                    }
-                    progressText.apply {
-                        isVisible = false
-                        startAnimation(fadeOut)
-                    }
-                    helloAnimView.apply {
-                        setMaxFrame(300)
-                        addAnimatorListener(object : Animator.AnimatorListener {
-                            override fun onAnimationStart(animation: Animator) {}
-                            
-                            override fun onAnimationEnd(animation: Animator) {
-                                val fadeIn = AlphaAnimation(0.5f, 1.0f).apply { duration = 500L }
-                                progressText.apply {
-                                    text = getString(R.string.welcome_text_desc)
-                                    isVisible = true
-                                    startAnimation(fadeIn)
-                                }
-                                firstSkipBtn.apply {
-                                    isVisible = true
-                                    startAnimation(fadeIn)
-                                    setOnClickListener {
-                                        setBoolean(IS_FIRST_LAUNCH, false)
-                                        finish()
-                                    }
-                                }
-                                firstProceedBtn.apply {
-                                    isVisible = true
-                                    startAnimation(fadeIn)
-                                    setOnClickListener {
-                                        HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
-                                    }
+        if (prefManager.getBoolean(IS_FIRST_LAUNCH)) {
+            val fadeOut = AlphaAnimation(1.0f, 0.0f).apply { duration = 300L }
+            activityBinding.apply {
+                firstLoadingIndicator.apply {
+                    isVisible = false
+                    startAnimation(fadeOut)
+                }
+                progressText.apply {
+                    isVisible = false
+                    startAnimation(fadeOut)
+                }
+                helloAnimView.apply {
+                    setMaxFrame(300)
+                    addAnimatorListener(object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {}
+                        
+                        override fun onAnimationEnd(animation: Animator) {
+                            val fadeIn = AlphaAnimation(0.5f, 1.0f).apply { duration = 500L }
+                            progressText.apply {
+                                text = getString(R.string.welcome_text_desc)
+                                isVisible = true
+                                startAnimation(fadeIn)
+                            }
+                            firstSkipBtn.apply {
+                                isVisible = true
+                                startAnimation(fadeIn)
+                                setOnClickListener {
+                                    prefManager.setBoolean(IS_FIRST_LAUNCH, false)
+                                    finish()
                                 }
                             }
-                            
-                            override fun onAnimationCancel(animation: Animator) {}
-                            
-                            override fun onAnimationRepeat(animation: Animator) {}
-                        })
+                            firstProceedBtn.apply {
+                                isVisible = true
+                                startAnimation(fadeIn)
+                                setOnClickListener {
+                                    HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+                                }
+                            }
+                        }
                         
-                        isVisible = true
-                        playAnimation()
-                    }
+                        override fun onAnimationCancel(animation: Animator) {}
+                        
+                        override fun onAnimationRepeat(animation: Animator) {}
+                    })
+                    
+                    isVisible = true
+                    playAnimation()
                 }
             }
-            
-            else finish()
         }
+        
+        else finish()
     }
     
     override fun finish() {
