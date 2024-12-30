@@ -1,0 +1,4 @@
+- Unterstützung für Android 15.
+- Das Ändern der "Standardansicht" erfordert keinen Neustart der App mehr.
+- Mehrere Optimierungen.
+- Kleinere visuelle Änderungen.

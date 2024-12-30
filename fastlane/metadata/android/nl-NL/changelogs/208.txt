@@ -1,0 +1,4 @@
+- Ondersteuning voor Android 15.
+- Voor het wijzigen van "Standaardweergave" hoeft de app niet opnieuw te worden opgestart.
+- Meerdere optimalisaties.
+- Kleine visuele veranderingen.

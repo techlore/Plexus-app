@@ -1,0 +1,4 @@
+- Soporte para Android 15.
+- Cambiar "Vista por defecto" no requiere reiniciar la aplicación.
+- Múltiples optimizaciones.
+- Cambios visuales menores.

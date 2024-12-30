@@ -1,4 +1,0 @@
-- Schnellere nachfolgende starts und datenaktualisierungen durch abruf nur der aktualisierten daten statt des gesamten datensatzes.
-- Einige fehlerkorrekturen und verbesserungen der benutzeroberfläche.
-- Türkische Übersetzungen hinzugefügt (von @mikropsoft).
-- Verbesserte französische Übersetzungen (von @ThatIsAPseudo).

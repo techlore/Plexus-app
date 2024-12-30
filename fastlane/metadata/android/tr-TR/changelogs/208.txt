@@ -1,0 +1,4 @@
+- Android 15 için destek.
+- "Varsayılan Görünüm" ün değiştirilmesi uygulamanın yeniden başlatılmasını gerektirmez.
+- Çoklu optimizasyonlar.
+- Küçük görsel değişiklikler.

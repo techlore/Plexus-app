@@ -1,0 +1,4 @@
+- Support for Android 15.
+- Changing "Default View" won't require app restart.
+- Multiple optimizations.
+- Minor visual changes.

@@ -1,0 +1,4 @@
+- Prise en charge d'Android 15.
+- Le changement de "Vue par défaut" ne nécessite plus le redémarrage de l'application.
+- Optimisations multiples.
+- Changements visuels mineurs.

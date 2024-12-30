@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v2.0.8
+- Support for Android 15.
+- Changing "Default View" won't require app restart.
+- Multiple optimizations.
+- Minor visual changes.
+
+
 ## v2.0.7
 - Quicker subsequent launches & data refreshes by retrieving only updated data instead of the entire dataset.
 - Some bug fixes & UI improvements.

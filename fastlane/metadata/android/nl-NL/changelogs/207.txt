@@ -1,4 +1,0 @@
-- Snellere volgende lanceringen & gegevensverversingen door alleen bijgewerkte gegevens op te halen in plaats van de hele dataset.
-- Enkele bugfixes & UI-verbeteringen.
-- Turkse vertalingen toegevoegd (door @mikropsoft).
-- Franse vertalingen verbeterd (door @ThatIsAPseudo).
