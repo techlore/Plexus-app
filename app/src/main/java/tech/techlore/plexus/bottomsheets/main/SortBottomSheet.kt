@@ -47,13 +47,13 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-    
+        
         _binding = BottomSheetSortBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    
+        
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         val prefManager by inject<PreferenceManager>()
         val checkIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
@@ -64,7 +64,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
-    
+        
         // Default alphabetical checked chip
         if (prefManager.getInt(A_Z_SORT) == 0) {
             prefManager.setInt(A_Z_SORT, R.id.sortAZ)
@@ -82,14 +82,19 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
                 check(prefManager.getInt(INSTALLED_FROM_SORT))
             }
         }
-    
+        
         // Status toggle button group
         if (!isMyRatingsFragment) {
             bottomSheetBinding.statusToggleGroup.apply {
-                if (prefManager.getInt(STATUS_TOGGLE) == 0) {
-                    prefManager.setInt(STATUS_TOGGLE, R.id.toggleAnyStatus)
+                val selectedToggle: Int
+                prefManager.apply {
+                    if (getInt(STATUS_TOGGLE) != R.id.toggleAnyStatus
+                        && getInt(STATUS_TOGGLE) != R.id.toggleDgStatus
+                        && getInt(STATUS_TOGGLE) != R.id.toggleMgStatus) {
+                        setInt(STATUS_TOGGLE, R.id.toggleAnyStatus)
+                    }
+                    selectedToggle =  getInt(STATUS_TOGGLE)
                 }
-                val selectedToggle =  prefManager.getInt(STATUS_TOGGLE)
                 check(selectedToggle)
                 findViewById<MaterialButton>(selectedToggle).icon = checkIcon
                 addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -107,13 +112,13 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             bottomSheetBinding.sortStatusText.isVisible = false
             bottomSheetBinding.statusToggleGroup.isVisible = false
         }
-    
+        
         // Status chip group
         if (bottomSheetBinding.statusToggleGroup.isVisible) {
             bottomSheetBinding.statusChipGroup.apply {
                 if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
                     isVisible = true
-            
+                    
                     // Default de-Googled status checked chip
                     if (prefManager.getInt(DG_STATUS_SORT) == 0) {
                         prefManager.setInt(DG_STATUS_SORT, R.id.sortNotTested)
@@ -122,7 +127,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
                 }
                 else if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
                     isVisible = true
-            
+                    
                     // Default microG status checked chip
                     if (prefManager.getInt(MG_STATUS_SORT) == 0) {
                         prefManager.setInt(MG_STATUS_SORT, R.id.sortNotTested)
@@ -134,7 +139,7 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
                 }
             }
         }
-    
+        
         // Done
         footerBinding.positiveButton.setOnClickListener {
             prefManager.setInt(A_Z_SORT,
@@ -151,11 +156,11 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
                 prefManager.setInt(MG_STATUS_SORT,
                                    bottomSheetBinding.statusChipGroup.checkedChipId)
             }
-        
+            
             dismiss()
             navController.refreshFragment()
         }
-    
+        
         // Cancel
         footerBinding.negativeButton.setOnClickListener { dismiss() }
     }
