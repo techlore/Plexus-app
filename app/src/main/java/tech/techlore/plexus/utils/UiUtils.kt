@@ -135,8 +135,8 @@ class UiUtils {
                                      iconUrl: String?) {
             if (isInstalled) {
                 try {
-                    // Don't use Coil to load icons directly to ImageView
-                    // as there's a delay in displaying icons when fast scrolling
+                    // Since there's a delay in displaying icons when fast scrolling,
+                    // don't use Coil to load icons directly to ImageView for installed apps
                     setImageDrawable(context.packageManager.getApplicationIcon(packageName))
                 }
                 catch (e: PackageManager.NameNotFoundException) {
@@ -144,7 +144,13 @@ class UiUtils {
                 }
             }
             else {
-                load(iconUrl) {
+                load(iconUrl?.takeIf { it.startsWith("https://play-lh") }?.let {
+                    // Assuming 55dp = 165px for 480 DPI
+                    // append "=w165-h165" to the Play Store url
+                    // this will prevent downloading 512x512 px icon
+                    // & will download only 165x165 px icon
+                    "${it}=w${get<Int>(named("displayedIconSize"))}-h${get<Int>(named("displayedIconSize"))}"
+                } ?: iconUrl) {
                     size(get<Int>(named("displayedIconSize")))
                     placeholder(R.drawable.ic_apk)
                     fallback(R.drawable.ic_apk)

@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.koin_di
 
+import android.app.Application
 import coil3.ImageLoader
 import coil3.request.crossfade
 import kotlinx.serialization.json.Json
@@ -38,7 +39,7 @@ val appModule =
         single { PreferenceManager(get()) }
         single { EncryptedPreferenceManager(get()) }
         single { ImageLoader.Builder(get()).crossfade(true).build() }
-        single(named("displayedIconSize")) { convertDpToPx(get(), 55f) }
+        single(named("displayedIconSize")) { convertDpToPx(get<Application>(), 55f) }
         single { Json { ignoreUnknownKeys = true } }
         single { apiBuilder() }
         single { ApiRepository(get()) }
