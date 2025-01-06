@@ -1,4 +1,5 @@
 - Android 15 için destek.
+- Simgeleri 512x512 piksel yerine DPI'a göre indirin.
 - "Varsayılan Görünüm" ün değiştirilmesi uygulamanın yeniden başlatılmasını gerektirmez.
 - Çoklu optimizasyonlar.
 - Küçük görsel değişiklikler.

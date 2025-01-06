@@ -1,6 +1,11 @@
 # CHANGELOG
 
 
+## v2.0.9
+- Fixed crash on sort bottom sheet.
+- Download icons based on DPI instead of 512x512 px.
+
+
 ## v2.0.8
 - Support for Android 15.
 - Changing "Default View" won't require app restart.

@@ -1,4 +1,5 @@
 - Support for Android 15.
+- Download icons based on DPI instead of 512x512 px.
 - Changing "Default View" won't require app restart.
 - Multiple optimizations.
 - Minor visual changes.

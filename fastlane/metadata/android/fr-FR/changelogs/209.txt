@@ -1,4 +1,5 @@
 - Prise en charge d'Android 15.
+- Téléchargez les icônes en fonction du DPI au lieu de 512x512 px.
 - Le changement de "Vue par défaut" ne nécessite plus le redémarrage de l'application.
 - Optimisations multiples.
 - Changements visuels mineurs.

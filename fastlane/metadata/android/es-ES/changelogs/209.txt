@@ -1,4 +1,5 @@
 - Soporte para Android 15.
+- Descargar iconos basados en DPI en lugar de 512x512 px.
 - Cambiar "Vista por defecto" no requiere reiniciar la aplicación.
 - Múltiples optimizaciones.
 - Cambios visuales menores.
