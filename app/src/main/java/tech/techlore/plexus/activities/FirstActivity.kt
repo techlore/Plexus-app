@@ -135,7 +135,7 @@ class FirstActivity : AppCompatActivity() {
             }
             
             DeviceState.apply {
-                isDeviceMicroG = installedGappsCount == microGCount
+                isDeviceMicroG = installedGappsCount > 0 && installedGappsCount == microGCount
                 isDeviceDeGoogled = installedGappsCount == 0
             }
         }
