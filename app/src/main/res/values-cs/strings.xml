@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!--
+    Ensure proper encoding of characters when translating to other languages.
+    example: ä as \u00E4, é as \u00E9 etc.
+
+    + = \u002B
+    & = &amp;
+    -->
+
+    <!--First activity -->
+    <string name="retrieving_data">Načítání dat</string>
+    <string name="scan_installed">Skenování nainstalovaných aplikací</string>
+    <string name="welcome_text_desc">Jako první uživatel aplikace věnujte prosím chvíli seznámení se s ikonami a stavovými indikátory.</string>
+    <string name="skip">Přeskočit</string>
+
+    <!--#########################################################################################-->
+
+    <!--Main activity-->
+    <string name="no_apps_found">Nenalezeny žádné aplikace</string>
+    <string name="new_submission">Nové hodnocení</string>
+
+    <!--My ratings fragment-->
+    <string name="no_ratings_available">Nejsou dostupná žádná hodnocení</string>
+    <string name="submit_first_rating">Klepněte na \u002B pro odeslání vašeho prvního hodnocení</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_search">Hledat</string>
+    <string name="menu_sort">Seřadit</string>
+
+    <!--Nav view-->
+    <string name="plexus_data">Data Plexus</string>
+    <string name="installed_apps">Nainstalované aplikace</string>
+    <string name="favorites">Oblíbené</string>
+    <string name="my_account">Můj účet</string>
+    <string name="my_ratings">Moje hodnocení</string>
+    <string name="delete_account">Smazat účet</string>
+    <string name="settings">Nastavení</string>
+
+    <!--#########################################################################################-->
+
+    <!--App details activity-->
+    <string name="rate">Ohodnotit</string>
+    <string name="app">Aplikace</string>
+    <string name="package_name">Balíček</string>
+    <string name="retrieving_ratings">Načítání hodnocení</string>
+    <string name="total_score">Celkové skóre</string>
+    <string name="total_ratings">Celkem hodnocení</string>
+    <string name="ratings">Hodnocení</string>
+    <string name="scroll_to_top">Přesunout nahoru</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_help">Nápověda</string>
+    <string name="menu_more">Další možnosti</string>
+
+    <!--#########################################################################################-->
+
+    <!--Email verification fragment-->
+    <string name="verify_to_get_started">Začněte ověřením svého e-mailu</string>
+    <string name="verify">Ověřit</string>
+    <string name="terms_conditions_title">Pravidla a podmínky</string>
+    <string name="terms_conditions_desc">K odesílání aplikací do služby Plexus je vyžadován váš e-mail.
+        \nTento e-mail bude použit k ověření a po dokončení operace bude odstraněn z našich systémů.
+        \n
+        \nToto děláme z důvodu:
+        \n\u2022 zabránění potenciálnímu zneužití naší API.
+        \n\u2022 zajištění přesnosti odeslaných dat.
+        \n
+        \nSvůj účet můžete z tohoto zařízení kdykoli smazat.</string>
+    <string name="by_proceeding_agree_desc">Pokračováním souhlasíte s férovým použitím služby Plexus.
+        Pokud porušíte pravidla a podmínky výše, budou všechna vaše hodnocení odstraněna.</string>
+    <string name="verification">Ověření</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">Zadejte ověřovací kód odeslaný na adresu\n%1$s</string>
+    <string name="verification_code">Ověřovací kód</string>
+    <string name="verifying_code">Čekejte prosím, ověřování kódu…</string>
+    <string name="incorrect_code">Nesprávný ověřovací kód.</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+    <string name="theme">Motiv</string>
+    <string name="material_you">Material You\n(vyžaduje restart)</string>
+    <string name="default_view">Výchozí zobrazení</string>
+    <string name="conf_before_submit">Potvrdit před odesláním</string>
+    <string name="about">O aplikaci</string>
+    <string name="version">Verze</string>
+    <string name="privacy_policy">Ochrana údajů</string>
+    <string name="report_issue">Nahlásit chybu</string>
+    <string name="support_us">Podpořte nás</string>
+    <string name="view_on_github">Zobrazit na GitHubu</string>
+    <string name="visit_techlore">Navštívit Techlore</string>
+    <string name="third_party_licenses">Licence třetích stran</string>
+
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <string name="done">Hotovo</string>
+    <string name="cancel">Zrušit</string>
+    <string name="dismiss">Zavřít</string>
+    <string name="exit">Ukončit</string>
+    <string name="retry">Zkusit znovu</string>
+
+    <!--No Network/Internet-->
+    <string name="error_occurred_title">Došlo k chybě</string>
+    <string name="no_network_title">Žádná síť/internet</string>
+    <string name="no_network_subtitle">Připojte se k Wi-Fi nebo mobilním datům a zkuste to znovu.
+        Pokud jste již připojeni, ujistěte se, že máte přístup k internetu.</string>
+
+    <!--Help-->
+    <string name="icons">Ikony</string>
+    <string name="not_tested_subtitle">Nedostupné, aplikace nebyla otestována</string>
+    <string name="broken_title">Rozbité</string>
+    <string name="broken_subtitle">Nepoužitelné, aplikace se obvykle neotevře</string>
+    <string name="bronze_title">Bronzové</string>
+    <string name="bronze_subtitle">Přijatelné, ale s chybějícími nebo rozbitými funkcemi</string>
+    <string name="silver_title">Stříbrné</string>
+    <string name="silver_subtitle">Funguje téměř vše s minimem výhrad</string>
+    <string name="gold_title">Zlatá</string>
+    <string name="gold_subtitle">Perfektní nebo téměř perfektní funkčnost</string>
+    <string name="other">Další</string>
+    <string name="android_version_desc">Verze systému Android</string>
+    <string name="installation_source_desc">Zdroj instalace aplikací</string>
+    <string name="apps_submit_proc">Postup k nahlášení aplikace</string>
+    <string name="faqs">Často kladené dotazy</string>
+
+    <!--Sort-->
+    <string name="alphabetical">Abecedně</string>
+    <string name="installed_from">Nainstalováno z</string>
+    <string name="any">Jakýkoli</string>
+    <string name="status">Stav</string>
+
+    <!--Email verification-->
+    <string name="sending_code">Čekejte prosím, odesílám kód…</string>
+    <string name="error_sending_code">Chyba při odesílání kódu</string>
+
+    <!--Delete account-->
+    <string name="delete_account_desc">Pokud smažete svůj účet:
+        \n\u2022 nebudete moci odesílat hodnocení.
+        \n\u2022 všechna dříve odeslaná hodnocení budou z tohoto zařízení nevratně smazána.
+        \n
+        \nOpravdu chcete pokračovat?</string>
+
+    <!--More options-->
+    <string name="menu_share">Sdílet</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">Při všech vašich budoucích hodnoceních bude zohledněn tento výběr a nebude možné jej později změnit.</string>
+    <string name="select_correct_rom">Vyberte prosím správnou ROM nainstalovanou v tomto zařízení.</string>
+    <string name="select">Vybrat</string>
+    <string name="proceed">Pokračovat</string>
+
+    <!--Rate-->
+    <string name="issues_to_check_in_apps">Běžné problémy, které v aplikaci zkontrolovat</string>
+    <string name="notes">Poznámky</string>
+    <string name="optional">volitelné</string>
+    <string name="submit">Odeslat</string>
+
+    <!--Submit-->
+    <string name="about_to_submit">Chystáte se odeslat hodnocení. Opravdu chcete pokračovat?</string>
+    <string name="wait_submitting_data">Čekejte prosím, odesílám data…</string>
+    <string name="submit_success">Úspěšně odesláno</string>
+    <string name="submit_error">Chyba při odesílání dat</string>
+    <string name="thanks_for_submitting">Děkujeme za odeslání data a pomoc komunitě.</string>
+
+    <!--Theme-->
+    <string name="follow_system">Podle systému</string>
+    <string name="light">Světlý</string>
+    <string name="dark">Tmavý</string>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbars-->
+    <string name="install_app_to_submit">Pro odeslání hodnocení si nainstalujte aplikaci %1$s</string>
+    <string name="device_should_be_degoogled_or_microg">Pro odeslání hodnocení by zařízení buď nemělo obsahovat služby Google, nebo by mělo používat microG</string>
+    <string name="rating_already_submitted">Hodnocení aplikace %1$s %2$s bylo již odesláno</string>
+    <string name="no_browsers">Na tomto zařízení nejsou nainstalovány žádné prohlížeče</string>
+    <string name="deleted_account_successfully">Účet úspěšně smazán</string>
+
+</resources>
