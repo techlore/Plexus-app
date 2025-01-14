@@ -159,6 +159,12 @@
     <string name="any">Herhangi biri</string>
     <string name="status">Durum</string>
 
+    <!--Translate-->
+    <string name="translate">Terc\u00FCme et</string>
+    <string name="translating">\u00C7eviri …</string>
+    <string name="translated_using_libretranslate">LibreTranslate kullan\u0131larak \u00E7evrilmi\u015Ftir:</string>
+    <string name="error_translating">\u00C7eviri s\u0131ras\u0131nda hata</string>
+
     <!--Email verification-->
     <string name="sending_code">L\u00FCtfen bekleyin, kod g\u00F6nderiliyor \u2026</string>
     <string name="error_sending_code">Kod g\u00F6nderilirken hata olu\u015Ftu</string>

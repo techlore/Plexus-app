@@ -49,6 +49,7 @@
     <string name="coil_license_url" translatable="false">https://github.com/coil-kt/coil/blob/main/LICENSE.txt</string>
     <string name="fastscroll_license_url" translatable="false">https://github.com/StellarSand/AndroidFastScroll-kt/blob/master/LICENSE</string>
     <string name="ksoup_license_url" translatable="false">https://github.com/fleeksoft/ksoup/blob/release/LICENSE.md</string>
+    <string name="libretranslate_license_url" translatable="false">https://github.com/LibreTranslate/LibreTranslate/blob/main/LICENSE</string>
     <string name="lottie_android_license_url" translatable="false">https://github.com/airbnb/lottie-android/blob/master/LICENSE</string>
     <string name="lottie_files_license_url" translatable="false">https://lottiefiles.com/page/license</string>
     <string name="fdroid_icon_license_url" translatable="false">https://f-droid.org/en/about/</string>

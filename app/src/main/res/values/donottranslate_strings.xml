@@ -51,6 +51,7 @@
     <string name="coil" translatable="false">Coil</string>
     <string name="fastscroll" translatable="false">AndroidFastScroll-kt</string>
     <string name="ksoup" translatable="false">Ksoup</string>
+    <string name="libretranslate" translatable="false">LibreTranslate</string>
     <string name="lottie_android" translatable="false">lottie-android</string>
     <string name="lottie_files" translatable="false">LottieFiles</string>
     <string name="fdroid_icon" translatable="false">F-Droid icon</string>

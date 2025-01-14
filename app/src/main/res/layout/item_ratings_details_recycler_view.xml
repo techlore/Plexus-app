@@ -35,29 +35,56 @@
         android:paddingTop="@dimen/margin_4"
         android:paddingBottom="@dimen/margin_12">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/ratingsNotes"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ratingsNotesCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="@dimen/margin_4"
             android:layout_marginTop="@dimen/margin_8"
-            android:padding="@dimen/margin_10"
-            android:background="@drawable/shape_outline"
-            android:backgroundTint="?attr/colorSurfaceContainerHighest"
-            android:text="@string/notes"
-            android:textAlignment="viewStart"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="@dimen/text_17"
-            android:textIsSelectable="true"/>
+            style="?attr/materialCardViewFilledStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/ratingsNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_4"
+                    android:paddingHorizontal="@dimen/margin_10"
+                    android:paddingTop="@dimen/margin_10"
+                    android:text="@string/notes"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/text_17"
+                    android:textIsSelectable="true"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/translateBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:layout_marginBottom="@dimen/margin_4"
+                    app:icon="@drawable/ic_translate"
+                    app:iconPadding="@dimen/margin_8"
+                    android:text="@string/translate"
+                    android:textSize="@dimen/text_15"
+                    style="@style/Widget.Material3.Button.TextButton.Icon" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ratingsVersionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/ratingsNotes"
+            app:layout_constraintTop_toBottomOf="@id/ratingsNotesCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="@dimen/margin_8"

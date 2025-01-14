@@ -150,6 +150,12 @@
     <string name="any">Jakýkoli</string>
     <string name="status">Stav</string>
 
+    <!--Translate-->
+    <string name="translate">Přeložit</string>
+    <string name="translating">Překlad …</string>
+    <string name="translated_using_libretranslate">Přeloženo pomocí LibreTranslate:</string>
+    <string name="error_translating">Chyba při překladu</string>
+
     <!--Email verification-->
     <string name="sending_code">Čekejte prosím, odesílám kód…</string>
     <string name="error_sending_code">Chyba při odesílání kódu</string>

@@ -55,7 +55,7 @@ class AllRatingsFragment : Fragment() {
             emptyListView.text = requireContext().getString(R.string.no_ratings_available)
         }
         else {
-            val userRatingsItemAdapter = UserRatingsItemAdapter(detailsActivity.sortedRatingsList)
+            val userRatingsItemAdapter = UserRatingsItemAdapter(detailsActivity.sortedRatingsList, parentFragmentManager)
             fragmentBinding.userRatingsRv.adapter = userRatingsItemAdapter
         }
     }

@@ -151,6 +151,12 @@
     <string name="any">Qualsiasi</string>
     <string name="status">Stato</string>
 
+    <!--Translate-->
+    <string name="translate">Tradurre</string>
+    <string name="translating">Trasloco …</string>
+    <string name="translated_using_libretranslate">Tradotto con LibreTranslate:</string>
+    <string name="error_translating">Errore durante la traduzione</string>
+
     <!--Email verification-->
     <string name="sending_code">Attendere, invio del codice …</string>
     <string name="error_sending_code">Errore durante l\'invio del codice</string>

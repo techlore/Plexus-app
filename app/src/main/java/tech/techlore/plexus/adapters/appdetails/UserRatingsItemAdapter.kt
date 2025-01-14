@@ -22,18 +22,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
+import tech.techlore.plexus.bottomsheets.translate.TranslateRatingNoteBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyle
 
-class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
+class UserRatingsItemAdapter(
+    private val aListViewItems: ArrayList<Rating>,
+    private val fragmentManager: FragmentManager
+) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
+        val notesCard: MaterialCardView = itemView.findViewById(R.id.ratingsNotesCard)
         val notes: MaterialTextView = itemView.findViewById(R.id.ratingsNotes)
+        val translate: MaterialButton = itemView.findViewById(R.id.translateBtn)
         val version: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
         val rom: MaterialTextView = itemView.findViewById(R.id.ratingsRomSubtitle)
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratingsAndroidVersion)
@@ -58,9 +67,12 @@ class UserRatingsItemAdapter(private val aListViewItems: ArrayList<Rating>) : Re
         // Notes
         if (!userRating.notes.isNullOrEmpty()) {
             holder.notes.text = userRating.notes
+            holder.translate.setOnClickListener {
+                TranslateRatingNoteBottomSheet(userRating.notes!!).show(fragmentManager, "TranslateRatingNoteBottomSheet")
+            }
         }
         else {
-            holder.notes.isVisible = false
+            holder.notesCard.isVisible = false
         }
         
         holder.version.text = "${userRating.version} (${userRating.buildNumber})"

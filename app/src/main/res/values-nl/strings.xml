@@ -147,6 +147,12 @@
     <string name="any">Ieder</string>
     <string name="status">Status</string>
 
+    <!--Translate-->
+    <string name="translate">Vertaal</string>
+    <string name="translating">Vertalen …</string>
+    <string name="translated_using_libretranslate">Vertaald met LibreTranslate:</string>
+    <string name="error_translating">Fout bij het vertalen</string>
+
     <!--Email verification-->
     <string name="sending_code">Even geduld, code wordt verzonden …</string>
     <string name="error_sending_code">Fout bij verzenden code</string>

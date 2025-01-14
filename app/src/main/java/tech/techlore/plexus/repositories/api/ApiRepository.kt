@@ -67,4 +67,8 @@ class ApiRepository(private val apiService: ApiService) {
                                      postRatingRoot)
     }
     
+    suspend fun translateRatingNote(note: String, targetLang: String): HttpResponse {
+        return apiService.translateRatingNote(note, targetLang)
+    }
+    
 }

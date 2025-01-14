@@ -150,6 +150,12 @@
     <string name="any">Any</string>
     <string name="status">Status</string>
 
+    <!--Translate-->
+    <string name="translate">Translate</string>
+    <string name="translating">Translating …</string>
+    <string name="translated_using_libretranslate">Translated using LibreTranslate:</string>
+    <string name="error_translating">Error while translating</string>
+
     <!--Email verification-->
     <string name="sending_code">Please wait, sending code …</string>
     <string name="error_sending_code">Error while sending code</string>

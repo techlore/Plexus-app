@@ -155,6 +155,12 @@
     <string name="any">Jede</string>
     <string name="status">Status</string>
 
+    <!--Translate-->
+    <string name="translate">\u00DCbersetzen Sie</string>
+    <string name="translating">\u00DCbersetzen …</string>
+    <string name="translated_using_libretranslate">\u00DCbersetzt mit LibreTranslate:</string>
+    <string name="error_translating">Fehler beim \u00DCbersetzen</string>
+
     <!--Email verification-->
     <string name="sending_code">Bitte warten, code senden …</string>
     <string name="error_sending_code">Fehler beim senden des codes</string>

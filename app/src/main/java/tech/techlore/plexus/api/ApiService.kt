@@ -19,6 +19,7 @@ package tech.techlore.plexus.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
@@ -28,6 +29,7 @@ import io.ktor.client.request.url
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import io.ktor.http.parameters
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.get.apps.GetSingleAppRoot
 import tech.techlore.plexus.models.get.ratings.RatingsRoot
@@ -114,6 +116,19 @@ class ApiService(private val okHttpClient: HttpClient) {
             header("Authorization", "Bearer $authToken")
             setBody(postRatingRoot)
         }
+    }
+    
+    suspend fun translateRatingNote(note: String, targetLang: String): HttpResponse {
+        return okHttpClient.submitForm(
+            url = "https://translate.fedilab.app/translate",
+            formParameters = parameters {
+                append("q", note)
+                append("source", "auto")
+                append("target", targetLang)
+                append("format", "text")
+                append("alternatives", "0")
+            }
+        )
     }
     
 }
