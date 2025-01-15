@@ -1,6 +1,12 @@
 # CHANGELOG
 
 
+## v2.1.0
+- Fixed issue where deGoogled devices were incorrectly identified as using microG.
+- Added support for translating rating notes.
+- Added Czech translations (by [Fjuro](https://github.com/Fjuro)).
+
+
 ## v2.0.9
 - Fixed crash on sort bottom sheet.
 - Download icons based on DPI instead of 512x512 px.

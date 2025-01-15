@@ -1,5 +1,6 @@
 - Prise en charge d'Android 15.
-- Téléchargez les icônes en fonction du DPI au lieu de 512x512 px.
+- Ajout d'un support pour la traduction des notes de classement.
 - Le changement de "Vue par défaut" ne nécessite plus le redémarrage de l'application.
 - Optimisations multiples.
 - Changements visuels mineurs.
+- Ajout de traductions en tchèque (par Fjuro).

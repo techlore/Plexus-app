@@ -1,0 +1,7 @@
+<b>Odstraňte obavy z kompatibility aplikací v zařízeních se systémem Android, která nebyla předmětem Googlu.</b>
+
+Služby Google Play jsou nezbytnou součástí většiny zařízení se systémem Android. Umožňují bezproblémový přístup k účtu Google a poskytují specifické funkce Google pro aplikace, které jsou na nich závislé.
+Pokud však flashujete vlastní ROM bez služeb Google Play nebo se rozhodnete pro alternativy, jako je microG, mohou se některé aplikace setkat s problémy - buď nebudou fungovat vůbec, nebo budou mít omezení konkrétních funkcí.
+
+Společnost Plexus poskytuje podrobné informace o kompatibilitě aplikací, ať už používáte ROM bez služeb Google Play (jako je <i>LineageOS</i>), nebo ROM s microG (jako je <i>CalyxOS</i>). It helps you identify which apps work, don’t work or have limited features.
+Veškeré informace jsou crowdsourcované komunitou, pro komunitu.

@@ -1,5 +1,0 @@
-- Unterstützung für Android 15.
-- Herunterladen von Symbolen basierend auf DPI statt 512x512 px.
-- Das Ändern der "Standardansicht" erfordert keinen Neustart der App mehr.
-- Mehrere Optimierungen.
-- Kleinere visuelle Änderungen.

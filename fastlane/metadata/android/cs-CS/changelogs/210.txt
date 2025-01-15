@@ -1,0 +1,6 @@
+- Podpora systému Android 15.
+- Přidána podpora pro překlad poznámek k hodnocení.
+- Změna „Výchozího zobrazení“ nebude vyžadovat restart aplikace.
+- Několik optimalizací.
+- Drobné vizuální změny.
+- Přidány české překlady (autor Fjuro).

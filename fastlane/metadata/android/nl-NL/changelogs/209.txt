@@ -1,5 +1,0 @@
-- Ondersteuning voor Android 15.
-- Pictogrammen downloaden op basis van DPI in plaats van 512x512 px.
-- Voor het wijzigen van "Standaardweergave" hoeft de app niet opnieuw te worden opgestart.
-- Meerdere optimalisaties.
-- Kleine visuele veranderingen.

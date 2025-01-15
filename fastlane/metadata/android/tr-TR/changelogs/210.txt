@@ -1,5 +1,6 @@
 - Android 15 için destek.
-- Simgeleri 512x512 piksel yerine DPI'a göre indirin.
+- Derecelendirme notlarını çevirmek için destek eklendi.
 - "Varsayılan Görünüm" ün değiştirilmesi uygulamanın yeniden başlatılmasını gerektirmez.
 - Çoklu optimizasyonlar.
 - Küçük görsel değişiklikler.
+- Çekçe çeviriler eklendi (Fjuro tarafından).

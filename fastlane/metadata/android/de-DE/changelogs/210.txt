@@ -1,0 +1,6 @@
+- Unterstützung für Android 15.
+- Unterstützung für die Übersetzung von Bewertungshinweisen wurde hinzugefügt.
+- Das Ändern der "Standardansicht" erfordert keinen Neustart der App mehr.
+- Mehrere Optimierungen.
+- Kleinere visuelle Änderungen.
+- Tschechische Übersetzungen hinzugefügt (von Fjuro).
