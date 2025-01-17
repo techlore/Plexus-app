@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!--
+    Ensure proper encoding of characters when translating to other languages.
+    example: ä as \u00E4, é as \u00E9 etc.
+
+    + = \u002B
+    & = &amp;
+    -->
+
+    <!--First activity -->
+    <string name="retrieving_data">Buscando dados</string>
+    <string name="scan_installed">Fazendo scan dos apps instalados</string>
+    <string name="welcome_text_desc">Como um usuário novo do app, tire um momento para se familiarizar com os ícones e indicadores de status.</string>
+    <string name="skip">Pular</string>
+
+    <!--#########################################################################################-->
+
+    <!--Main activity-->
+    <string name="no_apps_found">Nenhum app encontrado</string>
+    <string name="new_submission">Novo envio</string>
+
+    <!--My ratings fragment-->
+    <string name="no_ratings_available">Nenhuma avaliação disponível</string>
+    <string name="submit_first_rating">Toque em \u002B para enviar sua primeira avaliação</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_search">Pesquisar</string>
+    <string name="menu_sort">Classificar</string>
+
+    <!--Nav view-->
+    <string name="plexus_data">Dados do Plexus</string>
+    <string name="installed_apps">Apps instalados</string>
+    <string name="favorites">Favoritos</string>
+    <string name="my_account">Minha conta</string>
+    <string name="my_ratings">Minhas avaliações</string>
+    <string name="delete_account">Excluir conta</string>
+    <string name="settings">Configurações</string>
+
+    <!--#########################################################################################-->
+
+    <!--App details activity-->
+    <string name="rate">Avaliar</string>
+    <string name="app">App</string>
+    <string name="package_name">Pacote</string>
+    <string name="retrieving_ratings">Buscando avaliações</string>
+    <string name="total_score">Pontuação total</string>
+    <string name="total_ratings">Total de avaliações</string>
+    <string name="ratings">Avaliações</string>
+    <string name="scroll_to_top">Rolar para cima</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_help">Ajuda</string>
+    <string name="menu_more">Mais opções</string>
+
+    <!--#########################################################################################-->
+
+    <!--Email verification fragment-->
+    <string name="verify_to_get_started">Verifique seu e-mail para começar!</string>
+    <string name="verify">Verificar</string>
+    <string name="terms_conditions_title">Termos e Condições</string>
+    <string name="terms_conditions_desc">Seu endereço de e-mail é necessário para enviar apps ao Plexus.
+        \Esse e-mail será usado somente para a verificação e será removido dos nossos sistemas após a verificação.
+        \n
+        \nIsso é feito para:
+        \n\u2022 prevenir abuso da nossa API.
+        \n\u2022 garantir precisão nos dados enviados.
+        \n
+        \nVocê pode excluir sua conta deste dispositivo a qualquer momento.</string>
+    <string name="by_proceeding_agree_desc">Ao proceder, você concorda no uso justo do Plexus.
+        Se os termos e condições acima forem violados, todas as avaliações enviadas por você serão excluídas.</string>
+    <string name="verification">Verificação</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">Digite o código enviado para\n%1$s</string>
+    <string name="verification_code">Código de verificação</string>
+    <string name="verifying_code">Por favor espere, verificando o código …</string>
+    <string name="incorrect_code">Código de verificação incorreto.</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+    <string name="theme">Tema</string>
+    <string name="material_you">Material You\n(requer o reinício do app)</string>
+    <string name="default_view">Visualização padrão</string>
+    <string name="conf_before_submit">Confirmar antes de enviar</string>
+    <string name="about">Sobre</string>
+    <string name="version">Versão</string>
+    <string name="privacy_policy">Política de privacidade</string>
+    <string name="report_issue">Relatar um problema</string>
+    <string name="support_us">Nos apoie</string>
+    <string name="view_on_github">Ver no GitHub</string>
+    <string name="visit_techlore">Visitar Techlore</string>
+    <string name="third_party_licenses">Licenças de terceiros</string>
+
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <string name="done">Pronto</string>
+    <string name="cancel">Cancelar</string>
+    <string name="dismiss">Descartar</string>
+    <string name="exit">Sair</string>
+    <string name="retry">Tentar novamente</string>
+
+    <!--No Network/Internet-->
+    <string name="error_occurred_title">Um erro ocorreu</string>
+    <string name="no_network_title">Sem internet</string>
+    <string name="no_network_subtitle">Conecte ao Wi-Fi ou aos dados móveis e tente novamente.
+        Se já estiver conectado, certifique-se se você tem uma conexão à internet.</string>
+
+    <!--Help-->
+    <string name="icons">Ícones</string>
+    <string name="not_tested_subtitle">Não disponível, o app não foi testado</string>
+    <string name="broken_title">Quebrado</string>
+    <string name="broken_subtitle">Inutilizável, normalmente apps que falham ao abrir</string>
+    <string name="bronze_title">Bronze</string>
+    <string name="bronze_subtitle">Aceitáveis mas com funcionalidade faltando ou quebrada</string>
+    <string name="silver_title">Prata</string>
+    <string name="silver_subtitle">Quase tudo funciona, com problemas mínimos</string>
+    <string name="gold_title">Ouro</string>
+    <string name="gold_subtitle">Experiência quase ou completamente perfeita</string>
+    <string name="other">Outro</string>
+    <string name="android_version_desc">Versões do Android</string>
+    <string name="installation_source_desc">Fonte de instalação dos apps</string>
+    <string name="apps_submit_proc">Procedimento de envio de apps</string>
+    <string name="faqs">Questões comuns</string>
+
+    <!--Sort-->
+    <string name="alphabetical">Alfabeticamente</string>
+    <string name="installed_from">Instalado de</string>
+    <string name="any">Qualquer</string>
+    <string name="status">Status</string>
+
+    <!--Translate-->
+    <string name="translate">Traduzir</string>
+    <string name="translating">Traduzindo …</string>
+    <string name="translated_using_libretranslate">Traduzido usando o LibreTranslate:</string>
+    <string name="error_translating">Erro ao traduzir</string>
+
+    <!--Email verification-->
+    <string name="sending_code">Por favor espere, enviando código …</string>
+    <string name="error_sending_code">Erro ao enviar código</string>
+
+    <!--Delete account-->
+    <string name="delete_account_desc">Se você excluir sua conta:
+        \n\u2022 você não poderá mais enviar avaliações.
+        \n\u2022 todas as suas avaliações enviadas anteriormente serão removidas permanentemente deste dispositivo.
+        \n
+        \nVocê tem certeza que você deseja continuar?</string>
+
+    <!--More options-->
+    <string name="menu_share">Compartilhar</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">Todos os seus envios futuros irão considerar essa seleção, e não poderá ser alterado depois.</string>
+    <string name="select_correct_rom">Por favor, selecione a ROM correta instalada no seu dispositivo.</string>
+    <string name="select">Selecionar</string>
+    <string name="proceed">Continuar</string>
+
+    <!--Rate-->
+    <string name="issues_to_check_in_apps">Problemas comuns para buscar em apps</string>
+    <string name="notes">Notas</string>
+    <string name="optional">opcional</string>
+    <string name="submit">Enviar</string>
+
+    <!--Submit-->
+    <string name="about_to_submit">Você está prestes a enviar uma avaliação. Você tem certeza que deseja continuar?</string>
+    <string name="wait_submitting_data">Por favor espere, enviando dados …</string>
+    <string name="submit_success">Enviado com sucesso</string>
+    <string name="submit_error">Erro ao enviar dados</string>
+    <string name="thanks_for_submitting">Obrigado por enviar estes dados e ajudar a comunidade.</string>
+
+    <!--Theme-->
+    <string name="follow_system">Seguir o do sistema</string>
+    <string name="light">Claro</string>
+    <string name="dark">Escuro</string>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbars-->
+    <string name="install_app_to_submit">Instale %1$s para enviar uma avaliação</string>
+    <string name="device_should_be_degoogled_or_microg">O dispositivo deve ser de-Googled ou usar o microG para enviar a avaliação</string>
+    <string name="rating_already_submitted">Avaliação já enviada para %1$s %2$s</string>
+    <string name="no_browsers">Nenhum navegador instalado neste dispositivo</string>
+    <string name="deleted_account_successfully">Conta deletada com sucesso</string>
+
+</resources>
