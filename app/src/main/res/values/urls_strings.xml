@@ -37,6 +37,7 @@
     <string name="google_play_url" translatable="false">https://play.google.com/store/apps/details?id=</string>
     <string name="fdroid_url" translatable="false">https://f-droid.org/packages/</string>
     <string name="exodus_url" translatable="false">https://reports.exodus-privacy.eu.org/en/reports/search/</string>
+    <string name="vpn_toolkit_url" translatable="false">https://www.techlore.tech/vpn</string>
 
     <!--Rate-->
     <string name="common_issues_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/Help#common-issues-to-check-in-apps</string>

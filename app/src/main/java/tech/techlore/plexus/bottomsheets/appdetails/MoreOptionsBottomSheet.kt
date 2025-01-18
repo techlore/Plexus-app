@@ -75,6 +75,18 @@ class MoreOptionsBottomSheet(
             requireActivity().openURL(exodusString)
         }
         
+        // VPN Toolkit
+        bottomSheetBinding.vpnToolkit.apply {
+            if (nameString.contains("VPN", ignoreCase = true)
+                || packageNameString.contains("VPN", ignoreCase = true)) {
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    dismiss()
+                    requireActivity().openURL(getString(R.string.vpn_toolkit_url))
+                }
+            }
+        }
+        
         // Share
         bottomSheetBinding.share.setOnClickListener {
             dismiss()

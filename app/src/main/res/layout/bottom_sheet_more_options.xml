@@ -80,6 +80,24 @@
         android:textSize="@dimen/text_16"/>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vpnToolkit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_22"
+        android:paddingVertical="@dimen/margin_16"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_vpn_toolkit"
+        android:drawablePadding="@dimen/margin_8"
+        android:text="@string/vpn_toolkit"
+        android:textAlignment="viewStart"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="@dimen/text_16"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/share"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
