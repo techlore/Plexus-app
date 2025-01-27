@@ -28,7 +28,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
-import tech.techlore.plexus.bottomsheets.translate.TranslateRatingNoteBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.TranslateRatingNoteBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyle

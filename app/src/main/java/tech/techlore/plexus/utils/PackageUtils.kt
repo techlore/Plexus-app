@@ -66,7 +66,9 @@ class PackageUtils {
                                               else packageInfo.versionCode.toLong(),
                                               installedFrom =
                                               when {
-                                                  isAppFromFdroid(packageInfo) -> "fdroid"
+                                                  isAppFromFdroid(packageManager,
+                                                                  it.packageName,
+                                                                  packageInfo) -> "fdroid"
                                                   isAppFromApk(packageManager, it.packageName) -> "apk"
                                                   else -> "google_play_alternative"
                                               },
@@ -80,9 +82,11 @@ class PackageUtils {
         
         private fun getPackageInfoWithSigCerts(packageManager: PackageManager,
                                                packageName: String): PackageInfo {
-            return packageManager.getPackageInfo(packageName,
-                                                 if (Build.VERSION.SDK_INT >= 28) PackageManager.GET_SIGNING_CERTIFICATES
-                                                 else PackageManager.GET_SIGNATURES)
+            return packageManager.getPackageInfo(
+                packageName,
+                if (Build.VERSION.SDK_INT >= 28) PackageManager.GET_SIGNING_CERTIFICATES
+                else PackageManager.GET_SIGNATURES
+            )
         }
         
         private fun getAppCertificate(packageInfo: PackageInfo): String? {
@@ -96,6 +100,7 @@ class PackageUtils {
                         }
                     }
                     else packageInfo.signatures?.first()
+                
                 val inputStream = ByteArrayInputStream(signature?.toByteArray())
                 (CertificateFactory.getInstance("X.509").generateCertificate(inputStream) as X509Certificate)
                     .subjectX500Principal.name
@@ -105,8 +110,25 @@ class PackageUtils {
             }
         }
         
-        private fun isAppFromFdroid(packageInfo: PackageInfo): Boolean {
-            return getAppCertificate(packageInfo) == "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK"
+        private fun isAppFromFdroid(packageManager: PackageManager,
+                                    packageName: String,
+                                    packageInfo: PackageInfo): Boolean {
+            val fdroidPackages =
+                setOf("org.fdroid.basic",
+                      "org.fdroid.fdroid",
+                      "org.fdroid.fdroid.privileged")
+            
+            val isInstalledFromFdroid =
+                (if (Build.VERSION.SDK_INT >= 30)
+                    packageManager.getInstallSourceInfo(packageName).installingPackageName
+                else
+                    packageManager.getInstallerPackageName(packageName)
+                ) in fdroidPackages
+            
+            val isSignedByFdroid =
+                getAppCertificate(packageInfo) == "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK"
+            
+            return isInstalledFromFdroid || isSignedByFdroid
         }
         
         private fun isAppFromApk(packageManager: PackageManager, packageName: String): Boolean {
@@ -118,10 +140,12 @@ class PackageUtils {
                       "com.miui.global.packageinstaller",
                       "com.asus.packageinstaller")
             
-            return if (Build.VERSION.SDK_INT >= 30)
-                packageManager.getInstallSourceInfo(packageName).installingPackageName in packageInstallers
-            else
-                packageManager.getInstallerPackageName(packageName) in packageInstallers
+            return (
+                    if (Build.VERSION.SDK_INT >= 30)
+                        packageManager.getInstallSourceInfo(packageName).installingPackageName
+                    else
+                        packageManager.getInstallerPackageName(packageName)
+                   ) in packageInstallers
         }
         
     }
