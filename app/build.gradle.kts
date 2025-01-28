@@ -62,6 +62,10 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    lint {
+        disable += "MissingTranslation" // Translations are crowd-sourced.
+    }
 }
 
 dependencies {
