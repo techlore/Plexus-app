@@ -57,7 +57,7 @@ class MoreOptionsBottomSheet(
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = nameString
         
-        // Play store
+        // Google Play Store
         bottomSheetBinding.playStore.setOnClickListener {
             dismiss()
             requireActivity().openURL(playStoreString)
@@ -99,7 +99,7 @@ class MoreOptionsBottomSheet(
                               ${getString(R.string.package_name)}: $packageNameString
                               ${getString(R.string.de_Googled)}: $dgStatus
                               ${getString(R.string.microG)}: $mgStatus
-                              ${getString(R.string.google_play)}: $playStoreString
+                              ${getString(R.string.google_play_store)}: $playStoreString
                               ${getString(R.string.fdroid)}: $fdroidString
                               ${getString(R.string.exodus)}: $exodusString
                               """.trimIndent()), getString(R.string.menu_share)))

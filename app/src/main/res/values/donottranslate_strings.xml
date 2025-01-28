@@ -35,7 +35,7 @@
 
     <string name="a_z" translatable="false">A-Z</string>
     <string name="z_a" translatable="false">Z-A</string>
-    <string name="google_play" translatable="false">Google Play</string>
+    <string name="google_play_store" translatable="false">Google Play Store</string>
     <string name="google_play_alt" translatable="false">Google Play alt</string>
     <string name="fdroid" translatable="false">F-Droid</string>
     <string name="exodus" translatable="false">Exodus Privacy</string>

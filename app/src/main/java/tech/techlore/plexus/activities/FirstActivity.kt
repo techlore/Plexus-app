@@ -118,9 +118,9 @@ class FirstActivity : AppCompatActivity() {
     }
     
     private suspend fun isDeviceDeGoogledOrMicroG() {
-        val gappsPackages = arrayOf("com.google.android.gms",
-                                    "com.google.android.gsf",
-                                    "com.android.vending")
+        val gappsPackages = arrayOf("com.google.android.gms", // Google Play Services
+                                    "com.google.android.gsf", // Google Services Framework
+                                    "com.android.vending") // Google Play Store
         
         var microGCount = 0
         var installedGappsCount = 0

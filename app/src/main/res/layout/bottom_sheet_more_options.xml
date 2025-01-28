@@ -42,7 +42,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:drawableStart="@drawable/ic_google_play"
         android:drawablePadding="@dimen/margin_8"
-        android:text="@string/google_play"
+        android:text="@string/google_play_store"
         android:textAlignment="viewStart"
         android:textColor="?attr/colorOnSurface"
         android:textSize="@dimen/text_16"/>
