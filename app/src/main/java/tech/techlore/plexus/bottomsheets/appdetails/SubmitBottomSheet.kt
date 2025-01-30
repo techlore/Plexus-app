@@ -228,8 +228,13 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
     }
     
     private suspend fun parseIconUrlFromWebpage(url: String): String? {
-        val document = Ksoup.parseGetRequest(url)
-        return Ksoup.parseMetaData(document).ogImage
+        try {
+            val document = Ksoup.parseGetRequest(url)
+            return Ksoup.parseMetaData(document).ogImage
+        }
+        catch (_: Exception) {
+            return null
+        }
     }
     
     private suspend fun getIconUrl(): String? {
@@ -263,7 +268,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         return when(Build.VERSION.SDK_INT) {
             23 -> "6.0"
             24 -> "7.0"
-            25 -> "7.1.1"
+            25 -> "7.1"
             26 -> "8.0"
             27 -> "8.1"
             28 -> "9.0"
@@ -274,6 +279,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             33 -> "13.0"
             34 -> "14.0"
             35 -> "15.0"
+            36 -> "16.0"
             else -> "NA" // Should never reach here
         }
     }

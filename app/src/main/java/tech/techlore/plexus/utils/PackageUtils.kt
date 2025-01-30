@@ -66,9 +66,8 @@ class PackageUtils {
                                               else packageInfo.versionCode.toLong(),
                                               installedFrom =
                                               when {
-                                                  isAppFromFdroid(packageManager,
-                                                                  it.packageName,
-                                                                  packageInfo) -> "fdroid"
+                                                  isAppFromFdroid(packageManager, it.packageName)
+                                                  || isAppSignedByFdroid(packageInfo) -> "fdroid"
                                                   isAppFromApk(packageManager, it.packageName) -> "apk"
                                                   else -> "google_play_alternative"
                                               },
@@ -110,25 +109,21 @@ class PackageUtils {
             }
         }
         
-        private fun isAppFromFdroid(packageManager: PackageManager,
-                                    packageName: String,
-                                    packageInfo: PackageInfo): Boolean {
-            val fdroidPackages =
-                setOf("org.fdroid.basic",
-                      "org.fdroid.fdroid",
-                      "org.fdroid.fdroid.privileged")
+        private fun isAppFromFdroid(packageManager: PackageManager, packageName: String): Boolean {
+            val fdroidPackages = setOf("org.fdroid.fdroid",
+                                       "org.fdroid.basic",
+                                       "org.fdroid.fdroid.privileged")
             
-            val isInstalledFromFdroid =
-                (if (Build.VERSION.SDK_INT >= 30)
-                    packageManager.getInstallSourceInfo(packageName).installingPackageName
-                else
-                    packageManager.getInstallerPackageName(packageName)
-                ) in fdroidPackages
-            
-            val isSignedByFdroid =
-                getAppCertificate(packageInfo) == "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK"
-            
-            return isInstalledFromFdroid || isSignedByFdroid
+            return (
+                    if (Build.VERSION.SDK_INT >= 30)
+                        packageManager.getInstallSourceInfo(packageName).installingPackageName
+                    else
+                        packageManager.getInstallerPackageName(packageName)
+                   ) in fdroidPackages
+        }
+        
+        private fun isAppSignedByFdroid(packageInfo: PackageInfo): Boolean {
+            return getAppCertificate(packageInfo) == "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK"
         }
         
         private fun isAppFromApk(packageManager: PackageManager, packageName: String): Boolean {
