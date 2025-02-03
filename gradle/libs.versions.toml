@@ -17,8 +17,8 @@
 
 [versions]
 androidGradle = "8.8.0"
-androidKotlin = "2.1.0" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
-ksp = "2.1.0-1.0.29" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
+androidKotlin = "2.1.10" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
+ksp = "2.1.10-1.0.29" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.0"
 coreKtx = "1.15.0"
 splashscreen = "1.0.1"
@@ -26,7 +26,7 @@ material3 = "1.13.0-alpha10"
 koin = "4.0.2"
 swiperefreshlayout = "1.1.0"
 securityCryptoKtx = "1.1.0-alpha06"
-navigationKtx = "2.8.5"
+navigationKtx = "2.8.6"
 kotlinxSerialization = "1.8.0"
 ktor = "3.0.3"
 room = "2.6.1"
