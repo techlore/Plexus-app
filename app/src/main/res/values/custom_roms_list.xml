@@ -25,6 +25,7 @@
     Keep the list alphabetically ordered
     -->
     <string-array name="custom_roms">
+        <item>AfterlifeOS</item>
         <item>AncientOS</item>
         <item>AOKP</item>
 		<item>AOSiP</item>
@@ -67,6 +68,8 @@
 		<item>Project Awaken</item>
 		<item>Project Blaze</item>
 		<item>Project Elixir</item>
+		<item>Project Infinity X</item>
+		<item>Project Matrixx</item>
 		<item>Project Xtended</item>
 		<item>Project Zephyrus</item>
 		<item>Resurrection Remix</item>

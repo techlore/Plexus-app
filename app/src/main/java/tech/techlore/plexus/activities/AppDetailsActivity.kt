@@ -231,7 +231,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     !app.isInstalled ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.install_app_to_submit, app.name),
-                                     activityBinding.detailsBottomAppBar)
+                                     anchorView =
+                                     if (activityBinding.scrollTopFab.isVisible) activityBinding.scrollTopFab
+                                     else activityBinding.detailsBottomAppBar)
                     
                     !DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
@@ -364,7 +366,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     private fun afterRatingsRetrieved(){
         lifecycleScope.launch {
             withContext(Dispatchers.Default) {
-                val ratingRanges = listOf(RatingRange("gold", 4.0f, 4.0f),
+                val ratingRanges = arrayOf(RatingRange("gold", 4.0f, 4.0f),
                                           RatingRange("silver", 3.0f, 3.9f),
                                           RatingRange("bronze", 2.0f, 2.9f),
                                           RatingRange("broken", 1.0f, 1.9f))

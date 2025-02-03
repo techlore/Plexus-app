@@ -57,17 +57,17 @@
         app:navigationIcon="@drawable/ic_back"
         app:contentInsetStartWithNavigation="0dp">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:iconifiedByDefault="false"
-                app:searchIcon="@null"
-                app:queryBackground="@android:color/transparent"
-                app:defaultQueryHint="@string/menu_search"
-                android:textDirection="locale">
-                <requestFocus/>
-            </androidx.appcompat.widget.SearchView>
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:searchIcon="@null"
+            app:queryBackground="@android:color/transparent"
+            app:defaultQueryHint="@string/menu_search"
+            android:textDirection="locale">
+            <requestFocus/>
+        </androidx.appcompat.widget.SearchView>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
