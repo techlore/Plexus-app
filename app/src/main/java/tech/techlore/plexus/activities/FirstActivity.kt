@@ -44,6 +44,8 @@ import tech.techlore.plexus.databinding.ActivityFirstBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.objects.DeviceState
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager
+import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
@@ -122,6 +124,7 @@ class FirstActivity : AppCompatActivity() {
                                     "com.google.android.gsf", // Google Services Framework
                                     "com.android.vending") // Google Play Store
         
+        val deviceRom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM)
         var microGCount = 0
         var installedGappsCount = 0
         
@@ -129,8 +132,13 @@ class FirstActivity : AppCompatActivity() {
             gappsPackages.forEach {
                 getAppInfo(it)?.let { appInfo ->
                     installedGappsCount ++
-                    if (!packageManager.getApplicationLabel(appInfo).startsWith("Google", ignoreCase = true))
-                        microGCount ++
+                    if (!packageManager.getApplicationLabel(appInfo).startsWith("Google", ignoreCase = true)) {
+                            when (deviceRom) {
+                                // CalyxOS + disabled microG = deGoogled
+                                "CalyxOS" -> if (appInfo.enabled) microGCount ++ else installedGappsCount --
+                                else -> microGCount ++
+                            }
+                    }
                 }
             }
             
