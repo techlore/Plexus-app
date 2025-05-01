@@ -61,7 +61,7 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
         
         // Proceed
         footerBinding.positiveButton.apply {
-            setBackgroundColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError))
+            setBackgroundColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorErrorContainer))
             setTextColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
             text = getString(R.string.proceed)
             setOnClickListener {

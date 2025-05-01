@@ -24,14 +24,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.textview.MaterialTextView
 import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.SettingsActivity
+import tech.techlore.plexus.bottomsheets.appdetails.RomSelectionBottomSheet
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetNavViewBinding
+import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
+import tech.techlore.plexus.utils.UiUtils.Companion.setDgMgTextWithIcon
 
 class NavViewBottomSheet : BottomSheetDialogFragment() {
     
@@ -52,8 +56,27 @@ class NavViewBottomSheet : BottomSheetDialogFragment() {
         
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
         
-        // Nav view items
         bottomSheetBinding.navView.apply {
+            //Header
+            getHeaderView(0).apply {
+                findViewById<MaterialTextView>(R.id.deviceRom).apply {
+                    if (DeviceState.rom != "") text = DeviceState.rom
+                    else
+                        setOnClickListener {
+                            dismiss()
+                            RomSelectionBottomSheet().show(parentFragmentManager, "RomSelectionBottomSheet")
+                        }
+                }
+                findViewById<MaterialTextView>(R.id.deviceAndroidVersion).text = DeviceState.androidVersion
+                findViewById<MaterialTextView>(R.id.deviceDgMgStatus).apply {
+                    if (!DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG) isVisible = false
+                    else {
+                        setDgMgTextWithIcon(requireContext())
+                    }
+                }
+            }
+            
+            // Nav view items
             arrayOf(R.id.nav_my_ratings, R.id.nav_delete_account).forEach {
                 menu.findItem(it).isVisible = get<EncryptedPreferenceManager>().getBoolean(IS_REGISTERED)
             }

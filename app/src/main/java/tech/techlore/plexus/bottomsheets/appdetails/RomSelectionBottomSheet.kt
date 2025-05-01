@@ -25,6 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
@@ -32,16 +33,18 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.activities.VerificationActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetRomSelectionBinding
+import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 
-class RomSelectionBottomSheet : BottomSheetDialogFragment() {
+class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetRomSelectionBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -62,9 +65,8 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val preferenceManager = EncryptedPreferenceManager(requireContext())
         
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.new_submission)
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
         
         lifecycleScope.launch{
             
@@ -123,29 +125,33 @@ class RomSelectionBottomSheet : BottomSheetDialogFragment() {
                 }
             }
             
-            // Proceed
+            // Done/Proceed
             footerBinding.positiveButton.apply {
                 isEnabled = false
+                val positiveButtonText = if (isFromNavView) getString(R.string.done) else getString(R.string.proceed)
                 job =
                     lifecycleScope.launch {
                         for (i in 5 downTo 1) {
                             withContext(Dispatchers.Main) {
                                 @SuppressLint("SetTextI18n")
-                                text = "${getString(R.string.proceed)} ${i}s"
+                                text = "$positiveButtonText ${i}s"
                             }
                             delay(1000)
                         }
                         withContext(Dispatchers.Main) {
-                            text = getString(R.string.proceed)
+                            text = positiveButtonText
                             isEnabled = bottomSheetBinding.romDropdownMenu.text.toString() != allRomsDropdownList[0]
                             job = null
                         }
                     }
                 setOnClickListener {
-                    preferenceManager.setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
+                    get<EncryptedPreferenceManager>().setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
+                    DeviceState.rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).toString()
                     dismiss()
-                    (requireActivity() as AppDetailsActivity).apply {
-                        startActivity(Intent(this, VerificationActivity::class.java))
+                    if (!isFromNavView) {
+                        (requireActivity() as AppDetailsActivity).apply {
+                            startActivity(Intent(this, VerificationActivity::class.java))
+                        }
                     }
                 }
             }

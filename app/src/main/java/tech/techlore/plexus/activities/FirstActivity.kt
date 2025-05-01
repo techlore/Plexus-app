@@ -21,6 +21,7 @@ import android.animation.Animator
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
@@ -85,7 +86,32 @@ class FirstActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
         
+        DeviceState.apply {
+            rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM) ?: ""
+            androidVersion = getAndroidVersionString()
+        }
+        
         retrieveData()
+    }
+    
+    private fun getAndroidVersionString(): String {
+        return when(Build.VERSION.SDK_INT) {
+            23 -> "6.0"
+            24 -> "7.0"
+            25 -> "7.1"
+            26 -> "8.0"
+            27 -> "8.1"
+            28 -> "9.0"
+            29 -> "10.0"
+            30 -> "11.0"
+            31 -> "12.0"
+            32 -> "12.1"
+            33 -> "13.0"
+            34 -> "14.0"
+            35 -> "15.0"
+            36 -> "16.0"
+            else -> "NA" // Should never reach here
+        }
     }
     
     private fun retrieveData() {
@@ -124,7 +150,6 @@ class FirstActivity : AppCompatActivity() {
                                     "com.google.android.gsf", // Google Services Framework
                                     "com.android.vending") // Google Play Store
         
-        val deviceRom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM)
         var microGCount = 0
         var installedGappsCount = 0
         
@@ -133,11 +158,11 @@ class FirstActivity : AppCompatActivity() {
                 getAppInfo(it)?.let { appInfo ->
                     installedGappsCount ++
                     if (!packageManager.getApplicationLabel(appInfo).startsWith("Google", ignoreCase = true)) {
-                            when (deviceRom) {
-                                // CalyxOS + disabled microG = deGoogled
-                                "CalyxOS" -> if (appInfo.enabled) microGCount ++ else installedGappsCount --
-                                else -> microGCount ++
-                            }
+                        when {
+                            // CalyxOS + disabled microG = deGoogled
+                            DeviceState.rom == "CalyxOS" && !appInfo.enabled -> installedGappsCount --
+                            else -> microGCount ++
+                        }
                     }
                 }
             }

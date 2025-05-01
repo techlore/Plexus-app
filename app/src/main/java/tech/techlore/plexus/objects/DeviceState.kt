@@ -20,4 +20,6 @@ package tech.techlore.plexus.objects
 object DeviceState {
     var isDeviceMicroG = false
     var isDeviceDeGoogled = false
+    var rom = ""
+    var androidVersion = ""
 }

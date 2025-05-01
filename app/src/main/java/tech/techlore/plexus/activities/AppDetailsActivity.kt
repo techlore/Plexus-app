@@ -241,7 +241,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                                      activityBinding.detailsBottomAppBar)
                     
                     encPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
-                        RomSelectionBottomSheet().show(supportFragmentManager, "RomSelectionBottomSheet")
+                        RomSelectionBottomSheet(isFromNavView = false).show(supportFragmentManager, "RomSelectionBottomSheet")
                     
                     !encPreferenceManager.getBoolean(IS_REGISTERED) -> {
                         startActivity(Intent(this@AppDetailsActivity, VerificationActivity::class.java))

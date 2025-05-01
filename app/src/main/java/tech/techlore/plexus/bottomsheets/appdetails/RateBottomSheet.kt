@@ -22,7 +22,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -37,7 +36,6 @@ import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetRateBinding
 import tech.techlore.plexus.objects.AppState
-import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
@@ -45,6 +43,7 @@ import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
 import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
 import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
+import tech.techlore.plexus.utils.UiUtils.Companion.setDgMgTextWithIcon
 
 class RateBottomSheet : BottomSheetDialogFragment() {
     
@@ -72,19 +71,7 @@ class RateBottomSheet : BottomSheetDialogFragment() {
             requireActivity().openURL(getString(R.string.common_issues_url))
         }
         
-        bottomSheetBinding.dgMgText.apply {
-            val (statusIcon, statusText) =
-                if (DeviceState.isDeviceMicroG) {
-                    Pair(ContextCompat.getDrawable(context, R.drawable.ic_microg),
-                         "${getString(R.string.microG)} ${getString(R.string.status)}")
-                }
-                else {
-                    Pair(ContextCompat.getDrawable(context, R.drawable.ic_degoogled),
-                         "${getString(R.string.de_Googled)} ${getString(R.string.status)}")
-                }
-            setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
-            text = statusText
-        }
+        bottomSheetBinding.dgMgText.setDgMgTextWithIcon(requireContext(), appendStatusString = true)
         
         // Chip group
         bottomSheetBinding.submitStatusChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->

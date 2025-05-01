@@ -49,6 +49,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.qualifier.named
 import tech.techlore.plexus.R
+import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.PreferenceManager
 
 class UiUtils {
@@ -75,6 +76,23 @@ class UiUtils {
             if (Build.VERSION.SDK_INT >= 29) {
                 isNavigationBarContrastEnforced = false
             }
+        }
+        
+        fun MaterialTextView.setDgMgTextWithIcon(context: Context,
+                                                 appendStatusString: Boolean = false) {
+            val (statusIcon, statusText) =
+                if (DeviceState.isDeviceMicroG) {
+                    Pair(ContextCompat.getDrawable(context, R.drawable.ic_microg),
+                         if (!appendStatusString) context.getString(R.string.microG)
+                         else "${context.getString(R.string.microG)} ${context.getString(R.string.status)}")
+                }
+                else {
+                    Pair(ContextCompat.getDrawable(context, R.drawable.ic_degoogled),
+                         if (!appendStatusString) context.getString(R.string.de_Googled)
+                         else "${context.getString(R.string.de_Googled)} ${context.getString(R.string.status)}")
+                }
+            setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
+            text = statusText
         }
         
         // Adjust recyclerview for edge to edge

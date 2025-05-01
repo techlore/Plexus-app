@@ -365,7 +365,7 @@
                 app:layout_constraintStart_toStartOf="@id/otherCard"
                 android:layout_marginTop="@dimen/margin_16"
                 android:layout_marginStart="@dimen/margin_16"
-                android:text="13.0"
+                android:text="15.0"
                 style="@style/AndroidVersionTextViewTheme"
                 tools:ignore="HardcodedText"/>
 
@@ -389,7 +389,7 @@
                 app:layout_constraintStart_toEndOf="@id/androidVersionChip2"
                 android:layout_marginTop="@dimen/margin_16"
                 android:layout_marginStart="@dimen/margin_16"
-                android:text="7.1.1"
+                android:text="8.0"
                 style="@style/AndroidVersionTextViewTheme"
                 tools:ignore="HardcodedText"/>
 

@@ -451,9 +451,12 @@
         android:layout_marginEnd="@dimen/margin_16"
         android:paddingHorizontal="@dimen/margin_20"
         android:layout_gravity="bottom|end"
+        android:backgroundTint="?attr/colorPrimaryContainer"
         app:icon="@drawable/ic_edit"
+        app:iconTint="?attr/colorOnPrimaryContainer"
         android:text="@string/rate"
         android:textSize="@dimen/text_16"
-        style="?attr/floatingActionButtonStyle"/>
+        android:textColor="?attr/colorOnPrimaryContainer"
+        app:cornerRadius="@dimen/margin_16"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

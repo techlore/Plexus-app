@@ -111,7 +111,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                             buildNumber = detailsActivity.app.installedBuild,
                             romName = encPrefManager.getString(DEVICE_ROM)!!,
                             romBuild = Build.DISPLAY,
-                            androidVersion = getAndroidVersionString(),
+                            androidVersion = DeviceState.androidVersion,
                             installedFrom = detailsActivity.app.installedFrom,
                             ratingType = if (DeviceState.isDeviceMicroG) "micro_g" else "native",
                             score = mapStatusChipIdToRatingScore(detailsActivity.submitStatusCheckedChipId),
@@ -261,26 +261,6 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         }
         catch (e: Exception) {
             onPostFailed(e.toString())
-        }
-    }
-    
-    private fun getAndroidVersionString(): String {
-        return when(Build.VERSION.SDK_INT) {
-            23 -> "6.0"
-            24 -> "7.0"
-            25 -> "7.1"
-            26 -> "8.0"
-            27 -> "8.1"
-            28 -> "9.0"
-            29 -> "10.0"
-            30 -> "11.0"
-            31 -> "12.0"
-            32 -> "12.1"
-            33 -> "13.0"
-            34 -> "14.0"
-            35 -> "15.0"
-            36 -> "16.0"
-            else -> "NA" // Should never reach here
         }
     }
     

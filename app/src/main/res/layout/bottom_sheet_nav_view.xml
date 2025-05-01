@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_4"
         android:background="@android:color/transparent"
+        app:headerLayout="@layout/nav_view_header"
         app:menu="@menu/menu_nav_view"
         app:itemTextAppearance="@style/NavViewText"/>
 
