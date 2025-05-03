@@ -48,6 +48,8 @@
     <string name="menu_sort">Classificar</string>
 
     <!--Nav view-->
+    <string name="device_info">Device info</string>
+    <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
     <string name="plexus_data">Dados do Plexus</string>
     <string name="installed_apps">Apps instalados</string>
     <string name="favorites">Favoritos</string>

@@ -53,6 +53,8 @@
     <string name="menu_sort">Trier</string>
 
     <!--Nav view-->
+    <string name="device_info">Device info</string>
+    <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
     <string name="plexus_data">Donn\u00E9s Plexus</string>
     <string name="installed_apps">Apps install\u00E9es</string>
     <string name="favorites">Favoris</string>

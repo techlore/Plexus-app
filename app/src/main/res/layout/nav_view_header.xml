@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/margin_8"
         android:layout_marginEnd="@dimen/margin_12"
-        android:text="Device info"
+        android:text="@string/device_info"
         android:textAlignment="viewStart"
         android:textSize="@dimen/text_17"
         style="@style/MediumBoldText"/>
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/margin_4"
         android:layout_marginEnd="@dimen/margin_12"
-        android:text="Tap here to select the ROM on this device."
+        android:text="@string/tap_to_select_rom"
         android:textAlignment="viewStart"
         android:textSize="@dimen/text_16"
         android:textColor="?attr/colorOnSurfaceVariant"/>
@@ -69,7 +69,6 @@
         app:layout_constraintTop_toBottomOf="@id/deviceRom"
         app:layout_constraintStart_toStartOf="@id/deviceInfoTitle"
         android:layout_marginTop="@dimen/margin_10"
-        android:text="14.0"
         style="@style/AndroidVersionTextViewTheme"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -81,7 +80,6 @@
         android:layout_marginStart="@dimen/margin_8"
         android:drawableStart="@drawable/ic_degoogled"
         android:drawablePadding="@dimen/margin_8"
-        android:text="@string/de_Googled"
         style="@style/BaseChipLikeTextViewStyle"/>
 
     <include

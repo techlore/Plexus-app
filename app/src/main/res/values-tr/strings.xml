@@ -57,6 +57,8 @@
     <string name="menu_sort">S\u0131rala</string>
 
     <!--Nav view-->
+    <string name="device_info">Device info</string>
+    <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
     <string name="plexus_data">Plexus verileri</string>
     <string name="installed_apps">Y\u00FCkl\u00FC uygulamalar</string>
     <string name="favorites">Favoriler</string>

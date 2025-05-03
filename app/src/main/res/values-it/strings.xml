@@ -49,6 +49,8 @@
     <string name="menu_sort">Ordina</string>
 
     <!--Nav view-->
+    <string name="device_info">Device info</string>
+    <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
     <string name="plexus_data">Dati di Plexus</string>
     <string name="installed_apps">Appplicazioni installate</string>
     <string name="favorites">Preferiti</string>
