@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.bottomsheets.appdetails
+package tech.techlore.plexus.bottomsheets.common
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -43,6 +43,7 @@ import tech.techlore.plexus.databinding.BottomSheetRomSelectionBinding
 import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
+import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
 
 class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : BottomSheetDialogFragment() {
     
@@ -68,7 +69,7 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
         
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
         
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             
             val customRomsList = resources.getStringArray(R.array.custom_roms)
             val truncatedCustomRomsList =
@@ -146,7 +147,14 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
                     }
                 setOnClickListener {
                     get<EncryptedPreferenceManager>().setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
-                    DeviceState.rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).toString()
+                    get<EncryptedPreferenceManager>().getString(DEVICE_ROM)?.let {
+                        DeviceState.rom = it
+                        if (it == "CalyxOS") {
+                            lifecycleScope.launch {
+                                isDeviceDeGoogledOrMicroG(requireContext().packageManager)
+                            }
+                        }
+                    }
                     dismiss()
                     if (!isFromNavView) {
                         (requireActivity() as AppDetailsActivity).apply {

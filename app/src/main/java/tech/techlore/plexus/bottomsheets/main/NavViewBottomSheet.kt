@@ -29,7 +29,7 @@ import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.SettingsActivity
-import tech.techlore.plexus.bottomsheets.appdetails.RomSelectionBottomSheet
+import tech.techlore.plexus.bottomsheets.common.RomSelectionBottomSheet
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetNavViewBinding
 import tech.techlore.plexus.objects.DeviceState

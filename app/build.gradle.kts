@@ -34,8 +34,8 @@ android {
         applicationId = "tech.techlore.plexus"
         minSdk = 23
         targetSdk = 35
-        versionCode = 211
-        versionName = "2.1.1"
+        versionCode = 212
+        versionName = "2.1.2"
         setProperty("archivesBaseName", "Plexus_v$versionName")
     }
 
@@ -64,7 +64,7 @@ android {
     }
 
     lint {
-        disable += "MissingTranslation" // Translations are crowd-sourced.
+        disable += "MissingTranslation" // Translations are crowdsourced.
     }
 }
 

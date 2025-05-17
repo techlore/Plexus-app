@@ -19,8 +19,6 @@ package tech.techlore.plexus.activities
 
 import android.animation.Animator
 import android.content.Intent
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
@@ -34,9 +32,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.DynamicColors
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
@@ -51,6 +47,7 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
+import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
@@ -124,7 +121,7 @@ class FirstActivity : AppCompatActivity() {
                         activityBinding.progressText.text = getString(R.string.scan_installed)
                         installedAppsIntoDB(this@FirstActivity)
                     }
-                    isDeviceDeGoogledOrMicroG()
+                    isDeviceDeGoogledOrMicroG(packageManager)
                     afterDataRetrieved()
                 }
                 catch (e: Exception) {
@@ -145,7 +142,7 @@ class FirstActivity : AppCompatActivity() {
         }
     }
     
-    private suspend fun isDeviceDeGoogledOrMicroG() {
+    /*private suspend fun isDeviceDeGoogledOrMicroG() {
         val gappsPackages = arrayOf("com.google.android.gms", // Google Play Services
                                     "com.google.android.gsf", // Google Services Framework
                                     "com.android.vending") // Google Play Store
@@ -172,16 +169,16 @@ class FirstActivity : AppCompatActivity() {
                 isDeviceDeGoogled = installedGappsCount == 0
             }
         }
-    }
+    }*/
     
-    private fun getAppInfo(packageName: String): ApplicationInfo? {
+    /*private fun getAppInfo(packageName: String): ApplicationInfo? {
         return try {
             packageManager.getApplicationInfo(packageName, 0)
         }
         catch (_: PackageManager.NameNotFoundException) {
             null
         }
-    }
+    }*/
     
     private fun afterDataRetrieved() {
         if (prefManager.getBoolean(IS_FIRST_LAUNCH)) {

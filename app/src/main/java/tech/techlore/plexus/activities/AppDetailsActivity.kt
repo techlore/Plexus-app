@@ -53,7 +53,7 @@ import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.bottomsheets.appdetails.MoreOptionsBottomSheet
-import tech.techlore.plexus.bottomsheets.appdetails.RomSelectionBottomSheet
+import tech.techlore.plexus.bottomsheets.common.RomSelectionBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.bottomsheets.appdetails.SortAllRatingsBottomSheet
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
