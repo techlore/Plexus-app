@@ -1,6 +1,0 @@
-- Ondersteuning voor Android 15.
-- Ondersteuning toegevoegd voor het vertalen van beoordelingsnotities.
-- Voor het wijzigen van "Standaardweergave" hoeft de app niet opnieuw te worden opgestart.
-- Meerdere optimalisaties.
-- Kleine visuele veranderingen.
-- Tsjechische vertalingen toegevoegd (door Fjuro).

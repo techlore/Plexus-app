@@ -1,6 +1,0 @@
-- Soporte para Android 15.
-- Se ha añadido la posibilidad de traducir las notas de clasificación.
-- Cambiar "Vista por defecto" no requiere reiniciar la aplicación.
-- Múltiples optimizaciones.
-- Cambios visuales menores.
-- Añadidas traducciones al checo (por Fjuro).

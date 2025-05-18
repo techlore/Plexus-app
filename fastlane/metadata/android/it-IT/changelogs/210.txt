@@ -1,6 +1,0 @@
-- Supporto per Android 15.
-- Aggiunto il supporto per la traduzione delle note di valutazione.
-- La modifica della "Vista predefinita" non richiede il riavvio dell'app.
-- Ottimizzazioni multiple.
-- Modifiche visive minori.
-- Aggiunte traduzioni in ceco (da Fjuro).

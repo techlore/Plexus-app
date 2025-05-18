@@ -1,0 +1,6 @@
+- Verbeterde detectie voor apps geïnstalleerd via F-Droid.
+- CalyxOS wordt nu herkend als deGoogled wanneer microG is uitgeschakeld.
+- Een crashprobleem opgelost bij het beoordelen van apps, veroorzaakt door DNS-blokkering van play.google.com.
+- Ondersteuning toegevoegd voor extra aangepaste ROM's.
+- Een link naar de VPN Toolkit voor VPN-apps toegevoegd.
+- Braziliaans-Portugese vertalingen toegevoegd.

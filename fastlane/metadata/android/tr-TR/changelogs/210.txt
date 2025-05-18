@@ -1,6 +1,0 @@
-- Android 15 için destek.
-- Derecelendirme notlarını çevirmek için destek eklendi.
-- "Varsayılan Görünüm" ün değiştirilmesi uygulamanın yeniden başlatılmasını gerektirmez.
-- Çoklu optimizasyonlar.
-- Küçük görsel değişiklikler.
-- Çekçe çeviriler eklendi (Fjuro tarafından).
