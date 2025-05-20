@@ -22,6 +22,7 @@ import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import okhttp3.CertificatePinner
 import okhttp3.Dispatcher
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
@@ -44,6 +45,13 @@ class ApiManager {
                         readTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
                         writeTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
                         followRedirects(true)
+                        
+                        // Apply certificate pinning
+                        certificatePinner(
+                            CertificatePinner.Builder()
+                                .add("plexus.techlore.tech", "sha256/RacvZ7FBPeVMqaHMkRcNJ32cR8Qxz5KN3glkNrKu0no=")
+                                .build()
+                        )
                     }
                 }
                 install(ContentNegotiation) {
