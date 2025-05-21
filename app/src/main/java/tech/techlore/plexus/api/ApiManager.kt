@@ -23,6 +23,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import okhttp3.CertificatePinner
+import okhttp3.ConnectionSpec
 import okhttp3.Dispatcher
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
@@ -45,11 +46,13 @@ class ApiManager {
                         readTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
                         writeTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
                         followRedirects(true)
-                        
-                        // Apply certificate pinning
+                        connectionSpecs(listOf(ConnectionSpec.RESTRICTED_TLS, ConnectionSpec.MODERN_TLS))
                         certificatePinner(
                             CertificatePinner.Builder()
                                 .add("plexus.techlore.tech", "sha256/RacvZ7FBPeVMqaHMkRcNJ32cR8Qxz5KN3glkNrKu0no=")
+                                .add("f-droid.org", "sha256/DngAL+l1YaQ1nusSDt3FBa7EMKj5F/c7W3MDDnIttOE=")
+                                .add("play-lh.googleusercontent.com", "sha256/KaXtxbltoxW0VkjNk20CuThvpbEfG0VoUEUOC7YC4t8=")
+                                .add("translate.fedilab.app", "sha256/OPZfpSwcAEajLsmxhF6/gq2lkUgENlt/iQa1SEeHZSE=")
                                 .build()
                         )
                     }

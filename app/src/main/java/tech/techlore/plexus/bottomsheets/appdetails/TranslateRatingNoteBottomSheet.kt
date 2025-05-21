@@ -50,6 +50,7 @@ class TranslateRatingNoteBottomSheet(private val notes: String) : BottomSheetDia
     
     private var _binding: BottomSheetTranslateRatingNoteBinding? = null
     private val bottomSheetBinding get() = _binding!!
+    private val footerBinding get() = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
     
     private companion object {
         private const val FADE_ANIM_DURATION = 400L
@@ -72,7 +73,7 @@ class TranslateRatingNoteBottomSheet(private val notes: String) : BottomSheetDia
         
         retrieveTranslation()
         
-        BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
+        footerBinding.apply {
             positiveButton.isVisible = false
             negativeButton.setOnClickListener { dismiss() }
         }
@@ -127,6 +128,7 @@ class TranslateRatingNoteBottomSheet(private val notes: String) : BottomSheetDia
             start()
         }.doOnEnd {
             view.isVisible = true
+            footerBinding.negativeButton.text = getString(R.string.dismiss)
         }
     }
     
