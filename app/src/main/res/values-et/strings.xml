@@ -15,4 +15,19 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   --><resources>
-    </resources>
+    <string name="package_name">Pakett</string>
+    <string name="plexus_data">Plexuse andmed</string>
+    <string name="installed_apps">Paigaldatud rakendused</string>
+    <string name="favorites">Lemmikud</string>
+    <string name="delete_account">Kustuta kasutajakonto</string>
+    <string name="settings">Seadistused</string>
+    <string name="rate">Arvusta</string>
+    <string name="app">Rakendus</string>
+    <string name="retrieving_ratings">Laadin arvustusi</string>
+    <string name="tap_to_select_rom">Palun klõpsi siin ja vali sellesse seadmesse paigaldatud operatsioonisüsteemi versioon.</string>
+    <string name="my_account">Minu kasutajakonto</string>
+    <string name="my_ratings">Minu hinnangud</string>
+    <string name="device_info">Nutiseadme teave</string>
+    <string name="retrieving_data">Laadin andmeid</string>
+    <string name="scan_installed">Uurin paigaldatud rakendusi</string>
+</resources>
