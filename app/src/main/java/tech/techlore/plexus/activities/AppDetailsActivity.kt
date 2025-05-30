@@ -399,7 +399,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                 
                 differentRomsList =
                     arrayOf(getString(R.string.any)) +
-                    ratingsList.map { it.romName }.distinct()
+                    ratingsList.map { it.romName }.distinct().sortedBy { it.lowercase() }
                 
                 differentAndroidVerList =
                     arrayOf(getString(R.string.any)) +
