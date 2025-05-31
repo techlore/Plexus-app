@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~     Copyright (C) 2022-present Techlore
   ~
@@ -15,10 +14,7 @@
   ~
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  -->
-
-<resources>
-
+  --><resources>
     <!--
     Ensure proper encoding of characters
         à = \u00E0
@@ -35,34 +31,29 @@
     <!--First activity-->
     <string name="retrieving_data">R\u00E9cup\u00E9ration des donn\u00E9es</string>
     <string name="scan_installed">Analyse des applications install\u00E9es</string>
-    <string name="welcome_text_desc">Si vous utilisez l\'app pour la premi\u00E8re fois, prenez le temps de vous familiariser avec les ic\u00F4nes et les indicateurs de statut.</string>
+    <string name="welcome_text_desc">Si vous utilisez l\'appli pour la première fois, prenez le temps de vous familiariser avec les icônes et les indicateurs de statut.</string>
     <string name="skip">Passer</string>
-
     <!--#########################################################################################-->
 
     <!--Main activity-->
     <string name="no_apps_found">Aucune application trouv\u00E9e</string>
     <string name="new_submission">Nouvelle \u00E9valuation</string>
-
     <!--My ratings fragment-->
     <string name="no_ratings_available">Aucune \u00E9valuation disponible</string>
     <string name="submit_first_rating">Appuyez sur \u002B pour soumettre votre premi\u00E8re \u00E9valuation</string>
-
     <!--Toolbar menu-->
     <string name="menu_search">Recherche</string>
     <string name="menu_sort">Trier</string>
-
     <!--Nav view-->
-    <string name="device_info">Device info</string>
-    <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
-    <string name="plexus_data">Donn\u00E9s Plexus</string>
-    <string name="installed_apps">Apps install\u00E9es</string>
+    <string name="device_info">Informations sur l\'appareil</string>
+    <string name="tap_to_select_rom">Appuyez ici pour sélectionner la ROM de cet appareil.</string>
+    <string name="plexus_data">Données Plexus</string>
+    <string name="installed_apps">Applis installées</string>
     <string name="favorites">Favoris</string>
     <string name="my_account">Mon compte</string>
     <string name="my_ratings">Mes \u00E9valuations</string>
     <string name="delete_account">Supprimer le compte</string>
     <string name="settings">R\u00E9glages</string>
-
     <!--#########################################################################################-->
 
     <!--App details activity-->
@@ -74,11 +65,9 @@
     <string name="total_ratings">Nombre total d\'\u00E9valuations</string>
     <string name="ratings">\u00C9valuations</string>
     <string name="scroll_to_top">D\u00E9filer vers le haut</string>
-
     <!--Toolbar menu-->
     <string name="menu_help">Aide</string>
     <string name="menu_more">Plus d\'options</string>
-
     <!--#########################################################################################-->
 
     <!--Email verification fragment-->
@@ -96,18 +85,16 @@
     <string name="by_proceeding_agree_desc">En poursuivant, vous acceptez d\'utiliser Plexus de fa\u00E7on juste et honn\u00EAte.
         En cas de violation des conditions susmentionn\u00E9es, toutes les \u00E9valuations que vous avez soumises seront supprim\u00E9es.</string>
     <string name="verification">V\u00E9rification</string>
-
     <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Entrez le code de v\u00E9rification envoy\u00E9 \u00E0\n%1$s</string>
     <string name="verification_code">Code de v\u00E9rification</string>
     <string name="verifying_code">Veuillez patienter, v\u00E9rification du code …</string>
     <string name="incorrect_code">Code de v\u00E9rification incorrect.</string>
-
     <!--#########################################################################################-->
 
     <!--Settings activity-->
     <string name="theme">Th\u00E8me</string>
-    <string name="material_you">Material You\n(n\u00E9cessite le red\u00E9marrage de l\'app)</string>
+    <string name="material_you">Material You\n(nécessite le redémarrage de l\'appli)</string>
     <string name="default_view">Vue par d\u00E9faut</string>
     <string name="conf_before_submit">Confirmer avant de soumettre une \u00E9valuation</string>
     <string name="about">A propos</string>
@@ -118,7 +105,6 @@
     <string name="view_on_github">Voir sur GitHub</string>
     <string name="visit_techlore">Visiter le site web de Techlore</string>
     <string name="third_party_licenses">Licences de code tiers</string>
-
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
@@ -127,13 +113,11 @@
     <string name="dismiss">Fermer</string>
     <string name="exit">Quitter</string>
     <string name="retry">R\u00E9essayer</string>
-
     <!--No Network/Internet-->
     <string name="error_occurred_title">Une erreur s\'est produite</string>
     <string name="no_network_title">Pas de r\u00E9seau</string>
     <string name="no_network_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es cellulaires et r\u00E9essayez.
         Si le r\u00E9seau est actif, assurez-vous que la connexion \u00E0 internet fonctionne.</string>
-
     <!--Help-->
     <string name="icons">Ic\u00F4nes</string>
     <string name="not_tested_subtitle">Non disponible, l\'application n\'a pas \u00E9t\u00E9 test\u00E9e</string>
@@ -147,60 +131,50 @@
     <string name="gold_subtitle">Exp\u00E9rience parfaite ou quasi-parfaite</string>
     <string name="other">Autres</string>
     <string name="android_version_desc">Versions d\'Android</string>
-    <string name="installation_source_desc">Source d\'installation des apps</string>
+    <string name="installation_source_desc">Source d\'installation des applis</string>
     <string name="apps_submit_proc">Proc\u00E9dure de soumission des \u00E9valuations</string>
     <string name="faqs">Questions fr\u00E9quemment pos\u00E9es</string>
-
     <!--Sort-->
     <string name="alphabetical">Alphab\u00E9tique</string>
-    <string name="installed_from">Source d\installation</string>
+    <string name="installed_from">Source d\'installation</string>
     <string name="any">Tout</string>
     <string name="status">Statut</string>
-
     <!--Translate-->
     <string name="translate">Traduire</string>
     <string name="translating">Traduction …</string>
     <string name="translated_using_libretranslate">Traduit avec LibreTranslate:</string>
     <string name="error_translating">Erreur de traduction</string>
-
     <!--Email verification-->
     <string name="sending_code">Veuillez patienter, envoi du code …</string>
     <string name="error_sending_code">Erreur lors de l\'envoi du code</string>
-
     <!--Delete account-->
     <string name="delete_account_desc">Si vous supprimez votre compte :
         \n\u2022 vous ne pourrez plus soumettre d\'\u00E9valuations.
         \n\u2022 toutes les \u00E9valuations pr\u00E9c\u00E9demment soumises seront d\u00E9finitivement supprim\u00E9es de cet appareil.
         \n
         \n\u00CAtes-vous s\u00FBr.e de vouloir continuer?</string>
-
     <!--More options-->
     <string name="menu_share">Partager</string>
-
     <!--First submission-->
     <string name="first_submission_desc">Toutes vos futures \u00E9valuations tiendront compte de cette s\u00E9lection, qui ne pourra pas \u00EAtre modifi\u00E9e ult\u00E9rieurement.</string>
     <string name="select_correct_rom">Veuillez s\u00E9lectionner la ROM install\u00E9e sur cet appareil.</string>
     <string name="select">S\u00E9lectionner</string>
     <string name="proceed">Continuer</string>
-
     <!--Rate-->
-    <string name="issues_to_check_in_apps">Probl\u00E8mes courants \u00E0 v\u00E9rifier dans les apps</string>
+    <string name="issues_to_check_in_apps">Problèmes courants à vérifier dans les applis</string>
     <string name="notes">Notes</string>
     <string name="optional">facultatif</string>
     <string name="submit">\u00C9valuer</string>
-
     <!--Submit-->
     <string name="about_to_submit">Vous \u00EAtes sur le point de soumettre une \u00E9valuation. \u00CAtes-vous s\u00FBr.e de vouloir continuer?</string>
     <string name="wait_submitting_data">Veuillez patienter durant l\'envoi des donn\u00E9es …</string>
     <string name="submit_success">\u00C9valuation transmise avec succ\u00E8s</string>
     <string name="submit_error">Erreur lors de la transmission l\'\u00E9valuation</string>
     <string name="thanks_for_submitting">Merci de soumettre des \u00E9valuations et d\'aider la communaut\u00E9.</string>
-
     <!--Theme-->
     <string name="follow_system">Selon le r\u00E9glage syst\u00E8me</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
-
     <!--#########################################################################################-->
 
     <!--Snackbars-->
@@ -209,5 +183,4 @@
     <string name="rating_already_submitted">\u00C9valuation d\u00E9j\u00E0 soumise pour %1$s %2$s</string>
     <string name="no_browsers">Aucun navigateur n\'est install\u00E9 sur cet appareil</string>
     <string name="deleted_account_successfully">Compte supprim\u00E9 avec succ\u00E8s</string>
-
 </resources>
