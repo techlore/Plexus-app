@@ -17,6 +17,10 @@
 
 package tech.techlore.plexus.api
 
+import android.app.Application
+import android.content.Context
+import android.util.Base64
+import android.util.Log
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -27,11 +31,24 @@ import okhttp3.ConnectionSpec
 import okhttp3.Dispatcher
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
+import tech.techlore.plexus.R
+import java.io.ByteArrayInputStream
+import java.security.MessageDigest
+import java.security.cert.CertificateFactory
+import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
+import kotlin.collections.map
 
 class ApiManager {
     
     companion object : KoinComponent {
+        
+        private const val CERT_BEGIN = "-----BEGIN CERTIFICATE-----"
+        private const val CERT_END = "-----END CERTIFICATE-----"
+        
+        // Google needs special handling
+        // Check https://pki.goog/faq/#faq-27
+        private val googleRootCerts = get<Application>().getGoogleRootCerts().toTypedArray()
         
         private val okHttpClient =
             HttpClient(OkHttp) {
@@ -49,10 +66,11 @@ class ApiManager {
                         connectionSpecs(listOf(ConnectionSpec.RESTRICTED_TLS, ConnectionSpec.MODERN_TLS))
                         certificatePinner(
                             CertificatePinner.Builder()
-                                .add("plexus.techlore.tech", "sha256/RacvZ7FBPeVMqaHMkRcNJ32cR8Qxz5KN3glkNrKu0no=")
-                                .add("f-droid.org", "sha256/DngAL+l1YaQ1nusSDt3FBa7EMKj5F/c7W3MDDnIttOE=")
-                                .add("play-lh.googleusercontent.com", "sha256/KaXtxbltoxW0VkjNk20CuThvpbEfG0VoUEUOC7YC4t8=")
-                                .add("translate.fedilab.app", "sha256/OPZfpSwcAEajLsmxhF6/gq2lkUgENlt/iQa1SEeHZSE=")
+                                .add("plexus.techlore.tech", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=") // ISRG Root X1
+                                .add("f-droid.org", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=") // ISRG Root X1
+                                .add("play.google.com", *googleRootCerts)
+                                .add("play-lh.googleusercontent.com", *googleRootCerts)
+                                .add("translate.fedilab.app", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=") // ISRG Root X1
                                 .build()
                         )
                     }
@@ -61,6 +79,41 @@ class ApiManager {
                     json(get<Json>())
                 }
             }
+        
+        private fun Context.getGoogleRootCerts(): List<String> {
+            return try {
+                get<Application>().resources.openRawResource(R.raw.google_roots_ca)
+                    .use {
+                        parseX509Certificates(it.bufferedReader().readText())
+                    }
+                    .map {
+                        "sha256/${it.publicKey.encoded.sha256Base64()}"
+                    }
+            }
+            catch (e: Exception) {
+                Log.e("Certificate Pinning", "Failed to get SHA256 certificate hash for Google", e)
+                emptyList()
+            }
+        }
+        
+        private fun parseX509Certificates(pemContent: String): List<X509Certificate> {
+            val certificateFactory = CertificateFactory.getInstance("X.509")
+            return pemContent.split(CERT_END)
+                .map { it.substringAfter(CERT_BEGIN).substringBefore(CERT_END).trim() }
+                .filter { it.isNotBlank() }
+                .map {
+                    certificateFactory.generateCertificate(
+                        ByteArrayInputStream(Base64.decode(it, Base64.DEFAULT))
+                    ) as X509Certificate
+                }
+        }
+        
+        private fun ByteArray.sha256Base64(): String {
+            return Base64.encodeToString(
+                MessageDigest.getInstance("SHA-256").digest(this@sha256Base64),
+                Base64.NO_WRAP
+            )
+        }
         
         fun apiBuilder(): ApiService {
             return ApiService(okHttpClient)
