@@ -28,12 +28,12 @@ kotlin {
 
 android {
     namespace = "tech.techlore.plexus"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "tech.techlore.plexus"
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 212
         versionName = "2.1.2"
         setProperty("archivesBaseName", "Plexus_v$versionName")

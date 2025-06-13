@@ -19,7 +19,7 @@
 androidGradle = "8.10.1"
 androidKotlin = "2.1.21" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
 ksp = "2.1.21-2.0.1" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
-appcompat = "1.7.0"
+appcompat = "1.7.1"
 coreKtx = "1.16.0"
 splashscreen = "1.0.1"
 material3 = "1.14.0-alpha01"
