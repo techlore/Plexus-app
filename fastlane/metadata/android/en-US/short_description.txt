@@ -1,1 +1,1 @@
-Android App Compatibility
+Check apps for compatibility with de-Googled device
