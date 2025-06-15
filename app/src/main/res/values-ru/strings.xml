@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <!--First activity -->
+    <string name="retrieving_data">Извлечение данных</string>
+    <string name="scan_installed">Сканирование установленных приложений</string>
+    <string name="welcome_text_desc">Как новый пользователь приложения, пожалуйста, ознакомьтесь со значками и показателями состояния.</string>
+    <string name="skip">Пропустить</string>
+    <!--#########################################################################################-->
+
+    <!--Main activity-->
+    <string name="no_apps_found">Приложения не найдены</string>
+    <string name="new_submission">Добавить отчёт о приложении</string>
+
+    <!--My ratings fragment-->
+    <string name="no_ratings_available">Нет доступных оценок</string>
+    <string name="submit_first_rating">Нажмите \u002B, чтобы отправить свою первую оценку</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_search">Искать</string>
+    <string name="menu_sort">Сортировать</string>
+
+    <!--Nav view-->
+    <string name="device_info">Информация об устройстве</string>
+    <string name="tap_to_select_rom">Нажмите здесь, чтобы выбрать прошивку на этом устройстве.</string>
+    <string name="plexus_data">Данные Plexus</string>
+    <string name="installed_apps">Установленные приложения</string>
+    <string name="favorites">Избранное</string>
+    <string name="my_account">Мой профиль</string>
+    <string name="my_ratings">Мои оценки</string>
+    <string name="delete_account">Удалить профиль</string>
+    <string name="settings">Настройки</string>
+
+     <!--#########################################################################################-->
+
+    <!--App details activity-->
+    <string name="rate">Оценить</string>
+    <string name="app">Приложение</string>
+    <string name="package_name">Пакет</string>
+    <string name="retrieving_ratings">Получение оценок</string>
+    <string name="total_score">Общая оценка</string>
+    <string name="total_ratings">Всего оценок</string>
+    <string name="ratings">Оценки</string>
+    <string name="scroll_to_top">Прокрутить наверх</string>
+
+     <!--Toolbar menu-->
+    <string name="menu_help">Справка</string>
+    <string name="menu_more">Дополнительные опции</string>
+
+    <!--#########################################################################################-->
+
+    <!--Email verification fragment-->
+    <string name="verify_to_get_started">Чтобы начать, подтвердите адрес электронной почты</string>
+    <string name="verify">Подтвердить</string>
+    <string name="terms_conditions_title">Условия и положения</string>
+    <string name="terms_conditions_desc">Для отправки приложений в Plexus необходим ваш адрес электронной почты.
+        \nЭтот адрес электронной почты будет использоваться только для проверки и будет удалён из нашей системы после проверки.
+        \n
+        \nЭто делается чтобы:
+        \n\u2022 предотвратить потенциальное злоупотребление нашим API.
+        \n\u2022 убедиться в точности представленных данных.
+        \n
+        \nВы можете удалить свой профиль с этого устройства в любое время.</string>
+    <string name="by_proceeding_agree_desc">Продолжая, вы соглашаетесь на добросовестное использование Plexus.
+        В случае нарушения вышеуказанных положений и условий все отправленные вами оценки будут удалены.</string>
+    <string name="verification">Проверка</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">Введите код подтверждения, отправленный на\n%1$s</string>
+    <string name="verification_code">Код подтверждения</string>
+    <string name="verifying_code">Подождите, идёт проверка кода…</string>
+    <string name="incorrect_code">Неверный код подтверждения.</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+    <string name="theme">Тема оформления</string>
+    <string name="material_you">Материальная Material You\n(требуется перезапуск приложения)</string>
+    <string name="default_view">Вид по умолчанию</string>
+    <string name="conf_before_submit">Подтвердите перед отправкой</string>
+    <string name="about">О проекте</string>
+    <string name="version">Версия</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="report_issue">Сообщить о проблеме</string>
+    <string name="support_us">Поддержать нас</string>
+    <string name="view_on_github">Просмотреть на GitHub</string>
+    <string name="visit_techlore">Посетить Techlore</string>
+    <string name="third_party_licenses">Лицензии третьих сторон</string>
+
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <string name="done">Готово</string>
+    <string name="cancel">Отмена</string>
+    <string name="dismiss">Закрыть</string>
+    <string name="exit">Выйти</string>
+    <string name="retry">Повторить</string>
+
+    <!--No Network/Internet-->
+    <string name="error_occurred_title">Произошла ошибка</string>
+    <string name="no_network_title">Нет сети/Интернета</string>
+    <string name="no_network_subtitle">Подключитесь к Wi-Fi или мобильной сети и повторите попытку.
+    Если уже подключено, убедитесь, что есть подключение к Интернету.</string>
+
+    <!--Help-->
+    <string name="icons">Значки</string>
+    <string name="not_tested_subtitle">Недоступно, приложение не тестировалось</string>
+    <string name="broken_title">Сломано</string>
+    <string name="broken_subtitle">Непригодно для использования, в основном приложения не открываются</string>
+    <string name="bronze_title">Бронзовый</string>
+    <string name="bronze_subtitle">Приемлемо, но с отсутствующей или сломанной функциональностью</string>
+    <string name="silver_title">Серебряный</string>
+    <string name="silver_subtitle">Почти всё работает с незначительными оговорками</string>
+    <string name="gold_title">Золотой</string>
+    <string name="gold_subtitle">Идеальная ну или почти идеальная работа</string>
+    <string name="other">Другое</string>
+    <string name="android_version_desc">Версии Android</string>
+    <string name="installation_source_desc">Источник установки приложений</string>
+    <string name="apps_submit_proc">Процедура отправки приложений</string>
+    <string name="faqs">Часто задаваемые вопросы</string>
+    <!--Sort-->
+    <string name="alphabetical">Алфавитный</string>
+    <string name="installed_from">Установлено из</string>
+    <string name="any">Любой</string>
+    <string name="status">Состояние</string>
+
+    <!--Translate-->
+    <string name="translate">Перевести</string>
+    <string name="translating">Перевод…</string>
+    <string name="translated_using_libretranslate">Переведено с помощью LibreTranslate:</string>
+    <string name="error_translating">Ошибка при переводе</string>
+
+    <!--Email verification-->
+    <string name="sending_code">Подождите, отправляется код…</string>
+    <string name="error_sending_code">Ошибка при отправке кода</string>
+
+    <!--Delete account-->
+    <string name="delete_account_desc">Если вы удалите свой профиль:
+    \n\u2022 вы не сможете отправлять оценки.
+    \n\u2022 все ранее отправленные оценки будут навсегда удалены с этого устройства.
+    \n
+    \nВы уверены, что хотите продолжить?</string>
+
+    <!--More options-->
+    <string name="menu_share">Поделиться</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">Все ваши будущие отправки будут учитывать этот выбор, и его нельзя будет изменить позже.</string>
+    <string name="select_correct_rom">Выберите правильную прошивку, установленную на этом устройстве.</string>
+    <string name="select">Выбрать</string>
+    <string name="proceed">Продолжить</string>
+
+    <!--Rate-->
+    <string name="issues_to_check_in_apps">Распространённые проблемы для проверки в приложениях</string>
+    <string name="notes">Заметки</string>
+    <string name="optional">необязательно</string>
+    <string name="submit">Отправить</string>
+
+    <!--Submit-->
+    <string name="about_to_submit">Вы собираетесь отправить оценку. Вы уверены, что хотите продолжить?</string>
+    <string name="wait_submitting_data">Пожалуйста, подождите, отправляются данные…</string>
+    <string name="submit_success">Отправлено успешно</string>
+    <string name="submit_error">Ошибка при отправке данных</string>
+    <string name="thanks_for_submitting">Спасибо за отправку данных и помощь сообществу.</string>
+
+    <!--Theme-->
+    <string name="follow_system">Как в системе</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Тёмная</string>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbars-->
+    <string name="install_app_to_submit">Установите %1$s, чтобы отправить оценку</string>
+    <string name="device_should_be_degoogled_or_microg">Устройство должно быть либо разгуглировано, либо иметь microG, чтобы отправить оценку</string>
+    <string name="rating_already_submitted">Оценка уже отправлена для %1$s %2$s</string>
+    <string name="no_browsers">На этом устройстве не установлено ни одного веб-обозревателя</string>
+    <string name="deleted_account_successfully">Профиль успешно удалён</string>
+
+</resources>
