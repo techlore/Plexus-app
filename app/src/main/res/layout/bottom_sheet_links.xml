@@ -97,6 +97,8 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
+    <!-- Temporarily disable share.
+    Will be enabled when website has per app page
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/share"
         android:layout_width="match_parent"
@@ -112,7 +114,7 @@
         android:text="@string/menu_share"
         android:textAlignment="viewStart"
         android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"/>-->
 
     <include layout="@layout/bottom_sheet_footer"/>
 

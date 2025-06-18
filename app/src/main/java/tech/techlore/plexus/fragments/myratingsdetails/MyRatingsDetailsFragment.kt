@@ -37,7 +37,6 @@ class MyRatingsDetailsFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true)
         _binding = FragmentRatingsDetailsBinding.inflate(inflater, container, false)
         return fragmentBinding.root
     }

@@ -55,7 +55,6 @@ class FavoritesFragment:
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true)
         _binding = RecyclerViewBinding.inflate(inflater, container, false)
         return fragmentBinding.root
     }

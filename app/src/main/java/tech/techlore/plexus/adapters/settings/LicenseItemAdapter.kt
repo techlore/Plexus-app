@@ -23,12 +23,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.SettingsActivity
+import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.models.settings.License
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
 class LicenseItemAdapter(private val aListViewItems: ArrayList<License>,
-                         private val settingsActivity: SettingsActivity) : RecyclerView.Adapter<LicenseItemAdapter.ListViewHolder>() {
+                         private val mainActivity: MainActivity) : RecyclerView.Adapter<LicenseItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
@@ -51,7 +51,7 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>,
         holder.licenseTitle.apply {
             text = license.title
             setOnClickListener{
-                settingsActivity.openURL(license.url)
+                mainActivity.openURL(license.url)
             }
         }
         

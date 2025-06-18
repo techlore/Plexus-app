@@ -155,7 +155,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginHorizontal="@dimen/margin_8"
                 android:visibility="gone"
                 tools:visibility="visible">
 
@@ -427,36 +427,87 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="90dp"
         android:layout_marginEnd="@dimen/margin_16"
         android:src="@drawable/ic_scroll_to_top"
         android:visibility="gone"
         tools:visibility="visible"
-        android:contentDescription="@string/scroll_to_top"/>
+        android:contentDescription="@string/scroll_to_top"
+        style="?attr/floatingActionButtonTertiaryStyle"/>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/detailsBottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_back"
-        app:menuAlignmentMode="start"
-        app:hideOnScroll="true"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/rateBtn"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:layout_marginBottom="@dimen/margin_12"
-        android:layout_marginEnd="@dimen/margin_16"
-        android:paddingHorizontal="@dimen/margin_20"
-        android:layout_gravity="bottom|end"
-        android:backgroundTint="?attr/colorPrimaryContainer"
-        app:icon="@drawable/ic_edit"
-        app:iconTint="?attr/colorOnPrimaryContainer"
-        android:text="@string/rate"
-        android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorOnPrimaryContainer"
-        app:cornerRadius="@dimen/margin_16"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.floatingtoolbar.FloatingToolbarLayout
+            android:id="@+id/detailsFloatingToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rateBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_8"
+            style="?attr/floatingToolbarVibrantStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/detailsBackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_back"
+                    style="?attr/materialIconButtonStyle"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/detailsHelpBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_help"
+                    android:contentDescription="@string/menu_help"
+                    style="?attr/materialIconButtonStyle"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/detailsSortBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_sort"
+                    android:contentDescription="@string/menu_sort"
+                    android:enabled="false"
+                    style="?attr/materialIconButtonStyle"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/detailsLinksBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_links"
+                    android:contentDescription="Links"
+                    style="?attr/materialIconButtonStyle"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.floatingtoolbar.FloatingToolbarLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/rateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            app:layout_constraintStart_toEndOf="@id/detailsFloatingToolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/detailsFloatingToolbar"
+            app:layout_constraintBottom_toBottomOf="@id/detailsFloatingToolbar"
+            android:paddingHorizontal="@dimen/margin_20"
+            app:icon="@drawable/ic_edit"
+            android:text="@string/rate"
+            android:textSize="@dimen/text_16"
+            app:cornerRadius="@dimen/margin_16"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

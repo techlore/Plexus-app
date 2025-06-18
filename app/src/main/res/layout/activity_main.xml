@@ -32,27 +32,64 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_80"
+        android:layout_marginBottom="@dimen/margin_64"
         app:navGraph="@navigation/main_fragments_nav_graph"
         app:defaultNavHost="true"/>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/mainBottomAppBar"
+    <com.google.android.material.dockedtoolbar.DockedToolbarLayout
+        android:id="@+id/mainDockedToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_nav_view"
-        app:contentInsetStartWithNavigation="0dp"
-        app:menuAlignmentMode="auto">
+        android:layout_gravity="bottom">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mainBottomAppBarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8"
-            android:textColor="?attr/colorOnSurface"
-            style="@style/TextAppearance.Material3.TitleLarge"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-    </com.google.android.material.bottomappbar.BottomAppBar>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/navViewBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_nav_view"
+                style="?attr/materialIconButtonStyle"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mainBottomAppBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                style="@style/TextAppearance.Material3.TitleLarge"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mainSearchBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_search"
+                style="?attr/materialIconButtonStyle"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mainSortBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_sort"
+                style="?attr/materialIconButtonStyle"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mainHelpBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_help"
+                style="?attr/materialIconButtonStyle"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.dockedtoolbar.DockedToolbarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

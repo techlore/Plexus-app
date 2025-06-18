@@ -45,10 +45,10 @@ class VerificationActivity : AppCompatActivity() {
     
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.verificationNavHost) as NavHostFragment
         navController = navHostFragment.navController
-    
-        activityBinding.verificationBottomAppBar.apply {
-            setSupportActionBar(this)
-            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        
+        // Back
+        activityBinding.verificationBackBtn.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
     

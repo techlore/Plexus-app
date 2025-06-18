@@ -35,7 +35,7 @@
         layout="@layout/divider_horizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin_8"/>
+        android:layout_marginTop="@dimen/margin_6"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginHorizontal="@dimen/margin_8"
                 android:backgroundTint="@android:color/transparent"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -121,7 +121,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginHorizontal="@dimen/margin_8"
                 android:backgroundTint="@android:color/transparent"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -342,7 +342,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginHorizontal="@dimen/margin_8"
                 android:backgroundTint="@android:color/transparent"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -486,7 +486,7 @@
                 app:layout_constraintTop_toBottomOf="@id/otherCard"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginHorizontal="@dimen/margin_8"
                 android:layout_marginTop="@dimen/margin_16"
                 android:backgroundTint="@android:color/transparent">
 
@@ -511,7 +511,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginHorizontal="@dimen/margin_8"
                 android:layout_marginTop="@dimen/margin_16"
                 android:backgroundTint="@android:color/transparent">
 

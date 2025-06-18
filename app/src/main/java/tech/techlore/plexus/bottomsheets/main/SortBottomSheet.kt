@@ -142,19 +142,16 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         
         // Done
         footerBinding.positiveButton.setOnClickListener {
-            prefManager.setInt(A_Z_SORT,
-                               bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
-            if (isInstalledAppsFragment) prefManager.setInt(INSTALLED_FROM_SORT,
-                                                            bottomSheetBinding.installedFromChipGroup.checkedChipId)
-            prefManager.setInt(STATUS_TOGGLE,
-                               bottomSheetBinding.statusToggleGroup.checkedButtonId)
+            prefManager.setInt(A_Z_SORT, bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
+            if (isInstalledAppsFragment) {
+                prefManager.setInt(INSTALLED_FROM_SORT, bottomSheetBinding.installedFromChipGroup.checkedChipId)
+            }
+            prefManager.setInt(STATUS_TOGGLE, bottomSheetBinding.statusToggleGroup.checkedButtonId)
             if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
-                prefManager.setInt(DG_STATUS_SORT,
-                                   bottomSheetBinding.statusChipGroup.checkedChipId)
+                prefManager.setInt(DG_STATUS_SORT, bottomSheetBinding.statusChipGroup.checkedChipId)
             }
             else if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
-                prefManager.setInt(MG_STATUS_SORT,
-                                   bottomSheetBinding.statusChipGroup.checkedChipId)
+                prefManager.setInt(MG_STATUS_SORT, bottomSheetBinding.statusChipGroup.checkedChipId)
             }
             
             dismiss()

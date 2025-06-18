@@ -60,7 +60,7 @@ class PackageUtils {
                             installedAppsList
                                 .add(MainData(name = it.loadLabel(packageManager).toString(),
                                               packageName = it.packageName,
-                                              installedVersion = packageInfo.versionName ?: "",
+                                              installedVersion = packageInfo.versionName.orEmpty(),
                                               installedBuild =
                                               if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode
                                               else packageInfo.versionCode.toLong(),

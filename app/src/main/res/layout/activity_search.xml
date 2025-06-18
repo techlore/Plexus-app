@@ -29,7 +29,7 @@
         android:id="@+id/searchRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="@dimen/margin_64"
         android:paddingTop="@dimen/margin_10"
         android:paddingBottom="@dimen/margin_10"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -49,26 +49,46 @@
         android:drawablePadding="@dimen/margin_10"
         android:visibility="gone"/>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/searchBottomAppBar"
+    <com.google.android.material.dockedtoolbar.DockedToolbarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_back"
-        app:contentInsetStartWithNavigation="0dp">
+        android:layout_gravity="bottom">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:searchIcon="@null"
-            app:queryBackground="@android:color/transparent"
-            app:defaultQueryHint="@string/menu_search"
-            android:textDirection="locale">
-            <requestFocus/>
-        </androidx.appcompat.widget.SearchView>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-    </com.google.android.material.bottomappbar.BottomAppBar>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/searchBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_back"
+                style="?attr/materialIconButtonStyle"/>
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:iconifiedByDefault="false"
+                app:searchIcon="@null"
+                app:queryBackground="@android:color/transparent"
+                app:defaultQueryHint="@string/menu_search"
+                android:textDirection="locale">
+                <requestFocus/>
+            </androidx.appcompat.widget.SearchView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/searchSortBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_sort"
+                style="?attr/materialIconButtonStyle"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.dockedtoolbar.DockedToolbarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

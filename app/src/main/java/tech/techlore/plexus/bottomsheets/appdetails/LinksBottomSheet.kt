@@ -17,7 +17,6 @@
 
 package tech.techlore.plexus.bottomsheets.appdetails
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,24 +25,22 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetMoreOptionsBinding
+import tech.techlore.plexus.databinding.BottomSheetLinksBinding
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
-class MoreOptionsBottomSheet(
+class LinksBottomSheet(
     private val nameString: String,
-    private val packageNameString: String,
-    private val dgStatus: String,
-    private val mgStatus: String
+    private val packageNameString: String
 ) : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetMoreOptionsBinding? = null
+    private var _binding: BottomSheetLinksBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        _binding = BottomSheetMoreOptionsBinding.inflate(inflater, container, false)
+        _binding = BottomSheetLinksBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
@@ -88,7 +85,8 @@ class MoreOptionsBottomSheet(
         }
         
         // Share
-        bottomSheetBinding.share.setOnClickListener {
+        // Temporarily disable share
+        /*bottomSheetBinding.share.setOnClickListener {
             dismiss()
             startActivity(Intent.createChooser(
                 Intent(Intent.ACTION_SEND)
@@ -103,7 +101,7 @@ class MoreOptionsBottomSheet(
                               ${getString(R.string.fdroid)}: $fdroidString
                               ${getString(R.string.exodus)}: $exodusString
                               """.trimIndent()), getString(R.string.menu_share)))
-        }
+        }*/
         
         footerBinding.positiveButton.visibility = View.GONE
         

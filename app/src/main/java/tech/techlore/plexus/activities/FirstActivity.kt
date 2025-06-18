@@ -84,11 +84,12 @@ class FirstActivity : AppCompatActivity() {
         }
         
         DeviceState.apply {
-            rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM) ?: ""
+            rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).orEmpty()
             androidVersion = getAndroidVersionString()
         }
         
-        retrieveData()
+        //retrieveData()
+        afterDataRetrieved()
     }
     
     private fun getAndroidVersionString(): String {
@@ -141,44 +142,6 @@ class FirstActivity : AppCompatActivity() {
             }
         }
     }
-    
-    /*private suspend fun isDeviceDeGoogledOrMicroG() {
-        val gappsPackages = arrayOf("com.google.android.gms", // Google Play Services
-                                    "com.google.android.gsf", // Google Services Framework
-                                    "com.android.vending") // Google Play Store
-        
-        var microGCount = 0
-        var installedGappsCount = 0
-        
-        withContext(Dispatchers.IO) {
-            gappsPackages.forEach {
-                getAppInfo(it)?.let { appInfo ->
-                    installedGappsCount ++
-                    if (!packageManager.getApplicationLabel(appInfo).startsWith("Google", ignoreCase = true)) {
-                        when {
-                            // CalyxOS + disabled microG = deGoogled
-                            DeviceState.rom == "CalyxOS" && !appInfo.enabled -> installedGappsCount --
-                            else -> microGCount ++
-                        }
-                    }
-                }
-            }
-            
-            DeviceState.apply {
-                isDeviceMicroG = installedGappsCount > 0 && installedGappsCount == microGCount
-                isDeviceDeGoogled = installedGappsCount == 0
-            }
-        }
-    }*/
-    
-    /*private fun getAppInfo(packageName: String): ApplicationInfo? {
-        return try {
-            packageManager.getApplicationInfo(packageName, 0)
-        }
-        catch (_: PackageManager.NameNotFoundException) {
-            null
-        }
-    }*/
     
     private fun afterDataRetrieved() {
         if (prefManager.getBoolean(IS_FIRST_LAUNCH)) {

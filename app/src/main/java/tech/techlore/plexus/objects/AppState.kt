@@ -18,6 +18,5 @@
 package tech.techlore.plexus.objects
 
 object AppState {
-    var isDefaultViewChanged = false
     var isVerificationSuccessful = false
 }

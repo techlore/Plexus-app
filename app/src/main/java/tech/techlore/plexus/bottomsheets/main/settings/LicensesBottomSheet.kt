@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.bottomsheets.settings
+package tech.techlore.plexus.bottomsheets.main.settings
 
 import android.app.Dialog
 import android.os.Bundle
@@ -27,7 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.SettingsActivity
+import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.settings.LicenseItemAdapter
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
@@ -122,7 +122,7 @@ class LicensesBottomSheet : BottomSheetDialogFragment() {
             }
         
         bottomSheetBinding.recView.adapter = LicenseItemAdapter(licenseList,
-                                                                requireActivity() as SettingsActivity)
+                                                                requireActivity() as MainActivity)
         
         BottomSheetFooterBinding.bind(bottomSheetBinding.root).apply {
             positiveButton.isVisible = false

@@ -147,7 +147,8 @@
         android:layout_gravity="center"
         app:singleSelection="true"
         app:selectionRequired="true"
-        app:checkedButton="@id/toggleAnyStatus">
+        app:checkedButton="@id/toggleAnyStatus"
+        style="@style/Widget.Material3.MaterialButtonGroup.Connected">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/toggleAnyStatus"

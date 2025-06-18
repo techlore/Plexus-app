@@ -19,16 +19,14 @@ package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -39,9 +37,9 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.bottomsheets.appdetails.MoreOptionsBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.LinksBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.SortAllRatingsBottomSheet
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
-import tech.techlore.plexus.bottomsheets.myratingsdetails.SortMyRatingsDetailsBottomSheet
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.models.myratings.MyRatingDetails
@@ -51,12 +49,11 @@ import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
-import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
-class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
+class MyRatingsDetailsActivity : AppCompatActivity() {
     
     lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
@@ -80,7 +77,6 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
         window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-        addMenuProvider(this)
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
@@ -93,7 +89,7 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
         val mainRepository by inject<MainDataRepository>()
         val myRatingsRepository by inject<MyRatingsRepository>()
         
-        // Adjust nested scrollview for edge to edge
+        // Adjust UI components for edge to edge
         ViewCompat.setOnApplyWindowInsetsListener(activityBinding.nestedScrollView) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
@@ -104,10 +100,13 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             
             WindowInsetsCompat.CONSUMED
         }
-        
-        activityBinding.detailsBottomAppBar.apply {
-            setSupportActionBar(this)
-            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.scrollTopFab) { v, windowInsets ->
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin =
+                    windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom +
+                    convertDpToPx(this@MyRatingsDetailsActivity, 90f)
+            }
+            WindowInsetsCompat.CONSUMED
         }
         
         lifecycleScope.launch {
@@ -148,11 +147,26 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
                 activityBinding.nestedScrollView.scrollToTop()
-                // Show bottom app bar on scroll up,
-                // otherwise when scrollview reaches top, bottom app bar stays hidden.
-                activityBinding.detailsBottomAppBar.apply {
-                    if (isScrolledDown) performShow()
-                }
+            }
+            
+            // Back
+            activityBinding.detailsBackBtn.setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
+            
+            // Help
+            activityBinding.detailsHelpBtn.setOnClickListener {
+                HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+            }
+            
+            // Sort
+            activityBinding.detailsSortBtn.setOnClickListener {
+                SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+            }
+            
+            // Links
+            activityBinding.detailsLinksBtn.setOnClickListener {
+                LinksBottomSheet(app.name, packageNameString).show(supportFragmentManager, "LinksBottomSheet")
             }
             
             activityBinding.totalRatingsCount.apply {
@@ -235,26 +249,6 @@ class MyRatingsDetailsActivity : AppCompatActivity(), MenuProvider {
                     })
         
         isListSorted = true
-    }
-    
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.menu_activity_details, menu)
-    }
-    
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        when(menuItem.itemId) {
-            R.id.details_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
-            R.id.menu_sort_user_ratings -> SortMyRatingsDetailsBottomSheet().show(supportFragmentManager, "SortMyRatingsBottomSheet")
-            R.id.menu_more ->
-                MoreOptionsBottomSheet(app.name,
-                                       packageNameString,
-                                       mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.dgScore),
-                                       mapScoreRangeToStatusString(this@MyRatingsDetailsActivity, app.mgScore))
-                    .show(supportFragmentManager, "MoreOptionsBottomSheet")
-            
-        }
-        
-        return true
     }
     
     // On back pressed

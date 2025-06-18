@@ -34,7 +34,7 @@
         layout="@layout/divider_horizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin_8"/>
+        android:layout_marginTop="@dimen/margin_6"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

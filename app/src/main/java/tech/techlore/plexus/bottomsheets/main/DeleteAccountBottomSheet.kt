@@ -61,7 +61,7 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
         
         // Proceed
         footerBinding.positiveButton.apply {
-            setBackgroundColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorErrorContainer))
+            setBackgroundColor(MaterialColors.getColor(this, androidx.appcompat.R.attr.colorError))
             setTextColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
             text = getString(R.string.proceed)
             setOnClickListener {
@@ -82,7 +82,7 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
                     }
                     showSnackbar(activityBinding.mainCoordLayout,
                                  getString(R.string.deleted_account_successfully),
-                                 activityBinding.mainBottomAppBar)
+                                 activityBinding.mainDockedToolbar)
                 }
             }
         }

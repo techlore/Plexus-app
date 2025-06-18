@@ -17,7 +17,6 @@
 
 package tech.techlore.plexus.bottomsheets.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,6 @@ import com.google.android.material.textview.MaterialTextView
 import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
-import tech.techlore.plexus.activities.SettingsActivity
 import tech.techlore.plexus.bottomsheets.common.RomSelectionBottomSheet
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetNavViewBinding
@@ -60,7 +58,7 @@ class NavViewBottomSheet : BottomSheetDialogFragment() {
             //Header
             getHeaderView(0).apply {
                 findViewById<MaterialTextView>(R.id.deviceRom).apply {
-                    if (DeviceState.rom != "") text = DeviceState.rom
+                    if (DeviceState.rom.isNotEmpty()) text = DeviceState.rom
                     else
                         setOnClickListener {
                             dismiss()
@@ -84,16 +82,13 @@ class NavViewBottomSheet : BottomSheetDialogFragment() {
             
             setNavigationItemSelectedListener { navMenuItem ->
                 dismiss()
-                when (navMenuItem.itemId) {
-                    R.id.nav_plexus_data, R.id.nav_installed_apps, R.id.nav_fav, R.id.nav_my_ratings -> {
-                        mainActivity.selectedNavItem = navMenuItem.itemId
-                        mainActivity.displayFragment(navMenuItem.itemId)
-                        mainActivity.activityBinding.mainBottomAppBarTitle.text =
-                            mainActivity.navController.currentDestination?.label
-                    }
-                    R.id.nav_delete_account -> DeleteAccountBottomSheet().show(parentFragmentManager, "DeleteAccountBottomSheet")
-                    R.id.nav_settings -> startActivity(Intent(mainActivity, SettingsActivity::class.java))
+                if (navMenuItem.itemId != R.id.nav_delete_account) {
+                    mainActivity.selectedNavItem = navMenuItem.itemId
+                    mainActivity.displayFragment(navMenuItem.itemId)
+                    mainActivity.activityBinding.mainBottomAppBarTitle.text =
+                        mainActivity.navController.currentDestination?.label
                 }
+                else DeleteAccountBottomSheet().show(parentFragmentManager, "DeleteAccountBottomSheet")
                 true
             }
         }

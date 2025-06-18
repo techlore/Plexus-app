@@ -75,7 +75,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
             mainDataDao.insertOrUpdatePlexusData(
                 MainData(name = appData.name,
                          packageName = appData.packageName,
-                         iconUrl = appData.iconUrl ?: "",
+                         iconUrl = appData.iconUrl.orEmpty(),
                          dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
                          totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
                          mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
@@ -143,7 +143,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
             mainDataDao.insertOrUpdatePlexusData(
                 MainData(name = appData.name,
                          packageName = appData.packageName,
-                         iconUrl = appData.iconUrl ?: "",
+                         iconUrl = appData.iconUrl.orEmpty(),
                          dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
                          totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
                          mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),

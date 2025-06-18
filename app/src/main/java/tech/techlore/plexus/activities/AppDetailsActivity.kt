@@ -21,9 +21,6 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
@@ -32,7 +29,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
-import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -41,7 +37,6 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior.STATE_SCROLLED_DOWN
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -51,8 +46,8 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
+import tech.techlore.plexus.bottomsheets.appdetails.LinksBottomSheet
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.bottomsheets.appdetails.MoreOptionsBottomSheet
 import tech.techlore.plexus.bottomsheets.common.RomSelectionBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.bottomsheets.appdetails.SortAllRatingsBottomSheet
@@ -77,15 +72,13 @@ import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
-import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
-import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.getValue
 
-class AppDetailsActivity : AppCompatActivity(), MenuProvider {
+class AppDetailsActivity : AppCompatActivity() {
     
     private lateinit var activityBinding: ActivityAppDetailsBinding
     lateinit var navController: NavController
@@ -119,8 +112,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     var submitNotes = ""
     
     private companion object {
-        private const val SLIDE_UP_ANIM_DURATION = 300L
-        private const val SLIDE_DOWN_ANIM_DURATION = 175L
         private const val FADE_ANIM_DURATION = 400L
         private val SHOW_ANIM_INTERPOLATOR = DecelerateInterpolator()
         private val HIDE_ANIM_INTERPOLATOR = AccelerateInterpolator()
@@ -129,10 +120,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        window.setNavBarContrastEnforced()
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-        addMenuProvider(this)
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
@@ -155,28 +144,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             
             WindowInsetsCompat.CONSUMED
         }
-        mapOf(activityBinding.scrollTopFab to 105f,
-              activityBinding.rateBtn to 12f).forEach { (view, margin) ->
-            ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
-                v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                    bottomMargin =
-                        windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom +
-                        convertDpToPx(this@AppDetailsActivity, margin)
-                }
-                WindowInsetsCompat.CONSUMED
+        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.scrollTopFab) { v, windowInsets ->
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin =
+                    windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom +
+                    convertDpToPx(this@AppDetailsActivity, 90f)
             }
-        }
-        
-        activityBinding.detailsBottomAppBar.apply {
-            setSupportActionBar(this)
-            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
-            // Rate button behavior
-            addOnScrollStateChangedListener { _, newState ->
-                when (newState) {
-                    STATE_SCROLLED_DOWN -> hideViewWithSlideDown(activityBinding.rateBtn)
-                    else -> activityBinding.rateBtn.apply { showViewWithSlideUp(this) }
-                }
-            }
+            WindowInsetsCompat.CONSUMED
         }
         
         lifecycleScope.launch {
@@ -213,17 +187,32 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
                 activityBinding.nestedScrollView.scrollToTop()
-                // Show bottom app bar on scroll up,
-                // otherwise when scrollview reaches top, bottom app bar stays hidden.
-                activityBinding.detailsBottomAppBar.apply {
-                    if (isScrolledDown) performShow()
-                }
             }
             
             val myRatingExists =
                 get<MyRatingsRepository>().getMyRatingsByPackage(app.packageName)?.ratingsDetails?.any {
                     it.version == app.installedVersion
                 } == true
+            
+            // Back
+            activityBinding.detailsBackBtn.setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
+            
+            // Help
+            activityBinding.detailsHelpBtn.setOnClickListener {
+                HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+            }
+            
+            // Sort
+            activityBinding.detailsSortBtn.setOnClickListener {
+                SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+            }
+            
+            // Links
+            activityBinding.detailsLinksBtn.setOnClickListener {
+                LinksBottomSheet(app.name, packageNameString).show(supportFragmentManager, "LinksBottomSheet")
+            }
             
             // Rate
             activityBinding.rateBtn.setOnClickListener {
@@ -232,13 +221,13 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.install_app_to_submit, app.name),
                                      anchorView =
-                                     if (activityBinding.scrollTopFab.isVisible) activityBinding.scrollTopFab
-                                     else activityBinding.detailsBottomAppBar)
+                                         if (activityBinding.scrollTopFab.isVisible) activityBinding.scrollTopFab
+                                         else activityBinding.detailsFloatingToolbar)
                     
                     !DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.device_should_be_degoogled_or_microg),
-                                     activityBinding.detailsBottomAppBar)
+                                     activityBinding.detailsFloatingToolbar)
                     
                     encPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                         RomSelectionBottomSheet(isFromNavView = false).show(supportFragmentManager, "RomSelectionBottomSheet")
@@ -252,7 +241,7 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     myRatingExists ->
                         showSnackbar(activityBinding.detailsCoordLayout,
                                      getString(R.string.rating_already_submitted, app.name, app.installedVersion),
-                                     activityBinding.detailsBottomAppBar)
+                                     activityBinding.detailsFloatingToolbar)
                     
                     else -> RateBottomSheet().show(supportFragmentManager, "RateBottomSheet")
                 }
@@ -261,23 +250,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             retrieveRatings()
         }
         
-    }
-    
-    private fun showViewWithSlideUp(view: View) {
-        ObjectAnimator.ofFloat(view, "translationY", 300f, 0f).apply {
-            duration = SLIDE_UP_ANIM_DURATION
-            interpolator = SHOW_ANIM_INTERPOLATOR
-            view.isVisible = true
-            start()
-        }
-    }
-    
-    private fun hideViewWithSlideDown(view: View) {
-        ObjectAnimator.ofFloat(view, "translationY", 0f, 300f).apply {
-            duration = SLIDE_DOWN_ANIM_DURATION
-            interpolator = HIDE_ANIM_INTERPOLATOR
-            start()
-        }.doOnEnd { view.isVisible = false }
     }
     
     private fun showViewWithFadeIn(view: View) {
@@ -367,9 +339,9 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
         lifecycleScope.launch {
             withContext(Dispatchers.Default) {
                 val ratingRanges = arrayOf(RatingRange("gold", 4.0f, 4.0f),
-                                          RatingRange("silver", 3.0f, 3.9f),
-                                          RatingRange("bronze", 2.0f, 2.9f),
-                                          RatingRange("broken", 1.0f, 1.9f))
+                                           RatingRange("silver", 3.0f, 3.9f),
+                                           RatingRange("bronze", 2.0f, 2.9f),
+                                           RatingRange("broken", 1.0f, 1.9f))
                 
                 val ratingCounts = mutableMapOf<Pair<String?, String>, Int>()
                 for (rating in ratingsList) {
@@ -439,6 +411,8 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
             }
             
             showViewWithFadeIn(activityBinding.detailsNavHost)
+            
+            activityBinding.detailsSortBtn.isEnabled = true
         }
     }
     
@@ -573,25 +547,6 @@ class AppDetailsActivity : AppCompatActivity(), MenuProvider {
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
-    }
-    
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.menu_activity_details, menu)
-    }
-    
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        when(menuItem.itemId) {
-            R.id.details_menu_help -> HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
-            R.id.menu_sort_user_ratings -> SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
-            R.id.menu_more ->
-                MoreOptionsBottomSheet(app.name,
-                                       packageNameString,
-                                       mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore),
-                                       mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore))
-                    .show(supportFragmentManager, "MoreOptionsBottomSheet")
-        }
-        
-        return true
     }
     
     override fun onResume() {

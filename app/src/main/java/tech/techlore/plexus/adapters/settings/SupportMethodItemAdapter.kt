@@ -25,12 +25,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.SettingsActivity
+import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.models.settings.SupportMethod
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
 class SupportMethodItemAdapter (private val aListViewItems: ArrayList<SupportMethod>,
-                                private val settingsActivity: SettingsActivity) : RecyclerView.Adapter<SupportMethodItemAdapter.ListViewHolder>() {
+                                private val mainActivity: MainActivity) : RecyclerView.Adapter<SupportMethodItemAdapter.ListViewHolder>() {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
@@ -62,7 +62,7 @@ class SupportMethodItemAdapter (private val aListViewItems: ArrayList<SupportMet
         holder.liberapayUrl.apply {
             isVisible = position == 0
             setOnClickListener{
-                settingsActivity.openURL(text.toString())
+                mainActivity.openURL(text.toString())
             }
         }
         

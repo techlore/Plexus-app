@@ -34,7 +34,7 @@
         layout="@layout/divider_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8"/>
+        android:layout_marginTop="@dimen/margin_6"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -168,7 +168,8 @@
                 android:gravity="center"
                 app:singleSelection="true"
                 app:selectionRequired="true"
-                app:checkedButton="@id/ratingsToggleAnyStatus">
+                app:checkedButton="@id/ratingsToggleAnyStatus"
+                style="@style/Widget.Material3.MaterialButtonGroup.Connected">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/ratingsToggleAnyStatus"

@@ -91,7 +91,7 @@ class EmailVerificationFragment : Fragment() {
             (requireActivity() as VerificationActivity).apply {
                 openURL(getString(R.string.plexus_privacy_policy_url),
                         activityBinding.verificationCoordLayout,
-                        activityBinding.verificationBottomAppBar)
+                        activityBinding.verificationDockedToolbar)
             }
         }
         
