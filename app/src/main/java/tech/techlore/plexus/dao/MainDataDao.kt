@@ -102,7 +102,7 @@ interface MainDataDao {
                                         mgScoreTo: Float,
                                         isAsc: Boolean): List<MainData>
     // -1 is for ignoring the score when required,
-    // so it doesn't include it while sorting
+    // so it isn't included while sorting
     
     @Query("""
         SELECT * FROM main_table
@@ -121,7 +121,7 @@ interface MainDataDao {
                                        mgScoreTo: Float,
                                        isAsc: Boolean): List<MainData>
     // -1 is for ignoring the score when required,
-    // so it doesn't include it while sorting
+    // so it isn't included while sorting
     
     @Query("""
         SELECT * FROM main_table
@@ -140,13 +140,16 @@ interface MainDataDao {
                                  mgScoreTo: Float,
                                  isAsc: Boolean): List<MainData>
     // -1 is for ignoring the score when required,
-    // so it doesn't include it while sorting
+    // so it isn't included while sorting
     
     @Query("""
         SELECT * FROM main_table
         WHERE name LIKE '%' || :searchQuery || '%' OR packageName LIKE '%' || :searchQuery || '%'
-        ORDER BY LOWER(name) ASC
+        ORDER BY
+        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
+        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
     """)
-    suspend fun searchInDb(searchQuery: String): List<MainData>
+    suspend fun searchInDb(searchQuery: String,
+                           isAsc: Boolean): List<MainData>
     
 }

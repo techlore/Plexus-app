@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_fragment_nav_graph"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="tech.techlore.plexus.fragments.search.SearchFragment">
+        <action
+            android:id="@+id/action_searchFragment_self"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
+    </fragment>
+</navigation>

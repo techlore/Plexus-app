@@ -18,101 +18,67 @@
 package tech.techlore.plexus.activities
 
 import android.os.Bundle
-import android.view.View
+import android.view.Window
+import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import me.stellarsand.android.fastscroll.FastScrollerBuilder
-import org.koin.android.ext.android.inject
+import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import tech.techlore.plexus.R
-import tech.techlore.plexus.adapters.main.MainDataItemAdapter
+import tech.techlore.plexus.bottomsheets.search.SearchSortBottomSheet
 import tech.techlore.plexus.databinding.ActivitySearchBinding
-import tech.techlore.plexus.models.minimal.MainDataMinimal
-import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
-import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
-import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
-import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
+import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
-class SearchActivity : AppCompatActivity(), MainDataItemAdapter.OnItemClickListener {
+class SearchActivity : AppCompatActivity() {
     
-    private lateinit var searchDataList: ArrayList<MainDataMinimal>
+    lateinit var activityBinding: ActivitySearchBinding
+    var orderChipId = R.id.sortAZ
     
     public override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        window.setNavBarContrastEnforced()
+        window.apply {
+            setNavBarContrastEnforced()
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
+            returnTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
+        }
         super.onCreate(savedInstanceState)
-        val activityBinding = ActivitySearchBinding.inflate(layoutInflater)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+        activityBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        val miniRepository by inject<MainDataMinimalRepository>()
-        searchDataList = ArrayList()
-        var job: Job? = null
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.searchNavHost) as NavHostFragment
+        val navController = navHostFragment.navController
         
-        // Adjust recycler view for edge to edge
-        activityBinding.searchRv.adjustEdgeToEdge(this)
-        
-        // Bottom toolbar as actionbar
-        activityBinding.searchBottomAppBar.apply {
-            setSupportActionBar(this)
-            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        // Back
+        activityBinding.searchBackBtn.apply {
+            setButtonTooltipText(getString(R.string.menu_back))
+            setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
         }
-    
-        supportActionBar?.setDisplayShowTitleEnabled(false)
         
-        // Perform search
-        activityBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            
-            override fun onQueryTextSubmit(searchString: String): Boolean {
-                return true
+        // Sort
+        activityBinding.searchSortBtn.apply {
+            setButtonTooltipText(getString(R.string.menu_back))
+            setOnClickListener {
+                SearchSortBottomSheet(navController).show(supportFragmentManager, "SearchSortBottomSheet")
             }
-            
-            override fun onQueryTextChange(searchString: String): Boolean {
-                job?.cancel()
-                
-                // Search with a subtle delay
-                job = lifecycleScope.launch {
-                    delay(350)
-                    if (searchString.isNotEmpty()) {
-                            searchDataList = miniRepository.searchInDb(searchString)
-                            if (searchDataList.isEmpty()) {
-                                activityBinding.searchRv.adapter = null
-                                activityBinding.emptySearchView.visibility = View.VISIBLE
-                            }
-                            else {
-                                activityBinding.emptySearchView.visibility = View.GONE
-                                val mainDataItemAdapter = MainDataItemAdapter(searchDataList,
-                                                                              this@SearchActivity,
-                                                                              lifecycleScope)
-                                activityBinding.searchRv.adapter = mainDataItemAdapter
-                                FastScrollerBuilder(activityBinding.searchRv).build() // Fast scroll
-                            }
-                    }
-                    else {
-                        activityBinding.searchRv.adapter = null
-                        activityBinding.emptySearchView.visibility = View.GONE
-                    }
-                }
-                
-                return true
-            }
-        })
+        }
+        
     }
     
-    // On click
-    override fun onItemClick(position: Int) {
-        val searchData = searchDataList[position]
-        startDetailsActivity(searchData.packageName)
-    }
-    
-    override fun finish() {
-        super.finish()
-        overrideTransition(isClosingTransition = true,
-                           enterAnim = 0,
-                           exitAnim = R.anim.fade_out_slide_to_bottom)
+    // On back pressed
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+            currentFocus?.takeIf { imm?.isAcceptingText == true }?.let {
+                imm?.hideSoftInputFromWindow(it.windowToken, 0)
+                it.clearFocus()
+            }
+            finishAfterTransition()
+        }
     }
 }
