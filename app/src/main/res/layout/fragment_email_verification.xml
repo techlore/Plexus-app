@@ -17,18 +17,22 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<ScrollView
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/emailVerificationScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:scrollbars="vertical"
+    android:transitionGroup="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginHorizontal="@dimen/margin_16"
+        android:paddingTop="@dimen/margin_12"
+        android:paddingBottom="@dimen/margin_8"
+        android:layout_marginHorizontal="@dimen/margin_10"
         android:gravity="center">
 
         <com.google.android.material.textview.MaterialTextView
@@ -61,7 +65,26 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginHorizontal="@dimen/margin_10"
+            android:text="@string/by_proceeding_agree_desc"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="@dimen/text_16"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/proceedBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:text="@string/proceed"
+            android:textSize="@dimen/text_16"
+            android:enabled="false"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_25"
             android:drawableStart="@drawable/ic_terms_conditions"
             android:drawablePadding="@dimen/margin_8"
             android:text="@string/terms_conditions_title"
@@ -82,8 +105,7 @@
             android:id="@+id/privacyPolicyCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginVertical="@dimen/margin_8"
             android:backgroundTint="@android:color/transparent">
 
             <com.google.android.material.textview.MaterialTextView
@@ -100,26 +122,5 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <include layout="@layout/divider_horizontal"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
-            android:layout_marginBottom="@dimen/margin_8"
-            android:layout_marginHorizontal="@dimen/margin_10"
-            android:text="@string/by_proceeding_agree_desc"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="@dimen/text_16"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/proceedBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:text="@string/proceed"
-            android:textSize="@dimen/text_16"
-            android:enabled="false"/>
-
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -27,6 +27,30 @@
     android:background="?attr/colorSurface"
     tools:context=".activities.MainActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mainAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/mainCollapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleCollapseMode="scale"
+            style="?attr/collapsingToolbarLayoutLargeStyle">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainNavHost"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -34,7 +58,20 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/margin_64"
         app:navGraph="@navigation/main_fragments_nav_graph"
-        app:defaultNavHost="true"/>
+        app:defaultNavHost="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newRatingFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="95dp"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:src="@drawable/ic_new"
+        android:contentDescription="@string/new_submission"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <com.google.android.material.dockedtoolbar.DockedToolbarLayout
         android:id="@+id/mainDockedToolbar"
@@ -42,53 +79,59 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/navViewBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/mainSearchBtn"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:icon="@drawable/ic_nav_view"
                 style="?attr/materialIconButtonStyle"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/mainBottomAppBarTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?attr/colorOnSurface"
-                style="@style/TextAppearance.Material3.TitleLarge"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mainSearchBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/navViewBtn"
+                app:layout_constraintEnd_toStartOf="@id/mainSortBtn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:icon="@drawable/ic_search"
+                android:contentDescription="@string/menu_search"
                 style="?attr/materialIconButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mainSortBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/mainSearchBtn"
+                app:layout_constraintEnd_toStartOf="@id/mainHelpBtn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:icon="@drawable/ic_sort"
+                android:contentDescription="@string/menu_sort"
                 style="?attr/materialIconButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mainHelpBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/mainSortBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:icon="@drawable/ic_help"
+                android:contentDescription="@string/menu_help"
                 style="?attr/materialIconButtonStyle"/>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.dockedtoolbar.DockedToolbarLayout>
 

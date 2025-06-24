@@ -114,8 +114,8 @@ class TranslateRatingNoteBottomSheet(private val notes: String) : BottomSheetDia
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveButtonClickListener = { retrieveTranslation() },
-                                     negativeButtonClickListener = { dismiss() })
+                                     positiveBtnClickAction = { retrieveTranslation() },
+                                     negativeBtnClickAction = { dismiss() })
                     .show(parentFragmentManager, "NoNetworkBottomSheet")
             }
         }

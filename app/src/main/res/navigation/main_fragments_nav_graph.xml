@@ -26,42 +26,42 @@
     <fragment
         android:id="@+id/plexusDataFragment"
         android:name="tech.techlore.plexus.fragments.main.PlexusDataFragment"
-        android:label="@string/plexus_data" >
+        android:label="@string/plexus_data">
         <action
             android:id="@+id/action_plexusDataFragment_to_installedAppsFragment"
             app:destination="@id/installedAppsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_plexusDataFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_plexusDataFragment_self"
             app:destination="@id/plexusDataFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_plexusDataFragment_to_myRatingsFragment"
             app:destination="@id/myRatingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_plexusDataFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
     </fragment>
 
     <fragment
@@ -71,38 +71,38 @@
         <action
             android:id="@+id/action_installedAppsFragment_to_plexusDataFragment"
             app:destination="@id/plexusDataFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_installedAppsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_installedAppsFragment_self"
             app:destination="@id/installedAppsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_installedAppsFragment_to_myRatingsFragment"
             app:destination="@id/myRatingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_installedAppsFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
     </fragment>
 
     <fragment
@@ -112,38 +112,38 @@
         <action
             android:id="@+id/action_favoritesFragment_to_plexusDataFragment"
             app:destination="@id/plexusDataFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_favoritesFragment_to_installedAppsFragment"
             app:destination="@id/installedAppsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_favoritesFragment_self"
             app:destination="@id/favoritesFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_favoritesFragment_to_myRatingsFragment"
             app:destination="@id/myRatingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_favoritesFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
     </fragment>
 
     <fragment
@@ -153,40 +153,41 @@
         <action
             android:id="@+id/action_myRatingsFragment_to_installedAppsFragment"
             app:destination="@id/installedAppsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_myRatingsFragment_to_plexusDataFragment"
             app:destination="@id/plexusDataFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_myRatingsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_myRatingsFragment_self"
             app:destination="@id/myRatingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_myRatingsFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
 
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="tech.techlore.plexus.fragments.main.SettingsFragment"
@@ -195,31 +196,31 @@
         <action
             android:id="@+id/action_settingsFragment_to_myRatingsFragment"
             app:destination="@id/myRatingsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_settingsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_settingsFragment_to_installedAppsFragment"
             app:destination="@id/installedAppsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
         <action
             android:id="@+id/action_settingsFragment_to_plexusDataFragment"
             app:destination="@id/plexusDataFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:enterAnim="@anim/material_fade_through_enter"
+            app:exitAnim="@anim/material_fade_through_exit"
+            app:popEnterAnim="@anim/material_fade_through_enter"
+            app:popExitAnim="@anim/material_fade_through_exit"/>
     </fragment>
 
 </navigation>

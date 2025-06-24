@@ -46,6 +46,7 @@
     <string name="submit_first_rating">Pulse \u002B para enviar su primera valoraci\u00F3n</string>
 
     <!--Toolbar menu-->
+    <string name="menu_back">Back</string>
     <string name="menu_search">B\u00F9squeda</string>
     <string name="menu_sort">Clasificar</string>
 
@@ -74,6 +75,7 @@
 
     <!--Toolbar menu-->
     <string name="menu_help">Ayudar</string>
+    <string name="menu_links">Links</string>
     <string name="menu_more">M\u00E1s opciones</string>
 
     <!--#########################################################################################-->

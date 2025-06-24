@@ -27,11 +27,11 @@ import androidx.core.text.isDigitsOnly
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -49,13 +49,17 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 
 class CodeVerificationFragment : Fragment() {
     
     private var _binding: FragmentCodeVerificationBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var verificationActivity: VerificationActivity
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough()
+    }
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -70,20 +74,21 @@ class CodeVerificationFragment : Fragment() {
         verificationActivity = (requireActivity() as VerificationActivity)
         var job: Job? = null
         
-        // Adjust linear layout for edge to edge
-        ViewCompat.setOnApplyWindowInsetsListener(fragmentBinding.codeVerificationLayout) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
-                                                        or WindowInsetsCompat.Type.displayCutout())
-            v.updatePadding(left = insets.left,
-                            top = insets.top,
-                            right = insets.right)
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 80f)
+        fragmentBinding.codeVerificationScrollView.apply {
+            // Adjust scrollview for edge to edge
+            ViewCompat.setOnApplyWindowInsetsListener(this) { v, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                            or WindowInsetsCompat.Type.displayCutout())
+                v.updatePadding(left = insets.left,
+                                bottom = insets.bottom,
+                                right = insets.right)
+                
+                WindowInsetsCompat.CONSUMED
             }
-            WindowInsetsCompat.CONSUMED
+            verificationActivity.activityBinding.verificationAppBar.liftOnScrollTargetViewId = this.id
         }
-        
-        // Title
+                
+                // Title
         fragmentBinding.titleText.text = getString(R.string.enter_code_sent_to_email,
                                                    verificationActivity.emailString)
         
@@ -126,7 +131,7 @@ class CodeVerificationFragment : Fragment() {
                         }
                     }
                     AppState.isVerificationSuccessful = true
-                    requireActivity().finish()
+                    requireActivity().finishAfterTransition()
                 }
                 catch (_: Exception) {
                     showInfo(false)
@@ -134,8 +139,8 @@ class CodeVerificationFragment : Fragment() {
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveButtonClickListener = { verifyDevice() },
-                                     negativeButtonClickListener = {})
+                                     positiveBtnClickAction = { verifyDevice() },
+                                     negativeBtnClickAction = {})
                     .show(parentFragmentManager, "NoNetworkBottomSheet")
             }
         }

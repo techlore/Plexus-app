@@ -17,80 +17,92 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/codeVerificationLayout"
+    android:id="@+id/codeVerificationScrollView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginHorizontal="@dimen/margin_16"
-    android:gravity="center">
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:scrollbars="vertical"
+    android:transitionGroup="true">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/titleText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16"
-        android:drawableStart="@drawable/ic_otp"
-        android:drawablePadding="@dimen/margin_8"
-        android:text="@string/enter_code_sent_to_email"
-        android:textSize="@dimen/text_18"
-        style="@style/MediumBoldText"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/codeTextBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginTop="@dimen/margin_12"
-        android:layout_marginBottom="@dimen/margin_8"
-        app:errorEnabled="true"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+        android:paddingBottom="@dimen/margin_8"
+        android:layout_marginHorizontal="@dimen/margin_10"
+        android:gravity="center"
+        android:transitionGroup="true">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/codeText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/verification_code"
-        android:inputType="number"
-        android:maxLength="6"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_16"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:drawableStart="@drawable/ic_otp"
+            android:drawablePadding="@dimen/margin_8"
+            android:text="@string/enter_code_sent_to_email"
+            android:textSize="@dimen/text_18"
+            style="@style/MediumBoldText"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/doneButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/done"
-        android:textSize="@dimen/text_16"
-        android:enabled="false"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/codeTextBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_8"
+            app:errorEnabled="true"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
-    <com.google.android.material.loadingindicator.LoadingIndicator
-        android:id="@+id/infoAnim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_20"
-        android:layout_gravity="center"
-        app:indicatorColor="?attr/colorPrimary"
-        app:indicatorSize="48dp"
-        app:containerWidth="68dp"
-        app:containerHeight="68dp"
-        style="@style/Widget.Material3.LoadingIndicator.Contained"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/codeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/verification_code"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/text_16"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/infoText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/verifying_code"
-        android:layout_marginTop="@dimen/margin_12"
-        android:textSize="@dimen/text_16"
-        android:textColor="?attr/colorOnSurfaceVariant"
-        android:textAlignment="center"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/doneButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:textSize="@dimen/text_16"
+            android:enabled="false"/>
 
-</LinearLayout>
+        <com.google.android.material.loadingindicator.LoadingIndicator
+            android:id="@+id/infoAnim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_gravity="center"
+            app:indicatorColor="?attr/colorPrimary"
+            app:indicatorSize="48dp"
+            app:containerWidth="68dp"
+            app:containerHeight="68dp"
+            style="@style/Widget.Material3.LoadingIndicator.Contained"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/infoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/verifying_code"
+            android:layout_marginTop="@dimen/margin_12"
+            android:textSize="@dimen/text_16"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textAlignment="center"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

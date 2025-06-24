@@ -42,6 +42,7 @@
     <string name="no_ratings_available">Aucune \u00E9valuation disponible</string>
     <string name="submit_first_rating">Appuyez sur \u002B pour soumettre votre premi\u00E8re \u00E9valuation</string>
     <!--Toolbar menu-->
+    <string name="menu_back">Back</string>
     <string name="menu_search">Recherche</string>
     <string name="menu_sort">Trier</string>
     <!--Nav view-->
@@ -67,6 +68,7 @@
     <string name="scroll_to_top">D\u00E9filer vers le haut</string>
     <!--Toolbar menu-->
     <string name="menu_help">Aide</string>
+    <string name="menu_links">Links</string>
     <string name="menu_more">Plus d\'options</string>
     <!--#########################################################################################-->
 

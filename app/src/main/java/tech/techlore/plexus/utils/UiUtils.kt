@@ -17,9 +17,9 @@
 
 package tech.techlore.plexus.utils
 
-import android.app.Activity
-import android.app.Activity.OVERRIDE_TRANSITION_CLOSE
-import android.app.Activity.OVERRIDE_TRANSITION_OPEN
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
@@ -30,18 +30,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.core.widget.NestedScrollView
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
 import coil3.request.error
 import coil3.request.fallback
 import coil3.request.placeholder
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
@@ -50,22 +54,22 @@ import org.koin.core.component.get
 import org.koin.core.qualifier.named
 import tech.techlore.plexus.R
 import tech.techlore.plexus.objects.DeviceState
-import tech.techlore.plexus.preferences.PreferenceManager
 
 class UiUtils {
     
     companion object : KoinComponent {
         
         fun setAppTheme(selectedTheme: Int) {
-            when(selectedTheme) {
+            when (selectedTheme) {
                 0 -> {
-                    if (Build.VERSION.SDK_INT >= 29){
+                    if (Build.VERSION.SDK_INT >= 29) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     }
                     else {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     }
                 }
+                
                 R.id.followSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 R.id.light -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 R.id.dark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -83,12 +87,12 @@ class UiUtils {
             val (statusIcon, statusText) =
                 if (DeviceState.isDeviceMicroG) {
                     Pair(ContextCompat.getDrawable(context, R.drawable.ic_microg),
-                         if (!appendStatusString) context.getString(R.string.microG)
+                         if (! appendStatusString) context.getString(R.string.microG)
                          else "${context.getString(R.string.microG)} ${context.getString(R.string.status)}")
                 }
                 else {
                     Pair(ContextCompat.getDrawable(context, R.drawable.ic_degoogled),
-                         if (!appendStatusString) context.getString(R.string.de_Googled)
+                         if (! appendStatusString) context.getString(R.string.de_Googled)
                          else "${context.getString(R.string.de_Googled)} ${context.getString(R.string.status)}")
                 }
             setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
@@ -101,7 +105,6 @@ class UiUtils {
                 val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                             or WindowInsetsCompat.Type.displayCutout())
                 v.updatePadding(left = insets.left,
-                                top = insets.top + convertDpToPx(context, 10f),
                                 right = insets.right,
                                 bottom = insets.bottom + convertDpToPx(context, 10f))
                 
@@ -120,25 +123,13 @@ class UiUtils {
             isSelected = true
         }
         
-        fun Activity.overrideTransition(isClosingTransition: Boolean = false,
-                                        enterAnim: Int,
-                                        exitAnim: Int) {
-            if (Build.VERSION.SDK_INT >= 34) {
-                overrideActivityTransition(
-                    if (isClosingTransition) OVERRIDE_TRANSITION_CLOSE else OVERRIDE_TRANSITION_OPEN,
-                    enterAnim,
-                    exitAnim
-                )
-            }
-            else overridePendingTransition(enterAnim, exitAnim)
-        }
-        
         fun NavController.refreshFragment() {
             val action =
-                when(currentDestination!!.id) {
+                when (currentDestination !!.id) {
                     R.id.plexusDataFragment -> R.id.action_plexusDataFragment_self
                     R.id.installedAppsFragment -> R.id.action_installedAppsFragment_self
                     R.id.favoritesFragment -> R.id.action_favoritesFragment_self
+                    R.id.searchFragment -> R.id.action_searchFragment_self
                     R.id.myRatingsFragment -> R.id.action_myRatingsFragment_self
                     R.id.allRatingsFragment -> R.id.action_allRatingsFragment_self
                     else -> R.id.action_myRatingsDetailsFragment_self
@@ -162,13 +153,18 @@ class UiUtils {
                 }
             }
             else {
-                load(iconUrl?.takeIf { it.startsWith("https://play-lh") }?.let {
-                    // Assuming 55dp = 165px for 480 DPI
-                    // append "=w165-h165" to the Play Store url
-                    // this will prevent downloading 512x512 px icon
-                    // & will download only 165x165 px icon
-                    "${it}=w${get<Int>(named("displayedIconSize"))}-h${get<Int>(named("displayedIconSize"))}"
-                } ?: iconUrl) {
+                load(
+                    iconUrl
+                        ?.takeIf { it.startsWith("https://play-lh") }
+                        ?.let {
+                            // Assuming 55dp = 165px for 480 DPI
+                            // append "=w165-h165" to the Play Store url
+                            // this will prevent downloading 512x512 px icon
+                            // & will download only 165x165 px icon
+                            "${it}=w${get<Int>(named("displayedIconSize"))}-h${get<Int>(named("displayedIconSize"))}"
+                        }
+                    ?: iconUrl
+                ) {
                     size(get<Int>(named("displayedIconSize")))
                     placeholder(R.drawable.ic_apk)
                     fallback(R.drawable.ic_apk)
@@ -177,19 +173,19 @@ class UiUtils {
             }
         }
         
-        fun mapStatusChipToScoreRange(preferenceManager: PreferenceManager, sortKey: String): Pair<Float, Float> {
-            return when (preferenceManager.getInt(sortKey)) {
+        fun mapStatusChipToScoreRange(sortChipId: Int): Pair<Float, Float> {
+            return when (sortChipId) {
                 R.id.sortNotTested -> Pair(0.0f, 0.0f)
                 R.id.sortBroken -> Pair(1.0f, 1.9f)
                 R.id.sortBronze -> Pair(2.0f, 2.9f)
                 R.id.sortSilver -> Pair(3.0f, 3.9f)
                 R.id.sortGold -> Pair(4.0f, 4.0f)
-                else -> Pair(-1.0f, -1.0f)
+                else -> Pair(- 1.0f, - 1.0f)
             }
         }
         
         fun mapScoreRangeToStatusString(context: Context, score: Float): String {
-            return when(score) {
+            return when (score) {
                 0.0f -> context.getString(R.string.na)
                 in 1.0f..1.9f -> context.getString(R.string.broken_title)
                 in 2.0f..2.9f -> context.getString(R.string.bronze_title)
@@ -199,11 +195,17 @@ class UiUtils {
         }
         
         fun mapStatusStringToColor(context: Context, status: String): Int? {
-            return when(status) {
+            return when (status) {
                 context.getString(R.string.na) -> null // No background tint. Only show outline
-                context.getString(R.string.broken_title) -> context.resources.getColor(R.color.color_broken_status, context.theme)
-                context.getString(R.string.bronze_title) -> context.resources.getColor(R.color.color_bronze_status, context.theme)
-                context.getString(R.string.silver_title) -> context.resources.getColor(R.color.color_silver_status, context.theme)
+                context.getString(R.string.broken_title) -> context.resources.getColor(R.color.color_broken_status,
+                                                                                       context.theme)
+                
+                context.getString(R.string.bronze_title) -> context.resources.getColor(R.color.color_bronze_status,
+                                                                                       context.theme)
+                
+                context.getString(R.string.silver_title) -> context.resources.getColor(R.color.color_silver_status,
+                                                                                       context.theme)
+                
                 else -> context.resources.getColor(R.color.color_gold_status, context.theme)
             }
         }
@@ -215,6 +217,10 @@ class UiUtils {
                 R.id.ratingsSortSilver, R.id.submitSilver -> 3
                 else -> 4
             }
+        }
+        
+        fun MaterialButton.setButtonTooltipText(text: String) {
+            if (Build.VERSION.SDK_INT >= 26) tooltipText = text
         }
         
         fun MaterialTextView.setInstalledFromStyle(context: Context, installedFrom: String) {
@@ -239,7 +245,7 @@ class UiUtils {
                 }
             
             isVisible = icon != null
-            if (isVisible){
+            if (isVisible) {
                 setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
                 text = installedFromText
             }
@@ -255,15 +261,22 @@ class UiUtils {
                 }
             
             val (statusString, backgroundTint) =
-                when(ratingScore) {
+                when (ratingScore) {
                     1 -> Pair(context.getString(R.string.broken_title),
-                              context.resources.getColor(R.color.color_broken_status, context.theme))
+                              context.resources.getColor(R.color.color_broken_status,
+                                                         context.theme))
+                    
                     2 -> Pair(context.getString(R.string.bronze_title),
-                              context.resources.getColor(R.color.color_bronze_status, context.theme))
+                              context.resources.getColor(R.color.color_bronze_status,
+                                                         context.theme))
+                    
                     3 -> Pair(context.getString(R.string.silver_title),
-                              context.resources.getColor(R.color.color_silver_status, context.theme))
+                              context.resources.getColor(R.color.color_silver_status,
+                                                         context.theme))
+                    
                     else -> Pair(context.getString(R.string.gold_title),
-                                 context.resources.getColor(R.color.color_gold_status, context.theme))
+                                 context.resources.getColor(R.color.color_gold_status,
+                                                            context.theme))
                 }
             
             setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
@@ -282,9 +295,70 @@ class UiUtils {
         fun NestedScrollView.scrollToTop() {
             if (scrollY != 0) {
                 post {
+                    // Manually trigger nested scroll events
+                    // to notify HideViewOnScrollBehavior for bottom Constraint layout
+                    // This won't scroll to top visually
+                    startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL)
+                    dispatchNestedScroll(0, - 1, 0, 0, null)
+                    stopNestedScroll()
+                    
+                    // Actually scroll to top
                     fling(0)
                     smoothScrollTo(0, 0)
                 }
+            }
+        }
+        
+        fun View.showViewWithAnim(shouldScaleUp: Boolean = false,
+                                  setStartScaleValues: Boolean = false,
+                                  animDuration: Long = 300L) {
+            val (startScaleX, startScaleY) =
+                when {
+                    setStartScaleValues -> Pair(0.8f, 0.8f)
+                    else -> Pair(0.0f, 0.0f)
+                }
+            
+            AnimatorSet().apply {
+                playTogether(
+                    arrayListOf<Animator>().apply {
+                        add(ObjectAnimator.ofFloat(this@showViewWithAnim, "alpha", 0.0f, 1.0f))
+                        if (shouldScaleUp) {
+                            add(ObjectAnimator.ofFloat(this@showViewWithAnim, "scaleX", startScaleX, 1.0f))
+                            add(ObjectAnimator.ofFloat(this@showViewWithAnim, "scaleY", startScaleY, 1.0f))
+                        }
+                    }
+                )
+                duration = animDuration
+                interpolator = FastOutSlowInInterpolator()
+                doOnStart { isVisible = true }
+                start()
+            }
+        }
+        
+        fun View.hideViewWithAnim(shouldScaleDown: Boolean = false,
+                                  setEndScaleValues: Boolean = false,
+                                  animDuration: Long = 300L) {
+            
+            val (endScaleX, endScaleY) =
+                when {
+                    setEndScaleValues -> Pair(0.4f, 0.4f)
+                    else -> Pair(0.0f, 0.0f)
+                }
+            
+            AnimatorSet().apply {
+                playTogether(
+                    arrayListOf<Animator>().apply {
+                        add(ObjectAnimator.ofFloat(this@hideViewWithAnim, "alpha", 1.0f, 0.0f))
+                        if (shouldScaleDown) {
+                            add(ObjectAnimator.ofFloat(this@hideViewWithAnim, "scaleX", 1.0f, endScaleX))
+                            add(ObjectAnimator.ofFloat(this@hideViewWithAnim, "scaleY", 1.0f, endScaleY))
+                        }
+                    }
+                )
+                duration = animDuration
+                interpolator = FastOutSlowInInterpolator()
+                start()
+                doOnEnd { isVisible = false }
             }
         }
         

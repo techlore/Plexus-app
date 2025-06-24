@@ -42,7 +42,7 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             
             MainDataMinimal(name = mainData.name,
                             packageName = mainData.packageName,
-                            iconUrl = mainData.iconUrl ?: "",
+                            iconUrl = mainData.iconUrl.orEmpty(),
                             installedFrom = mainData.installedFrom,
                             dgStatus = mapScoreRangeToStatusString(context, mainData.dgScore),
                             mgStatus = mapScoreRangeToStatusString(context, mainData.mgScore),
@@ -56,10 +56,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         return withContext(Dispatchers.IO) {
             
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
+                getScoreRange(statusToggleBtnPref, R.id.toggleDgStatus, prefManager.getInt(DG_STATUS_SORT))
             
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
+                getScoreRange(statusToggleBtnPref, R.id.toggleMgStatus, prefManager.getInt(MG_STATUS_SORT))
             
             val isAsc = orderPref != R.id.sortZA
             
@@ -84,10 +84,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                 }
     
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
+                getScoreRange(statusToggleBtnPref, R.id.toggleDgStatus, prefManager.getInt(DG_STATUS_SORT))
     
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
+                getScoreRange(statusToggleBtnPref, R.id.toggleMgStatus, prefManager.getInt(MG_STATUS_SORT))
             
             val isAsc = orderPref != R.id.sortZA
             
@@ -112,10 +112,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                 }
     
             val (dgScoreFrom, dgScoreTo) =
-                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleDgStatus, DG_STATUS_SORT)
+                getScoreRange(statusToggleBtnPref, R.id.toggleDgStatus, prefManager.getInt(DG_STATUS_SORT))
     
             val (mgScoreFrom, mgScoreTo) =
-                getScoreRange(prefManager, statusToggleBtnPref, R.id.toggleMgStatus, MG_STATUS_SORT)
+                getScoreRange(statusToggleBtnPref, R.id.toggleMgStatus, prefManager.getInt(MG_STATUS_SORT))
             
             val isAsc = orderPref != R.id.sortZA
             
@@ -125,12 +125,24 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
         }
     }
     
-    private fun getScoreRange(preferenceManager: PreferenceManager,
-                              statusToggleBtnPref: Int,
+    suspend fun searchInDb(searchQuery: String,
+                           orderChipId: Int): ArrayList<MainDataMinimal> {
+        return withContext(Dispatchers.IO) {
+            
+            val isAsc = orderChipId != R.id.sortZA
+            
+            mainDataDao
+                .searchInDb(searchQuery.trim(), isAsc)
+                .map { mapToMinimalData(it) }
+                    as ArrayList<MainDataMinimal>
+        }
+    }
+    
+    private fun getScoreRange(statusToggleBtnPref: Int,
                               toggleBtnId: Int,
-                              sortKey: String): Pair<Float, Float> {
+                              sortChipId: Int): Pair<Float, Float> {
         return if (statusToggleBtnPref == toggleBtnId) {
-            mapStatusChipToScoreRange(preferenceManager, sortKey)
+            mapStatusChipToScoreRange(sortChipId)
         } else {
             Pair(-1.0f, -1.0f)
         }
@@ -145,15 +157,6 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     mainDataDao.update(this)
                 }
             }
-        }
-    }
-    
-    suspend fun searchInDb(searchQuery: String): ArrayList<MainDataMinimal> {
-        return withContext(Dispatchers.IO) {
-            mainDataDao
-                .searchInDb(searchQuery.trim())
-                .map { mapToMinimalData(it) }
-                    as ArrayList<MainDataMinimal>
         }
     }
 }

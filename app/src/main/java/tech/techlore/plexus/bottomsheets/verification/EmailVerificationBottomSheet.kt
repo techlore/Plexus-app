@@ -27,6 +27,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
@@ -103,6 +104,10 @@ class EmailVerificationBottomSheet(private val email: String) : BottomSheetDialo
                     (requireActivity() as VerificationActivity).apply {
                         emailString = email
                         deviceId = randomId
+                        navHostFragment.childFragmentManager.primaryNavigationFragment?.apply {
+                            exitTransition = MaterialFadeThrough()
+                        }
+                        activityBinding.verificationAppBar.setExpanded(true, true)
                         navController.navigate(R.id.action_emailVerificationFragment_to_codeVerificationFragment)
                     }
                 }

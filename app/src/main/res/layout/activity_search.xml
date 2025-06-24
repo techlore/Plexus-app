@@ -17,25 +17,48 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/colorSurface"
+    android:transitionGroup="true"
+    tools:context=".activities.SearchActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchRv"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/searchAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:liftOnScroll="true"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:title="@string/menu_search"
+            app:titleCollapseMode="scale"
+            style="?attr/collapsingToolbarLayoutLargeStyle">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/searchNavHost"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/margin_64"
-        android:paddingTop="@dimen/margin_10"
-        android:paddingBottom="@dimen/margin_10"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:background="?attr/colorSurface"
-        android:clipToPadding="false"
-        tools:listitem="@layout/item_main_recycler_view" />
+        app:navGraph="@navigation/search_fragment_nav_graph"
+        app:defaultNavHost="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/emptySearchView"
@@ -65,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_back"
+                android:contentDescription="@string/menu_back"
                 style="?attr/materialIconButtonStyle"/>
 
             <androidx.appcompat.widget.SearchView
@@ -85,6 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_sort"
+                android:contentDescription="@string/menu_sort"
                 style="?attr/materialIconButtonStyle"/>
 
         </LinearLayout>

@@ -67,11 +67,19 @@ class SettingsFragment : Fragment() {
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(left = insets.left,
-                            top = insets.top,
                             bottom = insets.bottom,
                             right = insets.right)
             
             WindowInsetsCompat.CONSUMED
+        }
+        
+        mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = R.id.settingsScrollView
+        
+        // Forcefully set menu button states here
+        // or else menu buttons will be enabled on activity recreation
+        // when theme is changed
+        if (mainActivity.activityBinding.mainSearchBtn.isEnabled) {
+            mainActivity.setMenuButtonStates(isSearchEnabled = false, isSortEnabled = false)
         }
         
         // Version

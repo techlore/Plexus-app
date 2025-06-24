@@ -18,47 +18,55 @@
 package tech.techlore.plexus.activities
 
 import android.os.Bundle
+import android.view.Window
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityVerificationBinding
-import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
+import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class VerificationActivity : AppCompatActivity() {
     
     lateinit var activityBinding: ActivityVerificationBinding
+    lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     var emailString = ""
     var deviceId = ""
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        window.setNavBarContrastEnforced()
+        window.apply {
+            setNavBarContrastEnforced()
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
+            returnTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivityVerificationBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
-    
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.verificationNavHost) as NavHostFragment
+        
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.verificationNavHost) as NavHostFragment
         navController = navHostFragment.navController
         
         // Back
-        activityBinding.verificationBackBtn.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+        activityBinding.verificationBackBtn.apply {
+            setButtonTooltipText(getString(R.string.menu_back))
+            setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
         }
     }
     
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            finish()
-            overrideTransition(isClosingTransition = true,
-                               enterAnim = 0,
-                               exitAnim = R.anim.fade_out_slide_to_bottom)
+            finishAfterTransition()
         }
     }
 }

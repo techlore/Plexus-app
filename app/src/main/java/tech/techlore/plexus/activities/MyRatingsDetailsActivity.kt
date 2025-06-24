@@ -20,6 +20,7 @@ package tech.techlore.plexus.activities
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.ViewGroup
+import android.view.Window
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,8 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,11 +50,14 @@ import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
+import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
-import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
+import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
+import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
+import kotlin.math.abs
 
 class MyRatingsDetailsActivity : AppCompatActivity() {
     
@@ -74,12 +80,18 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        window.setNavBarContrastEnforced()
+        window.apply {
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+            returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
+        var isAppIconVisible = true
+        var isScrolledByFab = false
         navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
         packageNameString = intent.getStringExtra("packageName")!!
@@ -94,9 +106,8 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(left = insets.left,
-                            top = insets.top,
                             right = insets.right,
-                            bottom = insets.bottom + convertDpToPx(this@MyRatingsDetailsActivity, 80f))
+                            bottom = insets.bottom + convertDpToPx(this@MyRatingsDetailsActivity, 70f))
             
             WindowInsetsCompat.CONSUMED
         }
@@ -113,6 +124,24 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
             app = mainRepository.getAppByPackage(packageNameString)!!
             myRating = myRatingsRepository.getMyRatingsByPackage(packageNameString)!!
             
+            activityBinding.detailsAppBar.apply {
+                val totalScrollRange = totalScrollRange.toFloat()
+                addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+                    val progress = abs(verticalOffset).toFloat() / totalScrollRange
+                    if (progress >= 0.22f && isAppIconVisible) {
+                        activityBinding.detailsAppIcon.hideViewWithAnim(shouldScaleDown = true,
+                                                                        setEndScaleValues = true,
+                                                                        animDuration = 150L)
+                        isAppIconVisible = false
+                    }
+                    else if (progress < 0.22f && !isAppIconVisible) {
+                        activityBinding.detailsAppIcon.showViewWithAnim(shouldScaleUp = true,
+                                                                        animDuration = 250L)
+                        isAppIconVisible = true
+                    }
+                })
+            }
+            
             activityBinding.detailsAppIcon.displayAppIcon(
                 context = this@MyRatingsDetailsActivity,
                 isInstalled = app.isInstalled,
@@ -120,7 +149,7 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
                 iconUrl = app.iconUrl
             )
             
-            activityBinding.detailsName.text = app.name
+            activityBinding.detailsCollapsingToolbar.title = app.name
             activityBinding.detailsPackageName.text = app.packageName
             
             @SuppressLint("SetTextI18n")
@@ -140,6 +169,10 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
             activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
                 if (scrollY == 0) {
                     activityBinding.scrollTopFab.hide()
+                    if (isScrolledByFab) {
+                        activityBinding.detailsAppBar.setExpanded(true,true)
+                        isScrolledByFab = false
+                    }
                 }
                 else activityBinding.scrollTopFab.show()
             }
@@ -147,26 +180,39 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
                 activityBinding.nestedScrollView.scrollToTop()
+                isScrolledByFab = true
             }
             
             // Back
-            activityBinding.detailsBackBtn.setOnClickListener {
-                onBackPressedDispatcher.onBackPressed()
+            activityBinding.detailsBackBtn.apply {
+                setButtonTooltipText(getString(R.string.menu_back))
+                setOnClickListener {
+                    onBackPressedDispatcher.onBackPressed()
+                }
             }
             
             // Help
-            activityBinding.detailsHelpBtn.setOnClickListener {
-                HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+            activityBinding.detailsHelpBtn.apply {
+                setButtonTooltipText(getString(R.string.menu_help))
+                setOnClickListener {
+                    HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+                }
             }
             
             // Sort
-            activityBinding.detailsSortBtn.setOnClickListener {
-                SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+            activityBinding.detailsSortBtn.apply {
+                setButtonTooltipText(getString(R.string.menu_sort))
+                setOnClickListener {
+                    SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+                }
             }
             
             // Links
-            activityBinding.detailsLinksBtn.setOnClickListener {
-                LinksBottomSheet(app.name, packageNameString).show(supportFragmentManager, "LinksBottomSheet")
+            activityBinding.detailsLinksBtn.apply {
+                setButtonTooltipText(getString(R.string.menu_links))
+                setOnClickListener {
+                    LinksBottomSheet(app.name, packageNameString).show(supportFragmentManager, "LinksBottomSheet")
+                }
             }
             
             activityBinding.totalRatingsCount.apply {
@@ -193,7 +239,7 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
                         myRating.ratingsDetails.map { "${it.version} (${it.buildNumber})" }.distinct(),
                         // ROMs
                         arrayOf(getString(R.string.any)) +
-                        myRating.ratingsDetails.map { it.romName }.distinct(),
+                        myRating.ratingsDetails.map { it.romName }.distinct().sortedBy { it.lowercase() },
                         // Android versions
                         arrayOf(getString(R.string.any)) +
                         myRating.ratingsDetails.map { it.androidVersion }.distinct()
@@ -254,7 +300,7 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            finish()
+            finishAfterTransition()
         }
     }
 }

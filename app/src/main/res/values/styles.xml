@@ -77,6 +77,13 @@
 
     <!--#########################################################################################-->
 
+    <!--Switch style-->
+    <style name="SwitchStyle" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbIcon">@drawable/ic_switch_thumb</item>
+    </style>
+
+    <!--#########################################################################################-->
+
     <!--Base bottom sheet style-->
     <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/BottomSheetShapeStyle</item>

@@ -30,9 +30,7 @@
         tools:layout="@layout/fragment_email_verification">
         <action
             android:id="@+id/action_emailVerificationFragment_to_codeVerificationFragment"
-            app:destination="@id/codeVerificationFragment"
-            app:enterAnim="@anim/slide_from_end"
-            app:exitAnim="@anim/slide_to_start"/>
+            app:destination="@id/codeVerificationFragment"/>
     </fragment>
     <fragment
         android:id="@+id/codeVerificationFragment"

@@ -17,18 +17,14 @@
 
 package tech.techlore.plexus.activities
 
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
+import android.view.Window
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.doOnEnd
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -37,6 +33,8 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -66,17 +64,21 @@ import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.objects.DeviceState
+import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
+import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
-import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
+import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
+import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
 import kotlin.getValue
+import kotlin.math.abs
 
 class AppDetailsActivity : AppCompatActivity() {
     
@@ -111,20 +113,21 @@ class AppDetailsActivity : AppCompatActivity() {
     var submitStatusCheckedChipId = 0
     var submitNotes = ""
     
-    private companion object {
-        private const val FADE_ANIM_DURATION = 400L
-        private val SHOW_ANIM_INTERPOLATOR = DecelerateInterpolator()
-        private val HIDE_ANIM_INTERPOLATOR = AccelerateInterpolator()
-    }
-    
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
+        window.apply {
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+            returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivityAppDetailsBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
+        var isAppIconVisible = true
+        var isScrolledByFab = false
         val encPreferenceManager by inject<EncryptedPreferenceManager>()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
@@ -138,9 +141,8 @@ class AppDetailsActivity : AppCompatActivity() {
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(left = insets.left,
-                            top = insets.top,
                             right = insets.right,
-                            bottom = insets.bottom + convertDpToPx(this@AppDetailsActivity, 80f))
+                            bottom = insets.bottom + convertDpToPx(this@AppDetailsActivity, 70f))
             
             WindowInsetsCompat.CONSUMED
         }
@@ -156,6 +158,25 @@ class AppDetailsActivity : AppCompatActivity() {
         lifecycleScope.launch {
             app = mainRepository.getAppByPackage(packageNameString)!!
             
+            // Show/hide anchored icon with FAB like animation
+            activityBinding.detailsAppBar.apply {
+                val totalScrollRange = totalScrollRange.toFloat()
+                addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+                    val progress = abs(verticalOffset).toFloat() / totalScrollRange
+                    if (progress >= 0.22f && isAppIconVisible) {
+                        activityBinding.detailsAppIcon.hideViewWithAnim(shouldScaleDown = true,
+                                                                        setEndScaleValues = true,
+                                                                        animDuration = 150L)
+                        isAppIconVisible = false
+                    }
+                    else if (progress < 0.22f && !isAppIconVisible) {
+                        activityBinding.detailsAppIcon.showViewWithAnim(shouldScaleUp = true,
+                                                                        animDuration = 250L)
+                        isAppIconVisible = true
+                    }
+                })
+            }
+            
             activityBinding.detailsAppIcon.displayAppIcon(
                 context = this@AppDetailsActivity,
                 isInstalled = app.isInstalled,
@@ -163,23 +184,28 @@ class AppDetailsActivity : AppCompatActivity() {
                 iconUrl = app.iconUrl
             )
             
-            activityBinding.detailsName.text = app.name
+            activityBinding.detailsCollapsingToolbar.title = app.name
             activityBinding.detailsPackageName.text = app.packageName
             
             activityBinding.detailsInstalledVersion.apply {
                 isVisible = app.installedVersion.isNotEmpty()
-                if (isVisible) text = "${app.installedVersion} (${app.installedBuild})"
+                if (isVisible) {
+                    text = "${app.installedVersion} (${app.installedBuild})"
+                    activityBinding.detailsInstalledFrom.setInstalledFromStyle(
+                        context = this@AppDetailsActivity,
+                        installedFrom = app.installedFrom
+                    )
+                }
             }
-            
-            activityBinding.detailsInstalledFrom.setInstalledFromStyle(
-                context = this@AppDetailsActivity,
-                installedFrom = app.installedFrom
-            )
             
             // Show FAB on scroll
             activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
                 if (scrollY == 0) {
                     activityBinding.scrollTopFab.hide()
+                    if (isScrolledByFab) {
+                        activityBinding.detailsAppBar.setExpanded(true,true)
+                        isScrolledByFab = false
+                    }
                 }
                 else activityBinding.scrollTopFab.show()
             }
@@ -187,6 +213,7 @@ class AppDetailsActivity : AppCompatActivity() {
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
                 activityBinding.nestedScrollView.scrollToTop()
+                isScrolledByFab = true
             }
             
             val myRatingExists =
@@ -195,23 +222,35 @@ class AppDetailsActivity : AppCompatActivity() {
                 } == true
             
             // Back
-            activityBinding.detailsBackBtn.setOnClickListener {
-                onBackPressedDispatcher.onBackPressed()
+            activityBinding.detailsBackBtn.apply {
+                setButtonTooltipText(getString(R.string.menu_back))
+                setOnClickListener {
+                    onBackPressedDispatcher.onBackPressed()
+                }
             }
             
             // Help
-            activityBinding.detailsHelpBtn.setOnClickListener {
-                HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+            activityBinding.detailsHelpBtn.apply {
+                setButtonTooltipText(getString(R.string.menu_help))
+                setOnClickListener {
+                    HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+                }
             }
             
             // Sort
-            activityBinding.detailsSortBtn.setOnClickListener {
-                SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+            activityBinding.detailsSortBtn.apply {
+                setButtonTooltipText(getString(R.string.menu_sort))
+                setOnClickListener {
+                    SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+                }
             }
             
             // Links
-            activityBinding.detailsLinksBtn.setOnClickListener {
-                LinksBottomSheet(app.name, packageNameString).show(supportFragmentManager, "LinksBottomSheet")
+            activityBinding.detailsLinksBtn.apply {
+                setButtonTooltipText(getString(R.string.menu_links))
+                setOnClickListener {
+                    LinksBottomSheet(app.name, packageNameString).show(supportFragmentManager, "LinksBottomSheet")
+                }
             }
             
             // Rate
@@ -233,9 +272,7 @@ class AppDetailsActivity : AppCompatActivity() {
                         RomSelectionBottomSheet(isFromNavView = false).show(supportFragmentManager, "RomSelectionBottomSheet")
                     
                     !encPreferenceManager.getBoolean(IS_REGISTERED) -> {
-                        startActivity(Intent(this@AppDetailsActivity, VerificationActivity::class.java))
-                        overrideTransition(enterAnim = R.anim.fade_in_slide_from_bottom,
-                                           exitAnim = R.anim.no_movement)
+                        startActivityWithTransition(Intent(this@AppDetailsActivity, VerificationActivity::class.java))
                     }
                     
                     myRatingExists ->
@@ -250,29 +287,6 @@ class AppDetailsActivity : AppCompatActivity() {
             retrieveRatings()
         }
         
-    }
-    
-    private fun showViewWithFadeIn(view: View) {
-        ObjectAnimator.ofFloat(view, "alpha", 0f, 1f).apply {
-            duration = FADE_ANIM_DURATION
-            interpolator = SHOW_ANIM_INTERPOLATOR
-            start()
-        }.doOnEnd {
-            view.isVisible = true
-            // Show animated progress after recyclerview is shown,
-            // otherwise progress bars animation looks stuck if recyclerview has too many rows
-            if (view == activityBinding.detailsNavHost) {
-                setTotalScore(isMicroG = DeviceState.isDeviceMicroG)
-            }
-        }
-    }
-    
-    private fun hideViewWithFadeOut(view: View) {
-        ObjectAnimator.ofFloat(view, "alpha", 1f, 0f).apply {
-            duration = FADE_ANIM_DURATION
-            interpolator = HIDE_ANIM_INTERPOLATOR
-            start()
-        }.doOnEnd { view.isVisible = false }
     }
     
     private fun retrieveRatings() {
@@ -319,15 +333,15 @@ class AppDetailsActivity : AppCompatActivity() {
                     NoNetworkBottomSheet(isNoNetworkError = false,
                                          exception = e,
                                          negativeButtonText = getString(R.string.exit),
-                                         positiveButtonClickListener = { retrieveRatings() },
-                                         negativeButtonClickListener = { finish() })
+                                         positiveBtnClickAction = { retrieveRatings() },
+                                         negativeBtnClickAction = { finishAfterTransition() })
                         .show(supportFragmentManager, "NoNetworkBottomSheet")
                 }
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveButtonClickListener = { retrieveRatings() },
-                                     negativeButtonClickListener = { finish() })
+                                     positiveBtnClickAction = { retrieveRatings() },
+                                     negativeBtnClickAction = { finishAfterTransition() })
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
             
@@ -401,16 +415,21 @@ class AppDetailsActivity : AppCompatActivity() {
             
             arrayOf(activityBinding.loadingIndicator, activityBinding.retrievingRatingsText,
                     activityBinding.totalScoreText, activityBinding.totalScoreCard).forEachIndexed { index, view ->
-                if (index < 2) hideViewWithFadeOut(view)
-                else showViewWithFadeIn(view)
+                if (index < 2) view.isVisible = false
+                else view.showViewWithAnim()
             }
             
             activityBinding.totalRatingsCount.apply {
                 text = "${getString(R.string.total_ratings)}: ${(app.totalDgRatings + app.totalMgRatings)}"
-                showViewWithFadeIn(this)
+                showViewWithAnim()
             }
             
-            showViewWithFadeIn(activityBinding.detailsNavHost)
+            // No need to animate recycler view as it won't be shown unless scrolled
+            activityBinding.detailsNavHost.isVisible = true
+            
+            // Show animated progress after recyclerview is shown,
+            // otherwise progress bars animation looks stuck if recyclerview has too many rows
+            setTotalScore(isMicroG = DeviceState.isDeviceMicroG)
             
             activityBinding.detailsSortBtn.isEnabled = true
         }
@@ -542,8 +561,8 @@ class AppDetailsActivity : AppCompatActivity() {
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveButtonClickListener = { showSubmitBottomSheet() },
-                                     negativeButtonClickListener = {})
+                                     positiveBtnClickAction = { showSubmitBottomSheet() },
+                                     negativeBtnClickAction = {})
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
@@ -560,7 +579,7 @@ class AppDetailsActivity : AppCompatActivity() {
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            finish()
+            finishAfterTransition()
         }
     }
 }

@@ -85,6 +85,7 @@ class PlexusDataFragment :
                                                             this@PlexusDataFragment,
                                                             lifecycleScope)
                 fragmentBinding.recyclerView.apply {
+                    mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
                     adapter = plexusDataItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
@@ -133,8 +134,8 @@ class PlexusDataFragment :
                     NoNetworkBottomSheet(isNoNetworkError = false,
                                          exception = e,
                                          negativeButtonText = getString(R.string.exit),
-                                         positiveButtonClickListener = { refreshData() },
-                                         negativeButtonClickListener = {
+                                         positiveBtnClickAction = { refreshData() },
+                                         negativeBtnClickAction = {
                                              fragmentBinding.swipeRefreshLayout.isRefreshing = false
                                          })
                         .show(parentFragmentManager, "NoNetworkBottomSheet")
@@ -142,8 +143,8 @@ class PlexusDataFragment :
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveButtonClickListener = { refreshData() },
-                                     negativeButtonClickListener = {
+                                     positiveBtnClickAction = { refreshData() },
+                                     negativeBtnClickAction = {
                                          fragmentBinding.swipeRefreshLayout.isRefreshing = false
                                      })
                     .show(parentFragmentManager, "NoNetworkBottomSheet")

@@ -80,6 +80,7 @@ class FavoritesFragment:
                                                      this@FavoritesFragment,
                                                      lifecycleScope)
                 fragmentBinding.recyclerView.apply {
+                    mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
                     adapter = favItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }

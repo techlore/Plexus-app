@@ -22,7 +22,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -48,10 +47,12 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
+import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
-import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
+import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
+import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
 
 class FirstActivity : AppCompatActivity() {
     
@@ -88,8 +89,7 @@ class FirstActivity : AppCompatActivity() {
             androidVersion = getAndroidVersionString()
         }
         
-        //retrieveData()
-        afterDataRetrieved()
+        retrieveData()
     }
     
     private fun getAndroidVersionString(): String {
@@ -129,15 +129,15 @@ class FirstActivity : AppCompatActivity() {
                     NoNetworkBottomSheet(isNoNetworkError = false,
                                          exception = e,
                                          negativeButtonText = getString(R.string.exit),
-                                         positiveButtonClickListener = { retrieveData() },
-                                         negativeButtonClickListener = { finishAndRemoveTask() })
+                                         positiveBtnClickAction = { retrieveData() },
+                                         negativeBtnClickAction = { finishAndRemoveTask() })
                         .show(supportFragmentManager, "NoNetworkBottomSheet")
                 }
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.exit),
-                                     positiveButtonClickListener = { retrieveData() },
-                                     negativeButtonClickListener = { finishAndRemoveTask() })
+                                     positiveBtnClickAction = { retrieveData() },
+                                     negativeBtnClickAction = { finishAndRemoveTask() })
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
@@ -145,39 +145,28 @@ class FirstActivity : AppCompatActivity() {
     
     private fun afterDataRetrieved() {
         if (prefManager.getBoolean(IS_FIRST_LAUNCH)) {
-            val fadeOut = AlphaAnimation(1.0f, 0.0f).apply { duration = 300L }
             activityBinding.apply {
-                firstLoadingIndicator.apply {
-                    isVisible = false
-                    startAnimation(fadeOut)
-                }
-                progressText.apply {
-                    isVisible = false
-                    startAnimation(fadeOut)
-                }
+                firstLoadingIndicator.hideViewWithAnim()
+                progressText.hideViewWithAnim()
                 helloAnimView.apply {
                     setMaxFrame(300)
                     addAnimatorListener(object : Animator.AnimatorListener {
                         override fun onAnimationStart(animation: Animator) {}
                         
                         override fun onAnimationEnd(animation: Animator) {
-                            val fadeIn = AlphaAnimation(0.5f, 1.0f).apply { duration = 500L }
                             progressText.apply {
                                 text = getString(R.string.welcome_text_desc)
-                                isVisible = true
-                                startAnimation(fadeIn)
+                                showViewWithAnim(shouldScaleUp = true, setStartScaleValues = true)
                             }
                             firstSkipBtn.apply {
-                                isVisible = true
-                                startAnimation(fadeIn)
+                                showViewWithAnim()
                                 setOnClickListener {
                                     prefManager.setBoolean(IS_FIRST_LAUNCH, false)
-                                    finish()
+                                    finishAfterTransition()
                                 }
                             }
                             firstProceedBtn.apply {
-                                isVisible = true
-                                startAnimation(fadeIn)
+                                showViewWithAnim()
                                 setOnClickListener {
                                     HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
                                 }
@@ -195,13 +184,11 @@ class FirstActivity : AppCompatActivity() {
             }
         }
         
-        else finish()
+        else finishAfterTransition()
     }
     
     override fun finish() {
         super.finish()
-        startActivity(Intent(this@FirstActivity, MainActivity::class.java))
-        overrideTransition(enterAnim = android.R.anim.fade_in,
-                           exitAnim = android.R.anim.fade_out)
+        startActivityWithTransition(Intent(this@FirstActivity, MainActivity::class.java))
     }
 }

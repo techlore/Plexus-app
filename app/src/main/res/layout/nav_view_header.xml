@@ -18,21 +18,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navViewHeaderRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/deviceInfoIcon"
-        android:layout_width="@dimen/margin_45"
-        android:layout_height="@dimen/margin_45"
+        android:layout_width="@dimen/margin_50"
+        android:layout_height="@dimen/margin_50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/margin_8"
-        android:layout_marginStart="@dimen/margin_12"
-        android:src="@drawable/ic_device_stats"/>
+        android:layout_marginStart="@dimen/margin_10"
+        android:padding="@dimen/margin_8"
+        android:src="@drawable/ic_device_stats"
+        app:tint="?attr/colorOnSurfaceVariant"
+        android:background="@drawable/shape_rounded_corners_large"
+        android:backgroundTint="?attr/colorSurfaceVariant"
+        tools:ignore="ContentDescription" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/deviceInfoTitle"

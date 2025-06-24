@@ -44,6 +44,7 @@
     <string name="submit_first_rating">Tap \u002B to submit your first rating</string>
 
     <!--Toolbar menu-->
+    <string name="menu_back">Back</string>
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort</string>
 
@@ -72,6 +73,7 @@
 
     <!--Toolbar menu-->
     <string name="menu_help">Help</string>
+    <string name="menu_links">Links</string>
     <string name="menu_more">More options</string>
 
     <!--#########################################################################################-->

@@ -18,24 +18,29 @@
 package tech.techlore.plexus.utils
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
+import androidx.core.net.toUri
 
 class IntentUtils {
     
     companion object {
         
+        fun Activity.startActivityWithTransition(intent: Intent) {
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+        }
+        
         // App details activity
         fun Activity.startDetailsActivity(packageName: String) {
-            startActivity(Intent(this, AppDetailsActivity::class.java)
-                              .putExtra("packageName", packageName))
+            startActivityWithTransition(Intent(this, AppDetailsActivity::class.java)
+                                            .putExtra("packageName", packageName))
         }
         
         // Open links
@@ -43,7 +48,7 @@ class IntentUtils {
                              coordinatorLayout: CoordinatorLayout,
                              anchorView: View?) {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
             }
             // If no browser installed, show snackbar
             catch (_: ActivityNotFoundException) {
@@ -54,7 +59,7 @@ class IntentUtils {
         }
         fun Activity.openURL(url: String) {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
             }
             // If no browser installed, show toast
             catch (_: ActivityNotFoundException) {

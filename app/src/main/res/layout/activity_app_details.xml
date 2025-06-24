@@ -24,7 +24,48 @@
     android:id="@+id/detailsCoordLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:transitionGroup="true"
     tools:context=".activities.AppDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/detailsAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/nestedScrollView"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/detailsCollapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleCollapseMode="scale"
+            app:title="@string/app"
+            app:expandedTitleMarginStart="84dp"
+            app:expandedTitleMarginBottom="@dimen/margin_8"
+            style="?attr/collapsingToolbarLayoutLargeStyle">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/detailsAppIcon"
+        android:layout_width="@dimen/margin_55"
+        android:layout_height="@dimen/margin_55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_anchor="@id/detailsAppBar"
+        app:layout_anchorGravity="start|bottom"
+        android:layout_marginStart="@dimen/margin_12"
+        android:src="@drawable/ic_apk"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -32,45 +73,22 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb">
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/detailsAppIcon"
-                android:layout_width="@dimen/margin_55"
-                android:layout_height="@dimen/margin_55"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginStart="@dimen/margin_12"
-                android:src="@drawable/ic_apk"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/detailsName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/detailsAppIcon"
-                app:layout_constraintStart_toEndOf="@id/detailsAppIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="@dimen/margin_12"
-                android:text="@string/app"
-                android:textAlignment="viewStart"
-                android:textSize="@dimen/text_17"
-                style="@style/MediumBoldText"/>
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/detailsPackageName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/detailsName"
-                app:layout_constraintStart_toStartOf="@id/detailsName"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="84dp"
                 android:layout_marginEnd="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_2.5"
                 android:text="@string/package_name"
                 android:textAlignment="viewStart"
                 android:textColor="?attr/colorOnSurfaceVariant"
@@ -81,7 +99,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/detailsPackageName"
-                app:layout_constraintStart_toStartOf="@id/detailsName"
+                app:layout_constraintStart_toStartOf="@id/detailsPackageName"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_2.5"
                 android:layout_marginEnd="@dimen/margin_12"
@@ -97,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_32"
                 app:layout_constraintTop_toBottomOf="@id/detailsInstalledVersion"
-                app:layout_constraintStart_toStartOf="@id/detailsName"
+                app:layout_constraintStart_toStartOf="@id/detailsInstalledVersion"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/margin_8"
                 android:visibility="gone"
@@ -228,7 +246,8 @@
                         app:layout_constraintEnd_toEndOf="@id/progressCircle"
                         android:text="0/4"
                         android:textSize="@dimen/text_18"
-                        android:textColor="?attr/colorOnSurface"/>
+                        android:textColor="?attr/colorOnSurface"
+                        style="@style/MediumBoldText"/>
 
                     <com.google.android.material.progressindicator.LinearProgressIndicator
                         android:id="@+id/goldProgress"
@@ -436,10 +455,13 @@
         style="?attr/floatingActionButtonTertiaryStyle"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomConstraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:background="@android:color/transparent">
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="@dimen/margin_8"
+        app:layout_behavior="com.google.android.material.behavior.HideViewOnScrollBehavior">
 
         <com.google.android.material.floatingtoolbar.FloatingToolbarLayout
             android:id="@+id/detailsFloatingToolbar"
@@ -450,7 +472,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_8"
             style="?attr/floatingToolbarVibrantStyle">
 
             <LinearLayout
@@ -463,6 +484,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_back"
+                    android:contentDescription="@string/menu_back"
                     style="?attr/materialIconButtonStyle"/>
 
                 <com.google.android.material.button.MaterialButton
@@ -487,7 +509,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_links"
-                    android:contentDescription="Links"
+                    android:contentDescription="@string/menu_links"
                     style="?attr/materialIconButtonStyle"/>
 
             </LinearLayout>

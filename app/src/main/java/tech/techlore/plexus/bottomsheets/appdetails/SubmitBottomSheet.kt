@@ -125,7 +125,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
             setOnClickListener {
                 if (ratingCreated && !postedRatingId.isNullOrBlank()) {
                     dismiss()
-                    detailsActivity.finish()
+                    detailsActivity.finishAfterTransition()
                 }
                 else {
                     isVisible = false

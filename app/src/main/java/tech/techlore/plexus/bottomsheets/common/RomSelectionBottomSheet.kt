@@ -44,6 +44,7 @@ import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
+import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 
 class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : BottomSheetDialogFragment() {
     
@@ -158,7 +159,7 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
                     dismiss()
                     if (!isFromNavView) {
                         (requireActivity() as AppDetailsActivity).apply {
-                            startActivity(Intent(this, VerificationActivity::class.java))
+                            startActivityWithTransition(Intent(this, VerificationActivity::class.java))
                         }
                     }
                 }

@@ -72,10 +72,6 @@ class InstalledAppsFragment :
         
         lifecycleScope.launch {
             
-            // Forcefully set toolbar title
-            // to avoid issues when navigating from "My ratings" using fab
-            mainActivity.activityBinding.mainBottomAppBarTitle.text = getString(R.string.installed_apps)
-            
             installedAppsList =
                 miniRepository.miniInstalledAppsListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
                                                            statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
@@ -89,6 +85,7 @@ class InstalledAppsFragment :
                                                               this@InstalledAppsFragment,
                                                               lifecycleScope)
                 fragmentBinding.recyclerView.apply {
+                    mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
                     adapter = installedAppItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }

@@ -86,7 +86,7 @@ class HelpBottomSheet : BottomSheetDialogFragment() {
         get<PreferenceManager>().apply {
             if (getBoolean(IS_FIRST_LAUNCH)) {
                 setBoolean(IS_FIRST_LAUNCH, false)
-                requireActivity().finish()
+                requireActivity().finishAfterTransition()
             }
         }
         super.onDismiss(dialog)

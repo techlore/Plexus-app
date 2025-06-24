@@ -19,11 +19,13 @@ package tech.techlore.plexus.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Window
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityMainBinding
@@ -32,7 +34,8 @@ import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
-import tech.techlore.plexus.utils.UiUtils.Companion.overrideTransition
+import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
+import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +49,12 @@ class MainActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        window.setNavBarContrastEnforced()
+        window.apply {
+            setNavBarContrastEnforced()
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+            returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+        }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         activityBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -73,23 +81,30 @@ class MainActivity : AppCompatActivity() {
         }
         
         // Search
-        activityBinding.mainSearchBtn.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
-            overrideTransition(enterAnim = R.anim.fade_in_slide_from_bottom,
-                               exitAnim = R.anim.no_movement)
+        activityBinding.mainSearchBtn.apply {
+            setButtonTooltipText(getString(R.string.menu_search))
+            setOnClickListener {
+                startActivityWithTransition(Intent(this@MainActivity, SearchActivity::class.java))
+            }
         }
         
         // Sort
-        activityBinding.mainSortBtn.setOnClickListener {
-            SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
+        activityBinding.mainSortBtn.apply {
+            setButtonTooltipText(getString(R.string.menu_sort))
+            setOnClickListener {
+                SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
+            }
         }
         
         // Help
-        activityBinding.mainHelpBtn.setOnClickListener {
-            HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+        activityBinding.mainHelpBtn.apply {
+            setButtonTooltipText(getString(R.string.menu_help))
+            setOnClickListener {
+                HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
+            }
         }
         
-        activityBinding.mainBottomAppBarTitle.text = navController.currentDestination?.label
+        activityBinding.mainCollapsingToolbar.title = navController.currentDestination?.label
         
         // To set nav view item background, check selected item
         selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: defaultSelectedNavItem
@@ -156,11 +171,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_settings -> setMenuButtonStates(isSearchEnabled = false, isSortEnabled = false)
                 else -> setMenuButtonStates()
             }
+            activityBinding.mainAppBar.setExpanded(true, true)
             navController.navigate(action)
+            activityBinding.mainCollapsingToolbar.title = navController.currentDestination?.label
         }
     }
     
-    private fun setMenuButtonStates(isSearchEnabled: Boolean = true, isSortEnabled: Boolean = true) {
+    fun setMenuButtonStates(isSearchEnabled: Boolean = true, isSortEnabled: Boolean = true) {
         activityBinding.mainSearchBtn.isEnabled = isSearchEnabled
         activityBinding.mainSortBtn.isEnabled = isSortEnabled
     }
@@ -177,7 +194,6 @@ class MainActivity : AppCompatActivity() {
                 navController.currentDestination?.id != defaultFragment -> {
                     selectedNavItem = defaultSelectedNavItem
                     displayFragment(selectedNavItem)
-                    activityBinding.mainBottomAppBarTitle.text = navController.currentDestination?.label
                 }
                 else -> finish()
             }

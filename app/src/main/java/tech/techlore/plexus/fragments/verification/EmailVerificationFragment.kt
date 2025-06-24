@@ -23,7 +23,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -42,7 +41,6 @@ import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmail
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
-import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 
 class EmailVerificationFragment : Fragment() {
     
@@ -59,19 +57,21 @@ class EmailVerificationFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
+        val verificationActivity = (requireActivity() as VerificationActivity)
         var job: Job? = null
         
-        // Adjust scrollview for edge to edge
-        ViewCompat.setOnApplyWindowInsetsListener(fragmentBinding.emailVerificationScrollView) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
-                                                        or WindowInsetsCompat.Type.displayCutout())
-            v.updatePadding(left = insets.left,
-                            top = insets.top,
-                            right = insets.right)
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 80f)
+        fragmentBinding.emailVerificationScrollView.apply {
+            // Adjust scrollview for edge to edge
+            ViewCompat.setOnApplyWindowInsetsListener(this) { v, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                                                            or WindowInsetsCompat.Type.displayCutout())
+                v.updatePadding(left = insets.left,
+                                bottom = insets.bottom,
+                                right = insets.right)
+                
+                WindowInsetsCompat.CONSUMED
             }
-            WindowInsetsCompat.CONSUMED
+            verificationActivity.activityBinding.verificationAppBar.liftOnScrollTargetViewId = this.id
         }
         
         fragmentBinding.emailText.doOnTextChanged { charSequence, _, _, _ ->
@@ -88,7 +88,7 @@ class EmailVerificationFragment : Fragment() {
         }
         
         fragmentBinding.privacyPolicyCard.setOnClickListener {
-            (requireActivity() as VerificationActivity).apply {
+            verificationActivity.apply {
                 openURL(getString(R.string.plexus_privacy_policy_url),
                         activityBinding.verificationCoordLayout,
                         activityBinding.verificationDockedToolbar)
@@ -105,11 +105,11 @@ class EmailVerificationFragment : Fragment() {
                     }
                     else {
                         NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                             positiveButtonClickListener = {
+                                             positiveBtnClickAction = {
                                                  EmailVerificationBottomSheet(fragmentBinding.emailText.text.toString())
                                                      .show(parentFragmentManager, "VerificationBottomSheet")
                                              },
-                                             negativeButtonClickListener = {})
+                                             negativeBtnClickAction = {})
                             .show(parentFragmentManager, "NoNetworkBottomSheet")
                     }
                 }

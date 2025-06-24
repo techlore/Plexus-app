@@ -53,6 +53,7 @@
     <string name="submit_first_rating">İlk de\u011Ferlendirmenizi g\u00F6ndermek i\u00E7in \u002B simgesine dokunun</string>
 
     <!--Toolbar menu-->
+    <string name="menu_back">Back</string>
     <string name="menu_search">Ara</string>
     <string name="menu_sort">S\u0131rala</string>
 
@@ -81,6 +82,7 @@
 
     <!--Toolbar menu-->
     <string name="menu_help">Yard\u0131m</string>
+    <string name="menu_links">Links</string>
     <string name="menu_more">Daha fazla se\u00E7enek</string>
 
     <!--#########################################################################################-->

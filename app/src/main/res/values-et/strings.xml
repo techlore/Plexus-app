@@ -32,6 +32,7 @@
     <string name="scan_installed">Uurin paigaldatud rakendusi</string>
     <string name="terms_conditions_title">Kasutustingimused</string>
     <string name="menu_help">Abiteave</string>
+    <string name="menu_links">Links</string>
     <string name="total_score">Koondhinnang</string>
     <string name="by_proceeding_agree_desc">Jätkates nõustud kasutama Plexuse teenuseid viisakalt ja ausalt. Kui rikud ülaltoodud kasutustingimusi, siis kõik sinu arvustused kustutatakse.</string>
     <string name="scroll_to_top">Keri loendi algusesse</string>
@@ -114,6 +115,7 @@
     <string name="rating_already_submitted">Arvustus on juba koostatud: %1$s %2$s</string>
     <string name="gold_subtitle">Rakendus toimib ideaalselt või peaaegu ideaalselt</string>
     <string name="submit_success">Arvustuse saatmine õnnestus</string>
+    <string name="menu_back">Back</string>
     <string name="menu_search">Otsi</string>
     <string name="wait_submitting_data">Palun oota, saadan andmeid…</string>
     <string name="menu_sort">Järjestus</string>

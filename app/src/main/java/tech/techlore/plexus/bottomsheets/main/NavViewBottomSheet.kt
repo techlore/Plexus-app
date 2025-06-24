@@ -68,9 +68,7 @@ class NavViewBottomSheet : BottomSheetDialogFragment() {
                 findViewById<MaterialTextView>(R.id.deviceAndroidVersion).text = DeviceState.androidVersion
                 findViewById<MaterialTextView>(R.id.deviceDgMgStatus).apply {
                     if (!DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG) isVisible = false
-                    else {
-                        setDgMgTextWithIcon(requireContext())
-                    }
+                    else setDgMgTextWithIcon(requireContext())
                 }
             }
             
@@ -83,10 +81,10 @@ class NavViewBottomSheet : BottomSheetDialogFragment() {
             setNavigationItemSelectedListener { navMenuItem ->
                 dismiss()
                 if (navMenuItem.itemId != R.id.nav_delete_account) {
-                    mainActivity.selectedNavItem = navMenuItem.itemId
-                    mainActivity.displayFragment(navMenuItem.itemId)
-                    mainActivity.activityBinding.mainBottomAppBarTitle.text =
-                        mainActivity.navController.currentDestination?.label
+                    mainActivity.apply {
+                        selectedNavItem = navMenuItem.itemId
+                        displayFragment(navMenuItem.itemId)
+                    }
                 }
                 else DeleteAccountBottomSheet().show(parentFragmentManager, "DeleteAccountBottomSheet")
                 true

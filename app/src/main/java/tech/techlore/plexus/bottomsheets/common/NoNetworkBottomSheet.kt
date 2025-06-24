@@ -36,8 +36,8 @@ class NoNetworkBottomSheet(
     private val isNoNetworkError: Boolean = true,
     private val exception: Exception? = null,
     private val negativeButtonText: String,
-    private val positiveButtonClickListener: () -> Unit,
-    private val negativeButtonClickListener: () -> Unit
+    private val positiveBtnClickAction: () -> Unit,
+    private val negativeBtnClickAction: () -> Unit
 ) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetNoNetworkBinding? = null
@@ -94,7 +94,7 @@ class NoNetworkBottomSheet(
             text = getString(R.string.retry)
             setOnClickListener {
                 dismiss()
-                positiveButtonClickListener.invoke()
+                positiveBtnClickAction()
             }
         }
         
@@ -103,7 +103,7 @@ class NoNetworkBottomSheet(
             text = negativeButtonText
             setOnClickListener {
                 dismiss()
-                negativeButtonClickListener.invoke()
+                negativeBtnClickAction()
             }
         }
     }

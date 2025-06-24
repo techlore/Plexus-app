@@ -77,6 +77,7 @@
         <item name="colorSurfaceContainerHigh">@color/color_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/color_surfaceContainerHighest</item>
 
+        <item name="materialSwitchStyle">@style/SwitchStyle</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
     </style>
