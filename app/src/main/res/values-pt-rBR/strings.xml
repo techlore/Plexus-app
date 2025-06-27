@@ -37,7 +37,7 @@
     <string name="no_ratings_available">Nenhuma avaliação está disponível</string>
     <string name="submit_first_rating">Toque em \u002B para enviar sua primeira avaliação</string>
     <!--Toolbar menu-->
-    <string name="menu_back">Back</string>
+    <string name="menu_back">Voltar</string>
     <string name="menu_search">Pesquisar</string>
     <string name="menu_sort">Ordenar</string>
     <!--Nav view-->
