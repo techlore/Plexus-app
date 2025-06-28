@@ -16,24 +16,24 @@
 #
 
 [versions]
-androidGradle = "8.10.1"
-androidKotlin = "2.1.21" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
+androidGradle = "8.11.0"
+androidKotlin = "2.2.0" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
 ksp = "2.1.21-2.0.1" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.1"
 coreKtx = "1.16.0"
 splashscreen = "1.0.1"
 material3 = "1.14.0-alpha02"
-koin = "4.0.2"
+koin = "4.1.0"
 swiperefreshlayout = "1.1.0"
 securityCryptoKtx = "1.1.0-alpha06" # Don't update or else Encrypted Shared Prefs is deprecated
 navigationKtx = "2.9.0"
-kotlinxSerialization = "1.8.0"
+kotlinxSerialization = "1.8.1"
 ktor = "3.0.3"
 room = "2.7.2"
-coil = "3.1.0"
+coil = "3.2.0"
 androidfastscrollKt = "v1.0.8"
-ksoup = "0.2.2"
-lottie = "6.6.2"
+ksoup = "0.2.4"
+lottie = "6.6.7"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
