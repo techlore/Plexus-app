@@ -26,7 +26,6 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.inject
-import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
@@ -92,11 +91,7 @@ class InstalledAppsFragment :
             }
             
             // Swipe refresh layout
-            fragmentBinding.swipeRefreshLayout.apply {
-                setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
-                setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
-                setOnRefreshListener { refreshInstalledApps() }
-            }
+            fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshInstalledApps() }
         }
     }
     

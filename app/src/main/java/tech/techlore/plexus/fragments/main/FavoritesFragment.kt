@@ -66,7 +66,10 @@ class FavoritesFragment:
         // Adjust recycler view for edge to edge
         fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
         
-        lifecycleScope.launch{
+        // Swipe refresh layout
+        fragmentBinding.swipeRefreshLayout.isEnabled = false
+        
+        lifecycleScope.launch {
             favList =
                 miniRepository.miniFavListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
                                                  statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
@@ -85,9 +88,6 @@ class FavoritesFragment:
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
             }
-    
-            // Swipe refresh layout
-            fragmentBinding.swipeRefreshLayout.isEnabled = false
         }
     }
     

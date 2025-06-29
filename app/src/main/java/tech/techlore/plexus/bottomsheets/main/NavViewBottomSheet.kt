@@ -73,9 +73,7 @@ class NavViewBottomSheet : BottomSheetDialogFragment() {
             }
             
             // Nav view items
-            arrayOf(R.id.nav_my_ratings, R.id.nav_delete_account).forEach {
-                menu.findItem(it).isVisible = get<EncryptedPreferenceManager>().getBoolean(IS_REGISTERED)
-            }
+            menu.findItem(R.id.my_account).isVisible = get<EncryptedPreferenceManager>().getBoolean(IS_REGISTERED)
             setCheckedItem(mainActivity.selectedNavItem) // Always sync selected item
             
             setNavigationItemSelectedListener { navMenuItem ->

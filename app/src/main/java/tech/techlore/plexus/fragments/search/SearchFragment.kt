@@ -63,6 +63,9 @@ class SearchFragment : Fragment(), MainDataItemAdapter.OnItemClickListener {
         // Adjust recycler view for edge to edge
         fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
         
+        // Swipe refresh layout
+        fragmentBinding.swipeRefreshLayout.isEnabled = false
+        
         lifecycleScope.launch {
             performSearch(searchActivity.activityBinding.searchView.query.toString())
         }

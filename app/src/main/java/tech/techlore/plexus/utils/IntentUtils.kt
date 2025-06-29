@@ -34,7 +34,8 @@ class IntentUtils {
     companion object {
         
         fun Activity.startActivityWithTransition(intent: Intent) {
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            startActivity(intent,
+                          ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
         
         // App details activity

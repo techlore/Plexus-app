@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             setNavBarContrastEnforced()
             requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
             enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
             returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
         }
         super.onCreate(savedInstanceState)
@@ -136,36 +137,19 @@ class MainActivity : AppCompatActivity() {
     
     // Setup fragments
     fun displayFragment(selectedItem: Int) {
-        val currentFragment = navController.currentDestination
-        
         val actionsMap =
-            mapOf(Pair(R.id.installedAppsFragment, R.id.nav_plexus_data) to R.id.action_installedAppsFragment_to_plexusDataFragment,
-                  Pair(R.id.favoritesFragment, R.id.nav_plexus_data) to R.id.action_favoritesFragment_to_plexusDataFragment,
-                  Pair(R.id.myRatingsFragment, R.id.nav_plexus_data) to R.id.action_myRatingsFragment_to_plexusDataFragment,
-                  Pair(R.id.settingsFragment, R.id.nav_plexus_data) to R.id.action_settingsFragment_to_plexusDataFragment,
-                  Pair(R.id.plexusDataFragment, R.id.nav_installed_apps) to R.id.action_plexusDataFragment_to_installedAppsFragment,
-                  Pair(R.id.favoritesFragment, R.id.nav_installed_apps) to R.id.action_favoritesFragment_to_installedAppsFragment,
-                  Pair(R.id.myRatingsFragment, R.id.nav_installed_apps) to R.id.action_myRatingsFragment_to_installedAppsFragment,
-                  Pair(R.id.settingsFragment, R.id.nav_installed_apps) to R.id.action_settingsFragment_to_installedAppsFragment,
-                  Pair(R.id.plexusDataFragment, R.id.nav_fav) to R.id.action_plexusDataFragment_to_favoritesFragment,
-                  Pair(R.id.installedAppsFragment, R.id.nav_fav) to R.id.action_installedAppsFragment_to_favoritesFragment,
-                  Pair(R.id.myRatingsFragment, R.id.nav_fav) to R.id.action_myRatingsFragment_to_favoritesFragment,
-                  Pair(R.id.settingsFragment, R.id.nav_fav) to R.id.action_settingsFragment_to_favoritesFragment,
-                  Pair(R.id.plexusDataFragment, R.id.nav_my_ratings) to R.id.action_plexusDataFragment_to_myRatingsFragment,
-                  Pair(R.id.installedAppsFragment, R.id.nav_my_ratings) to R.id.action_installedAppsFragment_to_myRatingsFragment,
-                  Pair(R.id.favoritesFragment, R.id.nav_my_ratings) to R.id.action_favoritesFragment_to_myRatingsFragment,
-                  Pair(R.id.settingsFragment, R.id.nav_my_ratings) to R.id.action_settingsFragment_to_myRatingsFragment,
-                  Pair(R.id.plexusDataFragment, R.id.nav_settings) to R.id.action_plexusDataFragment_to_settingsFragment,
-                  Pair(R.id.installedAppsFragment, R.id.nav_settings) to R.id.action_installedAppsFragment_to_settingsFragment,
-                  Pair(R.id.favoritesFragment, R.id.nav_settings) to R.id.action_favoritesFragment_to_settingsFragment,
-                  Pair(R.id.myRatingsFragment, R.id.nav_settings) to R.id.action_myRatingsFragment_to_settingsFragment)
+            mapOf(R.id.nav_plexus_data to R.id.action_global_to_plexusDataFragment,
+                  R.id.nav_installed_apps to R.id.action_global_to_installedAppsFragment,
+                  R.id.nav_fav to R.id.action_global_to_favoritesFragment,
+                  R.id.nav_my_ratings to R.id.action_global_to_myRatingsFragment,
+                  R.id.nav_settings to R.id.action_global_to_settingsFragment)
         
-        val action = actionsMap[Pair(currentFragment?.id, selectedItem)] ?: 0
+        val action = actionsMap[selectedItem] ?: 0
         
         // java.lang.IllegalArgumentException:
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
-        if (selectedItem != currentFragment?.id && action != 0) {
+        if (selectedItem != navController.currentDestination?.id && action != 0) {
             when (selectedNavItem) {
                 R.id.nav_my_ratings -> setMenuButtonStates(isSearchEnabled = false)
                 R.id.nav_settings -> setMenuButtonStates(isSearchEnabled = false, isSortEnabled = false)

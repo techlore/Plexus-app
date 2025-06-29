@@ -42,7 +42,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:titleCollapseMode="scale"
             app:title="@string/app"
-            app:expandedTitleMarginStart="84dp"
+            app:expandedTitleMarginStart="@dimen/margin_80"
             app:expandedTitleMarginBottom="@dimen/margin_8"
             style="?attr/collapsingToolbarLayoutLargeStyle">
 
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_anchor="@id/detailsAppBar"
         app:layout_anchorGravity="start|bottom"
-        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_8"
         android:src="@drawable/ic_apk"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
@@ -87,8 +87,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="84dp"
-                android:layout_marginEnd="@dimen/margin_12"
+                android:layout_marginStart="@dimen/margin_80"
+                android:layout_marginEnd="@dimen/margin_8"
                 android:text="@string/package_name"
                 android:textAlignment="viewStart"
                 android:textColor="?attr/colorOnSurfaceVariant"
@@ -102,7 +102,7 @@
                 app:layout_constraintStart_toStartOf="@id/detailsPackageName"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_2.5"
-                android:layout_marginEnd="@dimen/margin_12"
+                android:layout_marginEnd="@dimen/margin_8"
                 android:text="@string/installed"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/text_16"

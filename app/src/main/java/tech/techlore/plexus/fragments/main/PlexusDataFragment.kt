@@ -92,11 +92,7 @@ class PlexusDataFragment :
             }
             
             // Swipe refresh layout
-            fragmentBinding.swipeRefreshLayout.apply {
-                setProgressBackgroundColorSchemeColor(resources.getColor(R.color.color_background, requireContext().theme))
-                setColorSchemeColors(resources.getColor(R.color.color_secondary, requireContext().theme))
-                setOnRefreshListener { refreshData() }
-            }
+            fragmentBinding.swipeRefreshLayout.setOnRefreshListener { refreshData() }
         }
     }
     

@@ -90,6 +90,7 @@ class FirstActivity : AppCompatActivity() {
         }
         
         retrieveData()
+       // afterDataRetrieved()
     }
     
     private fun getAndroidVersionString(): String {
@@ -187,8 +188,8 @@ class FirstActivity : AppCompatActivity() {
         else finishAfterTransition()
     }
     
-    override fun finish() {
-        super.finish()
+    override fun finishAfterTransition() {
+        super.finishAfterTransition()
         startActivityWithTransition(Intent(this@FirstActivity, MainActivity::class.java))
     }
 }

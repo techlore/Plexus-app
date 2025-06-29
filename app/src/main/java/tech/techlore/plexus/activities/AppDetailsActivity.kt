@@ -33,7 +33,6 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -161,7 +160,7 @@ class AppDetailsActivity : AppCompatActivity() {
             // Show/hide anchored icon with FAB like animation
             activityBinding.detailsAppBar.apply {
                 val totalScrollRange = totalScrollRange.toFloat()
-                addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+                addOnOffsetChangedListener { _, verticalOffset ->
                     val progress = abs(verticalOffset).toFloat() / totalScrollRange
                     if (progress >= 0.22f && isAppIconVisible) {
                         activityBinding.detailsAppIcon.hideViewWithAnim(shouldScaleDown = true,
@@ -169,12 +168,12 @@ class AppDetailsActivity : AppCompatActivity() {
                                                                         animDuration = 150L)
                         isAppIconVisible = false
                     }
-                    else if (progress < 0.22f && !isAppIconVisible) {
+                    else if (progress < 0.22f && ! isAppIconVisible) {
                         activityBinding.detailsAppIcon.showViewWithAnim(shouldScaleUp = true,
                                                                         animDuration = 250L)
                         isAppIconVisible = true
                     }
-                })
+                }
             }
             
             activityBinding.detailsAppIcon.displayAppIcon(
@@ -509,7 +508,7 @@ class AppDetailsActivity : AppCompatActivity() {
     
     fun sortRatings() {
         sortedRatingsList =
-            ArrayList<Rating>(
+            ArrayList(
                 ratingsList
                     .filter { rating ->
                         val appVerMatches =

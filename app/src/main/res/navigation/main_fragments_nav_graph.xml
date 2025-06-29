@@ -26,201 +26,67 @@
     <fragment
         android:id="@+id/plexusDataFragment"
         android:name="tech.techlore.plexus.fragments.main.PlexusDataFragment"
-        android:label="@string/plexus_data">
-        <action
-            android:id="@+id/action_plexusDataFragment_to_installedAppsFragment"
-            app:destination="@id/installedAppsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_plexusDataFragment_to_favoritesFragment"
-            app:destination="@id/favoritesFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_plexusDataFragment_self"
-            app:destination="@id/plexusDataFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_plexusDataFragment_to_myRatingsFragment"
-            app:destination="@id/myRatingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_plexusDataFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-    </fragment>
+        android:label="@string/plexus_data"/>
 
     <fragment
         android:id="@+id/installedAppsFragment"
         android:name="tech.techlore.plexus.fragments.main.InstalledAppsFragment"
-        android:label="@string/installed_apps" >
-        <action
-            android:id="@+id/action_installedAppsFragment_to_plexusDataFragment"
-            app:destination="@id/plexusDataFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_installedAppsFragment_to_favoritesFragment"
-            app:destination="@id/favoritesFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_installedAppsFragment_self"
-            app:destination="@id/installedAppsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_installedAppsFragment_to_myRatingsFragment"
-            app:destination="@id/myRatingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_installedAppsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-    </fragment>
+        android:label="@string/installed_apps"/>
 
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="tech.techlore.plexus.fragments.main.FavoritesFragment"
-        android:label="@string/favorites" >
-        <action
-            android:id="@+id/action_favoritesFragment_to_plexusDataFragment"
-            app:destination="@id/plexusDataFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_favoritesFragment_to_installedAppsFragment"
-            app:destination="@id/installedAppsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_favoritesFragment_self"
-            app:destination="@id/favoritesFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_favoritesFragment_to_myRatingsFragment"
-            app:destination="@id/myRatingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_favoritesFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-    </fragment>
+        android:label="@string/favorites"/>
 
     <fragment
         android:id="@+id/myRatingsFragment"
         android:name="tech.techlore.plexus.fragments.main.MyRatingsFragment"
-        android:label="@string/my_ratings" >
-        <action
-            android:id="@+id/action_myRatingsFragment_to_installedAppsFragment"
-            app:destination="@id/installedAppsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_myRatingsFragment_to_plexusDataFragment"
-            app:destination="@id/plexusDataFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_myRatingsFragment_to_favoritesFragment"
-            app:destination="@id/favoritesFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_myRatingsFragment_self"
-            app:destination="@id/myRatingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_myRatingsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-
-    </fragment>
+        android:label="@string/my_ratings"/>
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="tech.techlore.plexus.fragments.main.SettingsFragment"
         android:label="@string/settings"
-        tools:layout="@layout/fragment_settings">
-        <action
-            android:id="@+id/action_settingsFragment_to_myRatingsFragment"
-            app:destination="@id/myRatingsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_settingsFragment_to_favoritesFragment"
-            app:destination="@id/favoritesFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_settingsFragment_to_installedAppsFragment"
-            app:destination="@id/installedAppsFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-        <action
-            android:id="@+id/action_settingsFragment_to_plexusDataFragment"
-            app:destination="@id/plexusDataFragment"
-            app:enterAnim="@anim/material_fade_through_enter"
-            app:exitAnim="@anim/material_fade_through_exit"
-            app:popEnterAnim="@anim/material_fade_through_enter"
-            app:popExitAnim="@anim/material_fade_through_exit"/>
-    </fragment>
+        tools:layout="@layout/fragment_settings"/>
+
+    <action
+        android:id="@+id/action_global_to_plexusDataFragment"
+        app:destination="@id/plexusDataFragment"
+        app:enterAnim="@anim/material_fade_through_enter"
+        app:exitAnim="@anim/material_fade_through_exit"
+        app:popEnterAnim="@anim/material_fade_through_enter"
+        app:popExitAnim="@anim/material_fade_through_exit"/>
+
+    <action
+        android:id="@+id/action_global_to_installedAppsFragment"
+        app:destination="@id/installedAppsFragment"
+        app:enterAnim="@anim/material_fade_through_enter"
+        app:exitAnim="@anim/material_fade_through_exit"
+        app:popEnterAnim="@anim/material_fade_through_enter"
+        app:popExitAnim="@anim/material_fade_through_exit"/>
+
+    <action
+        android:id="@+id/action_global_to_favoritesFragment"
+        app:destination="@id/favoritesFragment"
+        app:enterAnim="@anim/material_fade_through_enter"
+        app:exitAnim="@anim/material_fade_through_exit"
+        app:popEnterAnim="@anim/material_fade_through_enter"
+        app:popExitAnim="@anim/material_fade_through_exit"/>
+
+    <action
+        android:id="@+id/action_global_to_myRatingsFragment"
+        app:destination="@id/myRatingsFragment"
+        app:enterAnim="@anim/material_fade_through_enter"
+        app:exitAnim="@anim/material_fade_through_exit"
+        app:popEnterAnim="@anim/material_fade_through_enter"
+        app:popExitAnim="@anim/material_fade_through_exit"/>
+
+    <action
+        android:id="@+id/action_global_to_settingsFragment"
+        app:destination="@id/settingsFragment"
+        app:enterAnim="@anim/material_fade_through_enter"
+        app:exitAnim="@anim/material_fade_through_exit"
+        app:popEnterAnim="@anim/material_fade_through_enter"
+        app:popExitAnim="@anim/material_fade_through_exit"/>
 
 </navigation>

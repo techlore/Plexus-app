@@ -41,7 +41,9 @@
 
     </group>
 
-    <item android:title="@string/my_account">
+    <item
+        android:id="@+id/my_account"
+        android:title="@string/my_account">
         <menu>
             <group android:checkableBehavior="single"
                 android:id="@+id/group_my_account">

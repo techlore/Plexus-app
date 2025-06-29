@@ -18,6 +18,7 @@
 <resources>
 
     <!--Margins & paddings-->
+    <dimen name="margin_80">80dp</dimen>
     <dimen name="margin_75">75dp</dimen>
     <dimen name="margin_64">64dp</dimen>
     <dimen name="margin_55">55dp</dimen>

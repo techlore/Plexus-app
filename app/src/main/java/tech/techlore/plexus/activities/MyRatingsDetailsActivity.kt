@@ -32,7 +32,6 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -126,7 +125,7 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
             
             activityBinding.detailsAppBar.apply {
                 val totalScrollRange = totalScrollRange.toFloat()
-                addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+                addOnOffsetChangedListener { _, verticalOffset ->
                     val progress = abs(verticalOffset).toFloat() / totalScrollRange
                     if (progress >= 0.22f && isAppIconVisible) {
                         activityBinding.detailsAppIcon.hideViewWithAnim(shouldScaleDown = true,
@@ -134,12 +133,12 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
                                                                         animDuration = 150L)
                         isAppIconVisible = false
                     }
-                    else if (progress < 0.22f && !isAppIconVisible) {
+                    else if (progress < 0.22f && ! isAppIconVisible) {
                         activityBinding.detailsAppIcon.showViewWithAnim(shouldScaleUp = true,
                                                                         animDuration = 250L)
                         isAppIconVisible = true
                     }
-                })
+                }
             }
             
             activityBinding.detailsAppIcon.displayAppIcon(
@@ -252,7 +251,7 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
     
     fun sortMyRatingsDetails() {
         sortedMyRatingsDetailsList =
-            ArrayList<MyRatingDetails>(
+            ArrayList(
                 myRating.ratingsDetails
                     .filter { rating ->
                         val appVerMatches =
