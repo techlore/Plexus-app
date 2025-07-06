@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~     Copyright (C) 2022-present Techlore
   ~
@@ -15,10 +14,7 @@
   ~
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  -->
-
-<resources>
-
+  --><resources>
     <!--
     Ensure proper encoding of characters
         ä = \u00E4
@@ -37,24 +33,20 @@
     <string name="scan_installed">Installierte apps scannen</string>
     <string name="welcome_text_desc">Wenn sie die app zum ersten mal benutzen, nehmen sie sich bitte einen moment zeit, um sich mit den symbolen und statusanzeigen vertraut zu machen.</string>
     <string name="skip">\u00DCberspringen</string>
-
     <!--#########################################################################################-->
 
     <!--Main activity-->
     <string name="no_apps_found">Keine  apps gefunden</string>
     <string name="new_submission">Neue vorlage</string>
-
     <!--My ratings fragment-->
     <string name="no_ratings_available">Keine bewertungen vorhanden</string>
     <string name="submit_first_rating">Tippen sie auf \u002B um ihre erste bewertung abzugeben</string>
-
     <!--Toolbar menu-->
-    <string name="menu_back">Back</string>
+    <string name="menu_back">Zurück</string>
     <string name="menu_search">Suche</string>
     <string name="menu_sort">Sortieren</string>
-
     <!--Nav view-->
-    <string name="device_info">Device info</string>
+    <string name="device_info">Geräteinformationen</string>
     <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
     <string name="plexus_data">Plexus daten</string>
     <string name="installed_apps">Installierte apps</string>
@@ -63,7 +55,6 @@
     <string name="my_ratings">Meine bewertungen</string>
     <string name="delete_account">Konto l\u00F6schen</string>
     <string name="settings">Einstellungen</string>
-
     <!--#########################################################################################-->
 
     <!--App details activity-->
@@ -75,12 +66,10 @@
     <string name="total_ratings">Gesamtbewertung</string>
     <string name="ratings">Bewertungen</string>
     <string name="scroll_to_top">Nach oben bl\u00E4ttern</string>
-
     <!--Toolbar menu-->
     <string name="menu_help">Hilfe</string>
     <string name="menu_links">Links</string>
     <string name="menu_more">Mehr optionen</string>
-
     <!--#########################################################################################-->
 
     <!--Email verification fragment-->
@@ -98,13 +87,11 @@
     <string name="by_proceeding_agree_desc">Indem sie fortfahren, erkl\u00E4ren Sie sich mit der fairen Nutzung von Plexus einverstanden.
         Wenn sie gegen die oben genannten bedingungen versto\u00DFen, werden alle von Ihnen abgegebenen Bewertungen gel\u00F6scht.</string>
     <string name="verification">\u00DCberpr\u00FCfung</string>
-
     <!--Code verification fragment-->
-    <string name="enter_code_sent_to_email">Geben sie den an %1$s gesendeten verifizierungscode ein.</string>
+    <string name="enter_code_sent_to_email">Geben sie den an %1$s gesendeten Verifizierungscode ein.</string>
     <string name="verification_code">Verifizierungscode</string>
     <string name="verifying_code">Bitte warten, code wird \u00FCberpr\u00FCft …</string>
     <string name="incorrect_code">Falscher verifizierungscode.</string>
-
     <!--#########################################################################################-->
 
     <!--Settings activity-->
@@ -120,7 +107,6 @@
     <string name="view_on_github">Auf GitHub anschauen</string>
     <string name="visit_techlore">Besuche Techlore</string>
     <string name="third_party_licenses">Lizenzen von drittanbietern</string>
-
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
@@ -129,17 +115,15 @@
     <string name="dismiss">Ablehnen</string>
     <string name="exit">Ausgang</string>
     <string name="retry">Wiederholen</string>
-
     <!--No Network/Internet-->
     <string name="error_occurred_title">Es ist ein Fehler aufgetreten</string>
     <string name="no_network_title">Kein Netzwerk/Internet</string>
     <string name="no_network_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
         Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
-
     <!--Help-->
     <string name="icons">Icons</string>
     <string name="not_tested_subtitle">Nicht verf\u00FCgbar, die anwendung wurde nicht getestet</string>
-    <string name="broken_title">Zerbrochen</string>
+    <string name="broken_title">Kaputt</string>
     <string name="broken_subtitle">Unbrauchbare, meist nicht zu \u00F6ffnende anwendungen</string>
     <string name="bronze_title">Bronze</string>
     <string name="bronze_subtitle">Akzeptabel, aber mit fehlender oder defekter funktionalit\u00E4t</string>
@@ -152,57 +136,47 @@
     <string name="installation_source_desc">Installationsquelle von anwendungen</string>
     <string name="apps_submit_proc">Verfahren zur einreichung von apps</string>
     <string name="faqs">H\u00E4ufig gestellte fragen</string>
-
     <!--Sort-->
     <string name="alphabetical">Alphabetisch</string>
     <string name="installed_from">Installiert von</string>
     <string name="any">Jede</string>
     <string name="status">Status</string>
-
     <!--Translate-->
     <string name="translate">\u00DCbersetzen Sie</string>
     <string name="translating">\u00DCbersetzen …</string>
     <string name="translated_using_libretranslate">\u00DCbersetzt mit LibreTranslate:</string>
     <string name="error_translating">Fehler beim \u00DCbersetzen</string>
-
     <!--Email verification-->
     <string name="sending_code">Bitte warten, code senden …</string>
     <string name="error_sending_code">Fehler beim senden des codes</string>
-
     <!--Delete account-->
     <string name="delete_account_desc">Wenn sie ihr konto l\u00F6schen:
         \n\u2022 werden sie keine bewertungen mehr abgeben k\u00F6nnen.
         \n\u2022 Alle zuvor abgegebenen bewertungen werden dauerhaft von diesem ger\u00E4t entfernt.
         \n
         \nSind sie sicher, dass sie fortfahren m\u00F6chten?</string>
-
     <!--More options-->
     <string name="menu_share">Teilen</string>
-
     <!--First submission-->
     <string name="first_submission_desc">Bei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
     <string name="select_correct_rom">Bitte w\u00E4hlen sie das richtige ROM, das auf diesem ger\u00E4t installiert ist.</string>
     <string name="select">W\u00E4hlen sie</string>
     <string name="proceed">Weiter</string>
-
     <!--Rate-->
     <string name="issues_to_check_in_apps">Häufige Probleme, die in Apps zu überprüfen sind</string>
     <string name="notes">Anmerkungen</string>
     <string name="optional">optional</string>
     <string name="submit">Einreichen</string>
-
     <!--Submit-->
     <string name="about_to_submit">Sie sind im begriff, eine bewertung abzugeben. Sind sie sicher, dass sie fortfahren m\u00F6chten?</string>
     <string name="wait_submitting_data">Bitte warten, daten \u00FCbermitteln …</string>
     <string name="submit_success">Erfolgreich eingereicht</string>
     <string name="submit_error">Fehler bei der \u00FCbermittlung von daten</string>
     <string name="thanks_for_submitting">Wir danken ihnen f\u00FCr die \u00FCbermittlung von daten und die helfen der gemeinschaft.</string>
-
     <!--Theme-->
     <string name="follow_system">System verfolgen</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
-
     <!--#########################################################################################-->
 
     <!--Snackbars-->
@@ -211,5 +185,4 @@
     <string name="rating_already_submitted">Bewertung bereits abgegeben f\u00FCr %1$s %2$s</string>
     <string name="no_browsers">Es ist kein browser auf diesem ger\u00E4t installiert</string>
     <string name="deleted_account_successfully">Konto erfolgreich gel\u00F6scht</string>
-
 </resources>
