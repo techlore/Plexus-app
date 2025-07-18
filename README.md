@@ -130,7 +130,6 @@ New pull requests can be submitted [here](https://github.com/techlore/Plexus-app
 - [tomkonidas](https://github.com/tomkonidas) for developing the API & the Plexus website which helped in the development of this project.
 - [Henry](https://github.com/henry-fisher) for going forward with the project and designing/modifying some of the icons.
 - [Weblate](https://hosted.weblate.org/) for providing free hosting to support translations.
-- [parveshnarwal](https://github.com/parveshnarwal) for helping previously with the initial implementation of json into this app.
 - [Contributors](https://github.com/techlore/plexus-app/graphs/contributors) for making this app better.
 - Everyone who has and continues to contribute data to make this project better than ever.
 

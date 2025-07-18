@@ -16,7 +16,7 @@
 #
 
 [versions]
-androidGradle = "8.11.0"
+androidGradle = "8.11.1"
 androidKotlin = "2.2.0" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
 ksp = "2.1.21-2.0.1" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.1"
@@ -26,9 +26,9 @@ material3 = "1.14.0-alpha02"
 koin = "4.1.0"
 swiperefreshlayout = "1.1.0"
 securityCryptoKtx = "1.1.0-alpha06" # Don't update or else Encrypted Shared Prefs is deprecated
-navigationKtx = "2.9.0"
-kotlinxSerialization = "1.8.1"
-ktor = "3.0.3"
+navigationKtx = "2.9.1"
+kotlinxSerialization = "1.9.0"
+ktor = "3.2.1"
 room = "2.7.2"
 coil = "3.2.0"
 androidfastscrollKt = "v1.0.8"

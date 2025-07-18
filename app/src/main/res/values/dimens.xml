@@ -37,7 +37,7 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_6">6dp</dimen>
     <dimen name="margin_4">4dp</dimen>
-    <dimen name="margin_2.5">2.5dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
 
     <!--Text-->
     <dimen name="text_22">22sp</dimen>

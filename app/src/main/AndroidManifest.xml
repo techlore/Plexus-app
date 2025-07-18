@@ -24,6 +24,7 @@
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <application
         android:name=".appmanager.ApplicationManager"
@@ -57,7 +58,8 @@
         <!-- App details activity -->
         <activity
             android:name=".activities.AppDetailsActivity"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            android:exported="true"/>
 
         <!-- My Ratings details activity -->
         <activity
@@ -75,10 +77,9 @@
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustNothing"/>
 
-        <!-- Settings activity -->
         <activity
-            android:name=".activities.SettingsActivity"
-            android:configChanges="orientation|screenSize"/>
+            android:name=".activities.ShortcutRouterActivity"
+            android:theme="@style/SplashTheme"/>
 
     </application>
 

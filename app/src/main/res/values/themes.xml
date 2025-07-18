@@ -29,7 +29,7 @@
     <!--#########################################################################################-->
 
     <!--App theme-->
-    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3Expressive.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorOnPrimary">@color/color_onPrimary</item>
         <item name="colorPrimaryContainer">@color/color_primaryContainer</item>
@@ -127,18 +127,6 @@
     <style name="ApkFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_installed_from</item>
         <item name="android:text">@string/apk</item>
-    </style>
-
-    <style name="dgScoreChipTheme" parent="BaseThemeChipStyle">
-        <item name="closeIcon">@drawable/ic_degoogled</item>
-        <item name="closeIconTint">@null</item>
-        <item name="android:text">@string/de_Googled</item>
-    </style>
-
-    <style name="mgScoreChipTheme" parent="BaseThemeChipStyle">
-        <item name="closeIcon">@drawable/ic_microg</item>
-        <item name="closeIconTint">@null</item>
-        <item name="android:text">@string/microG</item>
     </style>
 
     <style name="SystemDefaultChipTheme" parent="BaseThemeChipStyle">

@@ -33,6 +33,13 @@
 
     <!--#########################################################################################-->
 
+    <!--Toggle group button style-->
+    <style name="ToggleButtonStyle" parent="Widget.Material3Expressive.Button.OutlinedButton">
+        <item name="backgroundTint">@color/toggle_btn_bg_color</item>
+    </style>
+
+    <!--#########################################################################################-->
+
     <!--Base chip style-->
     <style name="BaseChipStyle" parent="Widget.Material3.Chip.Filter">
         <item name="chipSurfaceColor">@android:color/transparent</item>
@@ -69,7 +76,7 @@
     <!--#########################################################################################-->
 
     <!--Base linear progress indicator style-->
-    <style name="BaseProgressIndicatorStyle" parent="Widget.Material3.LinearProgressIndicator">
+    <style name="BaseProgressIndicatorStyle" parent="Widget.Material3Expressive.LinearProgressIndicator">
         <item name="trackCornerRadius">@dimen/margin_8</item>
         <item name="trackThickness">@dimen/margin_50</item>
         <item name="trackStopIndicatorSize">0dp</item>
@@ -97,10 +104,10 @@
     </style>
 
     <!--Bottom sheet buttons-->
-    <style name="NegativeButtonStyle" parent="Widget.Material3.Button.TextButton">
+    <style name="NegativeButtonStyle" parent="Widget.Material3Expressive.Button.TextButton">
         <item name="android:textSize">@dimen/text_16</item>
     </style>
-    <style name="PositiveButtonStyle" parent="Widget.Material3.Button.TonalButton">
+    <style name="PositiveButtonStyle" parent="Widget.Material3Expressive.Button.TonalButton">
         <item name="android:textSize">@dimen/text_16</item>
     </style>
 
