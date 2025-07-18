@@ -39,9 +39,10 @@ class IntentUtils {
         }
         
         // App details activity
-        fun Activity.startDetailsActivity(packageName: String) {
+        fun Activity.startDetailsActivity(packageName: String, isFromShortcut: Boolean = false) {
             startActivityWithTransition(Intent(this, AppDetailsActivity::class.java)
-                                            .putExtra("packageName", packageName))
+                                            .putExtra("packageName", packageName)
+                                            .putExtra("fromShortcut", isFromShortcut))
         }
         
         // Open links

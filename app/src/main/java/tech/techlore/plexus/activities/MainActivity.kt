@@ -32,6 +32,7 @@ import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
+import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
@@ -182,5 +183,10 @@ class MainActivity : AppCompatActivity() {
                 else -> finish()
             }
         }
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        AppState.isAppOpen = false
     }
 }

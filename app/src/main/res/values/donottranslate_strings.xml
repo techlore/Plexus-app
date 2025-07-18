@@ -35,11 +35,11 @@
 
     <string name="a_z" translatable="false">A-Z</string>
     <string name="z_a" translatable="false">Z-A</string>
+    <string name="vpn_toolkit" translatable="false">VPN Toolkit</string>
     <string name="google_play_store" translatable="false">Google Play Store</string>
     <string name="google_play_alt" translatable="false">Google Play alt</string>
     <string name="fdroid" translatable="false">F-Droid</string>
     <string name="exodus" translatable="false">Exodus Privacy</string>
-    <string name="vpn_toolkit" translatable="false">VPN Toolkit</string>
     <string name="apk" translatable="false">apk</string>
 
     <string name="email" translatable="false">Email</string>

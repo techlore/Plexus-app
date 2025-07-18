@@ -39,6 +39,7 @@ import tech.techlore.plexus.appmanager.ApplicationManager
 import tech.techlore.plexus.databinding.ActivityFirstBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
@@ -48,11 +49,13 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
+import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
+import kotlin.system.exitProcess
 
 class FirstActivity : AppCompatActivity() {
     
@@ -84,13 +87,14 @@ class FirstActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
         
+        AppState.isAppOpen = true
+        
         DeviceState.apply {
             rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).orEmpty()
             androidVersion = getAndroidVersionString()
         }
         
         retrieveData()
-       // afterDataRetrieved()
     }
     
     private fun getAndroidVersionString(): String {
@@ -131,14 +135,20 @@ class FirstActivity : AppCompatActivity() {
                                          exception = e,
                                          negativeButtonText = getString(R.string.exit),
                                          positiveBtnClickAction = { retrieveData() },
-                                         negativeBtnClickAction = { finishAndRemoveTask() })
+                                         negativeBtnClickAction = {
+                                             finishAndRemoveTask()
+                                             exitProcess(0)
+                                         })
                         .show(supportFragmentManager, "NoNetworkBottomSheet")
                 }
             }
             else {
                 NoNetworkBottomSheet(negativeButtonText = getString(R.string.exit),
                                      positiveBtnClickAction = { retrieveData() },
-                                     negativeBtnClickAction = { finishAndRemoveTask() })
+                                     negativeBtnClickAction = {
+                                         finishAndRemoveTask()
+                                         exitProcess(0)
+                                     })
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
@@ -190,6 +200,11 @@ class FirstActivity : AppCompatActivity() {
     
     override fun finishAfterTransition() {
         super.finishAfterTransition()
-        startActivityWithTransition(Intent(this@FirstActivity, MainActivity::class.java))
+        // If started from shortcut, open details activity
+        // else main activity
+        intent.getStringExtra("packageName")?.let {
+            startDetailsActivity(it, isFromShortcut = true)
+        }
+        ?: startActivityWithTransition(Intent(this@FirstActivity, MainActivity::class.java))
     }
 }

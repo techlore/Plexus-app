@@ -19,12 +19,25 @@ package tech.techlore.plexus.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.Window
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.pm.ShortcutInfoCompat
+import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.ColorUtils
+import androidx.core.graphics.drawable.IconCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -63,6 +76,7 @@ import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.objects.DeviceState
+import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
@@ -70,6 +84,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
+import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
@@ -78,12 +93,20 @@ import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
 import kotlin.getValue
 import kotlin.math.abs
+import androidx.core.graphics.scale
+import com.google.android.material.button.MaterialButton
+import androidx.core.graphics.createBitmap
+import kotlin.system.exitProcess
 
 class AppDetailsActivity : AppCompatActivity() {
     
     private lateinit var activityBinding: ActivityAppDetailsBinding
     lateinit var navController: NavController
     private lateinit var packageNameString: String
+    private var isFromShortcut = false
+    private var checkIcon: Drawable? = null
+    private var dgIcon: Drawable? = null
+    private var mgIcon: Drawable? = null
     private val apiRepository by inject<ApiRepository>()
     private val mainRepository by inject<MainDataRepository>()
     lateinit var app: MainData
@@ -115,9 +138,14 @@ class AppDetailsActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
+        isFromShortcut = intent.getBooleanExtra("fromShortcut", false)
         window.apply {
             requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
-            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+            enterTransition =
+                MaterialSharedAxis(
+                    if (isFromShortcut) MaterialSharedAxis.X else MaterialSharedAxis.Z,
+                    true
+                )
             returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         }
         super.onCreate(savedInstanceState)
@@ -134,6 +162,9 @@ class AppDetailsActivity : AppCompatActivity() {
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
+        checkIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_done, theme)//ContextCompat.getDrawable(this, R.drawable.ic_done)
+        dgIcon = ContextCompat.getDrawable(this, R.drawable.ic_degoogled)
+        mgIcon = ContextCompat.getDrawable(this, R.drawable.ic_microg)
         
         // Adjust UI components for edge to edge
         ViewCompat.setOnApplyWindowInsetsListener(activityBinding.nestedScrollView) { v, windowInsets ->
@@ -196,6 +227,91 @@ class AppDetailsActivity : AppCompatActivity() {
                     )
                 }
             }
+            
+            // Share chip
+            activityBinding.shareChip.setOnClickListener {
+                startActivity(Intent.createChooser(
+                    Intent(Intent.ACTION_SEND)
+                        .setType("text/plain")
+                        .putExtra(Intent.EXTRA_TEXT,
+                                  """
+                              ${getString(R.string.app)}: ${app.name}
+                              ${getString(R.string.package_name)}: $packageNameString
+                              ${getString(R.string.de_Googled)}: ${
+                                      mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore)
+                                  }
+                              ${getString(R.string.microG)}: ${
+                                      mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore)
+                                  }
+                              """.trimIndent()),
+                    getString(R.string.menu_share)))
+            }
+            
+            // Shortcut chip
+            if (Build.VERSION.SDK_INT >= 26) {
+                activityBinding.shortcutChip.apply {
+                    isVisible = true
+                    setOnClickListener {
+                        val bitmap =
+                            (activityBinding.detailsAppIcon.drawable as? BitmapDrawable)?.bitmap?.toSoftwareBitmap()
+                        
+                        val resizedBitmap =
+                            bitmap?.let {
+                                // https://developer.android.com/reference/android/graphics/drawable/AdaptiveIconDrawable.html
+                                // fullSize = 108
+                                // imageSize = 77 (72dp icon + 5dp padding)
+                                val output = createBitmap(108, 108)
+                                val canvas = Canvas(output)
+                                val compositeColor =
+                                    ColorUtils.compositeColors(
+                                        Color.argb(0, 0, 0, 0),
+                                        Color.WHITE
+                                    )
+                                val resized = it.scale(77, 77)
+                                val adjustValue = 15.5f // (108 - 77) / 2; To keep the icon centered
+                                
+                                canvas.drawColor(compositeColor) // Background color
+                                canvas.drawBitmap(resized, adjustValue, adjustValue, null)
+                                output
+                            }
+                        
+                        val shortcutIcon =
+                            resizedBitmap?.let {
+                                IconCompat.createWithAdaptiveBitmap(it)
+                            } ?: IconCompat.createWithResource(this@AppDetailsActivity,
+                                                               R.drawable.ic_apk)
+                        
+                        val shortcut =
+                            ShortcutInfoCompat.Builder(this@AppDetailsActivity, packageNameString)
+                                .setShortLabel(app.name)
+                                .setIcon(shortcutIcon)
+                                .setIntent(
+                                    Intent(this@AppDetailsActivity,
+                                           ShortcutRouterActivity::class.java).apply {
+                                        action = Intent.ACTION_VIEW
+                                        putExtra("packageName", packageNameString)
+                                    }
+                                )
+                                .build()
+                        
+                        ShortcutManagerCompat.requestPinShortcut(this@AppDetailsActivity,
+                                                                 shortcut,
+                                                                 null)
+                    }
+                }
+            }
+            
+            // VPN Toolkit chip
+            activityBinding.vpnToolkitChip.apply {
+                if (app.name.contains("VPN", ignoreCase = true)
+                    || packageNameString.contains("VPN", ignoreCase = true)) {
+                    isVisible = true
+                    setOnClickListener {
+                        openURL(getString(R.string.vpn_toolkit_url))
+                    }
+                }
+            }
+            //activityBinding.shortcutBtn.setOnClickListener { addShortcut() }
             
             // Show FAB on scroll
             activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
@@ -286,6 +402,13 @@ class AppDetailsActivity : AppCompatActivity() {
             retrieveRatings()
         }
         
+    }
+    
+    // Software rendering doesn't support hardware bitmaps
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun Bitmap.toSoftwareBitmap(): Bitmap {
+        if (config != Bitmap.Config.HARDWARE) return this
+        return copy(Bitmap.Config.ARGB_8888, true)
     }
     
     private fun retrieveRatings() {
@@ -393,16 +516,29 @@ class AppDetailsActivity : AppCompatActivity() {
                 sortRatings()
             }
             
-            // Chip group
-            activityBinding.totalScoreChipGroup.apply {
-                check(if (DeviceState.isDeviceMicroG) R.id.mgScoreChip else R.id.dgScoreChip)
-                setOnCheckedStateChangeListener { group, _ ->
-                    setTotalScore(
-                        when (group.checkedChipId) {
-                            R.id.mgScoreChip -> true
-                            else -> false
-                        }
-                    )
+            // Toggle button group
+            activityBinding.detailsToggleBtnGroup.apply {
+                val selectedToggle =
+                    if (DeviceState.isDeviceMicroG) R.id.mgScoreToggleBtn else R.id.dgScoreToggleBtn
+                check(selectedToggle)
+                findViewById<MaterialButton>(selectedToggle).icon = checkIcon
+                addOnButtonCheckedListener { _, checkedId, isChecked ->
+                    if (isChecked) {
+                        findViewById<MaterialButton>(checkedId).icon = checkIcon // Add checkmark icon
+                        setTotalScore(
+                            when (checkedId) {
+                                R.id.mgScoreToggleBtn -> true
+                                else -> false
+                            }
+                        )
+                    }
+                    else {
+                        findViewById<MaterialButton>(checkedId).icon =
+                            when (checkedId) {
+                                R.id.mgScoreToggleBtn -> mgIcon
+                                else -> dgIcon
+                            }
+                    }
                 }
             }
             
@@ -578,7 +714,12 @@ class AppDetailsActivity : AppCompatActivity() {
     // On back pressed
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            finishAfterTransition()
+            if (isFromShortcut) {
+                AppState.isAppOpen = false
+                finishAndRemoveTask()
+                exitProcess(0)
+            }
+            else finishAfterTransition()
         }
     }
 }

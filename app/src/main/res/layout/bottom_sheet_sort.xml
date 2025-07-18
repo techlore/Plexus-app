@@ -148,7 +148,7 @@
         app:singleSelection="true"
         app:selectionRequired="true"
         app:checkedButton="@id/toggleAnyStatus"
-        style="@style/Widget.Material3.MaterialButtonGroup.Connected">
+        style="@style/Widget.Material3Expressive.MaterialButtonGroup.Connected">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/toggleAnyStatus"
@@ -157,7 +157,7 @@
             app:iconSize="@dimen/margin_18"
             android:text="@string/any"
             android:textSize="@dimen/text_16"
-            style="?attr/materialButtonOutlinedStyle"/>
+            style="@style/ToggleButtonStyle"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/toggleDgStatus"
@@ -166,7 +166,7 @@
             app:iconSize="@dimen/margin_18"
             android:text="@string/de_Googled"
             android:textSize="@dimen/text_16"
-            style="?attr/materialButtonOutlinedStyle"/>
+            style="@style/ToggleButtonStyle"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/toggleMgStatus"
@@ -175,7 +175,7 @@
             app:iconSize="@dimen/margin_18"
             android:text="@string/microG"
             android:textSize="@dimen/text_16"
-            style="?attr/materialButtonOutlinedStyle"/>
+            style="@style/ToggleButtonStyle"/>
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

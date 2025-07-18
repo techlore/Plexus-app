@@ -15,9 +15,28 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.objects
+package tech.techlore.plexus.activities
 
-object AppState {
-    var isVerificationSuccessful = false
-    var isAppOpen = false
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import tech.techlore.plexus.objects.AppState
+
+class ShortcutRouterActivity : AppCompatActivity() {
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        if (!AppState.isAppOpen) {
+            startActivity(
+                Intent(this, FirstActivity::class.java).apply {
+                    putExtra("packageName", intent.getStringExtra("packageName"))
+                }
+            )
+        }
+        
+        finish()
+    }
+    
+    
 }

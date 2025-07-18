@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_2.5"
+            android:layout_marginBottom="@dimen/margin_2"
             android:paddingStart="@dimen/margin_8"
             android:paddingEnd="@dimen/margin_8"
             android:text="@string/plexus"
@@ -156,7 +156,7 @@
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_20"
             android:text="@string/about"
-            android:textColor="?attr/colorOnSurface"
+            android:textColor="?attr/colorSecondary"
             android:textSize="@dimen/text_17"
             style="@style/MediumBoldText"/>
 
@@ -164,7 +164,7 @@
             android:id="@+id/privacyPolicy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_2.5"
+            android:layout_marginTop="@dimen/margin_2"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"

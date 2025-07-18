@@ -72,37 +72,6 @@ class LinksBottomSheet(
             requireActivity().openURL(exodusString)
         }
         
-        // VPN Toolkit
-        bottomSheetBinding.vpnToolkit.apply {
-            if (nameString.contains("VPN", ignoreCase = true)
-                || packageNameString.contains("VPN", ignoreCase = true)) {
-                visibility = View.VISIBLE
-                setOnClickListener {
-                    dismiss()
-                    requireActivity().openURL(getString(R.string.vpn_toolkit_url))
-                }
-            }
-        }
-        
-        // Share
-        // Temporarily disable share
-        /*bottomSheetBinding.share.setOnClickListener {
-            dismiss()
-            startActivity(Intent.createChooser(
-                Intent(Intent.ACTION_SEND)
-                    .setType("text/plain")
-                    .putExtra(Intent.EXTRA_TEXT,
-                              """
-                              ${getString(R.string.app)}: $nameString
-                              ${getString(R.string.package_name)}: $packageNameString
-                              ${getString(R.string.de_Googled)}: $dgStatus
-                              ${getString(R.string.microG)}: $mgStatus
-                              ${getString(R.string.google_play_store)}: $playStoreString
-                              ${getString(R.string.fdroid)}: $fdroidString
-                              ${getString(R.string.exodus)}: $exodusString
-                              """.trimIndent()), getString(R.string.menu_share)))
-        }*/
-        
         footerBinding.positiveButton.visibility = View.GONE
         
         // Cancel

@@ -101,7 +101,7 @@
                 app:layout_constraintTop_toBottomOf="@id/detailsPackageName"
                 app:layout_constraintStart_toStartOf="@id/detailsPackageName"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/margin_2.5"
+                android:layout_marginTop="@dimen/margin_2"
                 android:layout_marginEnd="@dimen/margin_8"
                 android:text="@string/installed"
                 android:textAlignment="viewStart"
@@ -122,11 +122,53 @@
                 tools:visibility="visible"
                 style="@style/InstalledFromTextViewTheme"/>
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/detailsChipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/detailsInstalledFrom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_25"
+                android:paddingHorizontal="@dimen/margin_12"
+                android:clipToPadding="false"
+                app:singleLine="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/shareChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_share"
+                    android:text="@string/menu_share"
+                    android:textSize="@dimen/text_15"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/shortcutChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_shortcut"
+                    android:text="Shortcut"
+                    android:textSize="@dimen/text_15"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/vpnToolkitChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_vpn_toolkit"
+                    android:text="@string/vpn_toolkit"
+                    android:textSize="@dimen/text_15"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
             <com.google.android.material.loadingindicator.LoadingIndicator
                 android:id="@+id/loadingIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/detailsInstalledFrom"
+                app:layout_constraintTop_toBottomOf="@id/detailsChipGroup"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -153,9 +195,9 @@
                 android:id="@+id/totalScoreText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/detailsInstalledFrom"
+                app:layout_constraintTop_toBottomOf="@id/detailsChipGroup"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/margin_35"
+                android:layout_marginTop="@dimen/margin_32"
                 android:layout_marginStart="@dimen/margin_16"
                 android:drawableStart="@drawable/ic_total_score"
                 android:drawablePadding="@dimen/margin_8"
@@ -182,45 +224,50 @@
                     android:layout_height="match_parent"
                     tools:ignore="HardcodedText">
 
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/totalScoreChipGroup"
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/detailsToggleBtnGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:layout_marginStart="@dimen/margin_12"
-                        app:chipSpacingHorizontal="@dimen/margin_10"
+                        android:layout_marginHorizontal="@dimen/margin_12"
                         app:singleSelection="true"
-                        app:selectionRequired="true"
-                        app:singleLine="true">
+                        style="@style/Widget.Material3Expressive.MaterialButtonGroup.Connected">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/dgScoreChip"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/dgScoreToggleBtn"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/margin_50"
-                            android:layoutDirection="rtl"
-                            app:closeIconEnabled="true"
-                            android:checked="true"
-                            style="@style/dgScoreChipTheme"/>
+                            android:layout_height="wrap_content"
+                            app:icon="@drawable/ic_degoogled"
+                            app:iconTint="@color/toggle_btn_icon_color"
+                            app:iconTintMode="src_atop"
+                            app:iconSize="@dimen/margin_20"
+                            android:text="@string/de_Googled"
+                            android:textSize="@dimen/text_15"
+                            style="@style/ToggleButtonStyle"/>
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/mgScoreChip"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/mgScoreToggleBtn"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/margin_50"
-                            android:layoutDirection="rtl"
-                            app:closeIconEnabled="true"
-                            style="@style/mgScoreChipTheme"/>
+                            android:layout_height="wrap_content"
+                            app:icon="@drawable/ic_microg"
+                            app:iconTint="@color/toggle_btn_icon_color"
+                            app:iconTintMode="src_atop"
+                            app:iconSize="@dimen/margin_20"
+                            android:text="@string/microG"
+                            android:textSize="@dimen/text_15"
+                            style="@style/ToggleButtonStyle"/>
 
-                    </com.google.android.material.chip.ChipGroup>
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/ratingsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/totalScoreChipGroup"
+                        app:layout_constraintTop_toBottomOf="@id/detailsToggleBtnGroup"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginTop="@dimen/margin_8"
+                        android:layout_marginTop="@dimen/margin_12"
                         android:layout_marginStart="@dimen/margin_20"
                         android:text="@string/ratings"
                         android:textSize="@dimen/text_16"
@@ -524,11 +571,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/detailsFloatingToolbar"
             app:layout_constraintBottom_toBottomOf="@id/detailsFloatingToolbar"
-            android:paddingHorizontal="@dimen/margin_20"
             app:icon="@drawable/ic_edit"
             android:text="@string/rate"
             android:textSize="@dimen/text_16"
-            app:cornerRadius="@dimen/margin_16"/>
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
