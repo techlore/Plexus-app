@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -30,13 +31,13 @@ import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.appdetails.TranslateRatingNoteBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
+import tech.techlore.plexus.diffcallbacks.RatingsDetailsDiffCallback
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyle
 
 class UserRatingsItemAdapter(
-    private val aListViewItems: ArrayList<Rating>,
     private val fragmentManager: FragmentManager
-) : RecyclerView.Adapter<UserRatingsItemAdapter.ListViewHolder>() {
+) : ListAdapter<Rating, UserRatingsItemAdapter.ListViewHolder>(RatingsDetailsDiffCallback()) {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
@@ -61,7 +62,7 @@ class UserRatingsItemAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        val userRating = aListViewItems[position]
+        val userRating = getItem(position)
         val context = holder.itemView.context
         
         // Notes
@@ -87,9 +88,5 @@ class UserRatingsItemAdapter(
                                      userRating.ratingType!!,
                                      userRating.ratingScore!!.ratingScore)
         
-    }
-    
-    override fun getItemCount(): Int {
-        return aListViewItems.size
     }
 }

@@ -21,17 +21,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.adapters.appdetails.UserRatingsItemAdapter
 import tech.techlore.plexus.databinding.FragmentRatingsDetailsBinding
+import tech.techlore.plexus.models.get.ratings.Rating
 
 class AllRatingsFragment : Fragment() {
     
     private var _binding: FragmentRatingsDetailsBinding? = null
     private val fragmentBinding get() = _binding!!
+    private lateinit var detailsActivity: AppDetailsActivity
+    private val displayedRatings = ArrayList<Rating>()
+    private lateinit var userRatingsItemAdapter: UserRatingsItemAdapter
+    private var fullListSize = 0
+    private val pageSize = 5
+    private var currentPage = 0
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -43,21 +51,61 @@ class AllRatingsFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val detailsActivity = requireActivity() as AppDetailsActivity
+        detailsActivity = requireActivity() as AppDetailsActivity
         
         if (!detailsActivity.isListSorted) detailsActivity.sortRatings()
+        
+        fullListSize = detailsActivity.sortedRatingsList.size
         
         if (detailsActivity.sortedRatingsList.isEmpty()) {
             fragmentBinding.emptyRatingsListViewStub.inflate()
             val emptyListView: MaterialTextView = fragmentBinding.root.findViewById(R.id.emptyListViewText)
-            emptyListView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
             emptyListView.text = requireContext().getString(R.string.no_ratings_available)
         }
         else {
-            val userRatingsItemAdapter = UserRatingsItemAdapter(detailsActivity.sortedRatingsList, parentFragmentManager)
+            userRatingsItemAdapter = UserRatingsItemAdapter(parentFragmentManager)
             fragmentBinding.userRatingsRv.adapter = userRatingsItemAdapter
+            loadNextPage()
+        }
+        
+        detailsActivity.activityBinding.nestedScrollView.setOnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
+            // Show FAB on scroll
+            detailsActivity.apply {
+                if (scrollY == 0) {
+                    activityBinding.scrollTopFab.hide()
+                    if (isScrolledByFab) {
+                        activityBinding.detailsAppBar.setExpanded(true,true)
+                        isScrolledByFab = false
+                    }
+                }
+                else activityBinding.scrollTopFab.show()
+            }
+            
+            val scrollView = v as NestedScrollView
+            if (scrollY > oldScrollY) {
+                val child = scrollView.getChildAt(scrollView.childCount - 1)
+                val buffer = 300 // pixels before bottom
+                val thresholdReached = child.bottom - (scrollView.height + scrollView.scrollY)
+                if (thresholdReached <= buffer
+                    && displayedRatings.size < fullListSize) {
+                    loadNextPage()
+                }
+            }
         }
     }
+    
+    private fun loadNextPage() {
+        val start = currentPage * pageSize
+        val end = minOf(start + pageSize, fullListSize)
+        if (start < end) {
+            ArrayList(userRatingsItemAdapter.currentList).apply {
+                addAll(detailsActivity.sortedRatingsList.subList(start, end))
+                userRatingsItemAdapter.submitList(this)
+            }
+            currentPage++
+        }
+    }
+    
     
     override fun onDestroyView() {
         super.onDestroyView()

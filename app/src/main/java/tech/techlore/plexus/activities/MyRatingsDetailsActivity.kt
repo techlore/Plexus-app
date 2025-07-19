@@ -161,6 +161,7 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
                 installedFrom = app.installedFrom
             )
             
+            activityBinding.detailsChipGroup.isVisible = false
             activityBinding.loadingIndicator.isVisible = false
             activityBinding.retrievingRatingsText.isVisible = false
             

@@ -100,7 +100,7 @@ import kotlin.system.exitProcess
 
 class AppDetailsActivity : AppCompatActivity() {
     
-    private lateinit var activityBinding: ActivityAppDetailsBinding
+    lateinit var activityBinding: ActivityAppDetailsBinding
     lateinit var navController: NavController
     private lateinit var packageNameString: String
     private var isFromShortcut = false
@@ -112,6 +112,7 @@ class AppDetailsActivity : AppCompatActivity() {
     lateinit var app: MainData
     private var ratingsList = arrayListOf<Rating>()
     private var hasRatings = false
+    var isScrolledByFab = false
     private var dgGoldRatingsPercent = 0.0f
     private var dgSilverRatingsPercent = 0.0f
     private var dgBronzeRatingsPercent = 0.0f
@@ -154,7 +155,6 @@ class AppDetailsActivity : AppCompatActivity() {
         setContentView(activityBinding.root)
         
         var isAppIconVisible = true
-        var isScrolledByFab = false
         val encPreferenceManager by inject<EncryptedPreferenceManager>()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.detailsNavHost) as NavHostFragment
         navController = navHostFragment.navController
@@ -310,19 +310,6 @@ class AppDetailsActivity : AppCompatActivity() {
                         openURL(getString(R.string.vpn_toolkit_url))
                     }
                 }
-            }
-            //activityBinding.shortcutBtn.setOnClickListener { addShortcut() }
-            
-            // Show FAB on scroll
-            activityBinding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-                if (scrollY == 0) {
-                    activityBinding.scrollTopFab.hide()
-                    if (isScrolledByFab) {
-                        activityBinding.detailsAppBar.setExpanded(true,true)
-                        isScrolledByFab = false
-                    }
-                }
-                else activityBinding.scrollTopFab.show()
             }
             
             // Scroll to top FAB
