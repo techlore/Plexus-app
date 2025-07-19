@@ -32,6 +32,7 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.interfaces.OnFavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -47,7 +48,8 @@ import kotlin.getValue
 
 class PlexusDataFragment :
     Fragment(),
-    MainDataItemAdapter.OnItemClickListener {
+    MainDataItemAdapter.OnItemClickListener,
+    OnFavToggleListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -74,21 +76,24 @@ class PlexusDataFragment :
         
         lifecycleScope.launch{
             plexusDataList =
-                miniRepository.miniPlexusDataListFromDB(statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                        orderPref = prefManager.getInt(A_Z_SORT))
+                miniRepository.miniPlexusDataListFromDB(
+                    statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                    orderPref = prefManager.getInt(A_Z_SORT)
+                )
             
             if (plexusDataList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
             }
             else {
-                plexusDataItemAdapter = MainDataItemAdapter(plexusDataList,
-                                                            this@PlexusDataFragment,
-                                                            lifecycleScope)
+                plexusDataItemAdapter =
+                    MainDataItemAdapter(clickListener = this@PlexusDataFragment,
+                                        favToggleListener = this@PlexusDataFragment)
                 fragmentBinding.recyclerView.apply {
                     mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
                     adapter = plexusDataItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
+                plexusDataItemAdapter.submitList(plexusDataList)
             }
             
             // Swipe refresh layout
@@ -100,10 +105,12 @@ class PlexusDataFragment :
         super.onResume()
         if (DataState.isDataUpdated) {
             lifecycleScope.launch{
-                plexusDataItemAdapter
-                    .updateList(miniRepository
-                                    .miniPlexusDataListFromDB(statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                              orderPref = prefManager.getInt(A_Z_SORT)))
+                plexusDataItemAdapter.submitList(
+                    miniRepository.miniPlexusDataListFromDB(
+                        statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                        orderPref = prefManager.getInt(A_Z_SORT)
+                    )
+                )
                 DataState.isDataUpdated = false
             }
         }
@@ -115,15 +122,24 @@ class PlexusDataFragment :
         mainActivity.startDetailsActivity(plexusData.packageName)
     }
     
+    override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
+        item.isFav = isChecked
+        lifecycleScope.launch {
+            get<MainDataMinimalRepository>().updateFav(item)
+        }
+    }
+    
     private fun refreshData() {
         lifecycleScope.launch{
             if (hasNetwork(requireContext()) && hasInternet()) {
                 try {
                     get<MainDataRepository>().plexusDataIntoDB()
-                    plexusDataItemAdapter
-                        .updateList(miniRepository
-                                        .miniPlexusDataListFromDB(statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                                  orderPref = prefManager.getInt(A_Z_SORT)))
+                    plexusDataItemAdapter.submitList(
+                        miniRepository.miniPlexusDataListFromDB(
+                            statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                            orderPref = prefManager.getInt(A_Z_SORT)
+                        )
+                    )
                     fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 }
                 catch (e: Exception) {

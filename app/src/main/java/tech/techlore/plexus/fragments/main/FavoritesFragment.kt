@@ -23,12 +23,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.activities.MainActivity
-import tech.techlore.plexus.adapters.main.FavoriteItemAdapter
+import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.interfaces.OnFavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -41,12 +45,13 @@ import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 
 class FavoritesFragment:
     Fragment(),
-    FavoriteItemAdapter.OnItemClickListener {
+    MainDataItemAdapter.OnItemClickListener,
+    OnFavToggleListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var favItemAdapter: FavoriteItemAdapter
+    private lateinit var favItemAdapter: MainDataItemAdapter
     private lateinit var favList: ArrayList<MainDataMinimal>
     private val prefManager by inject<PreferenceManager>()
     private val miniRepository by inject<MainDataMinimalRepository>()
@@ -71,22 +76,26 @@ class FavoritesFragment:
         
         lifecycleScope.launch {
             favList =
-                miniRepository.miniFavListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
-                                                 statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                 orderPref = prefManager.getInt(A_Z_SORT))
-    
+                miniRepository.miniFavListFromDB(
+                    installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                    statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                    orderPref = prefManager.getInt(A_Z_SORT)
+                )
+            
             if (favList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
             }
             else {
-                favItemAdapter = FavoriteItemAdapter(favList,
-                                                     this@FavoritesFragment,
-                                                     lifecycleScope)
+                favItemAdapter =
+                    MainDataItemAdapter(clickListener = this@FavoritesFragment,
+                                        favToggleListener = this@FavoritesFragment,
+                                        isFavFrag = true)
                 fragmentBinding.recyclerView.apply {
                     mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
                     adapter = favItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
+                favItemAdapter.submitList(favList)
             }
         }
     }
@@ -95,11 +104,13 @@ class FavoritesFragment:
         super.onResume()
         if (DataState.isDataUpdated) {
             lifecycleScope.launch{
-                favItemAdapter
-                    .updateList(miniRepository
-                                    .miniFavListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
-                                                       statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                       orderPref = prefManager.getInt(A_Z_SORT)))
+                favItemAdapter.submitList(
+                    miniRepository.miniFavListFromDB(
+                        installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                        statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                        orderPref = prefManager.getInt(A_Z_SORT)
+                    )
+                )
                 DataState.isDataUpdated = false
             }
         }
@@ -109,6 +120,21 @@ class FavoritesFragment:
     override fun onItemClick(position: Int) {
         val fav = favList[position]
         mainActivity.startDetailsActivity(fav.packageName)
+    }
+    
+    override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
+        item.isFav = isChecked
+        lifecycleScope.launch {
+            get<MainDataMinimalRepository>().updateFav(item)
+            if (!isChecked) {
+                val newList = withContext(Dispatchers.Default) {
+                    favItemAdapter.currentList.filter {
+                        it.packageName != item.packageName
+                    }
+                }
+                favItemAdapter.submitList(newList)
+            }
+        }
     }
     
     override fun onDestroyView() {

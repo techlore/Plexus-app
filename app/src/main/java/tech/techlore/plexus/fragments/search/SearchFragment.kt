@@ -28,22 +28,28 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.interfaces.OnFavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import kotlin.getValue
 
-class SearchFragment : Fragment(), MainDataItemAdapter.OnItemClickListener {
+class SearchFragment :
+    Fragment(),
+    MainDataItemAdapter.OnItemClickListener,
+    OnFavToggleListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var searchActivity: SearchActivity
     private val miniRepository by inject<MainDataMinimalRepository>()
+    private lateinit var searchItemAdapter: MainDataItemAdapter
     private lateinit var searchDataList: ArrayList<MainDataMinimal>
     
     override fun onCreateView(inflater: LayoutInflater,
@@ -68,6 +74,10 @@ class SearchFragment : Fragment(), MainDataItemAdapter.OnItemClickListener {
         
         lifecycleScope.launch {
             performSearch(searchActivity.activityBinding.searchView.query.toString())
+            searchItemAdapter =
+                MainDataItemAdapter(clickListener = this@SearchFragment,
+                                    favToggleListener = this@SearchFragment)
+            FastScrollerBuilder(fragmentBinding.recyclerView).build() // Fast scroll
         }
         
         // Perform search
@@ -103,11 +113,10 @@ class SearchFragment : Fragment(), MainDataItemAdapter.OnItemClickListener {
                 searchActivity.activityBinding.emptySearchView.visibility = View.GONE
                 fragmentBinding.recyclerView.apply {
                     searchActivity.activityBinding.searchAppBar.liftOnScrollTargetViewId = this.id
-                    adapter = MainDataItemAdapter(searchDataList,
-                                                  this@SearchFragment,
-                                                  lifecycleScope)
-                    FastScrollerBuilder(this).build() // Fast scroll
+                    adapter = searchItemAdapter
                 }
+                searchItemAdapter.submitList(searchDataList)
+                
             }
         }
         else {
@@ -120,6 +129,13 @@ class SearchFragment : Fragment(), MainDataItemAdapter.OnItemClickListener {
     override fun onItemClick(position: Int) {
         val searchData = searchDataList[position]
         searchActivity.startDetailsActivity(searchData.packageName)
+    }
+    
+    override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
+        item.isFav = isChecked
+        lifecycleScope.launch {
+            get<MainDataMinimalRepository>().updateFav(item)
+        }
     }
     
     override fun onDestroyView() {

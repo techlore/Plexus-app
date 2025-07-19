@@ -25,10 +25,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.interfaces.OnFavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -44,7 +46,8 @@ import kotlin.getValue
 
 class InstalledAppsFragment :
     Fragment(),
-    MainDataItemAdapter.OnItemClickListener {
+    MainDataItemAdapter.OnItemClickListener,
+    OnFavToggleListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -72,22 +75,25 @@ class InstalledAppsFragment :
         lifecycleScope.launch {
             
             installedAppsList =
-                miniRepository.miniInstalledAppsListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
-                                                           statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                           orderPref = prefManager.getInt(A_Z_SORT))
+                miniRepository.miniInstalledAppsListFromDB(
+                    installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                    statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                    orderPref = prefManager.getInt(A_Z_SORT)
+                )
             
             if (installedAppsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
             }
             else {
-                installedAppItemAdapter = MainDataItemAdapter(installedAppsList,
-                                                              this@InstalledAppsFragment,
-                                                              lifecycleScope)
+                installedAppItemAdapter =
+                    MainDataItemAdapter(clickListener = this@InstalledAppsFragment,
+                                        favToggleListener = this@InstalledAppsFragment)
                 fragmentBinding.recyclerView.apply {
                     mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
                     adapter = installedAppItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
+                installedAppItemAdapter.submitList(installedAppsList)
             }
             
             // Swipe refresh layout
@@ -99,11 +105,13 @@ class InstalledAppsFragment :
         super.onResume()
         if (DataState.isDataUpdated) {
             lifecycleScope.launch {
-                installedAppItemAdapter
-                    .updateList(miniRepository
-                                    .miniInstalledAppsListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
-                                                                 statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                                 orderPref = prefManager.getInt(A_Z_SORT)))
+                installedAppItemAdapter.submitList(
+                    miniRepository.miniInstalledAppsListFromDB(
+                        installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                        statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                        orderPref = prefManager.getInt(A_Z_SORT)
+                    )
+                )
                 DataState.isDataUpdated = false
             }
         }
@@ -115,16 +123,25 @@ class InstalledAppsFragment :
         mainActivity.startDetailsActivity(installedApp.packageName)
     }
     
+    override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
+        item.isFav = isChecked
+        lifecycleScope.launch {
+            get<MainDataMinimalRepository>().updateFav(item)
+        }
+    }
+    
     private fun refreshInstalledApps() {
         lifecycleScope.launch {
             val mainRepository by inject<MainDataRepository>()
             mainRepository.installedAppsIntoDB(requireContext())
             fragmentBinding.swipeRefreshLayout.isRefreshing = false
-            installedAppItemAdapter
-                .updateList(miniRepository
-                                .miniInstalledAppsListFromDB(installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
-                                                             statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-                                                             orderPref = prefManager.getInt(A_Z_SORT)))
+            installedAppItemAdapter.submitList(
+                miniRepository.miniInstalledAppsListFromDB(
+                    installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
+                    statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
+                    orderPref = prefManager.getInt(A_Z_SORT)
+                )
+            )
         }
     }
     

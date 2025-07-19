@@ -15,29 +15,12 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.utils
+package tech.techlore.plexus.interfaces
 
-import androidx.recyclerview.widget.DiffUtil
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 
-class MainDataMinimalDiffUtil(
-    private val oldList: List<MainDataMinimal>,
-    private val newList: List<MainDataMinimal>
-) : DiffUtil.Callback() {
+interface OnFavToggleListener {
     
-    override fun getOldListSize(): Int {
-        return oldList.size
-    }
+    fun onFavToggled(item: MainDataMinimal, isChecked: Boolean)
     
-    override fun getNewListSize(): Int {
-        return newList.size
-    }
-    
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return newList[newItemPosition].packageName == oldList[oldItemPosition].packageName
-    }
-    
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return newList[newItemPosition] == oldList[oldItemPosition]
-    }
 }
