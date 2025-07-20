@@ -96,6 +96,7 @@ import kotlin.math.abs
 import androidx.core.graphics.scale
 import com.google.android.material.button.MaterialButton
 import androidx.core.graphics.createBitmap
+import androidx.core.graphics.drawable.toBitmap
 import kotlin.system.exitProcess
 
 class AppDetailsActivity : AppCompatActivity() {
@@ -253,7 +254,8 @@ class AppDetailsActivity : AppCompatActivity() {
                     isVisible = true
                     setOnClickListener {
                         val bitmap =
-                            (activityBinding.detailsAppIcon.drawable as? BitmapDrawable)?.bitmap?.toSoftwareBitmap()
+                            if (app.isInstalled) packageManager.getApplicationIcon(packageNameString).toBitmap()
+                            else (activityBinding.detailsAppIcon.drawable as? BitmapDrawable)?.bitmap?.toSoftwareBitmap()
                         
                         val resizedBitmap =
                             bitmap?.let {

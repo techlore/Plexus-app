@@ -30,7 +30,7 @@ import org.koin.android.ext.android.inject
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.interfaces.OnFavToggleListener
+import tech.techlore.plexus.interfaces.FavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -47,7 +47,7 @@ import kotlin.getValue
 class InstalledAppsFragment :
     Fragment(),
     MainDataItemAdapter.OnItemClickListener,
-    OnFavToggleListener {
+    FavToggleListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
