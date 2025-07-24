@@ -29,7 +29,6 @@ import tech.techlore.plexus.databinding.BottomSheetLinksBinding
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
 class LinksBottomSheet(
-    private val nameString: String,
     private val packageNameString: String
 ) : BottomSheetDialogFragment() {
     
@@ -52,7 +51,8 @@ class LinksBottomSheet(
         val exodusString = "${getString(R.string.exodus_url)}$packageNameString/"
         
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = nameString
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text =
+            getString(R.string.menu_links)
         
         // Google Play Store
         bottomSheetBinding.playStore.setOnClickListener {

@@ -53,7 +53,7 @@
             android:paddingBottom="@dimen/margin_10"
             android:scrollbars="vertical"
             android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
-            tools:listitem="@layout/item_licenses_recycler_view"/>
+            tools:listitem="@layout/item_licenses_rv"/>
 
     </androidx.core.widget.NestedScrollView>
 

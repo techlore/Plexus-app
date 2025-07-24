@@ -186,6 +186,7 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/broken_title"
+                android:textColor="@color/color_broken_status_text"
                 android:backgroundTint="@color/color_broken_status"
                 style="@style/BaseChipLikeTextViewStyle"/>
 
@@ -226,6 +227,7 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/bronze_title"
+                android:textColor="@color/color_bronze_status_text"
                 android:backgroundTint="@color/color_bronze_status"
                 style="@style/BaseChipLikeTextViewStyle"/>
 
@@ -266,6 +268,7 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/silver_title"
+                android:textColor="@color/color_silver_status_text"
                 android:backgroundTint="@color/color_silver_status"
                 style="@style/BaseChipLikeTextViewStyle"/>
 
@@ -306,6 +309,7 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
                 android:text="@string/gold_title"
+                android:textColor="@color/color_gold_status_text"
                 android:backgroundTint="@color/color_gold_status"
                 style="@style/BaseChipLikeTextViewStyle"/>
 

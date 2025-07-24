@@ -27,7 +27,7 @@ import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
-import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
 class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetails>) : RecyclerView.Adapter<MyRatingsDetailsItemAdapter.ListViewHolder>() {
     
@@ -45,7 +45,7 @@ class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetai
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ListViewHolder {
         return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_ratings_details_recycler_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_ratings_details_rv, parent, false)
         )
     }
     
@@ -71,13 +71,17 @@ class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetai
         holder.installedFrom.setInstalledFromStyle(context, myRatingsDetails.installedFrom)
         
         // Status
-        holder.status.setStatusStyle(context,
-                                     myRatingsDetails.googleLib,
-                                     myRatingsDetails.myRatingScore)
+        holder.status.setStatusStyleWithIcon(context,
+                                             myRatingsDetails.googleLib,
+                                             myRatingsDetails.myRatingScore)
         
     }
     
     override fun getItemCount(): Int {
         return aListViewItems.size
+    }
+    
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }

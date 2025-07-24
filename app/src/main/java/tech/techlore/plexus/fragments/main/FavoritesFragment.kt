@@ -23,6 +23,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -89,9 +91,15 @@ class FavoritesFragment:
                 favItemAdapter =
                     MainDataItemAdapter(clickListener = this@FavoritesFragment,
                                         favToggleListener = this@FavoritesFragment,
+                                        isGridView = mainActivity.isGridView,
                                         isFavFrag = true)
                 fragmentBinding.recyclerView.apply {
                     mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
+                    layoutManager =
+                        if (!mainActivity.isGridView)
+                            LinearLayoutManager(requireContext())
+                        else
+                            GridLayoutManager(requireContext(), 2)
                     adapter = favItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }

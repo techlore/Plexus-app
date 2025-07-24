@@ -25,6 +25,7 @@ class PreferenceManager(context: Context) {
         const val IS_FIRST_LAUNCH = "is_first_launch"
         const val LAST_UPDATED = "last_updated"
         const val A_Z_SORT = "a_z_sort"
+        const val GRID_VIEW = "grid_view"
         const val STATUS_TOGGLE = "status_toggle"
         const val DG_STATUS_SORT = "dg_status_sort"
         const val MG_STATUS_SORT = "mg_status_sort"

@@ -31,12 +31,12 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.settings.SupportMethodItemAdapter
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
-import tech.techlore.plexus.databinding.BottomSheetRecyclerViewBinding
+import tech.techlore.plexus.databinding.BottomSheetRvBinding
 import tech.techlore.plexus.models.settings.SupportMethod
 
 class SupportUsBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetRecyclerViewBinding? = null
+    private var _binding: BottomSheetRvBinding? = null
     private val bottomSheetBinding get() = _binding!!
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -49,7 +49,7 @@ class SupportUsBottomSheet : BottomSheetDialogFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        _binding = BottomSheetRecyclerViewBinding.inflate(inflater, container, false)
+        _binding = BottomSheetRvBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     

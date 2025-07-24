@@ -35,7 +35,7 @@
         android:padding="@dimen/margin_8"
         android:src="@drawable/ic_device_stats"
         app:tint="?attr/colorOnSurfaceVariant"
-        android:background="@drawable/shape_rounded_corners_large"
+        android:background="@drawable/shape_filled_rounded_corners_large"
         android:backgroundTint="?attr/colorSurfaceVariant"
         tools:ignore="ContentDescription" />
 

@@ -33,7 +33,7 @@ import tech.techlore.plexus.bottomsheets.appdetails.TranslateRatingNoteBottomShe
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.diffcallbacks.RatingsDetailsDiffCallback
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
-import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
 class UserRatingsItemAdapter(
     private val fragmentManager: FragmentManager
@@ -55,7 +55,7 @@ class UserRatingsItemAdapter(
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ListViewHolder {
         return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_ratings_details_recycler_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_ratings_details_rv, parent, false)
         )
     }
     
@@ -84,9 +84,13 @@ class UserRatingsItemAdapter(
         holder.installedFrom.setInstalledFromStyle(context, userRating.installedFrom)
         
         // Status
-        holder.status.setStatusStyle(context,
-                                     userRating.ratingType!!,
-                                     userRating.ratingScore!!.ratingScore)
+        holder.status.setStatusStyleWithIcon(context,
+                                             userRating.ratingType!!,
+                                             userRating.ratingScore!!.ratingScore)
         
+    }
+    
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }

@@ -17,7 +17,6 @@
 
 package tech.techlore.plexus.adapters.main
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,10 +32,11 @@ import tech.techlore.plexus.interfaces.FavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScroll
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
-import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusStringToColor
+import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithoutIcon
 
 class MainDataItemAdapter(private val clickListener: OnItemClickListener,
                           private val favToggleListener: FavToggleListener,
+                          private val isGridView: Boolean = false,
                           private val isFavFrag: Boolean = false) :
     ListAdapter<MainDataMinimal, MainDataItemAdapter.ListViewHolder>(MainDataMinimalDiffCallback()),
     PopupTextProvider {
@@ -69,7 +69,13 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_main_recycler_view, parent, false)
+            LayoutInflater
+                .from(parent.context)
+                .inflate(
+                    if (!isGridView) R.layout.item_main_rv_list else R.layout.item_main_rv_grid,
+                    parent,
+                    false
+                )
         )
     }
     
@@ -97,17 +103,9 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
             hScroll()
         }
         
-        holder.dgStatus.apply {
-            text = mainDataMinimal.dgStatus
-            backgroundTintList =
-                mapStatusStringToColor(context, mainDataMinimal.dgStatus)?.let { ColorStateList.valueOf(it) }
-        }
+        holder.dgStatus.setStatusStyleWithoutIcon(context, mainDataMinimal.dgStatus)
         
-        holder.mgStatus.apply {
-            text = mainDataMinimal.mgStatus
-            backgroundTintList =
-                mapStatusStringToColor(context, mainDataMinimal.mgStatus)?.let { ColorStateList.valueOf(it) }
-        }
+        holder.mgStatus.setStatusStyleWithoutIcon(context, mainDataMinimal.mgStatus)
         
         holder.fav.apply {
             isChecked = mainDataMinimal.isFav
@@ -116,6 +114,10 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
             }
         }
         
+    }
+    
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
     
     // Fast scroll popup

@@ -30,7 +30,8 @@ import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 
 class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
-                           private val clickListener: OnItemClickListener) :
+                           private val clickListener: OnItemClickListener,
+                           private val isGridView: Boolean = false) :
     RecyclerView.Adapter<MyRatingsItemAdapter.ListViewHolder>(), PopupTextProvider {
     
     interface OnItemClickListener {
@@ -60,7 +61,12 @@ class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ListViewHolder {
         return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_my_ratings_recycler_view, parent, false)
+            LayoutInflater
+                .from(parent.context)
+                .inflate(
+                    if (!isGridView) R.layout.item_my_ratings_rv_list else R.layout.item_my_ratings_rv_grid,
+                    parent,
+                    false)
         )
     }
     
@@ -90,6 +96,10 @@ class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
     
     override fun getItemCount(): Int {
         return aListViewItems.size
+    }
+    
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
     
     // Fast scroll popup

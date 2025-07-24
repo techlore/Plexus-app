@@ -28,6 +28,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
@@ -106,9 +108,19 @@ class MyRatingsFragment :
                     }
             }
             else {
-                myRatingsItemAdapter = MyRatingsItemAdapter(myRatingsList, this@MyRatingsFragment)
+                myRatingsItemAdapter =
+                    MyRatingsItemAdapter(
+                        aListViewItems = myRatingsList,
+                        clickListener = this@MyRatingsFragment,
+                        isGridView = mainActivity.isGridView
+                    )
                 fragmentBinding.recyclerView.apply {
                     mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
+                    layoutManager =
+                        if (!mainActivity.isGridView)
+                            LinearLayoutManager(requireContext())
+                        else
+                            GridLayoutManager(requireContext(), 2)
                     adapter = myRatingsItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }

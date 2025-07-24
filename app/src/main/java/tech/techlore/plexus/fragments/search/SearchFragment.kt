@@ -24,6 +24,8 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -35,6 +37,8 @@ import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.interfaces.FavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
@@ -51,6 +55,7 @@ class SearchFragment :
     private val miniRepository by inject<MainDataMinimalRepository>()
     private lateinit var searchItemAdapter: MainDataItemAdapter
     private lateinit var searchDataList: ArrayList<MainDataMinimal>
+    private var isGridView = false
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -65,6 +70,7 @@ class SearchFragment :
         searchActivity = requireActivity() as SearchActivity
         searchDataList = ArrayList()
         var job: Job? = null
+        isGridView = get<PreferenceManager>().getBoolean(GRID_VIEW, false)
         
         // Adjust recycler view for edge to edge
         fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
@@ -76,7 +82,8 @@ class SearchFragment :
             performSearch(searchActivity.activityBinding.searchView.query.toString())
             searchItemAdapter =
                 MainDataItemAdapter(clickListener = this@SearchFragment,
-                                    favToggleListener = this@SearchFragment)
+                                    favToggleListener = this@SearchFragment,
+                                    isGridView = isGridView)
             FastScrollerBuilder(fragmentBinding.recyclerView).build() // Fast scroll
         }
         
@@ -113,6 +120,11 @@ class SearchFragment :
                 searchActivity.activityBinding.emptySearchView.visibility = View.GONE
                 fragmentBinding.recyclerView.apply {
                     searchActivity.activityBinding.searchAppBar.liftOnScrollTargetViewId = this.id
+                    layoutManager =
+                        if (!isGridView)
+                            LinearLayoutManager(requireContext())
+                        else
+                            GridLayoutManager(requireContext(), 2)
                     adapter = searchItemAdapter
                 }
                 searchItemAdapter.submitList(searchDataList)

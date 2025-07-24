@@ -211,7 +211,7 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
             activityBinding.detailsLinksBtn.apply {
                 setButtonTooltipText(getString(R.string.menu_links))
                 setOnClickListener {
-                    LinksBottomSheet(app.name, packageNameString).show(supportFragmentManager, "LinksBottomSheet")
+                    LinksBottomSheet(packageNameString).show(supportFragmentManager, "LinksBottomSheet")
                 }
             }
             

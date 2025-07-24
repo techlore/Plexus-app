@@ -37,7 +37,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:background="?attr/colorSurface"
         android:clipToPadding="false"
-        tools:listitem="@layout/item_ratings_details_recycler_view" />
+        tools:listitem="@layout/item_ratings_details_rv" />
 
     <ViewStub
         android:id="@+id/emptyRatingsListViewStub"

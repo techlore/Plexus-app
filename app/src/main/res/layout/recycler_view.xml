@@ -42,7 +42,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:background="?attr/colorSurface"
             android:clipToPadding="false"
-            tools:listitem="@layout/item_main_recycler_view"/>
+            tools:listitem="@layout/item_main_rv_list"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

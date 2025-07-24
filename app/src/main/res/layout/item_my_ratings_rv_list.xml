@@ -85,7 +85,7 @@
             app:layout_constraintBottom_toBottomOf="@id/myRatingsName"
             android:gravity="center"
             android:layout_marginEnd="@dimen/margin_12"
-            android:background="@drawable/shape_rounded_corners_large"
+            android:background="@drawable/shape_filled_rounded_corners_large"
             android:textSize="@dimen/text_16"
             android:textColor="?attr/colorOnSecondaryContainer"
             style="@style/MediumBoldText"/>

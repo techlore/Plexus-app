@@ -23,6 +23,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.get
@@ -87,9 +89,15 @@ class PlexusDataFragment :
             else {
                 plexusDataItemAdapter =
                     MainDataItemAdapter(clickListener = this@PlexusDataFragment,
-                                        favToggleListener = this@PlexusDataFragment)
+                                        favToggleListener = this@PlexusDataFragment,
+                                        isGridView = mainActivity.isGridView)
                 fragmentBinding.recyclerView.apply {
                     mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
+                    layoutManager =
+                        if (!mainActivity.isGridView)
+                            LinearLayoutManager(requireContext())
+                        else
+                            GridLayoutManager(requireContext(), 2)
                     adapter = plexusDataItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }

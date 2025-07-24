@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_32"
                 app:layout_constraintTop_toBottomOf="@id/detailsInstalledVersion"
-                app:layout_constraintStart_toStartOf="@id/detailsInstalledVersion"
+                app:layout_constraintStart_toStartOf="@id/detailsPackageName"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/margin_8"
                 android:visibility="gone"
@@ -317,6 +317,7 @@
                         android:layout_marginStart="@dimen/margin_12"
                         android:text="@string/gold_title"
                         android:textSize="@dimen/text_16"
+                        android:textColor="@color/color_gold_status_text"
                         style="@style/MediumBoldText"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -329,6 +330,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:textSize="@dimen/text_16"
                         android:text="0%"
+                        android:textColor="@color/color_gold_status_text"
                         style="@style/MediumBoldText"/>
 
                     <!--####################################################-->
@@ -354,6 +356,7 @@
                         android:gravity="center"
                         android:text="@string/silver_title"
                         android:textSize="@dimen/text_16"
+                        android:textColor="@color/color_silver_status_text"
                         style="@style/MediumBoldText"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -366,6 +369,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:textSize="@dimen/text_16"
                         android:text="0%"
+                        android:textColor="@color/color_silver_status_text"
                         style="@style/MediumBoldText"/>
 
                     <!--####################################################-->
@@ -391,6 +395,7 @@
                         android:gravity="center"
                         android:text="@string/bronze_title"
                         android:textSize="@dimen/text_16"
+                        android:textColor="@color/color_bronze_status_text"
                         style="@style/MediumBoldText"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -403,6 +408,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:textSize="@dimen/text_16"
                         android:text="0%"
+                        android:textColor="@color/color_bronze_status_text"
                         style="@style/MediumBoldText"/>
 
                     <!--####################################################-->
@@ -428,6 +434,7 @@
                         android:gravity="center"
                         android:text="@string/broken_title"
                         android:textSize="@dimen/text_16"
+                        android:textColor="@color/color_broken_status_text"
                         style="@style/MediumBoldText"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -440,6 +447,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:textSize="@dimen/text_16"
                         android:text="0%"
+                        android:textColor="@color/color_broken_status_text"
                         style="@style/MediumBoldText"/>
 
                     <!--####################################################-->

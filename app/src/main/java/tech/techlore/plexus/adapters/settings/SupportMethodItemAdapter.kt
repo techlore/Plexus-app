@@ -44,7 +44,7 @@ class SupportMethodItemAdapter (private val aListViewItems: ArrayList<SupportMet
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ListViewHolder {
         return ListViewHolder(LayoutInflater.from(parent.context)
-                                  .inflate(R.layout.item_support_methods_recycler_view, parent, false)
+                                  .inflate(R.layout.item_support_methods_rv, parent, false)
         )
     }
     
@@ -71,5 +71,9 @@ class SupportMethodItemAdapter (private val aListViewItems: ArrayList<SupportMet
     
     override fun getItemCount(): Int {
         return aListViewItems.size
+    }
+    
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }

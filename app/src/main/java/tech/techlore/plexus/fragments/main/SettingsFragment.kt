@@ -79,7 +79,7 @@ class SettingsFragment : Fragment() {
         // or else menu buttons will be enabled on activity recreation
         // when theme is changed
         if (mainActivity.activityBinding.mainSearchBtn.isEnabled) {
-            mainActivity.setMenuButtonStates(isSearchEnabled = false, isSortEnabled = false)
+            mainActivity.setMenuButtonStates()
         }
         
         // Version

@@ -80,6 +80,7 @@
         android:layout_gravity="bottom">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dockedToolbarConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -112,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/mainSearchBtn"
-                app:layout_constraintEnd_toStartOf="@id/mainHelpBtn"
+                app:layout_constraintEnd_toStartOf="@id/viewBtn"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:icon="@drawable/ic_sort"
@@ -120,10 +121,22 @@
                 style="?attr/materialIconButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/mainHelpBtn"
+                android:id="@+id/viewBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/mainSortBtn"
+                app:layout_constraintEnd_toStartOf="@id/mainHelpBtn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:icon="@drawable/ic_view_grid"
+                android:contentDescription="@string/menu_help"
+                style="?attr/materialIconButtonStyle"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mainHelpBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/viewBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_10"
+    android:layout_marginTop="@dimen/margin_4"
+    android:layout_marginBottom="@dimen/margin_12"
+    tools:context=".adapters.main.MyRatingsItemAdapter">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_8"
+        android:paddingTop="@dimen/margin_8"
+        android:paddingBottom="@dimen/margin_20">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/margin_45"
+            android:layout_height="@dimen/margin_45"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_apk"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon"
+            android:layout_marginTop="@dimen/margin_8"
+            android:ellipsize="marquee"
+            android:text="@string/app"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/packageName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintEnd_toEndOf="@id/name"
+            android:layout_marginTop="@dimen/margin_2"
+            android:ellipsize="marquee"
+            android:text="@string/package_name"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="@dimen/text_16"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/myRatingsCount"
+            android:layout_width="@dimen/margin_50"
+            android:layout_height="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/icon"
+            app:layout_constraintBottom_toBottomOf="@id/icon"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:background="@drawable/shape_filled_rounded_corners_large"
+            android:textSize="@dimen/text_16"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            style="@style/MediumBoldText"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -23,8 +23,10 @@ import android.view.Window
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
@@ -35,7 +37,9 @@ import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
+import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
@@ -47,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     private var defaultFragment = 0
     var defaultSelectedNavItem = 0
     var selectedNavItem = 0
+    var isGridView = false
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -64,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
+        isGridView = prefManager.getBoolean(GRID_VIEW, false)
         
         setDefaultView()
         
@@ -95,6 +101,18 @@ class MainActivity : AppCompatActivity() {
             setButtonTooltipText(getString(R.string.menu_sort))
             setOnClickListener {
                 SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
+            }
+        }
+        
+        // View
+        activityBinding.viewBtn.apply {
+            setButtonTooltipText("View"/*getString(R.string.view)*/)
+            setViewButtonIcon()
+            setOnClickListener {
+                isGridView = !isGridView
+                prefManager.setBoolean(GRID_VIEW, isGridView)
+                setViewButtonIcon()
+                navController.refreshFragment()
             }
         }
         
@@ -151,20 +169,39 @@ class MainActivity : AppCompatActivity() {
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
         if (selectedItem != navController.currentDestination?.id && action != 0) {
-            when (selectedNavItem) {
-                R.id.nav_my_ratings -> setMenuButtonStates(isSearchEnabled = false)
-                R.id.nav_settings -> setMenuButtonStates(isSearchEnabled = false, isSortEnabled = false)
-                else -> setMenuButtonStates()
-            }
+            setMenuButtonStates()
             activityBinding.mainAppBar.setExpanded(true, true)
             navController.navigate(action)
             activityBinding.mainCollapsingToolbar.title = navController.currentDestination?.label
         }
     }
     
-    fun setMenuButtonStates(isSearchEnabled: Boolean = true, isSortEnabled: Boolean = true) {
-        activityBinding.mainSearchBtn.isEnabled = isSearchEnabled
-        activityBinding.mainSortBtn.isEnabled = isSortEnabled
+    fun setMenuButtonStates() {
+        when (selectedNavItem) {
+            R.id.nav_my_ratings ->
+                activityBinding.mainSearchBtn.isEnabled = false
+            
+            R.id.nav_settings -> {
+                for (i in 1 until 5) {
+                    activityBinding.dockedToolbarConstraintLayout.getChildAt(i).isEnabled = false
+                }
+            }
+            
+            else -> {
+                for (i in 1 until 5) {
+                    activityBinding.dockedToolbarConstraintLayout.getChildAt(i).isEnabled = true
+                }
+            }
+        }
+    }
+    
+    private fun MaterialButton.setViewButtonIcon() {
+        icon =
+            ContextCompat.getDrawable(
+                this@MainActivity,
+                if (!isGridView) R.drawable.ic_view_grid
+                else R.drawable.ic_view_list
+            )
     }
     
     override fun onSaveInstanceState(outState: Bundle) {

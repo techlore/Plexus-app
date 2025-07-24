@@ -105,7 +105,7 @@ class AppDetailsActivity : AppCompatActivity() {
     lateinit var navController: NavController
     private lateinit var packageNameString: String
     private var isFromShortcut = false
-    private var checkIcon: Drawable? = null
+    private var toggleBtnCheckIcon: Drawable? = null
     private var dgIcon: Drawable? = null
     private var mgIcon: Drawable? = null
     private val apiRepository by inject<ApiRepository>()
@@ -163,7 +163,7 @@ class AppDetailsActivity : AppCompatActivity() {
         selectedVersionString = getString(R.string.any)
         selectedRomString = getString(R.string.any)
         selectedAndroidString = getString(R.string.any)
-        checkIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_done, theme)//ContextCompat.getDrawable(this, R.drawable.ic_done)
+        toggleBtnCheckIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_done, theme)
         dgIcon = ContextCompat.getDrawable(this, R.drawable.ic_degoogled)
         mgIcon = ContextCompat.getDrawable(this, R.drawable.ic_microg)
         
@@ -353,7 +353,7 @@ class AppDetailsActivity : AppCompatActivity() {
             activityBinding.detailsLinksBtn.apply {
                 setButtonTooltipText(getString(R.string.menu_links))
                 setOnClickListener {
-                    LinksBottomSheet(app.name, packageNameString).show(supportFragmentManager, "LinksBottomSheet")
+                    LinksBottomSheet(packageNameString).show(supportFragmentManager, "LinksBottomSheet")
                 }
             }
             
@@ -510,10 +510,10 @@ class AppDetailsActivity : AppCompatActivity() {
                 val selectedToggle =
                     if (DeviceState.isDeviceMicroG) R.id.mgScoreToggleBtn else R.id.dgScoreToggleBtn
                 check(selectedToggle)
-                findViewById<MaterialButton>(selectedToggle).icon = checkIcon
+                findViewById<MaterialButton>(selectedToggle).icon = toggleBtnCheckIcon
                 addOnButtonCheckedListener { _, checkedId, isChecked ->
                     if (isChecked) {
-                        findViewById<MaterialButton>(checkedId).icon = checkIcon // Add checkmark icon
+                        findViewById<MaterialButton>(checkedId).icon = toggleBtnCheckIcon // Add checkmark icon
                         setTotalScore(
                             when (checkedId) {
                                 R.id.mgScoreToggleBtn -> true

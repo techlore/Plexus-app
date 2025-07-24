@@ -40,7 +40,7 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>,
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ListViewHolder {
         return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_licenses_recycler_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_licenses_rv, parent, false)
         )
     }
     
@@ -60,5 +60,9 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>,
     
     override fun getItemCount(): Int {
         return aListViewItems.size
+    }
+    
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }
