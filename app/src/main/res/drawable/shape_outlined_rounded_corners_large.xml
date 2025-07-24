@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~     Copyright (C) 2022-present Techlore
   ~
   ~     This program is free software: you can redistribute it and/or modify
@@ -15,6 +15,9 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="960" android:viewportHeight="960" android:tint="?attr/colorControlNormal">
-    <path android:fillColor="@android:color/white" android:pathData="M280 920q-33 0-56.5-23.5T200 840V120q0-33 23.5-56.5T280 40h400q33 0 56.5 23.5T760 120v124q18 7 29 22t11 34v80q0 19-11 34t-29 22v404q0 33-23.5 56.5T680 920H280zm0-80h400V120H280v720zm0 0V120v720zm200-600q17 0 28.5-11.5T520 200q0-17-11.5-28.5T480 160q-17 0-28.5 11.5T440 200q0 17 11.5 28.5T480 240z"/>
-</vector>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="@dimen/margin_75"/>
+    <stroke android:color="?attr/colorOutline" android:width="1dp"/>
+</shape>

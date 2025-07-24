@@ -194,20 +194,31 @@ class UiUtils {
             }
         }
         
-        fun mapStatusStringToColor(context: Context, status: String): Int? {
-            return when (status) {
-                context.getString(R.string.na) -> null // No background tint. Only show outline
-                context.getString(R.string.broken_title) -> context.resources.getColor(R.color.color_broken_status,
-                                                                                       context.theme)
-                
-                context.getString(R.string.bronze_title) -> context.resources.getColor(R.color.color_bronze_status,
-                                                                                       context.theme)
-                
-                context.getString(R.string.silver_title) -> context.resources.getColor(R.color.color_silver_status,
-                                                                                       context.theme)
-                
-                else -> context.resources.getColor(R.color.color_gold_status, context.theme)
-            }
+        fun MaterialTextView.setStatusStyleWithoutIcon(context: Context, statusString: String) {
+            val (textColor, backgroundTint) =
+                when (statusString) {
+                    context.getString(R.string.na) -> Pair(null, null) // No background tint. Only show outline
+                    
+                    context.getString(R.string.broken_title) ->
+                        Pair(context.resources.getColor(R.color.color_broken_status_text, context.theme),
+                             context.resources.getColor(R.color.color_broken_status, context.theme))
+                    
+                    context.getString(R.string.bronze_title) ->
+                        Pair(context.resources.getColor(R.color.color_bronze_status_text, context.theme),
+                             context.resources.getColor(R.color.color_bronze_status, context.theme))
+                    
+                    context.getString(R.string.silver_title) ->
+                        Pair(context.resources.getColor(R.color.color_silver_status_text, context.theme),
+                             context.resources.getColor(R.color.color_silver_status, context.theme))
+                    
+                    else ->
+                        Pair(context.resources.getColor(R.color.color_gold_status_text, context.theme),
+                             context.resources.getColor(R.color.color_gold_status, context.theme))
+                }
+            
+            text = statusString
+            textColor?.let{setTextColor(ColorStateList.valueOf(it))}
+            backgroundTint?.let { backgroundTintList = ColorStateList.valueOf(it) }
         }
         
         fun mapStatusChipIdToRatingScore(statusChipId: Int): Int {
@@ -251,36 +262,37 @@ class UiUtils {
             }
         }
         
-        fun MaterialTextView.setStatusStyle(context: Context,
-                                            googleLib: String,
-                                            ratingScore: Int) {
+        fun MaterialTextView.setStatusStyleWithIcon(context: Context,
+                                                    googleLib: String,
+                                                    ratingScore: Int) {
             val statusIcon =
                 when (googleLib) {
                     "native" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
                     else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
                 }
             
-            val (statusString, backgroundTint) =
+            val (statusString, textColor, backgroundTint) =
                 when (ratingScore) {
-                    1 -> Pair(context.getString(R.string.broken_title),
-                              context.resources.getColor(R.color.color_broken_status,
-                                                         context.theme))
+                    1 -> Triple(context.getString(R.string.broken_title),
+                                context.resources.getColor(R.color.color_broken_status_text, context.theme),
+                                context.resources.getColor(R.color.color_broken_status, context.theme))
                     
-                    2 -> Pair(context.getString(R.string.bronze_title),
-                              context.resources.getColor(R.color.color_bronze_status,
-                                                         context.theme))
+                    2 -> Triple(context.getString(R.string.bronze_title),
+                                context.resources.getColor(R.color.color_bronze_status_text, context.theme),
+                                context.resources.getColor(R.color.color_bronze_status, context.theme))
                     
-                    3 -> Pair(context.getString(R.string.silver_title),
-                              context.resources.getColor(R.color.color_silver_status,
-                                                         context.theme))
+                    3 -> Triple(context.getString(R.string.silver_title),
+                                context.resources.getColor(R.color.color_silver_status_text, context.theme),
+                                context.resources.getColor(R.color.color_silver_status, context.theme))
                     
-                    else -> Pair(context.getString(R.string.gold_title),
-                                 context.resources.getColor(R.color.color_gold_status,
-                                                            context.theme))
+                    else -> Triple(context.getString(R.string.gold_title),
+                                   context.resources.getColor(R.color.color_gold_status_text, context.theme),
+                                   context.resources.getColor(R.color.color_gold_status, context.theme))
                 }
             
             setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
             text = statusString
+            setTextColor(ColorStateList.valueOf(textColor))
             backgroundTintList = ColorStateList.valueOf(backgroundTint)
         }
         

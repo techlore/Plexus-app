@@ -97,36 +97,43 @@
     <style name="BrokenFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_broken_status</item>
         <item name="android:text">@string/broken_title</item>
+        <item name="android:textColor">@color/color_broken_status_text</item>
     </style>
 
     <style name="BronzeFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_bronze_status</item>
         <item name="android:text">@string/bronze_title</item>
+        <item name="android:textColor">@color/color_bronze_status_text</item>
     </style>
 
     <style name="SilverFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_silver_status</item>
         <item name="android:text">@string/silver_title</item>
+        <item name="android:textColor">@color/color_silver_status_text</item>
     </style>
 
     <style name="GoldFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_gold_status</item>
         <item name="android:text">@string/gold_title</item>
+        <item name="android:textColor">@color/color_gold_status_text</item>
     </style>
 
     <style name="GooglePlayAltFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_installed_from</item>
         <item name="android:text">@string/google_play_alt</item>
+        <item name="android:textColor">@color/color_installed_from_text</item>
     </style>
 
     <style name="FdroidFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_installed_from</item>
         <item name="android:text">@string/fdroid</item>
+        <item name="android:textColor">@color/color_installed_from_text</item>
     </style>
 
     <style name="ApkFilterChipTheme" parent="BaseFilterChipStyle">
         <item name="chipBackgroundColor">@color/color_installed_from</item>
         <item name="android:text">@string/apk</item>
+        <item name="android:textColor">@color/color_installed_from_text</item>
     </style>
 
     <style name="SystemDefaultChipTheme" parent="BaseThemeChipStyle">
@@ -150,15 +157,17 @@
     <!--#########################################################################################-->
 
     <!--Chip like text view themes-->
-    <style name="InstalledFromTextViewTheme" parent="BaseChipLikeTextViewStyle">
-        <item name="android:drawableTint">?attr/colorOnSurface</item>
-        <item name="backgroundTint">@color/color_installed_from</item>
-    </style>
-
     <style name="AndroidVersionTextViewTheme" parent="BaseChipLikeTextViewStyle">
         <item name="android:drawableStart">@drawable/ic_android_version</item>
-        <item name="android:drawableTint">?attr/colorOnSurface</item>
+        <item name="android:drawableTint">@color/color_android_version_text</item>
         <item name="backgroundTint">@color/color_android_version</item>
+        <item name="android:textColor">@color/color_android_version_text</item>
+    </style>
+
+    <style name="InstalledFromTextViewTheme" parent="BaseChipLikeTextViewStyle">
+        <item name="android:drawableTint">@color/color_installed_from_text</item>
+        <item name="backgroundTint">@color/color_installed_from</item>
+        <item name="android:textColor">@color/color_installed_from_text</item>
     </style>
 
     <!--#########################################################################################-->

@@ -67,7 +67,7 @@
         <item name="android:paddingStart">@dimen/margin_8</item>
         <item name="android:paddingEnd">@dimen/margin_16</item>
         <item name="android:drawablePadding">@dimen/margin_8</item>
-        <item name="android:background">@drawable/shape_outline</item>
+        <item name="android:background">@drawable/shape_outlined_rounded_corners_large</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">@dimen/text_16</item>
