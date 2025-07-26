@@ -25,12 +25,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
@@ -44,6 +47,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGL
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
+import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
 class FavoritesFragment:
     Fragment(),
@@ -57,6 +61,7 @@ class FavoritesFragment:
     private lateinit var favList: ArrayList<MainDataMinimal>
     private val prefManager by inject<PreferenceManager>()
     private val miniRepository by inject<MainDataMinimalRepository>()
+    private var lastRemovedIndex: Int = -1
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -134,14 +139,56 @@ class FavoritesFragment:
         item.isFav = isChecked
         lifecycleScope.launch {
             get<MainDataMinimalRepository>().updateFav(item)
+            // Remove item from view
             if (!isChecked) {
-                val newList = withContext(Dispatchers.Default) {
-                    favItemAdapter.currentList.filter {
-                        it.packageName != item.packageName
+                favItemAdapter.submitList(
+                    withContext(Dispatchers.Default) {
+                        favItemAdapter.currentList.toMutableList().apply {
+                            indexOfFirst { it.packageName == item.packageName }
+                                .takeIf { it >= 0 }
+                                ?.let{ index ->
+                                    lastRemovedIndex = index
+                                    removeAt(index)
+                                }
+                        }
                     }
-                }
-                favItemAdapter.submitList(newList)
+                )
             }
+            Snackbar
+                .make(
+                    mainActivity.activityBinding.mainCoordLayout,
+                    if (isChecked) getString(R.string.added_to_fav, item.name)
+                    else getString(R.string.removed_from_fav, item.name),
+                    BaseTransientBottomBar.LENGTH_SHORT
+                )
+                .setAnchorView(mainActivity.activityBinding.mainDockedToolbar)
+                .setAction(getString(R.string.undo)) {
+                    item.isFav = !isChecked
+                    lifecycleScope.launch {
+                        get<MainDataMinimalRepository>().updateFav(item)
+                        // Add item back to view
+                        favItemAdapter.submitList(
+                            withContext(Dispatchers.Default) {
+                                favItemAdapter.currentList
+                                    .toMutableList()
+                                    .apply {
+                                        add(
+                                            index = lastRemovedIndex.coerceIn(0..size),
+                                            element = item
+                                        )
+                                    }
+                            }
+                        )
+                    }
+                    showSnackbar(
+                        coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
+                        message =
+                            if (!isChecked) getString(R.string.added_to_fav, item.name)
+                            else getString(R.string.removed_from_fav, item.name),
+                        anchorView = mainActivity.activityBinding.mainDockedToolbar
+                    )
+                }
+                .show()
         }
     }
     

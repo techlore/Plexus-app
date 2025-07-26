@@ -56,6 +56,7 @@
     <string name="menu_back">Back</string>
     <string name="menu_search">Ara</string>
     <string name="menu_sort">S\u0131rala</string>
+    <string name="menu_view">View</string>
 
     <!--Nav view-->
     <string name="device_info">Device info</string>
@@ -71,7 +72,8 @@
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="rate">De\u011Ferlendir</string>
+    <string name="share">Payla\u015F</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">Uygulama</string>
     <string name="package_name">Paket ad\u0131</string>
     <string name="retrieving_ratings">De\u011Ferlendirmeler al\u0131n\u0131yor</string>
@@ -79,6 +81,7 @@
     <string name="total_ratings">Toplam de\u011Ferlendirme</string>
     <string name="ratings">De\u011Ferlendirmeler</string>
     <string name="scroll_to_top">Yukar\u0131 kayd\u0131r</string>
+    <string name="rate">De\u011Ferlendir</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Yard\u0131m</string>
@@ -180,9 +183,6 @@
         \n
         \nDevam etmek istedi\u011Finizden emin misiniz?</string>
 
-    <!--More options-->
-    <string name="menu_share">Payla\u015F</string>
-
     <!--First submission-->
     <string name="first_submission_desc">Gelecekteki t\u00FCm g\u00F6nderileriniz bu se\u00E7imi dikkate alacak ve daha sonra de\u011Fi\u015Ftirilemez.</string>
     <string name="select_correct_rom">L\u00FCtfen bu cihaza y\u00FCkl\u00FC olan do\u011Fru ROM\'u se\u00E7in.</string>
@@ -210,6 +210,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
     <string name="install_app_to_submit">De\u011Ferlendirme g\u00F6ndermek i\u00E7in %1$s y\u00FCkleyin</string>
     <string name="device_should_be_degoogled_or_microg">De\u011Ferlendirme g\u00F6ndermek i\u00E7in cihaz ya Google\'dan ar\u0131nd\u0131r\u0131lm\u0131\u015F olmal\u0131 ya da microG y\u00FCkl\u00FC olmal\u0131d\u0131r</string>
     <string name="rating_already_submitted">%1$s %2$s i\u00E7in de\u011Ferlendirme zaten g\u00F6nderilmi\u015F</string>

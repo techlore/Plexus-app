@@ -48,6 +48,7 @@
     <string name="menu_back">Back</string>
     <string name="menu_search">Cerca</string>
     <string name="menu_sort">Ordina</string>
+    <string name="menu_view">View</string>
 
     <!--Nav view-->
     <string name="device_info">Device info</string>
@@ -63,7 +64,8 @@
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="rate">Valutazione</string>
+    <string name="share">Condividi</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">Applicazione</string>
     <string name="package_name">Nome del pacchetto</string>
     <string name="retrieving_ratings">Recupero delle valutazioni</string>
@@ -71,6 +73,7 @@
     <string name="total_ratings">Valutazioni totali</string>
     <string name="ratings">Valutazioni</string>
     <string name="scroll_to_top">Scorri in alto</string>
+    <string name="rate">Valutazione</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Aiuto</string>
@@ -172,9 +175,6 @@
         \n
         \n\u00C8 sicuro di voler procedere?</string>
 
-    <!--More options-->
-    <string name="menu_share">Condividi</string>
-
     <!--First submission-->
     <string name="first_submission_desc">Tutti i futuri invii terranno conto di questa selezione, che non potr\u00E0 essere modificata in seguito.</string>
     <string name="select_correct_rom">Seleziona la ROM corretta installata sul dispositivo.</string>
@@ -202,6 +202,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
     <string name="install_app_to_submit">Installare %1$s per inviare una valutazione</string>
     <string name="device_should_be_degoogled_or_microg">Il dispositivo deve essere de-Googled o avere microG installato per inviare la valutazione</string>
     <string name="rating_already_submitted">Valutazione gi\u00E0 inviata per %1$s %2$s</string>

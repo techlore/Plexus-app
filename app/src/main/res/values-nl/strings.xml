@@ -44,6 +44,7 @@
     <string name="menu_back">Back</string>
     <string name="menu_search">Zoekopdracht</string>
     <string name="menu_sort">Soort</string>
+    <string name="menu_view">View</string>
 
     <!--Nav view-->
     <string name="device_info">Device info</string>
@@ -59,7 +60,8 @@
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="rate">Rate</string>
+    <string name="share">Delen</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">Sollicitatie</string>
     <string name="package_name">Verpakkingsnaam</string>
     <string name="retrieving_ratings">Ratings ophalen</string>
@@ -67,6 +69,7 @@
     <string name="total_ratings">Totaal aantal beoordelingen</string>
     <string name="ratings">Beoordelingen</string>
     <string name="scroll_to_top">Scroll naar boven</string>
+    <string name="rate">Rate</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Helpen</string>
@@ -168,9 +171,6 @@
         \n
         \nWeet u zeker dat u wilt doorgaan?</string>
 
-    <!--More options-->
-    <string name="menu_share">Delen</string>
-
     <!--First submission-->
     <string name="first_submission_desc">Al uw toekomstige inzendingen zullen rekening houden met deze selectie, die later niet kan worden gewijzigd.</string>
     <string name="select_correct_rom">Selecteer de juiste ROM die op dit toestel is ge\u00EFnstalleerd.</string>
@@ -198,6 +198,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
     <string name="install_app_to_submit">Installeer %1$s om een beoordeling in te dienen</string>
     <string name="device_should_be_degoogled_or_microg">Apparaat moet de-Googled zijn of microG hebben om beoordeling in te dienen</string>
     <string name="rating_already_submitted">Beoordeling reeds ingediend voor %1$s %2$s</string>

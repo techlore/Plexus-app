@@ -47,6 +47,7 @@
     <string name="menu_back">Back</string>
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort</string>
+    <string name="menu_view">View</string>
 
     <!--Nav view-->
     <string name="device_info">Device info</string>
@@ -62,7 +63,8 @@
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="rate">Rate</string>
+    <string name="share">Share</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">App</string>
     <string name="package_name">Package</string>
     <string name="retrieving_ratings">Retrieving ratings</string>
@@ -70,6 +72,7 @@
     <string name="total_ratings">Total ratings</string>
     <string name="ratings">Ratings</string>
     <string name="scroll_to_top">Scroll to top</string>
+    <string name="rate">Rate</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Help</string>
@@ -171,9 +174,6 @@
         \n
         \nAre you sure you want to proceed?</string>
 
-    <!--More options-->
-    <string name="menu_share">Share</string>
-
     <!--First submission-->
     <string name="first_submission_desc">All your future submissions will consider this selection, and it cannot be changed later.</string>
     <string name="select_correct_rom">Please select the correct ROM installed on this device.</string>
@@ -201,6 +201,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
     <string name="install_app_to_submit">Install %1$s to submit rating</string>
     <string name="device_should_be_degoogled_or_microg">Device should either be de-Googled or have microG to submit rating</string>
     <string name="rating_already_submitted">Rating already submitted for %1$s %2$s</string>

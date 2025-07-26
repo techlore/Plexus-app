@@ -21,9 +21,13 @@
     <string name="favorites">Lemmikud</string>
     <string name="delete_account">Kustuta kasutajakonto</string>
     <string name="settings">Seadistused</string>
-    <string name="rate">Arvusta</string>
+    <string name="share">Jaga</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">Rakendus</string>
     <string name="retrieving_ratings">Laadin arvustusi</string>
+    <string name="total_score">Koondhinnang</string>
+    <string name="scroll_to_top">Keri loendi algusesse</string>
+    <string name="rate">Arvusta</string>
     <string name="tap_to_select_rom">Palun klõpsi siin ja vali sellesse seadmesse paigaldatud operatsioonisüsteemi versioon.</string>
     <string name="my_account">Minu kasutajakonto</string>
     <string name="my_ratings">Minu arvustused</string>
@@ -33,9 +37,7 @@
     <string name="terms_conditions_title">Kasutustingimused</string>
     <string name="menu_help">Abiteave</string>
     <string name="menu_links">Lingid</string>
-    <string name="total_score">Koondhinnang</string>
     <string name="by_proceeding_agree_desc">Jätkates nõustud kasutama Plexuse teenuseid viisakalt ja ausalt. Kui rikud ülaltoodud kasutustingimusi, siis kõik sinu arvustused kustutatakse.</string>
-    <string name="scroll_to_top">Keri loendi algusesse</string>
     <string name="menu_more">Lisavalikud</string>
     <string name="total_ratings">Arvustusi kokku</string>
     <string name="ratings">Arvustusi</string>
@@ -88,7 +90,6 @@
     <string name="sending_code">Palun oota, edastan kinnituskoodi serverisse…</string>
     <string name="error_sending_code">Viga kinnituskoodi edastamisel</string>
     <string name="delete_account_desc">Kui kustutad oma kasutajakonto: \n• siis sa ei saa koostada arvustusi, \n• kõik selle nutiseadmega seotud arvustused kustutatakse. \n \nKas oled kindel, et soovid jätkata?</string>
-    <string name="menu_share">Jaga</string>
     <string name="first_submission_desc">Kõik tulevased arvustused kasutavad seda valikut, mida hiljem muuta ei saa.</string>
     <string name="select_correct_rom">Palun vali sellesse nutiseadmesse paigaldatud operatsioonisüsteemi korrektne versioon.</string>
     <string name="select">Vali</string>
@@ -119,9 +120,13 @@
     <string name="menu_search">Otsi</string>
     <string name="wait_submitting_data">Palun oota, saadan andmeid…</string>
     <string name="menu_sort">Järjestus</string>
+    <string name="menu_view">View</string>
     <string name="no_apps_found">Rakendusi ei leidu</string>
     <string name="welcome_text_desc">Kuna ilmselt kasutad seda rakendust esimest korda, siis palun heida pilk peale ikoonide ja olekuteadete tähendusele.</string>
     <string name="no_ratings_available">Arvustusi ei leidu</string>
     <string name="verify_to_get_started">Jätkamiseks kinnita oma e-posti aadressi õigsus</string>
     <string name="incorrect_code">Vigane kinnituskood.</string>
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
 </resources>

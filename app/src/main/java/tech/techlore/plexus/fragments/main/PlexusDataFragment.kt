@@ -46,6 +46,7 @@ import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
+import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.getValue
 
 class PlexusDataFragment :
@@ -135,6 +136,13 @@ class PlexusDataFragment :
         lifecycleScope.launch {
             get<MainDataMinimalRepository>().updateFav(item)
         }
+        showSnackbar(
+            coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
+            message =
+                if (isChecked) getString(R.string.added_to_fav, item.name)
+                else getString(R.string.removed_from_fav, item.name),
+            anchorView = mainActivity.activityBinding.mainDockedToolbar
+        )
     }
     
     private fun refreshData() {

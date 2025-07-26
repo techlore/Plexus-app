@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
@@ -43,6 +44,7 @@ import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
+import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.collections.ArrayList
 import kotlin.getValue
 
@@ -136,6 +138,13 @@ class InstalledAppsFragment :
         lifecycleScope.launch {
             get<MainDataMinimalRepository>().updateFav(item)
         }
+        showSnackbar(
+            coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
+            message =
+                if (isChecked) getString(R.string.added_to_fav, item.name)
+                else getString(R.string.removed_from_fav, item.name),
+            anchorView = mainActivity.activityBinding.mainDockedToolbar
+        )
     }
     
     private fun refreshInstalledApps() {

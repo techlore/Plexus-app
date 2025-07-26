@@ -245,7 +245,7 @@ class AppDetailsActivity : AppCompatActivity() {
                                       mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore)
                                   }
                               """.trimIndent()),
-                    getString(R.string.menu_share)))
+                    getString(R.string.share)))
             }
             
             // Shortcut chip

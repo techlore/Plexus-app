@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
@@ -42,6 +43,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
+import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.getValue
 
 class SearchFragment :
@@ -148,6 +150,13 @@ class SearchFragment :
         lifecycleScope.launch {
             get<MainDataMinimalRepository>().updateFav(item)
         }
+        showSnackbar(
+            coordinatorLayout = searchActivity.activityBinding.searchCoordLayout,
+            message =
+                if (isChecked) getString(R.string.added_to_fav, item.name)
+                else getString(R.string.removed_from_fav, item.name),
+            anchorView = searchActivity.activityBinding.searchDockedToolbar
+        )
     }
     
     override fun onDestroyView() {

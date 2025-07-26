@@ -45,6 +45,7 @@
     <string name="menu_back">Zurück</string>
     <string name="menu_search">Suche</string>
     <string name="menu_sort">Sortieren</string>
+    <string name="menu_view">View</string>
     <!--Nav view-->
     <string name="device_info">Geräteinformationen</string>
     <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
@@ -58,7 +59,8 @@
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="rate">Rate</string>
+    <string name="share">Teilen</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">App</string>
     <string name="package_name">Paketname</string>
     <string name="retrieving_ratings">Bewertungen abrufen</string>
@@ -66,6 +68,7 @@
     <string name="total_ratings">Gesamtbewertung</string>
     <string name="ratings">Bewertungen</string>
     <string name="scroll_to_top">Nach oben bl\u00E4ttern</string>
+    <string name="rate">Rate</string>
     <!--Toolbar menu-->
     <string name="menu_help">Hilfe</string>
     <string name="menu_links">Links</string>
@@ -155,8 +158,6 @@
         \n\u2022 Alle zuvor abgegebenen bewertungen werden dauerhaft von diesem ger\u00E4t entfernt.
         \n
         \nSind sie sicher, dass sie fortfahren m\u00F6chten?</string>
-    <!--More options-->
-    <string name="menu_share">Teilen</string>
     <!--First submission-->
     <string name="first_submission_desc">Bei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
     <string name="select_correct_rom">Bitte w\u00E4hlen sie das richtige ROM, das auf diesem ger\u00E4t installiert ist.</string>
@@ -180,6 +181,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
     <string name="install_app_to_submit">Installieren sie %1$s um eine bewertung abzugeben</string>
     <string name="device_should_be_degoogled_or_microg">Das ger\u00E4t sollte entweder de-Googled sein oder microG haben, um eine bewertung abzugeben</string>
     <string name="rating_already_submitted">Bewertung bereits abgegeben f\u00FCr %1$s %2$s</string>

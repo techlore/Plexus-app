@@ -44,6 +44,7 @@
     <string name="menu_back">Back</string>
     <string name="menu_search">搜索</string>
     <string name="menu_sort">排序</string>
+    <string name="menu_view">View</string>
     <string name="device_info">设备信息</string>
     <string name="tap_to_select_rom">点击此处选择此设备上的 ROM。</string>
     <string name="installed_apps">已安装的应用</string>
@@ -52,7 +53,8 @@
     <string name="my_ratings">我的评分</string>
     <string name="delete_account">删除账号</string>
     <string name="settings">设置</string>
-    <string name="rate">评分</string>
+    <string name="share">分享</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">应用</string>
     <string name="package_name">包名</string>
     <string name="retrieving_ratings">正在检索评分</string>
@@ -60,6 +62,7 @@
     <string name="total_ratings">总评分数</string>
     <string name="ratings">评分</string>
     <string name="scroll_to_top">滚动到顶部</string>
+    <string name="rate">评分</string>
     <string name="menu_help">帮助</string>
     <string name="menu_links">Links</string>
     <string name="menu_more">更多选项</string>
@@ -107,7 +110,6 @@
     <string name="sending_code">正在发送验证码……</string>
     <string name="error_sending_code">发送验证码时出错</string>
     <string name="delete_account_desc">如果您删除您的账号： \n• 您将无法提交评分。 \n• 所有之前提交的评分将从此设备中永久删除。 \n \n您确定要继续吗？</string>
-    <string name="menu_share">分享</string>
     <string name="first_submission_desc">所有未来的提交将考虑此选择，之后无法更改。</string>
     <string name="light">浅色</string>
     <string name="select_correct_rom">请在此设备上选择正确的 ROM。</string>
@@ -120,6 +122,9 @@
     <string name="thanks_for_submitting">感谢您的提交和对社区的帮助。</string>
     <string name="follow_system">跟随系统</string>
     <string name="dark">深色</string>
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
     <string name="install_app_to_submit">安装 %1$s 以提交评分</string>
     <string name="device_should_be_degoogled_or_microg">设备应已去谷歌化或安装 microG 才能提交评分</string>
     <string name="rating_already_submitted">已为 %1$s %2$s 提交评分</string>

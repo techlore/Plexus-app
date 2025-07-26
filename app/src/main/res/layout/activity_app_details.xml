@@ -139,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipIcon="@drawable/ic_share"
-                    android:text="@string/menu_share"
+                    android:text="@string/share"
                     android:textSize="@dimen/text_15"/>
 
                 <com.google.android.material.chip.Chip
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipIcon="@drawable/ic_shortcut"
-                    android:text="Shortcut"
+                    android:text="@string/shortcut"
                     android:textSize="@dimen/text_15"
                     android:visibility="gone"
                     tools:visibility="visible"/>

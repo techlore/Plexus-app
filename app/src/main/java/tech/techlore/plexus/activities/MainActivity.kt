@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         
         // View
         activityBinding.viewBtn.apply {
-            setButtonTooltipText("View"/*getString(R.string.view)*/)
+            setButtonTooltipText(getString(R.string.menu_view))
             setViewButtonIcon()
             setOnClickListener {
                 isGridView = !isGridView

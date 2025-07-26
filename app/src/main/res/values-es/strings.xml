@@ -49,6 +49,7 @@
     <string name="menu_back">Back</string>
     <string name="menu_search">B\u00F9squeda</string>
     <string name="menu_sort">Clasificar</string>
+    <string name="menu_view">View</string>
 
     <!--Nav view-->
     <string name="device_info">Device info</string>
@@ -64,7 +65,8 @@
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="rate">Rate</string>
+    <string name="share">Cuota</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">App</string>
     <string name="package_name">Paquete</string>
     <string name="retrieving_ratings">Recuperar valoraciones</string>
@@ -72,6 +74,7 @@
     <string name="total_ratings">Valoraciones totales</string>
     <string name="ratings">Valoraciones</string>
     <string name="scroll_to_top">Ir arriba</string>
+    <string name="rate">Rate</string>
 
     <!--Toolbar menu-->
     <string name="menu_help">Ayudar</string>
@@ -173,9 +176,6 @@
         \n
         \n\u00BFEst\u00E1 seguro de que desea continuar?</string>
 
-    <!--More options-->
-    <string name="menu_share">Cuota</string>
-
     <!--First submission-->
     <string name="first_submission_desc">Todos sus env\u00EDos futuros tendr\u00E1n en cuenta esta selecci\u00F3n, y no se podr\u00E1 cambiar posteriormente.</string>
     <string name="select_correct_rom">Por favor, seleccione la ROM correcta instalada en este dispositivo.</string>
@@ -203,6 +203,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
     <string name="install_app_to_submit">Instale %1$s para enviar la valoraci\u00F3n</string>
     <string name="device_should_be_degoogled_or_microg">El dispositivo debe ser de-Googled o tener microG para enviar la calificaci\u00F3n</string>
     <string name="rating_already_submitted">Valoraci\u00F3n ya enviada para %1$s %2$s</string>

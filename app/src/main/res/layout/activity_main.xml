@@ -129,7 +129,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:icon="@drawable/ic_view_grid"
-                android:contentDescription="@string/menu_help"
+                android:contentDescription="@string/menu_view"
                 style="?attr/materialIconButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton

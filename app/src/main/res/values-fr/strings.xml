@@ -45,6 +45,7 @@
     <string name="menu_back">Back</string>
     <string name="menu_search">Recherche</string>
     <string name="menu_sort">Trier</string>
+    <string name="menu_view">View</string>
     <!--Nav view-->
     <string name="device_info">Informations sur l\'appareil</string>
     <string name="tap_to_select_rom">Appuyez ici pour sélectionner la ROM de cet appareil.</string>
@@ -58,7 +59,8 @@
     <!--#########################################################################################-->
 
     <!--App details activity-->
-    <string name="rate">\u00C9valuation</string>
+    <string name="share">Partager</string>
+    <string name="shortcut">Shortcut</string>
     <string name="app">Application</string>
     <string name="package_name">Nom du paquet</string>
     <string name="retrieving_ratings">R\u00E9cup\u00E9ration des \u00E9valuations</string>
@@ -66,6 +68,7 @@
     <string name="total_ratings">Nombre total d\'\u00E9valuations</string>
     <string name="ratings">\u00C9valuations</string>
     <string name="scroll_to_top">D\u00E9filer vers le haut</string>
+    <string name="rate">\u00C9valuation</string>
     <!--Toolbar menu-->
     <string name="menu_help">Aide</string>
     <string name="menu_links">Links</string>
@@ -155,8 +158,6 @@
         \n\u2022 toutes les \u00E9valuations pr\u00E9c\u00E9demment soumises seront d\u00E9finitivement supprim\u00E9es de cet appareil.
         \n
         \n\u00CAtes-vous s\u00FBr.e de vouloir continuer?</string>
-    <!--More options-->
-    <string name="menu_share">Partager</string>
     <!--First submission-->
     <string name="first_submission_desc">Toutes vos futures \u00E9valuations tiendront compte de cette s\u00E9lection, qui ne pourra pas \u00EAtre modifi\u00E9e ult\u00E9rieurement.</string>
     <string name="select_correct_rom">Veuillez s\u00E9lectionner la ROM install\u00E9e sur cet appareil.</string>
@@ -180,6 +181,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
+    <string name="added_to_fav">Added %1$s to favorites</string>
+    <string name="removed_from_fav">Removed %1$s from favorites</string>
+    <string name="undo">Undo</string>
     <string name="install_app_to_submit">Installer %1$s pour soumettre une \u00E9valuation</string>
     <string name="device_should_be_degoogled_or_microg">L\'appareil doit \u00EAtre de-googlis\u00E9 ou avoir microG d\'install\u00E9 pour pouvoir soumettre une \u00E9valuation</string>
     <string name="rating_already_submitted">\u00C9valuation d\u00E9j\u00E0 soumise pour %1$s %2$s</string>
