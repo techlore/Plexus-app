@@ -40,7 +40,7 @@
     <string name="menu_back">Voltar</string>
     <string name="menu_search">Pesquisar</string>
     <string name="menu_sort">Ordenar</string>
-    <string name="menu_view">View</string>
+    <string name="menu_view">Visualizar</string>
     <!--Nav view-->
     <string name="device_info">Informações do dispositivo</string>
     <string name="tap_to_select_rom">Toque aqui para selecionar a ROM neste dispositivo.</string>
@@ -55,7 +55,7 @@
 
     <!--App details activity-->
     <string name="share">Compartilhar</string>
-    <string name="shortcut">Shortcut</string>
+    <string name="shortcut">Atalho</string>
     <string name="app">App</string>
     <string name="package_name">Pacote</string>
     <string name="retrieving_ratings">Buscando as avaliações</string>
@@ -169,9 +169,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="added_to_fav">Added %1$s to favorites</string>
-    <string name="removed_from_fav">Removed %1$s from favorites</string>
-    <string name="undo">Undo</string>
+    <string name="added_to_fav">%1$s foi adicionado aos favoritos</string>
+    <string name="removed_from_fav">%1$s foi removido dos favoritos</string>
+    <string name="undo">Desfazer</string>
     <string name="install_app_to_submit">Instale %1$s para enviar uma avaliação</string>
     <string name="device_should_be_degoogled_or_microg">O dispositivo deve ser de-Googled ou usar o microG para enviar a avaliação</string>
     <string name="rating_already_submitted">Avaliação já enviada para %1$s %2$s</string>
