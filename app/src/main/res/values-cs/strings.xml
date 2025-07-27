@@ -40,7 +40,7 @@
     <string name="menu_back">Zpět</string>
     <string name="menu_search">Hledat</string>
     <string name="menu_sort">Seřadit</string>
-    <string name="menu_view">View</string>
+    <string name="menu_view">Zobrazit</string>
     <!--Nav view-->
     <string name="device_info">Informace o zařízení</string>
     <string name="tap_to_select_rom">Klepněte sem pro vybrání ROM na tomto zařízení.</string>
@@ -55,7 +55,7 @@
 
     <!--App details activity-->
     <string name="share">Sdílet</string>
-    <string name="shortcut">Shortcut</string>
+    <string name="shortcut">Zkratka</string>
     <string name="app">Aplikace</string>
     <string name="package_name">Balíček</string>
     <string name="retrieving_ratings">Načítání hodnocení</string>
@@ -176,9 +176,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="added_to_fav">Added %1$s to favorites</string>
-    <string name="removed_from_fav">Removed %1$s from favorites</string>
-    <string name="undo">Undo</string>
+    <string name="added_to_fav">%1$s přidáno do oblíbených</string>
+    <string name="removed_from_fav">%1$s odstraněno z oblíbených</string>
+    <string name="undo">Vrátit</string>
     <string name="install_app_to_submit">Pro odeslání hodnocení si nainstalujte aplikaci %1$s</string>
     <string name="device_should_be_degoogled_or_microg">Pro odeslání hodnocení by zařízení buď nemělo obsahovat služby Google, nebo by mělo používat microG</string>
     <string name="rating_already_submitted">Hodnocení aplikace %1$s %2$s bylo již odesláno</string>
