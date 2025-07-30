@@ -22,16 +22,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.navigation.NavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
-import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
+import tech.techlore.plexus.interfaces.SortPrefsListener
 
-class SearchSortBottomSheet(private val navController: NavController) : BottomSheetDialogFragment() {
+class SearchSortBottomSheet(private val sortPrefsListener: SortPrefsListener) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -62,7 +61,7 @@ class SearchSortBottomSheet(private val navController: NavController) : BottomSh
         footerBinding.positiveButton.setOnClickListener {
             searchActivity.orderChipId = bottomSheetBinding.alphabeticalChipGroup.checkedChipId
             dismiss()
-            navController.refreshFragment()
+            sortPrefsListener.onSortPrefsChanged()
         }
         
         // Cancel

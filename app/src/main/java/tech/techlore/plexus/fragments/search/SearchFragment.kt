@@ -22,6 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -81,12 +82,12 @@ class SearchFragment :
         fragmentBinding.swipeRefreshLayout.isEnabled = false
         
         lifecycleScope.launch {
-            performSearch(searchActivity.activityBinding.searchView.query.toString())
             searchItemAdapter =
                 MainDataItemAdapter(clickListener = this@SearchFragment,
                                     favToggleListener = this@SearchFragment,
                                     isGridView = isGridView)
             FastScrollerBuilder(fragmentBinding.recyclerView).build() // Fast scroll
+            performSearch(searchActivity.activityBinding.searchView.query.toString())
         }
         
         // Perform search
@@ -116,10 +117,10 @@ class SearchFragment :
             searchDataList = miniRepository.searchInDb(searchString, searchActivity.orderChipId)
             if (searchDataList.isEmpty()) {
                 fragmentBinding.recyclerView.adapter = null
-                searchActivity.activityBinding.emptySearchView.visibility = View.VISIBLE
+                searchActivity.activityBinding.emptySearchView.isVisible = true
             }
             else {
-                searchActivity.activityBinding.emptySearchView.visibility = View.GONE
+                searchActivity.activityBinding.emptySearchView.isVisible = false
                 fragmentBinding.recyclerView.apply {
                     searchActivity.activityBinding.searchAppBar.liftOnScrollTargetViewId = this.id
                     layoutManager =
@@ -135,7 +136,7 @@ class SearchFragment :
         }
         else {
             fragmentBinding.recyclerView.adapter = null
-            searchActivity.activityBinding.emptySearchView.visibility = View.GONE
+            searchActivity.activityBinding.emptySearchView.isVisible = false
         }
     }
     

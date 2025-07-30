@@ -34,9 +34,11 @@ import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortRatingsBinding
-import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
+import tech.techlore.plexus.interfaces.SortPrefsListener
 
-class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
+class SortAllRatingsBottomSheet(
+    private val sortPrefsListener: SortPrefsListener
+) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortRatingsBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -137,10 +139,8 @@ class SortAllRatingsBottomSheet : BottomSheetDialogFragment() {
                 detailsActivity.mgStatusSortChipId = bottomSheetBinding.ratingsStatusChipGroup.checkedChipId
             }
             
-            detailsActivity.isListSorted = false // Set to false so list is sorted on fragment refresh
-            
             dismiss()
-            detailsActivity.navController.refreshFragment()
+            sortPrefsListener.onSortPrefsChanged()
         }
         
         // Cancel

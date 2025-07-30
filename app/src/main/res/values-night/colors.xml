@@ -178,14 +178,14 @@
     </integer-array>
 
     <!--Status colors-->
-    <color name="color_broken_status">#7A3324</color>
-    <color name="color_broken_status_text">#EFC1B6</color>
-    <color name="color_bronze_status">#5C3B1A</color>
-    <color name="color_bronze_status_text">#F4CBA5</color>
-    <color name="color_silver_status">#354a53</color>
-    <color name="color_silver_status_text">#D0E6F2</color>
-    <color name="color_gold_status">#524700</color>
-    <color name="color_gold_status_text">#F6E388</color>
+    <color name="color_broken_status">#A03A30</color>
+    <color name="color_broken_status_text">#FFCCCC</color>
+    <color name="color_bronze_status">#7C4D3A</color>
+    <color name="color_bronze_status_text">#F6DBB8</color>
+    <color name="color_silver_status">#4B6B74</color>
+    <color name="color_silver_status_text">#E1F0F5</color>
+    <color name="color_gold_status">#A68A00</color>
+    <color name="color_gold_status_text">#FDF1D0</color>
 
     <!--Other colors-->
     <color name="color_android_version">#004b70</color>

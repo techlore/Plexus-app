@@ -34,6 +34,7 @@ import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
+import tech.techlore.plexus.interfaces.SortPrefsListener
 import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
@@ -43,10 +44,10 @@ import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SortPrefsListener {
     
     lateinit var activityBinding: ActivityMainBinding
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
     private val prefManager by inject<PreferenceManager>()
     private var defaultFragment = 0
     var defaultSelectedNavItem = 0
@@ -100,7 +101,11 @@ class MainActivity : AppCompatActivity() {
         activityBinding.mainSortBtn.apply {
             setButtonTooltipText(getString(R.string.menu_sort))
             setOnClickListener {
-                SortBottomSheet(navController).show(supportFragmentManager, "SortBottomSheet")
+                SortBottomSheet(
+                    this@MainActivity,
+                    navController.currentDestination?.id ?: 0
+                )
+                    .show(supportFragmentManager, "SortBottomSheet")
             }
         }
         
@@ -109,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             setButtonTooltipText(getString(R.string.menu_view))
             setViewButtonIcon()
             setOnClickListener {
-                isGridView = !isGridView
+                isGridView = ! isGridView
                 prefManager.setBoolean(GRID_VIEW, isGridView)
                 setViewButtonIcon()
                 navController.refreshFragment()
@@ -139,10 +144,12 @@ class MainActivity : AppCompatActivity() {
                 defaultFragment = R.id.plexusDataFragment
                 defaultSelectedNavItem = R.id.nav_plexus_data
             }
+            
             R.id.light -> {
                 defaultFragment = R.id.installedAppsFragment
                 defaultSelectedNavItem = R.id.nav_installed_apps
             }
+            
             else -> {
                 defaultFragment = R.id.favoritesFragment
                 defaultSelectedNavItem = R.id.nav_fav
@@ -199,9 +206,14 @@ class MainActivity : AppCompatActivity() {
         icon =
             ContextCompat.getDrawable(
                 this@MainActivity,
-                if (!isGridView) R.drawable.ic_view_grid
+                if (! isGridView) R.drawable.ic_view_grid
                 else R.drawable.ic_view_list
             )
+    }
+    
+    override fun onSortPrefsChanged() {
+        activityBinding.mainAppBar.setExpanded(true, true)
+        navController.refreshFragment()
     }
     
     override fun onSaveInstanceState(outState: Bundle) {

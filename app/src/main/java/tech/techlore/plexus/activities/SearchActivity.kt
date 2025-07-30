@@ -23,17 +23,21 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.search.SearchSortBottomSheet
 import tech.techlore.plexus.databinding.ActivitySearchBinding
+import tech.techlore.plexus.interfaces.SortPrefsListener
+import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(), SortPrefsListener {
     
     lateinit var activityBinding: ActivitySearchBinding
+    private lateinit var navController: NavController
     var orderChipId = R.id.sortAZ
     
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +54,7 @@ class SearchActivity : AppCompatActivity() {
         setContentView(activityBinding.root)
         
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.searchNavHost) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
         
         // Back
         activityBinding.searchBackBtn.apply {
@@ -64,10 +68,15 @@ class SearchActivity : AppCompatActivity() {
         activityBinding.searchSortBtn.apply {
             setButtonTooltipText(getString(R.string.menu_back))
             setOnClickListener {
-                SearchSortBottomSheet(navController).show(supportFragmentManager, "SearchSortBottomSheet")
+                SearchSortBottomSheet(this@SearchActivity).show(supportFragmentManager, "SearchSortBottomSheet")
             }
         }
         
+    }
+    
+    override fun onSortPrefsChanged() {
+        activityBinding.searchAppBar.setExpanded(true, true)
+        navController.refreshFragment()
     }
     
     // On back pressed

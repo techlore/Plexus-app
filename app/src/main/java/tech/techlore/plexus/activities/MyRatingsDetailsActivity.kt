@@ -42,6 +42,7 @@ import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.bottomsheets.appdetails.LinksBottomSheet
 import tech.techlore.plexus.bottomsheets.appdetails.SortAllRatingsBottomSheet
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
+import tech.techlore.plexus.interfaces.SortPrefsListener
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.models.myratings.MyRatingDetails
@@ -53,12 +54,13 @@ import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
+import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
 import kotlin.math.abs
 
-class MyRatingsDetailsActivity : AppCompatActivity() {
+class MyRatingsDetailsActivity : AppCompatActivity(), SortPrefsListener {
     
     lateinit var activityBinding: ActivityAppDetailsBinding
     private lateinit var navHostFragment: NavHostFragment
@@ -203,7 +205,8 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
             activityBinding.detailsSortBtn.apply {
                 setButtonTooltipText(getString(R.string.menu_sort))
                 setOnClickListener {
-                    SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+                    SortAllRatingsBottomSheet(this@MyRatingsDetailsActivity)
+                        .show(supportFragmentManager, "SortUserRatingsBottomSheet")
                 }
             }
             
@@ -295,6 +298,11 @@ class MyRatingsDetailsActivity : AppCompatActivity() {
                     })
         
         isListSorted = true
+    }
+    
+    override fun onSortPrefsChanged() {
+        isListSorted = false // Set to false so list is sorted on fragment refresh
+        navController.refreshFragment()
     }
     
     // On back pressed

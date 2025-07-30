@@ -23,7 +23,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.navigation.NavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import org.koin.android.ext.android.inject
@@ -31,15 +30,16 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
+import tech.techlore.plexus.interfaces.SortPrefsListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
-import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 
-class SortBottomSheet(private val navController: NavController) : BottomSheetDialogFragment() {
+class SortBottomSheet(private val sortPrefsListener: SortPrefsListener,
+                      private val currentFragmentId: Int) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -58,9 +58,8 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
         val prefManager by inject<PreferenceManager>()
         val checkIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
         val isInstalledAppsFragment =
-            navController.currentDestination!!.id in setOf(R.id.installedAppsFragment, R.id.favoritesFragment)
-        val isMyRatingsFragment =
-            navController.currentDestination!!.id == R.id.myRatingsFragment
+            currentFragmentId in setOf(R.id.installedAppsFragment, R.id.favoritesFragment)
+        val isMyRatingsFragment = currentFragmentId == R.id.myRatingsFragment
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
@@ -146,16 +145,21 @@ class SortBottomSheet(private val navController: NavController) : BottomSheetDia
             if (isInstalledAppsFragment) {
                 prefManager.setInt(INSTALLED_FROM_SORT, bottomSheetBinding.installedFromChipGroup.checkedChipId)
             }
-            prefManager.setInt(STATUS_TOGGLE, bottomSheetBinding.statusToggleGroup.checkedButtonId)
-            if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
-                prefManager.setInt(DG_STATUS_SORT, bottomSheetBinding.statusChipGroup.checkedChipId)
-            }
-            else if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
-                prefManager.setInt(MG_STATUS_SORT, bottomSheetBinding.statusChipGroup.checkedChipId)
+            if (!isMyRatingsFragment) {
+                prefManager.setInt(STATUS_TOGGLE,
+                                   bottomSheetBinding.statusToggleGroup.checkedButtonId)
+                if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleDgStatus) {
+                    prefManager.setInt(DG_STATUS_SORT,
+                                       bottomSheetBinding.statusChipGroup.checkedChipId)
+                }
+                else if (prefManager.getInt(STATUS_TOGGLE) == R.id.toggleMgStatus) {
+                    prefManager.setInt(MG_STATUS_SORT,
+                                       bottomSheetBinding.statusChipGroup.checkedChipId)
+                }
             }
             
             dismiss()
-            navController.refreshFragment()
+            sortPrefsListener.onSortPrefsChanged()
         }
         
         // Cancel

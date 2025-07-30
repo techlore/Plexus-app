@@ -308,6 +308,7 @@
                         style="@style/GoldProgressIndicator"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/goldText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="@id/goldProgress"
@@ -317,7 +318,7 @@
                         android:layout_marginStart="@dimen/margin_12"
                         android:text="@string/gold_title"
                         android:textSize="@dimen/text_16"
-                        android:textColor="@color/color_gold_status_text"
+                        android:textColor="?attr/colorOnSurface"
                         style="@style/MediumBoldText"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -330,7 +331,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:textSize="@dimen/text_16"
                         android:text="0%"
-                        android:textColor="@color/color_gold_status_text"
+                        android:textColor="?attr/colorOnSurface"
                         style="@style/MediumBoldText"/>
 
                     <!--####################################################-->
@@ -347,6 +348,7 @@
                         style="@style/SilverProgressIndicator"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/silverText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="@id/silverProgress"
@@ -356,7 +358,7 @@
                         android:gravity="center"
                         android:text="@string/silver_title"
                         android:textSize="@dimen/text_16"
-                        android:textColor="@color/color_silver_status_text"
+                        android:textColor="?attr/colorOnSurface"
                         style="@style/MediumBoldText"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -369,7 +371,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:textSize="@dimen/text_16"
                         android:text="0%"
-                        android:textColor="@color/color_silver_status_text"
+                        android:textColor="?attr/colorOnSurface"
                         style="@style/MediumBoldText"/>
 
                     <!--####################################################-->
@@ -386,6 +388,7 @@
                         style="@style/BronzeProgressIndicator"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/bronzeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="@id/bronzeProgress"
@@ -395,7 +398,7 @@
                         android:gravity="center"
                         android:text="@string/bronze_title"
                         android:textSize="@dimen/text_16"
-                        android:textColor="@color/color_bronze_status_text"
+                        android:textColor="?attr/colorOnSurface"
                         style="@style/MediumBoldText"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -408,7 +411,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:textSize="@dimen/text_16"
                         android:text="0%"
-                        android:textColor="@color/color_bronze_status_text"
+                        android:textColor="?attr/colorOnSurface"
                         style="@style/MediumBoldText"/>
 
                     <!--####################################################-->
@@ -425,6 +428,7 @@
                         style="@style/BrokenProgressIndicator"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/brokenText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="@id/brokenProgress"
@@ -434,7 +438,7 @@
                         android:gravity="center"
                         android:text="@string/broken_title"
                         android:textSize="@dimen/text_16"
-                        android:textColor="@color/color_broken_status_text"
+                        android:textColor="?attr/colorOnSurface"
                         style="@style/MediumBoldText"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -447,7 +451,7 @@
                         android:layout_marginEnd="@dimen/margin_12"
                         android:textSize="@dimen/text_16"
                         android:text="0%"
-                        android:textColor="@color/color_broken_status_text"
+                        android:textColor="?attr/colorOnSurface"
                         style="@style/MediumBoldText"/>
 
                     <!--####################################################-->

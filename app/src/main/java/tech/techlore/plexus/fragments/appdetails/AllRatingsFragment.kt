@@ -68,30 +68,30 @@ class AllRatingsFragment : Fragment() {
             loadNextPage()
         }
         
-        detailsActivity.activityBinding.nestedScrollView.setOnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
-            // Show FAB on scroll
-            detailsActivity.apply {
-                if (scrollY == 0) {
-                    activityBinding.scrollTopFab.hide()
-                    if (isScrolledByFab) {
-                        activityBinding.detailsAppBar.setExpanded(true,true)
-                        isScrolledByFab = false
+        detailsActivity.activityBinding.nestedScrollView
+            .setOnScrollChangeListener { view: NestedScrollView, _, newScrollY, _, oldScrollY ->
+                // Show FAB on scroll
+                detailsActivity.apply {
+                    if (newScrollY == 0) {
+                        activityBinding.scrollTopFab.hide()
+                        if (isScrolledByFab) {
+                            activityBinding.detailsAppBar.setExpanded(true,true)
+                            isScrolledByFab = false
+                        }
+                    }
+                    else activityBinding.scrollTopFab.show()
+                }
+                
+                if (newScrollY > oldScrollY) {
+                    val child = view.getChildAt(view.childCount - 1)
+                    val buffer = 300 // pixels before bottom
+                    val thresholdReached = child.bottom - (view.height + view.scrollY)
+                    if (thresholdReached <= buffer
+                        && displayedRatings.size < fullListSize) {
+                        loadNextPage()
                     }
                 }
-                else activityBinding.scrollTopFab.show()
             }
-            
-            val scrollView = v as NestedScrollView
-            if (scrollY > oldScrollY) {
-                val child = scrollView.getChildAt(scrollView.childCount - 1)
-                val buffer = 300 // pixels before bottom
-                val thresholdReached = child.bottom - (scrollView.height + scrollView.scrollY)
-                if (thresholdReached <= buffer
-                    && displayedRatings.size < fullListSize) {
-                    loadNextPage()
-                }
-            }
-        }
     }
     
     private fun loadNextPage() {

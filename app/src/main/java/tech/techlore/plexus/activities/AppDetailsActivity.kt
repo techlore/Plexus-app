@@ -26,6 +26,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.ViewGroup
 import android.view.Window
 import androidx.activity.OnBackPressedCallback
@@ -97,17 +98,21 @@ import androidx.core.graphics.scale
 import com.google.android.material.button.MaterialButton
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toBitmap
+import com.google.android.material.textview.MaterialTextView
+import tech.techlore.plexus.interfaces.SortPrefsListener
+import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import kotlin.system.exitProcess
 
-class AppDetailsActivity : AppCompatActivity() {
+class AppDetailsActivity : AppCompatActivity(), SortPrefsListener {
     
     lateinit var activityBinding: ActivityAppDetailsBinding
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
     private lateinit var packageNameString: String
     private var isFromShortcut = false
     private var toggleBtnCheckIcon: Drawable? = null
     private var dgIcon: Drawable? = null
     private var mgIcon: Drawable? = null
+    private var defaultStatusTextColor = 0
     private val apiRepository by inject<ApiRepository>()
     private val mainRepository by inject<MainDataRepository>()
     lateinit var app: MainData
@@ -166,6 +171,10 @@ class AppDetailsActivity : AppCompatActivity() {
         toggleBtnCheckIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_done, theme)
         dgIcon = ContextCompat.getDrawable(this, R.drawable.ic_degoogled)
         mgIcon = ContextCompat.getDrawable(this, R.drawable.ic_microg)
+        TypedValue().let {
+            theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurface, it, true)
+            defaultStatusTextColor = it.data
+        }
         
         // Adjust UI components for edge to edge
         ViewCompat.setOnApplyWindowInsetsListener(activityBinding.nestedScrollView) { v, windowInsets ->
@@ -234,17 +243,19 @@ class AppDetailsActivity : AppCompatActivity() {
                 startActivity(Intent.createChooser(
                     Intent(Intent.ACTION_SEND)
                         .setType("text/plain")
-                        .putExtra(Intent.EXTRA_TEXT,
-                                  """
+                        .putExtra(
+                            Intent.EXTRA_TEXT,
+                            """
                               ${getString(R.string.app)}: ${app.name}
                               ${getString(R.string.package_name)}: $packageNameString
                               ${getString(R.string.de_Googled)}: ${
-                                      mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore)
-                                  }
+                                mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore)
+                            }
                               ${getString(R.string.microG)}: ${
-                                      mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore)
-                                  }
-                              """.trimIndent()),
+                                mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore)
+                            }
+                              """.trimIndent()
+                        ),
                     getString(R.string.share)))
             }
             
@@ -345,7 +356,8 @@ class AppDetailsActivity : AppCompatActivity() {
             activityBinding.detailsSortBtn.apply {
                 setButtonTooltipText(getString(R.string.menu_sort))
                 setOnClickListener {
-                    SortAllRatingsBottomSheet().show(supportFragmentManager, "SortUserRatingsBottomSheet")
+                    SortAllRatingsBottomSheet(this@AppDetailsActivity)
+                        .show(supportFragmentManager, "SortUserRatingsBottomSheet")
                 }
             }
             
@@ -570,7 +582,7 @@ class AppDetailsActivity : AppCompatActivity() {
         return avgScore.toString().removeSuffix(".0")
     }
     
-    private fun mapScoreRangeToColor(score: Float): Int {
+    private fun mapScoreRangeToStatusBgColor(score: Float): Int {
         return when(score) {
             0.0f -> 0
             in 1.0f..1.9f -> resources.getColor(R.color.color_broken_status, theme)
@@ -578,6 +590,28 @@ class AppDetailsActivity : AppCompatActivity() {
             in 3.0f..3.9f -> resources.getColor(R.color.color_silver_status, theme)
             else -> resources.getColor(R.color.color_gold_status, theme)
         }
+    }
+    
+    private fun MaterialTextView.setStatusTextColor(applyDefaultColor: Boolean = false) {
+        setTextColor(
+            if (!applyDefaultColor) {
+                when (id) {
+                    R.id.goldText, R.id.goldPercent ->
+                        resources.getColor(R.color.color_gold_status_text, theme)
+                    
+                    R.id.silverText, R.id.silverPercent ->
+                        resources.getColor(R.color.color_silver_status_text, theme)
+                    
+                    R.id.bronzeText, R.id.bronzePercent ->
+                        resources.getColor(R.color.color_bronze_status_text, theme)
+                    
+                    else -> resources.getColor(R.color.color_broken_status_text, theme)
+                }
+            }
+            else {
+                defaultStatusTextColor
+            }
+        )
     }
     
     private fun mapScoreRangeToProgress(score: Float): Int {
@@ -617,17 +651,47 @@ class AppDetailsActivity : AppCompatActivity() {
             this.ratingsCount.text = "${getString(R.string.ratings)}: $ratingsCount"
             avgScore.text = "${removeDotZeroFromFloat(score)}/4"
             progressCircle.apply {
-                setIndicatorColor(mapScoreRangeToColor(score))
+                setIndicatorColor(mapScoreRangeToStatusBgColor(score))
                 setProgressCompat(mapScoreRangeToProgress(score), true)
             }
-            goldProgress.setProgressCompat(goldRatingsPercent.toInt(), true)
-            goldPercent.text = "${removeDotZeroFromFloat(goldRatingsPercent)}%"
-            silverProgress.setProgressCompat(silverRatingsPercent.toInt(), true)
+            goldRatingsPercent.toInt().let {
+                goldProgress.setProgressCompat(it, true)
+                goldText.setStatusTextColor(applyDefaultColor = it == 0)
+                goldPercent.apply {
+                    text = "${removeDotZeroFromFloat(goldRatingsPercent)}%"
+                    setStatusTextColor(applyDefaultColor = it == 0)
+                }
+            }
+            silverRatingsPercent.toInt().let {
+                silverProgress.setProgressCompat(it, true)
+                silverText.setStatusTextColor(applyDefaultColor = it == 0)
+                silverPercent.apply {
+                    text = "${removeDotZeroFromFloat(silverRatingsPercent)}%"
+                    setStatusTextColor(applyDefaultColor = it == 0)
+                }
+            }
+            bronzeRatingsPercent.toInt().let {
+                bronzeProgress.setProgressCompat(it, true)
+                bronzeText.setStatusTextColor(applyDefaultColor = it == 0)
+                bronzePercent.apply {
+                    text = "${removeDotZeroFromFloat(bronzeRatingsPercent)}%"
+                    setStatusTextColor(applyDefaultColor = it == 0)
+                }
+            }
+            brokenRatingsPercent.toInt().let {
+                brokenProgress.setProgressCompat(it, true)
+                brokenText.setStatusTextColor(applyDefaultColor = it == 0)
+                brokenPercent.apply {
+                    text = "${removeDotZeroFromFloat(brokenRatingsPercent)}%"
+                    setStatusTextColor(applyDefaultColor = it == 0)
+                }
+            }
+            /*silverProgress.setProgressCompat(silverRatingsPercent.toInt(), true)
             silverPercent.text = "${removeDotZeroFromFloat(silverRatingsPercent)}%"
             bronzeProgress.setProgressCompat(bronzeRatingsPercent.toInt(), true)
             bronzePercent.text = "${removeDotZeroFromFloat(bronzeRatingsPercent)}%"
             brokenProgress.setProgressCompat(brokenRatingsPercent.toInt(), true)
-            brokenPercent.text = "${removeDotZeroFromFloat(brokenRatingsPercent)}%"
+            brokenPercent.text = "${removeDotZeroFromFloat(brokenRatingsPercent)}%"*/
         }
     }
     
@@ -690,6 +754,11 @@ class AppDetailsActivity : AppCompatActivity() {
                     .show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
+    }
+    
+    override fun onSortPrefsChanged() {
+        isListSorted = false // Set to false so list is sorted on fragment refresh
+        navController.refreshFragment()
     }
     
     override fun onResume() {
