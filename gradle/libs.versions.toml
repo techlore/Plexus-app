@@ -18,7 +18,7 @@
 [versions]
 androidGradle = "8.11.1"
 androidKotlin = "2.2.0" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
-ksp = "2.1.21-2.0.1" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
+ksp = "2.2.0-2.0.2" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.1"
 coreKtx = "1.16.0"
 splashscreen = "1.0.1"
@@ -30,7 +30,7 @@ navigationKtx = "2.9.2"
 kotlinxSerialization = "1.9.0"
 ktor = "3.2.2"
 room = "2.7.2"
-coil = "3.2.0"
+coil = "3.3.0"
 androidfastscrollKt = "v1.0.8"
 ksoup = "0.2.4"
 lottie = "6.6.7"
