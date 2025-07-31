@@ -23,14 +23,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.AppDetailsActivity
+import tech.techlore.plexus.activities.BaseDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortRatingsBinding
@@ -60,8 +59,7 @@ class SortAllRatingsBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val detailsActivity = requireActivity() as AppDetailsActivity
-        val checkIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
+        val detailsActivity = requireActivity() as BaseDetailsActivity
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
@@ -96,10 +94,10 @@ class SortAllRatingsBottomSheet(
         // Status toggle button group
         bottomSheetBinding.ratingsStatusToggleGroup.apply {
             check(detailsActivity.statusToggleBtnId)
-            findViewById<MaterialButton>(checkedButtonId).icon = checkIcon // Add checkmark icon
+            findViewById<MaterialButton>(checkedButtonId).icon = detailsActivity.checkIcon // Add checkmark icon
             addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {
-                    findViewById<MaterialButton>(checkedId).icon = checkIcon // Add checkmark icon
+                    findViewById<MaterialButton>(checkedId).icon = detailsActivity.checkIcon // Add checkmark icon
                     bottomSheetBinding.ratingsStatusChipGroup.isVisible = checkedId != R.id.ratingsToggleAnyStatus
                 }
                 else {

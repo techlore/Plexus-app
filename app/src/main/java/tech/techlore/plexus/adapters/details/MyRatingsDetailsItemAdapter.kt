@@ -15,25 +15,31 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.adapters.myratingsdetails
+package tech.techlore.plexus.adapters.details
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
+import tech.techlore.plexus.diffcallbacks.MyRatingsDetailsDiffCallback
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
-class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetails>) : RecyclerView.Adapter<MyRatingsDetailsItemAdapter.ListViewHolder>() {
+class MyRatingsDetailsItemAdapter()
+    : ListAdapter<MyRatingDetails, MyRatingsDetailsItemAdapter.ListViewHolder>(
+    MyRatingsDetailsDiffCallback()) {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
         val notes: MaterialTextView = itemView.findViewById(R.id.ratingsNotes)
+        val translate: MaterialButton = itemView.findViewById(R.id.translateBtn)
         val version: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
         val rom: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratingsAndroidVersion)
@@ -52,7 +58,7 @@ class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetai
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        val myRatingsDetails = aListViewItems[position]
+        val myRatingsDetails = getItem(position)
         val context = holder.itemView.context
         
         // Notes
@@ -62,6 +68,8 @@ class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetai
         else {
             holder.notes.isVisible = false
         }
+        
+        holder.translate.visibility = View.INVISIBLE
         
         holder.version.text = "${myRatingsDetails.version} (${myRatingsDetails.buildNumber})"
         holder.rom.text = "${myRatingsDetails.romName} (${myRatingsDetails.romBuild})"
@@ -75,10 +83,6 @@ class MyRatingsDetailsItemAdapter(private val aListViewItems: List<MyRatingDetai
                                              myRatingsDetails.googleLib,
                                              myRatingsDetails.myRatingScore)
         
-    }
-    
-    override fun getItemCount(): Int {
-        return aListViewItems.size
     }
     
     override fun getItemViewType(position: Int): Int {

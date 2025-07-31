@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.adapters.appdetails
+package tech.techlore.plexus.adapters.details
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -31,13 +31,13 @@ import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.appdetails.TranslateRatingNoteBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
-import tech.techlore.plexus.diffcallbacks.RatingsDetailsDiffCallback
+import tech.techlore.plexus.diffcallbacks.UserRatingsDetailsDiffCallback
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
 class UserRatingsItemAdapter(
     private val fragmentManager: FragmentManager
-) : ListAdapter<Rating, UserRatingsItemAdapter.ListViewHolder>(RatingsDetailsDiffCallback()) {
+) : ListAdapter<Rating, UserRatingsItemAdapter.ListViewHolder>(UserRatingsDetailsDiffCallback()) {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         

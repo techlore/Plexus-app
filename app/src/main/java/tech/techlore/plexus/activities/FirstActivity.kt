@@ -61,6 +61,7 @@ class FirstActivity : AppCompatActivity() {
     
     private lateinit var activityBinding: ActivityFirstBinding
     private val prefManager by inject<PreferenceManager>()
+    private var packageNameString: String? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -76,6 +77,9 @@ class FirstActivity : AppCompatActivity() {
         activityBinding = ActivityFirstBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
+        packageNameString = intent.getStringExtra("packageName")
+        AppState.isAppOpen = true
+        
         // Adjust root layout for edge to edge
         ViewCompat.setOnApplyWindowInsetsListener(activityBinding.root) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
@@ -86,8 +90,6 @@ class FirstActivity : AppCompatActivity() {
             }
             WindowInsetsCompat.CONSUMED
         }
-        
-        AppState.isAppOpen = true
         
         DeviceState.apply {
             rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).orEmpty()
@@ -122,8 +124,10 @@ class FirstActivity : AppCompatActivity() {
             if (hasNetwork(this@FirstActivity) && hasInternet()) {
                 try {
                     get<MainDataRepository>().apply {
-                        plexusDataIntoDB()
-                        deleteNonRatedAppsFromDb()
+                        packageNameString?.let {
+                            updateSingleApp(it)
+                        } ?: plexusDataIntoDB()
+                        
                         activityBinding.progressText.text = getString(R.string.scan_installed)
                         installedAppsIntoDB(this@FirstActivity)
                     }
@@ -202,7 +206,7 @@ class FirstActivity : AppCompatActivity() {
         super.finishAfterTransition()
         // If started from shortcut, open details activity
         // else main activity
-        intent.getStringExtra("packageName")?.let {
+        packageNameString?.let {
             startDetailsActivity(it, isFromShortcut = true)
         }
         ?: startActivityWithTransition(Intent(this@FirstActivity, MainActivity::class.java))

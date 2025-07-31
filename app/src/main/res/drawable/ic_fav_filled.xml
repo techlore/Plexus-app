@@ -15,8 +15,6 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<vector android:height="24dp" android:tint="?attr/colorControlNormal"
-    android:viewportHeight="24" android:viewportWidth="24"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="@android:color/white" android:pathData="M13.35 20.13c-0.76 0.69-1.93 0.69-2.69-0.01l-0.11-0.1C5.3 15.27 1.87 12.16 2 8.28c0.06-1.7 0.93-3.33 2.34-4.29 2.64-1.8 5.9-0.96 7.66 1.1 1.76-2.06 5.02-2.91 7.66-1.1 1.41 0.96 2.28 2.59 2.34 4.29 0.14 3.88-3.3 6.99-8.55 11.76l-0.1 0.09z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="960" android:viewportHeight="960" android:tint="?attr/colorControlNormal">
+    <path android:fillColor="@android:color/white" android:pathData="M480 813q-14 0-28.5-5T426 792l-69-63q-106-97-191.5-192.5T80 326q0-94 63-157t157-63q53 0 100 22.5t80 61.5q33-39 80-61.5T660 106q94 0 157 63t63 157q0 115-85 211T602 730l-68 62q-11 11-25.5 16t-28.5 5z"/>
 </vector>

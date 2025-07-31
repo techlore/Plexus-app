@@ -91,17 +91,6 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
         }.format(this)
     }
     
-    suspend fun deleteNonRatedAppsFromDb() {
-        // Apps with no ratings were removed from Plexus DB recently,
-        // so delete those apps from local DB too.
-        // This will be removed after a few versions, as by then local DB won't have any such apps
-        withContext(Dispatchers.IO) {
-            mainDataDao.getNonRatedPlexusDataApps().takeIf { it.isNotEmpty() }?.forEach {
-                mainDataDao.delete(it)
-            }
-        }
-    }
-    
     suspend fun installedAppsIntoDB(context: Context) {
         withContext(Dispatchers.IO) {
             val installedApps = scannedInstalledAppsList(context)

@@ -18,15 +18,15 @@
 package tech.techlore.plexus.diffcallbacks
 
 import androidx.recyclerview.widget.DiffUtil
-import tech.techlore.plexus.models.get.ratings.Rating
+import tech.techlore.plexus.models.myratings.MyRatingDetails
 
-class RatingsDetailsDiffCallback : DiffUtil.ItemCallback<Rating>() {
+class MyRatingsDetailsDiffCallback : DiffUtil.ItemCallback<MyRatingDetails>() {
     
-    override fun areItemsTheSame(oldItem: Rating, newItem: Rating): Boolean {
+    override fun areItemsTheSame(oldItem: MyRatingDetails, newItem: MyRatingDetails): Boolean {
         return oldItem.id == newItem.id
     }
     
-    override fun areContentsTheSame(oldItem: Rating, newItem: Rating): Boolean {
+    override fun areContentsTheSame(oldItem: MyRatingDetails, newItem: MyRatingDetails): Boolean {
         return oldItem == newItem
     }
 }

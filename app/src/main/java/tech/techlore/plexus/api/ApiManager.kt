@@ -18,7 +18,6 @@
 package tech.techlore.plexus.api
 
 import android.app.Application
-import android.content.Context
 import android.util.Base64
 import android.util.Log
 import io.ktor.client.HttpClient
@@ -48,7 +47,7 @@ class ApiManager {
         
         // Google needs special handling
         // Check https://pki.goog/faq/#faq-27
-        private val googleRootCerts = get<Application>().getGoogleRootCerts().toTypedArray()
+        private val googleRootCerts = getGoogleRootCerts().toTypedArray()
         
         private val okHttpClient =
             HttpClient(OkHttp) {
@@ -80,7 +79,7 @@ class ApiManager {
                 }
             }
         
-        private fun Context.getGoogleRootCerts(): List<String> {
+        private fun getGoogleRootCerts(): List<String> {
             return try {
                 get<Application>().resources.openRawResource(R.raw.google_roots_ca)
                     .use {

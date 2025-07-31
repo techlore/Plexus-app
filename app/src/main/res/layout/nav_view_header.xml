@@ -33,10 +33,10 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="@dimen/margin_10"
         android:padding="@dimen/margin_8"
-        android:src="@drawable/ic_device_stats"
-        app:tint="?attr/colorOnSurfaceVariant"
         android:background="@drawable/shape_filled_rounded_corners_large"
         android:backgroundTint="?attr/colorSurfaceVariant"
+        android:src="@drawable/ic_device_stats"
+        app:tint="?attr/colorOnSurfaceVariant"
         tools:ignore="ContentDescription" />
 
     <com.google.android.material.textview.MaterialTextView

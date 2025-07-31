@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/allRatingsFragment"
-        android:name="tech.techlore.plexus.fragments.appdetails.AllRatingsFragment"
+        android:name="tech.techlore.plexus.fragments.details.UserRatingsFragment"
         android:label="@string/ratings"
         tools:layout="@layout/fragment_ratings_details">
         <action
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/myRatingsDetailsFragment"
-        android:name="tech.techlore.plexus.fragments.myratingsdetails.MyRatingsDetailsFragment"
+        android:name="tech.techlore.plexus.fragments.details.MyRatingsDetailsFragment"
         android:label="@string/ratings"
         tools:layout="@layout/fragment_ratings_details">
         <action
