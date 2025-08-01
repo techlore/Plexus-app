@@ -70,6 +70,7 @@ import com.google.android.material.button.MaterialButton
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toBitmap
 import com.google.android.material.textview.MaterialTextView
+import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import kotlin.system.exitProcess
 
 class AppDetailsActivity : BaseDetailsActivity() {
@@ -282,19 +283,20 @@ class AppDetailsActivity : BaseDetailsActivity() {
                     afterRatingsRetrieved()
                 }
                 catch (e: Exception) {
-                    NoNetworkBottomSheet(isNoNetworkError = false,
-                                         exception = e,
-                                         negativeButtonText = getString(R.string.exit),
-                                         positiveBtnClickAction = { retrieveRatings() },
-                                         negativeBtnClickAction = { finishAfterTransition() })
-                        .show(supportFragmentManager, "NoNetworkBottomSheet")
+                    ExceptionErrorBottomSheet(
+                        exception = e,
+                        negativeBtnText = getString(R.string.exit),
+                        onPositiveBtnClick = { retrieveRatings() },
+                        onNegativeBtnClick = { finishAfterTransition() }
+                    ).show(supportFragmentManager, "ExceptionErrorBottomSheet")
                 }
             }
             else {
-                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveBtnClickAction = { retrieveRatings() },
-                                     negativeBtnClickAction = { finishAfterTransition() })
-                    .show(supportFragmentManager, "NoNetworkBottomSheet")
+                NoNetworkBottomSheet(
+                    negativeBtnText = getString(R.string.cancel),
+                    onPositiveBtnClick = { retrieveRatings() },
+                    onNegativeBtnClick = { finishAfterTransition() }
+                ).show(supportFragmentManager, "NoNetworkBottomSheet")
             }
             
         }
@@ -571,10 +573,11 @@ class AppDetailsActivity : BaseDetailsActivity() {
                 SubmitBottomSheet().show(supportFragmentManager, "SubmitBottomSheet")
             }
             else {
-                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveBtnClickAction = { showSubmitBottomSheet() },
-                                     negativeBtnClickAction = {})
-                    .show(supportFragmentManager, "NoNetworkBottomSheet")
+                NoNetworkBottomSheet(
+                    negativeBtnText = getString(R.string.cancel),
+                    onPositiveBtnClick = { showSubmitBottomSheet() },
+                    onNegativeBtnClick = {}
+                ).show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
     }

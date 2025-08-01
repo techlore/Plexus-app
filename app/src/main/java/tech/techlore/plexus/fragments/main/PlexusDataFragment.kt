@@ -21,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
+import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
@@ -43,27 +44,29 @@ class PlexusDataFragment : BaseMainDataFragment() {
             if (hasNetwork(requireContext()) && hasInternet()) {
                 try {
                     get<MainDataRepository>().plexusDataIntoDB()
-                    mainDataItemAdapter.submitList(getDataFromDB())
+                    mainDataList = getDataFromDB()
+                    mainDataItemAdapter.submitList(mainDataList)
                     fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 }
                 catch (e: Exception) {
-                    NoNetworkBottomSheet(isNoNetworkError = false,
-                                         exception = e,
-                                         negativeButtonText = getString(R.string.exit),
-                                         positiveBtnClickAction = { onSwipeRefresh() },
-                                         negativeBtnClickAction = {
-                                             fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                                         })
-                        .show(parentFragmentManager, "NoNetworkBottomSheet")
+                    ExceptionErrorBottomSheet(
+                        exception = e,
+                        negativeBtnText = getString(R.string.cancel),
+                        onPositiveBtnClick = { onSwipeRefresh() },
+                        onNegativeBtnClick = {
+                            fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                        }
+                    ).show(parentFragmentManager, "ExceptionErrorBottomSheet")
                 }
             }
             else {
-                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveBtnClickAction = { onSwipeRefresh() },
-                                     negativeBtnClickAction = {
-                                         fragmentBinding.swipeRefreshLayout.isRefreshing = false
-                                     })
-                    .show(parentFragmentManager, "NoNetworkBottomSheet")
+                NoNetworkBottomSheet(
+                    negativeBtnText = getString(R.string.cancel),
+                    onPositiveBtnClick = { onSwipeRefresh() },
+                    onNegativeBtnClick = {
+                        fragmentBinding.swipeRefreshLayout.isRefreshing = false
+                    }
+                ).show(parentFragmentManager, "NoNetworkBottomSheet")
             }
         }
     }

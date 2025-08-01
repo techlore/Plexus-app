@@ -43,7 +43,7 @@ class UserRatingsItemAdapter(
         
         val notesCard: MaterialCardView = itemView.findViewById(R.id.ratingsNotesCard)
         val notes: MaterialTextView = itemView.findViewById(R.id.ratingsNotes)
-        val translate: MaterialButton = itemView.findViewById(R.id.translateBtn)
+        val translateBtn: MaterialButton = itemView.findViewById(R.id.translateBtn)
         val version: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
         val rom: MaterialTextView = itemView.findViewById(R.id.ratingsRomSubtitle)
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratingsAndroidVersion)
@@ -68,7 +68,7 @@ class UserRatingsItemAdapter(
         // Notes
         if (!userRating.notes.isNullOrEmpty()) {
             holder.notes.text = userRating.notes
-            holder.translate.setOnClickListener {
+            holder.translateBtn.setOnClickListener {
                 TranslateRatingNoteBottomSheet(userRating.notes!!).show(fragmentManager, "TranslateRatingNoteBottomSheet")
             }
         }

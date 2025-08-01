@@ -121,7 +121,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Une erreur s\'est produite</string>
     <string name="no_network_title">Pas de r\u00E9seau</string>
-    <string name="no_network_subtitle">Connectez-vous au Wi-Fi ou aux donn\u00E9es cellulaires et r\u00E9essayez.
+    <string name="no_network_desc">Connectez-vous au Wi-Fi ou aux donn\u00E9es cellulaires et r\u00E9essayez.
         Si le r\u00E9seau est actif, assurez-vous que la connexion \u00E0 internet fonctionne.</string>
     <!--Help-->
     <string name="icons">Ic\u00F4nes</string>

@@ -30,7 +30,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
-import tech.techlore.plexus.interfaces.SortPrefsListener
+import tech.techlore.plexus.interfaces.SortPrefsChangedListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
@@ -38,7 +38,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FR
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 
-class SortBottomSheet(private val sortPrefsListener: SortPrefsListener,
+class SortBottomSheet(private val sortPrefsChangedListener: SortPrefsChangedListener,
                       private val currentFragmentId: Int) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortBinding? = null
@@ -159,7 +159,7 @@ class SortBottomSheet(private val sortPrefsListener: SortPrefsListener,
             }
             
             dismiss()
-            sortPrefsListener.onSortPrefsChanged()
+            sortPrefsChangedListener.onSortPrefsChanged()
         }
         
         // Cancel

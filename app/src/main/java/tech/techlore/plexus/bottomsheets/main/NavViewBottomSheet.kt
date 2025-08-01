@@ -30,12 +30,15 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.bottomsheets.common.RomSelectionBottomSheet
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetNavViewBinding
+import tech.techlore.plexus.interfaces.NavViewItemSelectedListener
 import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
 import tech.techlore.plexus.utils.UiUtils.Companion.setDgMgTextWithIcon
 
-class NavViewBottomSheet : BottomSheetDialogFragment() {
+class NavViewBottomSheet(
+    private val navViewItemSelectedListener: NavViewItemSelectedListener
+) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetNavViewBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -78,13 +81,7 @@ class NavViewBottomSheet : BottomSheetDialogFragment() {
             
             setNavigationItemSelectedListener { navMenuItem ->
                 dismiss()
-                if (navMenuItem.itemId != R.id.nav_delete_account) {
-                    mainActivity.apply {
-                        selectedNavItem = navMenuItem.itemId
-                        displayFragment(navMenuItem.itemId)
-                    }
-                }
-                else DeleteAccountBottomSheet().show(parentFragmentManager, "DeleteAccountBottomSheet")
+                navViewItemSelectedListener.onNavViewItemSelected(navMenuItem.itemId)
                 true
             }
         }

@@ -87,8 +87,8 @@ class CodeVerificationFragment : Fragment() {
             }
             verificationActivity.activityBinding.verificationAppBar.liftOnScrollTargetViewId = this.id
         }
-                
-                // Title
+        
+        // Title
         fragmentBinding.titleText.text = getString(R.string.enter_code_sent_to_email,
                                                    verificationActivity.emailString)
         
@@ -138,10 +138,11 @@ class CodeVerificationFragment : Fragment() {
                 }
             }
             else {
-                NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                     positiveBtnClickAction = { verifyDevice() },
-                                     negativeBtnClickAction = {})
-                    .show(parentFragmentManager, "NoNetworkBottomSheet")
+                NoNetworkBottomSheet(
+                    negativeBtnText = getString(R.string.cancel),
+                    onPositiveBtnClick = { verifyDevice() },
+                    onNegativeBtnClick = {}
+                ).show(parentFragmentManager, "NoNetworkBottomSheet")
             }
         }
     }

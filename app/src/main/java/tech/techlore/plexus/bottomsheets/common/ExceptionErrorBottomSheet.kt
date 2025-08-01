@@ -19,14 +19,15 @@ package tech.techlore.plexus.bottomsheets.common
 
 import tech.techlore.plexus.R
 
-class NoNetworkBottomSheet(
+class ExceptionErrorBottomSheet(
+    exception: Exception,
     negativeBtnText: String,
     onPositiveBtnClick: () -> Unit,
     onNegativeBtnClick: () -> Unit
 ) : BaseErrorBottomSheet() {
     
-    override val titleTextResId = R.string.no_network_title
-    override val descriptionText = TextOrRes.Res(R.string.no_network_desc)
+    override val titleTextResId = R.string.error_occurred_title
+    override val descriptionText = TextOrRes.Text(exception.toString())
     override val negativeButtonText = negativeBtnText
     override val positiveBtnClickAction = onPositiveBtnClick
     override val negativeBtnClickAction = onNegativeBtnClick

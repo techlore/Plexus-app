@@ -31,5 +31,4 @@
 
 
 ## Contributing to the data
-This has been integrated in the app. Please **do not** open pull requests to add new apps as they won't be accepted.
-<br>Refer to the [wiki](https://github.com/techlore/Plexus-app/wiki/Help#apps-submission-procedure) to see how to submit data for apps.
+Refer to the [wiki](https://github.com/techlore/Plexus-app/wiki/Help#apps-submission-procedure) to see how to submit data for apps.

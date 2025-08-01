@@ -15,19 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.bottomsheets.common
+package tech.techlore.plexus.interfaces
 
-import tech.techlore.plexus.R
-
-class NoNetworkBottomSheet(
-    negativeBtnText: String,
-    onPositiveBtnClick: () -> Unit,
-    onNegativeBtnClick: () -> Unit
-) : BaseErrorBottomSheet() {
+interface SortPrefsChangedListener {
     
-    override val titleTextResId = R.string.no_network_title
-    override val descriptionText = TextOrRes.Res(R.string.no_network_desc)
-    override val negativeButtonText = negativeBtnText
-    override val positiveBtnClickAction = onPositiveBtnClick
-    override val negativeBtnClickAction = onNegativeBtnClick
+    fun onSortPrefsChanged()
+    
 }

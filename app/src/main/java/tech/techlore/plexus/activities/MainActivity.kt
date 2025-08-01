@@ -32,9 +32,11 @@ import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
+import tech.techlore.plexus.bottomsheets.main.DeleteAccountBottomSheet
 import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
-import tech.techlore.plexus.interfaces.SortPrefsListener
+import tech.techlore.plexus.interfaces.NavViewItemSelectedListener
+import tech.techlore.plexus.interfaces.SortPrefsChangedListener
 import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
@@ -44,7 +46,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
-class MainActivity : AppCompatActivity(), SortPrefsListener {
+class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefsChangedListener {
     
     lateinit var activityBinding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -79,6 +81,15 @@ class MainActivity : AppCompatActivity(), SortPrefsListener {
             setStartDestination(defaultFragment)
             navController.setGraph(this, intent.extras)
         }
+        
+        activityBinding.mainCollapsingToolbar.title = navController.currentDestination?.label
+        
+        // To set nav view item background, check selected item
+        selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: defaultSelectedNavItem
+        
+        // Disable menu buttons for settings fragment when activity is recreated
+        // or else they'll be enabled when theme is changed
+        if (selectedNavItem == R.id.nav_settings) setMenuButtonStates()
         
         // Nav view
         activityBinding.navViewBtn.setOnClickListener {
@@ -128,11 +139,6 @@ class MainActivity : AppCompatActivity(), SortPrefsListener {
                 HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
             }
         }
-        
-        activityBinding.mainCollapsingToolbar.title = navController.currentDestination?.label
-        
-        // To set nav view item background, check selected item
-        selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: defaultSelectedNavItem
     }
     
     // Set default view
@@ -158,11 +164,11 @@ class MainActivity : AppCompatActivity(), SortPrefsListener {
     }
     
     private fun showNavView() {
-        NavViewBottomSheet().show(supportFragmentManager, "NavViewBottomSheet")
+        NavViewBottomSheet(this).show(supportFragmentManager, "NavViewBottomSheet")
     }
     
     // Setup fragments
-    fun displayFragment(selectedItem: Int) {
+    private fun displayFragment(selectedItem: Int) {
         val actionsMap =
             mapOf(R.id.nav_plexus_data to R.id.action_global_to_plexusDataFragment,
                   R.id.nav_installed_apps to R.id.action_global_to_installedAppsFragment,
@@ -183,10 +189,9 @@ class MainActivity : AppCompatActivity(), SortPrefsListener {
         }
     }
     
-    fun setMenuButtonStates() {
+    private fun setMenuButtonStates() {
         when (selectedNavItem) {
-            R.id.nav_my_ratings ->
-                activityBinding.mainSearchBtn.isEnabled = false
+            R.id.nav_my_ratings -> activityBinding.mainSearchBtn.isEnabled = false
             
             R.id.nav_settings -> {
                 for (i in 1 until 5) {
@@ -206,9 +211,17 @@ class MainActivity : AppCompatActivity(), SortPrefsListener {
         icon =
             ContextCompat.getDrawable(
                 this@MainActivity,
-                if (! isGridView) R.drawable.ic_view_grid
+                if (!isGridView) R.drawable.ic_view_grid
                 else R.drawable.ic_view_list
             )
+    }
+    
+    override fun onNavViewItemSelected(selectedItemId: Int) {
+        if (selectedItemId != R.id.nav_delete_account) {
+            selectedNavItem = selectedItemId
+            displayFragment(selectedNavItem)
+        }
+        else DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
     }
     
     override fun onSortPrefsChanged() {

@@ -132,7 +132,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Si \u00E8 verificato un errore</string>
     <string name="no_network_title">Nessuna connesione nternet</string>
-    <string name="no_network_subtitle">Connettiti a una rete Wi-Fi o ai dati mobili e riprova.
+    <string name="no_network_desc">Connettiti a una rete Wi-Fi o ai dati mobili e riprova.
         Se gi\u00E0 connesso, assicurarsi di avere una connessione ad Internet.</string>
 
     <!--Help-->

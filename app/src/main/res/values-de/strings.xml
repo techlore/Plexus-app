@@ -121,7 +121,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Es ist ein Fehler aufgetreten</string>
     <string name="no_network_title">Kein Netzwerk/Internet</string>
-    <string name="no_network_subtitle">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
+    <string name="no_network_desc">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
         Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
     <!--Help-->
     <string name="icons">Icons</string>

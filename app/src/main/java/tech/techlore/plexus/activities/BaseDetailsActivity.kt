@@ -42,7 +42,7 @@ import tech.techlore.plexus.bottomsheets.appdetails.LinksBottomSheet
 import tech.techlore.plexus.bottomsheets.appdetails.SortAllRatingsBottomSheet
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.interfaces.SortPrefsListener
+import tech.techlore.plexus.interfaces.SortPrefsChangedListener
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.repositories.database.MainDataRepository
@@ -58,7 +58,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
 import kotlin.getValue
 import kotlin.math.abs
 
-abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsListener {
+abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListener {
     
     lateinit var activityBinding: ActivityAppDetailsBinding
     protected lateinit var navController: NavController

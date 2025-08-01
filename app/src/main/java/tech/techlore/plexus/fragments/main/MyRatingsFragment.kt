@@ -93,8 +93,7 @@ class MyRatingsFragment :
             if (myRatingsList.isEmpty()) {
                 fragmentBinding.emptyListViewStub.inflate()
                 val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_my_ratings)
-                fragmentBinding.root.findViewById<MaterialTextView>(R.id.emptyListViewText)
-                    .apply {
+                fragmentBinding.root.findViewById<MaterialTextView>(R.id.emptyListViewText).apply {
                         setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
                         text =
                             if (prefManager.getBoolean(IS_FIRST_SUBMISSION)) {
@@ -130,10 +129,7 @@ class MyRatingsFragment :
             mainActivity.activityBinding.newRatingFab.apply {
                 show()
                 setOnClickListener {
-                    mainActivity.apply {
-                        selectedNavItem = R.id.nav_installed_apps
-                        displayFragment(R.id.nav_installed_apps)
-                    }
+                    mainActivity.onNavViewItemSelected(R.id.nav_installed_apps)
                 }
             }
             

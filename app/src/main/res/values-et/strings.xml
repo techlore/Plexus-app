@@ -67,7 +67,7 @@
     <string name="icons">Ikoonid</string>
     <string name="not_tested_subtitle">Teave pole saadaval, rakendust pole testitud</string>
     <string name="broken_title">Ei toimi</string>
-    <string name="no_network_subtitle">Ühenda WiFi võrguga või lülita sisse mobiilne andmeside ja proovi uuesti. Kui võrguühendus on juba olemas, siis testi, kas Internetiühendus toimib korralikult.</string>
+    <string name="no_network_desc">Ühenda WiFi võrguga või lülita sisse mobiilne andmeside ja proovi uuesti. Kui võrguühendus on juba olemas, siis testi, kas Internetiühendus toimib korralikult.</string>
     <string name="broken_subtitle">Pole kasutatav, tavaliselt kehtib rakenduste kohta, mis ei käivitu</string>
     <string name="bronze_title">Pronks</string>
     <string name="bronze_subtitle">Toimib osaliselt, mingi osa funktsionaalsust on kasutamatu</string>

@@ -116,7 +116,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Došlo k chybě</string>
     <string name="no_network_title">Žádná síť/internet</string>
-    <string name="no_network_subtitle">Připojte se k Wi-Fi nebo mobilním datům a zkuste to znovu.
+    <string name="no_network_desc">Připojte se k Wi-Fi nebo mobilním datům a zkuste to znovu.
         Pokud jste již připojeni, ujistěte se, že máte přístup k internetu.</string>
     <!--Help-->
     <string name="icons">Ikony</string>

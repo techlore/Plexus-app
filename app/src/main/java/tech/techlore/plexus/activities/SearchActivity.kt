@@ -29,12 +29,12 @@ import com.google.android.material.transition.platform.MaterialSharedAxis
 import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.search.SearchSortBottomSheet
 import tech.techlore.plexus.databinding.ActivitySearchBinding
-import tech.techlore.plexus.interfaces.SortPrefsListener
+import tech.techlore.plexus.interfaces.SortPrefsChangedListener
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
-class SearchActivity : AppCompatActivity(), SortPrefsListener {
+class SearchActivity : AppCompatActivity(), SortPrefsChangedListener {
     
     lateinit var activityBinding: ActivitySearchBinding
     private lateinit var navController: NavController

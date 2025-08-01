@@ -131,7 +131,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">An error occurred</string>
     <string name="no_network_title">No Network/Internet</string>
-    <string name="no_network_subtitle">Connect to Wi-Fi or mobile data and retry.
+    <string name="no_network_desc">Connect to Wi-Fi or mobile data and retry.
         If already connected, make sure it has an internet connection.</string>
 
     <!--Help-->

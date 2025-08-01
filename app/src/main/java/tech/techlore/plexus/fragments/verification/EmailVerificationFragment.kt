@@ -104,13 +104,14 @@ class EmailVerificationFragment : Fragment() {
                             .show(parentFragmentManager, "VerificationBottomSheet")
                     }
                     else {
-                        NoNetworkBottomSheet(negativeButtonText = getString(R.string.cancel),
-                                             positiveBtnClickAction = {
-                                                 EmailVerificationBottomSheet(fragmentBinding.emailText.text.toString())
-                                                     .show(parentFragmentManager, "VerificationBottomSheet")
-                                             },
-                                             negativeBtnClickAction = {})
-                            .show(parentFragmentManager, "NoNetworkBottomSheet")
+                        NoNetworkBottomSheet(
+                            negativeBtnText = getString(R.string.cancel),
+                            onPositiveBtnClick = {
+                                EmailVerificationBottomSheet(fragmentBinding.emailText.text.toString())
+                                    .show(parentFragmentManager, "VerificationBottomSheet")
+                            },
+                            onNegativeBtnClick = {}
+                        ).show(parentFragmentManager, "NoNetworkBottomSheet")
                     }
                 }
             }

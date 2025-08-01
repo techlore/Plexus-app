@@ -36,6 +36,7 @@ import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.appmanager.ApplicationManager
+import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.databinding.ActivityFirstBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
@@ -135,25 +136,26 @@ class FirstActivity : AppCompatActivity() {
                     afterDataRetrieved()
                 }
                 catch (e: Exception) {
-                    NoNetworkBottomSheet(isNoNetworkError = false,
-                                         exception = e,
-                                         negativeButtonText = getString(R.string.exit),
-                                         positiveBtnClickAction = { retrieveData() },
-                                         negativeBtnClickAction = {
-                                             finishAndRemoveTask()
-                                             exitProcess(0)
-                                         })
-                        .show(supportFragmentManager, "NoNetworkBottomSheet")
+                    ExceptionErrorBottomSheet(
+                        exception = e,
+                        negativeBtnText = getString(R.string.exit),
+                        onPositiveBtnClick = { retrieveData() },
+                        onNegativeBtnClick = {
+                            finishAndRemoveTask()
+                            exitProcess(0)
+                        }
+                    ).show(supportFragmentManager, "ExceptionErrorBottomSheet")
                 }
             }
             else {
-                NoNetworkBottomSheet(negativeButtonText = getString(R.string.exit),
-                                     positiveBtnClickAction = { retrieveData() },
-                                     negativeBtnClickAction = {
-                                         finishAndRemoveTask()
-                                         exitProcess(0)
-                                     })
-                    .show(supportFragmentManager, "NoNetworkBottomSheet")
+                NoNetworkBottomSheet(
+                    negativeBtnText = getString(R.string.exit),
+                    onPositiveBtnClick = { retrieveData() },
+                    onNegativeBtnClick = {
+                        finishAndRemoveTask()
+                        exitProcess(0)
+                    }
+                ).show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
     }

@@ -18,9 +18,12 @@
 package tech.techlore.plexus.fragments.search
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,27 +32,47 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
-import tech.techlore.plexus.fragments.main.BaseMainDataFragment
+import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.interfaces.FavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
+import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
+import kotlin.getValue
 
-class SearchFragment : BaseMainDataFragment() {
+class SearchFragment :
+    Fragment(),
+    MainDataItemAdapter.OnItemClickListener,
+    FavToggleListener {
     
+    private var _binding: RecyclerViewBinding? = null
+    private val fragmentBinding get() = _binding!!
     private lateinit var searchActivity: SearchActivity
+    private val miniRepository by inject<MainDataMinimalRepository>()
+    private lateinit var searchItemAdapter: MainDataItemAdapter
+    private lateinit var searchDataList: ArrayList<MainDataMinimal>
     private var isGridView = false
+    
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        // Inflate the layout for this fragment
+        _binding = RecyclerViewBinding.inflate(inflater, container, false)
+        return fragmentBinding.root
+    }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         searchActivity = requireActivity() as SearchActivity
-        mainDataList = ArrayList()
+        searchDataList = ArrayList()
         var job: Job? = null
         isGridView = get<PreferenceManager>().getBoolean(GRID_VIEW, false)
         
@@ -60,10 +83,12 @@ class SearchFragment : BaseMainDataFragment() {
         fragmentBinding.swipeRefreshLayout.isEnabled = false
         
         lifecycleScope.launch {
-            mainDataItemAdapter =
-                MainDataItemAdapter(clickListener = this@SearchFragment,
-                                    favToggleListener = this@SearchFragment,
-                                    isGridView = isGridView)
+            searchItemAdapter =
+                MainDataItemAdapter(
+                    clickListener = this@SearchFragment,
+                    favToggleListener = this@SearchFragment,
+                    isGridView = isGridView
+                )
             FastScrollerBuilder(fragmentBinding.recyclerView).build() // Fast scroll
             performSearch(searchActivity.activityBinding.searchView.query.toString())
         }
@@ -90,14 +115,10 @@ class SearchFragment : BaseMainDataFragment() {
         
     }
     
-    override suspend fun getDataFromDB(): ArrayList<MainDataMinimal> {
-        return ArrayList()
-    }
-    
     private suspend fun performSearch(searchString: String) {
         if (searchString.isNotEmpty()) {
-            mainDataList = miniRepository.searchInDb(searchString, searchActivity.orderChipId)
-            if (mainDataList.isEmpty()) {
+            searchDataList = miniRepository.searchInDb(searchString, searchActivity.orderChipId)
+            if (searchDataList.isEmpty()) {
                 fragmentBinding.recyclerView.adapter = null
                 searchActivity.activityBinding.emptySearchView.isVisible = true
             }
@@ -110,9 +131,9 @@ class SearchFragment : BaseMainDataFragment() {
                             LinearLayoutManager(requireContext())
                         else
                             GridLayoutManager(requireContext(), 2)
-                    adapter = mainDataItemAdapter
+                    adapter = searchItemAdapter
                 }
-                mainDataItemAdapter.submitList(mainDataList)
+                searchItemAdapter.submitList(searchDataList)
                 
             }
         }
@@ -120,6 +141,12 @@ class SearchFragment : BaseMainDataFragment() {
             fragmentBinding.recyclerView.adapter = null
             searchActivity.activityBinding.emptySearchView.isVisible = false
         }
+    }
+    
+    // On click
+    override fun onItemClick(position: Int) {
+        val searchData = searchDataList[position]
+        searchActivity.startDetailsActivity(searchData.packageName)
     }
     
     override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
@@ -135,6 +162,11 @@ class SearchFragment : BaseMainDataFragment() {
                 else getString(R.string.removed_from_fav, item.name),
             anchorView = searchActivity.activityBinding.searchDockedToolbar
         )
+    }
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
     
 }

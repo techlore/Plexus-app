@@ -87,7 +87,7 @@
     <string name="retry">重试</string>
     <string name="error_occurred_title">发生错误</string>
     <string name="no_network_title">无网络/互联网</string>
-    <string name="no_network_subtitle">连接 Wi-Fi 或移动数据后重试。如果已连接，请确保其具有互联网连接。</string>
+    <string name="no_network_desc">连接 Wi-Fi 或移动数据后重试。如果已连接，请确保其具有互联网连接。</string>
     <string name="icons">图标</string>
     <string name="not_tested_subtitle">未测试，应用尚未测试</string>
     <string name="broken_title">损坏</string>

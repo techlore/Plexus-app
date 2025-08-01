@@ -25,6 +25,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.diffcallbacks.MyRatingsDetailsDiffCallback
@@ -33,13 +34,13 @@ import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
 class MyRatingsDetailsItemAdapter()
-    : ListAdapter<MyRatingDetails, MyRatingsDetailsItemAdapter.ListViewHolder>(
-    MyRatingsDetailsDiffCallback()) {
+    : ListAdapter<MyRatingDetails, MyRatingsDetailsItemAdapter.ListViewHolder>(MyRatingsDetailsDiffCallback()) {
     
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
+        val notesCard: MaterialCardView = itemView.findViewById(R.id.ratingsNotesCard)
         val notes: MaterialTextView = itemView.findViewById(R.id.ratingsNotes)
-        val translate: MaterialButton = itemView.findViewById(R.id.translateBtn)
+        val translateBtn: MaterialButton = itemView.findViewById(R.id.translateBtn)
         val version: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
         val rom: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratingsAndroidVersion)
@@ -64,12 +65,11 @@ class MyRatingsDetailsItemAdapter()
         // Notes
         if (!myRatingsDetails.notes.isNullOrEmpty()) {
             holder.notes.text = myRatingsDetails.notes
+            holder.translateBtn.visibility = View.INVISIBLE
         }
         else {
-            holder.notes.isVisible = false
+            holder.notesCard.isVisible = false
         }
-        
-        holder.translate.visibility = View.INVISIBLE
         
         holder.version.text = "${myRatingsDetails.version} (${myRatingsDetails.buildNumber})"
         holder.rom.text = "${myRatingsDetails.romName} (${myRatingsDetails.romBuild})"

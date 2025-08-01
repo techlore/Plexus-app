@@ -121,7 +121,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Произошла ошибка</string>
     <string name="no_network_title">Нет сети/Интернета</string>
-    <string name="no_network_subtitle">Подключитесь к Wi-Fi или мобильной сети и повторите попытку.
+    <string name="no_network_desc">Подключитесь к Wi-Fi или мобильной сети и повторите попытку.
     Если уже подключено, убедитесь, что есть подключение к Интернету.</string>
 
     <!--Help-->

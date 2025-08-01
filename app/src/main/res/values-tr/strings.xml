@@ -140,7 +140,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Bir hata olu\u015Ftu</string>
     <string name="no_network_title">A\u011F/\u0130nternet Ba\u011Flant\u0131s\u0131 Yok</string>
-    <string name="no_network_subtitle">Wi-Fi veya mobil veriye ba\u011Flan\u0131n ve yeniden deneyin.
+    <string name="no_network_desc">Wi-Fi veya mobil veriye ba\u011Flan\u0131n ve yeniden deneyin.
         Zaten ba\u011Fl\u0131ysan\u0131z, internet ba\u011Flant\u0131s\u0131 oldu\u011Fundan emin olun.</string>
 
     <!--Help-->

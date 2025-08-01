@@ -75,13 +75,6 @@ class SettingsFragment : Fragment() {
         
         mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = R.id.settingsScrollView
         
-        // Forcefully set menu button states here
-        // or else menu buttons will be enabled on activity recreation
-        // when theme is changed
-        if (mainActivity.activityBinding.mainSearchBtn.isEnabled) {
-            mainActivity.setMenuButtonStates()
-        }
-        
         // Version
         @SuppressLint("SetTextI18n")
         fragmentBinding.aboutVersion.text = "${getString(R.string.version)}: ${BuildConfig.VERSION_NAME}"

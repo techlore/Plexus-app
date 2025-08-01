@@ -128,7 +128,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Er is een fout opgetreden</string>
     <string name="no_network_title">Geen Netwerk/Internet</string>
-    <string name="no_network_subtitle">Maak verbinding met Wi-Fi of mobiele gegevens en probeer het opnieuw.
+    <string name="no_network_desc">Maak verbinding met Wi-Fi of mobiele gegevens en probeer het opnieuw.
         Als u al verbonden bent, zorg er dan voor dat deze een internetverbinding heeft.</string>
 
     <!--Help-->

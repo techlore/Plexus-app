@@ -28,9 +28,9 @@ import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
-import tech.techlore.plexus.interfaces.SortPrefsListener
+import tech.techlore.plexus.interfaces.SortPrefsChangedListener
 
-class SearchSortBottomSheet(private val sortPrefsListener: SortPrefsListener) : BottomSheetDialogFragment() {
+class SearchSortBottomSheet(private val sortPrefsListener: SortPrefsChangedListener) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortBinding? = null
     private val bottomSheetBinding get() = _binding!!

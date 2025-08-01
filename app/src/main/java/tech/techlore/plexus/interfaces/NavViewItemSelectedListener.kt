@@ -17,8 +17,8 @@
 
 package tech.techlore.plexus.interfaces
 
-interface SortPrefsListener {
+interface NavViewItemSelectedListener {
     
-    fun onSortPrefsChanged()
+    fun onNavViewItemSelected(selectedItemId: Int)
     
 }
