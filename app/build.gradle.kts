@@ -32,7 +32,7 @@ android {
 
     defaultConfig {
         applicationId = "tech.techlore.plexus"
-        minSdk = 23
+        minSdk = 26
         targetSdk = 36
         versionCode = 212
         versionName = "2.1.2"

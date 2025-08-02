@@ -24,9 +24,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.TypedValue
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
@@ -126,57 +124,54 @@ class AppDetailsActivity : BaseDetailsActivity() {
         }
         
         // Shortcut chip
-        if (Build.VERSION.SDK_INT >= 26) {
-            activityBinding.shortcutChip.apply {
-                isVisible = true
-                setOnClickListener {
-                    val bitmap =
-                        if (app.isInstalled) packageManager.getApplicationIcon(packageNameString).toBitmap()
-                        else (activityBinding.detailsAppIcon.drawable as? BitmapDrawable)?.bitmap?.toSoftwareBitmap()
-                    
-                    val resizedBitmap =
-                        bitmap?.let {
-                            // https://developer.android.com/reference/android/graphics/drawable/AdaptiveIconDrawable.html
-                            // fullSize = 108
-                            // imageSize = 77 (72dp icon + 5dp padding)
-                            val output = createBitmap(108, 108)
-                            val canvas = Canvas(output)
-                            val compositeColor =
-                                ColorUtils.compositeColors(
-                                    Color.argb(0, 0, 0, 0),
-                                    Color.WHITE
-                                )
-                            val resized = it.scale(77, 77)
-                            val adjustValue = 15.5f // (108 - 77) / 2; To keep the icon centered
-                            
-                            canvas.drawColor(compositeColor) // Background color
-                            canvas.drawBitmap(resized, adjustValue, adjustValue, null)
-                            output
-                        }
-                    
-                    val shortcutIcon =
-                        resizedBitmap?.let {
-                            IconCompat.createWithAdaptiveBitmap(it)
-                        } ?: IconCompat.createWithResource(this@AppDetailsActivity,
-                                                           R.drawable.ic_apk)
-                    
-                    val shortcut =
-                        ShortcutInfoCompat.Builder(this@AppDetailsActivity, packageNameString)
-                            .setShortLabel(app.name)
-                            .setIcon(shortcutIcon)
-                            .setIntent(
-                                Intent(this@AppDetailsActivity,
-                                       ShortcutRouterActivity::class.java).apply {
-                                    action = Intent.ACTION_VIEW
-                                    putExtra("packageName", packageNameString)
-                                }
+        activityBinding.shortcutChip.apply {
+            setOnClickListener {
+                val bitmap =
+                    if (app.isInstalled) packageManager.getApplicationIcon(packageNameString).toBitmap()
+                    else (activityBinding.detailsAppIcon.drawable as? BitmapDrawable)?.bitmap?.toSoftwareBitmap()
+                
+                val resizedBitmap =
+                    bitmap?.let {
+                        // https://developer.android.com/reference/android/graphics/drawable/AdaptiveIconDrawable.html
+                        // fullSize = 108
+                        // imageSize = 77 (72dp icon + 5dp padding)
+                        val output = createBitmap(108, 108)
+                        val canvas = Canvas(output)
+                        val compositeColor =
+                            ColorUtils.compositeColors(
+                                Color.argb(0, 0, 0, 0),
+                                Color.WHITE
                             )
-                            .build()
-                    
-                    ShortcutManagerCompat.requestPinShortcut(this@AppDetailsActivity,
-                                                             shortcut,
-                                                             null)
-                }
+                        val resized = it.scale(77, 77)
+                        val adjustValue = 15.5f // (108 - 77) / 2; To keep the icon centered
+                        
+                        canvas.drawColor(compositeColor) // Background color
+                        canvas.drawBitmap(resized, adjustValue, adjustValue, null)
+                        output
+                    }
+                
+                val shortcutIcon =
+                    resizedBitmap?.let {
+                        IconCompat.createWithAdaptiveBitmap(it)
+                    } ?: IconCompat.createWithResource(this@AppDetailsActivity,
+                                                       R.drawable.ic_apk)
+                
+                val shortcut =
+                    ShortcutInfoCompat.Builder(this@AppDetailsActivity, packageNameString)
+                        .setShortLabel(app.name)
+                        .setIcon(shortcutIcon)
+                        .setIntent(
+                            Intent(this@AppDetailsActivity,
+                                   ShortcutRouterActivity::class.java).apply {
+                                action = Intent.ACTION_VIEW
+                                putExtra("packageName", packageNameString)
+                            }
+                        )
+                        .build()
+                
+                ShortcutManagerCompat.requestPinShortcut(this@AppDetailsActivity,
+                                                         shortcut,
+                                                         null)
             }
         }
         
@@ -236,7 +231,6 @@ class AppDetailsActivity : BaseDetailsActivity() {
     }
     
     // Software rendering doesn't support hardware bitmaps
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun Bitmap.toSoftwareBitmap(): Bitmap {
         if (config != Bitmap.Config.HARDWARE) return this
         return copy(Bitmap.Config.ARGB_8888, true)

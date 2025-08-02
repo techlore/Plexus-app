@@ -31,7 +31,6 @@ import tech.techlore.plexus.bottomsheets.search.SearchSortBottomSheet
 import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.interfaces.SortPrefsChangedListener
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
-import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class SearchActivity : AppCompatActivity(), SortPrefsChangedListener {
@@ -58,7 +57,7 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangedListener {
         
         // Back
         activityBinding.searchBackBtn.apply {
-            setButtonTooltipText(getString(R.string.menu_back))
+            tooltipText = getString(R.string.menu_back)
             setOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }
@@ -66,7 +65,7 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangedListener {
         
         // Sort
         activityBinding.searchSortBtn.apply {
-            setButtonTooltipText(getString(R.string.menu_back))
+            tooltipText = getString(R.string.menu_back)
             setOnClickListener {
                 SearchSortBottomSheet(this@SearchActivity).show(supportFragmentManager, "SearchSortBottomSheet")
             }

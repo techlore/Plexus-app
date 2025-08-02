@@ -148,9 +148,7 @@
                     android:layout_height="wrap_content"
                     app:chipIcon="@drawable/ic_shortcut"
                     android:text="@string/shortcut"
-                    android:textSize="@dimen/text_15"
-                    android:visibility="gone"
-                    tools:visibility="visible"/>
+                    android:textSize="@dimen/text_15"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/vpnToolkitChip"

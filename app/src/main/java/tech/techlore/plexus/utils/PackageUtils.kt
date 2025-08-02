@@ -49,6 +49,7 @@ class PackageUtils {
                     .map {
                         // Add scanned apps to list
                         if (it.packageName !in setOf("tech.techlore.plexus",
+                                                     "com.google.android.settings.intelligence",
                                                      "com.android.vending",
                                                      "com.google.android.gms",
                                                      "com.google.android.gsf",

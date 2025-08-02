@@ -27,7 +27,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityVerificationBinding
-import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class VerificationActivity : AppCompatActivity() {
@@ -56,7 +55,7 @@ class VerificationActivity : AppCompatActivity() {
         
         // Back
         activityBinding.verificationBackBtn.apply {
-            setButtonTooltipText(getString(R.string.menu_back))
+            tooltipText = getString(R.string.menu_back)
             setOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }

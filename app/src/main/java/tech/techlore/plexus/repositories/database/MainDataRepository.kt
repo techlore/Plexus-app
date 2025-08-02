@@ -17,9 +17,7 @@
 
 package tech.techlore.plexus.repositories.database
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -35,11 +33,9 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.LAST_UPDATED
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.utils.PackageUtils.Companion.scannedInstalledAppsList
 import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedScore
-import java.text.SimpleDateFormat
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter.ofPattern
 import java.util.Date
-import java.util.TimeZone
 
 class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
@@ -92,17 +88,9 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     }
     
     private fun Date.formatRFC3339(): String {
-        return if (Build.VERSION.SDK_INT >= 26) {
-            ofPattern(DATE_TIME_RFC3339_PATTERN)
-                .withZone(ZoneOffset.UTC)
-                .format(this.toInstant())
-        }
-        else {
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat(DATE_TIME_RFC3339_PATTERN).apply {
-                timeZone = TimeZone.getTimeZone("UTC")
-            }.format(this)
-        }
+        return ofPattern(DATE_TIME_RFC3339_PATTERN)
+            .withZone(ZoneOffset.UTC)
+            .format(this.toInstant())
     }
     
     suspend fun installedAppsIntoDB(context: Context) {

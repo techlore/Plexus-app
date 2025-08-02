@@ -37,13 +37,11 @@ import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.interfaces.NavViewItemSelectedListener
 import tech.techlore.plexus.interfaces.SortPrefsChangedListener
-import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
-import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefsChangedListener {
@@ -102,7 +100,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         
         // Search
         activityBinding.mainSearchBtn.apply {
-            setButtonTooltipText(getString(R.string.menu_search))
+            tooltipText = getString(R.string.menu_search)
             setOnClickListener {
                 startActivityWithTransition(Intent(this@MainActivity, SearchActivity::class.java))
             }
@@ -110,7 +108,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         
         // Sort
         activityBinding.mainSortBtn.apply {
-            setButtonTooltipText(getString(R.string.menu_sort))
+            tooltipText = getString(R.string.menu_sort)
             setOnClickListener {
                 SortBottomSheet(
                     this@MainActivity,
@@ -122,10 +120,10 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         
         // View
         activityBinding.viewBtn.apply {
-            setButtonTooltipText(getString(R.string.menu_view))
+            tooltipText = getString(R.string.menu_view)
             setViewButtonIcon()
             setOnClickListener {
-                isGridView = ! isGridView
+                isGridView = !isGridView
                 prefManager.setBoolean(GRID_VIEW, isGridView)
                 setViewButtonIcon()
                 navController.refreshFragment()
@@ -134,7 +132,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         
         // Help
         activityBinding.mainHelpBtn.apply {
-            setButtonTooltipText(getString(R.string.menu_help))
+            tooltipText = getString(R.string.menu_help)
             setOnClickListener {
                 HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
             }
@@ -247,8 +245,4 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         }
     }
     
-    override fun onDestroy() {
-        super.onDestroy()
-        AppState.isAppOpen = false
-    }
 }

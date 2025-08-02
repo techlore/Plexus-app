@@ -102,9 +102,6 @@ class FirstActivity : AppCompatActivity() {
     
     private fun getAndroidVersionString(): String {
         return when(Build.VERSION.SDK_INT) {
-            23 -> "6.0"
-            24 -> "7.0"
-            25 -> "7.1"
             26 -> "8.0"
             27 -> "8.1"
             28 -> "9.0"

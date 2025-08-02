@@ -52,7 +52,6 @@ import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
-import tech.techlore.plexus.utils.UiUtils.Companion.setButtonTooltipText
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
 import kotlin.getValue
@@ -186,7 +185,7 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
             
             // Back
             activityBinding.detailsBackBtn.apply {
-                setButtonTooltipText(getString(R.string.menu_back))
+                tooltipText = getString(R.string.menu_back)
                 setOnClickListener {
                     onBackPressedDispatcher.onBackPressed()
                 }
@@ -194,7 +193,7 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
             
             // Help
             activityBinding.detailsHelpBtn.apply {
-                setButtonTooltipText(getString(R.string.menu_help))
+                tooltipText = getString(R.string.menu_help)
                 setOnClickListener {
                     HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
                 }
@@ -202,7 +201,7 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
             
             // Sort
             activityBinding.detailsSortBtn.apply {
-                setButtonTooltipText(getString(R.string.menu_sort))
+                tooltipText = getString(R.string.menu_sort)
                 setOnClickListener {
                     SortAllRatingsBottomSheet(this@BaseDetailsActivity)
                         .show(supportFragmentManager, "SortUserRatingsBottomSheet")
@@ -211,7 +210,7 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
             
             // Links
             activityBinding.detailsLinksBtn.apply {
-                setButtonTooltipText(getString(R.string.menu_links))
+                tooltipText = getString(R.string.menu_links)
                 setOnClickListener {
                     LinksBottomSheet(packageNameString).show(supportFragmentManager, "LinksBottomSheet")
                 }

@@ -24,6 +24,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.os.Build
+import android.text.format.DateFormat
 import android.view.View
 import android.view.Window
 import android.widget.ImageView
@@ -45,7 +46,6 @@ import coil3.load
 import coil3.request.error
 import coil3.request.fallback
 import coil3.request.placeholder
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
@@ -54,6 +54,11 @@ import org.koin.core.component.get
 import org.koin.core.qualifier.named
 import tech.techlore.plexus.R
 import tech.techlore.plexus.objects.DeviceState
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.format.FormatStyle
 
 class UiUtils {
     
@@ -230,10 +235,6 @@ class UiUtils {
             }
         }
         
-        fun MaterialButton.setButtonTooltipText(text: String) {
-            if (Build.VERSION.SDK_INT >= 26) tooltipText = text
-        }
-        
         fun MaterialTextView.setInstalledFromStyle(context: Context, installedFrom: String) {
             val (icon, installedFromText) =
                 when (installedFrom) {
@@ -295,6 +296,38 @@ class UiUtils {
             setTextColor(ColorStateList.valueOf(textColor))
             backgroundTintList = ColorStateList.valueOf(backgroundTint)
         }
+        
+        fun String.formatRfc3339ToLocalized(context: Context): String {
+            return try {
+                val instant = Instant.parse(this)
+                val zone = ZoneId.systemDefault()
+                val locale = context.resources.configuration.locales[0]
+                
+                val dateFormatter =
+                    DateTimeFormatter
+                        .ofLocalizedDate(FormatStyle.MEDIUM)
+                        .withLocale(locale)
+                        .withZone(zone)
+                
+                val timeFormatter =
+                    DateTimeFormatter
+                        .ofPattern(
+                            if (DateFormat.is24HourFormat(context)) "HH:mm" else "hh:mm a",
+                            locale
+                        )
+                        .withZone(zone)
+                
+                buildString {
+                    append(dateFormatter.format(instant))
+                    append(" \u007C ")
+                    append(timeFormatter.format(instant))
+                }
+            }
+            catch (_: DateTimeParseException) {
+                this
+            }
+        }
+        
         
         fun mapInstalledFromChipIdToString(installedFromChip: Int): String {
             return when (installedFromChip) {
