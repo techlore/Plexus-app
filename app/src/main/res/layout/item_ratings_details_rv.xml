@@ -170,7 +170,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_32"
             app:layout_constraintTop_toBottomOf="@id/ratingsInstalledFrom"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/ratingsAndroidVersion"
             android:layout_marginTop="@dimen/margin_8"
             android:paddingStart="@dimen/margin_8"
@@ -180,6 +179,23 @@
             android:textSize="@dimen/text_16"
             android:textColor="?attr/colorOnSurface"
             style="@style/BaseChipLikeTextViewStyle"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingsDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ratingsStatus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/ratingsAndroidVersion"
+            android:layout_marginTop="@dimen/margin_16"
+            android:paddingStart="@dimen/margin_8"
+            android:paddingEnd="@dimen/margin_16"
+            android:gravity="center"
+            android:drawableStart="@drawable/ic_date_time"
+            android:drawablePadding="@dimen/margin_8"
+            app:drawableTint="?attr/colorOnSurfaceVariant"
+            android:textSize="@dimen/text_15"
+            android:textColor="?attr/colorOnSurfaceVariant"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

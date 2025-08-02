@@ -58,6 +58,9 @@ data class Rating(
     var ratingScore: RatingScore? = null,
     
     @SerialName("notes")
-    var notes: String? = null
+    var notes: String? = null,
+    
+    @SerialName("rated_at")
+    var ratingDateTime: String = ""
 
 )

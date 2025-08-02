@@ -46,6 +46,7 @@ class MyRatingsDetailsItemAdapter()
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratingsAndroidVersion)
         val installedFrom: MaterialTextView = itemView.findViewById(R.id.ratingsInstalledFrom)
         val status: MaterialTextView = itemView.findViewById(R.id.ratingsStatus)
+        val dateTime: MaterialTextView = itemView.findViewById(R.id.ratingsDateTime)
         
     }
     
@@ -75,13 +76,18 @@ class MyRatingsDetailsItemAdapter()
         holder.rom.text = "${myRatingsDetails.romName} (${myRatingsDetails.romBuild})"
         holder.androidVersion.text = myRatingsDetails.androidVersion
         
-        // Installed from
         holder.installedFrom.setInstalledFromStyle(context, myRatingsDetails.installedFrom)
         
-        // Status
-        holder.status.setStatusStyleWithIcon(context,
-                                             myRatingsDetails.googleLib,
-                                             myRatingsDetails.myRatingScore)
+        holder.status.setStatusStyleWithIcon(
+            context,
+            myRatingsDetails.googleLib,
+            myRatingsDetails.myRatingScore
+        )
+        
+        // TODO: Disable date time text for now,
+        //  if added, migrate database migration is needed
+        //  will look into it in the future when edit ratings is added
+        holder.dateTime.isVisible = false
         
     }
     

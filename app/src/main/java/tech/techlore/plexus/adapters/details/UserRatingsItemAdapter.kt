@@ -32,6 +32,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.appdetails.TranslateRatingNoteBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.diffcallbacks.UserRatingsDetailsDiffCallback
+import tech.techlore.plexus.utils.UiUtils.Companion.formatRfc3339ToLocalized
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
@@ -49,6 +50,7 @@ class UserRatingsItemAdapter(
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratingsAndroidVersion)
         val installedFrom: MaterialTextView = itemView.findViewById(R.id.ratingsInstalledFrom)
         val status: MaterialTextView = itemView.findViewById(R.id.ratingsStatus)
+        val dateTime: MaterialTextView = itemView.findViewById(R.id.ratingsDateTime)
         
     }
     
@@ -80,13 +82,17 @@ class UserRatingsItemAdapter(
         holder.rom.text = "${userRating.romName} (${userRating.romBuild})"
         holder.androidVersion.text = userRating.androidVersion
         
-        // Installed from
         holder.installedFrom.setInstalledFromStyle(context, userRating.installedFrom)
         
-        // Status
-        holder.status.setStatusStyleWithIcon(context,
-                                             userRating.ratingType!!,
-                                             userRating.ratingScore!!.ratingScore)
+        holder.status.setStatusStyleWithIcon(
+            context,
+            userRating.ratingType!!,
+            userRating.ratingScore!!.ratingScore
+        )
+        
+        holder.dateTime.text = userRating.ratingDateTime.formatRfc3339ToLocalized(context)
+        
+        
         
     }
     
