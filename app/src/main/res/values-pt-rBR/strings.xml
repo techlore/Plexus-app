@@ -109,8 +109,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Um erro ocorreu</string>
     <string name="no_network_title">Sem internet</string>
-    <string name="no_network_desc">Conecte-se à uma rede Wi-Fi ou aos dados móveis e tente novamente.
-        Se você já estiver conectado, certifique-se se você tem uma conexão à internet.</string>
+    <string name="no_network_desc">Conecte-se à uma rede Wi-Fi ou aos dados móveis e tente novamente. Se você já estiver conectado, certifique-se se você tem uma conexão à internet.</string>
     <!--Help-->
     <string name="icons">Ícones</string>
     <string name="not_tested_subtitle">Indisponível, o app não foi testado</string>
