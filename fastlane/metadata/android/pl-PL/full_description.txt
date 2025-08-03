@@ -1,0 +1,7 @@
+<b>Pozbądź się strachu przed kompatybilnością aplikacji na od-Googlowanych urządzeniach Android.</b>
+
+Usługi Google Play są istotnymi komponentami na większości urządzeń Android. Pozwalają na szybki dostęp do konta Google i dostarczają funkcji specyficznych dla Google dla aplikacji, które ich potrzebują.
+Jednakże, kiedy flashujesz własne ROM-y bez Usług Google Play albo używasz alternatyw jak microG, niektóre aplikacje mogą natrafiać na problemy — albo nie działają w ogóle, albo mają ograniczenia w pewnych funkcjach.
+
+Plexus dostarcza szczegółowe wglądy do kompatybilności aplikacji, bez względu czy używasz ROM-ów bez Usług Google Play (jak <i>LineageOS</i>) albo ROM-ów z microG (jak <i>CalyxOS</i>). Pomaga ci zidentyfikować, które aplikacje działają, a które nie, lub które mają ograniczone funkcje.
+Wszystkie informacje są dostarczane przez społeczność, dla społeczności.
