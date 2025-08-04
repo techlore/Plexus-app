@@ -130,7 +130,7 @@ class UiUtils {
         
         fun NavController.refreshFragment() {
             val action =
-                when (currentDestination !!.id) {
+                when (currentDestination!!.id) {
                     R.id.plexusDataFragment -> R.id.action_global_to_plexusDataFragment
                     R.id.installedAppsFragment -> R.id.action_global_to_installedAppsFragment
                     R.id.favoritesFragment -> R.id.action_global_to_favoritesFragment

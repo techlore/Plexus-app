@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v2.1.5 (Upcoming)
+- Support for Android 16.
+- Updated minimum supported version to Android 8.0 (Oreo).
+- UI improvements & performance enhancements.
+- Added option to customize list view style.
+- Added ability to create app details shortcuts.
+- Implemented sorting functionality for search results.
+- Display date & time of submitted ratings.
+- New translations & updated existing ones (contributed by the community).
+
+
 ## v2.1.2
 - Improved detection for apps installed via F-Droid.
 - CalyxOS is now recognized as deGoogled when microG is disabled.

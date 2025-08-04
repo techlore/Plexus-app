@@ -14,45 +14,46 @@
   ~
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  --><resources>
-    <string name="enter_code_sent_to_email">输入发送到 %1$s 的验证码</string>
-    <string name="verification_code">验证码</string>
-    <string name="conf_before_submit">提交前确认</string>
-    <string name="about">关于</string>
-    <string name="third_party_licenses">第三方许可证</string>
-    <string name="done">完成</string>
-    <string name="cancel">取消</string>
-    <string name="dismiss">关闭</string>
-    <string name="apps_submit_proc">应用提交流程</string>
-    <string name="faqs">常见问题</string>
-    <string name="alphabetical">按字母顺序</string>
-    <string name="any">任何</string>
-    <string name="select">选择</string>
-    <string name="proceed">继续</string>
-    <string name="notes">备注</string>
-    <string name="submit_error">提交数据时出错</string>
-    <string name="deleted_account_successfully">账号已成功删除</string>
+  -->
+
+<resources>
+
+    <!--First activity -->
     <string name="retrieving_data">正在检索数据</string>
     <string name="scan_installed">正在扫描已安装的应用</string>
     <string name="welcome_text_desc">作为首次使用该应用的用户，请花点时间熟悉图标和状态指示器。</string>
     <string name="skip">跳过</string>
-    <string name="plexus_data">Plexus 数据</string>
+
+    <!--#########################################################################################-->
+
+    <!--Main activity-->
     <string name="no_apps_found">未找到应用</string>
     <string name="new_submission">新提交</string>
+
+    <!--My ratings fragment-->
     <string name="no_ratings_available">暂无评分</string>
     <string name="submit_first_rating">点击 + 提交您的第一条评分</string>
+
+    <!--Toolbar menu-->
     <string name="menu_back">Back</string>
     <string name="menu_search">搜索</string>
     <string name="menu_sort">排序</string>
     <string name="menu_view">View</string>
+
+    <!--Nav view-->
     <string name="device_info">设备信息</string>
     <string name="tap_to_select_rom">点击此处选择此设备上的 ROM。</string>
+    <string name="plexus_data">Plexus 数据</string>
     <string name="installed_apps">已安装的应用</string>
     <string name="favorites">收藏夹</string>
     <string name="my_account">我的账号</string>
     <string name="my_ratings">我的评分</string>
     <string name="delete_account">删除账号</string>
     <string name="settings">设置</string>
+
+    <!--#########################################################################################-->
+
+    <!--App details activity-->
     <string name="share">分享</string>
     <string name="shortcut">Shortcut</string>
     <string name="app">应用</string>
@@ -63,31 +64,59 @@
     <string name="ratings">评分</string>
     <string name="scroll_to_top">滚动到顶部</string>
     <string name="rate">评分</string>
+
+    <!--Toolbar menu-->
     <string name="menu_help">帮助</string>
     <string name="menu_links">Links</string>
     <string name="menu_more">更多选项</string>
+
+    <!--#########################################################################################-->
+
+    <!--Email verification fragment-->
     <string name="verify_to_get_started">验证您的电子邮件以开始</string>
     <string name="verify">验证</string>
     <string name="terms_conditions_title">条款与条件</string>
-    <string name="version">版本</string>
     <string name="terms_conditions_desc">提交应用到 Plexus 需要您的电子邮件。 \n此电子邮件仅用于验证，验证后将从我们的系统中删除。 \n \n这样做是为了： \n• 防止潜在的 API 滥用。 \n• 确保提交数据的准确性。 \n \n您可以随时在此设备上删除您的账号。</string>
     <string name="by_proceeding_agree_desc">继续即表示您同意合理使用 Plexus。如果违反上述条款，您提交的所有评分将被删除。</string>
     <string name="verification">验证</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">输入发送到 %1$s 的验证码</string>
+    <string name="verification_code">验证码</string>
     <string name="verifying_code">请稍候，正在验证验证码……</string>
     <string name="incorrect_code">验证码错误。</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
     <string name="theme">主题</string>
     <string name="material_you">Material You\n（需要重启应用）</string>
     <string name="default_view">默认视图</string>
+    <string name="conf_before_submit">提交前确认</string>
+    <string name="about">关于</string>
+    <string name="version">版本</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="report_issue">报告问题</string>
     <string name="support_us">支持我们</string>
     <string name="view_on_github">在 GitHub 上查看</string>
     <string name="visit_techlore">访问 Techlore</string>
+    <string name="third_party_licenses">第三方许可证</string>
+
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <string name="done">完成</string>
+    <string name="cancel">取消</string>
+    <string name="dismiss">关闭</string>
     <string name="exit">退出</string>
     <string name="retry">重试</string>
+
+    <!--No Network/Internet-->
     <string name="error_occurred_title">发生错误</string>
     <string name="no_network_title">无网络/互联网</string>
     <string name="no_network_desc">连接 Wi-Fi 或移动数据后重试。如果已连接，请确保其具有互联网连接。</string>
+
+    <!--Help-->
     <string name="icons">图标</string>
     <string name="not_tested_subtitle">未测试，应用尚未测试</string>
     <string name="broken_title">损坏</string>
@@ -101,27 +130,55 @@
     <string name="other">其他</string>
     <string name="android_version_desc">Android 版本</string>
     <string name="installation_source_desc">应用的安装来源</string>
+    <string name="apps_submit_proc">应用提交流程</string>
+    <string name="faqs">常见问题</string>
+
+    <!--Sort-->
+    <string name="alphabetical">按字母顺序</string>
     <string name="installed_from">安装来源</string>
+    <string name="any">任何</string>
     <string name="status">状态</string>
+
+    <!--Translate-->
     <string name="translate">翻译</string>
-    <string name="translated_using_libretranslate">使用 LibreTranslate 进行翻译：</string>
     <string name="translating">翻译中……</string>
+    <string name="translated_using_libretranslate">使用 LibreTranslate 进行翻译：</string>
     <string name="error_translating">翻译时出错</string>
+
+    <!--Email verification-->
     <string name="sending_code">正在发送验证码……</string>
     <string name="error_sending_code">发送验证码时出错</string>
+
+    <!--Delete account-->
     <string name="delete_account_desc">如果您删除您的账号： \n• 您将无法提交评分。 \n• 所有之前提交的评分将从此设备中永久删除。 \n \n您确定要继续吗？</string>
+
+    <!--First submission-->
     <string name="first_submission_desc">所有未来的提交将考虑此选择，之后无法更改。</string>
-    <string name="light">浅色</string>
     <string name="select_correct_rom">请在此设备上选择正确的 ROM。</string>
+    <string name="select">选择</string>
+    <string name="proceed">继续</string>
+
+    <!--Rate-->
     <string name="issues_to_check_in_apps">应用中的常见问题</string>
+    <string name="notes">备注</string>
     <string name="optional">可选</string>
     <string name="submit">提交</string>
+
+    <!--Submit-->
     <string name="about_to_submit">您即将提交评分。确定要继续吗？</string>
     <string name="wait_submitting_data">请稍候，正在提交数据……</string>
     <string name="submit_success">提交成功</string>
+    <string name="submit_error">提交数据时出错</string>
     <string name="thanks_for_submitting">感谢您的提交和对社区的帮助。</string>
+
+    <!--Theme-->
     <string name="follow_system">跟随系统</string>
+    <string name="light">浅色</string>
     <string name="dark">深色</string>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbars-->
     <string name="added_to_fav">Added %1$s to favorites</string>
     <string name="removed_from_fav">Removed %1$s from favorites</string>
     <string name="undo">Undo</string>
@@ -129,4 +186,6 @@
     <string name="device_should_be_degoogled_or_microg">设备应已去谷歌化或安装 microG 才能提交评分</string>
     <string name="rating_already_submitted">已为 %1$s %2$s 提交评分</string>
     <string name="no_browsers">此设备未安装浏览器</string>
+    <string name="deleted_account_successfully">账号已成功删除</string>
+
 </resources>

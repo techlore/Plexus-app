@@ -41,10 +41,6 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
     private val apiRepository by inject<ApiRepository>()
     
-    private companion object {
-        private const val DATE_TIME_RFC3339_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-    }
-    
     suspend fun plexusDataIntoDB() {
         withContext(Dispatchers.IO) {
             val prefManager by inject<PreferenceManager>()
@@ -88,7 +84,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     }
     
     private fun Date.formatRFC3339(): String {
-        return ofPattern(DATE_TIME_RFC3339_PATTERN)
+        return ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
             .withZone(ZoneOffset.UTC)
             .format(this.toInstant())
     }

@@ -14,119 +14,178 @@
   ~
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  --><resources>
-    <string name="package_name">Pakett</string>
+  -->
+<resources>
+
+    <!--First activity -->
+    <string name="retrieving_data">Laadin andmeid</string>
+    <string name="scan_installed">Uurin paigaldatud rakendusi</string>
+    <string name="welcome_text_desc">Kuna ilmselt kasutad seda rakendust esimest korda, siis palun heida pilk peale ikoonide ja olekuteadete tähendusele.</string>
+    <string name="skip">Jäta vahele</string>
+
+    <!--#########################################################################################-->
+
+    <!--Main activity-->
+    <string name="no_apps_found">Rakendusi ei leidu</string>
+    <string name="new_submission">Uus arvustus</string>
+
+    <!--My ratings fragment-->
+    <string name="no_ratings_available">Arvustusi ei leidu</string>
+    <string name="submit_first_rating">Oma esimese arvustuse koostamiseks klõpsi + nuppu</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_back">Tagasi</string>
+    <string name="menu_search">Otsi</string>
+    <string name="menu_sort">Järjestus</string>
+    <string name="menu_view">Vaata</string>
+
+    <!--Nav view-->
+    <string name="device_info">Nutiseadme teave</string>
+    <string name="tap_to_select_rom">Palun klõpsi siin ja vali sellesse seadmesse paigaldatud operatsioonisüsteemi versioon.</string>
     <string name="plexus_data">Plexuse andmed</string>
     <string name="installed_apps">Paigaldatud rakendused</string>
     <string name="favorites">Lemmikud</string>
+    <string name="my_account">Minu kasutajakonto</string>
+    <string name="my_ratings">Minu arvustused</string>
     <string name="delete_account">Kustuta kasutajakonto</string>
     <string name="settings">Seadistused</string>
+
+    <!--#########################################################################################-->
+
+    <!--App details activity-->
     <string name="share">Jaga</string>
     <string name="shortcut">Otselink</string>
     <string name="app">Rakendus</string>
+    <string name="package_name">Pakett</string>
     <string name="retrieving_ratings">Laadin arvustusi</string>
     <string name="total_score">Koondhinnang</string>
-    <string name="scroll_to_top">Keri loendi algusesse</string>
-    <string name="rate">Arvusta</string>
-    <string name="tap_to_select_rom">Palun klõpsi siin ja vali sellesse seadmesse paigaldatud operatsioonisüsteemi versioon.</string>
-    <string name="my_account">Minu kasutajakonto</string>
-    <string name="my_ratings">Minu arvustused</string>
-    <string name="device_info">Nutiseadme teave</string>
-    <string name="retrieving_data">Laadin andmeid</string>
-    <string name="scan_installed">Uurin paigaldatud rakendusi</string>
-    <string name="terms_conditions_title">Kasutustingimused</string>
-    <string name="menu_help">Abiteave</string>
-    <string name="menu_links">Lingid</string>
-    <string name="by_proceeding_agree_desc">Jätkates nõustud kasutama Plexuse teenuseid viisakalt ja ausalt. Kui rikud ülaltoodud kasutustingimusi, siis kõik sinu arvustused kustutatakse.</string>
-    <string name="menu_more">Lisavalikud</string>
     <string name="total_ratings">Arvustusi kokku</string>
     <string name="ratings">Arvustusi</string>
-    <string name="verification">Kinnitamine</string>
+    <string name="scroll_to_top">Keri loendi algusesse</string>
+    <string name="rate">Arvusta</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_help">Abiteave</string>
+    <string name="menu_links">Lingid</string>
+    <string name="menu_more">Lisavalikud</string>
+
+    <!--#########################################################################################-->
+
+    <!--Email verification fragment-->
+    <string name="verify_to_get_started">Jätkamiseks kinnita oma e-posti aadressi õigsus</string>
     <string name="verify">Kinnita</string>
+    <string name="terms_conditions_title">Kasutustingimused</string>
+    <string name="terms_conditions_desc">Plexuse teenuses rakenduste arvustuste koostamiseks on vajalik e-posti aadress.\nSee e-posti aadress on kasutusel loodava konto õigsuse kontrollimisel ja peale seda eemaldatakse Plexuse serverist.\n\nSelline lahendus on kasutusel:\n• meie API kuritarvitamise välitimiseks,\n• lisatavate andmete täpsuse tagamiseks.\n\nOma kasutajakonto saad siit seadmest igal hetkel eemaldada.</string>
+    <string name="by_proceeding_agree_desc">Jätkates nõustud kasutama Plexuse teenuseid viisakalt ja ausalt. Kui rikud ülaltoodud kasutustingimusi, siis kõik sinu arvustused kustutatakse.</string>
+    <string name="verification">Kinnitamine</string>
+
+    <!--Code verification fragment-->
+    <string name="enter_code_sent_to_email">Sisesta kinnituskood, mis on saadetud e-posti aadressile
+%1$s</string>
     <string name="verification_code">Kinnituskood</string>
     <string name="verifying_code">Palun oota, kontrollin kinnituskoodi…</string>
+    <string name="incorrect_code">Vigane kinnituskood.</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
     <string name="theme">Kujundus</string>
     <string name="material_you">Material You\n(eeldab rakenduse uuesti käivitamist)</string>
     <string name="default_view">Vaikimisi vaade</string>
     <string name="conf_before_submit">Enne saatmist küsi kinnitust</string>
-    <string name="version">Versioon</string>
     <string name="about">Rakenduse teave</string>
+    <string name="version">Versioon</string>
     <string name="privacy_policy">Andmekaitsepõhimõtted</string>
     <string name="report_issue">Teata veast või problemist</string>
     <string name="support_us">Toeta meid</string>
     <string name="view_on_github">Vaata GitHubis</string>
     <string name="visit_techlore">Vaata Techlore\'i saiti</string>
     <string name="third_party_licenses">Kolmandate osapoolte litsentsid</string>
+
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
     <string name="done">Valmis</string>
     <string name="cancel">Katkesta</string>
     <string name="dismiss">Lõpeta</string>
     <string name="exit">Välju</string>
     <string name="retry">Proovi uuesti</string>
+
+    <!--No Network/Internet-->
     <string name="error_occurred_title">Tekkis viga</string>
     <string name="no_network_title">Internetiühendus puudub</string>
+    <string name="no_network_desc">Ühenda WiFi võrguga või lülita sisse mobiilne andmeside ja proovi uuesti. Kui võrguühendus on juba olemas, siis testi, kas Internetiühendus toimib korralikult.</string>
+
+    <!--Help-->
     <string name="icons">Ikoonid</string>
     <string name="not_tested_subtitle">Teave pole saadaval, rakendust pole testitud</string>
     <string name="broken_title">Ei toimi</string>
-    <string name="no_network_desc">Ühenda WiFi võrguga või lülita sisse mobiilne andmeside ja proovi uuesti. Kui võrguühendus on juba olemas, siis testi, kas Internetiühendus toimib korralikult.</string>
     <string name="broken_subtitle">Pole kasutatav, tavaliselt kehtib rakenduste kohta, mis ei käivitu</string>
     <string name="bronze_title">Pronks</string>
     <string name="bronze_subtitle">Toimib osaliselt, mingi osa funktsionaalsust on kasutamatu</string>
     <string name="silver_title">Hõbe</string>
     <string name="silver_subtitle">Mõningate mööndustega peaaegu kõik toimib</string>
     <string name="gold_title">Kuld</string>
+    <string name="gold_subtitle">Rakendus toimib ideaalselt või peaaegu ideaalselt</string>
     <string name="other">Muu teave</string>
     <string name="android_version_desc">Androidi versioonid</string>
     <string name="installation_source_desc">Rakenduse paigaldamise viis</string>
     <string name="apps_submit_proc">Rakenduse lisamise protseduur</string>
     <string name="faqs">Korduma kippuvad küsimused</string>
+
+    <!--Sort-->
     <string name="alphabetical">Tähestikuline järjekord</string>
-    <string name="status">Olek</string>
-    <string name="any">Kõik</string>
     <string name="installed_from">Paigalduse allikas</string>
+    <string name="any">Kõik</string>
+    <string name="status">Olek</string>
+
+    <!--Translate-->
     <string name="translate">Tõlgi</string>
     <string name="translating">Tõlgin…</string>
     <string name="translated_using_libretranslate">Tõlge LibreTranslate\'i teenusest:</string>
     <string name="error_translating">Viga tõlkimisel</string>
+
+    <!--Email verification-->
     <string name="sending_code">Palun oota, edastan kinnituskoodi serverisse…</string>
     <string name="error_sending_code">Viga kinnituskoodi edastamisel</string>
+
+    <!--Delete account-->
     <string name="delete_account_desc">Kui kustutad oma kasutajakonto: \n• siis sa ei saa koostada arvustusi, \n• kõik selle nutiseadmega seotud arvustused kustutatakse. \n \nKas oled kindel, et soovid jätkata?</string>
+
+    <!--First submission-->
     <string name="first_submission_desc">Kõik tulevased arvustused kasutavad seda valikut, mida hiljem muuta ei saa.</string>
     <string name="select_correct_rom">Palun vali sellesse nutiseadmesse paigaldatud operatsioonisüsteemi korrektne versioon.</string>
     <string name="select">Vali</string>
     <string name="proceed">Jätka</string>
+
+    <!--Rate-->
+    <string name="issues_to_check_in_apps">Levinud probleemid, mida saad rakendustes kontrollida</string>
     <string name="notes">Märkmed</string>
     <string name="optional">valikuline</string>
-    <string name="issues_to_check_in_apps">Levinud probleemid, mida saad rakendustes kontrollida</string>
     <string name="submit">Saada</string>
+
+    <!--Submit-->
+    <string name="about_to_submit">Sa oled edastamas oma arvustust. Kas oled kindel, et soovid jätkata?</string>
+    <string name="wait_submitting_data">Palun oota, saadan andmeid…</string>
+    <string name="submit_success">Arvustuse saatmine õnnestus</string>
+    <string name="submit_error">Viga arvustuse saatmisel</string>
+    <string name="thanks_for_submitting">Tänud, et koostasid arvustuse ja aitasid sellega laiemat kogukonda.</string>
+
+    <!--Theme-->
     <string name="follow_system">Järgi süsteemi kujundust</string>
     <string name="light">Hele kujundus</string>
     <string name="dark">Tume kujundus</string>
-    <string name="about_to_submit">Sa oled edastamas oma arvustust. Kas oled kindel, et soovid jätkata?</string>
-    <string name="submit_error">Viga arvustuse saatmisel</string>
-    <string name="thanks_for_submitting">Tänud, et koostasid arvustuse ja aitasid sellega laiemat kogukonda.</string>
-    <string name="install_app_to_submit">Arvustuste saatmiseks palun paigalda: %1$s</string>
-    <string name="device_should_be_degoogled_or_microg">Arvustuse koostamiseks peaks sinu nutiseadmest olema eemaldatud Google\'i teenused või microG paigaldatud</string>
-    <string name="no_browsers">Selles nutiseadmes pole brausereid</string>
-    <string name="deleted_account_successfully">Kasutajakonto eemaldamine õnnestus</string>
-    <string name="skip">Jäta vahele</string>
-    <string name="new_submission">Uus arvustus</string>
-    <string name="submit_first_rating">Oma esimese arvustuse koostamiseks klõpsi + nuppu</string>
-    <string name="enter_code_sent_to_email">Sisesta kinnituskood, mis on saadetud e-posti aadressile\n%1$s</string>
-    <string name="terms_conditions_desc">Plexuse teenuses rakenduste arvustuste koostamiseks on vajalik e-posti aadress.\nSee e-posti aadress on kasutusel loodava konto õigsuse kontrollimisel ja peale seda eemaldatakse Plexuse serverist.\n\nSelline lahendus on kasutusel:\n• meie API kuritarvitamise välitimiseks,\n• lisatavate andmete täpsuse tagamiseks.\n\nOma kasutajakonto saad siit seadmest igal hetkel eemaldada.</string>
-    <string name="rating_already_submitted">Arvustus on juba koostatud: %1$s %2$s</string>
-    <string name="gold_subtitle">Rakendus toimib ideaalselt või peaaegu ideaalselt</string>
-    <string name="submit_success">Arvustuse saatmine õnnestus</string>
-    <string name="menu_back">Tagasi</string>
-    <string name="menu_search">Otsi</string>
-    <string name="wait_submitting_data">Palun oota, saadan andmeid…</string>
-    <string name="menu_sort">Järjestus</string>
-    <string name="menu_view">Vaata</string>
-    <string name="no_apps_found">Rakendusi ei leidu</string>
-    <string name="welcome_text_desc">Kuna ilmselt kasutad seda rakendust esimest korda, siis palun heida pilk peale ikoonide ja olekuteadete tähendusele.</string>
-    <string name="no_ratings_available">Arvustusi ei leidu</string>
-    <string name="verify_to_get_started">Jätkamiseks kinnita oma e-posti aadressi õigsus</string>
-    <string name="incorrect_code">Vigane kinnituskood.</string>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbars-->
     <string name="added_to_fav">%1$s on lisatud lemmikuks</string>
     <string name="removed_from_fav">%1$s on eemaldatud lemmikute seast</string>
     <string name="undo">Võta tegevus tagasi</string>
+    <string name="install_app_to_submit">Arvustuste saatmiseks palun paigalda: %1$s</string>
+    <string name="device_should_be_degoogled_or_microg">Arvustuse koostamiseks peaks sinu nutiseadmest olema eemaldatud Google\'i teenused või microG paigaldatud</string>
+    <string name="rating_already_submitted">Arvustus on juba koostatud: %1$s %2$s</string>
+    <string name="no_browsers">Selles nutiseadmes pole brausereid</string>
+    <string name="deleted_account_successfully">Kasutajakonto eemaldamine õnnestus</string>
+
 </resources>

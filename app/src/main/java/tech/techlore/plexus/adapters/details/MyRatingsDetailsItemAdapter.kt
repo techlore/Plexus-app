@@ -85,7 +85,7 @@ class MyRatingsDetailsItemAdapter()
         )
         
         // TODO: Disable date time text for now,
-        //  if added, migrate database migration is needed
+        //  if added, database migration is needed
         //  will look into it in the future when edit ratings is added
         holder.dateTime.isVisible = false
         
