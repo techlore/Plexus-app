@@ -24,10 +24,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.transition.platform.MaterialSharedAxis
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityMainBinding
@@ -49,10 +53,12 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
     lateinit var activityBinding: ActivityMainBinding
     private lateinit var navController: NavController
     private val prefManager by inject<PreferenceManager>()
+    private lateinit var navActionsMap: Map<Int, Int>
     private var defaultFragment = 0
     var defaultSelectedNavItem = 0
     var selectedNavItem = 0
     var isGridView = false
+    private var job: Job? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -70,6 +76,15 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
+        navActionsMap =
+            mapOf(
+                R.id.nav_plexus_data to R.id.action_global_to_plexusDataFragment,
+                R.id.nav_installed_apps to R.id.action_global_to_installedAppsFragment,
+                R.id.nav_fav to R.id.action_global_to_favoritesFragment,
+                R.id.nav_my_ratings to R.id.action_global_to_myRatingsFragment,
+                R.id.nav_settings to R.id.action_global_to_settingsFragment
+            )
+        
         isGridView = prefManager.getBoolean(GRID_VIEW, false)
         
         setDefaultView()
@@ -86,16 +101,16 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: defaultSelectedNavItem
         
         // Disable menu buttons for settings fragment when activity is recreated
-        // or else they'll be enabled when theme is changed
+        // or else they'll be re-enabled when theme is changed
         if (selectedNavItem == R.id.nav_settings) setMenuButtonStates()
+        
+        // Make the docked toolbar clickable
+        // or else clicks pass through it to the recycler view item beneath
+        activityBinding.mainDockedToolbar.setOnClickListener {}
         
         // Nav view
         activityBinding.navViewBtn.setOnClickListener {
-            showNavView()
-        }
-        
-        activityBinding.mainDockedToolbar.setOnClickListener {
-            showNavView()
+            NavViewBottomSheet(this).show(supportFragmentManager, "NavViewBottomSheet")
         }
         
         // Search
@@ -113,8 +128,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
                 SortBottomSheet(
                     this@MainActivity,
                     navController.currentDestination?.id ?: 0
-                )
-                    .show(supportFragmentManager, "SortBottomSheet")
+                ).show(supportFragmentManager, "SortBottomSheet")
             }
         }
         
@@ -161,25 +175,15 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         }
     }
     
-    private fun showNavView() {
-        NavViewBottomSheet(this).show(supportFragmentManager, "NavViewBottomSheet")
-    }
-    
     // Setup fragments
     private fun displayFragment(selectedItem: Int) {
-        val actionsMap =
-            mapOf(R.id.nav_plexus_data to R.id.action_global_to_plexusDataFragment,
-                  R.id.nav_installed_apps to R.id.action_global_to_installedAppsFragment,
-                  R.id.nav_fav to R.id.action_global_to_favoritesFragment,
-                  R.id.nav_my_ratings to R.id.action_global_to_myRatingsFragment,
-                  R.id.nav_settings to R.id.action_global_to_settingsFragment)
-        
-        val action = actionsMap[selectedItem] ?: 0
+        val action = navActionsMap[selectedItem] ?: 0
         
         // java.lang.IllegalArgumentException:
         // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
         // Hence the second check
-        if (selectedItem != navController.currentDestination?.id && action != 0) {
+        if (selectedNavItem != selectedItem && action != 0) {
+            selectedNavItem = selectedItem
             setMenuButtonStates()
             activityBinding.mainAppBar.setExpanded(true, true)
             navController.navigate(action)
@@ -192,14 +196,14 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
             R.id.nav_my_ratings -> activityBinding.mainSearchBtn.isEnabled = false
             
             R.id.nav_settings -> {
-                for (i in 1 until 5) {
-                    activityBinding.dockedToolbarConstraintLayout.getChildAt(i).isEnabled = false
+                (1 until 5).forEach {
+                    activityBinding.dockedToolbarConstraintLayout.getChildAt(it).isEnabled = false
                 }
             }
             
             else -> {
-                for (i in 1 until 5) {
-                    activityBinding.dockedToolbarConstraintLayout.getChildAt(i).isEnabled = true
+                (1 until 5).forEach {
+                    activityBinding.dockedToolbarConstraintLayout.getChildAt(it).isEnabled = true
                 }
             }
         }
@@ -214,12 +218,17 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
             )
     }
     
-    override fun onNavViewItemSelected(selectedItemId: Int) {
-        if (selectedItemId != R.id.nav_delete_account) {
-            selectedNavItem = selectedItemId
-            displayFragment(selectedNavItem)
-        }
-        else DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
+    override fun onNavViewItemSelected(selectedItemId: Int, shouldDelayAction: Boolean) {
+        job?.cancel()
+        job =
+            lifecycleScope.launch {
+                // Delay the action till the nav bottom sheet is (almost) hidden.
+                // An ideal way to do this would be detecting STATE_HIDDEN from bottom sheet behavior,
+                // but I wasn't able to make it work for modal bottom sheet...for now.
+                if (shouldDelayAction) delay(265)
+                if (selectedItemId != R.id.nav_delete_account) displayFragment(selectedItemId)
+                else DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
+            }
     }
     
     override fun onSortPrefsChanged() {
@@ -237,8 +246,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         override fun handleOnBackPressed() {
             when {
                 navController.currentDestination?.id != defaultFragment -> {
-                    selectedNavItem = defaultSelectedNavItem
-                    displayFragment(selectedNavItem)
+                    displayFragment(defaultSelectedNavItem)
                 }
                 else -> finish()
             }

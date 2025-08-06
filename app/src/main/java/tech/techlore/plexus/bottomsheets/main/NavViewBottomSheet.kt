@@ -80,9 +80,15 @@ class NavViewBottomSheet(
             setCheckedItem(mainActivity.selectedNavItem) // Always sync selected item
             
             setNavigationItemSelectedListener { navMenuItem ->
-                dismiss()
-                navViewItemSelectedListener.onNavViewItemSelected(navMenuItem.itemId)
-                true
+                if (mainActivity.selectedNavItem != navMenuItem.itemId) {
+                    dismiss()
+                    navViewItemSelectedListener.onNavViewItemSelected(
+                        navMenuItem.itemId,
+                        true
+                    )
+                    true
+                }
+                else false
             }
         }
     }

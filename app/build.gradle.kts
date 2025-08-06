@@ -34,9 +34,9 @@ android {
         applicationId = "tech.techlore.plexus"
         minSdk = 26
         targetSdk = 36
-        versionCode = 212
-        versionName = "2.1.2"
-        setProperty("archivesBaseName", "Plexus_v$versionName")
+        versionCode = 215
+        versionName = "2.1.5"
+        extensions.getByType<BasePluginExtension>().archivesName.set("${rootProject.name}_v$versionName")
     }
 
     buildTypes {

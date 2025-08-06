@@ -77,7 +77,7 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
                 dismiss()
                 (requireActivity() as MainActivity).apply {
                     if (selectedNavItem == R.id.nav_my_ratings) {
-                        onNavViewItemSelected(defaultSelectedNavItem)
+                        onNavViewItemSelected(defaultSelectedNavItem, true)
                     }
                     showSnackbar(activityBinding.mainCoordLayout,
                                  getString(R.string.deleted_account_successfully),

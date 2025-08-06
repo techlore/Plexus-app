@@ -129,7 +129,7 @@ class MyRatingsFragment :
             mainActivity.activityBinding.newRatingFab.apply {
                 show()
                 setOnClickListener {
-                    mainActivity.onNavViewItemSelected(R.id.nav_installed_apps)
+                    mainActivity.onNavViewItemSelected(R.id.nav_installed_apps, false)
                 }
             }
             
