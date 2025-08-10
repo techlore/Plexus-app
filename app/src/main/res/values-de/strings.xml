@@ -48,7 +48,7 @@
     <string name="menu_view">Ansicht</string>
     <!--Nav view-->
     <string name="device_info">Geräteinformationen</string>
-    <string name="tap_to_select_rom">Hier tippen, um das ROM auf diesem Gerät auszuwählen.</string>
+    <string name="tap_to_select_rom">Hier tippen um die ROM dieses Gerätes auszuwählen.</string>
     <string name="plexus_data">Plexusdaten</string>
     <string name="installed_apps">Installierte Apps</string>
     <string name="favorites">Favoriten</string>
