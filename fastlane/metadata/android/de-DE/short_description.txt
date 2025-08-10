@@ -1,1 +1,1 @@
-Kompatibilität mit Android-Anwendungen
+Überprüfe Apps auf Kompatibilität mit deGoogled-Geräten
