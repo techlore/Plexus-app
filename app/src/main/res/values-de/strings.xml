@@ -30,30 +30,30 @@
 
     <!--First activity-->
     <string name="retrieving_data">Daten abrufen</string>
-    <string name="scan_installed">Installierte apps scannen</string>
-    <string name="welcome_text_desc">Wenn sie die app zum ersten mal benutzen, nehmen sie sich bitte einen moment zeit, um sich mit den symbolen und statusanzeigen vertraut zu machen.</string>
+    <string name="scan_installed">Installierte Apps scannen</string>
+    <string name="welcome_text_desc">Wenn du die App zum ersten Mal benutzt, nimm dir bitte einen Moment Zeit, um dich mit den Symbolen und Statusanzeigen vertraut zu machen.</string>
     <string name="skip">\u00DCberspringen</string>
     <!--#########################################################################################-->
 
     <!--Main activity-->
-    <string name="no_apps_found">Keine  apps gefunden</string>
-    <string name="new_submission">Neue vorlage</string>
+    <string name="no_apps_found">Keine Apps gefunden</string>
+    <string name="new_submission">Neue Einreichung</string>
     <!--My ratings fragment-->
-    <string name="no_ratings_available">Keine bewertungen vorhanden</string>
-    <string name="submit_first_rating">Tippen sie auf \u002B um ihre erste bewertung abzugeben</string>
+    <string name="no_ratings_available">Keine Bewertungen vorhanden</string>
+    <string name="submit_first_rating">Tippe auf +, um deine erste Bewertung abzugeben</string>
     <!--Toolbar menu-->
     <string name="menu_back">Zurück</string>
     <string name="menu_search">Suche</string>
     <string name="menu_sort">Sortieren</string>
-    <string name="menu_view">View</string>
+    <string name="menu_view">Ansicht</string>
     <!--Nav view-->
     <string name="device_info">Geräteinformationen</string>
-    <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
-    <string name="plexus_data">Plexus daten</string>
-    <string name="installed_apps">Installierte apps</string>
+    <string name="tap_to_select_rom">Hier tippen, um das ROM auf diesem Gerät auszuwählen.</string>
+    <string name="plexus_data">Plexusdaten</string>
+    <string name="installed_apps">Installierte Apps</string>
     <string name="favorites">Favoriten</string>
-    <string name="my_account">Mein Kkonto</string>
-    <string name="my_ratings">Meine bewertungen</string>
+    <string name="my_account">Mein Konto</string>
+    <string name="my_ratings">Meine Bewertungen</string>
     <string name="delete_account">Konto l\u00F6schen</string>
     <string name="settings">Einstellungen</string>
     <!--#########################################################################################-->
@@ -62,131 +62,118 @@
     <string name="share">Teilen</string>
     <string name="shortcut">Shortcut</string>
     <string name="app">App</string>
-    <string name="package_name">Paketname</string>
+    <string name="package_name">Paket</string>
     <string name="retrieving_ratings">Bewertungen abrufen</string>
     <string name="total_score">Gesamtpunktzahl</string>
     <string name="total_ratings">Gesamtbewertung</string>
     <string name="ratings">Bewertungen</string>
     <string name="scroll_to_top">Nach oben bl\u00E4ttern</string>
-    <string name="rate">Rate</string>
+    <string name="rate">Bewerten</string>
     <!--Toolbar menu-->
     <string name="menu_help">Hilfe</string>
     <string name="menu_links">Links</string>
-    <string name="menu_more">Mehr optionen</string>
+    <string name="menu_more">Weitere Optionen</string>
     <!--#########################################################################################-->
 
     <!--Email verification fragment-->
-    <string name="verify_to_get_started">\u00DCberpr\u00FCfen sie ihre email, um loszulegen</string>
-    <string name="verify">\u00DCberpr\u00FCfen sie</string>
-    <string name="terms_conditions_title">Bedingungen und konditionen</string>
-    <string name="terms_conditions_desc">Ihre email ist erforderlich, um apps an Plexus zu \u00FCbermitteln.
-        \nDiese email wird nur zu verifizierungszwecken verwendet und wird nach der verifizierung aus unseren systemen entfernt.
-        \n
-        \nDies geschieht aus folgenden gr\u00FCnden:
-        \n\u2022einen möglichen missbrauch unserer API zu verhindern.
-        \n\u2022die richtigkeit der \u00FCbermittelten Daten zu gew\u00E4hrleisten.
-        \n
-        \nSie k\u00F6nnen ihr konto auf diesem ger\u00E4t jederzeit l\u00F6schen.</string>
-    <string name="by_proceeding_agree_desc">Indem sie fortfahren, erkl\u00E4ren Sie sich mit der fairen Nutzung von Plexus einverstanden.
-        Wenn sie gegen die oben genannten bedingungen versto\u00DFen, werden alle von Ihnen abgegebenen Bewertungen gel\u00F6scht.</string>
-    <string name="verification">\u00DCberpr\u00FCfung</string>
+    <string name="verify_to_get_started">Verifiziere deine Email, um loszulegen</string>
+    <string name="verify">Verifizieren</string>
+    <string name="terms_conditions_title">Bedingungen und Konditionen</string>
+    <string name="terms_conditions_desc">Deine Email ist erforderlich, um Apps an Plexus zu übermitteln. \nDiese Email wird nur zu Verifizierungszwecken verwendet und wird nach der Verifizierung aus unseren Systemen entfernt. \n \nDies geschieht aus folgenden Gründen: \n•einen möglichen Missbrauch unserer API zu verhindern. \n•die Richtigkeit der übermittelten Daten zu gewährleisten. \n \nDu kannst dein Konto auf diesem Gerät jederzeit löschen.</string>
+    <string name="by_proceeding_agree_desc">Indem du fortfährst, erklärst du dich mit der fairen Nutzung von Plexus einverstanden. Wenn du gegen die oben genannten Bedingungen verstößt, werden alle von dir abgegebenen Bewertungen gelöscht.</string>
+    <string name="verification">Verifizierung</string>
     <!--Code verification fragment-->
-    <string name="enter_code_sent_to_email">Geben sie den an %1$s gesendeten Verifizierungscode ein.</string>
+    <string name="enter_code_sent_to_email">Gib den an %1$s gesendeten Verifizierungscode ein.</string>
     <string name="verification_code">Verifizierungscode</string>
-    <string name="verifying_code">Bitte warten, code wird \u00FCberpr\u00FCft …</string>
-    <string name="incorrect_code">Falscher verifizierungscode.</string>
+    <string name="verifying_code">Bitte warten, Code wird überprüft …</string>
+    <string name="incorrect_code">Falscher Verifizierungscode.</string>
     <!--#########################################################################################-->
 
     <!--Settings activity-->
     <string name="theme">Thema</string>
-    <string name="material_you">Material You\n(app neustart erforderlich)</string>
+    <string name="material_you">Material You\n(App-Neustart erforderlich)</string>
     <string name="default_view">Standardansicht</string>
-    <string name="conf_before_submit">Best\u00E4tigen sie vor dem absenden</string>
+    <string name="conf_before_submit">Vor dem Absenden bestätigen</string>
     <string name="about">\u00DCber</string>
     <string name="version">Version</string>
     <string name="privacy_policy">Datenschutzbestimmungen</string>
-    <string name="report_issue">Ein problem melden</string>
-    <string name="support_us">Unterst\u00FCtzen sie uns</string>
-    <string name="view_on_github">Auf GitHub anschauen</string>
-    <string name="visit_techlore">Besuche Techlore</string>
-    <string name="third_party_licenses">Lizenzen von drittanbietern</string>
+    <string name="report_issue">Ein Problem melden</string>
+    <string name="support_us">Unterstütze uns</string>
+    <string name="view_on_github">Auf GitHub ansehen</string>
+    <string name="visit_techlore">Techlore besuchen</string>
+    <string name="third_party_licenses">Lizenzen von Drittanbietern</string>
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
-    <string name="done">Anwenden</string>
+    <string name="done">Erledigt</string>
     <string name="cancel">Abbrechen</string>
     <string name="dismiss">Ablehnen</string>
-    <string name="exit">Ausgang</string>
+    <string name="exit">Verlassen</string>
     <string name="retry">Wiederholen</string>
     <!--No Network/Internet-->
     <string name="error_occurred_title">Es ist ein Fehler aufgetreten</string>
     <string name="no_network_title">Kein Netzwerk/Internet</string>
-    <string name="no_network_desc">Stellt eine Verbindung zu WLAN- oder Mobilfunkdaten her und versucht es erneut.
-        Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
+    <string name="no_network_desc">Stelle eine Verbindung zu WLAN- oder Mobilfunkdaten her und versuche es erneut. Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
     <!--Help-->
     <string name="icons">Icons</string>
-    <string name="not_tested_subtitle">Nicht verf\u00FCgbar, die anwendung wurde nicht getestet</string>
-    <string name="broken_title">Kaputt</string>
-    <string name="broken_subtitle">Unbrauchbare, meist nicht zu \u00F6ffnende anwendungen</string>
+    <string name="not_tested_subtitle">Nicht verfügbar, die Anwendung wurde nicht getestet</string>
+    <string name="broken_title">Defekt</string>
+    <string name="broken_subtitle">Unbrauchbare, meist nicht zu öffnende Anwendungen</string>
     <string name="bronze_title">Bronze</string>
-    <string name="bronze_subtitle">Akzeptabel, aber mit fehlender oder defekter funktionalit\u00E4t</string>
+    <string name="bronze_subtitle">Akzeptabel, aber mit fehlender oder defekter Funktionalität</string>
     <string name="silver_title">Silber</string>
-    <string name="silver_subtitle">Fast alles funktioniert mit minimalen abstrichen</string>
+    <string name="silver_subtitle">Fast alles funktioniert mit minimalen Abstrichen</string>
     <string name="gold_title">Gold</string>
-    <string name="gold_subtitle">Perfekte oder perfekt-\u00E4hnliche erfahrung</string>
+    <string name="gold_subtitle">Perfekte oder fast-perfekte Erfahrung</string>
     <string name="other">Andere</string>
-    <string name="android_version_desc">Android versionen</string>
-    <string name="installation_source_desc">Installationsquelle von anwendungen</string>
-    <string name="apps_submit_proc">Verfahren zur einreichung von apps</string>
-    <string name="faqs">H\u00E4ufig gestellte fragen</string>
+    <string name="android_version_desc">Androidversionen</string>
+    <string name="installation_source_desc">Installationsquelle von Anwendungen</string>
+    <string name="apps_submit_proc">Verfahren zur Einreichung von Apps</string>
+    <string name="faqs">Häufig gestellte Fragen</string>
     <!--Sort-->
     <string name="alphabetical">Alphabetisch</string>
     <string name="installed_from">Installiert von</string>
     <string name="any">Jede</string>
     <string name="status">Status</string>
     <!--Translate-->
-    <string name="translate">\u00DCbersetzen Sie</string>
-    <string name="translating">\u00DCbersetzen …</string>
+    <string name="translate">Übersetzen</string>
+    <string name="translating">Übersetze …</string>
     <string name="translated_using_libretranslate">\u00DCbersetzt mit LibreTranslate:</string>
     <string name="error_translating">Fehler beim \u00DCbersetzen</string>
     <!--Email verification-->
-    <string name="sending_code">Bitte warten, code senden …</string>
-    <string name="error_sending_code">Fehler beim senden des codes</string>
+    <string name="sending_code">Bitte warten, sende Code…</string>
+    <string name="error_sending_code">Fehler beim Senden des Codes</string>
     <!--Delete account-->
-    <string name="delete_account_desc">Wenn sie ihr konto l\u00F6schen:
-        \n\u2022 werden sie keine bewertungen mehr abgeben k\u00F6nnen.
-        \n\u2022 Alle zuvor abgegebenen bewertungen werden dauerhaft von diesem ger\u00E4t entfernt.
-        \n
-        \nSind sie sicher, dass sie fortfahren m\u00F6chten?</string>
+    <string name="delete_account_desc">Wenn du dein Konto löschst: \n• wirst du keine Bewertungen mehr abgeben können. \n• Alle zuvor abgegebenen Bewertungen werden dauerhaft von diesem Gerät entfernt. \n \nBist du sicher, dass du fortfahren möchtest?</string>
     <!--First submission-->
-    <string name="first_submission_desc">Bei allen zuk\u00FCnftigen einsendungen wird diese auswahl ber\u00FCcksichtigt und kann sp\u00E4ter nicht mehr ge\u00E4ndert werden.</string>
-    <string name="select_correct_rom">Bitte w\u00E4hlen sie das richtige ROM, das auf diesem ger\u00E4t installiert ist.</string>
-    <string name="select">W\u00E4hlen sie</string>
-    <string name="proceed">Weiter</string>
+    <string name="first_submission_desc">Bei allen zukünftigen Einsendungen wird diese Auswahl berücksichtigt und kann später nicht mehr geändert werden.</string>
+    <string name="select_correct_rom">Bitte wähle das richtige ROM, das auf diesem Gerät installiert ist.</string>
+    <string name="select">Wählen</string>
+    <string name="proceed">Fortfahren</string>
     <!--Rate-->
     <string name="issues_to_check_in_apps">Häufige Probleme, die in Apps zu überprüfen sind</string>
     <string name="notes">Anmerkungen</string>
     <string name="optional">optional</string>
     <string name="submit">Einreichen</string>
     <!--Submit-->
-    <string name="about_to_submit">Sie sind im begriff, eine bewertung abzugeben. Sind sie sicher, dass sie fortfahren m\u00F6chten?</string>
-    <string name="wait_submitting_data">Bitte warten, daten \u00FCbermitteln …</string>
-    <string name="submit_success">Erfolgreich eingereicht</string>
-    <string name="submit_error">Fehler bei der \u00FCbermittlung von daten</string>
-    <string name="thanks_for_submitting">Wir danken ihnen f\u00FCr die \u00FCbermittlung von daten und die helfen der gemeinschaft.</string>
+    <string name="about_to_submit">Du bist im Begriff, eine Bewertung abzugeben. Bist du sicher, dass du fortfahren möchtest?</string>
+    <string name="wait_submitting_data">Bitte warten, Daten werden übermittelt…</string>
+    <string name="submit_success">Übermittlung erfolgreich</string>
+    <string name="submit_error">Fehler bei der Übermittlung der Daten</string>
+    <string name="thanks_for_submitting">Danke für die Übermittlung der Daten und die Unterstützung der Community.</string>
     <!--Theme-->
-    <string name="follow_system">System verfolgen</string>
+    <string name="follow_system">System folgen</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="added_to_fav">Added %1$s to favorites</string>
-    <string name="removed_from_fav">Removed %1$s from favorites</string>
-    <string name="undo">Undo</string>
-    <string name="install_app_to_submit">Installieren sie %1$s um eine bewertung abzugeben</string>
-    <string name="device_should_be_degoogled_or_microg">Das ger\u00E4t sollte entweder de-Googled sein oder microG haben, um eine bewertung abzugeben</string>
-    <string name="rating_already_submitted">Bewertung bereits abgegeben f\u00FCr %1$s %2$s</string>
-    <string name="no_browsers">Es ist kein browser auf diesem ger\u00E4t installiert</string>
+    <string name="added_to_fav">%1$s zu Favoriten hinzugefügt</string>
+    <string name="removed_from_fav">%1$s aus Favoriten entfernt</string>
+    <string name="undo">Rückgängig</string>
+    <string name="install_app_to_submit">Installiere %1$s, um eine Bewertung abzugeben</string>
+    <string name="device_should_be_degoogled_or_microg">Das Gerät sollte entweder de-Googled sein oder microG haben, um eine Bewertung abzugeben</string>
+    <string name="rating_already_submitted">Bewertung für %1$s %2$s bereits abgegeben</string>
+    <string name="no_browsers">Keine Browser auf diesem Gerät installiert</string>
     <string name="deleted_account_successfully">Konto erfolgreich gel\u00F6scht</string>
 </resources>
