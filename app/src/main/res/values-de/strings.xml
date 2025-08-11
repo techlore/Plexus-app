@@ -29,8 +29,8 @@
     -->
 
     <!--First activity-->
-    <string name="retrieving_data">Daten abrufen</string>
-    <string name="scan_installed">Installierte Apps scannen</string>
+    <string name="retrieving_data">Rufe Daten ab</string>
+    <string name="scan_installed">Scanne installierte Apps</string>
     <string name="welcome_text_desc">Wenn du die App zum ersten Mal benutzt, nimm dir bitte einen Moment Zeit, um dich mit den Symbolen und Statusanzeigen vertraut zu machen.</string>
     <string name="skip">\u00DCberspringen</string>
     <!--#########################################################################################-->
@@ -48,7 +48,7 @@
     <string name="menu_view">Ansicht</string>
     <!--Nav view-->
     <string name="device_info">Geräteinformationen</string>
-    <string name="tap_to_select_rom">Hier tippen um die ROM dieses Gerätes auszuwählen.</string>
+    <string name="tap_to_select_rom">Hier tippen, um das ROM dieses Gerätes auszuwählen.</string>
     <string name="plexus_data">Plexusdaten</string>
     <string name="installed_apps">Installierte Apps</string>
     <string name="favorites">Favoriten</string>
@@ -65,7 +65,7 @@
     <string name="package_name">Paket</string>
     <string name="retrieving_ratings">Bewertungen abrufen</string>
     <string name="total_score">Gesamtpunktzahl</string>
-    <string name="total_ratings">Gesamtbewertung</string>
+    <string name="total_ratings">Gesamte Bewertungen</string>
     <string name="ratings">Bewertungen</string>
     <string name="scroll_to_top">Nach oben bl\u00E4ttern</string>
     <string name="rate">Bewerten</string>
@@ -83,7 +83,7 @@
     <string name="by_proceeding_agree_desc">Indem du fortfährst, erklärst du dich mit der fairen Nutzung von Plexus einverstanden. Wenn du gegen die oben genannten Bedingungen verstößt, werden alle von dir abgegebenen Bewertungen gelöscht.</string>
     <string name="verification">Verifizierung</string>
     <!--Code verification fragment-->
-    <string name="enter_code_sent_to_email">Gib den an %1$s gesendeten Verifizierungscode ein.</string>
+    <string name="enter_code_sent_to_email">Gib den an %1$s gesendeten Verifizierungscode ein</string>
     <string name="verification_code">Verifizierungscode</string>
     <string name="verifying_code">Bitte warten, Code wird überprüft …</string>
     <string name="incorrect_code">Falscher Verifizierungscode.</string>
@@ -101,13 +101,13 @@
     <string name="support_us">Unterstütze uns</string>
     <string name="view_on_github">Auf GitHub ansehen</string>
     <string name="visit_techlore">Techlore besuchen</string>
-    <string name="third_party_licenses">Lizenzen von Drittanbietern</string>
+    <string name="third_party_licenses">Drittanbieterlizenzen</string>
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
     <string name="done">Erledigt</string>
     <string name="cancel">Abbrechen</string>
-    <string name="dismiss">Ablehnen</string>
+    <string name="dismiss">Schließen</string>
     <string name="exit">Verlassen</string>
     <string name="retry">Wiederholen</string>
     <!--No Network/Internet-->
@@ -116,9 +116,9 @@
     <string name="no_network_desc">Stelle eine Verbindung zu WLAN- oder Mobilfunkdaten her und versuche es erneut. Wenn du bereits verbunden bist, stelle sicher, dass eine Internetverbindung besteht.</string>
     <!--Help-->
     <string name="icons">Icons</string>
-    <string name="not_tested_subtitle">Nicht verfügbar, die Anwendung wurde nicht getestet</string>
+    <string name="not_tested_subtitle">Nicht verfügbar, die App wurde nicht getestet</string>
     <string name="broken_title">Defekt</string>
-    <string name="broken_subtitle">Unbrauchbare, meist nicht zu öffnende Anwendungen</string>
+    <string name="broken_subtitle">Unbrauchbare, meist nicht zu öffnende Apps</string>
     <string name="bronze_title">Bronze</string>
     <string name="bronze_subtitle">Akzeptabel, aber mit fehlender oder defekter Funktionalität</string>
     <string name="silver_title">Silber</string>
@@ -127,13 +127,13 @@
     <string name="gold_subtitle">Perfekte oder fast-perfekte Erfahrung</string>
     <string name="other">Andere</string>
     <string name="android_version_desc">Androidversionen</string>
-    <string name="installation_source_desc">Installationsquelle von Anwendungen</string>
+    <string name="installation_source_desc">App-Installationsquelle</string>
     <string name="apps_submit_proc">Verfahren zur Einreichung von Apps</string>
     <string name="faqs">Häufig gestellte Fragen</string>
     <!--Sort-->
     <string name="alphabetical">Alphabetisch</string>
     <string name="installed_from">Installiert von</string>
-    <string name="any">Jede</string>
+    <string name="any">Beliebig</string>
     <string name="status">Status</string>
     <!--Translate-->
     <string name="translate">Übersetzen</string>
