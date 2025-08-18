@@ -22,12 +22,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.BaseDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
@@ -65,27 +65,21 @@ class SortAllRatingsBottomSheet(
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
         
         // App version dropdown
-        bottomSheetBinding.ratingsAppVerDropdownMenu.apply {
+        (bottomSheetBinding.ratingsAppVerDropdownMenu as MaterialAutoCompleteTextView).apply {
             setText(detailsActivity.selectedVersionString)
-            setAdapter(ArrayAdapter(requireContext(),
-                                    R.layout.item_dropdown_menu,
-                                    detailsActivity.differentAppVerList))
+            setSimpleItems(detailsActivity.differentAppVerList)
         }
         
         // Rom dropdown
-        bottomSheetBinding.ratingsRomDropdownMenu.apply {
+        (bottomSheetBinding.ratingsRomDropdownMenu as MaterialAutoCompleteTextView).apply {
             setText(detailsActivity.selectedRomString)
-            setAdapter(ArrayAdapter(requireContext(),
-                                    R.layout.item_dropdown_menu,
-                                    detailsActivity.differentRomsList))
+            setSimpleItems(detailsActivity.differentRomsList)
         }
         
         // Android dropdown
-        bottomSheetBinding.ratingsAndroidDropdownMenu.apply {
+        (bottomSheetBinding.ratingsAndroidDropdownMenu as MaterialAutoCompleteTextView).apply {
             setText(detailsActivity.selectedAndroidString)
-            setAdapter(ArrayAdapter(requireContext(),
-                                    R.layout.item_dropdown_menu,
-                                    detailsActivity.differentAndroidVerList))
+            setSimpleItems(detailsActivity.differentAndroidVerList)
         }
         
         // Installed from chip checked by default

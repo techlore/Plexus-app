@@ -66,8 +66,6 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
             setNavBarContrastEnforced()
             requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
             enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-            exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-            returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
         }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -140,6 +138,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
                 isGridView = !isGridView
                 prefManager.setBoolean(GRID_VIEW, isGridView)
                 setViewButtonIcon()
+                activityBinding.mainAppBar.setExpanded(true, true)
                 navController.refreshFragment()
             }
         }
@@ -177,16 +176,11 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
     
     // Setup fragments
     private fun displayFragment(selectedItem: Int) {
-        val action = navActionsMap[selectedItem] ?: 0
-        
-        // java.lang.IllegalArgumentException:
-        // Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo
-        // Hence the second check
-        if (selectedNavItem != selectedItem && action != 0) {
+        navActionsMap[selectedItem]?.let {
             selectedNavItem = selectedItem
             setMenuButtonStates()
             activityBinding.mainAppBar.setExpanded(true, true)
-            navController.navigate(action)
+            navController.navigate(it)
             activityBinding.mainCollapsingToolbar.title = navController.currentDestination?.label
         }
     }
@@ -225,7 +219,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
                 // Delay the action till the nav bottom sheet is (almost) hidden.
                 // An ideal way to do this would be detecting STATE_HIDDEN from bottom sheet behavior,
                 // but I wasn't able to make it work for modal bottom sheet...for now.
-                if (shouldDelayAction) delay(265)
+                if (shouldDelayAction) delay(270)
                 if (selectedItemId != R.id.nav_delete_account) displayFragment(selectedItemId)
                 else DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
             }

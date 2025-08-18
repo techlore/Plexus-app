@@ -24,10 +24,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -109,7 +109,7 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
                 } // -1 would mean no matching index
             
             // ROM dropdown
-            bottomSheetBinding.romDropdownMenu.apply {
+            (bottomSheetBinding.romDropdownMenu as MaterialAutoCompleteTextView).apply {
                 setText(
                     if (romNameIndex != NO_MATCH_FOUND) allRomsDropdownList[romNameIndex + 2]
                     else allRomsDropdownList[0]
@@ -117,11 +117,7 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
                     // because allRomsDropdownList has two extra items "Select" & "Stock (device)",
                     // not present in truncatedCustomRomsList
                 )
-                
-                setAdapter(ArrayAdapter(requireContext(),
-                                        R.layout.item_dropdown_menu,
-                                        allRomsDropdownList))
-                
+                setSimpleItems(allRomsDropdownList)
                 setOnItemClickListener { _, _, position, _ ->
                     footerBinding.positiveButton.isEnabled = position != 0 && job == null
                 }

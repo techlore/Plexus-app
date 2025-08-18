@@ -53,6 +53,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.scrollToTop
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
+import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
 import kotlin.getValue
 import kotlin.math.abs
@@ -86,6 +87,7 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
         enableEdgeToEdge()
         isFromShortcut = intent.getBooleanExtra("fromShortcut", false)
         window.apply {
+            setNavBarContrastEnforced()
             requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
             enterTransition =
                 MaterialSharedAxis(
@@ -140,15 +142,11 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
                 addOnOffsetChangedListener { _, verticalOffset ->
                     val progress = abs(verticalOffset).toFloat() / totalScrollRange
                     if (progress >= 0.22f && isAppIconVisible) {
-                        activityBinding.detailsAppIcon.hideViewWithAnim(
-                            shouldScaleDown = true,
-                            setEndScaleValues = true,
-                            animDuration = 150L
-                        )
+                        activityBinding.detailsAppIcon.hideViewWithAnim(isFab = true)
                         isAppIconVisible = false
                     }
                     else if (progress < 0.22f && ! isAppIconVisible) {
-                        activityBinding.detailsAppIcon.showViewWithAnim(shouldScaleUp = true, animDuration = 250L)
+                        activityBinding.detailsAppIcon.showViewWithAnim(isFab = true)
                         isAppIconVisible = true
                     }
                 }

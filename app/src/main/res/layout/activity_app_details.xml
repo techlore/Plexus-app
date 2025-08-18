@@ -528,7 +528,7 @@
             app:layout_constraintEnd_toStartOf="@id/rateBtn"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_4"
             style="?attr/floatingToolbarVibrantStyle">
 
             <LinearLayout
@@ -581,6 +581,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/detailsFloatingToolbar"
             app:layout_constraintBottom_toBottomOf="@id/detailsFloatingToolbar"
+            android:layout_marginStart="@dimen/margin_4"
             app:icon="@drawable/ic_edit"
             android:text="@string/rate"
             android:textSize="@dimen/text_16"

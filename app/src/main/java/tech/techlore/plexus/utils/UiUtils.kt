@@ -354,53 +354,36 @@ class UiUtils {
             }
         }
         
-        fun View.showViewWithAnim(shouldScaleUp: Boolean = false,
-                                  setStartScaleValues: Boolean = false,
-                                  animDuration: Long = 300L) {
-            val (startScaleX, startScaleY) =
-                when {
-                    setStartScaleValues -> Pair(0.8f, 0.8f)
-                    else -> Pair(0.0f, 0.0f)
-                }
-            
+        fun View.showViewWithAnim(isFab: Boolean =  false) {
             AnimatorSet().apply {
                 playTogether(
                     arrayListOf<Animator>().apply {
                         add(ObjectAnimator.ofFloat(this@showViewWithAnim, "alpha", 0.0f, 1.0f))
-                        if (shouldScaleUp) {
-                            add(ObjectAnimator.ofFloat(this@showViewWithAnim, "scaleX", startScaleX, 1.0f))
-                            add(ObjectAnimator.ofFloat(this@showViewWithAnim, "scaleY", startScaleY, 1.0f))
+                        if (isFab) {
+                            add(ObjectAnimator.ofFloat(this@showViewWithAnim, "scaleX", 0.8f, 1.0f))
+                            add(ObjectAnimator.ofFloat(this@showViewWithAnim, "scaleY", 0.8f, 1.0f))
                         }
                     }
                 )
-                duration = animDuration
+                duration = if (!isFab) 300L else 250L
                 interpolator = FastOutSlowInInterpolator()
                 doOnStart { isVisible = true }
                 start()
             }
         }
         
-        fun View.hideViewWithAnim(shouldScaleDown: Boolean = false,
-                                  setEndScaleValues: Boolean = false,
-                                  animDuration: Long = 300L) {
-            
-            val (endScaleX, endScaleY) =
-                when {
-                    setEndScaleValues -> Pair(0.4f, 0.4f)
-                    else -> Pair(0.0f, 0.0f)
-                }
-            
+        fun View.hideViewWithAnim(isFab: Boolean = false) {
             AnimatorSet().apply {
                 playTogether(
                     arrayListOf<Animator>().apply {
                         add(ObjectAnimator.ofFloat(this@hideViewWithAnim, "alpha", 1.0f, 0.0f))
-                        if (shouldScaleDown) {
-                            add(ObjectAnimator.ofFloat(this@hideViewWithAnim, "scaleX", 1.0f, endScaleX))
-                            add(ObjectAnimator.ofFloat(this@hideViewWithAnim, "scaleY", 1.0f, endScaleY))
+                        if (isFab) {
+                            add(ObjectAnimator.ofFloat(this@hideViewWithAnim, "scaleX", 1.0f, 0.4f))
+                            add(ObjectAnimator.ofFloat(this@hideViewWithAnim, "scaleY", 1.0f, 0.4f))
                         }
                     }
                 )
-                duration = animDuration
+                duration = if (!isFab) 300L else 150L
                 interpolator = FastOutSlowInInterpolator()
                 start()
                 doOnEnd { isVisible = false }

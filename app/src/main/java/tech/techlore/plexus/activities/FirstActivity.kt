@@ -22,6 +22,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
+import android.view.Window
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -31,6 +32,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
@@ -73,7 +75,11 @@ class FirstActivity : AppCompatActivity() {
             DynamicColors.applyToActivitiesIfAvailable(applicationContext as ApplicationManager) // For other activities
         }
         enableEdgeToEdge()
-        window.setNavBarContrastEnforced()
+        window.apply {
+            setNavBarContrastEnforced()
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+        }
         super.onCreate(savedInstanceState)
         activityBinding = ActivityFirstBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
@@ -170,7 +176,7 @@ class FirstActivity : AppCompatActivity() {
                         override fun onAnimationEnd(animation: Animator) {
                             progressText.apply {
                                 text = getString(R.string.welcome_text_desc)
-                                showViewWithAnim(shouldScaleUp = true, setStartScaleValues = true)
+                                showViewWithAnim()
                             }
                             firstSkipBtn.apply {
                                 showViewWithAnim()
