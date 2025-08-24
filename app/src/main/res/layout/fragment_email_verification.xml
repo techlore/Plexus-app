@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/margin_20"
-                android:paddingHorizontal="@dimen/margin_12"
+                android:paddingHorizontal="@dimen/margin_16"
                 android:drawableStart="@drawable/ic_privacy_policy"
                 android:drawablePadding="@dimen/margin_8"
                 android:text="@string/privacy_policy"

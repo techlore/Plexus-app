@@ -53,7 +53,8 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_20"
+                    android:paddingHorizontal="@dimen/margin_16"
+                    android:paddingVertical="@dimen/margin_20"
                     android:text="@string/issues_to_check_in_apps"
                     android:textSize="@dimen/text_17"
                     style="@style/MediumBoldText"

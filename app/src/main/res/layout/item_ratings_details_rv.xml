@@ -25,14 +25,13 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_8"
     android:layout_marginTop="@dimen/margin_4"
-    android:layout_marginBottom="@dimen/margin_12"
+    android:layout_marginBottom="@dimen/margin_8"
     tools:context=".adapters.details.UserRatingsItemAdapter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/margin_8"
-        android:paddingTop="@dimen/margin_4"
         android:paddingBottom="@dimen/margin_12">
 
         <com.google.android.material.card.MaterialCardView
@@ -42,7 +41,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_12"
+            app:shapeAppearance="?attr/listItemShapeAppearanceSingle"
             style="?attr/materialCardViewFilledStyle">
 
             <LinearLayout
@@ -88,7 +88,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="@dimen/margin_8"
-            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_12"
             android:drawableStart="@drawable/ic_version"
             android:drawablePadding="@dimen/margin_8"
             android:text="@string/version"

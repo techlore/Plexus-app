@@ -25,23 +25,22 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_10"
     android:layout_marginTop="@dimen/margin_4"
-    android:layout_marginBottom="@dimen/margin_12"
+    android:layout_marginBottom="@dimen/margin_8"
     tools:context=".adapters.main.MyRatingsItemAdapter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/margin_8"
-        android:paddingTop="@dimen/margin_8"
-        android:paddingBottom="@dimen/margin_20">
+        android:paddingHorizontal="@dimen/margin_16"
+        android:paddingVertical="@dimen/margin_8">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/myRatingsIcon"
-            android:layout_width="@dimen/margin_45"
-            android:layout_height="@dimen/margin_45"
+            android:layout_width="@dimen/margin_56"
+            android:layout_height="@dimen/margin_56"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/myRatingsName"
-            app:layout_constraintBottom_toBottomOf="@id/myRatingsPackage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:src="@drawable/ic_apk"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
@@ -52,9 +51,9 @@
             app:layout_constraintStart_toEndOf="@id/myRatingsIcon"
             app:layout_constraintEnd_toStartOf="@id/myRatingsCount"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/margin_12"
+            app:layout_constraintBottom_toTopOf="@id/myRatingsPackage"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_8"
-            android:layout_marginTop="@dimen/margin_12"
             android:ellipsize="marquee"
             android:text="@string/app"
             android:textAlignment="viewStart"
@@ -66,10 +65,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/myRatingsName"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/myRatingsName"
             app:layout_constraintEnd_toStartOf="@id/myRatingsCount"
             android:layout_marginEnd="@dimen/margin_8"
-            android:layout_marginTop="@dimen/margin_6"
             android:ellipsize="marquee"
             android:text="@string/package_name"
             android:textAlignment="viewStart"
@@ -81,12 +80,11 @@
             android:layout_width="@dimen/margin_50"
             android:layout_height="28dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/myRatingsName"
-            app:layout_constraintBottom_toBottomOf="@id/myRatingsName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
-            android:layout_marginEnd="@dimen/margin_12"
             android:background="@drawable/shape_filled_rounded_corners_large"
-            android:textSize="@dimen/text_16"
+            android:textSize="@dimen/text_15"
             android:textColor="?attr/colorOnSecondaryContainer"
             style="@style/MediumBoldText"/>
 

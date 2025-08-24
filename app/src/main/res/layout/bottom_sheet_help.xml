@@ -49,50 +49,63 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/margin_16">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/iconsCard"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/iconsCardBottomSpace"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginHorizontal="@dimen/margin_8"
-                android:backgroundTint="@android:color/transparent"/>
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/iconsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/iconsCard"
-                app:layout_constraintStart_toStartOf="@id/iconsCard"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
                 android:text="@string/icons"
                 android:textSize="@dimen/text_17"
+                android:textColor="?attr/colorSecondary"
                 style="@style/MediumBoldText"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/iconsCard"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/iconsTitle"
+                app:layout_constraintBottom_toBottomOf="@id/iconsCardBottomSpace"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginHorizontal="@dimen/margin_8"
+                android:backgroundTint="@android:color/transparent"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/degoogledText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/iconsTitle"
+                app:layout_constraintTop_toTopOf="@id/iconsCard"
                 app:layout_constraintStart_toStartOf="@id/iconsCard"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
                 android:drawableStart="@drawable/ic_degoogled"
                 android:drawablePadding="@dimen/margin_8"
                 android:text="@string/de_Googled"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="@dimen/text_17" />
 
+            <include
+                layout="@layout/divider_horizontal"
+                android:id="@+id/dividerDegoogled"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/degoogledText"
+                app:layout_constraintStart_toStartOf="@id/iconsCard"
+                app:layout_constraintEnd_toEndOf="@id/iconsCard"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"/>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/microgText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/degoogledText"
+                app:layout_constraintTop_toBottomOf="@id/dividerDegoogled"
                 app:layout_constraintStart_toStartOf="@id/iconsCard"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_16"
@@ -105,44 +118,45 @@
             <Space
                 android:id="@+id/iconsCardBottomSpace"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/margin_20"
+                android:layout_height="@dimen/margin_12"
                 app:layout_constraintTop_toBottomOf="@id/microgText"
                 app:layout_constraintStart_toStartOf="@id/iconsCard"
                 app:layout_constraintEnd_toEndOf="@id/iconsCard"/>
 
             <!--######################################################-->
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/statusCard"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/iconsCard"
-                app:layout_constraintBottom_toBottomOf="@id/statusCardBottomSpace"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginHorizontal="@dimen/margin_8"
-                android:backgroundTint="@android:color/transparent"/>
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/statusTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/statusCard"
-                app:layout_constraintStart_toStartOf="@id/statusCard"
+                app:layout_constraintTop_toBottomOf="@id/iconsCard"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_16"
                 android:text="@string/status"
                 android:textSize="@dimen/text_17"
+                android:textColor="?attr/colorSecondary"
                 style="@style/MediumBoldText"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/statusCard"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/statusTitle"
+                app:layout_constraintBottom_toBottomOf="@id/statusCardBottomSpace"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginHorizontal="@dimen/margin_8"
+                android:backgroundTint="@android:color/transparent"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/statusNaChip"
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/statusTitle"
+                app:layout_constraintTop_toTopOf="@id/statusCard"
                 app:layout_constraintStart_toStartOf="@id/statusCard"
                 android:layout_height="@dimen/margin_32"
-                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
                 android:layout_marginStart="@dimen/margin_16"
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
@@ -330,44 +344,45 @@
             <Space
                 android:id="@+id/statusCardBottomSpace"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/margin_20"
+                android:layout_height="@dimen/margin_12"
                 app:layout_constraintTop_toBottomOf="@id/statusGoldDesc"
                 app:layout_constraintStart_toStartOf="@id/statusCard"
                 app:layout_constraintEnd_toEndOf="@id/statusCard"/>
 
             <!--######################################################-->
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/otherCard"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/statusCard"
-                app:layout_constraintBottom_toBottomOf="@id/otherCardBottomSpace"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginHorizontal="@dimen/margin_8"
-                android:backgroundTint="@android:color/transparent"/>
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/otherTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/otherCard"
-                app:layout_constraintStart_toStartOf="@id/otherCard"
+                app:layout_constraintTop_toBottomOf="@id/statusCard"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_16"
                 android:text="@string/other"
                 android:textSize="@dimen/text_17"
+                android:textColor="?attr/colorSecondary"
                 style="@style/MediumBoldText"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/otherCard"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/otherTitle"
+                app:layout_constraintBottom_toBottomOf="@id/otherCardBottomSpace"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginHorizontal="@dimen/margin_8"
+                android:backgroundTint="@android:color/transparent"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/androidVersionChip1"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                app:layout_constraintTop_toBottomOf="@id/otherTitle"
+                app:layout_constraintTop_toTopOf="@id/otherCard"
                 app:layout_constraintStart_toStartOf="@id/otherCard"
-                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
                 android:layout_marginStart="@dimen/margin_16"
                 android:text="15.0"
                 style="@style/AndroidVersionTextViewTheme"
@@ -377,10 +392,10 @@
                 android:id="@+id/androidVersionChip2"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                app:layout_constraintTop_toBottomOf="@id/otherTitle"
+                app:layout_constraintTop_toTopOf="@id/androidVersionChip1"
+                app:layout_constraintBottom_toBottomOf="@id/androidVersionChip1"
                 app:layout_constraintStart_toEndOf="@id/androidVersionChip1"
-                android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_12"
                 android:text="12.1"
                 style="@style/AndroidVersionTextViewTheme"
                 tools:ignore="HardcodedText"/>
@@ -389,10 +404,10 @@
                 android:id="@+id/androidVersionChip3"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                app:layout_constraintTop_toBottomOf="@id/otherTitle"
+                app:layout_constraintTop_toTopOf="@id/androidVersionChip1"
+                app:layout_constraintBottom_toBottomOf="@id/androidVersionChip1"
                 app:layout_constraintStart_toEndOf="@id/androidVersionChip2"
-                android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_12"
                 android:text="8.0"
                 style="@style/AndroidVersionTextViewTheme"
                 tools:ignore="HardcodedText"/>
@@ -476,7 +491,7 @@
             <Space
                 android:id="@+id/otherCardBottomSpace"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/margin_20"
+                android:layout_height="@dimen/margin_12"
                 app:layout_constraintTop_toBottomOf="@id/installedFromDesc"
                 app:layout_constraintStart_toStartOf="@id/otherCard"
                 app:layout_constraintEnd_toEndOf="@id/otherCard"/>
@@ -497,7 +512,8 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_20"
+                    android:paddingVertical="@dimen/margin_20"
+                    android:paddingHorizontal="@dimen/margin_16"
                     android:text="@string/apps_submit_proc"
                     android:textSize="@dimen/text_17"
                     style="@style/MediumBoldText"
@@ -522,7 +538,8 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_20"
+                    android:paddingVertical="@dimen/margin_20"
+                    android:paddingHorizontal="@dimen/margin_16"
                     android:text="@string/faqs"
                     android:textSize="@dimen/text_17"
                     style="@style/MediumBoldText"

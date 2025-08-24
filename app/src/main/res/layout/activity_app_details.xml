@@ -57,8 +57,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/detailsAppIcon"
-        android:layout_width="@dimen/margin_55"
-        android:layout_height="@dimen/margin_55"
+        android:layout_width="@dimen/margin_56"
+        android:layout_height="@dimen/margin_56"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_anchor="@id/detailsAppBar"
@@ -199,8 +199,10 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:drawableStart="@drawable/ic_total_score"
                 android:drawablePadding="@dimen/margin_8"
+                app:drawableTint="?attr/colorSecondary"
                 android:text="@string/total_score"
                 android:textSize="@dimen/text_17"
+                android:textColor="?attr/colorSecondary"
                 style="@style/MediumBoldText"
                 android:visibility="gone"
                 tools:visibility="visible"/>
@@ -208,7 +210,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/totalScoreCard"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/totalScoreText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -219,7 +221,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     tools:ignore="HardcodedText">
 
                     <com.google.android.material.button.MaterialButtonToggleGroup
@@ -228,7 +230,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginTop="@dimen/margin_8"
+                        android:layout_marginTop="@dimen/margin_12"
                         android:layout_marginHorizontal="@dimen/margin_12"
                         app:singleSelection="true"
                         style="@style/Widget.Material3Expressive.MaterialButtonGroup.Connected">
@@ -301,7 +303,7 @@
                         app:layout_constraintTop_toBottomOf="@id/avgScore"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="@dimen/margin_55"
+                        android:layout_marginTop="@dimen/margin_50"
                         android:layout_marginHorizontal="@dimen/margin_16"
                         style="@style/GoldProgressIndicator"/>
 
@@ -457,7 +459,7 @@
                     <Space
                         android:id="@+id/totalScoreCardBottomSpace"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin_20"
+                        android:layout_height="@dimen/margin_16"
                         app:layout_constraintTop_toBottomOf="@id/brokenProgress"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
@@ -476,8 +478,10 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:drawableStart="@drawable/ic_total_ratings"
                 android:drawablePadding="@dimen/margin_8"
+                app:drawableTint="?attr/colorSecondary"
                 android:text="@string/total_ratings"
                 android:textSize="@dimen/text_17"
+                android:textColor="?attr/colorSecondary"
                 style="@style/MediumBoldText"
                 android:visibility="gone"
                 tools:visibility="visible"/>

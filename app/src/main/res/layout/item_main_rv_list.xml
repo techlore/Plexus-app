@@ -25,23 +25,21 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_10"
     android:layout_marginTop="@dimen/margin_4"
-    android:layout_marginBottom="@dimen/margin_12"
+    android:layout_marginBottom="@dimen/margin_8"
     tools:context=".adapters.main.MainDataItemAdapter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/margin_8"
-        android:paddingTop="@dimen/margin_8"
-        android:paddingBottom="@dimen/margin_12">
+        android:paddingHorizontal="@dimen/margin_16"
+        android:paddingVertical="@dimen/margin_12">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/icon"
-            android:layout_width="@dimen/margin_45"
-            android:layout_height="@dimen/margin_45"
+            android:layout_width="@dimen/margin_56"
+            android:layout_height="@dimen/margin_56"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/name"
-            app:layout_constraintBottom_toBottomOf="@id/dgStatus"
+            app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_apk"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
@@ -52,9 +50,8 @@
             app:layout_constraintStart_toEndOf="@id/icon"
             app:layout_constraintEnd_toStartOf="@id/fav"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_8"
-            android:layout_marginTop="@dimen/margin_4"
             android:ellipsize="marquee"
             android:text="@string/app"
             android:textAlignment="viewStart"
@@ -108,8 +105,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/name"
             app:layout_constraintBottom_toBottomOf="@id/name"
-            android:layout_marginTop="@dimen/margin_2"
-            android:layout_marginEnd="@dimen/margin_12"
             android:button="@drawable/ic_fav"
             app:buttonTint="@color/fav_icon_color"
             android:contentDescription="@string/favorites"/>

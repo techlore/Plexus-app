@@ -39,7 +39,7 @@ val appModule =
         single { PreferenceManager(get()) }
         single { EncryptedPreferenceManager(get()) }
         single { ImageLoader.Builder(get()).crossfade(true).build() }
-        single(named("displayedIconSize")) { convertDpToPx(get<Application>(), 55f) }
+        single(named("displayedIconSize")) { convertDpToPx(get<Application>(), 56f) }
         single { Json { ignoreUnknownKeys = true } }
         single { apiBuilder() }
         single { ApiRepository(get()) }
