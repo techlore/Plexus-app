@@ -95,7 +95,7 @@ class TranslateRatingNoteBottomSheet(private val notes: String) : BottomSheetDia
                                     arrayOf(translateLoadingIndicator, translatingTextView).forEach {
                                         it.hideViewWithAnim()
                                     }
-                                    translateRatingsNotesCard.showViewWithAnimation()
+                                    translateRatingsNotesLayout.showViewWithAnimation()
                                     noteOriginal.text = notes
                                     noteTranslated.text = translatedText
                                 }

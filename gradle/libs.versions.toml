@@ -16,7 +16,7 @@
 #
 
 [versions]
-androidGradle = "8.12.1"
+androidGradle = "8.12.2"
 androidKotlin = "2.2.10" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
 ksp = "2.2.10-2.0.2" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.1"

@@ -33,7 +33,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/alphabetical"
@@ -41,17 +41,21 @@
         android:textColor="?attr/colorOnSurfaceVariant"
         style="@style/MediumBoldText"/>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/alphabeticalChipGroup"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_10"
-        android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_4"
-        android:layout_marginBottom="@dimen/margin_8"
-        app:chipSpacingHorizontal="@dimen/margin_10"
+        android:scrollbars="none">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/alphabeticalChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_16"
+        android:clipToPadding="false"
         app:singleSelection="true"
-        app:selectionRequired="true">
+        app:selectionRequired="true"
+        app:singleLine="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sortAZ"
@@ -70,12 +74,14 @@
 
     </com.google.android.material.chip.ChipGroup>
 
+    </HorizontalScrollView>
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/sortInstalledFromText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/installed_from"
         android:textSize="@dimen/text_16"
@@ -84,16 +90,21 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/installedFromChipGroup"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_4"
-        android:layout_marginBottom="@dimen/margin_8"
-        app:chipSpacingHorizontal="@dimen/margin_10"
+        android:scrollbars="none">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/installedFromChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_16"
+        android:clipToPadding="false"
         app:singleSelection="true"
         app:selectionRequired="true"
+        app:singleLine="true"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -125,12 +136,14 @@
 
     </com.google.android.material.chip.ChipGroup>
 
+    </HorizontalScrollView>
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/sortStatusText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_4"
         android:text="@string/status"
         android:textSize="@dimen/text_16"
@@ -179,16 +192,21 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/statusChipGroup"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_4"
-        app:chipSpacingHorizontal="@dimen/margin_10"
-        app:chipSpacingVertical="@dimen/margin_4"
+        android:scrollbars="none">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/statusChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_16"
+        android:clipToPadding="false"
         app:singleSelection="true"
         app:selectionRequired="true"
+        app:singleLine="true"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -224,6 +242,8 @@
             style="@style/GoldFilterChipTheme"/>
 
     </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
 
     <include
         layout="@layout/bottom_sheet_footer"

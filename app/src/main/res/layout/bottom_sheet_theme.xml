@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/margin_8"
-        android:paddingHorizontal="@dimen/margin_22"
+        android:paddingHorizontal="@dimen/margin_16"
         app:chipSpacingVertical="@dimen/margin_2"
         app:singleSelection="true"
         app:selectionRequired="true">

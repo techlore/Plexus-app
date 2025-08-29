@@ -76,20 +76,25 @@
                 android:textSize="@dimen/text_17"
                 style="@style/MediumBoldText"/>
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/submitStatusChipGroup"
+            <HorizontalScrollView
+                android:id="@+id/submitStatusHorizScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/dgMgText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_8"
-                app:chipSpacingHorizontal="@dimen/margin_10"
-                app:chipSpacingVertical="@dimen/margin_4"
+                android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/submitStatusChipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/margin_16"
+                android:clipToPadding="false"
                 app:singleSelection="true"
-                app:selectionRequired="true">
+                app:selectionRequired="true"
+                app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/submitBroken"
@@ -117,11 +122,13 @@
 
             </com.google.android.material.chip.ChipGroup>
 
+            </HorizontalScrollView>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/submitNotesBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/submitStatusChipGroup"
+                app:layout_constraintTop_toBottomOf="@id/submitStatusHorizScrollView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

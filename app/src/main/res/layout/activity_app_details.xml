@@ -122,51 +122,59 @@
                 tools:visibility="visible"
                 style="@style/InstalledFromTextViewTheme"/>
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/detailsChipGroup"
+            <HorizontalScrollView
+                android:id="@+id/detailsHorizScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/detailsInstalledFrom"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_25"
-                android:paddingHorizontal="@dimen/margin_12"
-                android:clipToPadding="false"
-                app:singleLine="true">
+                android:scrollbars="none">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/shareChip"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/detailsChipGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipIcon="@drawable/ic_share"
-                    android:text="@string/share"
-                    android:textSize="@dimen/text_15"/>
+                    android:paddingHorizontal="@dimen/margin_12"
+                    android:clipToPadding="false"
+                    app:singleLine="true">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/shortcutChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:chipIcon="@drawable/ic_shortcut"
-                    android:text="@string/shortcut"
-                    android:textSize="@dimen/text_15"/>
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/shareChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipIcon="@drawable/ic_share"
+                        android:text="@string/share"
+                        android:textSize="@dimen/text_15"/>
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/vpnToolkitChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:chipIcon="@drawable/ic_vpn_toolkit"
-                    android:text="@string/vpn_toolkit"
-                    android:textSize="@dimen/text_15"
-                    android:visibility="gone"
-                    tools:visibility="visible"/>
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/shortcutChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipIcon="@drawable/ic_shortcut"
+                        android:text="@string/shortcut"
+                        android:textSize="@dimen/text_15"/>
 
-            </com.google.android.material.chip.ChipGroup>
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/vpnToolkitChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipIcon="@drawable/ic_vpn_toolkit"
+                        android:text="@string/vpn_toolkit"
+                        android:textSize="@dimen/text_15"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
 
             <com.google.android.material.loadingindicator.LoadingIndicator
                 android:id="@+id/loadingIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/detailsChipGroup"
+                app:layout_constraintTop_toBottomOf="@id/detailsHorizScrollView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +201,7 @@
                 android:id="@+id/totalScoreText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/detailsChipGroup"
+                app:layout_constraintTop_toBottomOf="@id/detailsHorizScrollView"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="@dimen/margin_32"
                 android:layout_marginStart="@dimen/margin_16"
@@ -535,7 +543,7 @@
             android:layout_marginEnd="@dimen/margin_4"
             style="?attr/floatingToolbarVibrantStyle">
 
-            <LinearLayout
+            <com.google.android.material.overflow.OverflowLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -546,6 +554,8 @@
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_back"
                     android:contentDescription="@string/menu_back"
+                    app:layout_overflowText="@string/menu_back"
+                    app:layout_overflowIcon="@drawable/ic_back"
                     style="?attr/materialIconButtonStyle"/>
 
                 <com.google.android.material.button.MaterialButton
@@ -554,6 +564,8 @@
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_help"
                     android:contentDescription="@string/menu_help"
+                    app:layout_overflowText="@string/menu_help"
+                    app:layout_overflowIcon="@drawable/ic_help"
                     style="?attr/materialIconButtonStyle"/>
 
                 <com.google.android.material.button.MaterialButton
@@ -563,6 +575,8 @@
                     app:icon="@drawable/ic_sort"
                     android:contentDescription="@string/menu_sort"
                     android:enabled="false"
+                    app:layout_overflowText="@string/menu_sort"
+                    app:layout_overflowIcon="@drawable/ic_sort"
                     style="?attr/materialIconButtonStyle"/>
 
                 <com.google.android.material.button.MaterialButton
@@ -571,9 +585,11 @@
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_links"
                     android:contentDescription="@string/menu_links"
+                    app:layout_overflowText="@string/menu_links"
+                    app:layout_overflowIcon="@drawable/ic_links"
                     style="?attr/materialIconButtonStyle"/>
 
-            </LinearLayout>
+            </com.google.android.material.overflow.OverflowLinearLayout>
 
         </com.google.android.material.floatingtoolbar.FloatingToolbarLayout>
 

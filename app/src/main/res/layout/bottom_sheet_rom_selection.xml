@@ -32,8 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_4"
-        android:layout_marginEnd="@dimen/margin_16"
-        android:layout_marginStart="@dimen/margin_25"
+        android:layout_marginHorizontal="@dimen/margin_16"
         android:textSize="@dimen/text_17"
         android:text="@string/first_submission_desc"
         android:textColor="?attr/colorOnSurface"/>
@@ -43,8 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_4"
-        android:layout_marginEnd="@dimen/margin_16"
-        android:layout_marginStart="@dimen/margin_25"
+        android:layout_marginHorizontal="@dimen/margin_16"
         android:textSize="@dimen/text_17"
         android:text="@string/select_correct_rom"
         android:textColor="?attr/colorOnSurfaceVariant"
@@ -58,7 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginVertical="@dimen/margin_8"
-        android:layout_marginHorizontal="@dimen/margin_25"
+        android:layout_marginHorizontal="@dimen/margin_16"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
         <AutoCompleteTextView

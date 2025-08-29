@@ -46,27 +46,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_16"
-        android:paddingStart="@dimen/margin_25"
-        android:paddingEnd="@dimen/margin_25"
+        android:paddingHorizontal="@dimen/margin_16"
         android:textAlignment="center"
         android:text="@string/translating"
         android:textSize="@dimen/text_17"
         android:textColor="?attr/colorOnSurfaceVariant"/>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/translateRatingsNotesCard"
+    <LinearLayout
+        android:id="@+id/translateRatingsNotesLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_4"
-        style="?attr/materialCardViewFilledStyle"
+        android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            app:shapeAppearance="?attr/listItemShapeAppearanceFirst"
+            style="?attr/materialCardViewFilledStyle">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/noteOriginal"
@@ -80,43 +80,53 @@
                 android:textSize="@dimen/text_17"
                 android:textIsSelectable="true"/>
 
-            <include
-                layout="@layout/divider_horizontal"
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            app:shapeAppearance="?attr/listItemShapeAppearanceLast"
+            style="?attr/materialCardViewFilledStyle">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_4"/>
+                android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_12"
-                android:drawableStart="@drawable/ic_translate"
-                android:drawablePadding="@dimen/margin_8"
-                android:text="@string/translated_using_libretranslate"
-                android:textAlignment="viewStart"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="@dimen/text_17"
-                android:textIsSelectable="true"
-                style="@style/MediumBoldText"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:drawableStart="@drawable/ic_translate"
+                    android:drawablePadding="@dimen/margin_8"
+                    app:drawableTint="?attr/colorSecondary"
+                    android:text="@string/translated_using_libretranslate"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="@dimen/text_17"
+                    android:textIsSelectable="true"
+                    style="@style/MediumBoldText"/>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/noteTranslated"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_4"
-                android:layout_marginTop="@dimen/margin_4"
-                android:padding="@dimen/margin_10"
-                android:text="@string/notes"
-                android:textAlignment="viewStart"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="@dimen/text_17"
-                android:textIsSelectable="true"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/noteTranslated"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_4"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:padding="@dimen/margin_10"
+                    android:text="@string/notes"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/text_17"
+                    android:textIsSelectable="true"/>
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
 
     <include layout="@layout/bottom_sheet_footer"/>
 
