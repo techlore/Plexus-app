@@ -1,0 +1,8 @@
+- Obsługa systemu Android 16.
+- Zaktualizowano minimalną obsługiwana wersję do Android 8.0 (Oreo).
+- Ulepszenia interfejsu użytkownika i liczne optymalizacje.
+- Dodano opcję dostosowywania stylu widoku listy.
+- Dodano możliwość tworzenia skrótów do szczegółów aplikacji.
+- Wdrożono funkcję sortowania wyników wyszukiwania.
+- Wyświetlanie daty i godziny przesłanych ocen.
+- Nowe tłumaczenia i aktualizacja istniejących (dzięki społeczności).

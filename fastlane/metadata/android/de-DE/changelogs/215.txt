@@ -1,0 +1,8 @@
+- Unterstützung für Android 16.
+- Aktualisierung der minimal unterstützten Version auf Android 8.0 (Oreo).
+- Verbesserungen der Benutzeroberfläche und mehrere Optimierungen.
+- Option zum Anpassen des Stils der Listenansicht hinzugefügt.
+- Möglichkeit zum Erstellen von Verknüpfungen zu App-Details hinzugefügt.
+- Sortierfunktion für Suchergebnisse implementiert.
+- Anzeige von Datum und Uhrzeit der abgegebenen Bewertungen.
+- Neue Übersetzungen und Aktualisierung bestehender Übersetzungen (Beiträge der Community).

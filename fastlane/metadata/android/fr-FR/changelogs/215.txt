@@ -1,0 +1,8 @@
+- Prise en charge d'Android 16.
+- Mise à jour de la version minimale prise en charge vers Android 8.0 (Oreo).
+- Améliorations de l'interface utilisateur et optimisations multiples.
+- Ajout d'une option permettant de personnaliser le style d'affichage de la liste.
+- Ajout de la possibilité de créer des raccourcis vers les détails de l'application.
+- Mise en place d'une fonctionnalité de tri des résultats de recherche.
+- Affichage de la date et de l'heure des évaluations soumises.
+- Nouvelles traductions et mise à jour des traductions existantes (contribution de la communauté).

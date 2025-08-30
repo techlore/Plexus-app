@@ -1,0 +1,8 @@
+- Suporte para Android 16.
+- Versão mínima suportada atualizada para Android 8.0 (Oreo).
+- Melhorias na interface do utilizador e várias otimizações.
+- Adicionada opção para personalizar o estilo da visualização da lista.
+- Adicionada a capacidade de criar atalhos para detalhes da aplicação.
+- Implementada a funcionalidade de ordenação dos resultados da pesquisa.
+- Exibição da data e hora das avaliações enviadas.
+- Novas traduções e atualização das existentes (contribuição da comunidade).

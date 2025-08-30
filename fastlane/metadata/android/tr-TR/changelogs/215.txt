@@ -1,0 +1,8 @@
+- Android 16 desteği.
+- Desteklenen minimum sürüm Android 8.0 (Oreo) olarak güncellendi.
+- Kullanıcı arayüzü iyileştirmeleri ve çoklu optimizasyonlar.
+- Liste görünümü stilini özelleştirme seçeneği eklendi.
+- Uygulama ayrıntıları kısayolları oluşturma özelliği eklendi.
+- Arama sonuçları için sıralama işlevi eklendi.
+- Gönderilen derecelendirmelerin tarih ve saati görüntülenir.
+- Yeni çeviriler ve mevcut çeviriler güncellendi (topluluk tarafından katkıda bulunuldu).

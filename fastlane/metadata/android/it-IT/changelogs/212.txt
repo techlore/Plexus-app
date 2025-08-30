@@ -1,6 +1,0 @@
-- Migliorato il rilevamento delle app installate tramite F-Droid.
-- CalyxOS viene ora riconosciuto come deGoogled quando microG è disattivato.
-- Risolto un problema di crash durante la valutazione delle app, causato dal blocco DNS di play.google.com.
-- Aggiunto il supporto per altre ROM personalizzate.
-- Incluso un link al VPN Toolkit per le app VPN.
-- Aggiunte le traduzioni in portoghese brasiliano.

@@ -1,6 +1,0 @@
-- F-Droid aracılığıyla yüklenen uygulamalar için algılama iyileştirildi.
-- microG devre dışı bırakıldığında CalyxOS artık deGoogled olarak tanınıyor.
-- Uygulamaları derecelendirirken play.google.com'un DNS engellemesinden kaynaklanan bir çökme sorunu çözüldü.
-- Ek özel ROM'lar için destek eklendi.
-- VPN uygulamaları için VPN Toolkit'e bir bağlantı eklendi.
-- Brezilya Portekizcesi çevirileri eklendi.

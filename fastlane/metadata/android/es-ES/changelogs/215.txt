@@ -1,0 +1,8 @@
+- Compatibilidad con Android 16.
+- Versión mínima compatible actualizada a Android 8.0 (Oreo).
+- Mejoras en la interfaz de usuario y múltiples optimizaciones.
+- Se ha añadido la opción de personalizar el estilo de la vista de lista.
+- Se ha añadido la posibilidad de crear accesos directos a los detalles de las aplicaciones.
+- Se ha implementado la función de ordenación de los resultados de búsqueda.
+- Se muestra la fecha y la hora de las valoraciones enviadas.
+- Nuevas traducciones y actualización de las existentes (contribución de la comunidad).

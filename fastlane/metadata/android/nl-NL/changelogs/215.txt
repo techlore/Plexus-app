@@ -1,0 +1,8 @@
+- Ondersteuning voor Android 16.
+- Bijgewerkte minimaal ondersteunde versie naar Android 8.0 (Oreo).
+- Verbeteringen aan de gebruikersinterface en meerdere optimalisaties.
+- Optie toegevoegd om de stijl van de lijstweergave aan te passen.
+- Mogelijkheid toegevoegd om snelkoppelingen naar app-details te maken.
+- Sorteerfunctionaliteit voor zoekresultaten geïmplementeerd.
+- Weergave van datum en tijd van ingediende beoordelingen.
+- Nieuwe vertalingen en bijgewerkte bestaande vertalingen (bijgedragen door de community).

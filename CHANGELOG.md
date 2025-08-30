@@ -1,10 +1,10 @@
 # CHANGELOG
 
 
-## v2.1.5 (Upcoming)
+## v2.1.5
 - Support for Android 16.
 - Updated minimum supported version to Android 8.0 (Oreo).
-- UI improvements & performance enhancements.
+- UI enhancements & multiple optimizations.
 - Added option to customize list view style.
 - Added ability to create app details shortcuts.
 - Implemented sorting functionality for search results.

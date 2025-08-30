@@ -1,0 +1,8 @@
+- Podpora pro Android 16.
+- Aktualizována minimální podporovaná verze na Android 8.0 (Oreo).
+- Vylepšení uživatelského rozhraní a několik optimalizací.
+- Přidána možnost přizpůsobit styl zobrazení seznamu.
+- Přidána možnost vytvářet zkratky pro podrobnosti aplikace.
+- Implementována funkce třídění výsledků vyhledávání.
+- Zobrazení data a času odeslaných hodnocení.
+- Nové překlady a aktualizace stávajících (přispěla komunita).
