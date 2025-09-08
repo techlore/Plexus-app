@@ -1,0 +1,7 @@
+<b>Eemalda pelgus, et rakendused ei toimi Google'i teenusteta Androidi nutiseadmetes.</b>
+
+Google Play teenused on enamsute Androidi seadmete oluline osa. Nad võimaldavad sujuva ligipääsu Google'i kasutajakontole ja tagavad Google'i teenustest sõltuva toe rakendustele, mis seda vajavad.
+Kui aga kasutad Androidi versioone, kus Google Play teenused on puudu või oled need asendanud microG lahendusega, siis mõned rakendused ei pruugi osaliselt või täies mahus toimida.
+
+Plexus võimaldab saada täpset teavet rakenduste ühilduvuse kohta, kas sa kasutad ilma Google Play teenusteta lahendust (nagu <i>LineageOS</i>) Androidi versiooni, kus on kasutusel microG (nagu <i>CalyxOS</i>). Siit saad täpselt teada, kas rakendus toimib vastaval juhul täies mahus, osaliselt või sootuks mitte.
+Kogu teave on kogutud kogukonna poolt ja kogukonna jaoks.
