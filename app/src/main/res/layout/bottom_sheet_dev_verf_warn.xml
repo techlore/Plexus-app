@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/margin_8"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/bottom_sheet_header"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:paddingHorizontal="@dimen/margin_16"
+        android:text="@string/dev_verf_warn_desc"
+        android:textSize="@dimen/text_17"
+        android:textColor="?attr/colorOnSurfaceVariant"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/warnDetailsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_12"
+        android:backgroundTint="@android:color/transparent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/margin_16"
+            android:paddingVertical="@dimen/margin_20"
+            android:text="@string/details"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"
+            android:drawableEnd="@drawable/ic_open_in_browser"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/warnSolutionsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_8"
+        android:backgroundTint="@android:color/transparent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/margin_16"
+            android:paddingVertical="@dimen/margin_20"
+            android:text="@string/solutions"
+            android:textSize="@dimen/text_17"
+            style="@style/MediumBoldText"
+            android:drawableEnd="@drawable/ic_open_in_browser"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/warnHideCheckbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="@string/do_not_show_again"
+        android:textSize="@dimen/text_16"
+        android:textColor="?attr/colorOnSurfaceVariant"/>
+
+    <include layout="@layout/bottom_sheet_footer"/>
+
+</LinearLayout>

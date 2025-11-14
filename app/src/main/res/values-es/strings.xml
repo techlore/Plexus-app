@@ -154,6 +154,14 @@
     <string name="apps_submit_proc">C\u00F3mo enviar valoraciones de apps</string>
     <string name="faqs">Preguntas frecuentes</string>
 
+    <!--Developer verification warning-->
+    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
+        \n
+        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
+    <string name="details">Details</string>
+    <string name="solutions">Solutions</string>
+    <string name="do_not_show_again">Don\'t show this again</string>
+
     <!--Sort-->
     <string name="alphabetical">Alfab\u00E9tico</string>
     <string name="installed_from">Instalado desde</string>

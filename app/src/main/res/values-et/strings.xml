@@ -117,6 +117,13 @@
     <string name="installation_source_desc">Rakenduse paigaldamise viis</string>
     <string name="apps_submit_proc">Rakenduse lisamise protseduur</string>
     <string name="faqs">Korduma kippuvad küsimused</string>
+    <!--Developer verification warning-->
+    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
+        \n
+        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
+    <string name="details">Details</string>
+    <string name="solutions">Solutions</string>
+    <string name="do_not_show_again">Don\'t show this again</string>
     <!--Sort-->
     <string name="alphabetical">Tähestikuline järjekord</string>
     <string name="installed_from">Paigalduse allikas</string>

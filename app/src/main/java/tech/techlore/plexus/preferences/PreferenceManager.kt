@@ -24,6 +24,7 @@ class PreferenceManager(context: Context) {
     companion object {
         const val IS_FIRST_LAUNCH = "is_first_launch"
         const val LAST_UPDATED = "last_updated"
+        const val SHOW_DEV_VERF_WARNING =  "show_dev_verf_warning"
         const val A_Z_SORT = "a_z_sort"
         const val GRID_VIEW = "grid_view"
         const val STATUS_TOGGLE = "status_toggle"

@@ -33,6 +33,10 @@
     <string name="apps_submit_proc_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/Help#apps-submission-procedure</string>
     <string name="faqs_url" translatable="false">https://github.com/techlore/Plexus-app/wiki/FAQs</string>
 
+    <!--Developer verification warning-->
+    <string name="dev_verf_warn_details_url" translatable="false">https://keepandroidopen.org</string>
+    <string name="dev_verf_warn_solutions_url" translatable="false">https://github.com/woheller69/FreeDroidWarn?tab=readme-ov-file#solutions</string>
+
     <!--More options-->
     <string name="google_play_url" translatable="false">https://play.google.com/store/apps/details?id=</string>
     <string name="fdroid_url" translatable="false">https://f-droid.org/packages/</string>

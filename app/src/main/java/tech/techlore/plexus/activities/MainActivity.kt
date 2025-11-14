@@ -37,6 +37,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.ActivityMainBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.main.DeleteAccountBottomSheet
+import tech.techlore.plexus.bottomsheets.main.DevVerfWarnBottomSheet
 import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.interfaces.NavViewItemSelectedListener
@@ -44,6 +45,7 @@ import tech.techlore.plexus.interfaces.SortPrefsChangedListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.SHOW_DEV_VERF_WARNING
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
@@ -97,6 +99,11 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         
         // To set nav view item background, check selected item
         selectedNavItem = savedInstanceState?.getInt("selectedNavItem") ?: defaultSelectedNavItem
+        
+        if (selectedNavItem != R.id.nav_settings // Prevent showing when theme is changed from settings
+            && prefManager.getBoolean(SHOW_DEV_VERF_WARNING, defValue = true)) {
+            DevVerfWarnBottomSheet().show(supportFragmentManager, "DevVerfWarnBottomSheet" )
+        }
         
         // Disable menu buttons for settings fragment when activity is recreated
         // or else they'll be re-enabled when theme is changed
