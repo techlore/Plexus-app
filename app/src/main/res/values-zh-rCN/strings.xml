@@ -117,15 +117,11 @@
     <string name="installation_source_desc">应用的安装来源</string>
     <string name="apps_submit_proc">应用提交流程</string>
     <string name="faqs">常见问题</string>
-
     <!--Developer verification warning-->
-    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
-        \n
-        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
-    <string name="details">Details</string>
-    <string name="solutions">Solutions</string>
-    <string name="do_not_show_again">Don\'t show this again</string>
-
+    <string name="dev_verf_warn_desc">Google 已宣布，从 2026/2027 年开始，所有在经过认证的安卓设备上运行的应用都将要求开发者直接向其提交个人身份信息详情。\n\n由于此应用的开发者不同意此项要求，因此该应用<b>在此时间点后</b>可能无法在经认证的安卓设备上运行。</string>
+    <string name="details">详情</string>
+    <string name="solutions">解决方案</string>
+    <string name="do_not_show_again">不再显示</string>
     <!--Sort-->
     <string name="alphabetical">按字母顺序</string>
     <string name="installed_from">安装来源</string>
