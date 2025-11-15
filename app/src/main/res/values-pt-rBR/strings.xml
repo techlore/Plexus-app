@@ -127,12 +127,10 @@
     <string name="apps_submit_proc">Procedimento de envio de apps</string>
     <string name="faqs">Questões comuns</string>
     <!--Developer verification warning-->
-    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
-        \n
-        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
-    <string name="details">Details</string>
-    <string name="solutions">Solutions</string>
-    <string name="do_not_show_again">Don\'t show this again</string>
+    <string name="dev_verf_warn_desc">O Google anunciou que a partir dr 2026/2027, todos os apps em dispositivos Android certificados exigirão que os desenvolvedores enviem dados de identidade pessoal diretamente ao Google.\n\nComo os desenvolvedores deste app não concordam com esse requisito, este app pode não funcionar mais em dispositivos Android certificados <b>após esse tempo</b>.</string>
+    <string name="details">Detalhes</string>
+    <string name="solutions">Soluções</string>
+    <string name="do_not_show_again">Não mostrar novamente</string>
     <!--Sort-->
     <string name="alphabetical">Alfabeticamente</string>
     <string name="installed_from">Instalado por</string>
