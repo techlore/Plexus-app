@@ -142,7 +142,7 @@
     <string name="translated_using_libretranslate">Traduzido usando o LibreTranslate:</string>
     <string name="error_translating">Um erro ocorreu ao traduzir</string>
     <!--Email verification-->
-    <string name="sending_code">Por favor aguarde, o código está sendo enviado …</string>
+    <string name="sending_code">Aguarde, o código está sendo enviado …</string>
     <string name="error_sending_code">Um erro ocorreu ao enviar o código</string>
     <!--Delete account-->
     <string name="delete_account_desc">Se você apagar sua conta:
@@ -152,7 +152,7 @@
         \nVocê tem certeza que você deseja continuar?</string>
     <!--First submission-->
     <string name="first_submission_desc">Todas as suas avaliações futuras usarão esta opção, e isso não poderá ser alterado depois.</string>
-    <string name="select_correct_rom">Por favor, selecione a ROM correta instalada no seu dispositivo.</string>
+    <string name="select_correct_rom">Selecione a ROM correta instalada no seu dispositivo.</string>
     <string name="select">Selecionar</string>
     <string name="proceed">Avançar</string>
     <!--Rate-->
@@ -162,7 +162,7 @@
     <string name="submit">Enviar</string>
     <!--Submit-->
     <string name="about_to_submit">Você está prestes a enviar uma avaliação. Você tem certeza que deseja continuar?</string>
-    <string name="wait_submitting_data">Por favor aguarde, os dados estão sendo enviados …</string>
+    <string name="wait_submitting_data">Aguarde, os dados estão sendo enviados …</string>
     <string name="submit_success">Enviado com sucesso</string>
     <string name="submit_error">Erro ao enviar os dados</string>
     <string name="thanks_for_submitting">Obrigado por enviar estes dados e ajudar a comunidade.</string>
