@@ -67,16 +67,15 @@ class DevVerfWarnBottomSheet : BottomSheetDialogFragment() {
             get<PreferenceManager>().setBoolean(SHOW_DEV_VERF_WARNING, !isChecked)
         }
         
+        footerBinding.positiveButton.isVisible = false
+        
         // Dismiss
-        footerBinding.positiveButton.apply {
+        footerBinding.negativeButton.apply {
             text = getString(R.string.dismiss)
             setOnClickListener {
                 dismiss()
             }
         }
-        
-        // Cancel
-        footerBinding.negativeButton.isVisible = false
     }
     
     override fun onDestroyView() {

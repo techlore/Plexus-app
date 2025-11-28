@@ -42,6 +42,7 @@ import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.databinding.ActivityFirstBinding
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
+import tech.techlore.plexus.interfaces.HelpBtmSheetDismissedListener
 import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
@@ -60,7 +61,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
 import kotlin.system.exitProcess
 
-class FirstActivity : AppCompatActivity() {
+class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
     
     private lateinit var activityBinding: ActivityFirstBinding
     private val prefManager by inject<PreferenceManager>()
@@ -98,12 +99,47 @@ class FirstActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
         
-        DeviceState.apply {
-            rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).orEmpty()
-            androidVersion = getAndroidVersionString()
+        if (prefManager.getBoolean(IS_FIRST_LAUNCH)) {
+            activityBinding.apply {
+                firstLoadingIndicator.isVisible = false
+                progressText.isVisible = false
+                helloAnimView.apply {
+                    setMaxFrame(300)
+                    addAnimatorListener(object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {}
+                        
+                        override fun onAnimationEnd(animation: Animator) {
+                            progressText.apply {
+                                text = getString(R.string.welcome_text_desc)
+                                showViewWithAnim()
+                            }
+                            firstSkipBtn.apply {
+                                showViewWithAnim()
+                                setOnClickListener {
+                                    prefManager.setBoolean(IS_FIRST_LAUNCH, false)
+                                    onHelpBottomSheetDismissed(true)
+                                }
+                            }
+                            firstProceedBtn.apply {
+                                showViewWithAnim()
+                                setOnClickListener {
+                                    HelpBottomSheet(this@FirstActivity).show(supportFragmentManager, "HelpBottomSheet")
+                                }
+                            }
+                        }
+                        
+                        override fun onAnimationCancel(animation: Animator) {}
+                        
+                        override fun onAnimationRepeat(animation: Animator) {}
+                    })
+                    
+                    isVisible = true
+                    playAnimation()
+                }
+            }
         }
         
-        retrieveData()
+        else retrieveData()
     }
     
     private fun getAndroidVersionString(): String {
@@ -136,7 +172,11 @@ class FirstActivity : AppCompatActivity() {
                         installedAppsIntoDB(this@FirstActivity)
                     }
                     isDeviceDeGoogledOrMicroG(packageManager)
-                    afterDataRetrieved()
+                    DeviceState.apply {
+                        rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).orEmpty()
+                        androidVersion = getAndroidVersionString()
+                    }
+                    finishAfterTransition()
                 }
                 catch (e: Exception) {
                     ExceptionErrorBottomSheet(
@@ -163,48 +203,22 @@ class FirstActivity : AppCompatActivity() {
         }
     }
     
-    private fun afterDataRetrieved() {
-        if (prefManager.getBoolean(IS_FIRST_LAUNCH)) {
-            activityBinding.apply {
-                firstLoadingIndicator.hideViewWithAnim()
-                progressText.hideViewWithAnim()
-                helloAnimView.apply {
-                    setMaxFrame(300)
-                    addAnimatorListener(object : Animator.AnimatorListener {
-                        override fun onAnimationStart(animation: Animator) {}
-                        
-                        override fun onAnimationEnd(animation: Animator) {
-                            progressText.apply {
-                                text = getString(R.string.welcome_text_desc)
-                                showViewWithAnim()
-                            }
-                            firstSkipBtn.apply {
-                                showViewWithAnim()
-                                setOnClickListener {
-                                    prefManager.setBoolean(IS_FIRST_LAUNCH, false)
-                                    finishAfterTransition()
-                                }
-                            }
-                            firstProceedBtn.apply {
-                                showViewWithAnim()
-                                setOnClickListener {
-                                    HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
-                                }
-                            }
-                        }
-                        
-                        override fun onAnimationCancel(animation: Animator) {}
-                        
-                        override fun onAnimationRepeat(animation: Animator) {}
-                    })
-                    
-                    isVisible = true
-                    playAnimation()
+    override fun onHelpBottomSheetDismissed(isDismissed: Boolean) {
+        activityBinding.apply {
+            progressText.hideViewWithAnim()
+            firstSkipBtn.hideViewWithAnim()
+            firstProceedBtn.hideViewWithAnim()
+            helloAnimView.hideViewWithAnim(
+                onEndAction = {
+                    firstLoadingIndicator.show()
+                    progressText.apply {
+                        text = getString(R.string.retrieving_data)
+                        showViewWithAnim()
+                        retrieveData()
+                    }
                 }
-            }
+            )
         }
-        
-        else finishAfterTransition()
     }
     
     override fun finishAfterTransition() {

@@ -32,11 +32,14 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetHelpBinding
+import tech.techlore.plexus.interfaces.HelpBtmSheetDismissedListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 
-class HelpBottomSheet : BottomSheetDialogFragment() {
+class HelpBottomSheet(
+    private val helpBtmSheetDismissedListener: HelpBtmSheetDismissedListener? = null
+) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetHelpBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -86,7 +89,7 @@ class HelpBottomSheet : BottomSheetDialogFragment() {
         get<PreferenceManager>().apply {
             if (getBoolean(IS_FIRST_LAUNCH)) {
                 setBoolean(IS_FIRST_LAUNCH, false)
-                requireActivity().finishAfterTransition()
+                helpBtmSheetDismissedListener?.onHelpBottomSheetDismissed(isDismissed = true)
             }
         }
         super.onDismiss(dialog)
