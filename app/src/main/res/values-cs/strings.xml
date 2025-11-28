@@ -134,12 +134,10 @@
     <string name="apps_submit_proc">Postup k nahlášení aplikace</string>
     <string name="faqs">Často kladené dotazy</string>
     <!--Developer verification warning-->
-    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
-        \n
-        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
-    <string name="details">Details</string>
-    <string name="solutions">Solutions</string>
-    <string name="do_not_show_again">Don\'t show this again</string>
+    <string name="dev_verf_warn_desc">Společnost Google oznámila, že od roku 2026/2027 budou všechny aplikace na certifikovaných zařízeních Android vyžadovat, aby vývojář odeslal své osobní identifikační údaje přímo společnosti Google. \n \nJelikož vývojáři této aplikace s tímto požadavkem nesouhlasí, aplikace <b>po tomto datu</b> přestane na certifikovaných zařízeních Android fungovat.</string>
+    <string name="details">Podrobnosti</string>
+    <string name="solutions">Řešení</string>
+    <string name="do_not_show_again">Již nezobrazovat</string>
     <!--Sort-->
     <string name="alphabetical">Abecedně</string>
     <string name="installed_from">Nainstalováno z</string>

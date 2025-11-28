@@ -118,12 +118,10 @@
     <string name="apps_submit_proc">Rakenduse lisamise protseduur</string>
     <string name="faqs">Korduma kippuvad küsimused</string>
     <!--Developer verification warning-->
-    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
-        \n
-        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
-    <string name="details">Details</string>
-    <string name="solutions">Solutions</string>
-    <string name="do_not_show_again">Don\'t show this again</string>
+    <string name="dev_verf_warn_desc">Google on teatanud, et alates 2026/2027, kõik sertifitseeritud Androidi seadmetesse paigaldatud rakendused peavad olema loodud vaid selliste arendajate poolt, kes peavad oma isiklikud andmed edastama Google\'le. \n \nKuna selle rakenduse arendajad pole sellise nõudmisega päri, siis sellest ajast alates meie rakendus <b>alates nimetatud ajast</b> ilmselt sertifitseeritud Androidi seadmetes enam ei toimi.</string>
+    <string name="details">Üksikasjad</string>
+    <string name="solutions">Lahendused</string>
+    <string name="do_not_show_again">Ära enam näita seda uuesti</string>
     <!--Sort-->
     <string name="alphabetical">Tähestikuline järjekord</string>
     <string name="installed_from">Paigalduse allikas</string>

@@ -127,12 +127,10 @@
     <string name="apps_submit_proc">Procedimento de envio de apps</string>
     <string name="faqs">Questões comuns</string>
     <!--Developer verification warning-->
-    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
-        \n
-        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
-    <string name="details">Details</string>
-    <string name="solutions">Solutions</string>
-    <string name="do_not_show_again">Don\'t show this again</string>
+    <string name="dev_verf_warn_desc">O Google anunciou que a partir dr 2026/2027, todos os apps em dispositivos Android certificados exigirão que os desenvolvedores enviem dados de identidade pessoal diretamente ao Google.\n\nComo os desenvolvedores deste app não concordam com esse requisito, este app pode não funcionar mais em dispositivos Android certificados <b>após esse tempo</b>.</string>
+    <string name="details">Detalhes</string>
+    <string name="solutions">Soluções</string>
+    <string name="do_not_show_again">Não mostrar novamente</string>
     <!--Sort-->
     <string name="alphabetical">Alfabeticamente</string>
     <string name="installed_from">Instalado por</string>
@@ -144,7 +142,7 @@
     <string name="translated_using_libretranslate">Traduzido usando o LibreTranslate:</string>
     <string name="error_translating">Um erro ocorreu ao traduzir</string>
     <!--Email verification-->
-    <string name="sending_code">Por favor aguarde, o código está sendo enviado …</string>
+    <string name="sending_code">Aguarde, o código está sendo enviado …</string>
     <string name="error_sending_code">Um erro ocorreu ao enviar o código</string>
     <!--Delete account-->
     <string name="delete_account_desc">Se você apagar sua conta:
@@ -154,7 +152,7 @@
         \nVocê tem certeza que você deseja continuar?</string>
     <!--First submission-->
     <string name="first_submission_desc">Todas as suas avaliações futuras usarão esta opção, e isso não poderá ser alterado depois.</string>
-    <string name="select_correct_rom">Por favor, selecione a ROM correta instalada no seu dispositivo.</string>
+    <string name="select_correct_rom">Selecione a ROM correta instalada no seu dispositivo.</string>
     <string name="select">Selecionar</string>
     <string name="proceed">Avançar</string>
     <!--Rate-->
@@ -164,7 +162,7 @@
     <string name="submit">Enviar</string>
     <!--Submit-->
     <string name="about_to_submit">Você está prestes a enviar uma avaliação. Você tem certeza que deseja continuar?</string>
-    <string name="wait_submitting_data">Por favor aguarde, os dados estão sendo enviados …</string>
+    <string name="wait_submitting_data">Aguarde, os dados estão sendo enviados …</string>
     <string name="submit_success">Enviado com sucesso</string>
     <string name="submit_error">Erro ao enviar os dados</string>
     <string name="thanks_for_submitting">Obrigado por enviar estes dados e ajudar a comunidade.</string>
