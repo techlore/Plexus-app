@@ -300,8 +300,8 @@ class AppDetailsActivity : BaseDetailsActivity() {
     private fun afterRatingsRetrieved(){
         lifecycleScope.launch {
             withContext(Dispatchers.Default) {
-                val ratingRanges = arrayOf(RatingRange("gold", 4.0f, 4.0f),
-                                           RatingRange("silver", 3.0f, 3.9f),
+                val ratingRanges = arrayOf(RatingRange("gold", 3.5f, 4.0f),
+                                           RatingRange("silver", 3.0f, 3.4f),
                                            RatingRange("bronze", 2.0f, 2.9f),
                                            RatingRange("broken", 1.0f, 1.9f))
                 
@@ -412,7 +412,7 @@ class AppDetailsActivity : BaseDetailsActivity() {
             0.0f -> 0
             in 1.0f..1.9f -> resources.getColor(R.color.color_broken_status, theme)
             in 2.0f..2.9f -> resources.getColor(R.color.color_bronze_status, theme)
-            in 3.0f..3.9f -> resources.getColor(R.color.color_silver_status, theme)
+            in 3.0f..3.4f -> resources.getColor(R.color.color_silver_status, theme)
             else -> resources.getColor(R.color.color_gold_status, theme)
         }
     }

@@ -183,8 +183,8 @@ class UiUtils {
                 R.id.sortNotTested -> Pair(0.0f, 0.0f)
                 R.id.sortBroken -> Pair(1.0f, 1.9f)
                 R.id.sortBronze -> Pair(2.0f, 2.9f)
-                R.id.sortSilver -> Pair(3.0f, 3.9f)
-                R.id.sortGold -> Pair(4.0f, 4.0f)
+                R.id.sortSilver -> Pair(3.0f, 3.4f)
+                R.id.sortGold -> Pair(3.5f, 4.0f)
                 else -> Pair(- 1.0f, - 1.0f)
             }
         }
@@ -194,7 +194,7 @@ class UiUtils {
                 0.0f -> context.getString(R.string.na)
                 in 1.0f..1.9f -> context.getString(R.string.broken_title)
                 in 2.0f..2.9f -> context.getString(R.string.bronze_title)
-                in 3.0f..3.9f -> context.getString(R.string.silver_title)
+                in 3.0f..3.4f -> context.getString(R.string.silver_title)
                 else -> context.getString(R.string.gold_title)
             }
         }
@@ -372,7 +372,7 @@ class UiUtils {
             }
         }
         
-        fun View.hideViewWithAnim(isFab: Boolean = false) {
+        fun View.hideViewWithAnim(isFab: Boolean = false, onEndAction: () -> Unit = {}) {
             AnimatorSet().apply {
                 playTogether(
                     arrayListOf<Animator>().apply {
@@ -386,7 +386,10 @@ class UiUtils {
                 duration = if (!isFab) 300L else 150L
                 interpolator = FastOutSlowInInterpolator()
                 start()
-                doOnEnd { isVisible = false }
+                doOnEnd {
+                    isVisible = false
+                    onEndAction()
+                }
             }
         }
         
