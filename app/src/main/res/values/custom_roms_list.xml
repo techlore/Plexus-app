@@ -31,6 +31,7 @@
 		<item>AOSiP</item>
 		<item>AOSPExtended</item>
 		<item>ArrowOS</item>
+		<item>AxionOS</item>
 		<item>Bliss ROM</item>
 		<item>CalyxOS</item>
 		<item>CarbonROM</item>
@@ -43,6 +44,7 @@
 		<item>DivestOS</item>
 		<item>e OS</item>
 		<item>EternityOS</item>
+		<item>Euclid OS</item>
 		<item>Evolution X</item>
 		<item>GrapheneOS</item>
 		<item>HavocOS</item>
@@ -50,11 +52,14 @@
 		<item>Komodo OS</item>
 		<item>Krypton</item>
 		<item>LineageOS</item>
+		<item>Lunaris AOSP</item>
+        <item>MistOS</item>
 		<item>MSM Xtended</item>
 		<item>Nameless AOSP</item>
 		<item>Nusantra Project</item>
 		<item>OctaviOS</item>
 		<item>OmniROM</item>
+		<item>Orion OS</item>
 		<item>PalladiumOS</item>
 		<item>Palyrim OS</item>
 		<item>Paranoid Android</item>
@@ -77,10 +82,13 @@
 		<item>RisingOS</item>
 		<item>SlimROM</item>
 		<item>SparkOS</item>
+        <item>SuperiorOS</item>
 		<item>Syberia OS</item>
+		<item>The Clover Project</item>
 		<item>VoidUI</item>
 		<item>Volla OS</item>
 		<item>VoltageOS</item>
 		<item>xdroidOSS</item>
+		<item>YAAP</item>
     </string-array>
 </resources>
