@@ -78,6 +78,7 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
                     // Remove "OS", "Project", "ROM" etc.
                     // from words in the custom ROMs list
                     it.removePrefix("Project")
+                        .removePrefix("The")
                         .removeSuffix("OS")
                         .removeSuffix("Project")
                         .removeSuffix("ROM")
