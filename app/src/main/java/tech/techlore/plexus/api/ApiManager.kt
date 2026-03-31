@@ -22,8 +22,11 @@ import android.util.Base64
 import android.util.Log
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.HttpCallValidator
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.io.IOException
 import kotlinx.serialization.json.Json
 import okhttp3.CertificatePinner
 import okhttp3.ConnectionSpec
@@ -77,7 +80,27 @@ class ApiManager {
                 install(ContentNegotiation) {
                     json(get<Json>())
                 }
+                install(HttpCallValidator) {
+                    validateResponse { response ->
+                        if (!response.status.isSuccess()) {
+                            throw IOException("\n\nHTTP ${response.status.value} - ${getStatusMessage(response.status.value)}")
+                        }
+                    }
+                }
             }
+        
+        private fun getStatusMessage(statusCode: Int): String {
+            return when (statusCode) {
+                400 -> "Bad Request"
+                401 -> "Unauthorized"
+                403 -> "Forbidden"
+                404 -> "Not Found"
+                500 -> "Internal Server Error"
+                502 -> "Bad Gateway"
+                503 -> "Service Unavailable"
+                else -> "HTTP Error"
+            }
+        }
         
         private fun getGoogleRootCerts(): List<String> {
             return try {
