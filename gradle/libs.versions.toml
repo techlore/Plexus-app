@@ -17,22 +17,22 @@
 
 [versions]
 androidGradle = "8.13.2"
-androidKotlin = "2.3.10" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
+androidKotlin = "2.3.20" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
 ksp = "2.3.3" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.1"
-coreKtx = "1.17.0"
+coreKtx = "1.18.0"
 splashscreen = "1.2.0"
 material3 = "1.14.0-alpha09"
-koin = "4.1.1"
+koin = "4.2.0"
 swiperefreshlayout = "1.2.0"
 securityCryptoKtx = "1.1.0-alpha06" # Don't update or else Encrypted Shared Prefs is deprecated
 navigationKtx = "2.9.7"
 kotlinxSerialization = "1.10.0"
-ktor = "3.4.0"
+ktor = "3.4.2"
 room = "2.8.4"
-coil = "3.3.0"
+coil = "3.4.0"
 androidfastscrollKt = "v1.0.8"
-ksoup = "0.2.5"
+ksoup = "0.2.6"
 lottie = "6.7.1"
 
 [libraries]
