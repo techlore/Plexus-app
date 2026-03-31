@@ -18,7 +18,6 @@
 package tech.techlore.plexus.repositories.database
 
 import android.content.Context
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -52,16 +51,12 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
             onRequestSuccessful(appsResponse)
             // Retrieve remaining apps in parallel
             if (appsResponse.meta.totalPages > 1) {
-                val requests = mutableListOf<Deferred<Unit>>()
-                (2 .. appsResponse.meta.totalPages).forEach { pageNumber ->
-                    val request =
-                        async {
-                            val remAppsResponse = apiRepository.getAppsWithScores(pageNumber, lastUpdated)
-                            onRequestSuccessful(remAppsResponse)
-                        }
-                    requests.add(request)
-                }
-                requests.awaitAll() // Wait for all requests to complete
+                (2 .. appsResponse.meta.totalPages).map { pageNumber ->
+                    async {
+                        val remAppsResponse = apiRepository.getAppsWithScores(pageNumber, lastUpdated)
+                        onRequestSuccessful(remAppsResponse)
+                    }
+                }.awaitAll() // Wait for all requests to complete
             }
             
             prefManager.setString(LAST_UPDATED, currentDateTime.formatRFC3339())

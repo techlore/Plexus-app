@@ -32,7 +32,6 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -254,16 +253,12 @@ class AppDetailsActivity : BaseDetailsActivity() {
                     // 1. It's not used anywhere else, except details activity
                     // 2. We're already retrieving the latest ratings everytime in details activity
                     if (ratingsResponse.meta.totalPages > 1) {
-                        val requests = mutableListOf<Deferred<Boolean>>()
-                        (2 .. ratingsResponse.meta.totalPages).forEach { pageNumber ->
-                            val request =
-                                async {
-                                    val remRatingsResponse = apiRepository.getRatings(app.packageName, pageNumber)
-                                    ratingsList.addAll(remRatingsResponse.ratingsData)
-                                }
-                            requests.add(request)
-                        }
-                        requests.awaitAll() // Wait for all requests to complete
+                        (2 .. ratingsResponse.meta.totalPages).map { pageNumber ->
+                            async {
+                                val remRatingsResponse = apiRepository.getRatings(app.packageName, pageNumber)
+                                ratingsList.addAll(remRatingsResponse.ratingsData)
+                            }
+                        }.awaitAll() // Wait for all requests to complete
                     }
                     
                     // Since the latest ratings are already retrieved,
