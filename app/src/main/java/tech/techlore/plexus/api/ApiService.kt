@@ -39,6 +39,7 @@ import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
 import tech.techlore.plexus.models.post.rating.PostRatingRoot
+import tech.techlore.plexus.utils.HttpUtils.Companion.checkStatus
 
 class ApiService(private val okHttpClient: HttpClient) {
     
@@ -54,7 +55,7 @@ class ApiService(private val okHttpClient: HttpClient) {
             parameter("limit", 150)
             parameter("page", pageNumber)
             parameter("last_updated", lastUpdated)
-        }.body()
+        }.checkStatus().body()
     }
     
     suspend fun getSingleAppWithScores(packageName: String): GetSingleAppRoot {
@@ -62,7 +63,7 @@ class ApiService(private val okHttpClient: HttpClient) {
             url("${API_BASE_URL}/apps/${packageName}")
             contentType(ContentType.Application.Json)
             parameter("scores", true)
-        }.body()
+        }.checkStatus().body()
     }
     
     suspend fun getRatings(packageName: String, pageNumber: Int): RatingsRoot {
@@ -71,7 +72,7 @@ class ApiService(private val okHttpClient: HttpClient) {
             contentType(ContentType.Application.Json)
             parameter("limit", 150)
             parameter("page", pageNumber)
-        }.body()
+        }.checkStatus().body()
     }
     
     suspend fun registerDevice(registerDevice: RegisterDevice): RegisterDeviceResponse {
@@ -79,7 +80,7 @@ class ApiService(private val okHttpClient: HttpClient) {
             url("${API_BASE_URL}/devices/register")
             contentType(ContentType.Application.Json)
             setBody(registerDevice)
-        }.body()
+        }.checkStatus().body()
     }
     
     suspend fun verifyDevice(verifyDevice: VerifyDevice): VerifyDeviceResponseRoot {
@@ -87,7 +88,7 @@ class ApiService(private val okHttpClient: HttpClient) {
             url("${API_BASE_URL}/devices/verify")
             contentType(ContentType.Application.Json)
             setBody(verifyDevice)
-        }.body()
+        }.checkStatus().body()
     }
     
     suspend fun renewDevice(authToken: String): VerifyDeviceResponseRoot {
@@ -95,7 +96,7 @@ class ApiService(private val okHttpClient: HttpClient) {
             url("${API_BASE_URL}/devices/renew")
             contentType(ContentType.Application.Json)
             header("Authorization", "Bearer $authToken")
-        }.body()
+        }.checkStatus().body()
     }
     
     suspend fun postApp(authToken: String, postAppRoot: PostAppRoot): HttpResponse {
