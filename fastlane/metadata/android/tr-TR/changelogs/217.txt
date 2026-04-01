@@ -1,0 +1,4 @@
+- Altın statü kazanma kriterleri hafifletildi. Artık altın statü kazanmak için 3,5 veya üzeri bir puan yeterli.
+- Ek özelleştirilmiş ROM'lar için destek eklendi.
+- Sunucu sorunları durumunda daha net hata mesajları.
+- Yeni çeviriler ve mevcut çevirilerin güncellenmesi (topluluk tarafından sağlanmıştır).

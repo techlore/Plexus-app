@@ -1,0 +1,4 @@
+- Se han rebajado los criterios de acceso al estatus Oro. Ahora, con una puntuación de 3,5 o más se obtiene el estatus Oro.
+- Se ha añadido compatibilidad con más ROM personalizadas.
+- Mensajes de error más claros en caso de problemas con el servidor.
+- Nuevas traducciones y actualización de las ya existentes (aportadas por la comunidad).

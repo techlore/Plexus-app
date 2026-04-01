@@ -1,0 +1,4 @@
+- Os critérios para obter o status Ouro foram flexibilizados. Agora, basta uma nota de 3,5 ou mais para obter o status Ouro.
+- Adicionado suporte a ROMs personalizadas adicionais.
+- Mensagens de erro mais claras em caso de problemas com o servidor.
+- Novas traduções e atualização das traduções existentes (enviadas pela comunidade).

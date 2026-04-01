@@ -1,0 +1,4 @@
+- Kuldstaatuse saamise kriteeriume on leevendatud. Kuldstaatuse saamiseks piisab nüüd hindest 3,5 või rohkem.
+- Lisatud tugi täiendavatele kohandatud ROM-idele.
+- Selgemad veateated serveriprobleemide korral.
+- Uued tõlked ja olemasolevate tõlgete uuendamine (kogukonna poolt esitatud).

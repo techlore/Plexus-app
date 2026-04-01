@@ -1,0 +1,4 @@
+- Die Kriterien für den Gold-Status wurden gesenkt. Ab einer Punktzahl von 3,5 wird nun der Gold-Status verliehen.
+- Unterstützung für weitere benutzerdefinierte ROMs wurde hinzugefügt.
+- Übersichtlichere Fehlermeldungen bei Serverproblemen.
+- Neue Übersetzungen und Aktualisierung bestehender Übersetzungen (von der Community beigesteuert).

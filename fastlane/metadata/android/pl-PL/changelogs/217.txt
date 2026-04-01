@@ -1,0 +1,4 @@
+- Kryteria uzyskania statusu złotego zostały złagodzone. Aby uzyskać status złotego, wystarczy teraz ocena 3,5 lub wyższa.
+- Dodano obsługę dodatkowych, dostosowanych plików ROM.
+- Bardziej przejrzyste komunikaty o błędach w przypadku problemów z serwerem.
+- Nowe tłumaczenia i aktualizacja istniejących tłumaczeń (przedstawione przez społeczność).

@@ -1,0 +1,4 @@
+- De criteria voor het behalen van de gouden status zijn versoepeld. Om de gouden status te behalen, volstaat nu een score van 3,5 of hoger.
+- Ondersteuning voor aanvullende aangepaste ROM’s toegevoegd.
+- Duidelijkere foutmeldingen bij serverproblemen.
+- Nieuwe vertalingen en updates van bestaande vertalingen (ingediend door de community).

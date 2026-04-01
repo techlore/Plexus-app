@@ -1,0 +1,4 @@
+- Os critérios para obter o estatuto Ouro foram flexibilizados. Agora, basta uma classificação de 3,5 ou superior para obter o estatuto Ouro.
+- Adicionado suporte a ROMs personalizadas adicionais.
+- Mensagens de erro mais claras em caso de problemas com o servidor.
+- Novas traduções e atualização das traduções existentes (sugeridas pela comunidade).

@@ -1,0 +1,4 @@
+- Byla snížena kritéria pro získání statusu Gold. Status Gold lze nyní získat při skóre 3,5 a vyšším.
+- Byla přidána podpora dalších vlastních ROM.
+- Přehlednější chybové hlášky v případě problémů se serverem.
+- Nové překlady a aktualizace stávajících překladů (zajištěné komunitou).

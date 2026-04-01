@@ -1,0 +1,4 @@
+- Sono stati abbassati i criteri di idoneità per lo status Gold. Ora è possibile ottenere lo status Gold con un punteggio pari o superiore a 3,5.
+- È stato aggiunto il supporto per ulteriori ROM personalizzate.
+- Messaggi di errore più chiari in caso di problemi con il server.
+- Nuove traduzioni e aggiornamenti di quelle esistenti (forniti dalla comunità).

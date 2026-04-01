@@ -1,0 +1,4 @@
+- Assouplissement des critères d'éligibilité au statut Gold. Une note de 3,5 ou plus suffit désormais pour obtenir le statut Gold.
+- Ajout de la prise en charge de nouvelles ROM personnalisées.
+- Messages d'erreur plus clairs en cas de problèmes de serveur.
+- Nouvelles traductions et mise à jour des traductions existantes (fournies par la communauté).

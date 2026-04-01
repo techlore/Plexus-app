@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v2.1.7
+- Lowered Gold status eligibility criteria. Scores of 3.5 and above now qualify for Gold status.
+- Added support for additional custom ROMs.
+- Cleaner error messages for server issues.
+- New translations & updated existing ones (contributed by the community).
+
+
 ## v2.1.5
 - Support for Android 16.
 - Updated minimum supported version to Android 8.0 (Oreo).
