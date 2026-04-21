@@ -42,10 +42,10 @@
     <string name="no_ratings_available">Aucune \u00E9valuation disponible</string>
     <string name="submit_first_rating">Appuyez sur \u002B pour soumettre votre premi\u00E8re \u00E9valuation</string>
     <!--Toolbar menu-->
-    <string name="menu_back">Back</string>
+    <string name="menu_back">Retour</string>
     <string name="menu_search">Recherche</string>
     <string name="menu_sort">Trier</string>
-    <string name="menu_view">View</string>
+    <string name="menu_view">Vue</string>
     <!--Nav view-->
     <string name="device_info">Informations sur l\'appareil</string>
     <string name="tap_to_select_rom">Appuyez ici pour sélectionner la ROM de cet appareil.</string>
@@ -60,7 +60,7 @@
 
     <!--App details activity-->
     <string name="share">Partager</string>
-    <string name="shortcut">Shortcut</string>
+    <string name="shortcut">Raccourci</string>
     <string name="app">Application</string>
     <string name="package_name">Nom du paquet</string>
     <string name="retrieving_ratings">R\u00E9cup\u00E9ration des \u00E9valuations</string>
@@ -71,7 +71,7 @@
     <string name="rate">\u00C9valuation</string>
     <!--Toolbar menu-->
     <string name="menu_help">Aide</string>
-    <string name="menu_links">Links</string>
+    <string name="menu_links">Liens</string>
     <string name="menu_more">Plus d\'options</string>
     <!--#########################################################################################-->
 
@@ -121,8 +121,7 @@
     <!--No Network/Internet-->
     <string name="error_occurred_title">Une erreur s\'est produite</string>
     <string name="no_network_title">Pas de r\u00E9seau</string>
-    <string name="no_network_desc">Connectez-vous au Wi-Fi ou aux donn\u00E9es cellulaires et r\u00E9essayez.
-        Si le r\u00E9seau est actif, assurez-vous que la connexion \u00E0 internet fonctionne.</string>
+    <string name="no_network_desc">Connectez-vous au Wi‑Fi ou aux données mobiles, puis réessayez. Si vous êtes déjà connecté, assurez-vous que la connexion à Internet fonctionne.</string>
     <!--Help-->
     <string name="icons">Ic\u00F4nes</string>
     <string name="not_tested_subtitle">Non disponible, l\'application n\'a pas \u00E9t\u00E9 test\u00E9e</string>
@@ -140,12 +139,10 @@
     <string name="apps_submit_proc">Proc\u00E9dure de soumission des \u00E9valuations</string>
     <string name="faqs">Questions fr\u00E9quemment pos\u00E9es</string>
     <!--Developer verification warning-->
-    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
-        \n
-        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
-    <string name="details">Details</string>
+    <string name="dev_verf_warn_desc">Google a annoncé qu\'à partir de 2026/2027, toutes les applications installées sur des appareils Android certifiés exigeront que les développeurs transmettent leurs informations d\'identité directement à Google.\n \nLes développeurs de cette application n\'ayant pas accepté cette exigence, celle-ci risque de ne plus fonctionner sur les appareils Android certifiés <b>après cette date</b>.</string>
+    <string name="details">Détails</string>
     <string name="solutions">Solutions</string>
-    <string name="do_not_show_again">Don\'t show this again</string>
+    <string name="do_not_show_again">Ne plus montrer</string>
     <!--Sort-->
     <string name="alphabetical">Alphab\u00E9tique</string>
     <string name="installed_from">Source d\'installation</string>
@@ -154,17 +151,13 @@
     <!--Translate-->
     <string name="translate">Traduire</string>
     <string name="translating">Traduction …</string>
-    <string name="translated_using_libretranslate">Traduit avec LibreTranslate:</string>
+    <string name="translated_using_libretranslate">Traduit avec LibreTranslate :</string>
     <string name="error_translating">Erreur de traduction</string>
     <!--Email verification-->
     <string name="sending_code">Veuillez patienter, envoi du code …</string>
     <string name="error_sending_code">Erreur lors de l\'envoi du code</string>
     <!--Delete account-->
-    <string name="delete_account_desc">Si vous supprimez votre compte :
-        \n\u2022 vous ne pourrez plus soumettre d\'\u00E9valuations.
-        \n\u2022 toutes les \u00E9valuations pr\u00E9c\u00E9demment soumises seront d\u00E9finitivement supprim\u00E9es de cet appareil.
-        \n
-        \n\u00CAtes-vous s\u00FBr.e de vouloir continuer?</string>
+    <string name="delete_account_desc">Si vous supprimez votre compte :\n• vous ne pourrez plus soumettre d\'évaluations. \n• toutes les évaluations précédemment soumises seront définitivement supprimées de cet appareil. \n \nÊtes-vous sûr.e de vouloir continuer ?</string>
     <!--First submission-->
     <string name="first_submission_desc">Toutes vos futures \u00E9valuations tiendront compte de cette s\u00E9lection, qui ne pourra pas \u00EAtre modifi\u00E9e ult\u00E9rieurement.</string>
     <string name="select_correct_rom">Veuillez s\u00E9lectionner la ROM install\u00E9e sur cet appareil.</string>
@@ -176,7 +169,7 @@
     <string name="optional">facultatif</string>
     <string name="submit">\u00C9valuer</string>
     <!--Submit-->
-    <string name="about_to_submit">Vous \u00EAtes sur le point de soumettre une \u00E9valuation. \u00CAtes-vous s\u00FBr.e de vouloir continuer?</string>
+    <string name="about_to_submit">Vous êtes sur le point de soumettre une évaluation. Êtes-vous sûr.e de vouloir continuer ?</string>
     <string name="wait_submitting_data">Veuillez patienter durant l\'envoi des donn\u00E9es …</string>
     <string name="submit_success">\u00C9valuation transmise avec succ\u00E8s</string>
     <string name="submit_error">Erreur lors de la transmission l\'\u00E9valuation</string>
@@ -188,9 +181,9 @@
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="added_to_fav">Added %1$s to favorites</string>
-    <string name="removed_from_fav">Removed %1$s from favorites</string>
-    <string name="undo">Undo</string>
+    <string name="added_to_fav">%1$s a été ajouté aux favoris</string>
+    <string name="removed_from_fav">%1$s a été retiré des favoris</string>
+    <string name="undo">Annuler</string>
     <string name="install_app_to_submit">Installer %1$s pour soumettre une \u00E9valuation</string>
     <string name="device_should_be_degoogled_or_microg">L\'appareil doit \u00EAtre de-googlis\u00E9 ou avoir microG d\'install\u00E9 pour pouvoir soumettre une \u00E9valuation</string>
     <string name="rating_already_submitted">\u00C9valuation d\u00E9j\u00E0 soumise pour %1$s %2$s</string>
