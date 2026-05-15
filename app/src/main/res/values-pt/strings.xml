@@ -99,8 +99,8 @@
         \n
         \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
     <string name="details">Details</string>
-    <string name="solutions">Solutions</string>
-    <string name="do_not_show_again">Don\'t show this again</string>
+    <string name="solutions">Soluções</string>
+    <string name="do_not_show_again">Não mostrar novamente</string>
     <string name="alphabetical">Alfabeticamente</string>
     <string name="installed_from">Instalado por</string>
     <string name="any">Qualquer</string>
