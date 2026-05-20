@@ -44,7 +44,7 @@ import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.AppDetailsActivity
-import tech.techlore.plexus.databinding.BottomSheetSubmitBinding
+import tech.techlore.plexus.databinding.BottomSheetUploadBinding
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.models.post.app.PostApp
 import tech.techlore.plexus.models.post.app.PostAppRoot
@@ -61,9 +61,9 @@ import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
 @SuppressLint("SetTextI18n")
-class SubmitBottomSheet : BottomSheetDialogFragment() {
+class UploadBottomSheet : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetSubmitBinding? = null
+    private var _binding: BottomSheetUploadBinding? = null
     private val bottomSheetBinding get() = _binding!!
     private lateinit var detailsActivity: AppDetailsActivity
     private val encPrefManager by inject<EncryptedPreferenceManager>()
@@ -96,7 +96,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        _binding = BottomSheetSubmitBinding.inflate(inflater, container, false)
+        _binding = BottomSheetUploadBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
@@ -155,7 +155,7 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
                 updateMyRatingInDb(rating)
                 get<MainDataRepository>().updateSingleApp(packageName = detailsActivity.app.packageName)
                 DataState.isDataUpdated = true
-                changeAnimView(R.raw.lottie_success, false)
+                changeAnimView(R.raw.lottie_success, false, scale = 1.7f)
                 bottomSheetBinding.submitStatusText.text = getString(R.string.submit_success)
                 bottomSheetBinding.heartView.apply {
                     isVisible = true
@@ -171,10 +171,16 @@ class SubmitBottomSheet : BottomSheetDialogFragment() {
         }
     }
     
-    private fun changeAnimView(rawRes: Int, loop: Boolean) {
-        bottomSheetBinding.animView.setAnimation(rawRes)
-        bottomSheetBinding.animView.repeatCount = if (loop) LottieDrawable.INFINITE else 0
-        bottomSheetBinding.animView.playAnimation()
+    private fun changeAnimView(rawRes: Int,
+                               loop: Boolean,
+                               scale: Float = 1.5f) {
+        bottomSheetBinding.animView.apply {
+            setAnimation(rawRes)
+            repeatCount = if (loop) LottieDrawable.INFINITE else 0
+            scaleX = scale
+            scaleY = scale
+            playAnimation()
+        }
     }
     
     private suspend fun postApp() {

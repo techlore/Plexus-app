@@ -23,7 +23,8 @@
     tools:ignore="ContentDescription"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/margin_8"
+    android:paddingTop="@dimen/margin_8"
+    android:paddingBottom="@dimen/margin_4"
     android:layout_gravity="center"
     android:orientation="vertical">
 

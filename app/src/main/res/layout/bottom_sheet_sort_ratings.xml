@@ -23,7 +23,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/margin_8"
+    android:paddingTop="@dimen/margin_8"
+    android:paddingBottom="@dimen/margin_4"
     android:orientation="vertical"
     android:layout_gravity="center">
 
@@ -34,7 +35,7 @@
         layout="@layout/divider_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_6"/>
+        android:layout_marginTop="@dimen/margin_4"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

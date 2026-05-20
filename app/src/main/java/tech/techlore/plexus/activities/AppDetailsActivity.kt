@@ -42,7 +42,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.common.RomSelectionBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.bottomsheets.appdetails.RateBottomSheet
-import tech.techlore.plexus.bottomsheets.appdetails.SubmitBottomSheet
+import tech.techlore.plexus.bottomsheets.appdetails.UploadBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.models.ratingrange.RatingRange
 import tech.techlore.plexus.objects.AppState
@@ -180,7 +180,7 @@ class AppDetailsActivity : BaseDetailsActivity() {
                 || packageNameString.contains("VPN", ignoreCase = true)) {
                 isVisible = true
                 setOnClickListener {
-                    openURL(getString(R.string.vpn_toolkit_url))
+                    openURL(getString(R.string.vpn_finder_url))
                 }
             }
         }
@@ -559,7 +559,7 @@ class AppDetailsActivity : BaseDetailsActivity() {
     fun showSubmitBottomSheet() {
         lifecycleScope.launch {
             if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
-                SubmitBottomSheet().show(supportFragmentManager, "SubmitBottomSheet")
+                UploadBottomSheet().show(supportFragmentManager, "UploadBottomSheet")
             }
             else {
                 NoNetworkBottomSheet(
