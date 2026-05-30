@@ -1,0 +1,7 @@
+<b>Acabe com o medo da compatibilidade com apps ao usar dispositivos com Android de-Googled.</b>
+
+O Google Play Services é um componente essencial na maioria dos dispositivos Android. Permite que aceda a sua conta Google intuitivamente e fornece funcionalidades específicas ao Google para apps que dependem nelas.
+Porém, quando instala uma ROM personalizada sem o Google Play Services, ou decide usar alternativas como o microG, algumas apps podem causar problemas — como inteiramente não funcionar, ou com limitações em certas funcionalidades.
+
+O Plexus fornece informações detalhadas sobre a compatibilidade das apps ao usar uma ROM sem o Google Play Services (como o <i>LineageOS</i>) ou outras com microG (como o <i>CalyxOS</i>). Ele ajuda-o a identificar quais apps funcionam ou não, ou quais têm a sua funcionalidade limitada.
+Todas as informações vem de contribuidores da comunidade, para a comunidade.
