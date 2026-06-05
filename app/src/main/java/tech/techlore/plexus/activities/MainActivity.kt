@@ -49,6 +49,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.SHOW_DEV_VER
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
+import kotlin.time.Duration.Companion.milliseconds
 
 class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefsChangedListener {
     
@@ -226,7 +227,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
                 // Delay the action till the nav bottom sheet is (almost) hidden.
                 // An ideal way to do this would be detecting STATE_HIDDEN from bottom sheet behavior,
                 // but I wasn't able to make it work for modal bottom sheet...for now.
-                if (shouldDelayAction) delay(270)
+                if (shouldDelayAction) delay(270.milliseconds)
                 if (selectedItemId != R.id.nav_delete_account) displayFragment(selectedItemId)
                 else DeleteAccountBottomSheet().show(supportFragmentManager, "DeleteAccountBottomSheet")
             }

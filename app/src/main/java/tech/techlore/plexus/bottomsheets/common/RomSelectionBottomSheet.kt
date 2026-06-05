@@ -45,6 +45,7 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
+import kotlin.time.Duration.Companion.milliseconds
 
 class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : BottomSheetDialogFragment() {
     
@@ -135,7 +136,7 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
                                 @SuppressLint("SetTextI18n")
                                 text = "$positiveButtonText ${i}s"
                             }
-                            delay(1000)
+                            delay(1000.milliseconds)
                         }
                         withContext(Dispatchers.Main) {
                             text = positiveButtonText

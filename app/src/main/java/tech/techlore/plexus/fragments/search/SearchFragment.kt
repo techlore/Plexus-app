@@ -47,6 +47,7 @@ import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.getValue
+import kotlin.time.Duration.Companion.milliseconds
 
 class SearchFragment :
     Fragment(),
@@ -105,7 +106,7 @@ class SearchFragment :
                 
                 // Search with a subtle delay
                 job = lifecycleScope.launch {
-                    delay(350)
+                    delay(350.milliseconds)
                     performSearch(searchString)
                 }
                 

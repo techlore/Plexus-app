@@ -49,14 +49,19 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
             
             // Insert/update all apps in db
             onRequestSuccessful(appsResponse)
+            
             // Retrieve remaining apps in parallel
             if (appsResponse.meta.totalPages > 1) {
-                (2 .. appsResponse.meta.totalPages).map { pageNumber ->
-                    async {
-                        val remAppsResponse = apiRepository.getAppsWithScores(pageNumber, lastUpdated)
-                        onRequestSuccessful(remAppsResponse)
-                    }
-                }.awaitAll() // Wait for all requests to complete
+                val maxThreads = 8
+                (2 .. appsResponse.meta.totalPages step maxThreads).forEach {
+                    val lastPageInThread = minOf(it + maxThreads - 1, appsResponse.meta.totalPages)
+                    (it .. lastPageInThread).map { pageNumber ->
+                        async {
+                            val remAppsResponse = apiRepository.getAppsWithScores(pageNumber, lastUpdated)
+                            onRequestSuccessful(remAppsResponse)
+                        }
+                    }.awaitAll() // Wait for all requests to complete
+                }
             }
             
             prefManager.setString(LAST_UPDATED, currentDateTime.formatRFC3339())

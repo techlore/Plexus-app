@@ -27,7 +27,6 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import okhttp3.CertificatePinner
 import okhttp3.ConnectionSpec
-import okhttp3.Dispatcher
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import tech.techlore.plexus.R
@@ -53,11 +52,6 @@ class ApiManager {
             HttpClient(OkHttp) {
                 engine {
                     config {
-                        dispatcher(
-                            Dispatcher().apply {
-                                maxRequests = 8 // Max parallel network requests (default is 64)
-                            }
-                        )
                         connectTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
                         readTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds
                         writeTimeout(30, TimeUnit.SECONDS) // Default is 10 seconds

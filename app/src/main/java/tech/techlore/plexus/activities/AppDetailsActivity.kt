@@ -253,12 +253,16 @@ class AppDetailsActivity : BaseDetailsActivity() {
                     // 1. It's not used anywhere else, except details activity
                     // 2. We're already retrieving the latest ratings everytime in details activity
                     if (ratingsResponse.meta.totalPages > 1) {
-                        (2 .. ratingsResponse.meta.totalPages).map { pageNumber ->
-                            async {
-                                val remRatingsResponse = apiRepository.getRatings(app.packageName, pageNumber)
-                                ratingsList.addAll(remRatingsResponse.ratingsData)
-                            }
-                        }.awaitAll() // Wait for all requests to complete
+                        val maxThreads = 8
+                        (2 .. ratingsResponse.meta.totalPages step maxThreads).forEach {
+                            val lastPageInThread = minOf(it + maxThreads - 1, ratingsResponse.meta.totalPages)
+                            (it .. lastPageInThread).map { pageNumber ->
+                                async {
+                                    val remRatingsResponse = apiRepository.getRatings(app.packageName, pageNumber)
+                                    ratingsList.addAll(remRatingsResponse.ratingsData)
+                                }
+                            }.awaitAll() // Wait for all requests to complete
+                        }
                     }
                     
                     // Since the latest ratings are already retrieved,

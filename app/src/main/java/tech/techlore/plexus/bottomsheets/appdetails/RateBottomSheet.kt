@@ -44,6 +44,7 @@ import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
 import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
 import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
 import tech.techlore.plexus.utils.UiUtils.Companion.setDgMgTextWithIcon
+import kotlin.time.Duration.Companion.milliseconds
 
 class RateBottomSheet : BottomSheetDialogFragment() {
     
@@ -88,7 +89,7 @@ class RateBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.submitNotesText.doOnTextChanged { charSequence, _, _, _ ->
             job?.cancel()
             job = lifecycleScope.launch {
-                delay(300)
+                delay(300.milliseconds)
                 footerBinding.positiveButton.isEnabled =
                     charSequence!!.isEmpty()
                     || (charSequence.length in 5..maxTextLength

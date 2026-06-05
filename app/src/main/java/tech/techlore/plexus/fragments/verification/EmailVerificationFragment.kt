@@ -41,6 +41,7 @@ import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmail
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
+import kotlin.time.Duration.Companion.milliseconds
 
 class EmailVerificationFragment : Fragment() {
     
@@ -78,7 +79,7 @@ class EmailVerificationFragment : Fragment() {
             job?.cancel()
             job =
                 lifecycleScope.launch {
-                    delay(200)
+                    delay(200.milliseconds)
                     fragmentBinding.proceedBtn.isEnabled =
                         charSequence!!.isNotEmpty()
                         && !charSequence.hasBlockedWord(requireContext())

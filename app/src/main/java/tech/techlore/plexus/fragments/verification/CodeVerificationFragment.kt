@@ -49,6 +49,7 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
+import kotlin.time.Duration.Companion.milliseconds
 
 class CodeVerificationFragment : Fragment() {
     
@@ -97,7 +98,7 @@ class CodeVerificationFragment : Fragment() {
             job?.cancel()
             job =
                 lifecycleScope.launch {
-                    delay(200)
+                    delay(200.milliseconds)
                     fragmentBinding.doneButton.isEnabled =
                         charSequence!!.isNotEmpty()
                         && charSequence.isDigitsOnly()
