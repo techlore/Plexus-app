@@ -28,7 +28,6 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
-import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 
 class PlexusDataFragment : BaseMainDataFragment() {
     
@@ -41,7 +40,7 @@ class PlexusDataFragment : BaseMainDataFragment() {
     
     override fun onSwipeRefresh() {
         lifecycleScope.launch {
-            if (hasNetwork(requireContext()) && hasInternet()) {
+            if (hasInternet(requireContext())) {
                 try {
                     get<MainDataRepository>().plexusDataIntoDB()
                     mainDataList = getDataFromDB()

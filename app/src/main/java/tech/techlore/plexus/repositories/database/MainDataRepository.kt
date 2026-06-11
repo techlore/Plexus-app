@@ -54,11 +54,10 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
             if (appsResponse.meta.totalPages > 1) {
                 val maxThreads = 8
                 (2 .. appsResponse.meta.totalPages step maxThreads).forEach {
-                    val lastPageInThread = minOf(it + maxThreads - 1, appsResponse.meta.totalPages)
-                    (it .. lastPageInThread).map { pageNumber ->
+                    val lastPageInBatch = minOf(it + maxThreads - 1).coerceAtMost(appsResponse.meta.totalPages)
+                    (it .. lastPageInBatch).map { pageNumber ->
                         async {
-                            val remAppsResponse = apiRepository.getAppsWithScores(pageNumber, lastUpdated)
-                            onRequestSuccessful(remAppsResponse)
+                            onRequestSuccessful(apiRepository.getAppsWithScores(pageNumber, lastUpdated))
                         }
                     }.awaitAll() // Wait for all requests to complete
                 }

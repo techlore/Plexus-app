@@ -42,7 +42,6 @@ import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetTranslateRatingNoteBinding
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
-import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import java.util.Locale
 
@@ -80,7 +79,7 @@ class TranslateRatingNoteBottomSheet(private val notes: String) : BottomSheetDia
     
     private fun retrieveTranslation() {
         lifecycleScope.launch {
-            if (hasNetwork(requireContext()) && hasInternet()) {
+            if (hasInternet(requireContext())) {
                 withContext(Dispatchers.IO) {
                     val translateResponse =
                         get<ApiRepository>().translateRatingNote(notes, Locale.getDefault().language)

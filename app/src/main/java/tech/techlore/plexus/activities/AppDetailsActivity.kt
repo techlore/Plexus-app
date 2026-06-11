@@ -55,7 +55,6 @@ import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
-import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.mapInstalledFromChipIdToString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
@@ -237,7 +236,7 @@ class AppDetailsActivity : BaseDetailsActivity() {
     
     private fun retrieveRatings() {
         lifecycleScope.launch {
-            if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
+            if (hasInternet(this@AppDetailsActivity)) {
                 try {
                     val ratingsResponse = apiRepository.getRatings(packageName = app.packageName, pageNumber = 1)
                     
@@ -255,11 +254,12 @@ class AppDetailsActivity : BaseDetailsActivity() {
                     if (ratingsResponse.meta.totalPages > 1) {
                         val maxThreads = 8
                         (2 .. ratingsResponse.meta.totalPages step maxThreads).forEach {
-                            val lastPageInThread = minOf(it + maxThreads - 1, ratingsResponse.meta.totalPages)
-                            (it .. lastPageInThread).map { pageNumber ->
+                            val lastPageInBatch = (it + maxThreads - 1).coerceAtMost(ratingsResponse.meta.totalPages)
+                            (it .. lastPageInBatch).map { pageNumber ->
                                 async {
-                                    val remRatingsResponse = apiRepository.getRatings(app.packageName, pageNumber)
-                                    ratingsList.addAll(remRatingsResponse.ratingsData)
+                                    apiRepository.getRatings(app.packageName, pageNumber).let { remRatingsResponse ->
+                                        ratingsList.addAll(remRatingsResponse.ratingsData)
+                                    }
                                 }
                             }.awaitAll() // Wait for all requests to complete
                         }
@@ -562,7 +562,7 @@ class AppDetailsActivity : BaseDetailsActivity() {
     
     fun showSubmitBottomSheet() {
         lifecycleScope.launch {
-            if (hasNetwork(this@AppDetailsActivity) && hasInternet()) {
+            if (hasInternet(this@AppDetailsActivity)) {
                 UploadBottomSheet().show(supportFragmentManager, "UploadBottomSheet")
             }
             else {

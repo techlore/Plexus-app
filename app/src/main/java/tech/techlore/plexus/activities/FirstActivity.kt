@@ -55,7 +55,6 @@ import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicro
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
-import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
@@ -155,13 +154,14 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
             34 -> "14.0"
             35 -> "15.0"
             36 -> "16.0"
+            37 -> "17.0"
             else -> "NA" // Should never reach here
         }
     }
     
     private fun retrieveData() {
         lifecycleScope.launch {
-            if (hasNetwork(this@FirstActivity) && hasInternet()) {
+            if (hasInternet(this@FirstActivity)) {
                 try {
                     get<MainDataRepository>().apply {
                         packageNameString?.let {

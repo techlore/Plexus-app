@@ -37,7 +37,6 @@ import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.bottomsheets.verification.EmailVerificationBottomSheet
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
-import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmail
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
@@ -100,7 +99,7 @@ class EmailVerificationFragment : Fragment() {
         fragmentBinding.proceedBtn.apply {
             setOnClickListener {
                 lifecycleScope.launch{
-                    if (hasNetwork(requireContext()) && hasInternet()) {
+                    if (hasInternet(requireContext())) {
                         EmailVerificationBottomSheet(fragmentBinding.emailText.text.toString())
                             .show(parentFragmentManager, "VerificationBottomSheet")
                     }

@@ -48,7 +48,6 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEV
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
-import tech.techlore.plexus.utils.NetworkUtils.Companion.hasNetwork
 import kotlin.time.Duration.Companion.milliseconds
 
 class CodeVerificationFragment : Fragment() {
@@ -114,7 +113,7 @@ class CodeVerificationFragment : Fragment() {
     
     private fun verifyDevice() {
         lifecycleScope.launch {
-            if (hasNetwork(requireContext()) && hasInternet()) {
+            if (hasInternet(requireContext())) {
                 try {
                     val verifyDeviceResponse =
                         get<ApiRepository>().verifyDevice(VerifyDevice(deviceId = verificationActivity.deviceId,
