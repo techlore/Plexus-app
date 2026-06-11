@@ -28,25 +28,24 @@ kotlin {
 
 android {
     namespace = "tech.techlore.plexus"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "tech.techlore.plexus"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 217
         versionName = "2.1.7"
-        extensions.getByType<BasePluginExtension>().archivesName.set("${rootProject.name}_v$versionName")
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             isShrinkResources = true
             vcsInfo.include = false // https://f-droid.org/docs/Reproducible_Builds/#vcs-info
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
-        /*getByName("debug") {
+        /*debug {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -66,6 +65,10 @@ android {
     lint {
         disable += "MissingTranslation" // Translations are crowdsourced.
     }
+}
+
+base {
+    archivesName.set("${rootProject.name}_v${android.defaultConfig.versionName}")
 }
 
 dependencies {
