@@ -20,39 +20,25 @@ package tech.techlore.plexus.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.IOException
-import java.net.InetSocketAddress
-import java.net.Socket
 
 class NetworkUtils {
     
     companion object {
         
-        // Check network availability
-        suspend fun hasNetwork(context: Context): Boolean {
+        // Check if network has internet connection
+        suspend fun hasInternet(context: Context): Boolean {
             return withContext(Dispatchers.IO) {
                 val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-                capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            }
-        }
-        
-        // Check if network has internet connection
-        // Must be called in background thread
-        suspend fun hasInternet(): Boolean {
-            return try {
-                withContext(Dispatchers.IO) {
-                    Socket().apply {
-                        connect(InetSocketAddress("plexus.techlore.tech", 443), 10000)
-                        close()
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                    ?.let {
+                        it.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                        && it.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+                        && (Build.VERSION.SDK_INT < 28 || it.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED))
                     }
-                    true
-                }
-            }
-            catch (_: IOException) {
-                false
+                ?: false
             }
         }
     }
