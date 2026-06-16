@@ -2,22 +2,19 @@
 
 
 ## Contents
-- [CONTRIBUTING](#contributing)
-  - [Contents](#contents)
-  - [Contributing to the app](#contributing-to-the-app)
-    - [Translations](#translations)
-    - [Code](#code)
-  - [Contributing to the data](#contributing-to-the-data)
+- [Contents](#contents)
+- [Contributing to the app](#contributing-to-the-app)
+  - [Translations](#translations)
+  - [Code](#code)
+- [Contributing to the data](#contributing-to-the-data)
 
 
 ## Contributing to the app
 
 ### Translations
 - Remember to insert a backslash (`\`) before any apostrophe (`'`).
-- Make sure the characters are properly encoded when translating strings (example: `ä` as `\u00E4`, `é` as `\u00E9` etc).
-  <br>You can use websites like [Compart](https://www.compart.com/en/unicode), [Symbl](https://symbl.cc/en/unicode/table/) or something else.
-  <br>Example: `é` would be shown as `U+00E9` on these websites, so just convert it to `\u00E9` for the android strings.
-  <br>The strings can be found here:
+- The strings can be translated from [Weblate](https://hosted.weblate.org/projects/plexus-app/).
+<br>Alternatively if you want to open a pull request, check the strings here:
   - [English](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values/strings.xml)
   - [Dutch](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-nl/strings.xml)
   - [French](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-fr/strings.xml)
@@ -25,7 +22,7 @@
   - [Italian](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-it/strings.xml)
   - [Spanish](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-es/strings.xml)
   - [Turkish](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-tr/strings.xml)
-  - [Greek](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-el/strings.xml)
+  - [Greek](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-el-rGR/strings.xml)
 
 ### Code
 - Do not submit pull requests to update gradle, dependencies or SDK.
