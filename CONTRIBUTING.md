@@ -2,10 +2,12 @@
 
 
 ## Contents
-- [Contributing to the app](#contributing-to-the-app)
-  - [Translations](#translations)
-  - [Code](#code)
-- [Contributing to the data](#contributing-to-the-data)
+- [CONTRIBUTING](#contributing)
+  - [Contents](#contents)
+  - [Contributing to the app](#contributing-to-the-app)
+    - [Translations](#translations)
+    - [Code](#code)
+  - [Contributing to the data](#contributing-to-the-data)
 
 
 ## Contributing to the app
@@ -23,6 +25,7 @@
   - [Italian](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-it/strings.xml)
   - [Spanish](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-es/strings.xml)
   - [Turkish](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-tr/strings.xml)
+  - [Greek](https://github.com/techlore/Plexus-app/blob/main/app/src/main/res/values-el/strings.xml)
 
 ### Code
 - Do not submit pull requests to update gradle, dependencies or SDK.
