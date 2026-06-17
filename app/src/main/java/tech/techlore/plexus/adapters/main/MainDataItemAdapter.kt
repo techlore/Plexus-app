@@ -122,9 +122,15 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
     
     // Fast scroll popup
     override fun getPopupText(view: View, position: Int): CharSequence {
-        return getItem(position).name.first().let {
-            if (it.isLowerCase()) it.uppercase()
-            else it
-        }.toString()
+        // Prevent app crashing due to IndexOutOfBoundsException in some cases like:
+        // search for "rev" > once results appear, append "o" to the search query >
+        // new query is "revo" > app crashes
+        //
+        // https://github.com/techlore/Plexus-app/issues/78
+        // It is not always reproducible in release build on my end,
+        // although I was able to reproduce it in debug build consistently.
+        if (position !in 0..<itemCount) return ""
+        
+        return getItem(position).name.first().uppercaseChar().toString()
     }
 }
