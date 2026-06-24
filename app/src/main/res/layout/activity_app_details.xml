@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:liftOnScroll="true"
-        app:liftOnScrollTargetViewId="@id/nestedScrollView"
+        app:liftOnScrollTargetViewId="@id/detailsNestedScrollView"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -68,7 +68,7 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"/>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+        android:id="@+id/detailsNestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -157,10 +157,10 @@
                         android:textSize="@dimen/text_15"/>
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/vpnToolkitChip"
+                        android:id="@+id/vpnFinderChip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:chipIcon="@drawable/ic_vpn_toolkit"
+                        app:chipIcon="@drawable/ic_vpn_finder"
                         android:text="@string/vpn_finder"
                         android:textSize="@dimen/text_15"
                         android:visibility="gone"
@@ -289,7 +289,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="@dimen/margin_10"
-                        app:indicatorSize="90dp"/>
+                        app:indicatorSize="90dp"
+                        style="@style/Widget.Material3Expressive.CircularProgressIndicator.Wavy"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/avgScore"
@@ -521,7 +522,7 @@
         android:visibility="gone"
         tools:visibility="visible"
         android:contentDescription="@string/scroll_to_top"
-        style="?attr/floatingActionButtonTertiaryStyle"/>
+        app:materialThemeOverlay="@style/ThemeOverlay.Material3.FloatingActionButton.Tertiary"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomConstraintLayout"
@@ -554,6 +555,7 @@
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_back"
                     android:contentDescription="@string/menu_back"
+                    android:tooltipText="@string/menu_back"
                     app:layout_overflowText="@string/menu_back"
                     app:layout_overflowIcon="@drawable/ic_back"
                     style="?attr/materialIconButtonStyle"/>
@@ -564,6 +566,7 @@
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_help"
                     android:contentDescription="@string/menu_help"
+                    android:tooltipText="@string/menu_help"
                     app:layout_overflowText="@string/menu_help"
                     app:layout_overflowIcon="@drawable/ic_help"
                     style="?attr/materialIconButtonStyle"/>
@@ -574,6 +577,7 @@
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_sort"
                     android:contentDescription="@string/menu_sort"
+                    android:tooltipText="@string/menu_sort"
                     android:enabled="false"
                     app:layout_overflowText="@string/menu_sort"
                     app:layout_overflowIcon="@drawable/ic_sort"
@@ -585,6 +589,7 @@
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_links"
                     android:contentDescription="@string/menu_links"
+                    android:tooltipText="@string/menu_links"
                     app:layout_overflowText="@string/menu_links"
                     app:layout_overflowIcon="@drawable/ic_links"
                     style="?attr/materialIconButtonStyle"/>

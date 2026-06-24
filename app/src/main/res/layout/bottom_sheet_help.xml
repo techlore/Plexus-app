@@ -502,7 +502,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/appsSubmitProcCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/margin_56"
                 app:layout_constraintTop_toBottomOf="@id/otherCard"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -513,8 +513,8 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/margin_20"
                     android:paddingHorizontal="@dimen/margin_16"
+                    android:layout_gravity="center_vertical"
                     android:text="@string/apps_submit_proc"
                     android:textSize="@dimen/text_17"
                     style="@style/MediumBoldText"
@@ -527,7 +527,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/faqsCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/margin_56"
                 app:layout_constraintTop_toBottomOf="@id/appsSubmitProcCard"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -539,8 +539,8 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/margin_20"
                     android:paddingHorizontal="@dimen/margin_16"
+                    android:layout_gravity="center_vertical"
                     android:text="@string/faqs"
                     android:textSize="@dimen/text_17"
                     style="@style/MediumBoldText"

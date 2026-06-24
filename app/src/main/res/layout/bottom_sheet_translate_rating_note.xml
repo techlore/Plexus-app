@@ -73,10 +73,10 @@
                 android:id="@+id/noteOriginal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_4"
-                android:padding="@dimen/margin_10"
+                android:paddingHorizontal="@dimen/margin_16"
+                android:paddingVertical="@dimen/margin_8"
+                android:layout_gravity="center_vertical"
                 android:text="@string/notes"
-                android:textAlignment="viewStart"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="@dimen/text_17"
                 android:textIsSelectable="true"/>
@@ -86,20 +86,20 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1.5dp"
+            android:layout_marginTop="@dimen/margin_2"
             app:shapeAppearance="?attr/listItemShapeAppearanceLast"
             style="?attr/materialCardViewFilledStyle">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/margin_16"
+                android:paddingVertical="@dimen/margin_12">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_12"
-                    android:layout_marginTop="@dimen/margin_12"
                     android:drawableStart="@drawable/ic_translate"
                     android:drawablePadding="@dimen/margin_8"
                     app:drawableTint="?attr/colorSecondary"
@@ -114,9 +114,7 @@
                     android:id="@+id/noteTranslated"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_4"
-                    android:layout_marginTop="@dimen/margin_4"
-                    android:padding="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:text="@string/notes"
                     android:textAlignment="viewStart"
                     android:textColor="?attr/colorOnSurface"

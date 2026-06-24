@@ -112,13 +112,16 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
         initAdditionalValuesInOnCreate()
         
         // Adjust UI components for edge to edge
-        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.nestedScrollView) { v, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.detailsNestedScrollView) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(
                 left = insets.left,
                 right = insets.right,
-                bottom = insets.bottom + convertDpToPx(this, 70f)
+                bottom = insets.bottom + convertDpToPx(this, 100f)
+                // 100 = 90 + 10
+                // FAB bottom margin = 90dp
+                // Space between FAB and last item in recycler view = 10dp
             )
             
             WindowInsetsCompat.CONSUMED
@@ -128,6 +131,10 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
                 bottomMargin =
                     windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom +
                     convertDpToPx(this@BaseDetailsActivity, 90f)
+                // 90 = 64 + 8 + 18
+                // Floating toolbar height = 64dp
+                // Bottom margin for floating toolbar = 8dp
+                // Space between FAB & floating toolbar = 18dp
             }
             WindowInsetsCompat.CONSUMED
         }
@@ -177,41 +184,29 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
             
             // Scroll to top FAB
             activityBinding.scrollTopFab.setOnClickListener {
-                activityBinding.nestedScrollView.scrollToTop()
+                activityBinding.detailsNestedScrollView.scrollToTop()
                 isScrolledByFab = true
             }
             
             // Back
-            activityBinding.detailsBackBtn.apply {
-                tooltipText = getString(R.string.menu_back)
-                setOnClickListener {
-                    onBackPressedDispatcher.onBackPressed()
-                }
+            activityBinding.detailsBackBtn.setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
             }
             
             // Help
-            activityBinding.detailsHelpBtn.apply {
-                tooltipText = getString(R.string.menu_help)
-                setOnClickListener {
-                    HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
-                }
+            activityBinding.detailsHelpBtn.setOnClickListener {
+                HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
             }
             
             // Sort
-            activityBinding.detailsSortBtn.apply {
-                tooltipText = getString(R.string.menu_sort)
-                setOnClickListener {
-                    SortAllRatingsBottomSheet(this@BaseDetailsActivity)
-                        .show(supportFragmentManager, "SortUserRatingsBottomSheet")
-                }
+            activityBinding.detailsSortBtn.setOnClickListener {
+                SortAllRatingsBottomSheet(this@BaseDetailsActivity)
+                    .show(supportFragmentManager, "SortUserRatingsBottomSheet")
             }
             
             // Links
-            activityBinding.detailsLinksBtn.apply {
-                tooltipText = getString(R.string.menu_links)
-                setOnClickListener {
-                    LinksBottomSheet(packageNameString).show(supportFragmentManager, "LinksBottomSheet")
-                }
+            activityBinding.detailsLinksBtn.setOnClickListener {
+                LinksBottomSheet(packageNameString).show(supportFragmentManager, "LinksBottomSheet")
             }
             
             retrieveAndDisplayData()

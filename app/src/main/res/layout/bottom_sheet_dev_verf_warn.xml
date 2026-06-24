@@ -17,6 +17,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_8"
@@ -39,15 +40,16 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/warnDetailsCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_56"
         android:layout_marginHorizontal="@dimen/margin_12"
-        android:backgroundTint="@android:color/transparent">
+        app:shapeAppearance="?attr/listItemShapeAppearanceFirst"
+        style="?attr/materialCardViewFilledStyle">
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/margin_16"
-            android:paddingVertical="@dimen/margin_20"
+            android:layout_gravity="center_vertical"
             android:text="@string/details"
             android:textSize="@dimen/text_17"
             style="@style/MediumBoldText"
@@ -58,16 +60,17 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/warnSolutionsCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_56"
         android:layout_marginHorizontal="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_8"
-        android:backgroundTint="@android:color/transparent">
+        android:layout_marginTop="@dimen/margin_2"
+        app:shapeAppearance="?attr/listItemShapeAppearanceLast"
+        style="?attr/materialCardViewFilledStyle">
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/margin_16"
-            android:paddingVertical="@dimen/margin_20"
+            android:layout_gravity="center_vertical"
             android:text="@string/solutions"
             android:textSize="@dimen/text_17"
             style="@style/MediumBoldText"

@@ -120,27 +120,20 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         }
         
         // Search
-        activityBinding.mainSearchBtn.apply {
-            tooltipText = getString(R.string.menu_search)
-            setOnClickListener {
-                startActivityWithTransition(Intent(this@MainActivity, SearchActivity::class.java))
-            }
+        activityBinding.mainSearchBtn.setOnClickListener {
+            startActivityWithTransition(Intent(this@MainActivity, SearchActivity::class.java))
         }
         
         // Sort
-        activityBinding.mainSortBtn.apply {
-            tooltipText = getString(R.string.menu_sort)
-            setOnClickListener {
-                SortBottomSheet(
-                    this@MainActivity,
-                    navController.currentDestination?.id ?: 0
-                ).show(supportFragmentManager, "SortBottomSheet")
-            }
+        activityBinding.mainSortBtn.setOnClickListener {
+            SortBottomSheet(
+                this@MainActivity,
+                navController.currentDestination?.id ?: 0
+            ).show(supportFragmentManager, "SortBottomSheet")
         }
         
         // View
         activityBinding.viewBtn.apply {
-            tooltipText = getString(R.string.menu_view)
             setViewButtonIcon()
             setOnClickListener {
                 isGridView = !isGridView
@@ -152,11 +145,8 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefs
         }
         
         // Help
-        activityBinding.mainHelpBtn.apply {
-            tooltipText = getString(R.string.menu_help)
-            setOnClickListener {
-                HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
-            }
+        activityBinding.mainHelpBtn.setOnClickListener {
+            HelpBottomSheet().show(supportFragmentManager, "HelpBottomSheet")
         }
     }
     

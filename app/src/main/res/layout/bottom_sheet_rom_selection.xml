@@ -50,7 +50,7 @@
         style="@style/MediumBoldText"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/submitStatusChipGroup"
         app:layout_constraintBottom_toBottomOf="parent"

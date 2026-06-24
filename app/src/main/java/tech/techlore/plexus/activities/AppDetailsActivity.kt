@@ -71,7 +71,7 @@ import kotlin.system.exitProcess
 
 class AppDetailsActivity : BaseDetailsActivity() {
     
-    private val encPreferenceManager by inject<EncryptedPreferenceManager>()
+    private val encPrefManager by inject<EncryptedPreferenceManager>()
     private var dgIcon: Drawable? = null
     private var mgIcon: Drawable? = null
     private var defaultStatusTextColor = 0
@@ -102,23 +102,22 @@ class AppDetailsActivity : BaseDetailsActivity() {
     override suspend fun setupUiComponents() {
         // Share chip
         activityBinding.shareChip.setOnClickListener {
-            startActivity(Intent.createChooser(
-                Intent(Intent.ACTION_SEND)
-                    .setType("text/plain")
-                    .putExtra(
-                        Intent.EXTRA_TEXT,
-                        """
+            startActivity(
+                Intent.createChooser(
+                    Intent(Intent.ACTION_SEND)
+                        .setType("text/plain")
+                        .putExtra(
+                            Intent.EXTRA_TEXT,
+                            """
                               ${getString(R.string.app)}: ${app.name}
                               ${getString(R.string.package_name)}: $packageNameString
-                              ${getString(R.string.de_Googled)}: ${
-                            mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore)
-                        }
-                              ${getString(R.string.microG)}: ${
-                            mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore)
-                        }
+                              ${getString(R.string.de_Googled)}: ${mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore)}
+                              ${getString(R.string.microG)}: ${mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore)}
                               """.trimIndent()
-                    ),
-                getString(R.string.share)))
+                        ),
+                    getString(R.string.share)
+                )
+            )
         }
         
         // Shortcut chip
@@ -173,8 +172,8 @@ class AppDetailsActivity : BaseDetailsActivity() {
             }
         }
         
-        // VPN Toolkit chip
-        activityBinding.vpnToolkitChip.apply {
+        // VPN Finder chip
+        activityBinding.vpnFinderChip.apply {
             if (app.name.contains("VPN", ignoreCase = true)
                 || packageNameString.contains("VPN", ignoreCase = true)) {
                 isVisible = true
@@ -199,15 +198,15 @@ class AppDetailsActivity : BaseDetailsActivity() {
                                      if (activityBinding.scrollTopFab.isVisible) activityBinding.scrollTopFab
                                      else activityBinding.detailsFloatingToolbar)
                 
-                !DeviceState.isDeviceDeGoogled && ! DeviceState.isDeviceMicroG ->
+                !DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
                     showSnackbar(activityBinding.detailsCoordLayout,
                                  getString(R.string.device_should_be_degoogled_or_microg),
                                  activityBinding.detailsFloatingToolbar)
                 
-                encPreferenceManager.getString(DEVICE_ROM).isNullOrEmpty() ->
+                encPrefManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                     RomSelectionBottomSheet(isFromNavView = false).show(supportFragmentManager, "RomSelectionBottomSheet")
                 
-                !encPreferenceManager.getBoolean(IS_REGISTERED) -> {
+                !encPrefManager.getBoolean(IS_REGISTERED) -> {
                     startActivityWithTransition(Intent(this@AppDetailsActivity,
                                                        VerificationActivity::class.java))
                 }
@@ -278,7 +277,7 @@ class AppDetailsActivity : BaseDetailsActivity() {
                 catch (e: Exception) {
                     ExceptionErrorBottomSheet(
                         exception = e,
-                        negativeBtnText = getString(R.string.exit),
+                        negativeBtnText = getString(R.string.cancel),
                         onPositiveBtnClick = { retrieveRatings() },
                         onNegativeBtnClick = { finishAfterTransition() }
                     ).show(supportFragmentManager, "ExceptionErrorBottomSheet")

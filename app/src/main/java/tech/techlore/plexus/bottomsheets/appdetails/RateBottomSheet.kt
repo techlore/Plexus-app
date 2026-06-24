@@ -22,7 +22,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -42,7 +41,7 @@ import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 import tech.techlore.plexus.utils.TextUtils.Companion.hasBlockedWord
 import tech.techlore.plexus.utils.TextUtils.Companion.hasEmojis
 import tech.techlore.plexus.utils.TextUtils.Companion.hasRepeatedChars
-import tech.techlore.plexus.utils.TextUtils.Companion.hasURL
+import tech.techlore.plexus.utils.TextUtils.Companion.isURL
 import tech.techlore.plexus.utils.UiUtils.Companion.setDgMgTextWithIcon
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -66,7 +65,8 @@ class RateBottomSheet : BottomSheetDialogFragment() {
         val detailsActivity = requireActivity() as AppDetailsActivity
         
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.isVisible = false
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
+            .bottomSheetTitle.text = getString(R.string.rate)
         
         bottomSheetBinding.commonIssuesCard.setOnClickListener {
             requireActivity().openURL(getString(R.string.common_issues_url))
@@ -81,7 +81,7 @@ class RateBottomSheet : BottomSheetDialogFragment() {
         }
         
         // Notes
-        val maxTextLength: Int
+        var maxTextLength: Int
         bottomSheetBinding.submitNotesBox.apply {
             hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
             maxTextLength = counterMaxLength
@@ -96,7 +96,7 @@ class RateBottomSheet : BottomSheetDialogFragment() {
                         && !charSequence.hasBlockedWord(requireContext())
                         && !charSequence.hasRepeatedChars()
                         && !charSequence.hasEmojis()
-                        && !charSequence.hasURL())
+                        && !charSequence.isURL())
             }
         }
         

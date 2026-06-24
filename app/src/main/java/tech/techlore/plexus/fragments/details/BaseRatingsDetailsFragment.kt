@@ -69,7 +69,7 @@ abstract class BaseRatingsDetailsFragment<T> : Fragment() {
             loadNextPage()
         }
         
-        detailsActivity.activityBinding.nestedScrollView.setOnScrollChangeListener {
+        detailsActivity.activityBinding.detailsNestedScrollView.setOnScrollChangeListener {
                 view: NestedScrollView, _, newScrollY, _, oldScrollY ->
             // Show FAB on scroll
             detailsActivity.apply {

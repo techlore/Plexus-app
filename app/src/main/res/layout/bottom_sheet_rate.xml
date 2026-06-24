@@ -44,18 +44,20 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/commonIssuesCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/margin_56"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginHorizontal="@dimen/margin_12"
-                android:backgroundTint="@android:color/transparent">
+                android:layout_marginTop="@dimen/margin_12"
+                app:shapeAppearance="?attr/listItemShapeAppearanceSingle"
+                style="?attr/materialCardViewFilledStyle">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/margin_16"
-                    android:paddingVertical="@dimen/margin_20"
+                    android:layout_gravity="center_vertical"
                     android:text="@string/issues_to_check_in_apps"
                     android:textSize="@dimen/text_17"
                     style="@style/MediumBoldText"
@@ -133,7 +135,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_8"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 android:enabled="false"
                 app:counterEnabled="true"

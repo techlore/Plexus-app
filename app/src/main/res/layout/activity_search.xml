@@ -78,7 +78,8 @@
         android:id="@+id/searchDockedToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        style="?attr/dockedToolbarVibrantStyle">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,6 +93,7 @@
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_back"
                 android:contentDescription="@string/menu_back"
+                android:tooltipText="@string/menu_back"
                 style="?attr/materialIconButtonStyle"/>
 
             <androidx.appcompat.widget.SearchView
@@ -113,6 +115,7 @@
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_sort"
                 android:contentDescription="@string/menu_sort"
+                android:tooltipText="@string/menu_sort"
                 style="?attr/materialIconButtonStyle"/>
 
         </LinearLayout>

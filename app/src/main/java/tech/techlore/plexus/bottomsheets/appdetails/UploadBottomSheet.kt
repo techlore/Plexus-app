@@ -262,8 +262,10 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
     private suspend fun renewDeviceToken() {
         try {
             val renewDeviceTokenResponse = apiRepository.renewDevice(deviceToken)
-            encPrefManager.setString(DEVICE_TOKEN, renewDeviceTokenResponse.deviceToken.token)
-            deviceToken = encPrefManager.getString(DEVICE_TOKEN) !!
+            renewDeviceTokenResponse.deviceToken?.let {
+                encPrefManager.setString(DEVICE_TOKEN, it.token)
+                deviceToken = encPrefManager.getString(DEVICE_TOKEN) !!
+            } ?: throw Exception(renewDeviceTokenResponse.errors?.errorDetail ?: getString(R.string.submit_error))
         }
         catch (e: Exception) {
             onPostFailed(e.toString())
