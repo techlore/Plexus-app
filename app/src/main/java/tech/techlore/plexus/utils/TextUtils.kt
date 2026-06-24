@@ -45,11 +45,11 @@ class TextUtils {
             return emojiRegex.find(this) != null
         }
         
-        fun CharSequence.hasURL(): Boolean {
+        fun CharSequence.isURL(): Boolean {
             return Patterns.WEB_URL.matcher(this).find()
         }
     
-        fun CharSequence.hasEmail(): Boolean {
+        fun CharSequence.isEmail(): Boolean {
             return Patterns.EMAIL_ADDRESS.matcher(this).find()
         }
         

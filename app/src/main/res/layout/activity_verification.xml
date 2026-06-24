@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/verifNestedScrollView"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -53,31 +54,192 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/verificationNavHost"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/verifNestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_64"
-        app:navGraph="@navigation/verification_fragments_nav_graph"
-        app:defaultNavHost="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <com.google.android.material.dockedtoolbar.DockedToolbarLayout
-        android:id="@+id/verificationDockedToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/margin_12"
+            android:paddingBottom="@dimen/margin_8"
+            android:layout_marginHorizontal="@dimen/margin_10"
+            android:gravity="center">
+
+            <ViewSwitcher
+                android:id="@+id/titleTextViewSwitcher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_verify"
+                    android:drawablePadding="@dimen/margin_8"
+                    android:text="@string/verify_to_get_started"
+                    android:textSize="@dimen/text_18"
+                    style="@style/MediumBoldText"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/codeTitleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_otp"
+                    android:drawablePadding="@dimen/margin_8"
+                    android:text="@string/enter_code_sent_to_email"
+                    android:textSize="@dimen/text_18"
+                    style="@style/MediumBoldText"/>
+            </ViewSwitcher>
+
+            <ViewSwitcher
+                android:id="@+id/editTextViewSwitcher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="@dimen/text_16"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/codeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/verification_code"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="@dimen/text_16"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </ViewSwitcher>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:indeterminate="true"
+                app:showAnimationBehavior="inward"
+                app:hideAnimationBehavior="escape"
+                app:minHideDelay="400"
+                style="@style/Widget.Material3Expressive.LinearProgressIndicator.Wavy"
+                android:visibility="invisible"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/verificationBackBtn"
-                android:layout_width="wrap_content"
+                android:id="@+id/proceedBtn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
-                app:icon="@drawable/ic_back"
-                android:contentDescription="@string/menu_back"
-                style="?attr/materialIconButtonStyle"/>
+                android:layout_marginTop="@dimen/margin_12"
+                android:text="@string/proceed"
+                android:textSize="@dimen/text_16"
+                android:enabled="false"/>
 
-    </com.google.android.material.dockedtoolbar.DockedToolbarLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_25"
+                android:drawableStart="@drawable/ic_terms_conditions"
+                android:drawablePadding="@dimen/margin_8"
+                android:text="@string/terms_conditions_title"
+                android:textSize="@dimen/text_18"
+                style="@style/MediumBoldText"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:text="@string/terms_conditions_desc"
+                android:textSize="@dimen/text_16"
+                android:textColor="?attr/colorOnSurface"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingtoolbar.FloatingToolbarLayout
+            android:id="@+id/verifFloatingToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/margin_8"
+            style="?attr/floatingToolbarVibrantStyle">
+
+            <com.google.android.material.overflow.OverflowLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/verifBackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_back"
+                    android:contentDescription="@string/menu_back"
+                    android:tooltipText="@string/menu_back"
+                    app:layout_overflowText="@string/menu_back"
+                    app:layout_overflowIcon="@drawable/ic_back"
+                    style="?attr/materialIconButtonStyle"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/verifPrivacyPolicyBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_privacy_policy"
+                    android:contentDescription="@string/privacy_policy"
+                    android:tooltipText="@string/privacy_policy"
+                    app:layout_overflowText="@string/privacy_policy"
+                    app:layout_overflowIcon="@drawable/ic_privacy_policy"
+                    style="?attr/materialIconButtonStyle"/>
+
+            </com.google.android.material.overflow.OverflowLinearLayout>
+
+        </com.google.android.material.floatingtoolbar.FloatingToolbarLayout>
+
+    <!--<com.google.android.material.floatingtoolbar.FloatingToolbarLayout
+        android:id="@+id/verificationDockedToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/verificationBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            app:icon="@drawable/ic_back"
+            android:text="@string/menu_back"
+            android:textSize="@dimen/text_16"
+            android:contentDescription="@string/menu_back"
+            android:tooltipText="@string/menu_back"
+            style="?attr/materialIconButtonStyle"/>
+
+    </com.google.android.material.floatingtoolbar.FloatingToolbarLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

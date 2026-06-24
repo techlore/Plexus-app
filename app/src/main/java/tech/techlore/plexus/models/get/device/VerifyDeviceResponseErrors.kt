@@ -21,12 +21,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class VerifyDeviceResponseRoot (
+data class VerifyDeviceResponseErrors(
     
-    @SerialName("data")
-    val deviceToken: DeviceToken? = null,
-    
-    @SerialName("errors")
-    val errors: VerifyDeviceResponseErrors? = null
+    @SerialName("detail")
+    var errorDetail: String
     
 )
