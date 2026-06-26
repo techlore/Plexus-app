@@ -120,16 +120,29 @@ class ApiService(private val okHttpClient: HttpClient) {
     }
     
     suspend fun translateRatingNote(note: String, targetLang: String): HttpResponse {
-        return okHttpClient.submitForm(
-            url = "https://translate.fedilab.app/translate",
-            formParameters = parameters {
-                append("q", note)
-                append("source", "auto")
-                append("target", targetLang)
-                append("format", "text")
-                append("alternatives", "0")
+        val urlList =
+            listOf(
+                "https://translate.fediverse.radio/translate",
+                "https://translate.f-hub.org/translate"
+            )
+        
+        urlList.forEach {
+            try {
+                return okHttpClient.submitForm(
+                    url = it,
+                    formParameters = parameters {
+                        append("q", note)
+                        append("source", "auto")
+                        append("target", targetLang)
+                        append("format", "text")
+                        append("alternatives", "0")
+                    }
+                )
             }
-        )
+            catch (_: Exception) { }
+        }
+        
+        throw Exception("All translation URLs failed.")
     }
     
 }

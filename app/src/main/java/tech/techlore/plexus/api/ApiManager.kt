@@ -64,7 +64,8 @@ class ApiManager {
                                 .add("f-droid.org", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=") // ISRG Root X1
                                 .add("play.google.com", *googleRootCerts)
                                 .add("play-lh.googleusercontent.com", *googleRootCerts)
-                                .add("translate.fedilab.app", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=") // ISRG Root X1
+                                .add("translate.fediverse.radio", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=") // ISRG Root X1
+                                .add("translate.f-hub.org", "sha256/diGVwiVYbubAI3RW4hB9xU8e/CH2GnkuvVFZE8zmgzI=") // ISRG Root X2
                                 .build()
                         )
                     }
