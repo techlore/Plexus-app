@@ -30,6 +30,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.transition.platform.MaterialSharedAxis
@@ -55,6 +56,7 @@ import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicro
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
@@ -88,13 +90,13 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
         AppState.isAppOpen = true
         
         // Adjust root layout for edge to edge
-        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.root) { v, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.firstConstraintLayout) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                topMargin = insets.top
-                bottomMargin = insets.bottom
-            }
+            v.updatePadding(
+                top = insets.top,
+                bottom = insets.bottom
+            )
             WindowInsetsCompat.CONSUMED
         }
         
@@ -112,18 +114,13 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
                                 text = getString(R.string.welcome_text_desc)
                                 showViewWithAnim()
                             }
-                            firstSkipBtn.apply {
-                                showViewWithAnim()
-                                setOnClickListener {
-                                    prefManager.setBoolean(IS_FIRST_LAUNCH, false)
-                                    onHelpBottomSheetDismissed(true)
-                                }
+                            firstDockedToolbar.showViewWithAnim()
+                            firstSkipBtn.setOnClickListener {
+                                prefManager.setBoolean(IS_FIRST_LAUNCH, false)
+                                onHelpBottomSheetDismissed(true)
                             }
-                            firstProceedBtn.apply {
-                                showViewWithAnim()
-                                setOnClickListener {
-                                    HelpBottomSheet(this@FirstActivity).show(supportFragmentManager, "HelpBottomSheet")
-                                }
+                            firstProceedBtn.setOnClickListener {
+                                HelpBottomSheet(this@FirstActivity).show(supportFragmentManager, "HelpBottomSheet")
                             }
                         }
                         
@@ -206,8 +203,7 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
     override fun onHelpBottomSheetDismissed(isDismissed: Boolean) {
         activityBinding.apply {
             progressText.hideViewWithAnim()
-            firstSkipBtn.hideViewWithAnim()
-            firstProceedBtn.hideViewWithAnim()
+            firstDockedToolbar.hideViewWithAnim()
             helloAnimView.hideViewWithAnim(
                 onEndAction = {
                     firstLoadingIndicator.show()

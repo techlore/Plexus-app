@@ -44,7 +44,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/commonIssuesCard"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_56"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/margin_16"
+                    android:padding="@dimen/margin_16"
                     android:layout_gravity="center_vertical"
                     android:text="@string/issues_to_check_in_apps"
                     android:textSize="@dimen/text_17"

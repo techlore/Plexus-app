@@ -17,13 +17,18 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/firstConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/appIcon"
@@ -32,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_12"
         android:background="@color/grey_800"
         android:src="@drawable/ic_launcher_foreground"
         android:scaleType="center"
@@ -96,30 +101,36 @@
         android:textSize="@dimen/text_17"
         android:textColor="?attr/colorOnSurfaceVariant"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/firstSkipBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginBottom="@dimen/margin_16"
-        android:text="@string/skip"
-        style="@style/NegativeButtonStyle"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/firstProceedBtn"
-        android:layout_width="wrap_content"
+    <com.google.android.material.dockedtoolbar.DockedToolbarLayout
+        android:id="@+id/firstDockedToolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="@dimen/margin_16"
-        android:layout_marginBottom="@dimen/margin_16"
-        android:text="@string/proceed"
-        style="@style/PositiveButtonStyle"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+        android:layout_gravity="bottom"
+        style="?attr/dockedToolbarVibrantStyle"
+        android:visibility="invisible"
+        tools:visibility="visible">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/firstSkipBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:text="@string/skip"
+            android:textSize="@dimen/text_16"
+            android:textColor="?attr/colorOnPrimaryContainer" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/firstProceedBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:text="@string/proceed"
+            android:textSize="@dimen/text_16"
+            android:textColor="?attr/colorOnPrimary"
+            android:backgroundTint="?attr/colorPrimary"/>
+
+    </com.google.android.material.dockedtoolbar.DockedToolbarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -118,23 +118,22 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangedListen
             v.updatePadding(
                 left = insets.left,
                 right = insets.right,
-                bottom = insets.bottom + convertDpToPx(this, 100f)
-                // 100 = 90 + 10
-                // FAB bottom margin = 90dp
-                // Space between FAB and last item in recycler view = 10dp
+                bottom = insets.bottom + convertDpToPx(this, 114f)
+                // 114 = 104 + 10
+                // FAB bottom margin = 104dp
+                // Space between FAB & last item in recycler view = 10dp
             )
-            
             WindowInsetsCompat.CONSUMED
         }
         ViewCompat.setOnApplyWindowInsetsListener(activityBinding.scrollTopFab) { v, windowInsets ->
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin =
                     windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom +
-                    convertDpToPx(this@BaseDetailsActivity, 90f)
-                // 90 = 64 + 8 + 18
+                    convertDpToPx(this@BaseDetailsActivity, 104f)
+                // 104 = 64 + 16 + 24
                 // Floating toolbar height = 64dp
-                // Bottom margin for floating toolbar = 8dp
-                // Space between FAB & floating toolbar = 18dp
+                // Floating toolbar bottom margin = 16dp
+                // Space between FAB & floating toolbar = 24dp
             }
             WindowInsetsCompat.CONSUMED
         }

@@ -33,6 +33,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.search.SearchSortBottomSheet
 import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.interfaces.SortPrefsChangedListener
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
@@ -41,6 +42,9 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangedListener {
     lateinit var activityBinding: ActivitySearchBinding
     private lateinit var navController: NavController
     var orderChipId = R.id.sortAZ
+    private val sixteenDpToPx by lazy {
+        convertDpToPx(this, 16f)
+    }
     private var isKeyboardVisible = true
     
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,8 +69,8 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangedListener {
                                                         or WindowInsetsCompat.Type.displayCutout()
                                                         or WindowInsetsCompat.Type.ime())
             v.updatePadding(
-                left = insets.left,
-                right = insets.right,
+                left = insets.left + sixteenDpToPx,
+                right = insets.right + sixteenDpToPx,
                 bottom = insets.bottom
             )
             

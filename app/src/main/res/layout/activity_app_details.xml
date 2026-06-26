@@ -516,7 +516,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="104dp"
         android:layout_marginEnd="@dimen/margin_16"
         android:src="@drawable/ic_scroll_to_top"
         android:visibility="gone"
@@ -530,7 +530,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@android:color/transparent"
-        android:layout_marginBottom="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_16"
         app:layout_behavior="com.google.android.material.behavior.HideViewOnScrollBehavior">
 
         <com.google.android.material.floatingtoolbar.FloatingToolbarLayout
@@ -601,7 +601,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rateBtn"
             android:layout_width="wrap_content"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/margin_56"
             app:layout_constraintStart_toEndOf="@id/detailsFloatingToolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/detailsFloatingToolbar"

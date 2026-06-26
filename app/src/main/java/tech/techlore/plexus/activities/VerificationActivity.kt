@@ -27,7 +27,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -74,8 +73,11 @@ class VerificationActivity : AppCompatActivity() {
             this,
             android.R.anim.fade_out)
     }
+    private val sixteenDpToPx by lazy {
+        convertDpToPx(this, 16f)
+    }
     private val tenDpToPx by lazy {
-        convertDpToPx(this, 10.0f)
+        convertDpToPx(this, 10f)
     }
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,31 +95,27 @@ class VerificationActivity : AppCompatActivity() {
         
         var job: Job? = null
         
-        // Adjust views for edge to edge
+        // Adjust UI components for edge to edge
         ViewCompat.setOnApplyWindowInsetsListener(activityBinding.verifNestedScrollView) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(
                 left = insets.left,
                 right = insets.right,
-                bottom = insets.bottom + convertDpToPx(this, 72f)
-                // 72 = 64 + 8
-                // Floating toolbar height = 64dp
-                // Bottom margin for floating toolbar = 8dp
+                bottom = insets.bottom + convertDpToPx(this, 64f)
+                // Docked toolbar height = 64dp
             )
-            
             WindowInsetsCompat.CONSUMED
         }
-        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.verifFloatingToolbar) { v, windowInsets ->
-            // Prevent floating toolbar above the keyboard, when keyboard is visible
+        // Prevent docked toolbar above the keyboard, when keyboard is visible
+        ViewCompat.setOnApplyWindowInsetsListener(activityBinding.verifDockedToolbar) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin =
-                    insets.bottom + convertDpToPx(this@VerificationActivity, 8f)
-                // Bottom margin for floating toolbar = 8dp
-            }
-            
+            v.updatePadding(
+                left = insets.left + sixteenDpToPx,
+                right = insets.right + sixteenDpToPx,
+                bottom = insets.bottom
+            )
             WindowInsetsCompat.CONSUMED
         }
         
@@ -156,15 +154,15 @@ class VerificationActivity : AppCompatActivity() {
             }
         }
         
-        // Back
-        activityBinding.verifBackBtn.setOnClickListener {
+        // Cancel
+        activityBinding.verifCancelBtn.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
         
         activityBinding.verifPrivacyPolicyBtn.setOnClickListener {
             openURL(getString(R.string.plexus_privacy_policy_url),
                     activityBinding.verificationCoordLayout,
-                    activityBinding.verifFloatingToolbar)
+                    activityBinding.verifDockedToolbar)
         }
     }
     
