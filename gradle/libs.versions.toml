@@ -17,8 +17,8 @@
 
 [versions]
 androidGradle = "9.2.1"
-androidKotlin = "2.4.0" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
-ksp = "2.3.3" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
+kotlinGradle = "2.4.0" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
+ksp = "2.3.9" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
 appcompat = "1.7.1"
 coreKtx = "1.19.0"
 splashscreen = "1.2.0"
@@ -28,9 +28,9 @@ swiperefreshlayout = "1.2.0"
 securityCryptoKtx = "1.1.0-alpha06" # Don't update or else Encrypted Shared Prefs is deprecated
 navigationKtx = "2.9.8"
 kotlinxSerialization = "1.11.0"
-ktor = "3.5.0"
+ktor = "3.5.1"
 room = "2.8.4"
-coil = "3.4.0"
+coil = "3.5.0"
 androidfastscrollKt = "v1.0.8"
 ksoup = "0.2.6"
 lottie = "6.7.1"
@@ -39,6 +39,7 @@ lottie = "6.7.1"
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradle" }
 material3 = { module = "com.google.android.material:material", version.ref = "material3" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
@@ -71,6 +72,5 @@ ksoup = ["ksoup", "ksoup-network"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradle" }
-android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "androidKotlin" }
-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "androidKotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinGradle" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

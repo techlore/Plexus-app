@@ -17,7 +17,6 @@
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.android.kotlin)
     alias(libs.plugins.kotlin.plugin.serialization)
     alias(libs.plugins.ksp)
 }
@@ -34,8 +33,8 @@ android {
         applicationId = "tech.techlore.plexus"
         minSdk = 26
         targetSdk = 37
-        versionCode = 217
-        versionName = "2.1.7"
+        versionCode = 218
+        versionName = "2.1.8"
     }
 
     buildTypes {
