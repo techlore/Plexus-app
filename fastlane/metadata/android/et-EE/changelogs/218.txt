@@ -1,0 +1,4 @@
+- Android 17 tugi.
+- Parandatud ühendusprobleemid prokside kasutamisel.
+- Parandatud rakenduse kokkujooksmine teatud juhtudel otsingu ajal.
+- Uued tõlked ja olemasolevate tõlgete uuendamine (kogukonna poolt esitatud).

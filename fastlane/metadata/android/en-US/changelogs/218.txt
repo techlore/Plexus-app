@@ -1,0 +1,4 @@
+- Support for Android 17.
+- Fix connection issues when using proxies.
+- Fixed app crashing in some cases while searching.
+- New translations & updated existing ones (contributed by the community).

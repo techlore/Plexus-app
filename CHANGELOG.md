@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v2.1.8
+- Support for Android 17.
+- Fix connection issues when using proxies.
+- Fixed app crashing in some cases while searching.
+- New translations & updated existing ones (contributed by the community).
+
+
 ## v2.1.7
 - Lowered Gold status eligibility criteria. Scores of 3.5 and above now qualify for Gold status.
 - Added support for additional custom ROMs.

@@ -1,0 +1,4 @@
+- Prise en charge d'Android 17.
+- Correction des problèmes de connexion lors de l'utilisation de proxys.
+- Correction des plantages de l'application pouvant survenir dans certains cas lors d'une recherche.
+- Nouvelles traductions et mise à jour des traductions existantes (fournies par la communauté).

@@ -1,0 +1,4 @@
+- Ondersteuning voor Android 17.
+- Verbindingsproblemen bij het gebruik van proxyservers verholpen.
+- Het crashen van de app tijdens het zoeken is in sommige gevallen verholpen.
+- Nieuwe vertalingen en bijgewerkte bestaande vertalingen (aangeleverd door de community).

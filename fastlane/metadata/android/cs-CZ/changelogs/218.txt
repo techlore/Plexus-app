@@ -1,0 +1,4 @@
+- Podpora systému Android 17.
+- Oprava problémů s připojením při používání proxy serverů.
+- Oprava pádu aplikace, k němuž v některých případech docházelo při vyhledávání.
+- Nové překlady a aktualizace stávajících překladů (přispěla komunita).

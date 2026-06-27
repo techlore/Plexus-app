@@ -1,0 +1,4 @@
+- Android 17 desteği.
+- Proxy kullanılırken yaşanan bağlantı sorunları giderildi.
+- Arama sırasında bazı durumlarda uygulamanın çökmesi sorunu giderildi.
+- Yeni çeviriler eklendi ve mevcut çeviriler güncellendi (topluluk tarafından sağlandı).

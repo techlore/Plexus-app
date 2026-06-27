@@ -32,13 +32,20 @@ body:
     validations:
       required: true
   - type: textarea
+    id: androidver
+    attributes:
+      label: Android version
+      description: The Android version of the device you found this issue on
+    validations:
+      required: true
+  - type: textarea
     id: logs
     attributes:
       label: Error messages/logs
       description: |
         To help diagnose the issue more effectively, please provide any relevant error messages or logs.
         This is mandatory if the app is crashing.
-        You can easily capture & share logs using the [LogFox](https://github.com/F0x1d/LogFox) app.
+        You can easily capture & share logs using the [LogFox](https://github.com/F0x1d/LogFox) app. Other methods are mentioned [here](https://developer.android.com/studio/debug/bug-report).
     validations:
       required: false
   - type: textarea

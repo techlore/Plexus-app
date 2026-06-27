@@ -1,0 +1,4 @@
+- Compatibilidad con Android 17.
+- Se han solucionado los problemas de conexión al utilizar proxies.
+- Se ha solucionado el fallo de la aplicación que se producía en algunos casos durante la búsqueda.
+- Nuevas traducciones y actualización de las ya existentes (aportadas por la comunidad).
