@@ -195,17 +195,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:text="@string/cancel"
-            android:textSize="@dimen/text_16"/>
+            android:textSize="@dimen/text_16"
+            android:textColor="?attr/colorOnPrimaryContainer"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/verifPrivacyPolicyBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
+            android:backgroundTint="?attr/colorSecondary"
             android:text="@string/privacy_policy"
             android:textSize="@dimen/text_16"
-            android:textColor="?attr/colorOnPrimary"
-            android:backgroundTint="?attr/colorPrimary"/>
+            android:textColor="?attr/colorOnSecondary"/>
 
     </com.google.android.material.dockedtoolbar.DockedToolbarLayout>
 

@@ -290,6 +290,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="@dimen/margin_10"
                         app:indicatorSize="90dp"
+                        app:trackCornerRadius="3dp"
+                        app:trackThickness="@dimen/margin_6"
                         style="@style/Widget.Material3Expressive.CircularProgressIndicator.Wavy"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -516,7 +518,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="96dp"
         android:layout_marginEnd="@dimen/margin_16"
         android:src="@drawable/ic_scroll_to_top"
         android:visibility="gone"

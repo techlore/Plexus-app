@@ -80,7 +80,10 @@ class MyRatingsFragment :
                                                         or WindowInsetsCompat.Type.displayCutout())
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 leftMargin = insets.left + convertDpToPx(requireContext(), 16f)
-                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 95f)
+                bottomMargin = insets.bottom + convertDpToPx(requireContext(), 80f)
+                // 80 = 64 + 16
+                // Docked toolbar height = 64dp
+                // Space between FAB & docked toolbar = 16dp
             }
             
             WindowInsetsCompat.CONSUMED
