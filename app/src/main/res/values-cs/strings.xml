@@ -67,12 +67,14 @@
     <!--Toolbar menu-->
     <string name="menu_help">Nápověda</string>
     <string name="menu_links">Odkazy</string>
-    <string name="menu_more">Další možnosti</string>
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Ověření</string>
     <string name="verify_to_get_started">Začněte ověřením svého e-mailu</string>
-    <string name="verify">Ověřit</string>
     <string name="terms_conditions_title">Pravidla a podmínky</string>
     <string name="terms_conditions_desc">K odesílání aplikací do služby Plexus je vyžadován váš e-mail.
         \nTento e-mail bude použit k ověření a po dokončení operace bude odstraněn z našich systémů.
@@ -82,14 +84,9 @@
         \n\u2022 zajištění přesnosti odeslaných dat.
         \n
         \nSvůj účet můžete z tohoto zařízení kdykoli smazat.</string>
-    <string name="by_proceeding_agree_desc">Pokračováním souhlasíte s férovým použitím služby Plexus.
-        Pokud porušíte pravidla a podmínky výše, budou všechna vaše hodnocení odstraněna.</string>
-    <string name="verification">Ověření</string>
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Zadejte ověřovací kód odeslaný na adresu\n%1$s</string>
     <string name="verification_code">Ověřovací kód</string>
-    <string name="verifying_code">Čekejte prosím, ověřování kódu…</string>
-    <string name="incorrect_code">Nesprávný ověřovací kód.</string>
+    <string name="error_sending_code">Chyba při odesílání kódu</string>
     <!--#########################################################################################-->
 
     <!--Settings activity-->
@@ -148,9 +145,9 @@
     <string name="translating">Překlad …</string>
     <string name="translated_using_libretranslate">Přeloženo pomocí LibreTranslate:</string>
     <string name="error_translating">Chyba při překladu</string>
-    <!--Email verification-->
-    <string name="sending_code">Čekejte prosím, odesílám kód…</string>
-    <string name="error_sending_code">Chyba při odesílání kódu</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Pokud smažete svůj účet:
         \n\u2022 nebudete moci odesílat hodnocení.

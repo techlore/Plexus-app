@@ -67,13 +67,16 @@
      <!--Toolbar menu-->
     <string name="menu_help">Справка</string>
     <string name="menu_links">Links</string>
-    <string name="menu_more">Дополнительные опции</string>
+
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Проверка</string>
     <string name="verify_to_get_started">Чтобы начать, подтвердите адрес электронной почты</string>
-    <string name="verify">Подтвердить</string>
     <string name="terms_conditions_title">Условия и положения</string>
     <string name="terms_conditions_desc">Для отправки приложений в Plexus необходим ваш адрес электронной почты.
         \nЭтот адрес электронной почты будет использоваться только для проверки и будет удалён из нашей системы после проверки.
@@ -83,15 +86,9 @@
         \n\u2022 убедиться в точности представленных данных.
         \n
         \nВы можете удалить свой профиль с этого устройства в любое время.</string>
-    <string name="by_proceeding_agree_desc">Продолжая, вы соглашаетесь на добросовестное использование Plexus.
-        В случае нарушения вышеуказанных положений и условий все отправленные вами оценки будут удалены.</string>
-    <string name="verification">Проверка</string>
-
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Введите код подтверждения, отправленный на\n%1$s</string>
     <string name="verification_code">Код подтверждения</string>
-    <string name="verifying_code">Подождите, идёт проверка кода…</string>
-    <string name="incorrect_code">Неверный код подтверждения.</string>
+    <string name="error_sending_code">Ошибка при отправке кода</string>
 
     <!--#########################################################################################-->
 
@@ -159,9 +156,9 @@
     <string name="translated_using_libretranslate">Переведено с помощью LibreTranslate:</string>
     <string name="error_translating">Ошибка при переводе</string>
 
-    <!--Email verification-->
-    <string name="sending_code">Подождите, отправляется код…</string>
-    <string name="error_sending_code">Ошибка при отправке кода</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
 
     <!--Delete account-->
     <string name="delete_account_desc">Если вы удалите свой профиль:

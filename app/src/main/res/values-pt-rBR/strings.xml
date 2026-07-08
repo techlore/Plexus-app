@@ -67,22 +67,19 @@
     <!--Toolbar menu-->
     <string name="menu_help">Ajuda</string>
     <string name="menu_links">Links</string>
-    <string name="menu_more">Mais opções</string>
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Verificação</string>
     <string name="verify_to_get_started">Verifique seu e-mail para iniciar</string>
-    <string name="verify">Verificar</string>
     <string name="terms_conditions_title">Termos e condições</string>
     <string name="terms_conditions_desc">Seu endereço de e-mail é necessário para enviar apps ao Plexus.\nEsse e-mail será usado somente para a verificação e será removido dos nossos sistemas após a verificação.\n\nIsso é feito para:\n• prevenir abuso da nossa API.\n• garantir precisão dos dados enviados.\n\nVocê pode apagar sua conta neste dispositivo a qualquer momento.</string>
-    <string name="by_proceeding_agree_desc">Ao proceder, você concorda na utilização justa do Plexus.
-        Caso os termos e condições acima forem violados, todas as avaliações enviadas por você serão apagadas.</string>
-    <string name="verification">Verificação</string>
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Digite o código enviado para\n%1$s</string>
     <string name="verification_code">Código de verificação</string>
-    <string name="verifying_code">Aguarde, o código está sendo verificado …</string>
-    <string name="incorrect_code">O código de verificação está incorreto.</string>
+    <string name="error_sending_code">Um erro ocorreu ao enviar o código</string>
     <!--#########################################################################################-->
 
     <!--Settings activity-->
@@ -141,9 +138,9 @@
     <string name="translating">Traduzindo …</string>
     <string name="translated_using_libretranslate">Traduzido usando o LibreTranslate:</string>
     <string name="error_translating">Um erro ocorreu ao traduzir</string>
-    <!--Email verification-->
-    <string name="sending_code">Aguarde, o código está sendo enviado …</string>
-    <string name="error_sending_code">Um erro ocorreu ao enviar o código</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Se você apagar sua conta:
         \n\u2022 você não poderá mais enviar avaliações.

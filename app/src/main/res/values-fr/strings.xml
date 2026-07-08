@@ -72,12 +72,14 @@
     <!--Toolbar menu-->
     <string name="menu_help">Aide</string>
     <string name="menu_links">Liens</string>
-    <string name="menu_more">Plus d\'options</string>
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">V\u00E9rification</string>
     <string name="verify_to_get_started">V\u00E9rifiez votre email pour commencer</string>
-    <string name="verify">V\u00E9rifier</string>
     <string name="terms_conditions_title">Termes et conditions</string>
     <string name="terms_conditions_desc">Votre adresse \u00E9lectronique est n\u00E9cessaire pour soumettre des applications \u00E0 Plexus.
         \nCet email sera utilis\u00E9 \u00E0 des fins de v\u00E9rification uniquement et sera supprim\u00E9 de nos syst\u00E8mes apr\u00E8s v\u00E9rification.
@@ -87,14 +89,9 @@
         \n\u2022garantir l\'exactitude des donn\u00E9es soumises.
         \n
         \nVous pouvez supprimer votre compte de cet appareil \u00E0 tout moment.</string>
-    <string name="by_proceeding_agree_desc">En poursuivant, vous acceptez d\'utiliser Plexus de fa\u00E7on juste et honn\u00EAte.
-        En cas de violation des conditions susmentionn\u00E9es, toutes les \u00E9valuations que vous avez soumises seront supprim\u00E9es.</string>
-    <string name="verification">V\u00E9rification</string>
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Entrez le code de v\u00E9rification envoy\u00E9 \u00E0\n%1$s</string>
     <string name="verification_code">Code de v\u00E9rification</string>
-    <string name="verifying_code">Veuillez patienter, v\u00E9rification du code …</string>
-    <string name="incorrect_code">Code de v\u00E9rification incorrect.</string>
+    <string name="error_sending_code">Erreur lors de l\'envoi du code</string>
     <!--#########################################################################################-->
 
     <!--Settings activity-->
@@ -153,9 +150,9 @@
     <string name="translating">Traduction …</string>
     <string name="translated_using_libretranslate">Traduit avec LibreTranslate :</string>
     <string name="error_translating">Erreur de traduction</string>
-    <!--Email verification-->
-    <string name="sending_code">Veuillez patienter, envoi du code …</string>
-    <string name="error_sending_code">Erreur lors de l\'envoi du code</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Si vous supprimez votre compte :\n• vous ne pourrez plus soumettre d\'évaluations. \n• toutes les évaluations précédemment soumises seront définitivement supprimées de cet appareil. \n \nÊtes-vous sûr.e de vouloir continuer ?</string>
     <!--First submission-->

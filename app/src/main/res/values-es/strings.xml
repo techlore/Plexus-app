@@ -80,13 +80,16 @@
     <!--Toolbar menu-->
     <string name="menu_help">Ayuda</string>
     <string name="menu_links">Enlaces</string>
-    <string name="menu_more">M\u00E1s opciones</string>
+
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Verificaci\u00F3n</string>
     <string name="verify_to_get_started">Verifique su correo para empezar</string>
-    <string name="verify">Verificar</string>
     <string name="terms_conditions_title">T\u00E9rminos y condiciones</string>
     <string name="terms_conditions_desc">Su correo electr\u00F3nico es necesario para enviar valoraciones de apps a Plexus.
         \nEste correo electr\u00F3nico se utilizar\u00E1 \u00FAnicamente con fines de verificaci\u00F3n y se eliminar\u00E1 de nuestros sistemas tras la misma.
@@ -96,15 +99,9 @@
         \n\u2022 garantizar la precisi\u00F3n de los datos enviados.
         \n
         \nPuede eliminar su cuenta de este dispositivo en cualquier momento.</string>
-    <string name="by_proceeding_agree_desc">Al continuar, usted acepta hacer un uso adecuado de Plexus.
-        Si se violan los t\u00E9rminos y condiciones anteriores, todas las valoraciones enviadas por usted ser\u00E1n eliminadas.</string>
-    <string name="verification">Verificaci\u00F3n</string>
-
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Introduzca el c\u00F3digo de verificaci\u00F3n enviado a\n%1$s</string>
     <string name="verification_code">C\u00F3digo de verificaci\u00F3n</string>
-    <string name="verifying_code">Por favor espere, verificando c\u00F3digo …</string>
-    <string name="incorrect_code">C\u00F3digo de verificaci\u00F3n incorrecto.</string>
+    <string name="error_sending_code">Error al enviar el c\u00F3digo</string>
 
     <!--#########################################################################################-->
 
@@ -174,9 +171,9 @@
     <string name="translated_using_libretranslate">Traducido con LibreTranslate:</string>
     <string name="error_translating">Error al traducir</string>
 
-    <!--Email verification-->
-    <string name="sending_code">Por favor espere, enviando c\u00F3digo …</string>
-    <string name="error_sending_code">Error al enviar el c\u00F3digo</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
 
     <!--Delete account-->
     <string name="delete_account_desc">Si elimina su cuenta:

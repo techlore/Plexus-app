@@ -59,21 +59,19 @@
     <!--Toolbar menu-->
     <string name="menu_help">Abiteave</string>
     <string name="menu_links">Lingid</string>
-    <string name="menu_more">Lisavalikud</string>
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Kinnitamine</string>
     <string name="verify_to_get_started">Jätkamiseks kinnita oma e-posti aadressi õigsus</string>
-    <string name="verify">Kinnita</string>
     <string name="terms_conditions_title">Kasutustingimused</string>
     <string name="terms_conditions_desc">Plexuse teenuses rakenduste arvustuste koostamiseks on vajalik e-posti aadress.\nSee e-posti aadress on kasutusel loodava konto õigsuse kontrollimisel ja peale seda eemaldatakse Plexuse serverist.\n\nSelline lahendus on kasutusel:\n• meie API kuritarvitamise välitimiseks,\n• lisatavate andmete täpsuse tagamiseks.\n\nOma kasutajakonto saad siit seadmest igal hetkel eemaldada.</string>
-    <string name="by_proceeding_agree_desc">Jätkates nõustud kasutama Plexuse teenuseid viisakalt ja ausalt. Kui rikud ülaltoodud kasutustingimusi, siis kõik sinu arvustused kustutatakse.</string>
-    <string name="verification">Kinnitamine</string>
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Sisesta kinnituskood, mis on saadetud e-posti aadressile\n%1$s</string>
     <string name="verification_code">Kinnituskood</string>
-    <string name="verifying_code">Palun oota, kontrollin kinnituskoodi…</string>
-    <string name="incorrect_code">Vigane kinnituskood.</string>
+    <string name="error_sending_code">Viga kinnituskoodi edastamisel</string>
     <!--#########################################################################################-->
 
     <!--Settings activity-->
@@ -132,9 +130,9 @@
     <string name="translating">Tõlgin…</string>
     <string name="translated_using_libretranslate">Tõlge LibreTranslate\'i teenusest:</string>
     <string name="error_translating">Viga tõlkimisel</string>
-    <!--Email verification-->
-    <string name="sending_code">Palun oota, edastan kinnituskoodi serverisse…</string>
-    <string name="error_sending_code">Viga kinnituskoodi edastamisel</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Kui kustutad oma kasutajakonto: \n• siis sa ei saa koostada arvustusi, \n• kõik selle nutiseadmega seotud arvustused kustutatakse. \n \nKas oled kindel, et soovid jätkata?</string>
     <!--First submission-->

@@ -59,21 +59,19 @@
     <!--Toolbar menu-->
     <string name="menu_help">Βοήθεια</string>
     <string name="menu_links">Σύνδεσμοι</string>
-    <string name="menu_more">Περισσότερες επιλογές</string>
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Επιβεβαίωση</string>
     <string name="verify_to_get_started">Επαληθεύστε τη διεύθυνση email σας για να ξεκινήσετε</string>
-    <string name="verify">Επαλήθευση</string>
     <string name="terms_conditions_title">Όροι &amp; προϋποθέσεις</string>
     <string name="terms_conditions_desc">Για να υποβάλετε εφαρμογές στο Plexus, απαιτείται η διεύθυνση email σας.\nΑυτή η διεύθυνση email θα χρησιμοποιηθεί αποκλειστικά για σκοπούς επαλήθευσης και θα διαγραφεί από τα συστήματά μας μετά την επαλήθευση.\n\nΑυτό γίνεται για να:\n• αποτραπεί η πιθανή κατάχρηση του API μας.\n• διασφαλιστεί η αξιοπιστία των δεδομένων που υποβάλλονται.\n\nΜπορείτε να διαγράψετε τον λογαριασμό σας από αυτή τη συσκευή ανά πάσα στιγμή.</string>
-    <string name="by_proceeding_agree_desc">Προχωρώντας, συμφωνείτε με την πολιτική ορθής χρήσης του Plexus. Εάν παραβιαστούν οι παραπάνω όροι &amp; προϋποθέσεις, όλες οι αξιολογήσεις που έχετε υποβάλει θα διαγραφούν.</string>
-    <string name="verification">Επιβεβαίωση</string>
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Εισάγετε τον κωδικό επαλήθευσης που στάλθηκε στο\n%1$s</string>
     <string name="verification_code">Κωδικός επαλήθευσης</string>
-    <string name="verifying_code">Παρακαλώ περιμένετε, επιβεβαίωση κωδικού …</string>
-    <string name="incorrect_code">Λανθασμένος κωδικός επαλήθευσης.</string>
+    <string name="error_sending_code">Σφάλμα κατά την αποστολή του κωδικού</string>
     <!--#########################################################################################-->
 
     <!--Settings activity-->
@@ -132,9 +130,9 @@
     <string name="translating">Μετάφραση …</string>
     <string name="translated_using_libretranslate">Μεταφράστηκε με τη χρήση του LibreTranslate:</string>
     <string name="error_translating">Παρουσιάστηκε σφάλμα κατά τη μετάφραση</string>
-    <!--Email verification-->
-    <string name="sending_code">Παρακαλώ περιμένετε, αποστολή κωδικού …</string>
-    <string name="error_sending_code">Σφάλμα κατά την αποστολή του κωδικού</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Εάν διαγράψετε τον λογαριασμό σας: \n• δεν θα μπορείτε να υποβάλετε αξιολογήσεις. \n• όλες οι αξιολογήσεις που έχουν υποβληθεί στο παρελθόν θα διαγραφούν οριστικά από αυτή τη συσκευή. \n \nΕίστε σίγουροι ότι θέλετε να συνεχίσετε;</string>
     <!--First submission-->

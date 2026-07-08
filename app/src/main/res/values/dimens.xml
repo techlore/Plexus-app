@@ -23,12 +23,9 @@
     <dimen name="margin_64">64dp</dimen>
     <dimen name="margin_56">56dp</dimen>
     <dimen name="margin_50">50dp</dimen>
-    <dimen name="margin_45">45dp</dimen>
     <dimen name="margin_40">40dp</dimen>
-    <dimen name="margin_35">35dp</dimen>
     <dimen name="margin_32">32dp</dimen>
     <dimen name="margin_25">25dp</dimen>
-    <dimen name="margin_22">22dp</dimen>
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_18">18dp</dimen>
     <dimen name="margin_16">16dp</dimen>
@@ -40,7 +37,6 @@
     <dimen name="margin_2">2dp</dimen>
 
     <!--Text-->
-    <dimen name="text_22">22sp</dimen>
     <dimen name="text_20">20sp</dimen>
     <dimen name="text_18">18sp</dimen>
     <dimen name="text_17">17sp</dimen>

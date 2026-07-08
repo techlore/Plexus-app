@@ -78,13 +78,16 @@
     <!--Toolbar menu-->
     <string name="menu_help">Aiuto</string>
     <string name="menu_links">Links</string>
-    <string name="menu_more">Altro</string>
+
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Verifica</string>
     <string name="verify_to_get_started">Verifica il tuo indirizzo email per iniziare</string>
-    <string name="verify">Verifica</string>
     <string name="terms_conditions_title">Termini e condizioni</string>
     <string name="terms_conditions_desc">L\'email \u00E8 necessaria per contribure a Plexus.
         \nL\'email sar\u00E0 utilizzata solo a scopo di verifica e sar\u00E0 rimossa dai nostri sistemi dopo la verifica.
@@ -94,15 +97,9 @@
         \n\u2022 assicurare l\'accuratezza dei dati inviati.
         \n
         \nPotrai cancellare il tuo account da questo dispositivo in qualsiasi momento.</string>
-    <string name="by_proceeding_agree_desc">Procedendo, accetti di usare Plexus in modo corretto.
-        Se i termini e le condizioni vengono violati, tutte le valutazioni inviate dall\'utente verranno cancellate.</string>
-    <string name="verification">Verifica</string>
-
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Inserire il codice di verifica inviato a\n%1$s</string>
     <string name="verification_code">Codice di verifica</string>
-    <string name="verifying_code">Attendere, verifica del codice …</string>
-    <string name="incorrect_code">Codice di verifica errato.</string>
+    <string name="error_sending_code">Errore durante l\'invio del codice</string>
 
     <!--#########################################################################################-->
 
@@ -172,9 +169,9 @@
     <string name="translated_using_libretranslate">Tradotto con LibreTranslate:</string>
     <string name="error_translating">Errore durante la traduzione</string>
 
-    <!--Email verification-->
-    <string name="sending_code">Attendere, invio del codice …</string>
-    <string name="error_sending_code">Errore durante l\'invio del codice</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
 
     <!--Delete account-->
     <string name="delete_account_desc">Se cancelli il tuo account:

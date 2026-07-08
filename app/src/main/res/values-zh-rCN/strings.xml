@@ -59,21 +59,19 @@
     <!--Toolbar menu-->
     <string name="menu_help">帮助</string>
     <string name="menu_links">链接</string>
-    <string name="menu_more">更多选项</string>
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">验证</string>
     <string name="verify_to_get_started">验证您的电子邮件以开始</string>
-    <string name="verify">验证</string>
     <string name="terms_conditions_title">条款与条件</string>
     <string name="terms_conditions_desc">提交应用到 Plexus 需要您的电子邮件。 \n此电子邮件仅用于验证，验证后将从我们的系统中删除。 \n \n这样做是为了： \n• 防止潜在的 API 滥用。 \n• 确保提交数据的准确性。 \n \n您可以随时在此设备上删除您的账号。</string>
-    <string name="by_proceeding_agree_desc">继续即表示您同意合理使用 Plexus。如果违反上述条款，您提交的所有评分将被删除。</string>
-    <string name="verification">验证</string>
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">输入发送到 %1$s 的验证码</string>
     <string name="verification_code">验证码</string>
-    <string name="verifying_code">请稍候，正在验证验证码……</string>
-    <string name="incorrect_code">验证码错误。</string>
+    <string name="error_sending_code">发送验证码时出错</string>
     <!--#########################################################################################-->
 
     <!--Settings activity-->
@@ -132,9 +130,9 @@
     <string name="translating">翻译中……</string>
     <string name="translated_using_libretranslate">使用 LibreTranslate 进行翻译：</string>
     <string name="error_translating">翻译时出错</string>
-    <!--Email verification-->
-    <string name="sending_code">正在发送验证码……</string>
-    <string name="error_sending_code">发送验证码时出错</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
     <!--Delete account-->
     <string name="delete_account_desc">如果您删除您的账号： \n• 您将无法提交评分。 \n• 所有之前提交的评分将从此设备中永久删除。 \n \n您确定要继续吗？</string>
     <!--First submission-->

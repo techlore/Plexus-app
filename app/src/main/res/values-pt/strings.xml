@@ -48,17 +48,16 @@
     <string name="rate">Avaliar</string>
     <string name="menu_help">Ajuda</string>
     <string name="menu_links">Ligações</string>
-    <string name="menu_more">Mais opções</string>
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="verification">Verificação</string>
     <string name="verify_to_get_started">Verifique o seu e-mail para iniciar</string>
-    <string name="verify">Verificar</string>
     <string name="terms_conditions_title">Termos e condições</string>
     <string name="terms_conditions_desc">O seu endereço de e-mail é necessário para enviar apps ao Plexus.\nEste e-mail será usado somente para a verificação e será removido dos nossos sistemas após a verificação.\n\nIsto é feito para:\n• prevenir abuso da nossa API.\n• garantir precisão dos dados enviados.\n\nPode apagar a sua conta neste dispositivo a qualquer momento.</string>
-    <string name="by_proceeding_agree_desc">Ao proceder, concorda com a utilização justa do Plexus. Caso os termos e condições acima forem violados, todas as avaliações enviadas por si serão apagadas.</string>
-    <string name="verification">Verificação</string>
     <string name="enter_code_sent_to_email">Digite o código enviado para\n%1$s</string>
     <string name="verification_code">Código de verificação</string>
-    <string name="verifying_code">Aguarde, o código está a ser verificado …</string>
-    <string name="incorrect_code">O código de verificação está incorreto.</string>
+    <string name="error_sending_code">Um erro ocorreu ao enviar o código</string>
     <string name="theme">Tema</string>
     <string name="material_you">Material You\n(requer o reinício da app)</string>
     <string name="default_view">Ecrã padrão</string>
@@ -107,8 +106,9 @@
     <string name="translating">A traduzir …</string>
     <string name="translated_using_libretranslate">Traduzido usando o LibreTranslate:</string>
     <string name="error_translating">Um erro ocorreu ao traduzir</string>
-    <string name="sending_code">Por favor aguarde, o código está a ser enviado …</string>
-    <string name="error_sending_code">Um erro ocorreu ao enviar o código</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
     <string name="delete_account_desc">Se apagar a sua conta: \n• já não poderá enviar avaliações. \n• todas as suas avaliações enviadas anteriormente serão removidas permanentemente deste dispositivo. \n \nTem certeza que deseja continuar?</string>
     <string name="first_submission_desc">Todas as suas avaliações futuras usarão esta opção e isto não poderá ser alterado depois.</string>
     <string name="select_correct_rom">Por favor, selecione a ROM correta instalada no seu dispositivo.</string>

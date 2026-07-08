@@ -74,13 +74,16 @@
     <!--Toolbar menu-->
     <string name="menu_help">Helpen</string>
     <string name="menu_links">Links</string>
-    <string name="menu_more">Meer opties</string>
+
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Verificatie</string>
     <string name="verify_to_get_started">Controleer je email om te beginnen</string>
-    <string name="verify">Controleer</string>
     <string name="terms_conditions_title">Algemene voorwaarden</string>
     <string name="terms_conditions_desc">Uw email is vereist voor het indienen van apps bij Plexus.
         \nDit email wordt alleen gebruikt voor verificatiedoeleinden en wordt na verificatie uit onze systemen verwijderd.
@@ -90,15 +93,9 @@
         \n\u2022 de nauwkeurigheid van de ingediende gegevens te garanderen.
         \n
         \nU kunt uw account op elk gewenst moment van dit apparaat verwijderen.</string>
-    <string name="by_proceeding_agree_desc">Door verder te gaan, ga je akkoord met het eerlijke gebruik van Plexus.
-        Als de bovenstaande voorwaarden worden geschonden, worden alle beoordelingen die u hebt ingediend, verwijderd.</string>
-    <string name="verification">Verificatie</string>
-
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Voer de verificatiecode in die is verzonden naar\n%1$s</string>
     <string name="verification_code">Verificatiecode</string>
-    <string name="verifying_code">Even geduld, code wordt geverifieerd …</string>
-    <string name="incorrect_code">Onjuiste verificatiecode.</string>
+    <string name="error_sending_code">Fout bij verzenden code</string>
 
     <!--#########################################################################################-->
 
@@ -168,9 +165,9 @@
     <string name="translated_using_libretranslate">Vertaald met LibreTranslate:</string>
     <string name="error_translating">Fout bij het vertalen</string>
 
-    <!--Email verification-->
-    <string name="sending_code">Even geduld, code wordt verzonden …</string>
-    <string name="error_sending_code">Fout bij verzenden code</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
 
     <!--Delete account-->
     <string name="delete_account_desc">Als je je account verwijdert:

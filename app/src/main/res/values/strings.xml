@@ -77,13 +77,16 @@
     <!--Toolbar menu-->
     <string name="menu_help">Help</string>
     <string name="menu_links">Links</string>
-    <string name="menu_more">More options</string>
+
+    <!--My ratings details fragment-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
     <!--#########################################################################################-->
 
-    <!--Email verification fragment-->
+    <!--Verification activity-->
+    <string name="verification">Verification</string>
     <string name="verify_to_get_started">Verify your email to get started</string>
-    <string name="verify">Verify</string>
     <string name="terms_conditions_title">Terms &amp; conditions</string>
     <string name="terms_conditions_desc">Your email is required to submit apps to Plexus.
         \nThis email will be used for verification purposes only and will be removed from our systems after verifying.
@@ -93,15 +96,9 @@
         \n\u2022 ensure accuracy of the data submitted.
         \n
         \nYou may delete your account from this device at any time.</string>
-    <string name="by_proceeding_agree_desc">By proceeding, you agree to the fair usage of Plexus.
-        If the above terms &amp; conditions are violated, all the ratings submitted by you will be deleted.</string>
-    <string name="verification">Verification</string>
-
-    <!--Code verification fragment-->
     <string name="enter_code_sent_to_email">Enter the verification code sent to\n%1$s</string>
     <string name="verification_code">Verification code</string>
-    <string name="verifying_code">Please wait, verifying code …</string>
-    <string name="incorrect_code">Incorrect verification code.</string>
+    <string name="error_sending_code">Error while sending code</string>
 
     <!--#########################################################################################-->
 
@@ -171,9 +168,9 @@
     <string name="translated_using_libretranslate">Translated using LibreTranslate:</string>
     <string name="error_translating">Error while translating</string>
 
-    <!--Email verification-->
-    <string name="sending_code">Please wait, sending code …</string>
-    <string name="error_sending_code">Error while sending code</string>
+    <!--Delete rating-->
+    <string name="delete_rating">Delete rating</string>
+    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
 
     <!--Delete account-->
     <string name="delete_account_desc">If you delete your account:
