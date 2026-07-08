@@ -328,7 +328,6 @@ class UiUtils {
             }
         }
         
-        
         fun mapInstalledFromChipIdToString(installedFromChip: Int): String {
             return when (installedFromChip) {
                 R.id.ratingsChipInstalledGooglePlayAlt -> "google_play_alternative"

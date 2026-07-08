@@ -20,8 +20,6 @@ package tech.techlore.plexus.preferences
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import java.io.IOException
-import java.security.GeneralSecurityException
 
 class EncryptedPreferenceManager(context: Context) {
     
@@ -33,21 +31,13 @@ class EncryptedPreferenceManager(context: Context) {
     }
     
     private val encryptedSharedPreferences =
-        try {
-            EncryptedSharedPreferences.create(context,
-                                              "tech.techlore.plexus_enc_prefs",
-                                              MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
-                                              EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                                              EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM)
-        }
-        catch (genSecException: GeneralSecurityException) {
-            genSecException.printStackTrace()
-            throw RuntimeException("Encrypted Preferences General Security Exception", genSecException)
-        }
-        catch (ioException: IOException) {
-            ioException.printStackTrace()
-            throw RuntimeException("Encrypted Preferences IO Exception", ioException)
-        }
+        EncryptedSharedPreferences.create(
+            context,
+            "tech.techlore.plexus_enc_prefs",
+            MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     
     fun getBoolean(key: String): Boolean {
         return encryptedSharedPreferences.getBoolean(key, false)

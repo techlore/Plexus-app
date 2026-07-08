@@ -70,7 +70,7 @@
         <item name="android:background">@drawable/shape_outlined_rounded_corners_large</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
-        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textSize">@dimen/text_15</item>
     </style>
 
     <!--#########################################################################################-->

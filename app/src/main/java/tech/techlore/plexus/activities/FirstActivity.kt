@@ -149,7 +149,7 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
             35 -> "15.0"
             36 -> "16.0"
             37 -> "17.0"
-            else -> "NA" // Should never reach here
+            else -> "N/A" // Should never reach here
         }
     }
     

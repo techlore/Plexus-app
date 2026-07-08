@@ -191,17 +191,17 @@ class AppDetailsActivity : BaseDetailsActivity() {
         // Rate
         activityBinding.rateBtn.setOnClickListener {
             when {
+                !DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
+                    showSnackbar(activityBinding.detailsCoordLayout,
+                                 getString(R.string.device_should_be_degoogled_or_microg),
+                                 activityBinding.detailsFloatingToolbar)
+                
                 !app.isInstalled ->
                     showSnackbar(activityBinding.detailsCoordLayout,
                                  getString(R.string.install_app_to_submit, app.name),
                                  anchorView =
                                      if (activityBinding.scrollTopFab.isVisible) activityBinding.scrollTopFab
                                      else activityBinding.detailsFloatingToolbar)
-                
-                !DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
-                    showSnackbar(activityBinding.detailsCoordLayout,
-                                 getString(R.string.device_should_be_degoogled_or_microg),
-                                 activityBinding.detailsFloatingToolbar)
                 
                 encPrefManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                     RomSelectionBottomSheet(isFromNavView = false).show(supportFragmentManager, "RomSelectionBottomSheet")

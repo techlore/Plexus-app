@@ -35,7 +35,7 @@
         android:id="@+id/playStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_8"
         android:padding="@dimen/margin_16"
         android:clickable="true"
         android:focusable="true"
