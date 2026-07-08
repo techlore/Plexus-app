@@ -20,14 +20,16 @@ package tech.techlore.plexus.fragments.details
 import androidx.recyclerview.widget.ListAdapter
 import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.adapters.details.UserRatingsItemAdapter
+import tech.techlore.plexus.bottomsheets.appdetails.TranslateRatingNoteBottomSheet
+import tech.techlore.plexus.interfaces.details.TranslateBtnClickListener
 import tech.techlore.plexus.models.get.ratings.Rating
 
-class UserRatingsFragment : BaseRatingsDetailsFragment<Rating>() {
+class UserRatingsFragment : BaseRatingsDetailsFragment<Rating>(), TranslateBtnClickListener {
     
     private lateinit var userRatingsItemAdapter: UserRatingsItemAdapter
     
     override fun createAdapter(): ListAdapter<*, *> {
-        userRatingsItemAdapter = UserRatingsItemAdapter(parentFragmentManager)
+        userRatingsItemAdapter = UserRatingsItemAdapter(this)
         return userRatingsItemAdapter
     }
     
@@ -46,4 +48,9 @@ class UserRatingsFragment : BaseRatingsDetailsFragment<Rating>() {
     override fun submitList(list: ArrayList<Rating>) {
         userRatingsItemAdapter.submitList(list)
     }
+    
+    override fun onTranslateClicked(notes: String) {
+        TranslateRatingNoteBottomSheet(notes).show(parentFragmentManager, "TranslateRatingNoteBottomSheet")
+    }
+    
 }

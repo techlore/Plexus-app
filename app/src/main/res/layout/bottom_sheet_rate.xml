@@ -31,7 +31,6 @@
         layout="@layout/bottom_sheet_header"/>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/submitScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -118,7 +117,6 @@
                     style="@style/SilverFilterChipTheme"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/submitGold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/GoldFilterChipTheme"/>

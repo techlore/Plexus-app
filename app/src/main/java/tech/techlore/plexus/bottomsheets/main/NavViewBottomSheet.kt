@@ -30,7 +30,7 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.bottomsheets.common.RomSelectionBottomSheet
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetNavViewBinding
-import tech.techlore.plexus.interfaces.NavViewItemSelectedListener
+import tech.techlore.plexus.interfaces.main.NavViewItemSelectedListener
 import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_REGISTERED

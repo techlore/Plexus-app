@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.interfaces
+package tech.techlore.plexus.interfaces.main
 
 interface SortPrefsChangedListener {
     

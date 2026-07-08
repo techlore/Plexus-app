@@ -468,7 +468,6 @@
                     <!--####################################################-->
 
                     <Space
-                        android:id="@+id/totalScoreCardBottomSpace"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/margin_16"
                         app:layout_constraintTop_toBottomOf="@id/brokenProgress"
@@ -527,7 +526,6 @@
         app:materialThemeOverlay="@style/ThemeOverlay.Material3.FloatingActionButton.Tertiary"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottomConstraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

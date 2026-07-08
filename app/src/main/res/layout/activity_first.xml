@@ -44,7 +44,6 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/appIcon"

@@ -59,11 +59,11 @@ class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.delete_account)
         
-        // Proceed
+        // Delete
         footerBinding.positiveButton.apply {
             setBackgroundColor(MaterialColors.getColor(this, androidx.appcompat.R.attr.colorError))
             setTextColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
-            text = getString(R.string.proceed)
+            text = getString(R.string.delete)
             setOnClickListener {
                 EncryptedPreferenceManager(requireContext()).apply {
                     deleteString(DEVICE_TOKEN)

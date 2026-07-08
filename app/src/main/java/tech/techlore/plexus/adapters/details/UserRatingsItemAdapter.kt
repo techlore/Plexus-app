@@ -21,28 +21,26 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
-import tech.techlore.plexus.bottomsheets.appdetails.TranslateRatingNoteBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
 import tech.techlore.plexus.diffcallbacks.UserRatingsDetailsDiffCallback
+import tech.techlore.plexus.interfaces.details.TranslateBtnClickListener
 import tech.techlore.plexus.utils.UiUtils.Companion.formatRfc3339ToLocalized
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
 class UserRatingsItemAdapter(
-    private val fragmentManager: FragmentManager
+    private val translateBtnClickListener: TranslateBtnClickListener
 ) : ListAdapter<Rating, UserRatingsItemAdapter.ListViewHolder>(UserRatingsDetailsDiffCallback()) {
     
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        
-        val notesCard: MaterialCardView = itemView.findViewById(R.id.ratingsNotesCard)
+    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val notesCard: LinearLayout = itemView.findViewById(R.id.ratingsNotesCard)
         val notes: MaterialTextView = itemView.findViewById(R.id.ratingsNotes)
         val translateBtn: MaterialButton = itemView.findViewById(R.id.translateBtn)
         val version: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
@@ -51,7 +49,6 @@ class UserRatingsItemAdapter(
         val installedFrom: MaterialTextView = itemView.findViewById(R.id.ratingsInstalledFrom)
         val status: MaterialTextView = itemView.findViewById(R.id.ratingsStatus)
         val dateTime: MaterialTextView = itemView.findViewById(R.id.ratingsDateTime)
-        
     }
     
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -71,7 +68,7 @@ class UserRatingsItemAdapter(
         if (!userRating.notes.isNullOrEmpty()) {
             holder.notes.text = userRating.notes
             holder.translateBtn.setOnClickListener {
-                TranslateRatingNoteBottomSheet(userRating.notes!!).show(fragmentManager, "TranslateRatingNoteBottomSheet")
+                translateBtnClickListener.onTranslateClicked(userRating.notes!!)
             }
         }
         else {
@@ -91,9 +88,6 @@ class UserRatingsItemAdapter(
         )
         
         holder.dateTime.text = userRating.ratingDateTime.formatRfc3339ToLocalized(context)
-        
-        
-        
     }
     
     override fun getItemViewType(position: Int): Int {

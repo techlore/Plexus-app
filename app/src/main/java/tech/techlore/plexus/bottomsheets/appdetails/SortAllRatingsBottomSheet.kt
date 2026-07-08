@@ -33,7 +33,7 @@ import tech.techlore.plexus.activities.BaseDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortRatingsBinding
-import tech.techlore.plexus.interfaces.SortPrefsChangedListener
+import tech.techlore.plexus.interfaces.main.SortPrefsChangedListener
 
 class SortAllRatingsBottomSheet(
     private val sortPrefsChangedListener: SortPrefsChangedListener

@@ -30,7 +30,7 @@ import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
-import tech.techlore.plexus.interfaces.SortPrefsChangedListener
+import tech.techlore.plexus.interfaces.main.SortPrefsChangedListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT

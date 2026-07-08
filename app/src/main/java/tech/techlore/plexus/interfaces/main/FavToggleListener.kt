@@ -15,10 +15,12 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.interfaces
+package tech.techlore.plexus.interfaces.main
 
-interface NavViewItemSelectedListener {
+import tech.techlore.plexus.models.minimal.MainDataMinimal
+
+interface FavToggleListener {
     
-    fun onNavViewItemSelected(selectedItemId: Int, shouldDelayAction: Boolean)
+    fun onFavToggled(item: MainDataMinimal, isChecked: Boolean)
     
 }

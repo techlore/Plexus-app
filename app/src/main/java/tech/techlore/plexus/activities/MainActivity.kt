@@ -40,8 +40,8 @@ import tech.techlore.plexus.bottomsheets.main.DeleteAccountBottomSheet
 import tech.techlore.plexus.bottomsheets.main.DevVerfWarnBottomSheet
 import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
-import tech.techlore.plexus.interfaces.NavViewItemSelectedListener
-import tech.techlore.plexus.interfaces.SortPrefsChangedListener
+import tech.techlore.plexus.interfaces.main.NavViewItemSelectedListener
+import tech.techlore.plexus.interfaces.main.SortPrefsChangedListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW

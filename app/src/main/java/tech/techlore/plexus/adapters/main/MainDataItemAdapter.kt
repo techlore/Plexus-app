@@ -28,7 +28,7 @@ import com.google.android.material.textview.MaterialTextView
 import me.stellarsand.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
 import tech.techlore.plexus.diffcallbacks.MainDataMinimalDiffCallback
-import tech.techlore.plexus.interfaces.FavToggleListener
+import tech.techlore.plexus.interfaces.main.FavToggleListener
 import tech.techlore.plexus.models.minimal.MainDataMinimal
 import tech.techlore.plexus.utils.UiUtils.Companion.hScroll
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon

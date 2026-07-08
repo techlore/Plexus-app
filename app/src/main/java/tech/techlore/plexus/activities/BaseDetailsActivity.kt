@@ -42,7 +42,7 @@ import tech.techlore.plexus.bottomsheets.appdetails.LinksBottomSheet
 import tech.techlore.plexus.bottomsheets.appdetails.SortAllRatingsBottomSheet
 import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
-import tech.techlore.plexus.interfaces.SortPrefsChangedListener
+import tech.techlore.plexus.interfaces.main.SortPrefsChangedListener
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.repositories.database.MainDataRepository
