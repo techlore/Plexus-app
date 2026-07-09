@@ -68,8 +68,8 @@
     <string name="menu_help">Nápověda</string>
     <string name="menu_links">Odkazy</string>
     <!--My ratings details fragment-->
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
+    <string name="edit">Upravit</string>
+    <string name="delete">Odstranit</string>
     <!--#########################################################################################-->
 
     <!--Verification activity-->
@@ -146,8 +146,8 @@
     <string name="translated_using_libretranslate">Přeloženo pomocí LibreTranslate:</string>
     <string name="error_translating">Chyba při překladu</string>
     <!--Delete rating-->
-    <string name="delete_rating">Delete rating</string>
-    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
+    <string name="delete_rating">Odstranit hodnocení</string>
+    <string name="delete_rating_desc">Opravdu chcete trvale odstranit toto hodnocení?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Pokud smažete svůj účet:
         \n\u2022 nebudete moci odesílat hodnocení.
