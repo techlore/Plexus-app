@@ -296,22 +296,22 @@ class UiUtils {
         
         fun String.formatRfc3339ToLocalized(): String {
             return try {
-                val instant = Instant.parse(this)
-                
-                buildString {
-                    append(
-                        if (this.substring(0, 4).toInt() == get<Int>(named("currentYear")))
-                            get<DateTimeFormatter>(named("formattedDateWithoutYear"))
-                                .format(instant)
-                        else
-                            get<DateTimeFormatter>(named("formattedDateWithYear"))
-                                .format(instant)
-                    )
-                    append(" \u007C ")
-                    append(
-                        get<DateTimeFormatter>(named("formattedTime"))
-                            .format(instant)
-                    )
+                Instant.parse(this).let {
+                    buildString {
+                        append(
+                            if (this@formatRfc3339ToLocalized.substring(0, 4).toInt() == get<Int>(named("currentYear")))
+                                get<DateTimeFormatter>(named("formattedDateWithoutYear"))
+                                    .format(it)
+                            else
+                                get<DateTimeFormatter>(named("formattedDateWithYear"))
+                                    .format(it)
+                        )
+                        append(" \u007C ")
+                        append(
+                            get<DateTimeFormatter>(named("formattedTime"))
+                                .format(it)
+                        )
+                    }
                 }
             }
             catch (_: DateTimeParseException) {

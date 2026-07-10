@@ -33,6 +33,7 @@ import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
+import tech.techlore.plexus.keystore.KeyStoreManager
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import java.time.Year
 import java.time.ZoneId
@@ -54,23 +55,28 @@ val appModule =
         single { MyRatingsRepository(get<MainDatabase>().myRatingsDao()) }
         single { Locale.getDefault() }
         single(named("currentYear")) { Year.now().value }
-        single { ZoneId.systemDefault() }
+        single(named("zoneId")) { ZoneId.systemDefault() }
+        
         single(named("formattedDateWithoutYear")) {
             DateTimeFormatter
                 .ofPattern("MMM dd", get())
-                .withZone(get())
+                .withZone(get(named("zoneId")))
         }
+        
         single(named("formattedDateWithYear")) {
             DateTimeFormatter
                 .ofPattern("MMM dd, yyyy", get())
-                .withZone(get())
+                .withZone(get(named("zoneId")))
         }
+        
         single(named("formattedTime")) {
             DateTimeFormatter
                 .ofPattern(
                     if (DateFormat.is24HourFormat(get())) "HH:mm" else "hh:mm a",
                     get()
                 )
-                .withZone(get())
+                .withZone(get(named("zoneId")))
         }
+        
+        single { KeyStoreManager() }
     }

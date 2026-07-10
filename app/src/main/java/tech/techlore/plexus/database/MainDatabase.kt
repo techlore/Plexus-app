@@ -21,8 +21,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.dao.MyRatingsDao
 import tech.techlore.plexus.models.main.MainData
@@ -30,7 +28,7 @@ import tech.techlore.plexus.models.myratings.MyRating
 
 @Database(
     entities = [MainData::class, MyRating::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class MainDatabase : RoomDatabase() {
@@ -43,13 +41,6 @@ abstract class MainDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: MainDatabase? = null
         
-        val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE my_ratings_table ADD COLUMN encDeleteTokenBase64 TEXT")
-                db.execSQL("ALTER TABLE my_ratings_table ADD COLUMN myRatingDateTime TEXT NOT NULL DEFAULT ''")
-            }
-        }
-        
         fun getDatabase(context: Context): MainDatabase {
             return INSTANCE ?: synchronized(this) {
                 Room
@@ -58,7 +49,6 @@ abstract class MainDatabase : RoomDatabase() {
                         MainDatabase::class.java,
                         "main_database.db"
                     )
-                    .addMigrations(MIGRATION_1_2)
                     .build()
                     .also { INSTANCE = it }
             }
