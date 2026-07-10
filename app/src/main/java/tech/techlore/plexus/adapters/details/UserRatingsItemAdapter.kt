@@ -87,7 +87,7 @@ class UserRatingsItemAdapter(
             userRating.ratingScore!!.ratingScore
         )
         
-        holder.dateTime.text = userRating.ratingDateTime.formatRfc3339ToLocalized(context)
+        holder.dateTime.text = userRating.ratingDateTime.formatRfc3339ToLocalized()
     }
     
     override fun getItemViewType(position: Int): Int {

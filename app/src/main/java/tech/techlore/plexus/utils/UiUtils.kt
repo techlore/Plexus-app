@@ -24,7 +24,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.os.Build
-import android.text.format.DateFormat
 import android.view.View
 import android.view.Window
 import android.widget.ImageView
@@ -55,10 +54,8 @@ import org.koin.core.qualifier.named
 import tech.techlore.plexus.R
 import tech.techlore.plexus.objects.DeviceState
 import java.time.Instant
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
-import java.time.format.FormatStyle
 
 class UiUtils {
     
@@ -297,30 +294,24 @@ class UiUtils {
             backgroundTintList = ColorStateList.valueOf(backgroundTint)
         }
         
-        fun String.formatRfc3339ToLocalized(context: Context): String {
+        fun String.formatRfc3339ToLocalized(): String {
             return try {
                 val instant = Instant.parse(this)
-                val zone = ZoneId.systemDefault()
-                val locale = context.resources.configuration.locales[0]
-                
-                val dateFormatter =
-                    DateTimeFormatter
-                        .ofLocalizedDate(FormatStyle.MEDIUM)
-                        .withLocale(locale)
-                        .withZone(zone)
-                
-                val timeFormatter =
-                    DateTimeFormatter
-                        .ofPattern(
-                            if (DateFormat.is24HourFormat(context)) "HH:mm" else "hh:mm a",
-                            locale
-                        )
-                        .withZone(zone)
                 
                 buildString {
-                    append(dateFormatter.format(instant))
+                    append(
+                        if (this.substring(0, 4).toInt() == get<Int>(named("currentYear")))
+                            get<DateTimeFormatter>(named("formattedDateWithoutYear"))
+                                .format(instant)
+                        else
+                            get<DateTimeFormatter>(named("formattedDateWithYear"))
+                                .format(instant)
+                    )
                     append(" \u007C ")
-                    append(timeFormatter.format(instant))
+                    append(
+                        get<DateTimeFormatter>(named("formattedTime"))
+                            .format(instant)
+                    )
                 }
             }
             catch (_: DateTimeParseException) {

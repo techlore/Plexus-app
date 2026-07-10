@@ -17,7 +17,7 @@
 
 package tech.techlore.plexus.interfaces.main
 
-interface NavViewItemSelectedListener {
+interface NavViewItemSelectListener {
     
     fun onNavViewItemSelected(selectedItemId: Int, shouldDelayAction: Boolean)
     

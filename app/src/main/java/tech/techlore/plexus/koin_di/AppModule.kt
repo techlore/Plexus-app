@@ -18,6 +18,7 @@
 package tech.techlore.plexus.koin_di
 
 import android.app.Application
+import android.text.format.DateFormat
 import coil3.ImageLoader
 import coil3.request.crossfade
 import kotlinx.serialization.json.Json
@@ -33,6 +34,10 @@ import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
+import java.time.Year
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 val appModule =
     module {
@@ -47,4 +52,25 @@ val appModule =
         single { MainDataRepository(get<MainDatabase>().mainDataDao()) }
         single { MainDataMinimalRepository(get(), get<MainDatabase>().mainDataDao()) }
         single { MyRatingsRepository(get<MainDatabase>().myRatingsDao()) }
+        single { Locale.getDefault() }
+        single(named("currentYear")) { Year.now().value }
+        single { ZoneId.systemDefault() }
+        single(named("formattedDateWithoutYear")) {
+            DateTimeFormatter
+                .ofPattern("MMM dd", get())
+                .withZone(get())
+        }
+        single(named("formattedDateWithYear")) {
+            DateTimeFormatter
+                .ofPattern("MMM dd, yyyy", get())
+                .withZone(get())
+        }
+        single(named("formattedTime")) {
+            DateTimeFormatter
+                .ofPattern(
+                    if (DateFormat.is24HourFormat(get())) "HH:mm" else "hh:mm a",
+                    get()
+                )
+                .withZone(get())
+        }
     }

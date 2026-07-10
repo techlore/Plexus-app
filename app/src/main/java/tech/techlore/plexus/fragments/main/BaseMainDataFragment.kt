@@ -67,16 +67,16 @@ abstract class BaseMainDataFragment : Fragment(), MainDataItemAdapter.OnItemClic
         // Adjust recycler view for edge to edge
         fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
         
+        mainDataItemAdapter =
+            MainDataItemAdapter(
+                clickListener = this@BaseMainDataFragment,
+                favToggleListener = this@BaseMainDataFragment,
+                isGridView = mainActivity.isGridView,
+                isFavFrag = !isSwipeRefreshEnabled()
+            )
+        
         lifecycleScope.launch {
             mainDataList = getDataFromDB()
-            
-            mainDataItemAdapter =
-                MainDataItemAdapter(
-                    clickListener = this@BaseMainDataFragment,
-                    favToggleListener = this@BaseMainDataFragment,
-                    isGridView = mainActivity.isGridView,
-                    isFavFrag = !isSwipeRefreshEnabled()
-                )
             
             if (mainDataList.isEmpty()) fragmentBinding.emptyListViewStub.inflate()
             else

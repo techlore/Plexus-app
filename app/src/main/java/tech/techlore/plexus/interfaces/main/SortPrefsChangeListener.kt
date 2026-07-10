@@ -17,7 +17,7 @@
 
 package tech.techlore.plexus.interfaces.main
 
-interface SortPrefsChangedListener {
+interface SortPrefsChangeListener {
     
     fun onSortPrefsChanged()
     

@@ -40,8 +40,8 @@ import tech.techlore.plexus.bottomsheets.main.DeleteAccountBottomSheet
 import tech.techlore.plexus.bottomsheets.main.DevVerfWarnBottomSheet
 import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
-import tech.techlore.plexus.interfaces.main.NavViewItemSelectedListener
-import tech.techlore.plexus.interfaces.main.SortPrefsChangedListener
+import tech.techlore.plexus.interfaces.main.NavViewItemSelectListener
+import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
@@ -51,7 +51,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import kotlin.time.Duration.Companion.milliseconds
 
-class MainActivity : AppCompatActivity(), NavViewItemSelectedListener, SortPrefsChangedListener {
+class MainActivity : AppCompatActivity(), NavViewItemSelectListener, SortPrefsChangeListener {
     
     lateinit var activityBinding: ActivityMainBinding
     private lateinit var navController: NavController

@@ -33,10 +33,10 @@ import tech.techlore.plexus.activities.BaseDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortRatingsBinding
-import tech.techlore.plexus.interfaces.main.SortPrefsChangedListener
+import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 
 class SortAllRatingsBottomSheet(
-    private val sortPrefsChangedListener: SortPrefsChangedListener
+    private val sortPrefsChangeListener: SortPrefsChangeListener
 ) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortRatingsBinding? = null
@@ -132,7 +132,7 @@ class SortAllRatingsBottomSheet(
             }
             
             dismiss()
-            sortPrefsChangedListener.onSortPrefsChanged()
+            sortPrefsChangeListener.onSortPrefsChanged()
         }
         
         // Cancel
