@@ -21,18 +21,21 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import me.stellarsand.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
+import tech.techlore.plexus.diffcallbacks.MyRatingDiffCallback
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 
-class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
-                           private val clickListener: OnItemClickListener,
-                           private val isGridView: Boolean = false) :
-    RecyclerView.Adapter<MyRatingsItemAdapter.ListViewHolder>(), PopupTextProvider {
+class MyRatingsItemAdapter(
+    private val clickListener: OnItemClickListener,
+    private val isGridView: Boolean = false
+) : ListAdapter<MyRating, MyRatingsItemAdapter.ListViewHolder>(MyRatingDiffCallback()),
+    PopupTextProvider {
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -73,7 +76,7 @@ class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        val myRating = aListViewItems[position]
+        val myRating = getItem(position)
         val context = holder.itemView.context
         
         holder.icon.displayAppIcon(
@@ -85,17 +88,14 @@ class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
         
         holder.name.text = myRating.name
         holder.packageName.text = myRating.packageName
-        val totalCount = myRating.ratingsDetails.size
-        holder.totalCount.text =
-            when {
-                totalCount <= 500 -> totalCount.toString()
-                else -> "500+"
-            }
+        myRating.totalRatings.let {
+            holder.totalCount.text =
+                when {
+                    it <= 500 -> it.toString()
+                    else -> "500+"
+                }
+        }
         
-    }
-    
-    override fun getItemCount(): Int {
-        return aListViewItems.size
     }
     
     override fun getItemViewType(position: Int): Int {
@@ -104,9 +104,6 @@ class MyRatingsItemAdapter(private val aListViewItems: ArrayList<MyRating>,
     
     // Fast scroll popup
     override fun getPopupText(view: View, position: Int): CharSequence {
-        return aListViewItems[position].name.first().let {
-            if (it.isLowerCase()) it.uppercase()
-            else it
-        }.toString()
+        return getItem(position).name.first().uppercaseChar().toString()
     }
 }

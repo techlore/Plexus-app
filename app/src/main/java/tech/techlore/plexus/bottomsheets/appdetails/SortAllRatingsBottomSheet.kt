@@ -36,7 +36,8 @@ import tech.techlore.plexus.databinding.BottomSheetSortRatingsBinding
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 
 class SortAllRatingsBottomSheet(
-    private val sortPrefsChangeListener: SortPrefsChangeListener
+    private val sortPrefsChangeListener: SortPrefsChangeListener,
+    private val hideRomSortDropdown: Boolean = false
 ) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortRatingsBinding? = null
@@ -71,9 +72,14 @@ class SortAllRatingsBottomSheet(
         }
         
         // Rom dropdown
-        (bottomSheetBinding.ratingsRomDropdownMenu as MaterialAutoCompleteTextView).apply {
-            setText(detailsActivity.selectedRomString)
-            setSimpleItems(detailsActivity.differentRomsList)
+        if (!hideRomSortDropdown) {
+            (bottomSheetBinding.ratingsRomDropdownMenu as MaterialAutoCompleteTextView).apply {
+                setText(detailsActivity.selectedRomString)
+                setSimpleItems(detailsActivity.differentRomsList)
+            }
+        }
+        else {
+            bottomSheetBinding.ratingsRomDropdownBox.isVisible = false
         }
         
         // Android dropdown

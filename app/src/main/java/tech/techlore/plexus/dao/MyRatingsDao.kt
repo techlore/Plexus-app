@@ -36,7 +36,7 @@ interface MyRatingsDao {
     suspend fun update(myRating: MyRating)
     
     @Query("SELECT * FROM my_ratings_table WHERE packageName = :packageName")
-    suspend fun getMyRatingsByPackage(packageName: String): MyRating?
+    suspend fun getMyRatingByPackage(packageName: String): MyRating?
     
     @Transaction
     suspend fun insertOrUpdateMyRatings(name: String,
@@ -44,18 +44,25 @@ interface MyRatingsDao {
                                         iconUrl: String?,
                                         myRatingDetails: MyRatingDetails) {
         
-        val existingRating = getMyRatingsByPackage(packageName)
+        val existingRating = getMyRatingByPackage(packageName)
         
         existingRating.apply {
             if (this == null) {
-                val myRatingDetailsList = listOf(myRatingDetails)
-                insert(MyRating(name = name,
-                                packageName = packageName,
-                                iconUrl = iconUrl,
-                                ratingsDetails = myRatingDetailsList))
+                listOf(myRatingDetails).let {
+                    insert(
+                        MyRating(
+                            name = name,
+                            packageName = packageName,
+                            iconUrl = iconUrl,
+                            totalRatings = it.size,
+                            ratingsDetails = it
+                        )
+                    )
+                }
             }
             else{
                 ratingsDetails += myRatingDetails
+                totalRatings = ratingsDetails.size
                 update(this)
             }
         }
@@ -69,7 +76,22 @@ interface MyRatingsDao {
     """)
     suspend fun getSortedMyRatingsByName(isAsc: Boolean): List<MyRating>
     
+    @Query("""
+        UPDATE my_ratings_table
+        SET ratingsDetails = (
+            SELECT json_group_array(value)
+            FROM json_each(ratingsDetails)
+            WHERE json_extract(value, '$.id') != :ratingId
+        ),
+        totalRatings = totalRatings - 1
+        WHERE packageName = :packageName
+    """)
+    suspend fun deleteSingleRatingDetail(packageName: String, ratingId: String)
+    
+    @Query("DELETE FROM my_ratings_table WHERE packageName = :packageName")
+    suspend fun deleteSingleMyRating(packageName: String)
+    
     @Query("DELETE FROM my_ratings_table")
-    suspend fun deleteAllRatings()
+    suspend fun deleteAllMyRatings()
     
 }

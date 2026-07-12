@@ -15,38 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.myratings
+package tech.techlore.plexus.interfaces.details
 
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class MyRatingDetails(
+interface SubmitConfirmClickListener {
     
-    @PrimaryKey
-    val id: String,
+    fun onSubmitConfirmed()
     
-    val encDeleteTokenBase64: String? = null,
-    
-    val version: String,
-    
-    val buildNumber: Long,
-    
-    val romName: String,
-    
-    val romBuild: String,
-    
-    val androidVersion: String,
-    
-    val isInstalled: Boolean = true,
-    
-    val installedFrom: String,
-    
-    val googleLib: String,
-    
-    val myRatingScore: Int = 0,
-    
-    val notes: String? = null,
-    
-    val myRatingDateTime: String? = null
-)
+}

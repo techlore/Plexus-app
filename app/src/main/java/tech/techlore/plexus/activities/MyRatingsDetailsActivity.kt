@@ -29,7 +29,9 @@ class MyRatingsDetailsActivity : BaseDetailsActivity() {
     
     var sortedMyRatingsDetailsList = arrayListOf<MyRatingDetails>()
     
-    override fun initAdditionalValuesInOnCreate() {}
+    override fun initAdditionalValuesInOnCreate() {
+        hideRomSortDropdown = true
+    }
     
     override suspend fun setupUiComponents() {
         activityBinding.totalRatingsCount.isVisible = false
@@ -47,21 +49,17 @@ class MyRatingsDetailsActivity : BaseDetailsActivity() {
     }
     
     override suspend fun retrieveAndDisplayData() {
-        myRating?.let { rating ->
+        myRatingDetailsList?.let { ratingsDetails ->
             withContext(Dispatchers.Default) {
-                // Get different app versions, ROMs & android versions from ratings list
+                // Get different app versions & android versions from ratings list
                 // and store them in a separate list to show in sort ratings bottom sheet
                 differentAppVerList =
                     arrayOf(getString(R.string.any)) +
-                    rating.ratingsDetails.map { "${it.version} (${it.buildNumber})" }.distinct()
-                
-                differentRomsList =
-                    arrayOf(getString(R.string.any)) +
-                    rating.ratingsDetails.map { it.romName }.distinct().sortedBy { it.lowercase() }
+                    ratingsDetails.map { "${it.version} (${it.buildNumber})" }.distinct()
                 
                 differentAndroidVerList =
                     arrayOf(getString(R.string.any)) +
-                    rating.ratingsDetails.map { it.androidVersion }.distinct()
+                    ratingsDetails.map { it.androidVersion }.distinct()
                 
                 sortMyRatingsDetails()
             }
@@ -71,54 +69,49 @@ class MyRatingsDetailsActivity : BaseDetailsActivity() {
     }
     
     fun sortMyRatingsDetails() {
-        myRating?.let { rating ->
+        myRatingDetailsList?.let { ratingDetails ->
             sortedMyRatingsDetailsList =
                 ArrayList(
-                    rating.ratingsDetails
-                        .filter { rating ->
+                    ratingDetails
+                        .filter {
                             val appVerMatches =
                                 selectedVersionString == getString(R.string.any)
-                                || rating.version == selectedVersionString.substringBefore(" (")
-                            
-                            val romMatches =
-                                selectedRomString == getString(R.string.any)
-                                || rating.romName == selectedRomString
+                                || it.version == selectedVersionString.substringBefore(" (")
                             
                             val androidMatches =
                                 selectedAndroidString == getString(R.string.any)
-                                || rating.androidVersion == selectedAndroidString
+                                || it.androidVersion == selectedAndroidString
                             
                             val installedFromMatches =
                                 installedFromChipId == R.id.ratingsChipInstalledAny
-                                || rating.installedFrom == mapInstalledFromChipIdToString(
-                                    installedFromChipId)
+                                || it.installedFrom == mapInstalledFromChipIdToString(installedFromChipId)
                             
                             val statusToggleMatches =
                                 statusToggleBtnId == R.id.ratingsToggleAnyStatus
-                                || rating.googleLib == (if (statusToggleBtnId == R.id.ratingsToggleDgStatus) "native" else "micro_g")
+                                || it.googleLib == (if (statusToggleBtnId == R.id.ratingsToggleDgStatus) "native" else "micro_g")
                             
                             val statusChipMatches =
                                 when {
                                     statusToggleBtnId == R.id.ratingsToggleDgStatus
                                     && dgStatusSortChipId != R.id.ratingsSortAny -> {
-                                        rating.myRatingScore == mapStatusChipIdToRatingScore(
-                                            dgStatusSortChipId)
+                                        it.myRatingScore == mapStatusChipIdToRatingScore(dgStatusSortChipId)
                                     }
                                     
                                     statusToggleBtnId == R.id.ratingsToggleMgStatus
                                     && mgStatusSortChipId != R.id.ratingsSortAny -> {
-                                        rating.myRatingScore == mapStatusChipIdToRatingScore(
+                                        it.myRatingScore == mapStatusChipIdToRatingScore(
                                             mgStatusSortChipId)
                                     }
                                     
                                     else -> true
                                 }
                             
-                            appVerMatches && romMatches
-                            && androidMatches && installedFromMatches
+                            appVerMatches && androidMatches && installedFromMatches
                             && statusToggleMatches && statusChipMatches
                             
-                        })
+                        }
+                        .sortedByDescending { it.myRatingDateTime }
+                )
             
             isListSorted = true
         }

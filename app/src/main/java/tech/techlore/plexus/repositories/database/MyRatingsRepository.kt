@@ -35,9 +35,9 @@ class MyRatingsRepository(private val myRatingsDao: MyRatingsDao) {
         }
     }
     
-    suspend fun getMyRatingsByPackage(packageName: String): MyRating? {
+    suspend fun getMyRatingByPackage(packageName: String): MyRating? {
         return withContext(Dispatchers.IO) {
-            myRatingsDao.getMyRatingsByPackage(packageName)
+            myRatingsDao.getMyRatingByPackage(packageName)
         }
     }
     
@@ -48,9 +48,21 @@ class MyRatingsRepository(private val myRatingsDao: MyRatingsDao) {
         }
     }
     
-    suspend fun deleteAllRatings() {
+    suspend fun deleteSingleRatingDetail(packageName: String, ratingId: String) {
         withContext(Dispatchers.IO){
-            myRatingsDao.deleteAllRatings()
+            myRatingsDao.deleteSingleRatingDetail(packageName, ratingId)
+        }
+    }
+    
+    suspend fun deleteSingleMyRating(packageName: String) {
+        withContext(Dispatchers.IO){
+            myRatingsDao.deleteSingleMyRating(packageName)
+        }
+    }
+    
+    suspend fun deleteAllMyRatings() {
+        withContext(Dispatchers.IO){
+            myRatingsDao.deleteAllMyRatings()
         }
     }
     

@@ -15,38 +15,18 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.myratings
+package tech.techlore.plexus.diffcallbacks
 
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
+import androidx.recyclerview.widget.DiffUtil
+import tech.techlore.plexus.models.myratings.MyRating
 
-@Serializable
-data class MyRatingDetails(
+class MyRatingDiffCallback : DiffUtil.ItemCallback<MyRating>() {
     
-    @PrimaryKey
-    val id: String,
+    override fun areItemsTheSame(oldItem: MyRating, newItem: MyRating): Boolean {
+        return oldItem.packageName == newItem.packageName
+    }
     
-    val encDeleteTokenBase64: String? = null,
-    
-    val version: String,
-    
-    val buildNumber: Long,
-    
-    val romName: String,
-    
-    val romBuild: String,
-    
-    val androidVersion: String,
-    
-    val isInstalled: Boolean = true,
-    
-    val installedFrom: String,
-    
-    val googleLib: String,
-    
-    val myRatingScore: Int = 0,
-    
-    val notes: String? = null,
-    
-    val myRatingDateTime: String? = null
-)
+    override fun areContentsTheSame(oldItem: MyRating, newItem: MyRating): Boolean {
+        return oldItem == newItem
+    }
+}

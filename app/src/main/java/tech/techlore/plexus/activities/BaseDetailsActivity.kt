@@ -44,7 +44,7 @@ import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.databinding.ActivityAppDetailsBinding
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 import tech.techlore.plexus.models.main.MainData
-import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
@@ -64,13 +64,14 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangeListene
     protected lateinit var navController: NavController
     protected lateinit var packageNameString: String
     var checkIcon: Drawable? = null
-    protected var myRating: MyRating? = null
+    var myRatingDetailsList: ArrayList<MyRatingDetails>? = null
     protected var isFromShortcut = false
     var isScrolledByFab = false
     protected val mainRepository by inject<MainDataRepository>()
     protected val myRatingsRepository by inject<MyRatingsRepository>()
     lateinit var app: MainData
     var isListSorted = false
+    protected var hideRomSortDropdown = false
     var differentAppVerList = arrayOf<String>()
     var differentRomsList = arrayOf<String>()
     var differentAndroidVerList = arrayOf<String>()
@@ -139,8 +140,11 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangeListene
         }
         
         lifecycleScope.launch {
-            app = mainRepository.getAppByPackage(packageNameString)!!
-            myRating = myRatingsRepository.getMyRatingsByPackage(packageNameString)
+            app = mainRepository.getAppByPackage(packageNameString) !!
+            myRatingDetailsList =
+                myRatingsRepository.getMyRatingByPackage(packageNameString)?.let {
+                    it.ratingsDetails as ArrayList<MyRatingDetails>
+                }
             
             // Show/hide anchored icon with FAB like animation
             activityBinding.detailsAppBar.apply {
@@ -199,8 +203,10 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangeListene
             
             // Sort
             activityBinding.detailsSortBtn.setOnClickListener {
-                SortAllRatingsBottomSheet(this@BaseDetailsActivity)
-                    .show(supportFragmentManager, "SortUserRatingsBottomSheet")
+                SortAllRatingsBottomSheet(
+                    sortPrefsChangeListener = this@BaseDetailsActivity,
+                    hideRomSortDropdown = hideRomSortDropdown
+                ).show(supportFragmentManager, "SortUserRatingsBottomSheet")
             }
             
             // Links

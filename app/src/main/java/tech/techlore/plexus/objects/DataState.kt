@@ -19,4 +19,6 @@ package tech.techlore.plexus.objects
 
 object DataState {
     var isDataUpdated = false
+    var isMyRatingsCountChanged = false
+    var myRatingsNewCount = -1
 }

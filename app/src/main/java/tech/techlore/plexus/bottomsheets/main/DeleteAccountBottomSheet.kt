@@ -17,20 +17,12 @@
 
 package tech.techlore.plexus.bottomsheets.main
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
-import tech.techlore.plexus.databinding.BottomSheetDeleteAccountBinding
-import tech.techlore.plexus.databinding.BottomSheetFooterBinding
-import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
+import tech.techlore.plexus.bottomsheets.common.BaseDeleteBottomSheet
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ID
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
@@ -39,61 +31,34 @@ import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.IS_
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
-class DeleteAccountBottomSheet : BottomSheetDialogFragment() {
+class DeleteAccountBottomSheet : BaseDeleteBottomSheet() {
     
-    private var _binding: BottomSheetDeleteAccountBinding? = null
-    private val bottomSheetBinding get() = _binding!!
-    
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        
-        _binding = BottomSheetDeleteAccountBinding.inflate(inflater, container, false)
-        return bottomSheetBinding.root
+    override fun getTitleText(): String {
+        return getString(R.string.delete_account)
     }
     
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        
-        // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.delete_account)
-        
-        // Delete
-        footerBinding.positiveButton.apply {
-            setBackgroundColor(MaterialColors.getColor(this, androidx.appcompat.R.attr.colorError))
-            setTextColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
-            text = getString(R.string.delete)
-            setOnClickListener {
-                EncryptedPreferenceManager(requireContext()).apply {
-                    deleteString(DEVICE_TOKEN)
-                    deleteString(DEVICE_ID)
-                    deleteString(DEVICE_ROM)
-                    setBoolean(IS_REGISTERED, false)
-                    lifecycleScope.launch {
-                        get<MyRatingsRepository>().deleteAllRatings()
-                    }
-                }
-                dismiss()
-                (requireActivity() as MainActivity).apply {
-                    if (selectedNavItem == R.id.nav_my_ratings) {
-                        onNavViewItemSelected(defaultSelectedNavItem, true)
-                    }
-                    showSnackbar(activityBinding.mainCoordLayout,
-                                 getString(R.string.deleted_account_successfully),
-                                 activityBinding.mainDockedToolbar)
-                }
+    override fun getDescText(): String {
+        return getString(R.string.delete_account_desc)
+    }
+    
+    override fun onPositiveBtnClick() {
+        EncryptedPreferenceManager(requireContext()).apply {
+            deleteString(DEVICE_TOKEN)
+            deleteString(DEVICE_ID)
+            deleteString(DEVICE_ROM)
+            setBoolean(IS_REGISTERED, false)
+            lifecycleScope.launch {
+                get<MyRatingsRepository>().deleteAllMyRatings()
             }
         }
-        
-        // Cancel
-        footerBinding.negativeButton.setOnClickListener {
-            dismiss()
+        dismiss()
+        (requireActivity() as MainActivity).apply {
+            if (selectedNavItem == R.id.nav_my_ratings) {
+                onNavViewItemSelected(defaultSelectedNavItem, true)
+            }
+            showSnackbar(activityBinding.mainCoordLayout,
+                         getString(R.string.deleted_account_successfully),
+                         activityBinding.mainDockedToolbar)
         }
-    }
-    
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

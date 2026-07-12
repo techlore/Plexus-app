@@ -15,38 +15,38 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.myratings
+package tech.techlore.plexus.models.post.rating
 
-import androidx.room.PrimaryKey
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MyRatingDetails(
+data class PostMyRating(
     
-    @PrimaryKey
-    val id: String,
+    @SerialName("app_version")
+    var version: String,
     
-    val encDeleteTokenBase64: String? = null,
+    @SerialName("app_build_number")
+    var buildNumber: Long,
     
-    val version: String,
+    @SerialName("rom_name")
+    var romName: String,
     
-    val buildNumber: Long,
+    @SerialName("rom_build")
+    var romBuild: String,
     
-    val romName: String,
+    @SerialName("android_version")
+    var androidVersion: String,
     
-    val romBuild: String,
+    @SerialName("installation_source")
+    var installedFrom: String,
     
-    val androidVersion: String,
+    @SerialName("rating_type")
+    var ratingType: String,
     
-    val isInstalled: Boolean = true,
+    @SerialName("score")
+    var score: Int,
     
-    val installedFrom: String,
-    
-    val googleLib: String,
-    
-    val myRatingScore: Int = 0,
-    
-    val notes: String? = null,
-    
-    val myRatingDateTime: String? = null
+    @SerialName("notes")
+    var notes: String,
 )

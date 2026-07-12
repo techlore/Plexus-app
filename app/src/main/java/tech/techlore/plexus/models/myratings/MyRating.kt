@@ -28,14 +28,16 @@ import tech.techlore.plexus.objects.MyRatingsDetailsConverter
 @TypeConverters(MyRatingsDetailsConverter::class)
 data class MyRating(
     
-    var name: String,
+    val name: String,
     
     @PrimaryKey
-    var packageName: String,
+    val packageName: String,
     
-    var iconUrl: String? = null,
-
-    var isInstalled: Boolean = true,
+    val iconUrl: String? = null,
+    
+    val isInstalled: Boolean = true,
+    
+    var totalRatings: Int = 0,
     
     var ratingsDetails: List<MyRatingDetails>
 

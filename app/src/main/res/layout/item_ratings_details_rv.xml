@@ -34,51 +34,44 @@
         android:paddingHorizontal="@dimen/margin_8"
         android:paddingBottom="@dimen/margin_12">
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:id="@+id/ratingsNotesCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/margin_12"
-            app:shapeAppearance="?attr/listItemShapeAppearanceSingle"
-            style="?attr/materialCardViewFilledStyle">
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/margin_8"
+            android:background="@drawable/shape_filled_rounded_corners_medium">
 
-            <LinearLayout
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ratingsNotes"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_4"
+                android:paddingHorizontal="@dimen/margin_8"
+                android:paddingTop="@dimen/margin_10"
+                android:text="@string/notes"
+                android:textAlignment="viewStart"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/text_17"
+                android:textIsSelectable="true"/>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/ratingsNotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_4"
-                    android:paddingHorizontal="@dimen/margin_10"
-                    android:paddingTop="@dimen/margin_10"
-                    android:text="@string/notes"
-                    android:textAlignment="viewStart"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/text_17"
-                    android:textIsSelectable="true"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/translateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_4"
+                android:layout_marginBottom="@dimen/margin_4"
+                app:icon="@drawable/ic_translate"
+                app:iconPadding="@dimen/margin_8"
+                android:text="@string/translate"
+                android:textSize="@dimen/text_15"
+                style="@style/Widget.Material3.Button.TextButton.Icon" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/translateBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="@dimen/margin_4"
-                    android:layout_marginBottom="@dimen/margin_4"
-                    app:icon="@drawable/ic_translate"
-                    app:iconPadding="@dimen/margin_8"
-                    android:text="@string/translate"
-                    android:textSize="@dimen/text_15"
-                    style="@style/Widget.Material3.Button.TextButton.Icon" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ratingsVersionTitle"
@@ -150,9 +143,9 @@
             android:layout_height="@dimen/margin_32"
             app:layout_constraintTop_toBottomOf="@id/ratingsRomSubtitle"
             app:layout_constraintStart_toStartOf="parent"
-            android:gravity="center"
             android:layout_marginStart="@dimen/margin_4"
             android:layout_marginTop="@dimen/margin_12"
+            android:gravity="center"
             style="@style/AndroidVersionTextViewTheme"/>
 
         <com.google.android.material.textview.MaterialTextView
@@ -161,8 +154,8 @@
             android:layout_height="@dimen/margin_32"
             app:layout_constraintTop_toBottomOf="@id/ratingsAndroidVersion"
             app:layout_constraintStart_toStartOf="@id/ratingsAndroidVersion"
-            android:gravity="center"
             android:layout_marginTop="@dimen/margin_8"
+            android:gravity="center"
             style="@style/InstalledFromTextViewTheme"/>
 
         <com.google.android.material.textview.MaterialTextView
@@ -176,7 +169,6 @@
             android:paddingEnd="@dimen/margin_16"
             android:gravity="center"
             android:drawablePadding="@dimen/margin_8"
-            android:textSize="@dimen/text_16"
             android:textColor="?attr/colorOnSurface"
             style="@style/BaseChipLikeTextViewStyle"/>
 
@@ -196,6 +188,32 @@
             app:drawableTint="?attr/colorOnSurfaceVariant"
             android:textSize="@dimen/text_15"
             android:textColor="?attr/colorOnSurfaceVariant"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteRatingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/editRatingBtn"
+            app:layout_constraintBottom_toBottomOf="@id/editRatingBtn"
+            app:layout_constraintEnd_toStartOf="@id/editRatingBtn"
+            android:layout_marginEnd="@dimen/margin_4"
+            app:icon="@drawable/ic_delete_account"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/editRatingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:icon="@drawable/ic_edit"
+            style="?attr/materialIconButtonFilledStyle"
+            app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

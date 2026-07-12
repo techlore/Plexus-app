@@ -21,33 +21,37 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
 import tech.techlore.plexus.diffcallbacks.MyRatingsDetailsDiffCallback
+import tech.techlore.plexus.interfaces.details.DeleteBtnClickListener
 import tech.techlore.plexus.models.myratings.MyRatingDetails
+import tech.techlore.plexus.utils.UiUtils.Companion.formatRfc3339ToLocalized
 import tech.techlore.plexus.utils.UiUtils.Companion.setInstalledFromStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
-class MyRatingsDetailsItemAdapter()
-    : ListAdapter<MyRatingDetails, MyRatingsDetailsItemAdapter.ListViewHolder>(MyRatingsDetailsDiffCallback()) {
+class MyRatingsDetailsItemAdapter(
+    private val deleteBtnClickListener: DeleteBtnClickListener
+) : ListAdapter<MyRatingDetails, MyRatingsDetailsItemAdapter.ListViewHolder>(MyRatingsDetailsDiffCallback()) {
     
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        
-        val notesCard: MaterialCardView = itemView.findViewById(R.id.ratingsNotesCard)
+    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val notesCard: LinearLayout = itemView.findViewById(R.id.ratingsNotesCard)
         val notes: MaterialTextView = itemView.findViewById(R.id.ratingsNotes)
         val translateBtn: MaterialButton = itemView.findViewById(R.id.translateBtn)
         val version: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
-        val rom: MaterialTextView = itemView.findViewById(R.id.ratingsVersionSubtitle)
+        val rom: MaterialTextView = itemView.findViewById(R.id.ratingsRomSubtitle)
         val androidVersion: MaterialTextView = itemView.findViewById(R.id.ratingsAndroidVersion)
         val installedFrom: MaterialTextView = itemView.findViewById(R.id.ratingsInstalledFrom)
         val status: MaterialTextView = itemView.findViewById(R.id.ratingsStatus)
         val dateTime: MaterialTextView = itemView.findViewById(R.id.ratingsDateTime)
-        
+        val deleteBtn: MaterialButton = itemView.findViewById(R.id.deleteRatingBtn)
+        val editBtn: MaterialButton = itemView.findViewById(R.id.editRatingBtn)
     }
     
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -84,10 +88,29 @@ class MyRatingsDetailsItemAdapter()
             myRatingsDetails.myRatingScore
         )
         
-        // TODO: Disable date time text for now,
-        //  if added, database migration is needed
-        //  will look into it in the future when edit ratings is added
-        holder.dateTime.isVisible = false
+        holder.dateTime.apply {
+            myRatingsDetails.myRatingDateTime?.let {
+                text = it.formatRfc3339ToLocalized()
+            } ?: run { visibility = View.INVISIBLE }
+        }
+        
+        holder.deleteBtn.apply {
+            isVisible = true
+            setOnClickListener {
+                deleteBtnClickListener.onDeleteClicked(
+                    position = position,
+                    ratingId = myRatingsDetails.id,
+                    encTokenBase64 = myRatingsDetails.encDeleteTokenBase64
+                )
+            }
+        }
+        
+        holder.editBtn.apply {
+            isVisible = true
+            setOnClickListener {
+                Toast.makeText(context, "Coming soon", Toast.LENGTH_LONG).show()
+            }
+        }
         
     }
     

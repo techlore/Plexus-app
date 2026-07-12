@@ -21,43 +21,47 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.AppDetailsActivity
-import tech.techlore.plexus.databinding.BottomSheetDeleteAccountBinding
+import tech.techlore.plexus.databinding.BottomSheetDeleteBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
+import tech.techlore.plexus.interfaces.details.SubmitConfirmClickListener
 
 // Reuse "Delete Account" bottom sheet layout
-class ConfirmSubmitBottomSheet : BottomSheetDialogFragment() {
+class ConfirmSubmitBottomSheet(
+    private val appName: String,
+    private val submitConfirmClickListener: SubmitConfirmClickListener
+) : BottomSheetDialogFragment() {
     
-    private var _binding: BottomSheetDeleteAccountBinding? = null
+    private var _binding: BottomSheetDeleteBinding? = null
     private val bottomSheetBinding get() = _binding !!
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         
-        _binding = BottomSheetDeleteAccountBinding.inflate(inflater, container, false)
+        _binding = BottomSheetDeleteBinding.inflate(inflater, container, false)
         return bottomSheetBinding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val detailsActivity = requireActivity() as AppDetailsActivity
         
         // Title
-        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = detailsActivity.app.name
+        BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = appName
         
-        bottomSheetBinding.welcomeTextDesc.text = getString(R.string.about_to_submit)
+        bottomSheetBinding.deleteDesc.text = getString(R.string.about_to_submit)
+        bottomSheetBinding.deleteProgressIndicator.isVisible = false
         
         // Proceed
         footerBinding.positiveButton.apply {
             text = getString(R.string.proceed)
             setOnClickListener {
                 dismiss()
-                detailsActivity.showSubmitBottomSheet()
+                submitConfirmClickListener.onSubmitConfirmed()
             }
         }
         

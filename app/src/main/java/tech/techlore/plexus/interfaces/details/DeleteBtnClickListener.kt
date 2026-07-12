@@ -15,38 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.post.rating
+package tech.techlore.plexus.interfaces.details
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class PostRating(
+interface DeleteBtnClickListener {
     
-    @SerialName("app_version")
-    var version: String,
+    fun onDeleteClicked(position: Int, ratingId: String, encTokenBase64: String?)
     
-    @SerialName("app_build_number")
-    var buildNumber: Long,
-    
-    @SerialName("rom_name")
-    var romName: String,
-    
-    @SerialName("rom_build")
-    var romBuild: String,
-    
-    @SerialName("android_version")
-    var androidVersion: String,
-    
-    @SerialName("installation_source")
-    var installedFrom: String,
-    
-    @SerialName("rating_type")
-    var ratingType: String,
-    
-    @SerialName("score")
-    var score: Int,
-    
-    @SerialName("notes")
-    var notes: String,
-)
+}

@@ -19,6 +19,7 @@ package tech.techlore.plexus.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.delete
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
 import io.ktor.client.request.header
@@ -38,7 +39,8 @@ import tech.techlore.plexus.models.get.device.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
-import tech.techlore.plexus.models.post.rating.PostRatingRoot
+import tech.techlore.plexus.models.post.rating.DeleteMyRating
+import tech.techlore.plexus.models.post.rating.PostMyRatingRoot
 import tech.techlore.plexus.utils.HttpUtils.Companion.checkStatus
 
 class ApiService(private val okHttpClient: HttpClient) {
@@ -108,14 +110,26 @@ class ApiService(private val okHttpClient: HttpClient) {
         }
     }
     
-    suspend fun postRating(authToken: String,
-                           packageName: String,
-                           postRatingRoot: PostRatingRoot): HttpResponse {
+    suspend fun postMyRating(authToken: String,
+                             packageName: String,
+                             postMyRatingRoot: PostMyRatingRoot): HttpResponse {
         return okHttpClient.post {
             url("${API_BASE_URL}/apps/${packageName}/ratings")
             contentType(ContentType.Application.Json)
             header("Authorization", "Bearer $authToken")
-            setBody(postRatingRoot)
+            setBody(postMyRatingRoot)
+        }
+    }
+    
+    suspend fun deleteMyRating(authToken: String,
+                               packageName: String,
+                               ratingId: String,
+                               deleteToken: DeleteMyRating): HttpResponse {
+        return okHttpClient.delete {
+            url("${API_BASE_URL}/apps/${packageName}/ratings/${ratingId}")
+            contentType(ContentType.Application.Json)
+            header("Authorization", "Bearer $authToken")
+            setBody(deleteToken)
         }
     }
     

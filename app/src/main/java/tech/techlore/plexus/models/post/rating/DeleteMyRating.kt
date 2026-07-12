@@ -17,13 +17,12 @@
 
 package tech.techlore.plexus.models.post.rating
 
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostRatingRoot(
-    
-    @SerialName("rating")
-    var postRating: PostRating
-    
+data class DeleteMyRating(
+    @SerialName("delete_token")
+    val deleteToken: String
 )

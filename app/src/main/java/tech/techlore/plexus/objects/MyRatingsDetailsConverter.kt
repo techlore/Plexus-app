@@ -21,19 +21,21 @@ import androidx.room.TypeConverter
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
+import org.koin.core.component.inject
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 
 object MyRatingsDetailsConverter : KoinComponent {
     
+    private val json by inject<Json>()
+    
     @TypeConverter
     fun fromJsonToMyRatingsDetails(ratingsDetailsString: String): List<MyRatingDetails> {
-        return get<Json>().decodeFromString (ratingsDetailsString)
+        return json.decodeFromString(ratingsDetailsString)
     }
     
     @TypeConverter
     fun fromMyRatingsDetailsToJson(ratingsDetails: List<MyRatingDetails>): String {
-        return get<Json>().encodeToString(ListSerializer(MyRatingDetails.serializer()), ratingsDetails)
+        return json.encodeToString(ListSerializer(MyRatingDetails.serializer()), ratingsDetails)
     }
     
 }

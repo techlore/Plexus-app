@@ -67,9 +67,10 @@ import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toBitmap
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
+import tech.techlore.plexus.interfaces.details.SubmitConfirmClickListener
 import kotlin.system.exitProcess
 
-class AppDetailsActivity : BaseDetailsActivity() {
+class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
     
     private val encPrefManager by inject<EncryptedPreferenceManager>()
     private var dgIcon: Drawable? = null
@@ -185,13 +186,14 @@ class AppDetailsActivity : BaseDetailsActivity() {
         
         val myRatingExists =
             withContext(Dispatchers.Default) {
-                myRating?.ratingsDetails?.any { it.version == app.installedVersion } ?: false
+                myRatingDetailsList?.any { it.version == app.installedVersion } ?: false
             }
         
         // Rate
         activityBinding.rateBtn.setOnClickListener {
             when {
-                !DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
+                // TODO: uncomment
+                /*!DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
                     showSnackbar(activityBinding.detailsCoordLayout,
                                  getString(R.string.device_should_be_degoogled_or_microg),
                                  activityBinding.detailsFloatingToolbar)
@@ -201,7 +203,7 @@ class AppDetailsActivity : BaseDetailsActivity() {
                                  getString(R.string.install_app_to_submit, app.name),
                                  anchorView =
                                      if (activityBinding.scrollTopFab.isVisible) activityBinding.scrollTopFab
-                                     else activityBinding.detailsFloatingToolbar)
+                                     else activityBinding.detailsFloatingToolbar)*/
                 
                 encPrefManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                     RomSelectionBottomSheet(isFromNavView = false).show(supportFragmentManager, "RomSelectionBottomSheet")
@@ -218,7 +220,7 @@ class AppDetailsActivity : BaseDetailsActivity() {
                                            app.installedVersion),
                                  activityBinding.detailsFloatingToolbar)
                 
-                else -> RateBottomSheet().show(supportFragmentManager, "RateBottomSheet")
+                else -> RateBottomSheet(this).show(supportFragmentManager, "RateBottomSheet")
             }
         }
     }
@@ -554,12 +556,14 @@ class AppDetailsActivity : BaseDetailsActivity() {
                         && androidMatches && installedFromMatches
                         && statusToggleMatches && statusChipMatches
                         
-                    })
+                    }
+                    .sortedByDescending { it.ratingDateTime }
+            )
         
         isListSorted = true
     }
     
-    fun showSubmitBottomSheet() {
+    fun showUploadBottomSheet() {
         lifecycleScope.launch {
             if (hasInternet(this@AppDetailsActivity)) {
                 UploadBottomSheet().show(supportFragmentManager, "UploadBottomSheet")
@@ -567,17 +571,21 @@ class AppDetailsActivity : BaseDetailsActivity() {
             else {
                 NoNetworkBottomSheet(
                     negativeBtnText = getString(R.string.cancel),
-                    onPositiveBtnClick = { showSubmitBottomSheet() },
+                    onPositiveBtnClick = { showUploadBottomSheet() },
                     onNegativeBtnClick = {}
                 ).show(supportFragmentManager, "NoNetworkBottomSheet")
             }
         }
     }
     
+    override fun onSubmitConfirmed() {
+        showUploadBottomSheet()
+    }
+    
     override fun onResume() {
         super.onResume()
         if (AppState.isVerificationSuccessful) {
-            RateBottomSheet().show(supportFragmentManager, "RateBottomSheet")
+            RateBottomSheet(this).show(supportFragmentManager, "RateBottomSheet")
             AppState.isVerificationSuccessful = false
         }
     }

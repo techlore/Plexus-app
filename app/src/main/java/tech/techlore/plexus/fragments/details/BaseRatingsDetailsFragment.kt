@@ -36,9 +36,10 @@ abstract class BaseRatingsDetailsFragment<T> : Fragment() {
     private val fragmentBinding get() = _binding !!
     protected val displayedRatingsList = ArrayList<T>()
     protected lateinit var adapter: RecyclerView.Adapter<*>
-    private var fullListSize = 0
+    protected var fullListSize = 0
     private val pageSize = 5
     private var currentPage = 0
+    protected var packageNameString = ""
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -51,6 +52,7 @@ abstract class BaseRatingsDetailsFragment<T> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val detailsActivity = requireActivity() as BaseDetailsActivity
+        packageNameString = detailsActivity.app.packageName
         
         if (!detailsActivity.isListSorted) {
             sortRatings()

@@ -48,8 +48,8 @@ import tech.techlore.plexus.databinding.BottomSheetUploadBinding
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.models.post.app.PostApp
 import tech.techlore.plexus.models.post.app.PostAppRoot
-import tech.techlore.plexus.models.post.rating.PostRating
-import tech.techlore.plexus.models.post.rating.PostRatingRoot
+import tech.techlore.plexus.models.post.rating.PostMyRating
+import tech.techlore.plexus.models.post.rating.PostMyRatingRoot
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
@@ -58,6 +58,7 @@ import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.objects.DeviceState
+import tech.techlore.plexus.keystore.KeyStoreManager
 import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 
 @SuppressLint("SetTextI18n")
@@ -70,11 +71,13 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
     private lateinit var deviceToken: String
     private val apiRepository by inject<ApiRepository>()
     private lateinit var postAppRoot: PostAppRoot
-    private lateinit var rating: PostRating
-    private lateinit var postRatingRoot: PostRatingRoot
+    private lateinit var rating: PostMyRating
+    private lateinit var postMyRatingRoot: PostMyRatingRoot
     private var iconUrl: String? = null
     private var ratingCreated = false
-    private var postedRatingId: String? = null
+    private var postedRatingId: String = ""
+    private var encDeleteTokenB64: String? = null
+    private var postedRatingDateTime = ""
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
@@ -104,26 +107,37 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
         
         detailsActivity = requireActivity() as AppDetailsActivity
         deviceToken = encPrefManager.getString(DEVICE_TOKEN)!!
-        postAppRoot = PostAppRoot(PostApp(name = detailsActivity.app.name,
-                                          packageName = detailsActivity.app.packageName,
-                                          iconUrl = iconUrl))
-        rating = PostRating(version = detailsActivity.app.installedVersion,
-                            buildNumber = detailsActivity.app.installedBuild,
-                            romName = encPrefManager.getString(DEVICE_ROM)!!,
-                            romBuild = Build.DISPLAY,
-                            androidVersion = DeviceState.androidVersion,
-                            installedFrom = detailsActivity.app.installedFrom,
-                            ratingType = if (DeviceState.isDeviceMicroG) "micro_g" else "native",
-                            score = mapStatusChipIdToRatingScore(detailsActivity.submitStatusCheckedChipId),
-                            notes = detailsActivity.submitNotes)
-        postRatingRoot = PostRatingRoot(rating)
         
-        submitData()
+        postAppRoot =
+            PostAppRoot(
+                PostApp(
+                    name = detailsActivity.app.name,
+                    packageName = detailsActivity.app.packageName,
+                    iconUrl = iconUrl
+                )
+            )
+        
+        rating =
+            PostMyRating(
+                version = detailsActivity.app.installedVersion,
+                buildNumber = detailsActivity.app.installedBuild,
+                romName = encPrefManager.getString(DEVICE_ROM)!!,
+                romBuild = Build.DISPLAY,
+                androidVersion = DeviceState.androidVersion,
+                installedFrom = detailsActivity.app.installedFrom,
+                ratingType = if (DeviceState.isDeviceMicroG) "micro_g" else "native",
+                score = mapStatusChipIdToRatingScore(detailsActivity.submitStatusCheckedChipId),
+                notes = detailsActivity.submitNotes
+            )
+        
+        postMyRatingRoot = PostMyRatingRoot(rating)
+        
+        uploadData()
         
         // Done/Retry
         bottomSheetBinding.doneButton.apply {
             setOnClickListener {
-                if (ratingCreated && !postedRatingId.isNullOrBlank()) {
+                if (ratingCreated && postedRatingId.isNotBlank()) {
                     dismiss()
                     detailsActivity.finishAfterTransition()
                 }
@@ -131,7 +145,7 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
                     isVisible = false
                     bottomSheetBinding.cancelButton.isVisible = false
                     changeAnimView(R.raw.lottie_uploading, true)
-                    submitData()
+                    uploadData()
                 }
             }
         }
@@ -140,22 +154,20 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
         bottomSheetBinding.cancelButton.setOnClickListener { dismiss() }
     }
     
-    private fun submitData() {
+    private fun uploadData() {
         lifecycleScope.launch {
             if (!detailsActivity.app.isInPlexusData) {
-                getIconUrl()
+                iconUrl = getIconUrl()
                 postAppRoot.postApp.iconUrl = iconUrl
                 postApp()
             }
-            else {
-                postRating()
-            }
+            else postRating()
             
-            if (ratingCreated && !postedRatingId.isNullOrBlank()) {
+            if (ratingCreated && postedRatingId.isNotBlank()) {
                 updateMyRatingInDb(rating)
                 get<MainDataRepository>().updateSingleApp(packageName = detailsActivity.app.packageName)
                 DataState.isDataUpdated = true
-                changeAnimView(R.raw.lottie_success, false, scale = 1.7f)
+                changeAnimView(R.raw.lottie_success, true, scale = 1.7f)
                 bottomSheetBinding.submitStatusText.text = getString(R.string.submit_success)
                 bottomSheetBinding.heartView.apply {
                     isVisible = true
@@ -203,7 +215,7 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
     
     private suspend fun postRating() {
         val postRatingResponse =
-            apiRepository.postRating(deviceToken, detailsActivity.app.packageName, postRatingRoot)
+            apiRepository.postMyRating(deviceToken, detailsActivity.app.packageName, postMyRatingRoot)
         
         when (postRatingResponse.status.value) {
             401 -> {
@@ -217,7 +229,14 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
                 val responseBody = postRatingResponse.bodyAsText()
                 val jsonElement = Json.parseToJsonElement(responseBody)
                 val dataObject = jsonElement.jsonObject["data"]?.jsonObject
-                postedRatingId = dataObject?.get("id")?.jsonPrimitive?.content // Store id of the posted rating
+                dataObject?.let {
+                    postedRatingId = it["id"]!!.jsonPrimitive.content
+                    postedRatingDateTime = it["rated_at"]!!.jsonPrimitive.content
+                    encDeleteTokenB64 =
+                        get<KeyStoreManager>().encryptToken(
+                            it["delete_token"]!!.jsonPrimitive.content
+                        )
+                }
             }
             else -> onPostFailed(postRatingResponse.status.value.toString()) // Request failed
         }
@@ -248,15 +267,12 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
         
         // Sometimes on F-Droid when the original icon of the app is not provided,
         // we get the F-Droid logo as the icon.
-        // Example: Fennec (https://f-droid.org/en/packages/org.mozilla.fennec_fdroid)
+        // Example: Briar (https://f-droid.org/en/packages/org.briarproject.briar.android/)
         // When this happens, check if icon exists on Google Play Store
-        iconUrl =
-            if (url?.startsWith("https://f-droid.org/assets/fdroid-logo") == true) {
-                parseIconUrlFromWebpage("${getString(R.string.google_play_url)}${detailsActivity.app.packageName}")
-            }
-            else url
-        
-        return iconUrl
+        return if (url?.startsWith("https://f-droid.org/assets/fdroid-logo") == true) {
+            parseIconUrlFromWebpage("${getString(R.string.google_play_url)}${detailsActivity.app.packageName}")
+        }
+        else url
     }
     
     private suspend fun renewDeviceToken() {
@@ -272,22 +288,29 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
         }
     }
     
-    private suspend fun updateMyRatingInDb(rating: PostRating) {
-        val myRatingDetails = MyRatingDetails(id = postedRatingId!!,
-                                              version = rating.version,
-                                              buildNumber = rating.buildNumber,
-                                              romName = rating.romName,
-                                              romBuild = rating.romBuild,
-                                              androidVersion = rating.androidVersion,
-                                              installedFrom = detailsActivity.app.installedFrom,
-                                              googleLib = rating.ratingType,
-                                              myRatingScore = rating.score,
-                                              notes = rating.notes)
+    private suspend fun updateMyRatingInDb(rating: PostMyRating) {
+        val myRatingDetails =
+            MyRatingDetails(
+                id = postedRatingId,
+                encDeleteTokenBase64 = encDeleteTokenB64,
+                version = rating.version,
+                buildNumber = rating.buildNumber,
+                romName = rating.romName,
+                romBuild = rating.romBuild,
+                androidVersion = rating.androidVersion,
+                installedFrom = detailsActivity.app.installedFrom,
+                googleLib = rating.ratingType,
+                myRatingScore = rating.score,
+                notes = rating.notes,
+                myRatingDateTime = postedRatingDateTime
+            )
         
-        get<MyRatingsRepository>().insertOrUpdateMyRatings(name = detailsActivity.app.name,
-                                                           packageName = detailsActivity.app.packageName,
-                                                           iconUrl = iconUrl,
-                                                           myRatingDetails = myRatingDetails)
+        get<MyRatingsRepository>().insertOrUpdateMyRatings(
+            name = detailsActivity.app.name,
+            packageName = detailsActivity.app.packageName,
+            iconUrl = iconUrl,
+            myRatingDetails = myRatingDetails
+        )
     }
     
     override fun onDestroyView() {

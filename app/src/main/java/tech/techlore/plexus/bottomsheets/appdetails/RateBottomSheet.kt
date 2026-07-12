@@ -34,6 +34,7 @@ import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetRateBinding
+import tech.techlore.plexus.interfaces.details.SubmitConfirmClickListener
 import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
@@ -45,7 +46,9 @@ import tech.techlore.plexus.utils.TextUtils.Companion.isURL
 import tech.techlore.plexus.utils.UiUtils.Companion.setDgMgTextWithIcon
 import kotlin.time.Duration.Companion.milliseconds
 
-class RateBottomSheet : BottomSheetDialogFragment() {
+class RateBottomSheet(
+    private val submitConfirmClickListener: SubmitConfirmClickListener
+) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetRateBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -109,9 +112,12 @@ class RateBottomSheet : BottomSheetDialogFragment() {
                     submitNotes = bottomSheetBinding.submitNotesText.text.toString()
                 }
                 if (get<PreferenceManager>().getBoolean(CONF_BEFORE_SUBMIT, defValue = false)) {
-                    ConfirmSubmitBottomSheet().show(parentFragmentManager, "ConfirmSubmitBottomSheet")
+                    ConfirmSubmitBottomSheet(
+                        detailsActivity.app.name,
+                        submitConfirmClickListener
+                    ).show(parentFragmentManager, "ConfirmSubmitBottomSheet")
                 }
-                else detailsActivity.showSubmitBottomSheet()
+                else detailsActivity.showUploadBottomSheet()
             }
         }
         

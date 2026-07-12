@@ -27,7 +27,8 @@ import tech.techlore.plexus.models.get.device.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
-import tech.techlore.plexus.models.post.rating.PostRatingRoot
+import tech.techlore.plexus.models.post.rating.DeleteMyRating
+import tech.techlore.plexus.models.post.rating.PostMyRatingRoot
 
 class ApiRepository(private val apiService: ApiService) {
     
@@ -59,12 +60,24 @@ class ApiRepository(private val apiService: ApiService) {
         return apiService.postApp(authToken, postAppRoot)
     }
     
-    suspend fun postRating(authToken: String,
-                           packageName: String,
-                           postRatingRoot: PostRatingRoot): HttpResponse {
-        return apiService.postRating(authToken,
-                                     packageName,
-                                     postRatingRoot)
+    suspend fun postMyRating(authToken: String,
+                             packageName: String,
+                             postMyRatingRoot: PostMyRatingRoot): HttpResponse {
+        return apiService.postMyRating(authToken,
+                                       packageName,
+                                       postMyRatingRoot)
+    }
+    
+    suspend fun deleteMyRating(authToken: String,
+                               packageName: String,
+                               ratingId: String,
+                               deleteToken: DeleteMyRating): HttpResponse {
+        return apiService.deleteMyRating(
+            authToken,
+            packageName,
+            ratingId,
+            deleteToken
+        )
     }
     
     suspend fun translateRatingNote(note: String, targetLang: String): HttpResponse {

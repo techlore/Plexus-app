@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
@@ -40,9 +41,11 @@ import tech.techlore.plexus.activities.MyRatingsDetailsActivity
 import tech.techlore.plexus.adapters.main.MyRatingsItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
+import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
@@ -56,8 +59,11 @@ class MyRatingsFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var mainActivity: MainActivity
+    private val prefManager by inject<PreferenceManager>()
+    private val myRatingsRepository by inject<MyRatingsRepository>()
     private lateinit var myRatingsItemAdapter: MyRatingsItemAdapter
     private lateinit var myRatingsList: ArrayList<MyRating>
+    private var clickedItemPackageName = ""
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -70,8 +76,6 @@ class MyRatingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         mainActivity = requireActivity() as MainActivity
-        val prefManager by inject<PreferenceManager>()
-        val myRatingsRepository by inject<MyRatingsRepository>()
         
         // Adjust UI components for edge to edge
         fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
@@ -89,7 +93,11 @@ class MyRatingsFragment :
             WindowInsetsCompat.CONSUMED
         }
         
-        lifecycleScope.launch{
+        savedInstanceState?.let {
+            clickedItemPackageName = it.getString("clickedPackageName")!!
+        }
+        
+        lifecycleScope.launch {
             myRatingsList =
                 myRatingsRepository.getSortedMyRatingsByName(orderPref = prefManager.getInt(A_Z_SORT))
             
@@ -97,22 +105,21 @@ class MyRatingsFragment :
                 fragmentBinding.emptyListViewStub.inflate()
                 val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_my_ratings)
                 fragmentBinding.root.findViewById<MaterialTextView>(R.id.emptyListViewText).apply {
-                        setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-                        text =
-                            if (prefManager.getBoolean(IS_FIRST_SUBMISSION)) {
-                                getString(R.string.no_ratings_available) +
-                                "\n\n" +
-                                getString(R.string.submit_first_rating)
-                            }
-                            else {
-                                getString(R.string.no_ratings_available)
-                            }
-                    }
+                    setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+                    text =
+                        if (prefManager.getBoolean(IS_FIRST_SUBMISSION)) {
+                            getString(R.string.no_ratings_available) +
+                            "\n\n" +
+                            getString(R.string.submit_first_rating)
+                        }
+                        else {
+                            getString(R.string.no_ratings_available)
+                        }
+                }
             }
             else {
                 myRatingsItemAdapter =
                     MyRatingsItemAdapter(
-                        aListViewItems = myRatingsList,
                         clickListener = this@MyRatingsFragment,
                         isGridView = mainActivity.isGridView
                     )
@@ -126,6 +133,7 @@ class MyRatingsFragment :
                     adapter = myRatingsItemAdapter
                     FastScrollerBuilder(this).build() // Fast scroll
                 }
+                myRatingsItemAdapter.submitList(myRatingsList)
             }
             
             // New rating FAB
@@ -144,11 +152,39 @@ class MyRatingsFragment :
     
     // On click
     override fun onItemClick(position: Int) {
-        val myRating = myRatingsList[position]
+        clickedItemPackageName = myRatingsList[position].packageName
         mainActivity.apply {
-            startActivityWithTransition(Intent(this, MyRatingsDetailsActivity::class.java)
-                                            .putExtra("packageName", myRating.packageName))
+            startActivityWithTransition(
+                Intent(this, MyRatingsDetailsActivity::class.java)
+                    .putExtra("packageName", clickedItemPackageName)
+            )
         }
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        DataState.apply {
+            if (isMyRatingsCountChanged) {
+                lifecycleScope.launch {
+                    if (myRatingsNewCount == 0)
+                        myRatingsRepository.deleteSingleMyRating(clickedItemPackageName)
+                    
+                    myRatingsItemAdapter.submitList(
+                        myRatingsRepository.getSortedMyRatingsByName(orderPref = prefManager.getInt(A_Z_SORT))
+                    )
+                    
+                    get<MainDataRepository>().updateSingleApp(clickedItemPackageName)
+                    
+                    isMyRatingsCountChanged = false
+                    myRatingsNewCount = -1
+                }
+            }
+        }
+    }
+    
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("clickedItemPackageName", clickedItemPackageName)
     }
     
     override fun onDestroyView() {
