@@ -68,8 +68,8 @@
     <string name="menu_help">Ajuda</string>
     <string name="menu_links">Links</string>
     <!--My ratings details fragment-->
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Apagar</string>
     <!--#########################################################################################-->
 
     <!--Verification activity-->
@@ -139,8 +139,8 @@
     <string name="translated_using_libretranslate">Traduzido usando o LibreTranslate:</string>
     <string name="error_translating">Um erro ocorreu ao traduzir</string>
     <!--Delete rating-->
-    <string name="delete_rating">Delete rating</string>
-    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
+    <string name="delete_rating">Apagar avaliação</string>
+    <string name="delete_rating_desc">Tem certeza que quer apagar essa avaliação permanentemente?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Se você apagar sua conta:
         \n\u2022 você não poderá mais enviar avaliações.
