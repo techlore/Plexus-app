@@ -185,5 +185,6 @@
     <string name="device_should_be_degoogled_or_microg">L\'appareil doit \u00EAtre de-googlis\u00E9 ou avoir microG d\'install\u00E9 pour pouvoir soumettre une \u00E9valuation</string>
     <string name="rating_already_submitted">\u00C9valuation d\u00E9j\u00E0 soumise pour %1$s %2$s</string>
     <string name="no_browsers">Aucun navigateur n\'est install\u00E9 sur cet appareil</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Compte supprim\u00E9 avec succ\u00E8s</string>
 </resources>

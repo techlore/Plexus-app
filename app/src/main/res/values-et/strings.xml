@@ -165,5 +165,6 @@
     <string name="device_should_be_degoogled_or_microg">Arvustuse koostamiseks peaks sinu nutiseadmest olema eemaldatud Google\'i teenused või microG paigaldatud</string>
     <string name="rating_already_submitted">Arvustus on juba koostatud: %1$s %2$s</string>
     <string name="no_browsers">Selles nutiseadmes pole brausereid</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Kasutajakonto eemaldamine õnnestus</string>
 </resources>

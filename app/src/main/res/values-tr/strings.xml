@@ -222,6 +222,7 @@
     <string name="device_should_be_degoogled_or_microg">De\u011Ferlendirme g\u00F6ndermek i\u00E7in cihaz ya Google\'dan ar\u0131nd\u0131r\u0131lm\u0131\u015F olmal\u0131 ya da microG y\u00FCkl\u00FC olmal\u0131d\u0131r</string>
     <string name="rating_already_submitted">%1$s %2$s i\u00E7in de\u011Ferlendirme zaten g\u00F6nderilmi\u015F</string>
     <string name="no_browsers">Bu cihazda y\u00FCkl\u00FC taray\u0131c\u0131 yok</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Hesap ba\u015Far\u0131yla silindi</string>
 
 </resources>

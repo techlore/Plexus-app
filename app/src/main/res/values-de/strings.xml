@@ -178,5 +178,6 @@
     <string name="device_should_be_degoogled_or_microg">Das Gerät sollte entweder de-Googled sein oder microG haben, um eine Bewertung abzugeben</string>
     <string name="rating_already_submitted">Bewertung für %1$s %2$s bereits abgegeben</string>
     <string name="no_browsers">Keine Browser auf diesem Gerät installiert</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Konto erfolgreich gel\u00F6scht</string>
 </resources>

@@ -184,5 +184,6 @@
     <string name="device_should_be_degoogled_or_microg">Pro odeslání hodnocení by zařízení buď nemělo obsahovat služby Google, nebo by mělo používat microG</string>
     <string name="rating_already_submitted">Hodnocení aplikace %1$s %2$s bylo již odesláno</string>
     <string name="no_browsers">Na tomto zařízení nejsou nainstalovány žádné prohlížeče</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Účet úspěšně smazán</string>
 </resources>

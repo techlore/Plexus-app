@@ -216,6 +216,7 @@
     <string name="device_should_be_degoogled_or_microg">Para enviar una valoraci\u00F3n se requiere un dispositivo sin servicios de Google o con microG</string>
     <string name="rating_already_submitted">Ya se ha enviado una valoraci\u00F3n para %1$s %2$s</string>
     <string name="no_browsers">No hay navegadores instalados en este dispositivo</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Cuenta eliminada correctamente</string>
 
 </resources>

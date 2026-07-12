@@ -210,6 +210,7 @@
     <string name="device_should_be_degoogled_or_microg">Apparaat moet de-Googled zijn of microG hebben om beoordeling in te dienen</string>
     <string name="rating_already_submitted">Beoordeling reeds ingediend voor %1$s %2$s</string>
     <string name="no_browsers">Geen browsers ge\u00EFnstalleerd op dit apparaat</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Account succesvol verwijderd</string>
 
 </resources>

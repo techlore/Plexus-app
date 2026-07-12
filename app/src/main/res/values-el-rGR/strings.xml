@@ -165,5 +165,6 @@
     <string name="device_should_be_degoogled_or_microg">Η συσκευή πρέπει είτε να έχει απενεργοποιηθεί το Google είτε να διαθέτει το MicroG για την υποβολή αξιολόγησης</string>
     <string name="rating_already_submitted">Η αξιολόγηση έχει ήδη υποβληθεί για το %1$s %2$s</string>
     <string name="no_browsers">Δεν υπάρχουν εγκατεστημένα πρόγραμμα περιήγησης σε αυτή τη συσκευή</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Ο λογαριασμός διαγράφηκε με επιτυχία</string>
 </resources>

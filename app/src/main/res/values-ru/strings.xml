@@ -201,6 +201,7 @@
     <string name="device_should_be_degoogled_or_microg">Устройство должно быть либо разгуглировано, либо иметь microG, чтобы отправить оценку</string>
     <string name="rating_already_submitted">Оценка уже отправлена для %1$s %2$s</string>
     <string name="no_browsers">На этом устройстве не установлено ни одного веб-обозревателя</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Профиль успешно удалён</string>
 
 </resources>

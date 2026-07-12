@@ -213,6 +213,7 @@
     <string name="device_should_be_degoogled_or_microg">Device should either be de-Googled or have microG to submit rating</string>
     <string name="rating_already_submitted">Rating already submitted for %1$s %2$s</string>
     <string name="no_browsers">No browsers installed on this device</string>
+    <string name="deleted_rating_successfully">Rating deleted successfully</string>
     <string name="deleted_account_successfully">Account deleted successfully</string>
 
 </resources>
