@@ -240,7 +240,7 @@ class VerificationActivity : AppCompatActivity() {
                     code = activityBinding.codeEditText.text.toString()
                 )
             )
-        verifyCodeResponse.deviceToken?.let {
+        verifyCodeResponse.deviceTokenData?.let {
             get<EncryptedPreferenceManager>().apply {
                 setString(DEVICE_TOKEN, it.token)
                 setString(DEVICE_ID, deviceId)

@@ -20,13 +20,14 @@ package tech.techlore.plexus.bottomsheets.myratingsdetails
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.common.BaseDeleteBottomSheet
 import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.interfaces.details.RatingDetailDeleteListener
 import tech.techlore.plexus.keystore.KeyStoreManager
-import tech.techlore.plexus.models.post.rating.DeleteMyRating
+import tech.techlore.plexus.models.post.rating.PostMyRatingDeleteToken
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_TOKEN
 import tech.techlore.plexus.repositories.api.ApiRepository
@@ -40,8 +41,18 @@ class DeleteRatingBottomSheet(
     private val ratingDetailDeleteListener: RatingDetailDeleteListener
 ) : BaseDeleteBottomSheet() {
     
+    private val encPrefManager by inject<EncryptedPreferenceManager>()
     private var decDeviceToken: String = ""
     private var decDeleteToken: String = ""
+    
+    override fun initExtraValues() {
+        decDeviceToken = encPrefManager.getString(DEVICE_TOKEN)!!
+        encTokenBase64?.let {
+            lifecycleScope.launch {
+                decDeleteToken = get<KeyStoreManager>().decryptToken(it)
+            }
+        }
+    }
     
     override fun getTitleText(): String {
         return getString(R.string.delete_rating)
@@ -53,35 +64,41 @@ class DeleteRatingBottomSheet(
     
     override fun onPositiveBtnClick() {
         lifecycleScope.launch {
-            if (encTokenBase64 != null) {
+            encTokenBase64?.let {
                 if (hasInternet(requireContext())) {
                     try {
                         val deleteRatingResponse =
                             get<ApiRepository>().deleteMyRating(
-                                decDeviceToken.ifEmpty {
-                                    get<EncryptedPreferenceManager>().getString(DEVICE_TOKEN) !!
-                                },
+                                decDeviceToken,
                                 packageName,
                                 ratingId,
-                                DeleteMyRating(
-                                    decDeleteToken.ifEmpty {
-                                        get<KeyStoreManager>().decryptToken(encTokenBase64)
-                                    }
-                                )
+                                PostMyRatingDeleteToken(decDeleteToken)
                             )
                         
-                        if (deleteRatingResponse.status.value != 204) {
-                            bottomSheetBinding.deleteProgressIndicator.hide()
-                            bottomSheetBinding.deleteDesc.text =
-                                getString(R.string.error_occurred_title)
-                            footerBinding.positiveButton.apply {
-                                isEnabled = true
-                                footerBinding.negativeButton.isEnabled = true
-                                text = getString(R.string.retry)
-                                setOnClickListener {
-                                    isEnabled = false
-                                    footerBinding.negativeButton.isEnabled = false
-                                    onPositiveBtnClick()
+                        when (deleteRatingResponse.status.value) {
+                            401 -> {
+                                // Unauthorized, renew token
+                                val renewDeviceTokenResponse = get<ApiRepository>().renewDevice(decDeviceToken)
+                                renewDeviceTokenResponse.deviceTokenData?.let {
+                                    decDeviceToken = it.token
+                                    encPrefManager.setString(DEVICE_TOKEN, it.token)
+                                } ?: throw Exception(renewDeviceTokenResponse.errors?.errorDetail ?: getString(R.string.error_occurred_title))
+                                onPositiveBtnClick()
+                            }
+                            204 -> {} // Success, do nothing
+                            else -> {
+                                bottomSheetBinding.deleteProgressIndicator.hide()
+                                bottomSheetBinding.deleteDesc.text =
+                                    getString(R.string.error_occurred_title)
+                                footerBinding.positiveButton.apply {
+                                    isEnabled = true
+                                    footerBinding.negativeButton.isEnabled = true
+                                    text = getString(R.string.retry)
+                                    setOnClickListener {
+                                        isEnabled = false
+                                        footerBinding.negativeButton.isEnabled = false
+                                        onPositiveBtnClick()
+                                    }
                                 }
                             }
                         }
@@ -103,6 +120,7 @@ class DeleteRatingBottomSheet(
                     ).show(parentFragmentManager, "NoNetworkBottomSheet")
                 }
             }
+            
             get<MyRatingsRepository>().deleteSingleRatingDetail(packageName, ratingId)
             dismiss()
             ratingDetailDeleteListener.onRatingDetailDeleted(ratingId)

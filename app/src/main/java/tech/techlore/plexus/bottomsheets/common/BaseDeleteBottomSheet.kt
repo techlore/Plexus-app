@@ -26,7 +26,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.color.MaterialColors
 import tech.techlore.plexus.R
 import tech.techlore.plexus.databinding.BottomSheetDeleteBinding
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
@@ -67,6 +66,7 @@ abstract class BaseDeleteBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val negativeButton = footerBinding.negativeButton
+        initExtraValues()
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getTitleText()
@@ -75,8 +75,6 @@ abstract class BaseDeleteBottomSheet : BottomSheetDialogFragment() {
         
         // Delete
         footerBinding.positiveButton.apply {
-            setBackgroundColor(MaterialColors.getColor(this, androidx.appcompat.R.attr.colorError))
-            setTextColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnError))
             text = getString(R.string.delete)
             setOnClickListener {
                 isEnabled = false
@@ -91,6 +89,8 @@ abstract class BaseDeleteBottomSheet : BottomSheetDialogFragment() {
             dismiss()
         }
     }
+    
+    protected open fun initExtraValues() {}
     
     // Subclasses must override
     protected abstract fun getTitleText(): String

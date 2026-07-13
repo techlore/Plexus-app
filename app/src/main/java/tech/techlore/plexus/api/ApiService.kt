@@ -39,9 +39,10 @@ import tech.techlore.plexus.models.get.device.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
-import tech.techlore.plexus.models.post.rating.DeleteMyRating
+import tech.techlore.plexus.models.post.rating.PostMyRatingDeleteToken
 import tech.techlore.plexus.models.post.rating.PostMyRatingRoot
 import tech.techlore.plexus.utils.HttpUtils.Companion.checkStatus
+import kotlin.coroutines.cancellation.CancellationException
 
 class ApiService(private val okHttpClient: HttpClient) {
     
@@ -124,12 +125,12 @@ class ApiService(private val okHttpClient: HttpClient) {
     suspend fun deleteMyRating(authToken: String,
                                packageName: String,
                                ratingId: String,
-                               deleteToken: DeleteMyRating): HttpResponse {
+                               postMyRatingDeleteToken: PostMyRatingDeleteToken): HttpResponse {
         return okHttpClient.delete {
             url("${API_BASE_URL}/apps/${packageName}/ratings/${ratingId}")
             contentType(ContentType.Application.Json)
             header("Authorization", "Bearer $authToken")
-            setBody(deleteToken)
+            setBody(postMyRatingDeleteToken)
         }
     }
     
@@ -152,6 +153,12 @@ class ApiService(private val okHttpClient: HttpClient) {
                         append("alternatives", "0")
                     }
                 )
+            }
+            catch (e: CancellationException) {
+                // This prevents app crashing in the following scenario:
+                // Translate bottom sheet displayed > translating still in progress >
+                // user taps outside the bottom sheet > coroutine is canceled > app crashes
+                throw e
             }
             catch (_: Exception) { }
         }

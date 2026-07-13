@@ -27,7 +27,7 @@ import tech.techlore.plexus.models.get.device.VerifyDeviceResponseRoot
 import tech.techlore.plexus.models.post.app.PostAppRoot
 import tech.techlore.plexus.models.post.device.RegisterDevice
 import tech.techlore.plexus.models.post.device.VerifyDevice
-import tech.techlore.plexus.models.post.rating.DeleteMyRating
+import tech.techlore.plexus.models.post.rating.PostMyRatingDeleteToken
 import tech.techlore.plexus.models.post.rating.PostMyRatingRoot
 
 class ApiRepository(private val apiService: ApiService) {
@@ -71,12 +71,12 @@ class ApiRepository(private val apiService: ApiService) {
     suspend fun deleteMyRating(authToken: String,
                                packageName: String,
                                ratingId: String,
-                               deleteToken: DeleteMyRating): HttpResponse {
+                               postMyRatingDeleteToken: PostMyRatingDeleteToken): HttpResponse {
         return apiService.deleteMyRating(
             authToken,
             packageName,
             ratingId,
-            deleteToken
+            postMyRatingDeleteToken
         )
     }
     

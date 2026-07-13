@@ -21,7 +21,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DeviceToken (
+data class DeviceTokenData (
     
     @SerialName("token")
     var token: String

@@ -22,7 +22,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DeleteMyRating(
+data class PostMyRatingDeleteToken(
     @SerialName("delete_token")
     val deleteToken: String
 )
