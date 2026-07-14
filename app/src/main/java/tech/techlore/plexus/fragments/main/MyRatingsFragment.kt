@@ -17,11 +17,14 @@
 
 package tech.techlore.plexus.fragments.main
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -41,13 +44,11 @@ import tech.techlore.plexus.activities.MyRatingsDetailsActivity
 import tech.techlore.plexus.adapters.main.MyRatingsItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.models.myratings.MyRating
-import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
-import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import kotlin.getValue
@@ -64,6 +65,9 @@ class MyRatingsFragment :
     private lateinit var myRatingsItemAdapter: MyRatingsItemAdapter
     private lateinit var myRatingsList: ArrayList<MyRating>
     private var clickedItemPackageName = ""
+    private var clickedItemPos = -1
+    private var isMyRatingCountChanged = false
+    private var myRatingsNewCount = -1
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -94,6 +98,7 @@ class MyRatingsFragment :
         }
         
         savedInstanceState?.let {
+            clickedItemPos = it.getInt("clickedItemPos")
             clickedItemPackageName = it.getString("clickedPackageName")!!
         }
         
@@ -150,41 +155,66 @@ class MyRatingsFragment :
         
     }
     
+    private val startResultLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let {
+                    isMyRatingCountChanged = it.getBooleanExtra("isMyRatingCountChanged", false)
+                    myRatingsNewCount = it.getIntExtra("myRatingsNewCount", -1)
+                    
+                }
+            }
+        }
+    
     // On click
     override fun onItemClick(position: Int) {
+        clickedItemPos = position
         clickedItemPackageName = myRatingsList[position].packageName
-        mainActivity.apply {
-            startActivityWithTransition(
-                Intent(this, MyRatingsDetailsActivity::class.java)
-                    .putExtra("packageName", clickedItemPackageName)
-            )
-        }
+        startResultLauncher.launch(
+            Intent(requireContext(), MyRatingsDetailsActivity::class.java)
+                .putExtra("packageName", clickedItemPackageName),
+            ActivityOptionsCompat.makeSceneTransitionAnimation(mainActivity)
+        )
     }
     
     override fun onResume() {
         super.onResume()
-        DataState.apply {
-            if (isMyRatingsCountChanged) {
-                lifecycleScope.launch {
-                    if (myRatingsNewCount == 0)
-                        myRatingsRepository.deleteSingleMyRating(clickedItemPackageName)
-                    
-                    myRatingsItemAdapter.submitList(
-                        myRatingsRepository.getSortedMyRatingsByName(orderPref = prefManager.getInt(A_Z_SORT))
-                    )
-                    
-                    get<MainDataRepository>().updateSingleApp(clickedItemPackageName)
-                    
-                    isMyRatingsCountChanged = false
-                    myRatingsNewCount = -1
-                }
+        if (isMyRatingCountChanged) {
+            lifecycleScope.launch {
+                if (myRatingsNewCount == 0)
+                    myRatingsRepository.deleteSingleMyRating(clickedItemPackageName)
+                
+                ArrayList(myRatingsList)
+                    .apply {
+                        when(myRatingsNewCount) {
+                            0 -> removeAt(clickedItemPos)
+                            else ->
+                                this[clickedItemPos] = this[clickedItemPos].copy(totalRatings = myRatingsNewCount)
+                        }
+                    }
+                    .let {
+                        myRatingsItemAdapter.submitList(it)
+                        myRatingsList = it
+                    }
+                
+                get<MainDataRepository>().updateSingleApp(clickedItemPackageName)
+                
+                isMyRatingCountChanged = false
+                myRatingsNewCount = -1
+                clickedItemPos = -1
+                clickedItemPackageName = ""
             }
         }
     }
     
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("clickedItemPackageName", clickedItemPackageName)
+        outState.apply {
+            putInt("clickedItemPos", clickedItemPos)
+            putString("clickedItemPackageName", clickedItemPackageName)
+        }
     }
     
     override fun onDestroyView() {

@@ -19,6 +19,6 @@ package tech.techlore.plexus.interfaces.details
 
 interface DeleteBtnClickListener {
     
-    fun onDeleteClicked(position: Int, ratingId: String, encTokenBase64: String?)
+    fun onDeleteClicked(ratingId: String, encTokenBase64: String?)
     
 }

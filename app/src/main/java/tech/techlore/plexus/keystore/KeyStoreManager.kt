@@ -19,6 +19,8 @@ package tech.techlore.plexus.keystore
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -65,45 +67,49 @@ class KeyStoreManager {
         }.generateKey()
     }
     
-    fun encryptToken(token: String): String {
-        val cipher =
-            Cipher.getInstance(TRANSFORMATION).apply {
-                init(Cipher.ENCRYPT_MODE, getOrCreateKey())
-            }
-        
-        return cipher
-            .doFinal(token.toByteArray(Charsets.UTF_8))
-            .let {
-                // Store IV along with encrypted data,
-                // because IV is required later while decrypting
-                Base64.encode(cipher.iv + it)
-            }
+    suspend fun encryptToken(token: String): String {
+        return withContext(Dispatchers.IO) {
+            val cipher =
+                Cipher.getInstance(TRANSFORMATION).apply {
+                    init(Cipher.ENCRYPT_MODE, getOrCreateKey())
+                }
+            
+            cipher
+                .doFinal(token.toByteArray(Charsets.UTF_8))
+                .let {
+                    // Store IV along with encrypted data,
+                    // because IV is required later while decrypting
+                    Base64.encode(cipher.iv + it)
+                }
+        }
     }
     
-    fun decryptToken(encTokenBase64: String): String {
-        val encBytes = Base64.decode(encTokenBase64)
-        val cipher =
-            Cipher.getInstance(TRANSFORMATION).apply {
-                init(
-                    Cipher.DECRYPT_MODE,
-                    getOrCreateKey(),
-                    GCMParameterSpec(
-                        128, // GCM requires 128 auth tag length by default
-                        encBytes,
-                        0,
-                        12 // First 12 bytes are IV
+    suspend fun decryptToken(encTokenBase64: String): String {
+        return withContext(Dispatchers.IO) {
+            val encBytes = Base64.decode(encTokenBase64)
+            val cipher =
+                Cipher.getInstance(TRANSFORMATION).apply {
+                    init(
+                        Cipher.DECRYPT_MODE,
+                        getOrCreateKey(),
+                        GCMParameterSpec(
+                            128, // GCM requires 128 auth tag length by default
+                            encBytes,
+                            0,
+                            12 // First 12 bytes are IV
+                        )
                     )
+                }
+            
+            cipher
+                .doFinal(
+                    encBytes,
+                    12, // Everything after first 12 bytes
+                    encBytes.size - 12
                 )
-            }
-        
-        return cipher
-            .doFinal(
-                encBytes,
-                12, // Everything after first 12 bytes
-                encBytes.size - 12
-            )
-            .let {
-                String(it, Charsets.UTF_8)
-            }
+                .let {
+                    String(it, Charsets.UTF_8)
+                }
+        }
     }
 }

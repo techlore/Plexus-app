@@ -36,7 +36,7 @@ abstract class BaseRatingsDetailsFragment<T> : Fragment() {
     private val fragmentBinding get() = _binding !!
     protected val displayedRatingsList = ArrayList<T>()
     protected lateinit var adapter: RecyclerView.Adapter<*>
-    protected var fullListSize = 0
+    protected var sortedListSize = 0
     private val pageSize = 5
     private var currentPage = 0
     protected var packageNameString = ""
@@ -58,9 +58,9 @@ abstract class BaseRatingsDetailsFragment<T> : Fragment() {
             sortRatings()
         }
         
-        fullListSize = getSortedList().size
+        sortedListSize = getSortedList().size
         
-        if (fullListSize == 0) {
+        if (sortedListSize == 0) {
             fragmentBinding.emptyRatingsListViewStub.inflate()
             fragmentBinding.root.findViewById<MaterialTextView>(R.id.emptyListViewText).text =
                 requireContext().getString(R.string.no_ratings_available)
@@ -90,7 +90,7 @@ abstract class BaseRatingsDetailsFragment<T> : Fragment() {
                 val buffer = 300 // pixels before bottom
                 val thresholdReached = child.bottom - (view.height + view.scrollY)
                 if (thresholdReached <= buffer
-                    && displayedRatingsList.size < fullListSize) {
+                    && displayedRatingsList.size < sortedListSize) {
                     loadNextPage()
                 }
             }
@@ -109,7 +109,7 @@ abstract class BaseRatingsDetailsFragment<T> : Fragment() {
     
     private fun loadNextPage() {
         val start = currentPage * pageSize
-        val end = minOf(start + pageSize, fullListSize)
+        val end = minOf(start + pageSize, sortedListSize)
         if (start < end) {
             ArrayList(getCurrentList()).apply {
                 addAll(getSortedList().subList(start, end))

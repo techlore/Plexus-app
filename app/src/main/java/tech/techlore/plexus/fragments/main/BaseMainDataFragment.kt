@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
-import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import tech.techlore.plexus.R
 import tech.techlore.plexus.activities.MainActivity
@@ -52,6 +51,8 @@ abstract class BaseMainDataFragment : Fragment(), MainDataItemAdapter.OnItemClic
     protected lateinit var mainDataList: ArrayList<MainDataMinimal>
     protected val prefManager by inject<PreferenceManager>()
     protected val miniRepository by inject<MainDataMinimalRepository>()
+    private var clickedItemPos = -1
+    private var clickedItemPackageName = ""
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -108,13 +109,15 @@ abstract class BaseMainDataFragment : Fragment(), MainDataItemAdapter.OnItemClic
     
     // On click
     override fun onItemClick(position: Int) {
-        mainActivity.startDetailsActivity(mainDataList[position].packageName)
+        clickedItemPos = position
+        clickedItemPackageName = mainDataList[position].packageName
+        mainActivity.startDetailsActivity(clickedItemPackageName)
     }
     
     override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
         item.isFav = isChecked
         lifecycleScope.launch {
-            get<MainDataMinimalRepository>().updateFav(item)
+            miniRepository.updateFav(item)
         }
         showSnackbar(
             coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
@@ -127,10 +130,21 @@ abstract class BaseMainDataFragment : Fragment(), MainDataItemAdapter.OnItemClic
     
     override fun onResume() {
         super.onResume()
-        if (DataState.isDataUpdated) {
+        if (DataState.isSingleAppUpdated) {
             lifecycleScope.launch{
-                mainDataItemAdapter.submitList(getDataFromDB())
-                DataState.isDataUpdated = false
+                ArrayList(mainDataList)
+                    .apply {
+                        this[clickedItemPos] =
+                            miniRepository.miniSingleAppFromDB(clickedItemPackageName)
+                    }
+                    .let {
+                        mainDataItemAdapter.submitList(it)
+                        mainDataList = it
+                    }
+                
+                clickedItemPos = -1
+                clickedItemPackageName = ""
+                DataState.isSingleAppUpdated = false
             }
         }
     }

@@ -31,7 +31,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/margin_8"
         android:paddingBottom="@dimen/margin_12">
 
         <LinearLayout
@@ -42,16 +41,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/margin_8"
-            android:background="@drawable/shape_filled_rounded_corners_medium">
+            android:background="@drawable/shape_filled_top_rounded_corners">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/ratingsNotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_4"
-                android:paddingHorizontal="@dimen/margin_8"
-                android:paddingTop="@dimen/margin_10"
+                android:layout_marginHorizontal="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_12"
                 android:text="@string/notes"
                 android:textAlignment="viewStart"
                 android:textColor="?attr/colorOnSurface"
@@ -63,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_8"
                 android:layout_marginBottom="@dimen/margin_4"
                 app:icon="@drawable/ic_translate"
                 app:iconPadding="@dimen/margin_8"
@@ -80,7 +77,8 @@
             app:layout_constraintTop_toBottomOf="@id/ratingsNotesCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="@dimen/margin_8"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_12"
             android:drawableStart="@drawable/ic_version"
             android:drawablePadding="@dimen/margin_8"
@@ -97,7 +95,7 @@
             app:layout_constraintTop_toBottomOf="@id/ratingsVersionTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="@dimen/margin_40"
+            android:layout_marginStart="@dimen/margin_45"
             android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_2"
             android:text="@string/version"
@@ -112,7 +110,8 @@
             app:layout_constraintTop_toBottomOf="@id/ratingsVersionSubtitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="@dimen/margin_8"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_10"
             android:drawableStart="@drawable/ic_rom"
             android:drawablePadding="@dimen/margin_8"
@@ -129,7 +128,7 @@
             app:layout_constraintTop_toBottomOf="@id/ratingsRomTitle"
             app:layout_constraintStart_toStartOf="@id/ratingsRomTitle"
             app:layout_constraintEnd_toEndOf="@id/ratingsRomTitle"
-            android:layout_marginStart="@dimen/margin_40"
+            android:layout_marginStart="@dimen/margin_45"
             android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_2"
             android:text="@string/rom"
@@ -143,7 +142,7 @@
             android:layout_height="@dimen/margin_32"
             app:layout_constraintTop_toBottomOf="@id/ratingsRomSubtitle"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginStart="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_12"
             android:gravity="center"
             style="@style/AndroidVersionTextViewTheme"/>
@@ -209,6 +208,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/margin_8"
             app:icon="@drawable/ic_edit"
             style="?attr/materialIconButtonFilledStyle"
             app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square"

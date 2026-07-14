@@ -39,15 +39,16 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
     
     private suspend fun mapToMinimalData(mainData: MainData): MainDataMinimal {
         return withContext(Dispatchers.IO) {
-            
-            MainDataMinimal(name = mainData.name,
-                            packageName = mainData.packageName,
-                            iconUrl = mainData.iconUrl.orEmpty(),
-                            installedFrom = mainData.installedFrom,
-                            dgStatus = mapScoreRangeToStatusString(context, mainData.dgScore),
-                            mgStatus = mapScoreRangeToStatusString(context, mainData.mgScore),
-                            isInstalled = mainData.isInstalled,
-                            isFav = mainData.isFav)
+            MainDataMinimal(
+                name = mainData.name,
+                packageName = mainData.packageName,
+                iconUrl = mainData.iconUrl.orEmpty(),
+                installedFrom = mainData.installedFrom,
+                dgStatus = mapScoreRangeToStatusString(context, mainData.dgScore),
+                mgStatus = mapScoreRangeToStatusString(context, mainData.mgScore),
+                isInstalled = mainData.isInstalled,
+                isFav = mainData.isFav
+            )
         }
     }
     
@@ -82,10 +83,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     R.id.sortInstalledApk -> "apk"
                     else -> ""
                 }
-    
+            
             val (dgScoreFrom, dgScoreTo) =
                 getScoreRange(statusToggleBtnPref, R.id.toggleDgStatus, prefManager.getInt(DG_STATUS_SORT))
-    
+            
             val (mgScoreFrom, mgScoreTo) =
                 getScoreRange(statusToggleBtnPref, R.id.toggleMgStatus, prefManager.getInt(MG_STATUS_SORT))
             
@@ -110,10 +111,10 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
                     R.id.sortInstalledApk -> "apk"
                     else -> ""
                 }
-    
+            
             val (dgScoreFrom, dgScoreTo) =
                 getScoreRange(statusToggleBtnPref, R.id.toggleDgStatus, prefManager.getInt(DG_STATUS_SORT))
-    
+            
             val (mgScoreFrom, mgScoreTo) =
                 getScoreRange(statusToggleBtnPref, R.id.toggleMgStatus, prefManager.getInt(MG_STATUS_SORT))
             
@@ -122,6 +123,14 @@ class MainDataMinimalRepository(private val context: Context, private val mainDa
             mainDataDao.getSortedFavApps(installedFrom, dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
                 .map { mapToMinimalData(it) }
                     as ArrayList<MainDataMinimal>
+        }
+    }
+    
+    suspend fun miniSingleAppFromDB(packageName: String): MainDataMinimal? {
+        return withContext(Dispatchers.IO) {
+            mainDataDao.getAppByPackage(packageName)?.let {
+                mapToMinimalData(it)
+            }
         }
     }
     

@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.activities
 
+import android.content.Intent
 import androidx.core.view.isVisible
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,6 +29,8 @@ import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipIdToRatingScore
 class MyRatingsDetailsActivity : BaseDetailsActivity() {
     
     var sortedMyRatingsDetailsList = arrayListOf<MyRatingDetails>()
+    var fullListSize = -1
+    var newListSize = -1
     
     override fun initAdditionalValuesInOnCreate() {
         hideRomSortDropdown = true
@@ -46,6 +49,8 @@ class MyRatingsDetailsActivity : BaseDetailsActivity() {
         
         activityBinding.detailsNavHost.isVisible = true
         activityBinding.rateBtn.isVisible = false
+        fullListSize = myRatingDetailsList?.size ?: -1
+        newListSize = fullListSize
     }
     
     override suspend fun retrieveAndDisplayData() {
@@ -115,5 +120,15 @@ class MyRatingsDetailsActivity : BaseDetailsActivity() {
             
             isListSorted = true
         }
+    }
+    
+    override fun finishAfterTransition() {
+        val resultIntent =
+            Intent().apply {
+                putExtra("isMyRatingCountChanged", newListSize != fullListSize)
+                putExtra("myRatingsNewCount", newListSize)
+            }
+        setResult(RESULT_OK, resultIntent)
+        super.finishAfterTransition()
     }
 }

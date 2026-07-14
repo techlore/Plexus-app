@@ -98,7 +98,6 @@ class MyRatingsDetailsItemAdapter(
             isVisible = true
             setOnClickListener {
                 deleteBtnClickListener.onDeleteClicked(
-                    position = position,
                     ratingId = myRatingsDetails.id,
                     encTokenBase64 = myRatingsDetails.encDeleteTokenBase64
                 )

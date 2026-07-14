@@ -24,10 +24,13 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
+    <!--64dp bottom margin,
+    to take into account the height of docked toolbar -->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/emptyListViewText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_64"
         android:text="@string/no_apps_found"
         android:gravity="center"
         android:textSize="@dimen/text_17"

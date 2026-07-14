@@ -61,6 +61,8 @@ class SearchFragment :
     private lateinit var searchItemAdapter: MainDataItemAdapter
     private lateinit var searchDataList: ArrayList<MainDataMinimal>
     private var isGridView = false
+    private var clickedItemPos = -1
+    private var clickedItemPackageName = ""
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -146,23 +148,45 @@ class SearchFragment :
     
     // On click
     override fun onItemClick(position: Int) {
-        val searchData = searchDataList[position]
-        searchActivity.startDetailsActivity(searchData.packageName)
+        clickedItemPos = position
+        clickedItemPackageName = searchDataList[position].packageName
+        searchActivity.startDetailsActivity(clickedItemPackageName)
     }
     
     override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
         item.isFav = isChecked
         lifecycleScope.launch {
             get<MainDataMinimalRepository>().updateFav(item)
+            DataState.isSingleAppUpdated = true
+            showSnackbar(
+                coordinatorLayout = searchActivity.activityBinding.searchCoordLayout,
+                message =
+                    if (isChecked) getString(R.string.added_to_fav, item.name)
+                    else getString(R.string.removed_from_fav, item.name),
+                anchorView = searchActivity.activityBinding.searchDockedToolbar
+            )
         }
-        DataState.isDataUpdated = true
-        showSnackbar(
-            coordinatorLayout = searchActivity.activityBinding.searchCoordLayout,
-            message =
-                if (isChecked) getString(R.string.added_to_fav, item.name)
-                else getString(R.string.removed_from_fav, item.name),
-            anchorView = searchActivity.activityBinding.searchDockedToolbar
-        )
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        if (DataState.isSingleAppUpdated) {
+            lifecycleScope.launch{
+                ArrayList(searchDataList)
+                    .apply {
+                        this[clickedItemPos] =
+                            miniRepository.miniSingleAppFromDB(clickedItemPackageName)
+                    }
+                    .let {
+                        searchItemAdapter.submitList(it)
+                        searchDataList = it
+                    }
+                
+                clickedItemPos = -1
+                clickedItemPackageName = ""
+                DataState.isSingleAppUpdated = false
+            }
+        }
     }
     
     override fun onDestroyView() {

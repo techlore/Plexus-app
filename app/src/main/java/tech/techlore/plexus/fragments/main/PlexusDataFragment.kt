@@ -43,8 +43,10 @@ class PlexusDataFragment : BaseMainDataFragment() {
             if (hasInternet(requireContext())) {
                 try {
                     get<MainDataRepository>().plexusDataIntoDB()
-                    mainDataList = getDataFromDB()
-                    mainDataItemAdapter.submitList(mainDataList)
+                    getDataFromDB().let {
+                        mainDataItemAdapter.submitList(it)
+                        mainDataList = it
+                    }
                     fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 }
                 catch (e: Exception) {

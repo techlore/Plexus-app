@@ -166,7 +166,7 @@ class UploadBottomSheet : BottomSheetDialogFragment() {
             if (ratingCreated && postedRatingId.isNotBlank()) {
                 updateMyRatingInDb(rating)
                 get<MainDataRepository>().updateSingleApp(packageName = detailsActivity.app.packageName)
-                DataState.isDataUpdated = true
+                DataState.isSingleAppUpdated = true
                 changeAnimView(R.raw.lottie_success, true, scale = 1.7f)
                 bottomSheetBinding.submitStatusText.text = getString(R.string.submit_success)
                 bottomSheetBinding.heartView.apply {

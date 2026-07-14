@@ -41,8 +41,10 @@ class InstalledAppsFragment : BaseMainDataFragment() {
         lifecycleScope.launch {
             get<MainDataRepository>().installedAppsIntoDB(requireContext())
             fragmentBinding.swipeRefreshLayout.isRefreshing = false
-            mainDataList = getDataFromDB()
-            mainDataItemAdapter.submitList(mainDataList)
+            getDataFromDB().let {
+                mainDataItemAdapter.submitList(it)
+                mainDataList = it
+            }
         }
     }
     
