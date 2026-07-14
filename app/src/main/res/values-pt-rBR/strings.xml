@@ -177,6 +177,6 @@
     <string name="device_should_be_degoogled_or_microg">O dispositivo deve ser de-Googled ou usar o microG para enviar a avaliação</string>
     <string name="rating_already_submitted">Avaliação já enviada para %1$s %2$s</string>
     <string name="no_browsers">Não há um navegador instalado neste dispositivo</string>
-    <string name="deleted_rating_successfully">Rating deleted successfully</string>
+    <string name="deleted_rating_successfully">Avaliação apagada com sucesso</string>
     <string name="deleted_account_successfully">Conta apagada com sucesso</string>
 </resources>
