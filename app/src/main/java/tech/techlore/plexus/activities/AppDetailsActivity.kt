@@ -110,10 +110,16 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
                         .putExtra(
                             Intent.EXTRA_TEXT,
                             """
-                              ${getString(R.string.app)}: ${app.name}
-                              ${getString(R.string.package_name)}: $packageNameString
-                              ${getString(R.string.de_Googled)}: ${mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore)}
-                              ${getString(R.string.microG)}: ${mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore)}
+                              # ${app.name}
+                              
+                              ## ${getString(R.string.package_name)}
+                              $packageNameString
+                              
+                              ## ${getString(R.string.de_Googled)} ${getString(R.string.status)}
+                              ${mapScoreRangeToStatusString(this@AppDetailsActivity, app.dgScore)}
+                              
+                              ## ${getString(R.string.microG)} ${getString(R.string.status)}
+                              ${mapScoreRangeToStatusString(this@AppDetailsActivity, app.mgScore)}
                               """.trimIndent()
                         ),
                     getString(R.string.share)
@@ -270,7 +276,7 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
                     if (!isFromShortcut && hasRatings) {
                         mainRepository.updateSingleApp(packageName = packageNameString)
                         app = mainRepository.getAppByPackage(packageNameString) !!
-                        DataState.isDataUpdated = true
+                        DataState.isSingleAppUpdated = true
                     }
                     
                     afterRatingsRetrieved()

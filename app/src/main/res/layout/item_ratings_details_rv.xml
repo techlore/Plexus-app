@@ -196,7 +196,7 @@
             app:layout_constraintBottom_toBottomOf="@id/editRatingBtn"
             app:layout_constraintEnd_toStartOf="@id/editRatingBtn"
             android:layout_marginEnd="@dimen/margin_4"
-            app:icon="@drawable/ic_delete_account"
+            app:icon="@drawable/ic_delete"
             style="?attr/materialIconButtonFilledTonalStyle"
             app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square"
             android:visibility="gone"

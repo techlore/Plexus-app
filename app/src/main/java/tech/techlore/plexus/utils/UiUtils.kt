@@ -386,6 +386,8 @@ class UiUtils {
         fun showSnackbar(coordinatorLayout: CoordinatorLayout, message: String, anchorView: View?) {
             Snackbar.make(coordinatorLayout, message, BaseTransientBottomBar.LENGTH_SHORT)
                 .setAnchorView(anchorView) // Above FAB, bottom bar etc.
+                .setCloseIconVisible(true)
+                .setCloseIconResource(R.drawable.ic_switch_thumb_off)
                 .show()
         }
         
