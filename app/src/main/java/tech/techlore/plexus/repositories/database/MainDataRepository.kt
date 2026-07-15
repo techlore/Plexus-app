@@ -24,14 +24,19 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.LAST_UPDATED
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
 import tech.techlore.plexus.repositories.api.ApiRepository
 import tech.techlore.plexus.utils.PackageUtils.Companion.scannedInstalledAppsList
 import tech.techlore.plexus.utils.ScoreUtils.Companion.truncatedScore
+import tech.techlore.plexus.utils.UiUtils.Companion.mapStatusChipToScoreRange
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter.ofPattern
 import java.util.Date
@@ -39,6 +44,7 @@ import java.util.Date
 class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
     private val apiRepository by inject<ApiRepository>()
+    private val prefManager by inject<PreferenceManager>()
     
     suspend fun plexusDataIntoDB() {
         withContext(Dispatchers.IO) {
@@ -116,9 +122,113 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
         }
     }
     
+    private fun getScoreRange(statusToggleBtnPref: Int,
+                              toggleBtnId: Int,
+                              sortChipId: Int): Pair<Float, Float> {
+        return if (statusToggleBtnPref == toggleBtnId) mapStatusChipToScoreRange(sortChipId)
+        else Pair(-1.0f, -1.0f)
+    }
+    
+    suspend fun miniPlexusDataListFromDB(statusToggleBtnPref: Int,
+                                         orderPref: Int): ArrayList<MainDataMini> {
+        return withContext(Dispatchers.IO) {
+            
+            val (dgScoreFrom, dgScoreTo) =
+                getScoreRange(statusToggleBtnPref, R.id.toggleDgStatus, prefManager.getInt(DG_STATUS_SORT))
+            
+            val (mgScoreFrom, mgScoreTo) =
+                getScoreRange(statusToggleBtnPref, R.id.toggleMgStatus, prefManager.getInt(MG_STATUS_SORT))
+            
+            val isAsc = orderPref != R.id.sortZA
+            
+            mainDataDao
+                .getSortedPlexusDataApps(dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
+                    as ArrayList<MainDataMini>
+        }
+    }
+    
+    suspend fun miniInstalledAppsListFromDB(installedFromPref: Int,
+                                            statusToggleBtnPref: Int,
+                                            orderPref: Int): ArrayList<MainDataMini> {
+        return withContext(Dispatchers.IO) {
+            
+            val installedFrom =
+                when(installedFromPref) {
+                    R.id.sortInstalledGooglePlayAlt -> "google_play_alternative"
+                    R.id.sortInstalledFdroid -> "fdroid"
+                    R.id.sortInstalledApk -> "apk"
+                    else -> ""
+                }
+            
+            val (dgScoreFrom, dgScoreTo) =
+                getScoreRange(statusToggleBtnPref, R.id.toggleDgStatus, prefManager.getInt(DG_STATUS_SORT))
+            
+            val (mgScoreFrom, mgScoreTo) =
+                getScoreRange(statusToggleBtnPref, R.id.toggleMgStatus, prefManager.getInt(MG_STATUS_SORT))
+            
+            val isAsc = orderPref != R.id.sortZA
+            
+            mainDataDao
+                .getSortedInstalledApps(installedFrom, dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
+                    as ArrayList<MainDataMini>
+        }
+    }
+    
+    suspend fun miniFavListFromDB(installedFromPref: Int,
+                                  statusToggleBtnPref: Int,
+                                  orderPref: Int): ArrayList<MainDataMini> {
+        return withContext(Dispatchers.IO) {
+            
+            val installedFrom =
+                when(installedFromPref) {
+                    R.id.sortInstalledGooglePlayAlt -> "google_play_alternative"
+                    R.id.sortInstalledFdroid -> "fdroid"
+                    R.id.sortInstalledApk -> "apk"
+                    else -> ""
+                }
+            
+            val (dgScoreFrom, dgScoreTo) =
+                getScoreRange(statusToggleBtnPref, R.id.toggleDgStatus, prefManager.getInt(DG_STATUS_SORT))
+            
+            val (mgScoreFrom, mgScoreTo) =
+                getScoreRange(statusToggleBtnPref, R.id.toggleMgStatus, prefManager.getInt(MG_STATUS_SORT))
+            
+            val isAsc = orderPref != R.id.sortZA
+            
+            mainDataDao.getSortedFavApps(installedFrom, dgScoreFrom, dgScoreTo, mgScoreFrom, mgScoreTo, isAsc)
+                    as ArrayList<MainDataMini>
+        }
+    }
+    
+    suspend fun updateFav(mainDataMini: MainDataMini) {
+        return withContext(Dispatchers.IO) {
+            val existingData = mainDataDao.getAppByPackage(mainDataMini.packageName)
+            existingData.apply {
+                if (this != null) {
+                    isFav = mainDataMini.isFav
+                    mainDataDao.update(this)
+                }
+            }
+        }
+    }
+    
+    suspend fun searchInDb(searchQuery: String,
+                           orderChipId: Int): ArrayList<MainDataMini> {
+        return withContext(Dispatchers.IO) {
+            val isAsc = orderChipId != R.id.sortZA
+            mainDataDao.searchInDb(searchQuery.trim(), isAsc) as ArrayList<MainDataMini>
+        }
+    }
+    
     suspend fun getAppByPackage(packageName: String): MainData? {
         return withContext(Dispatchers.IO){
             mainDataDao.getAppByPackage(packageName)
+        }
+    }
+    
+    suspend fun getMiniAppByPackage(packageName: String): MainDataMini? {
+        return withContext(Dispatchers.IO){
+            mainDataDao.getMiniAppByPackage(packageName)
         }
     }
     

@@ -15,15 +15,18 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.minimal
+package tech.techlore.plexus.diffcallbacks
 
-data class MainDataMinimal(
-    val name: String,
-    val packageName: String,
-    val iconUrl: String,
-    val dgStatus: String,
-    val mgStatus: String,
-    val installedFrom: String,
-    val isInstalled: Boolean,
-    var isFav: Boolean
-)
+import androidx.recyclerview.widget.DiffUtil
+import tech.techlore.plexus.models.mini.MyRatingMini
+
+class MyRatingMiniDiffCallback : DiffUtil.ItemCallback<MyRatingMini>() {
+    
+    override fun areItemsTheSame(oldItem: MyRatingMini, newItem: MyRatingMini): Boolean {
+        return oldItem.packageName == newItem.packageName
+    }
+    
+    override fun areContentsTheSame(oldItem: MyRatingMini, newItem: MyRatingMini): Boolean {
+        return oldItem == newItem
+    }
+}

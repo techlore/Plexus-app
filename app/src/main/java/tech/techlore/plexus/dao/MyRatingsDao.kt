@@ -23,6 +23,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import tech.techlore.plexus.models.mini.MyRatingMini
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 
@@ -69,12 +70,13 @@ interface MyRatingsDao {
     }
     
     @Query("""
-        SELECT * FROM my_ratings_table
+        SELECT name, packageName, iconUrl, isInstalled, totalRatings
+        FROM my_ratings_table
         ORDER BY
         CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
         CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
     """)
-    suspend fun getSortedMyRatingsByName(isAsc: Boolean): List<MyRating>
+    suspend fun getSortedMyRatingsByName(isAsc: Boolean): List<MyRatingMini>
     
     @Query("""
         UPDATE my_ratings_table

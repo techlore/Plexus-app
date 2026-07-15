@@ -15,18 +15,12 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.diffcallbacks
+package tech.techlore.plexus.models.mini
 
-import androidx.recyclerview.widget.DiffUtil
-import tech.techlore.plexus.models.myratings.MyRating
-
-class MyRatingDiffCallback : DiffUtil.ItemCallback<MyRating>() {
-    
-    override fun areItemsTheSame(oldItem: MyRating, newItem: MyRating): Boolean {
-        return oldItem.packageName == newItem.packageName
-    }
-    
-    override fun areContentsTheSame(oldItem: MyRating, newItem: MyRating): Boolean {
-        return oldItem == newItem
-    }
-}
+data class MyRatingMini (
+    val name: String,
+    val packageName: String,
+    val iconUrl: String? = null,
+    val isInstalled: Boolean,
+    var totalRatings: Int
+)

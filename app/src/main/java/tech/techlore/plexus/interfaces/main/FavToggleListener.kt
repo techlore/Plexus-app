@@ -17,10 +17,10 @@
 
 package tech.techlore.plexus.interfaces.main
 
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.mini.MainDataMini
 
 interface FavToggleListener {
     
-    fun onFavToggled(item: MainDataMinimal, isChecked: Boolean)
+    fun onFavToggled(item: MainDataMini, isChecked: Boolean)
     
 }

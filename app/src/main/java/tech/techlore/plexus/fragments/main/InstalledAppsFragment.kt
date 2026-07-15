@@ -19,18 +19,16 @@ package tech.techlore.plexus.fragments.main
 
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.get
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
-import tech.techlore.plexus.repositories.database.MainDataRepository
 import kotlin.collections.ArrayList
 
 class InstalledAppsFragment : BaseMainDataFragment() {
     
-    override suspend fun getDataFromDB(): ArrayList<MainDataMinimal> {
-        return miniRepository.miniInstalledAppsListFromDB(
+    override suspend fun getDataFromDB(): ArrayList<MainDataMini> {
+        return mainRepository.miniInstalledAppsListFromDB(
             installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
             statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
             orderPref = prefManager.getInt(A_Z_SORT)
@@ -39,7 +37,7 @@ class InstalledAppsFragment : BaseMainDataFragment() {
     
     override fun onSwipeRefresh() {
         lifecycleScope.launch {
-            get<MainDataRepository>().installedAppsIntoDB(requireContext())
+            mainRepository.installedAppsIntoDB(requireContext())
             fragmentBinding.swipeRefreshLayout.isRefreshing = false
             getDataFromDB().let {
                 mainDataItemAdapter.submitList(it)

@@ -38,11 +38,11 @@ import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.interfaces.main.FavToggleListener
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
-import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
+import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
@@ -57,9 +57,9 @@ class SearchFragment :
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var searchActivity: SearchActivity
-    private val miniRepository by inject<MainDataMinimalRepository>()
+    private val mainRepository by inject<MainDataRepository>()
     private lateinit var searchItemAdapter: MainDataItemAdapter
-    private lateinit var searchDataList: ArrayList<MainDataMinimal>
+    private lateinit var searchDataList: ArrayList<MainDataMini>
     private var isGridView = false
     private var clickedItemPos = -1
     private var clickedItemPackageName = ""
@@ -120,7 +120,7 @@ class SearchFragment :
     
     private suspend fun performSearch(searchString: String) {
         if (searchString.isNotEmpty()) {
-            searchDataList = miniRepository.searchInDb(searchString, searchActivity.orderChipId)
+            searchDataList = mainRepository.searchInDb(searchString, searchActivity.orderChipId)
             if (searchDataList.isEmpty()) {
                 fragmentBinding.recyclerView.adapter = null
                 searchActivity.activityBinding.emptySearchView.isVisible = true
@@ -153,10 +153,10 @@ class SearchFragment :
         searchActivity.startDetailsActivity(clickedItemPackageName)
     }
     
-    override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
+    override fun onFavToggled(item: MainDataMini, isChecked: Boolean) {
         item.isFav = isChecked
         lifecycleScope.launch {
-            get<MainDataMinimalRepository>().updateFav(item)
+            mainRepository.updateFav(item)
             DataState.isSingleAppUpdated = true
             showSnackbar(
                 coordinatorLayout = searchActivity.activityBinding.searchCoordLayout,
@@ -175,7 +175,7 @@ class SearchFragment :
                 ArrayList(searchDataList)
                     .apply {
                         this[clickedItemPos] =
-                            miniRepository.miniSingleAppFromDB(clickedItemPackageName)
+                            mainRepository.getMiniAppByPackage(clickedItemPackageName)
                     }
                     .let {
                         searchItemAdapter.submitList(it)

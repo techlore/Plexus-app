@@ -23,21 +23,19 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
-import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
 class FavoritesFragment: BaseMainDataFragment() {
     
     private var lastRemovedIndex: Int = -1
     
-    override suspend fun getDataFromDB(): ArrayList<MainDataMinimal> {
-        return miniRepository.miniFavListFromDB(
+    override suspend fun getDataFromDB(): ArrayList<MainDataMini> {
+        return mainRepository.miniFavListFromDB(
             installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
             statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
             orderPref = prefManager.getInt(A_Z_SORT)
@@ -48,10 +46,10 @@ class FavoritesFragment: BaseMainDataFragment() {
         return false
     }
     
-    override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
+    override fun onFavToggled(item: MainDataMini, isChecked: Boolean) {
         item.isFav = isChecked
         lifecycleScope.launch {
-            get<MainDataMinimalRepository>().updateFav(item)
+            mainRepository.updateFav(item)
             // Remove item from view
             if (!isChecked) {
                 mainDataItemAdapter.submitList(
@@ -78,7 +76,7 @@ class FavoritesFragment: BaseMainDataFragment() {
                 .setAction(getString(R.string.undo)) {
                     item.isFav = !isChecked
                     lifecycleScope.launch {
-                        get<MainDataMinimalRepository>().updateFav(item)
+                        mainRepository.updateFav(item)
                         // Add item back to view
                         mainDataItemAdapter.submitList(
                             withContext(Dispatchers.Default) {

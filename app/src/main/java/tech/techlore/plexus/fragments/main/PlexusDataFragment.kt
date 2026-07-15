@@ -19,20 +19,18 @@ package tech.techlore.plexus.fragments.main
 
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
-import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 
 class PlexusDataFragment : BaseMainDataFragment() {
     
-    override suspend fun getDataFromDB(): ArrayList<MainDataMinimal> {
-        return miniRepository.miniPlexusDataListFromDB(
+    override suspend fun getDataFromDB(): ArrayList<MainDataMini> {
+        return mainRepository.miniPlexusDataListFromDB(
             statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
             orderPref = prefManager.getInt(A_Z_SORT)
         )
@@ -42,7 +40,7 @@ class PlexusDataFragment : BaseMainDataFragment() {
         lifecycleScope.launch {
             if (hasInternet(requireContext())) {
                 try {
-                    get<MainDataRepository>().plexusDataIntoDB()
+                    mainRepository.plexusDataIntoDB()
                     getDataFromDB().let {
                         mainDataItemAdapter.submitList(it)
                         mainDataList = it

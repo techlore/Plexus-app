@@ -27,14 +27,14 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import me.stellarsand.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
-import tech.techlore.plexus.diffcallbacks.MyRatingDiffCallback
-import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.diffcallbacks.MyRatingMiniDiffCallback
+import tech.techlore.plexus.models.mini.MyRatingMini
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 
 class MyRatingsItemAdapter(
     private val clickListener: OnItemClickListener,
     private val isGridView: Boolean = false
-) : ListAdapter<MyRating, MyRatingsItemAdapter.ListViewHolder>(MyRatingDiffCallback()),
+) : ListAdapter<MyRatingMini, MyRatingsItemAdapter.ListViewHolder>(MyRatingMiniDiffCallback()),
     PopupTextProvider {
     
     interface OnItemClickListener {

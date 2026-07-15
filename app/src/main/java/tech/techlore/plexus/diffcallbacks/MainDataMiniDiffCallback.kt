@@ -18,15 +18,15 @@
 package tech.techlore.plexus.diffcallbacks
 
 import androidx.recyclerview.widget.DiffUtil
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.mini.MainDataMini
 
-class MainDataMinimalDiffCallback : DiffUtil.ItemCallback<MainDataMinimal>() {
+class MainDataMiniDiffCallback : DiffUtil.ItemCallback<MainDataMini>() {
     
-    override fun areItemsTheSame(oldItem: MainDataMinimal, newItem: MainDataMinimal): Boolean {
+    override fun areItemsTheSame(oldItem: MainDataMini, newItem: MainDataMini): Boolean {
         return oldItem.packageName == newItem.packageName
     }
     
-    override fun areContentsTheSame(oldItem: MainDataMinimal, newItem: MainDataMinimal): Boolean {
+    override fun areContentsTheSame(oldItem: MainDataMini, newItem: MainDataMini): Boolean {
         return oldItem == newItem
     }
 }

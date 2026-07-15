@@ -27,9 +27,9 @@ import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 import me.stellarsand.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
-import tech.techlore.plexus.diffcallbacks.MainDataMinimalDiffCallback
+import tech.techlore.plexus.diffcallbacks.MainDataMiniDiffCallback
 import tech.techlore.plexus.interfaces.main.FavToggleListener
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.utils.UiUtils.Companion.hScroll
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithoutIcon
@@ -38,7 +38,7 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
                           private val favToggleListener: FavToggleListener,
                           private val isGridView: Boolean = false,
                           private val isFavFrag: Boolean = false) :
-    ListAdapter<MainDataMinimal, MainDataItemAdapter.ListViewHolder>(MainDataMinimalDiffCallback()),
+    ListAdapter<MainDataMini, MainDataItemAdapter.ListViewHolder>(MainDataMiniDiffCallback()),
     PopupTextProvider {
     
     interface OnItemClickListener {
@@ -103,9 +103,15 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
             hScroll()
         }
         
-        holder.dgStatus.setStatusStyleWithoutIcon(context, mainDataMinimal.dgStatus)
+        holder.dgStatus.setStatusStyleWithoutIcon(
+            context,
+            context.getString(mainDataMinimal.dgStatusStringResId)
+        )
         
-        holder.mgStatus.setStatusStyleWithoutIcon(context, mainDataMinimal.mgStatus)
+        holder.mgStatus.setStatusStyleWithoutIcon(
+            context,
+            context.getString(mainDataMinimal.mgStatusStringResId)
+        )
         
         holder.fav.apply {
             isChecked = mainDataMinimal.isFav

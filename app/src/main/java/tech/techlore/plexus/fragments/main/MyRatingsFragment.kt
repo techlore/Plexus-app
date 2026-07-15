@@ -43,7 +43,7 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.MyRatingsDetailsActivity
 import tech.techlore.plexus.adapters.main.MyRatingsItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
-import tech.techlore.plexus.models.myratings.MyRating
+import tech.techlore.plexus.models.mini.MyRatingMini
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
@@ -63,7 +63,7 @@ class MyRatingsFragment :
     private val prefManager by inject<PreferenceManager>()
     private val myRatingsRepository by inject<MyRatingsRepository>()
     private lateinit var myRatingsItemAdapter: MyRatingsItemAdapter
-    private lateinit var myRatingsList: ArrayList<MyRating>
+    private lateinit var myRatingsList: ArrayList<MyRatingMini>
     private var clickedItemPackageName = ""
     private var clickedItemPos = -1
     private var isMyRatingCountChanged = false

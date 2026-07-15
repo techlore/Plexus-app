@@ -33,10 +33,10 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.interfaces.main.FavToggleListener
-import tech.techlore.plexus.models.minimal.MainDataMinimal
+import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
-import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
+import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
@@ -48,9 +48,9 @@ abstract class BaseMainDataFragment : Fragment(), MainDataItemAdapter.OnItemClic
     protected val fragmentBinding get() = _binding!!
     protected lateinit var mainActivity: MainActivity
     protected lateinit var mainDataItemAdapter: MainDataItemAdapter
-    protected lateinit var mainDataList: ArrayList<MainDataMinimal>
+    protected lateinit var mainDataList: ArrayList<MainDataMini>
     protected val prefManager by inject<PreferenceManager>()
-    protected val miniRepository by inject<MainDataMinimalRepository>()
+    protected val mainRepository by inject<MainDataRepository>()
     private var clickedItemPos = -1
     private var clickedItemPackageName = ""
     
@@ -101,7 +101,7 @@ abstract class BaseMainDataFragment : Fragment(), MainDataItemAdapter.OnItemClic
         }
     }
     
-    protected abstract suspend fun getDataFromDB(): ArrayList<MainDataMinimal>
+    protected abstract suspend fun getDataFromDB(): ArrayList<MainDataMini>
     
     protected open fun isSwipeRefreshEnabled(): Boolean = true
     
@@ -114,10 +114,10 @@ abstract class BaseMainDataFragment : Fragment(), MainDataItemAdapter.OnItemClic
         mainActivity.startDetailsActivity(clickedItemPackageName)
     }
     
-    override fun onFavToggled(item: MainDataMinimal, isChecked: Boolean) {
+    override fun onFavToggled(item: MainDataMini, isChecked: Boolean) {
         item.isFav = isChecked
         lifecycleScope.launch {
-            miniRepository.updateFav(item)
+            mainRepository.updateFav(item)
         }
         showSnackbar(
             coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
@@ -135,7 +135,7 @@ abstract class BaseMainDataFragment : Fragment(), MainDataItemAdapter.OnItemClic
                 ArrayList(mainDataList)
                     .apply {
                         this[clickedItemPos] =
-                            miniRepository.miniSingleAppFromDB(clickedItemPackageName)
+                            mainRepository.getMiniAppByPackage(clickedItemPackageName)
                     }
                     .let {
                         mainDataItemAdapter.submitList(it)

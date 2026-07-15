@@ -21,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MyRatingsDao
+import tech.techlore.plexus.models.mini.MyRatingMini
 import tech.techlore.plexus.models.myratings.MyRating
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 
@@ -41,10 +42,10 @@ class MyRatingsRepository(private val myRatingsDao: MyRatingsDao) {
         }
     }
     
-    suspend fun getSortedMyRatingsByName(orderPref: Int): ArrayList<MyRating> {
+    suspend fun getSortedMyRatingsByName(orderPref: Int): ArrayList<MyRatingMini> {
         return withContext(Dispatchers.IO) {
             val isAsc = orderPref != R.id.sortZA
-            myRatingsDao.getSortedMyRatingsByName(isAsc) as ArrayList<MyRating>
+            myRatingsDao.getSortedMyRatingsByName(isAsc) as ArrayList<MyRatingMini>
         }
     }
     

@@ -25,6 +25,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import tech.techlore.plexus.models.main.MainData
+import tech.techlore.plexus.models.mini.MainDataMini
 
 @Dao
 interface MainDataDao {
@@ -75,11 +76,18 @@ interface MainDataDao {
     @Query("SELECT * FROM main_table WHERE packageName = :packageName")
     fun getAppByPackage(packageName: String): MainData?
     
+    @Query("""
+        SELECT name, packageName, iconUrl, dgScore, mgScore, installedFrom, isInstalled, isFav
+        FROM main_table WHERE packageName = :packageName
+    """)
+    fun getMiniAppByPackage(packageName: String): MainDataMini?
+    
     @Query("SELECT * FROM main_table WHERE isInstalled")
     suspend fun getInstalledApps(): List<MainData>
     
     @Query("""
-        SELECT * FROM main_table
+        SELECT name, packageName, iconUrl, dgScore, mgScore, installedFrom, isInstalled, isFav
+        FROM main_table
         WHERE isInPlexusData
         AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore BETWEEN :mgScoreFrom AND :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
@@ -91,12 +99,13 @@ interface MainDataDao {
                                         dgScoreTo: Float,
                                         mgScoreFrom: Float,
                                         mgScoreTo: Float,
-                                        isAsc: Boolean): List<MainData>
+                                        isAsc: Boolean): List<MainDataMini>
     // -1 is for ignoring the score when required,
     // so it isn't included while sorting
     
     @Query("""
-        SELECT * FROM main_table
+        SELECT name, packageName, iconUrl, dgScore, mgScore, installedFrom, isInstalled, isFav
+        FROM main_table
         WHERE isInstalled
         AND (installedFrom = :installedFrom OR :installedFrom = '')
         AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
@@ -110,12 +119,13 @@ interface MainDataDao {
                                        dgScoreTo: Float,
                                        mgScoreFrom: Float,
                                        mgScoreTo: Float,
-                                       isAsc: Boolean): List<MainData>
+                                       isAsc: Boolean): List<MainDataMini>
     // -1 is for ignoring the score when required,
     // so it isn't included while sorting
     
     @Query("""
-        SELECT * FROM main_table
+        SELECT name, packageName, iconUrl, dgScore, mgScore, installedFrom, isInstalled, isFav
+        FROM main_table
         WHERE isFav
         AND (installedFrom = :installedFrom OR :installedFrom = '')
         AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
@@ -129,18 +139,19 @@ interface MainDataDao {
                                  dgScoreTo: Float,
                                  mgScoreFrom: Float,
                                  mgScoreTo: Float,
-                                 isAsc: Boolean): List<MainData>
+                                 isAsc: Boolean): List<MainDataMini>
     // -1 is for ignoring the score when required,
     // so it isn't included while sorting
     
     @Query("""
-        SELECT * FROM main_table
+        SELECT name, packageName, iconUrl, dgScore, mgScore, installedFrom, isInstalled, isFav
+        FROM main_table
         WHERE name LIKE '%' || :searchQuery || '%' OR packageName LIKE '%' || :searchQuery || '%'
         ORDER BY
         CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
         CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
     """)
     suspend fun searchInDb(searchQuery: String,
-                           isAsc: Boolean): List<MainData>
+                           isAsc: Boolean): List<MainDataMini>
     
 }

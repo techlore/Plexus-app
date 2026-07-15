@@ -30,7 +30,6 @@ import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.repositories.api.ApiRepository
-import tech.techlore.plexus.repositories.database.MainDataMinimalRepository
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.keystore.KeyStoreManager
@@ -51,7 +50,6 @@ val appModule =
         single { ApiRepository(get()) }
         single { getDatabase(get()) }
         single { MainDataRepository(get<MainDatabase>().mainDataDao()) }
-        single { MainDataMinimalRepository(get(), get<MainDatabase>().mainDataDao()) }
         single { MyRatingsRepository(get<MainDatabase>().myRatingsDao()) }
         single { Locale.getDefault() }
         single(named("currentYear")) { Year.now().value }
