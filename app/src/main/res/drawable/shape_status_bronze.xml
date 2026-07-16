@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
   ~     Copyright (C) 2022-present Techlore
   ~
   ~     This program is free software: you can redistribute it and/or modify
@@ -15,7 +17,9 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_done" android:state_checked="true"/>
-    <item android:drawable="@drawable/ic_close" android:state_checked="false"/>
-</selector>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="@dimen/margin_75"/>
+    <solid android:color="@color/color_bronze_status"/>
+</shape>

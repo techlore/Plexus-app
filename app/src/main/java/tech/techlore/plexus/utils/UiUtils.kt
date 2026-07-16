@@ -38,8 +38,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
 import coil3.request.error
@@ -114,6 +118,11 @@ class UiUtils {
             }
         }
         
+        fun getViewStyle(context: Context, isGridView: Boolean): RecyclerView.LayoutManager {
+            return if (!isGridView) LinearLayoutManager(context)
+            else GridLayoutManager(context, 2)
+        }
+        
         fun convertDpToPx(context: Context, dp: Float): Int {
             return (dp * context.resources.displayMetrics.density).toInt()
         }
@@ -123,6 +132,10 @@ class UiUtils {
         fun TextView.hScroll() {
             setSingleLine()
             isSelected = true
+        }
+        
+        fun NavHostFragment.getCurrentFragment(): Fragment? {
+            return childFragmentManager.fragments.firstOrNull()
         }
         
         fun NavController.refreshFragment() {
@@ -196,31 +209,32 @@ class UiUtils {
             }
         }
         
-        fun MaterialTextView.setStatusStyleWithoutIcon(context: Context, statusString: String) {
-            val (textColor, backgroundTint) =
-                when (statusString) {
-                    context.getString(R.string.na) -> Pair(null, null) // No background tint. Only show outline
+        fun MaterialTextView.setStatusStyleWithoutIcon(context: Context, score: Float) {
+            val (textColor, backgroundDrawable) =
+                when (score) {
+                    0.0f ->
+                        Pair(context.resources.getColor(R.color.color_onSurface, context.theme),
+                             R.drawable.shape_outlined_rounded_corners_large)// No background tint. Only show outline
                     
-                    context.getString(R.string.broken_title) ->
+                    in 1.0f..1.9f ->
                         Pair(context.resources.getColor(R.color.color_broken_status_text, context.theme),
-                             context.resources.getColor(R.color.color_broken_status, context.theme))
+                             R.drawable.shape_status_broken)
                     
-                    context.getString(R.string.bronze_title) ->
+                    in 2.0f..2.9f ->
                         Pair(context.resources.getColor(R.color.color_bronze_status_text, context.theme),
-                             context.resources.getColor(R.color.color_bronze_status, context.theme))
+                             R.drawable.shape_status_bronze)
                     
-                    context.getString(R.string.silver_title) ->
+                    in 3.0f..3.4f ->
                         Pair(context.resources.getColor(R.color.color_silver_status_text, context.theme),
-                             context.resources.getColor(R.color.color_silver_status, context.theme))
+                             R.drawable.shape_status_silver)
                     
                     else ->
                         Pair(context.resources.getColor(R.color.color_gold_status_text, context.theme),
-                             context.resources.getColor(R.color.color_gold_status, context.theme))
+                             R.drawable.shape_status_gold)
                 }
             
-            text = statusString
-            textColor?.let{setTextColor(ColorStateList.valueOf(it))}
-            backgroundTint?.let { backgroundTintList = ColorStateList.valueOf(it) }
+            setTextColor(ColorStateList.valueOf(textColor))
+            setBackgroundDrawable(ContextCompat.getDrawable(context, backgroundDrawable))
         }
         
         fun mapStatusChipIdToRatingScore(statusChipId: Int): Int {
@@ -387,7 +401,7 @@ class UiUtils {
             Snackbar.make(coordinatorLayout, message, BaseTransientBottomBar.LENGTH_SHORT)
                 .setAnchorView(anchorView) // Above FAB, bottom bar etc.
                 .setCloseIconVisible(true)
-                .setCloseIconResource(R.drawable.ic_switch_thumb_off)
+                .setCloseIconResource(R.drawable.ic_close)
                 .show()
         }
         

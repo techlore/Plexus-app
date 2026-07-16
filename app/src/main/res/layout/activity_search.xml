@@ -105,6 +105,7 @@
                 app:searchIcon="@null"
                 app:queryBackground="@android:color/transparent"
                 app:defaultQueryHint="@string/menu_search"
+                app:closeIcon="@drawable/ic_close"
                 android:textDirection="locale">
                 <requestFocus/>
             </androidx.appcompat.widget.SearchView>
