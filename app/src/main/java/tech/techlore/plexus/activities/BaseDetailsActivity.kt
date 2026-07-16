@@ -224,7 +224,7 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangeListene
     
     protected abstract suspend fun retrieveAndDisplayData()
     
-    override fun onSortPrefsChanged() {
+    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
         isListSorted = false
         navController.refreshFragment()
     }

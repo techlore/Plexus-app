@@ -28,11 +28,10 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
@@ -43,6 +42,8 @@ import tech.techlore.plexus.activities.MainActivity
 import tech.techlore.plexus.activities.MyRatingsDetailsActivity
 import tech.techlore.plexus.adapters.main.MyRatingsItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
+import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
+import tech.techlore.plexus.interfaces.main.ViewStyleChangeListener
 import tech.techlore.plexus.models.mini.MyRatingMini
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
@@ -51,11 +52,14 @@ import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
+import tech.techlore.plexus.utils.UiUtils.Companion.getViewStyle
 import kotlin.getValue
 
 class MyRatingsFragment :
     Fragment(),
-    MyRatingsItemAdapter.OnItemClickListener {
+    MyRatingsItemAdapter.OnItemClickListener,
+    SortPrefsChangeListener,
+    ViewStyleChangeListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -64,8 +68,9 @@ class MyRatingsFragment :
     private val myRatingsRepository by inject<MyRatingsRepository>()
     private lateinit var myRatingsItemAdapter: MyRatingsItemAdapter
     private lateinit var myRatingsList: ArrayList<MyRatingMini>
-    private var clickedItemPackageName = ""
+    private var isViewStubInflated = false
     private var clickedItemPos = -1
+    private var clickedItemPackageName = ""
     private var isMyRatingCountChanged = false
     private var myRatingsNewCount = -1
     
@@ -102,43 +107,22 @@ class MyRatingsFragment :
             clickedItemPackageName = it.getString("clickedPackageName")!!
         }
         
+        myRatingsItemAdapter = MyRatingsItemAdapter(clickListener = this)
+        fragmentBinding.recyclerView.apply {
+            mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
+            layoutManager = getViewStyle(requireContext(), mainActivity.isGridView)
+            adapter = myRatingsItemAdapter
+            FastScrollerBuilder(this).build()
+        }
+        
         lifecycleScope.launch {
             myRatingsList =
                 myRatingsRepository.getSortedMyRatingsByName(orderPref = prefManager.getInt(A_Z_SORT))
             
-            if (myRatingsList.isEmpty()) {
-                fragmentBinding.emptyListViewStub.inflate()
-                val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_my_ratings)
-                fragmentBinding.root.findViewById<MaterialTextView>(R.id.emptyListViewText).apply {
-                    setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-                    text =
-                        if (prefManager.getBoolean(IS_FIRST_SUBMISSION)) {
-                            getString(R.string.no_ratings_available) +
-                            "\n\n" +
-                            getString(R.string.submit_first_rating)
-                        }
-                        else {
-                            getString(R.string.no_ratings_available)
-                        }
-                }
-            }
-            else {
-                myRatingsItemAdapter =
-                    MyRatingsItemAdapter(
-                        clickListener = this@MyRatingsFragment,
-                        isGridView = mainActivity.isGridView
-                    )
-                fragmentBinding.recyclerView.apply {
-                    mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
-                    layoutManager =
-                        if (!mainActivity.isGridView)
-                            LinearLayoutManager(requireContext())
-                        else
-                            GridLayoutManager(requireContext(), 2)
-                    adapter = myRatingsItemAdapter
-                    FastScrollerBuilder(this).build() // Fast scroll
-                }
-                myRatingsItemAdapter.submitList(myRatingsList)
+            if (myRatingsList.isEmpty()) showEmptyListView()
+            else myRatingsItemAdapter.apply {
+                isGridViewLayout = mainActivity.isGridView
+                submitList(myRatingsList)
             }
             
             // New rating FAB
@@ -168,7 +152,29 @@ class MyRatingsFragment :
             }
         }
     
-    // On click
+    private fun showEmptyListView() {
+        if (!isViewStubInflated) {
+            fragmentBinding.emptyListViewStub.inflate()
+            isViewStubInflated = true
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_my_ratings)
+            fragmentBinding.root.findViewById<MaterialTextView>(R.id.emptyListViewText).apply {
+                setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+                text =
+                    if (prefManager.getBoolean(IS_FIRST_SUBMISSION)) {
+                        getString(R.string.no_ratings_available) +
+                        "\n\n" +
+                        getString(R.string.submit_first_rating)
+                    }
+                    else {
+                        getString(R.string.no_ratings_available)
+                    }
+            }
+        }
+        else {
+            fragmentBinding.emptyListViewStub.isVisible = true
+        }
+    }
+    
     override fun onItemClick(position: Int) {
         clickedItemPos = position
         clickedItemPackageName = myRatingsList[position].packageName
@@ -177,6 +183,28 @@ class MyRatingsFragment :
                 .putExtra("packageName", clickedItemPackageName),
             ActivityOptionsCompat.makeSceneTransitionAnimation(mainActivity)
         )
+    }
+    
+    override fun onViewStyleChanged() {
+        myRatingsItemAdapter.isGridViewLayout = mainActivity.isGridView
+        fragmentBinding.recyclerView.apply {
+            layoutManager = getViewStyle(requireContext(), mainActivity.isGridView)
+            recycledViewPool.clear()
+            smoothScrollToPosition(0) // Scroll to top
+        }
+    }
+    
+    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
+        if (myRatingsList.isNotEmpty()) {
+            myRatingsList =
+                ArrayList(
+                    if (isAsc) myRatingsList.sortedBy { it.name }
+                    else myRatingsList.sortedByDescending { it.name }
+                )
+            myRatingsItemAdapter.submitList(null)
+            myRatingsItemAdapter.submitList(myRatingsList)
+            fragmentBinding.recyclerView.smoothScrollToPosition(0)
+        }
     }
     
     override fun onResume() {
@@ -198,6 +226,8 @@ class MyRatingsFragment :
                         myRatingsItemAdapter.submitList(it)
                         myRatingsList = it
                     }
+                
+                if (myRatingsNewCount == 0) showEmptyListView()
                 
                 get<MainDataRepository>().updateSingleApp(clickedItemPackageName)
                 

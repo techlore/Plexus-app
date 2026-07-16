@@ -34,14 +34,17 @@ import tech.techlore.plexus.bottomsheets.search.SearchSortBottomSheet
 import tech.techlore.plexus.databinding.ActivitySearchBinding
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
-import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
+import tech.techlore.plexus.utils.UiUtils.Companion.getCurrentFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 
 class SearchActivity : AppCompatActivity(), SortPrefsChangeListener {
     
     lateinit var activityBinding: ActivitySearchBinding
+    private val navHostFragment by lazy {
+        supportFragmentManager.findFragmentById(R.id.searchNavHost) as NavHostFragment
+    }
     private lateinit var navController: NavController
-    var orderChipId = R.id.sortAZ
+    var isAscending = true
     private val sixteenDpToPx by lazy {
         convertDpToPx(this, 16f)
     }
@@ -79,7 +82,6 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangeListener {
             WindowInsetsCompat.CONSUMED
         }
         
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.searchNavHost) as NavHostFragment
         navController = navHostFragment.navController
         
         // Back
@@ -89,23 +91,35 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangeListener {
         
         // Sort
         activityBinding.searchSortBtn.setOnClickListener {
-            SearchSortBottomSheet(this@SearchActivity).show(supportFragmentManager, "SearchSortBottomSheet")
+            SearchSortBottomSheet(
+                sortPrefsListener = this@SearchActivity,
+                isAscending = isAscending
+            ).show(supportFragmentManager, "SearchSortBottomSheet")
         }
         
     }
     
-    override fun onSortPrefsChanged() {
-        activityBinding.searchAppBar.setExpanded(true, true)
-        navController.refreshFragment()
-    }
-    
-    override fun onPause() {
-        super.onPause()
-        
+    private fun keepKeyboardHidden() {
         // This will prevent the following scenario:
         // keyboard hidden by user > user taps on an item > comes back > keyboard visible
         if (!isKeyboardVisible && activityBinding.searchView.hasFocus())
             activityBinding.searchView.clearFocus()
+    }
+    
+    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
+        activityBinding.searchAppBar.setExpanded(true, true)
+        keepKeyboardHidden()
+        isAscending = isAsc
+        
+        // Forward listener to fragment
+        navHostFragment.getCurrentFragment()?.let {
+            if (it is SortPrefsChangeListener) it.onSortPrefsChanged(isAsc, onlyAzChanged)
+        }
+    }
+    
+    override fun onPause() {
+        super.onPause()
+        keepKeyboardHidden()
     }
     
     // On back pressed

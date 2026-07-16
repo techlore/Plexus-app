@@ -25,8 +25,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -38,6 +36,7 @@ import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.interfaces.main.FavToggleListener
+import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
@@ -45,6 +44,7 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
+import tech.techlore.plexus.utils.UiUtils.Companion.getViewStyle
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 import kotlin.getValue
 import kotlin.time.Duration.Companion.milliseconds
@@ -52,14 +52,17 @@ import kotlin.time.Duration.Companion.milliseconds
 class SearchFragment :
     Fragment(),
     MainDataItemAdapter.OnItemClickListener,
+    SortPrefsChangeListener,
     FavToggleListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
     private lateinit var searchActivity: SearchActivity
+    private var searchQueryString = ""
     private val mainRepository by inject<MainDataRepository>()
     private lateinit var searchItemAdapter: MainDataItemAdapter
     private lateinit var searchDataList: ArrayList<MainDataMini>
+    private var isViewStubInflated = false
     private var isGridView = false
     private var clickedItemPos = -1
     private var clickedItemPackageName = ""
@@ -85,31 +88,54 @@ class SearchFragment :
         // Swipe refresh layout
         fragmentBinding.swipeRefreshLayout.isEnabled = false
         
-        lifecycleScope.launch {
-            searchItemAdapter =
-                MainDataItemAdapter(
-                    clickListener = this@SearchFragment,
-                    favToggleListener = this@SearchFragment,
-                    isGridView = isGridView
-                )
-            FastScrollerBuilder(fragmentBinding.recyclerView).build() // Fast scroll
-            performSearch(searchActivity.activityBinding.searchView.query.toString())
+        searchItemAdapter =
+            MainDataItemAdapter(
+                clickListener = this@SearchFragment,
+                favToggleListener = this@SearchFragment
+            )
+        
+        fragmentBinding.recyclerView.apply {
+            searchActivity.activityBinding.searchAppBar.liftOnScrollTargetViewId = this.id
+            layoutManager = getViewStyle(requireContext(), isGridView)
+            adapter = searchItemAdapter
+            FastScrollerBuilder(this).build() // Fast scroll
         }
         
         // Perform search
         searchActivity.activityBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             
             override fun onQueryTextSubmit(searchString: String): Boolean {
+                if (searchString.isNotEmpty()) {
+                    lifecycleScope.launch {
+                        searchQueryString = searchString
+                        mainRepository
+                            .searchInDb(searchQueryString, searchActivity.isAscending)
+                            .let {
+                                searchItemAdapter.submitList(null)
+                                if (it.isEmpty()) showEmptyListView()
+                                else {
+                                    hideEmptyListView()
+                                    searchItemAdapter.submitList(it)
+                                }
+                                searchDataList = it
+                                fragmentBinding.recyclerView.smoothScrollToPosition(0) // Scroll to top
+                            }
+                    }
+                }
                 return true
             }
             
             override fun onQueryTextChange(searchString: String): Boolean {
                 job?.cancel()
                 
-                // Search with a subtle delay
+                // Clear with a subtle delay
                 job = lifecycleScope.launch {
                     delay(350.milliseconds)
-                    performSearch(searchString)
+                    if (searchString.isEmpty()) {
+                        searchItemAdapter.submitList(null)
+                        searchDataList = arrayListOf()
+                        hideEmptyListView()
+                    }
                 }
                 
                 return true
@@ -118,39 +144,43 @@ class SearchFragment :
         
     }
     
-    private suspend fun performSearch(searchString: String) {
-        if (searchString.isNotEmpty()) {
-            searchDataList = mainRepository.searchInDb(searchString, searchActivity.orderChipId)
-            if (searchDataList.isEmpty()) {
-                fragmentBinding.recyclerView.adapter = null
-                searchActivity.activityBinding.emptySearchView.isVisible = true
-            }
-            else {
-                searchActivity.activityBinding.emptySearchView.isVisible = false
-                fragmentBinding.recyclerView.apply {
-                    searchActivity.activityBinding.searchAppBar.liftOnScrollTargetViewId = this.id
-                    layoutManager =
-                        if (!isGridView)
-                            LinearLayoutManager(requireContext())
-                        else
-                            GridLayoutManager(requireContext(), 2)
-                    adapter = searchItemAdapter
-                }
-                searchItemAdapter.submitList(searchDataList)
-                
-            }
+    private fun showEmptyListView() {
+        if (!isViewStubInflated) {
+            fragmentBinding.emptyListViewStub.inflate()
+            isViewStubInflated = true
         }
         else {
-            fragmentBinding.recyclerView.adapter = null
-            searchActivity.activityBinding.emptySearchView.isVisible = false
+            fragmentBinding.emptyListViewStub.isVisible = true
         }
     }
     
-    // On click
+    private fun hideEmptyListView() {
+        if (isViewStubInflated) {
+            fragmentBinding.emptyListViewStub.isVisible = false
+            // Don't do isViewStubInflated = false
+            // ViewStub is only inflated once & then reference changes to the actual view
+            // If it is inflated again, app will crash with the following:
+            // "ViewStub must have a non-null ViewGroup viewParent"
+        }
+    }
+    
     override fun onItemClick(position: Int) {
         clickedItemPos = position
         clickedItemPackageName = searchDataList[position].packageName
         searchActivity.startDetailsActivity(clickedItemPackageName)
+    }
+    
+    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
+        if (searchDataList.isNotEmpty()) {
+            searchDataList =
+                ArrayList(
+                    if (isAsc) searchDataList.sortedBy { it.name }
+                    else searchDataList.sortedByDescending { it.name }
+                )
+            searchItemAdapter.submitList(null)
+            searchItemAdapter.submitList(searchDataList)
+            fragmentBinding.recyclerView.smoothScrollToPosition(0) // Scroll to top
+        }
     }
     
     override fun onFavToggled(item: MainDataMini, isChecked: Boolean) {

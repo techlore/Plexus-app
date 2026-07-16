@@ -213,9 +213,8 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     }
     
     suspend fun searchInDb(searchQuery: String,
-                           orderChipId: Int): ArrayList<MainDataMini> {
+                           isAsc: Boolean): ArrayList<MainDataMini> {
         return withContext(Dispatchers.IO) {
-            val isAsc = orderChipId != R.id.sortZA
             mainDataDao.searchInDb(searchQuery.trim(), isAsc) as ArrayList<MainDataMini>
         }
     }

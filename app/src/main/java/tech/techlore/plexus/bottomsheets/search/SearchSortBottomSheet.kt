@@ -24,13 +24,15 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 
-class SearchSortBottomSheet(private val sortPrefsListener: SortPrefsChangeListener) : BottomSheetDialogFragment() {
+class SearchSortBottomSheet(
+    private val sortPrefsListener: SortPrefsChangeListener,
+    private val isAscending: Boolean
+) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -46,22 +48,27 @@ class SearchSortBottomSheet(private val sortPrefsListener: SortPrefsChangeListen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
-        val searchActivity = requireActivity() as SearchActivity
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
         
         // Default alphabetical checked chip
-        bottomSheetBinding.alphabeticalChipGroup.check(searchActivity.orderChipId)
+        bottomSheetBinding.alphabeticalChipGroup.check(
+            if (isAscending) R.id.sortAZ
+            else R.id.sortZA
+        )
         
         bottomSheetBinding.sortStatusText.isVisible = false
         bottomSheetBinding.statusToggleGroup.isVisible = false
         
         // Done
         footerBinding.positiveButton.setOnClickListener {
-            searchActivity.orderChipId = bottomSheetBinding.alphabeticalChipGroup.checkedChipId
+            val isAsc = bottomSheetBinding.alphabeticalChipGroup.checkedChipId == R.id.sortAZ
             dismiss()
-            sortPrefsListener.onSortPrefsChanged()
+            sortPrefsListener.onSortPrefsChanged(
+                isAsc = isAsc,
+                onlyAzChanged = true
+            )
         }
         
         // Cancel

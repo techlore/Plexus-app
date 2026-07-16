@@ -42,12 +42,13 @@ import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.interfaces.main.NavViewItemSelectListener
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
+import tech.techlore.plexus.interfaces.main.ViewStyleChangeListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.SHOW_DEV_VERF_WARNING
 import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
-import tech.techlore.plexus.utils.UiUtils.Companion.refreshFragment
+import tech.techlore.plexus.utils.UiUtils.Companion.getCurrentFragment
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -56,6 +57,9 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectListener, SortPrefsCh
     lateinit var activityBinding: ActivityMainBinding
     private lateinit var navController: NavController
     private val prefManager by inject<PreferenceManager>()
+    private val navHostFragment by lazy {
+        supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
+    }
     private lateinit var navActionsMap: Map<Int, Int>
     private var defaultFragment = 0
     var defaultSelectedNavItem = 0
@@ -75,7 +79,6 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectListener, SortPrefsCh
         activityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
         
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHost) as NavHostFragment
         navController = navHostFragment.navController
         navActionsMap =
             mapOf(
@@ -140,7 +143,11 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectListener, SortPrefsCh
                 prefManager.setBoolean(GRID_VIEW, isGridView)
                 setViewButtonIcon()
                 activityBinding.mainAppBar.setExpanded(true, true)
-                navController.refreshFragment()
+                
+                // Forward to fragment
+                navHostFragment.getCurrentFragment()?.let {
+                    if (it is ViewStyleChangeListener) it.onViewStyleChanged()
+                }
             }
         }
         
@@ -223,9 +230,13 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectListener, SortPrefsCh
             }
     }
     
-    override fun onSortPrefsChanged() {
+    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
         activityBinding.mainAppBar.setExpanded(true, true)
-        navController.refreshFragment()
+        
+        // Forward listener to fragment
+        navHostFragment.getCurrentFragment()?.let {
+            if (it is SortPrefsChangeListener) it.onSortPrefsChanged(isAsc, onlyAzChanged)
+        }
     }
     
     override fun onSaveInstanceState(outState: Bundle) {

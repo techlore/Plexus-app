@@ -32,10 +32,11 @@ import tech.techlore.plexus.models.mini.MyRatingMini
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 
 class MyRatingsItemAdapter(
-    private val clickListener: OnItemClickListener,
-    private val isGridView: Boolean = false
+    private val clickListener: OnItemClickListener
 ) : ListAdapter<MyRatingMini, MyRatingsItemAdapter.ListViewHolder>(MyRatingMiniDiffCallback()),
     PopupTextProvider {
+    
+    var isGridViewLayout = false
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -67,7 +68,7 @@ class MyRatingsItemAdapter(
             LayoutInflater
                 .from(parent.context)
                 .inflate(
-                    if (!isGridView) R.layout.item_my_ratings_rv_list else R.layout.item_my_ratings_rv_grid,
+                    if (!isGridViewLayout) R.layout.item_my_ratings_rv_list else R.layout.item_my_ratings_rv_grid,
                     parent,
                     false)
         )
@@ -88,18 +89,8 @@ class MyRatingsItemAdapter(
         
         holder.name.text = myRating.name
         holder.packageName.text = myRating.packageName
-        myRating.totalRatings.let {
-            holder.totalCount.text =
-                when {
-                    it <= 500 -> it.toString()
-                    else -> "500+"
-                }
-        }
+        holder.totalCount.text = myRating.totalRatings.toString()
         
-    }
-    
-    override fun getItemViewType(position: Int): Int {
-        return position
     }
     
     // Fast scroll popup

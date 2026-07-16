@@ -19,6 +19,6 @@ package tech.techlore.plexus.interfaces.main
 
 interface SortPrefsChangeListener {
     
-    fun onSortPrefsChanged()
+    fun onSortPrefsChanged(isAsc: Boolean = true, onlyAzChanged: Boolean = false)
     
 }

@@ -44,8 +44,7 @@ class MyRatingsRepository(private val myRatingsDao: MyRatingsDao) {
     
     suspend fun getSortedMyRatingsByName(orderPref: Int): ArrayList<MyRatingMini> {
         return withContext(Dispatchers.IO) {
-            val isAsc = orderPref != R.id.sortZA
-            myRatingsDao.getSortedMyRatingsByName(isAsc) as ArrayList<MyRatingMini>
+            myRatingsDao.getSortedMyRatingsByName(orderPref != R.id.sortZA) as ArrayList<MyRatingMini>
         }
     }
     

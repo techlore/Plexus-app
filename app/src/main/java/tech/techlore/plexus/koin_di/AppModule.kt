@@ -17,14 +17,15 @@
 
 package tech.techlore.plexus.koin_di
 
-import android.app.Application
 import android.text.format.DateFormat
 import coil3.ImageLoader
 import coil3.request.crossfade
 import kotlinx.serialization.json.Json
+import org.koin.android.ext.koin.androidApplication
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import tech.techlore.plexus.api.ApiManager.Companion.apiBuilder
+import tech.techlore.plexus.api.ApiService
 import tech.techlore.plexus.database.MainDatabase
 import tech.techlore.plexus.database.MainDatabase.Companion.getDatabase
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
@@ -41,14 +42,14 @@ import java.util.Locale
 
 val appModule =
     module {
-        single { PreferenceManager(get()) }
-        single { EncryptedPreferenceManager(get()) }
-        single { ImageLoader.Builder(get()).crossfade(true).build() }
-        single(named("displayedIconSize")) { convertDpToPx(get<Application>(), 56f) }
+        single { PreferenceManager(androidApplication()) }
+        single { EncryptedPreferenceManager(androidApplication()) }
+        single { ImageLoader.Builder(androidApplication()).crossfade(true).build() }
+        single(named("displayedIconSize")) { convertDpToPx(androidApplication(), 56f) }
         single { Json { ignoreUnknownKeys = true } }
         single { apiBuilder() }
-        single { ApiRepository(get()) }
-        single { getDatabase(get()) }
+        single { ApiRepository(get<ApiService>()) }
+        single { getDatabase(androidApplication()) }
         single { MainDataRepository(get<MainDatabase>().mainDataDao()) }
         single { MyRatingsRepository(get<MainDatabase>().myRatingsDao()) }
         single { Locale.getDefault() }
@@ -57,21 +58,21 @@ val appModule =
         
         single(named("formattedDateWithoutYear")) {
             DateTimeFormatter
-                .ofPattern("MMM dd", get())
+                .ofPattern("MMM dd", get<Locale>())
                 .withZone(get(named("zoneId")))
         }
         
         single(named("formattedDateWithYear")) {
             DateTimeFormatter
-                .ofPattern("MMM dd, yyyy", get())
+                .ofPattern("MMM dd, yyyy", get<Locale>())
                 .withZone(get(named("zoneId")))
         }
         
         single(named("formattedTime")) {
             DateTimeFormatter
                 .ofPattern(
-                    if (DateFormat.is24HourFormat(get())) "HH:mm" else "hh:mm a",
-                    get()
+                    if (DateFormat.is24HourFormat(androidApplication())) "HH:mm" else "hh:mm a",
+                    get<Locale>()
                 )
                 .withZone(get(named("zoneId")))
         }

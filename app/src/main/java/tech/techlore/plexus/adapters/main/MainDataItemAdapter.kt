@@ -32,14 +32,16 @@ import tech.techlore.plexus.interfaces.main.FavToggleListener
 import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.utils.UiUtils.Companion.hScroll
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
+import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithoutIcon
 
 class MainDataItemAdapter(private val clickListener: OnItemClickListener,
                           private val favToggleListener: FavToggleListener,
-                          private val isGridView: Boolean = false,
                           private val isFavFrag: Boolean = false) :
     ListAdapter<MainDataMini, MainDataItemAdapter.ListViewHolder>(MainDataMiniDiffCallback()),
     PopupTextProvider {
+    
+    var isGridViewLayout = false
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -72,7 +74,7 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
             LayoutInflater
                 .from(parent.context)
                 .inflate(
-                    if (!isGridView) R.layout.item_main_rv_list else R.layout.item_main_rv_grid,
+                    if (!isGridViewLayout) R.layout.item_main_rv_list else R.layout.item_main_rv_grid,
                     parent,
                     false
                 )
@@ -83,47 +85,43 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
         
         if (isFavFrag) holder.fav.setOnCheckedChangeListener(null)
         
-        val mainDataMinimal = getItem(position)
+        val mainDataMini = getItem(position)
         val context = holder.itemView.context
         
         holder.icon.displayAppIcon(
             context = context,
-            isInstalled = mainDataMinimal.isInstalled,
-            packageName = mainDataMinimal.packageName,
-            iconUrl = mainDataMinimal.iconUrl
+            isInstalled = mainDataMini.isInstalled,
+            packageName = mainDataMini.packageName,
+            iconUrl = mainDataMini.iconUrl
         )
         
         holder.name.apply {
-            text = mainDataMinimal.name
+            text = mainDataMini.name
             hScroll()
         }
         
         holder.packageName.apply {
-            text = mainDataMinimal.packageName
+            text = mainDataMini.packageName
             hScroll()
         }
         
-        holder.dgStatus.setStatusStyleWithoutIcon(
-            context,
-            context.getString(mainDataMinimal.dgStatusStringResId)
-        )
+        holder.dgStatus.apply {
+            text = mapScoreRangeToStatusString(context, mainDataMini.dgScore)//context.getString(mainDataMini.dgStatusStringResId)
+            setStatusStyleWithoutIcon(context, mainDataMini.dgScore)
+        }
         
-        holder.mgStatus.setStatusStyleWithoutIcon(
-            context,
-            context.getString(mainDataMinimal.mgStatusStringResId)
-        )
+        holder.mgStatus.apply {
+            text = mapScoreRangeToStatusString(context, mainDataMini.mgScore)
+            setStatusStyleWithoutIcon(context, mainDataMini.mgScore)
+        }
         
         holder.fav.apply {
-            isChecked = mainDataMinimal.isFav
+            isChecked = mainDataMini.isFav
             setOnCheckedChangeListener{ _, isChecked ->
-                favToggleListener.onFavToggled(mainDataMinimal, isChecked)
+                favToggleListener.onFavToggled(mainDataMini, isChecked)
             }
         }
         
-    }
-    
-    override fun getItemViewType(position: Int): Int {
-        return position
     }
     
     // Fast scroll popup
@@ -135,6 +133,9 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
         // https://github.com/techlore/Plexus-app/issues/78
         // It is not always reproducible in release build on my end,
         // although I was able to reproduce it in debug build consistently.
+        //
+        // UPDATE: It is no more reproducible as now
+        // search is performed in onQueryTextSubmit() instead of onQueryTextChange()
         if (position !in 0..<itemCount) return ""
         
         return getItem(position).name.first().uppercaseChar().toString()

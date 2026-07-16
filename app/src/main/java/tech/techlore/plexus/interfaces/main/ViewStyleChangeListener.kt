@@ -15,15 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.models.mini
+package tech.techlore.plexus.interfaces.main
 
-data class MainDataMini(
-    val name: String,
-    val packageName: String,
-    val iconUrl: String? = null,
-    val dgScore: Float,
-    val mgScore: Float,
-    val installedFrom: String,
-    val isInstalled: Boolean,
-    var isFav: Boolean
-)
+interface ViewStyleChangeListener {
+    
+    fun onViewStyleChanged()
+    
+}
