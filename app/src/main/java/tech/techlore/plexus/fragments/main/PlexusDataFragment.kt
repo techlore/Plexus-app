@@ -18,21 +18,21 @@
 package tech.techlore.plexus.fragments.main
 
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import tech.techlore.plexus.R
 import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.models.mini.MainDataMini
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 
 class PlexusDataFragment : BaseMainDataFragment() {
     
-    override suspend fun getDataFromDB(): ArrayList<MainDataMini> {
+    override fun getDataFromDB(): Flow<PagingData<MainDataMini>> {
         return mainRepository.miniPlexusDataListFromDB(
-            statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-            orderPref = prefManager.getInt(A_Z_SORT)
+            statusToggleBtnPref = statusToggleBtnId,
+            orderPref = ascDescChipId
         )
     }
     
@@ -41,10 +41,7 @@ class PlexusDataFragment : BaseMainDataFragment() {
             if (hasInternet(requireContext())) {
                 try {
                     mainRepository.plexusDataIntoDB()
-                    getDataFromDB().let {
-                        mainDataItemAdapter.submitList(it)
-                        mainDataList = it
-                    }
+                    mainDataItemAdapter.refresh()
                     fragmentBinding.swipeRefreshLayout.isRefreshing = false
                 }
                 catch (e: Exception) {

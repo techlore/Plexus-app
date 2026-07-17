@@ -44,7 +44,7 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangeListener {
         supportFragmentManager.findFragmentById(R.id.searchNavHost) as NavHostFragment
     }
     private lateinit var navController: NavController
-    var isAscending = true
+    var ascDescChipId = R.id.sortAZ
     private val sixteenDpToPx by lazy {
         convertDpToPx(this, 16f)
     }
@@ -91,10 +91,8 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangeListener {
         
         // Sort
         activityBinding.searchSortBtn.setOnClickListener {
-            SearchSortBottomSheet(
-                sortPrefsListener = this@SearchActivity,
-                isAscending = isAscending
-            ).show(supportFragmentManager, "SearchSortBottomSheet")
+            SearchSortBottomSheet(sortPrefsListener = this@SearchActivity)
+                .show(supportFragmentManager, "SearchSortBottomSheet")
         }
         
     }
@@ -106,14 +104,13 @@ class SearchActivity : AppCompatActivity(), SortPrefsChangeListener {
             activityBinding.searchView.clearFocus()
     }
     
-    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
+    override fun onSortPrefsChanged() {
         activityBinding.searchAppBar.setExpanded(true, true)
         keepKeyboardHidden()
-        isAscending = isAsc
         
         // Forward listener to fragment
         navHostFragment.getCurrentFragment()?.let {
-            if (it is SortPrefsChangeListener) it.onSortPrefsChanged(isAsc, onlyAzChanged)
+            if (it is SortPrefsChangeListener) it.onSortPrefsChanged()
         }
     }
     

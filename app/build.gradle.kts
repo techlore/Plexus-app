@@ -33,8 +33,8 @@ android {
         applicationId = "tech.techlore.plexus"
         minSdk = 26
         targetSdk = 37
-        versionCode = 218
-        versionName = "2.1.8"
+        versionCode = 219
+        versionName = "2.1.9"
     }
 
     buildTypes {
@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.androidx.security.crypto.ktx)
     implementation(libs.bundles.navigation)
     implementation(libs.kotlinx.serialization)
+    implementation(libs.paging3)
     implementation(libs.bundles.ktor)
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)

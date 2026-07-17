@@ -23,9 +23,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.transition.Fade
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.inject
@@ -35,10 +42,13 @@ import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.interfaces.main.FavToggleListener
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
-import tech.techlore.plexus.interfaces.main.ViewStyleChangeListener
+import tech.techlore.plexus.interfaces.main.ViewTypeChangeListener
 import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
@@ -50,19 +60,20 @@ abstract class BaseMainDataFragment
     : Fragment(),
     MainDataItemAdapter.OnItemClickListener,
     SortPrefsChangeListener,
-    ViewStyleChangeListener,
+    ViewTypeChangeListener,
     FavToggleListener {
     
     private var _binding: RecyclerViewBinding? = null
     protected val fragmentBinding get() = _binding!!
     protected lateinit var mainActivity: MainActivity
     protected lateinit var mainDataItemAdapter: MainDataItemAdapter
-    protected lateinit var mainDataList: ArrayList<MainDataMini>
     protected val prefManager by inject<PreferenceManager>()
     protected val mainRepository by inject<MainDataRepository>()
+    protected var installedFromChipId = 0
+    protected var statusToggleBtnId = 0
+    protected var ascDescChipId = 0
+    private var pagingJob: Job? = null
     private var isViewStubInflated = false
-    private var clickedItemPos = -1
-    private var clickedItemPackageName = ""
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -74,6 +85,7 @@ abstract class BaseMainDataFragment
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mainActivity = requireActivity() as MainActivity
+        setSortPrefs()
         
         // Adjust recycler view for edge to edge
         fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
@@ -81,9 +93,10 @@ abstract class BaseMainDataFragment
         mainDataItemAdapter =
             MainDataItemAdapter(
                 clickListener = this@BaseMainDataFragment,
-                favToggleListener = this@BaseMainDataFragment,
-                isFavFrag = !isSwipeRefreshEnabled()
-            )
+                favToggleListener = this@BaseMainDataFragment
+            ).apply {
+                isGridViewLayout = mainActivity.isGridView
+            }
         
         fragmentBinding.recyclerView.apply {
             mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
@@ -92,27 +105,16 @@ abstract class BaseMainDataFragment
             FastScrollerBuilder(this).build()
         }
         
-        lifecycleScope.launch {
-            mainDataList = getDataFromDB()
-            
-            if (mainDataList.isEmpty()) showEmptyListView()
-            else {
-                mainDataItemAdapter.apply {
-                    isGridViewLayout = mainActivity.isGridView
-                    submitList(mainDataList)
-                }
-            }
-            
-            // Swipe refresh layout
-            if (isSwipeRefreshEnabled())
-                fragmentBinding.swipeRefreshLayout.setOnRefreshListener {
-                    lifecycleScope.launch { onSwipeRefresh() }
-                }
-            else fragmentBinding.swipeRefreshLayout.isEnabled = false
-        }
+        // Swipe refresh layout
+        if (isSwipeRefreshEnabled())
+            fragmentBinding.swipeRefreshLayout.setOnRefreshListener { onSwipeRefresh() }
+        else
+            fragmentBinding.swipeRefreshLayout.isEnabled = false
+        
+        loadPagedData()
     }
     
-    protected abstract suspend fun getDataFromDB(): ArrayList<MainDataMini>
+    protected abstract fun getDataFromDB(): Flow<PagingData<MainDataMini>>
     
     protected open fun isSwipeRefreshEnabled(): Boolean = true
     
@@ -138,91 +140,74 @@ abstract class BaseMainDataFragment
         }
     }
     
-    override fun onItemClick(position: Int) {
-        clickedItemPos = position
-        clickedItemPackageName = mainDataList[position].packageName
-        mainActivity.startDetailsActivity(clickedItemPackageName)
+    private fun setSortPrefs() {
+        installedFromChipId = prefManager.getInt(INSTALLED_FROM_SORT)
+        statusToggleBtnId = prefManager.getInt(STATUS_TOGGLE)
+        ascDescChipId = prefManager.getInt(A_Z_SORT)
     }
     
-    override fun onViewStyleChanged() {
+    private fun loadPagedData() {
+        pagingJob?.cancel()
+        pagingJob = viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    getDataFromDB().collectLatest { pagingData ->
+                        mainDataItemAdapter.submitData(pagingData)
+                    }
+                }
+                
+                launch {
+                    mainDataItemAdapter.loadStateFlow.collect { loadStates ->
+                        if (loadStates.refresh is LoadState.NotLoading) {
+                            if (mainDataItemAdapter.itemCount == 0) showEmptyListView()
+                            else hideEmptyListView()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    override fun onItemClick(position: Int) {
+        mainDataItemAdapter.peek(position)?.let {
+            mainActivity.startDetailsActivity(it.packageName)
+        }
+    }
+    
+    override fun onViewTypeChanged() {
         mainDataItemAdapter.isGridViewLayout = mainActivity.isGridView
         fragmentBinding.recyclerView.apply {
-            TransitionManager.beginDelayedTransition(this, Fade())
+            TransitionManager.beginDelayedTransition(this, AutoTransition())
             layoutManager = getViewStyle(requireContext(), mainActivity.isGridView)
-            recycledViewPool.clear()
+            mainDataItemAdapter.notifyItemRangeChanged(0, mainDataItemAdapter.itemCount)
             smoothScrollToPosition(0) // Scroll to top
         }
     }
     
-    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
-        if (onlyAzChanged) {
-            if (mainDataList.isNotEmpty()) {
-                mainDataList =
-                    ArrayList(
-                        if (isAsc) mainDataList.sortedBy { it.name }
-                        else mainDataList.sortedByDescending { it.name }
-                    )
-                mainDataItemAdapter.submitList(null)
-                fragmentBinding.recyclerView.apply {
-                    post {
-                        TransitionManager.beginDelayedTransition(
-                            this,
-                            Fade().apply { duration = 500 }
-                        )
-                        mainDataItemAdapter.submitList(mainDataList)
-                        smoothScrollToPosition(0) // Scroll to top
-                    }
-                }
-            }
-        }
-        else {
-            lifecycleScope.launch {
-                getDataFromDB().let {
-                    mainDataItemAdapter.submitList(null)
-                    if (it.isEmpty()) showEmptyListView()
-                    else {
-                        hideEmptyListView()
-                        mainDataItemAdapter.submitList(it)
-                    }
-                    mainDataList = it
-                    fragmentBinding.recyclerView.smoothScrollToPosition(0)
-                }
-            }
-        }
+    override fun onSortPrefsChanged() {
+        setSortPrefs()
+        loadPagedData()
+        fragmentBinding.recyclerView.smoothScrollToPosition(0) // Scroll to top
     }
     
-    override fun onFavToggled(item: MainDataMini, isChecked: Boolean) {
-        item.isFav = isChecked
+    override fun onFavToggled(name: String, packageName: String, isChecked: Boolean) {
         lifecycleScope.launch {
-            mainRepository.updateFav(item)
+            mainRepository.updateFav(packageName, isChecked)
+            showSnackbar(
+                coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
+                message =
+                    if (isChecked) getString(R.string.added_to_fav, name)
+                    else getString(R.string.removed_from_fav, name),
+                anchorView = mainActivity.activityBinding.mainDockedToolbar
+            )
         }
-        showSnackbar(
-            coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
-            message =
-                if (isChecked) getString(R.string.added_to_fav, item.name)
-                else getString(R.string.removed_from_fav, item.name),
-            anchorView = mainActivity.activityBinding.mainDockedToolbar
-        )
     }
     
     override fun onResume() {
         super.onResume()
         if (DataState.isSingleAppUpdated) {
-            lifecycleScope.launch{
-                ArrayList(mainDataList)
-                    .apply {
-                        this[clickedItemPos] =
-                            mainRepository.getMiniAppByPackage(clickedItemPackageName)
-                    }
-                    .let {
-                        mainDataItemAdapter.submitList(it)
-                        mainDataList = it
-                    }
-                
-                clickedItemPos = -1
-                clickedItemPackageName = ""
-                DataState.isSingleAppUpdated = false
-            }
+            mainDataItemAdapter.refresh()
+            DataState.isSingleAppUpdated = false
         }
     }
     

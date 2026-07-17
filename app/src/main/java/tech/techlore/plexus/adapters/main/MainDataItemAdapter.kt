@@ -21,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
@@ -36,12 +36,16 @@ import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithoutIcon
 
 class MainDataItemAdapter(private val clickListener: OnItemClickListener,
-                          private val favToggleListener: FavToggleListener,
-                          private val isFavFrag: Boolean = false) :
-    ListAdapter<MainDataMini, MainDataItemAdapter.ListViewHolder>(MainDataMiniDiffCallback()),
+                          private val favToggleListener: FavToggleListener) :
+    PagingDataAdapter<MainDataMini, MainDataItemAdapter.ListViewHolder>(MainDataMiniDiffCallback()),
     PopupTextProvider {
     
     var isGridViewLayout = false
+    
+    private companion object {
+        private const val VIEW_TYPE_LIST = 0
+        private const val VIEW_TYPE_GRID = 1
+    }
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -74,7 +78,7 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
             LayoutInflater
                 .from(parent.context)
                 .inflate(
-                    if (!isGridViewLayout) R.layout.item_main_rv_list else R.layout.item_main_rv_grid,
+                    if (viewType != VIEW_TYPE_GRID) R.layout.item_main_rv_list else R.layout.item_main_rv_grid,
                     parent,
                     false
                 )
@@ -83,9 +87,7 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
     
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        if (isFavFrag) holder.fav.setOnCheckedChangeListener(null)
-        
-        val mainDataMini = getItem(position)
+        val mainDataMini = getItem(position)!!
         val context = holder.itemView.context
         
         holder.icon.displayAppIcon(
@@ -116,12 +118,20 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
         }
         
         holder.fav.apply {
+            setOnCheckedChangeListener(null)
             isChecked = mainDataMini.isFav
             setOnCheckedChangeListener{ _, isChecked ->
-                favToggleListener.onFavToggled(mainDataMini, isChecked)
+                favToggleListener.onFavToggled(
+                    mainDataMini.name,
+                    mainDataMini.packageName,
+                    isChecked
+                )
             }
         }
-        
+    }
+    
+    override fun getItemViewType(position: Int): Int {
+        return if (!isGridViewLayout) VIEW_TYPE_LIST else VIEW_TYPE_GRID
     }
     
     // Fast scroll popup
@@ -138,6 +148,6 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
         // search is performed in onQueryTextSubmit() instead of onQueryTextChange()
         if (position !in 0..<itemCount) return ""
         
-        return getItem(position).name.first().uppercaseChar().toString()
+        return getItem(position)!!.name.first().uppercaseChar().toString()
     }
 }

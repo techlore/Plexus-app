@@ -21,7 +21,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
@@ -33,10 +33,15 @@ import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 
 class MyRatingsItemAdapter(
     private val clickListener: OnItemClickListener
-) : ListAdapter<MyRatingMini, MyRatingsItemAdapter.ListViewHolder>(MyRatingMiniDiffCallback()),
+) : PagingDataAdapter<MyRatingMini, MyRatingsItemAdapter.ListViewHolder>(MyRatingMiniDiffCallback()),
     PopupTextProvider {
     
     var isGridViewLayout = false
+    
+    private companion object {
+        private const val VIEW_TYPE_LIST = 0
+        private const val VIEW_TYPE_GRID = 1
+    }
     
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -68,7 +73,7 @@ class MyRatingsItemAdapter(
             LayoutInflater
                 .from(parent.context)
                 .inflate(
-                    if (!isGridViewLayout) R.layout.item_my_ratings_rv_list else R.layout.item_my_ratings_rv_grid,
+                    if (viewType != VIEW_TYPE_GRID) R.layout.item_my_ratings_rv_list else R.layout.item_my_ratings_rv_grid,
                     parent,
                     false)
         )
@@ -77,7 +82,7 @@ class MyRatingsItemAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         
-        val myRating = getItem(position)
+        val myRating = getItem(position)!!
         val context = holder.itemView.context
         
         holder.icon.displayAppIcon(
@@ -93,8 +98,12 @@ class MyRatingsItemAdapter(
         
     }
     
+    override fun getItemViewType(position: Int): Int {
+        return if (!isGridViewLayout) VIEW_TYPE_LIST else VIEW_TYPE_GRID
+    }
+    
     // Fast scroll popup
     override fun getPopupText(view: View, position: Int): CharSequence {
-        return getItem(position).name.first().uppercaseChar().toString()
+        return getItem(position)!!.name.first().uppercaseChar().toString()
     }
 }

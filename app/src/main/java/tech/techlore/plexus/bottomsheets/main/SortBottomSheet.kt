@@ -60,7 +60,6 @@ class SortBottomSheet(private val sortPrefsChangeListener: SortPrefsChangeListen
         val isInstalledAppsFragment =
             currentFragmentId in setOf(R.id.installedAppsFragment, R.id.favoritesFragment)
         val isMyRatingsFragment = currentFragmentId == R.id.myRatingsFragment
-        var otherPrefsChanged = false
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
@@ -80,9 +79,6 @@ class SortBottomSheet(private val sortPrefsChangeListener: SortPrefsChangeListen
                     prefManager.setInt(INSTALLED_FROM_SORT, R.id.sortInstalledAny)
                 }
                 check(prefManager.getInt(INSTALLED_FROM_SORT))
-                setOnCheckedStateChangeListener { _, _ ->
-                    otherPrefsChanged = true
-                }
             }
         }
         
@@ -101,7 +97,6 @@ class SortBottomSheet(private val sortPrefsChangeListener: SortPrefsChangeListen
                 check(selectedToggle)
                 findViewById<MaterialButton>(selectedToggle).icon = checkIcon
                 addOnButtonCheckedListener { _, checkedId, isChecked ->
-                    otherPrefsChanged = true
                     if (isChecked) {
                         findViewById<MaterialButton>(checkedId).icon = checkIcon // Add checkmark icon
                         bottomSheetBinding.statusChipGroup.isVisible = checkedId != R.id.toggleAnyStatus
@@ -146,11 +141,7 @@ class SortBottomSheet(private val sortPrefsChangeListener: SortPrefsChangeListen
         
         // Done
         footerBinding.positiveButton.setOnClickListener {
-            var isAsc: Boolean
-            bottomSheetBinding.alphabeticalChipGroup.checkedChipId.let {
-                prefManager.setInt(A_Z_SORT, it)
-                isAsc = it == R.id.sortAZ
-            }
+            prefManager.setInt(A_Z_SORT, bottomSheetBinding.alphabeticalChipGroup.checkedChipId)
             if (isInstalledAppsFragment) {
                 prefManager.setInt(INSTALLED_FROM_SORT, bottomSheetBinding.installedFromChipGroup.checkedChipId)
             }
@@ -168,7 +159,7 @@ class SortBottomSheet(private val sortPrefsChangeListener: SortPrefsChangeListen
             }
             
             dismiss()
-            sortPrefsChangeListener.onSortPrefsChanged(isAsc, !otherPrefsChanged)
+            sortPrefsChangeListener.onSortPrefsChanged()
         }
         
         // Cancel

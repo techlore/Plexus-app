@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -73,10 +74,10 @@ interface MyRatingsDao {
         SELECT name, packageName, iconUrl, isInstalled, totalRatings
         FROM my_ratings_table
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
-        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
+        CASE WHEN :isAsc = 1 THEN name COLLATE NOCASE END ASC,
+        CASE WHEN :isAsc = 0 THEN name COLLATE NOCASE END DESC
     """)
-    suspend fun getSortedMyRatingsByName(isAsc: Boolean): List<MyRatingMini>
+    fun getSortedMyRatingsByName(isAsc: Boolean): PagingSource<Int, MyRatingMini>
     
     @Query("""
         UPDATE my_ratings_table

@@ -17,8 +17,8 @@
 
 package tech.techlore.plexus.interfaces.main
 
-interface ViewStyleChangeListener {
+interface ViewTypeChangeListener {
     
-    fun onViewStyleChanged()
+    fun onViewTypeChanged()
     
 }

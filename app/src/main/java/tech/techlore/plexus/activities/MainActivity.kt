@@ -42,7 +42,7 @@ import tech.techlore.plexus.bottomsheets.main.NavViewBottomSheet
 import tech.techlore.plexus.bottomsheets.main.SortBottomSheet
 import tech.techlore.plexus.interfaces.main.NavViewItemSelectListener
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
-import tech.techlore.plexus.interfaces.main.ViewStyleChangeListener
+import tech.techlore.plexus.interfaces.main.ViewTypeChangeListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DEF_VIEW
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectListener, SortPrefsCh
                 
                 // Forward to fragment
                 navHostFragment.getCurrentFragment()?.let {
-                    if (it is ViewStyleChangeListener) it.onViewStyleChanged()
+                    if (it is ViewTypeChangeListener) it.onViewTypeChanged()
                 }
             }
         }
@@ -230,12 +230,12 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectListener, SortPrefsCh
             }
     }
     
-    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
+    override fun onSortPrefsChanged() {
         activityBinding.mainAppBar.setExpanded(true, true)
         
         // Forward listener to fragment
         navHostFragment.getCurrentFragment()?.let {
-            if (it is SortPrefsChangeListener) it.onSortPrefsChanged(isAsc, onlyAzChanged)
+            if (it is SortPrefsChangeListener) it.onSortPrefsChanged()
         }
     }
     

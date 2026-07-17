@@ -17,6 +17,7 @@
 
 package tech.techlore.plexus.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -73,14 +74,11 @@ interface MainDataDao {
         }
     }
     
+    @Query("UPDATE main_table SET isFav = :isFav WHERE packageName = :packageName")
+    suspend fun updateFav(packageName: String, isFav: Boolean)
+    
     @Query("SELECT * FROM main_table WHERE packageName = :packageName")
     fun getAppByPackage(packageName: String): MainData?
-    
-    @Query("""
-        SELECT name, packageName, iconUrl, dgScore, mgScore, installedFrom, isInstalled, isFav
-        FROM main_table WHERE packageName = :packageName
-    """)
-    fun getMiniAppByPackage(packageName: String): MainDataMini?
     
     @Query("SELECT * FROM main_table WHERE isInstalled")
     suspend fun getInstalledApps(): List<MainData>
@@ -92,14 +90,14 @@ interface MainDataDao {
         AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore BETWEEN :mgScoreFrom AND :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
-        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
+        CASE WHEN :isAsc = 1 THEN name COLLATE NOCASE END ASC,
+        CASE WHEN :isAsc = 0 THEN name COLLATE NOCASE END DESC
     """)
-    suspend fun getSortedPlexusDataApps(dgScoreFrom: Float,
-                                        dgScoreTo: Float,
-                                        mgScoreFrom: Float,
-                                        mgScoreTo: Float,
-                                        isAsc: Boolean): List<MainDataMini>
+    fun getSortedPlexusDataApps(dgScoreFrom: Float,
+                                dgScoreTo: Float,
+                                mgScoreFrom: Float,
+                                mgScoreTo: Float,
+                                isAsc: Boolean): PagingSource<Int, MainDataMini>
     // -1 is for ignoring the score when required,
     // so it isn't included while sorting
     
@@ -111,15 +109,15 @@ interface MainDataDao {
         AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore BETWEEN :mgScoreFrom AND :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
-        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
+        CASE WHEN :isAsc = 1 THEN name COLLATE NOCASE END ASC,
+        CASE WHEN :isAsc = 0 THEN name COLLATE NOCASE END DESC
     """)
-    suspend fun getSortedInstalledApps(installedFrom: String,
-                                       dgScoreFrom: Float,
-                                       dgScoreTo: Float,
-                                       mgScoreFrom: Float,
-                                       mgScoreTo: Float,
-                                       isAsc: Boolean): List<MainDataMini>
+    fun getSortedInstalledApps(installedFrom: String,
+                               dgScoreFrom: Float,
+                               dgScoreTo: Float,
+                               mgScoreFrom: Float,
+                               mgScoreTo: Float,
+                               isAsc: Boolean): PagingSource<Int, MainDataMini>
     // -1 is for ignoring the score when required,
     // so it isn't included while sorting
     
@@ -131,27 +129,28 @@ interface MainDataDao {
         AND ((dgScore BETWEEN :dgScoreFrom AND :dgScoreTo) OR (:dgScoreFrom = -1 AND :dgScoreTo = -1))
         AND ((mgScore BETWEEN :mgScoreFrom AND :mgScoreTo) OR (:mgScoreFrom = -1 AND :mgScoreTo = -1))
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
-        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
+        CASE WHEN :isAsc = 1 THEN name COLLATE NOCASE END ASC,
+        CASE WHEN :isAsc = 0 THEN name COLLATE NOCASE END DESC
     """)
-    suspend fun getSortedFavApps(installedFrom: String,
-                                 dgScoreFrom: Float,
-                                 dgScoreTo: Float,
-                                 mgScoreFrom: Float,
-                                 mgScoreTo: Float,
-                                 isAsc: Boolean): List<MainDataMini>
+    fun getSortedFavApps(installedFrom: String,
+                         dgScoreFrom: Float,
+                         dgScoreTo: Float,
+                         mgScoreFrom: Float,
+                         mgScoreTo: Float,
+                         isAsc: Boolean): PagingSource<Int, MainDataMini>
     // -1 is for ignoring the score when required,
     // so it isn't included while sorting
     
     @Query("""
         SELECT name, packageName, iconUrl, dgScore, mgScore, installedFrom, isInstalled, isFav
         FROM main_table
-        WHERE name LIKE '%' || :searchQuery || '%' OR packageName LIKE '%' || :searchQuery || '%'
+        WHERE name LIKE '%' || :searchQuery || '%'
+        OR packageName LIKE '%' || :searchQuery || '%'
         ORDER BY
-        CASE WHEN :isAsc = 1 THEN LOWER(name) END ASC,
-        CASE WHEN :isAsc = 0 THEN LOWER(name) END DESC
+        CASE WHEN :isAsc = 1 THEN name COLLATE NOCASE END ASC,
+        CASE WHEN :isAsc = 0 THEN name COLLATE NOCASE END DESC
     """)
-    suspend fun searchInDb(searchQuery: String,
-                           isAsc: Boolean): List<MainDataMini>
+    fun searchInDb(searchQuery: String,
+                   isAsc: Boolean): PagingSource<Int, MainDataMini>
     
 }

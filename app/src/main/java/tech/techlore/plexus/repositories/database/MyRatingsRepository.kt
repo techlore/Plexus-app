@@ -17,7 +17,11 @@
 
 package tech.techlore.plexus.repositories.database
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.dao.MyRatingsDao
@@ -42,10 +46,13 @@ class MyRatingsRepository(private val myRatingsDao: MyRatingsDao) {
         }
     }
     
-    suspend fun getSortedMyRatingsByName(orderPref: Int): ArrayList<MyRatingMini> {
-        return withContext(Dispatchers.IO) {
-            myRatingsDao.getSortedMyRatingsByName(orderPref != R.id.sortZA) as ArrayList<MyRatingMini>
-        }
+    fun getSortedMyRatingsByName(orderPref: Int): Flow<PagingData<MyRatingMini>> {
+        return Pager(
+            config = PagingConfig(pageSize = 35, prefetchDistance = 8, enablePlaceholders = false),
+            pagingSourceFactory = {
+                myRatingsDao.getSortedMyRatingsByName(orderPref != R.id.sortZA)
+            }
+        ).flow
     }
     
     suspend fun deleteSingleRatingDetail(packageName: String, ratingId: String) {

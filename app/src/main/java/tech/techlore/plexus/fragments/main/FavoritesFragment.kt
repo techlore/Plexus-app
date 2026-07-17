@@ -18,27 +18,22 @@
 package tech.techlore.plexus.fragments.main
 
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import tech.techlore.plexus.R
 import tech.techlore.plexus.models.mini.MainDataMini
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.INSTALLED_FROM_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.STATUS_TOGGLE
 import tech.techlore.plexus.utils.UiUtils.Companion.showSnackbar
 
 class FavoritesFragment: BaseMainDataFragment() {
     
-    private var lastRemovedIndex: Int = -1
-    
-    override suspend fun getDataFromDB(): ArrayList<MainDataMini> {
+    override fun getDataFromDB(): Flow<PagingData<MainDataMini>> {
         return mainRepository.miniFavListFromDB(
-            installedFromPref = prefManager.getInt(INSTALLED_FROM_SORT),
-            statusToggleBtnPref = prefManager.getInt(STATUS_TOGGLE),
-            orderPref = prefManager.getInt(A_Z_SORT)
+            installedFromPref = installedFromChipId,
+            statusToggleBtnPref = statusToggleBtnId,
+            orderPref = ascDescChipId
         )
     }
     
@@ -46,59 +41,33 @@ class FavoritesFragment: BaseMainDataFragment() {
         return false
     }
     
-    override fun onFavToggled(item: MainDataMini, isChecked: Boolean) {
-        item.isFav = isChecked
+    override fun onFavToggled(name: String, packageName: String, isChecked: Boolean) {
         lifecycleScope.launch {
-            mainRepository.updateFav(item)
-            // Remove item from view
-            if (!isChecked) {
-                mainDataItemAdapter.submitList(
-                    withContext(Dispatchers.Default) {
-                        mainDataItemAdapter.currentList.toMutableList().apply {
-                            indexOfFirst { it.packageName == item.packageName }
-                                .takeIf { it >= 0 }
-                                ?.let{ index ->
-                                    lastRemovedIndex = index
-                                    removeAt(index)
-                                }
-                        }
-                    }
-                )
-            }
+            // Remove item from db
+            mainRepository.updateFav(packageName, isChecked)
             Snackbar
                 .make(
                     mainActivity.activityBinding.mainCoordLayout,
-                    if (isChecked) getString(R.string.added_to_fav, item.name)
-                    else getString(R.string.removed_from_fav, item.name),
+                    if (isChecked) getString(R.string.added_to_fav, name)
+                    else getString(R.string.removed_from_fav, name),
                     BaseTransientBottomBar.LENGTH_SHORT
                 )
                 .setAnchorView(mainActivity.activityBinding.mainDockedToolbar)
                 .setAction(getString(R.string.undo)) {
-                    item.isFav = !isChecked
                     lifecycleScope.launch {
-                        mainRepository.updateFav(item)
-                        // Add item back to view
-                        mainDataItemAdapter.submitList(
-                            withContext(Dispatchers.Default) {
-                                mainDataItemAdapter.currentList
-                                    .toMutableList()
-                                    .apply {
-                                        add(
-                                            index = lastRemovedIndex.coerceIn(0..size),
-                                            element = item
-                                        )
-                                    }
-                            }
+                        // Add item back to db
+                        mainRepository.updateFav(packageName, !isChecked)
+                        showSnackbar(
+                            coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
+                            message =
+                                if (!isChecked) getString(R.string.added_to_fav, name)
+                                else getString(R.string.removed_from_fav, name),
+                            anchorView = mainActivity.activityBinding.mainDockedToolbar
                         )
                     }
-                    showSnackbar(
-                        coordinatorLayout = mainActivity.activityBinding.mainCoordLayout,
-                        message =
-                            if (!isChecked) getString(R.string.added_to_fav, item.name)
-                            else getString(R.string.removed_from_fav, item.name),
-                        anchorView = mainActivity.activityBinding.mainDockedToolbar
-                    )
                 }
+                .setCloseIconVisible(true)
+                .setCloseIconResource(R.drawable.ic_close)
                 .show()
         }
     }

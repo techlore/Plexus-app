@@ -24,15 +24,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.techlore.plexus.R
+import tech.techlore.plexus.activities.SearchActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetSortBinding
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 
-class SearchSortBottomSheet(
-    private val sortPrefsListener: SortPrefsChangeListener,
-    private val isAscending: Boolean
-) : BottomSheetDialogFragment() {
+class SearchSortBottomSheet(private val sortPrefsListener: SortPrefsChangeListener) : BottomSheetDialogFragment() {
     
     private var _binding: BottomSheetSortBinding? = null
     private val bottomSheetBinding get() = _binding!!
@@ -48,27 +46,22 @@ class SearchSortBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+        val searchActivity = requireActivity() as SearchActivity
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root).bottomSheetTitle.text = getString(R.string.menu_sort)
         
         // Default alphabetical checked chip
-        bottomSheetBinding.alphabeticalChipGroup.check(
-            if (isAscending) R.id.sortAZ
-            else R.id.sortZA
-        )
+        bottomSheetBinding.alphabeticalChipGroup.check(searchActivity.ascDescChipId)
         
         bottomSheetBinding.sortStatusText.isVisible = false
         bottomSheetBinding.statusToggleGroup.isVisible = false
         
         // Done
         footerBinding.positiveButton.setOnClickListener {
-            val isAsc = bottomSheetBinding.alphabeticalChipGroup.checkedChipId == R.id.sortAZ
+            searchActivity.ascDescChipId = bottomSheetBinding.alphabeticalChipGroup.checkedChipId
             dismiss()
-            sortPrefsListener.onSortPrefsChanged(
-                isAsc = isAsc,
-                onlyAzChanged = true
-            )
+            sortPrefsListener.onSortPrefsChanged()
         }
         
         // Cancel

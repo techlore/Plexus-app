@@ -24,9 +24,14 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.get
@@ -37,7 +42,6 @@ import tech.techlore.plexus.adapters.main.MainDataItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.interfaces.main.FavToggleListener
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
-import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.GRID_VIEW
@@ -61,7 +65,7 @@ class SearchFragment :
     private var searchQueryString = ""
     private val mainRepository by inject<MainDataRepository>()
     private lateinit var searchItemAdapter: MainDataItemAdapter
-    private lateinit var searchDataList: ArrayList<MainDataMini>
+    private var pagingJob: Job? = null
     private var isViewStubInflated = false
     private var isGridView = false
     private var clickedItemPos = -1
@@ -78,8 +82,7 @@ class SearchFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         searchActivity = requireActivity() as SearchActivity
-        searchDataList = ArrayList()
-        var job: Job? = null
+        var clearResultsJob: Job? = null
         isGridView = get<PreferenceManager>().getBoolean(GRID_VIEW, false)
         
         // Adjust recycler view for edge to edge
@@ -92,7 +95,9 @@ class SearchFragment :
             MainDataItemAdapter(
                 clickListener = this@SearchFragment,
                 favToggleListener = this@SearchFragment
-            )
+            ).apply {
+                isGridViewLayout = isGridView
+            }
         
         fragmentBinding.recyclerView.apply {
             searchActivity.activityBinding.searchAppBar.liftOnScrollTargetViewId = this.id
@@ -106,34 +111,22 @@ class SearchFragment :
             
             override fun onQueryTextSubmit(searchString: String): Boolean {
                 if (searchString.isNotEmpty()) {
-                    lifecycleScope.launch {
-                        searchQueryString = searchString
-                        mainRepository
-                            .searchInDb(searchQueryString, searchActivity.isAscending)
-                            .let {
-                                searchItemAdapter.submitList(null)
-                                if (it.isEmpty()) showEmptyListView()
-                                else {
-                                    hideEmptyListView()
-                                    searchItemAdapter.submitList(it)
-                                }
-                                searchDataList = it
-                                fragmentBinding.recyclerView.smoothScrollToPosition(0) // Scroll to top
-                            }
-                    }
+                    searchQueryString = searchString
+                    loadPagedData()
+                    fragmentBinding.recyclerView.smoothScrollToPosition(0) // Scroll to top
                 }
                 return true
             }
             
             override fun onQueryTextChange(searchString: String): Boolean {
-                job?.cancel()
+                clearResultsJob?.cancel()
                 
                 // Clear with a subtle delay
-                job = lifecycleScope.launch {
+                clearResultsJob = lifecycleScope.launch {
                     delay(350.milliseconds)
                     if (searchString.isEmpty()) {
-                        searchItemAdapter.submitList(null)
-                        searchDataList = arrayListOf()
+                        pagingJob?.cancel()
+                        searchItemAdapter.submitData(PagingData.empty())
                         hideEmptyListView()
                     }
                 }
@@ -164,35 +157,55 @@ class SearchFragment :
         }
     }
     
-    override fun onItemClick(position: Int) {
-        clickedItemPos = position
-        clickedItemPackageName = searchDataList[position].packageName
-        searchActivity.startDetailsActivity(clickedItemPackageName)
+    private fun loadPagedData() {
+        pagingJob?.cancel()
+        pagingJob =
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    launch {
+                        mainRepository
+                            .searchInDb(searchQueryString, searchActivity.ascDescChipId)
+                            .collectLatest { pagingData ->
+                                searchItemAdapter.submitData(pagingData)
+                            }
+                    }
+                    
+                    launch {
+                        searchItemAdapter.loadStateFlow.collect { loadStates ->
+                            if (loadStates.refresh is LoadState.NotLoading) {
+                                if (searchItemAdapter.itemCount == 0) showEmptyListView()
+                                else hideEmptyListView()
+                            }
+                        }
+                    }
+                }
+            }
     }
     
-    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
-        if (searchDataList.isNotEmpty()) {
-            searchDataList =
-                ArrayList(
-                    if (isAsc) searchDataList.sortedBy { it.name }
-                    else searchDataList.sortedByDescending { it.name }
-                )
-            searchItemAdapter.submitList(null)
-            searchItemAdapter.submitList(searchDataList)
+    override fun onItemClick(position: Int) {
+        clickedItemPos = position
+        searchItemAdapter.peek(position)?.let {
+            searchActivity.startDetailsActivity(it.packageName)
+        }
+    }
+    
+    override fun onSortPrefsChanged() {
+        // For Search, only asc/desc sort is available,
+        // hence there would be nothing to sort, if list is already empty.
+        if (searchItemAdapter.itemCount != 0) {
+            loadPagedData()
             fragmentBinding.recyclerView.smoothScrollToPosition(0) // Scroll to top
         }
     }
     
-    override fun onFavToggled(item: MainDataMini, isChecked: Boolean) {
-        item.isFav = isChecked
+    override fun onFavToggled(name: String, packageName: String, isChecked: Boolean) {
         lifecycleScope.launch {
-            mainRepository.updateFav(item)
-            DataState.isSingleAppUpdated = true
+            mainRepository.updateFav(packageName, isChecked)
             showSnackbar(
                 coordinatorLayout = searchActivity.activityBinding.searchCoordLayout,
                 message =
-                    if (isChecked) getString(R.string.added_to_fav, item.name)
-                    else getString(R.string.removed_from_fav, item.name),
+                    if (isChecked) getString(R.string.added_to_fav, name)
+                    else getString(R.string.removed_from_fav, name),
                 anchorView = searchActivity.activityBinding.searchDockedToolbar
             )
         }
@@ -201,21 +214,10 @@ class SearchFragment :
     override fun onResume() {
         super.onResume()
         if (DataState.isSingleAppUpdated) {
-            lifecycleScope.launch{
-                ArrayList(searchDataList)
-                    .apply {
-                        this[clickedItemPos] =
-                            mainRepository.getMiniAppByPackage(clickedItemPackageName)
-                    }
-                    .let {
-                        searchItemAdapter.submitList(it)
-                        searchDataList = it
-                    }
-                
-                clickedItemPos = -1
-                clickedItemPackageName = ""
-                DataState.isSingleAppUpdated = false
-            }
+            searchItemAdapter.refresh()
+            clickedItemPos = -1
+            clickedItemPackageName = ""
+            DataState.isSingleAppUpdated = false
         }
     }
     

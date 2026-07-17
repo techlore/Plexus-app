@@ -31,8 +31,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadState
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import com.google.android.material.textview.MaterialTextView
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import me.stellarsand.android.fastscroll.FastScrollerBuilder
 import org.koin.android.ext.android.get
@@ -43,8 +50,7 @@ import tech.techlore.plexus.activities.MyRatingsDetailsActivity
 import tech.techlore.plexus.adapters.main.MyRatingsItemAdapter
 import tech.techlore.plexus.databinding.RecyclerViewBinding
 import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
-import tech.techlore.plexus.interfaces.main.ViewStyleChangeListener
-import tech.techlore.plexus.models.mini.MyRatingMini
+import tech.techlore.plexus.interfaces.main.ViewTypeChangeListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
@@ -59,7 +65,7 @@ class MyRatingsFragment :
     Fragment(),
     MyRatingsItemAdapter.OnItemClickListener,
     SortPrefsChangeListener,
-    ViewStyleChangeListener {
+    ViewTypeChangeListener {
     
     private var _binding: RecyclerViewBinding? = null
     private val fragmentBinding get() = _binding!!
@@ -67,9 +73,9 @@ class MyRatingsFragment :
     private val prefManager by inject<PreferenceManager>()
     private val myRatingsRepository by inject<MyRatingsRepository>()
     private lateinit var myRatingsItemAdapter: MyRatingsItemAdapter
-    private lateinit var myRatingsList: ArrayList<MyRatingMini>
+    private var ascDescChipId = 0
+    private var pagingJob: Job? = null
     private var isViewStubInflated = false
-    private var clickedItemPos = -1
     private var clickedItemPackageName = ""
     private var isMyRatingCountChanged = false
     private var myRatingsNewCount = -1
@@ -85,6 +91,7 @@ class MyRatingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
         mainActivity = requireActivity() as MainActivity
+        setSortPrefs()
         
         // Adjust UI components for edge to edge
         fragmentBinding.recyclerView.adjustEdgeToEdge(requireContext())
@@ -102,12 +109,10 @@ class MyRatingsFragment :
             WindowInsetsCompat.CONSUMED
         }
         
-        savedInstanceState?.let {
-            clickedItemPos = it.getInt("clickedItemPos")
-            clickedItemPackageName = it.getString("clickedPackageName")!!
-        }
+        myRatingsItemAdapter =
+            MyRatingsItemAdapter(clickListener = this)
+                .apply { isGridViewLayout = mainActivity.isGridView }
         
-        myRatingsItemAdapter = MyRatingsItemAdapter(clickListener = this)
         fragmentBinding.recyclerView.apply {
             mainActivity.activityBinding.mainAppBar.liftOnScrollTargetViewId = this.id
             layoutManager = getViewStyle(requireContext(), mainActivity.isGridView)
@@ -115,27 +120,18 @@ class MyRatingsFragment :
             FastScrollerBuilder(this).build()
         }
         
-        lifecycleScope.launch {
-            myRatingsList =
-                myRatingsRepository.getSortedMyRatingsByName(orderPref = prefManager.getInt(A_Z_SORT))
-            
-            if (myRatingsList.isEmpty()) showEmptyListView()
-            else myRatingsItemAdapter.apply {
-                isGridViewLayout = mainActivity.isGridView
-                submitList(myRatingsList)
+        // New rating FAB
+        mainActivity.activityBinding.newRatingFab.apply {
+            show()
+            setOnClickListener {
+                mainActivity.onNavViewItemSelected(R.id.nav_installed_apps, false)
             }
-            
-            // New rating FAB
-            mainActivity.activityBinding.newRatingFab.apply {
-                show()
-                setOnClickListener {
-                    mainActivity.onNavViewItemSelected(R.id.nav_installed_apps, false)
-                }
-            }
-            
-            // Swipe refresh layout
-            fragmentBinding.swipeRefreshLayout.isEnabled = false
         }
+        
+        // Swipe refresh layout
+        fragmentBinding.swipeRefreshLayout.isEnabled = false
+        
+        loadPagedData()
         
     }
     
@@ -175,34 +171,73 @@ class MyRatingsFragment :
         }
     }
     
-    override fun onItemClick(position: Int) {
-        clickedItemPos = position
-        clickedItemPackageName = myRatingsList[position].packageName
-        startResultLauncher.launch(
-            Intent(requireContext(), MyRatingsDetailsActivity::class.java)
-                .putExtra("packageName", clickedItemPackageName),
-            ActivityOptionsCompat.makeSceneTransitionAnimation(mainActivity)
-        )
+    private fun hideEmptyListView() {
+        if (isViewStubInflated) {
+            fragmentBinding.emptyListViewStub.isVisible = false
+            // Don't do isViewStubInflated = false
+            // ViewStub is only inflated once & then reference changes to the actual view
+            // If it is inflated again, app will crash with the following:
+            // "ViewStub must have a non-null ViewGroup viewParent"
+        }
     }
     
-    override fun onViewStyleChanged() {
+    private fun setSortPrefs() {
+        ascDescChipId = prefManager.getInt(A_Z_SORT)
+    }
+    
+    private fun loadPagedData() {
+        pagingJob?.cancel()
+        pagingJob =
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    launch {
+                        myRatingsRepository
+                            .getSortedMyRatingsByName(orderPref = ascDescChipId)
+                            .collectLatest { pagingData ->
+                                myRatingsItemAdapter.submitData(pagingData)
+                            }
+                    }
+                    
+                    launch {
+                        myRatingsItemAdapter.loadStateFlow.collectLatest { loadStates ->
+                            if (loadStates.refresh is LoadState.NotLoading) {
+                                if (myRatingsItemAdapter.itemCount == 0) showEmptyListView()
+                                else hideEmptyListView()
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
+    override fun onItemClick(position: Int) {
+        myRatingsItemAdapter.peek(position)?.let {
+            clickedItemPackageName = it.packageName
+            startResultLauncher.launch(
+                Intent(requireContext(), MyRatingsDetailsActivity::class.java)
+                    .putExtra("packageName", it.packageName),
+                ActivityOptionsCompat.makeSceneTransitionAnimation(mainActivity)
+            )
+        }
+    }
+    
+    override fun onViewTypeChanged() {
         myRatingsItemAdapter.isGridViewLayout = mainActivity.isGridView
         fragmentBinding.recyclerView.apply {
+            TransitionManager.beginDelayedTransition(this, AutoTransition())
             layoutManager = getViewStyle(requireContext(), mainActivity.isGridView)
-            recycledViewPool.clear()
+            myRatingsItemAdapter.notifyItemRangeChanged(0, myRatingsItemAdapter.itemCount)
             smoothScrollToPosition(0) // Scroll to top
         }
     }
     
-    override fun onSortPrefsChanged(isAsc: Boolean, onlyAzChanged: Boolean) {
-        if (myRatingsList.isNotEmpty()) {
-            myRatingsList =
-                ArrayList(
-                    if (isAsc) myRatingsList.sortedBy { it.name }
-                    else myRatingsList.sortedByDescending { it.name }
-                )
-            myRatingsItemAdapter.submitList(null)
-            myRatingsItemAdapter.submitList(myRatingsList)
+    override fun onSortPrefsChanged() {
+        // For MyRatings, only asc/desc sort is available,
+        // hence there would be nothing to sort, if list is already empty.
+        // This is NOT the case for other fragments
+        if (myRatingsItemAdapter.itemCount != 0) {
+            setSortPrefs()
+            loadPagedData()
             fragmentBinding.recyclerView.smoothScrollToPosition(0)
         }
     }
@@ -214,36 +249,11 @@ class MyRatingsFragment :
                 if (myRatingsNewCount == 0)
                     myRatingsRepository.deleteSingleMyRating(clickedItemPackageName)
                 
-                ArrayList(myRatingsList)
-                    .apply {
-                        when(myRatingsNewCount) {
-                            0 -> removeAt(clickedItemPos)
-                            else ->
-                                this[clickedItemPos] = this[clickedItemPos].copy(totalRatings = myRatingsNewCount)
-                        }
-                    }
-                    .let {
-                        myRatingsItemAdapter.submitList(it)
-                        myRatingsList = it
-                    }
-                
-                if (myRatingsNewCount == 0) showEmptyListView()
-                
                 get<MainDataRepository>().updateSingleApp(clickedItemPackageName)
                 
                 isMyRatingCountChanged = false
                 myRatingsNewCount = -1
-                clickedItemPos = -1
-                clickedItemPackageName = ""
             }
-        }
-    }
-    
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.apply {
-            putInt("clickedItemPos", clickedItemPos)
-            putString("clickedItemPackageName", clickedItemPackageName)
         }
     }
     
