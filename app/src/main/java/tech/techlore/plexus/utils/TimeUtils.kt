@@ -15,10 +15,20 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package tech.techlore.plexus.interfaces.details
+package tech.techlore.plexus.utils
 
-interface SubmitConfirmClickListener {
+import tech.techlore.plexus.objects.DataState
+
+class TimeUtils {
     
-    fun onSubmitConfirmed(checkedStatusChipId: Int, notes: String)
+    companion object {
+        
+        private const val TWENTY_MINS_IN_MS = 1200000L
+        
+        fun isLastFullDataUpdateMoreThan20Mins(): Boolean {
+            return(System.currentTimeMillis() - DataState.lastFullDataUpdateTimeMs) > TWENTY_MINS_IN_MS
+        }
+        
+    }
     
 }

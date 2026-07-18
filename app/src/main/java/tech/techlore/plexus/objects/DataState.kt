@@ -18,5 +18,6 @@
 package tech.techlore.plexus.objects
 
 object DataState {
+    var lastFullDataUpdateTimeMs = 0L
     var isSingleAppUpdated = false
 }

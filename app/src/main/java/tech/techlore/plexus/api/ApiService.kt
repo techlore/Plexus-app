@@ -55,7 +55,7 @@ class ApiService(private val okHttpClient: HttpClient) {
             url("${API_BASE_URL}/apps")
             contentType(ContentType.Application.Json)
             parameter("scores", true)
-            parameter("limit", 200)
+            parameter("limit", 800)
             parameter("page", pageNumber)
             parameter("last_updated", lastUpdated)
         }.checkStatus().body()
@@ -73,7 +73,7 @@ class ApiService(private val okHttpClient: HttpClient) {
         return okHttpClient.get {
             url("${API_BASE_URL}/apps/${packageName}/ratings")
             contentType(ContentType.Application.Json)
-            parameter("limit", 200)
+            parameter("limit", 800)
             parameter("page", pageNumber)
         }.checkStatus().body()
     }

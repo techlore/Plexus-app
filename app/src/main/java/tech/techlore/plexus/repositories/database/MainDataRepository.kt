@@ -35,6 +35,7 @@ import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.models.get.apps.GetAppsRoot
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.mini.MainDataMini
+import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.LAST_UPDATED
@@ -50,7 +51,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
     private val apiRepository by inject<ApiRepository>()
     private val prefManager by inject<PreferenceManager>()
-    private val pagingConfig = PagingConfig(pageSize = 35, prefetchDistance = 8, enablePlaceholders = false)
+    private val pagingConfig = PagingConfig(pageSize = 35, prefetchDistance = 10, enablePlaceholders = false)
     
     suspend fun plexusDataIntoDB() {
         withContext(Dispatchers.IO) {
@@ -63,7 +64,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
             
             // Retrieve remaining apps in parallel
             if (appsResponse.meta.totalPages > 1) {
-                val maxThreads = 8
+                val maxThreads = 6
                 (2 .. appsResponse.meta.totalPages step maxThreads).forEach {
                     val lastPageInBatch = minOf(it + maxThreads - 1).coerceAtMost(appsResponse.meta.totalPages)
                     (it .. lastPageInBatch).map { pageNumber ->
@@ -74,11 +75,14 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
                 }
             }
             
-            prefManager.setString(
-                LAST_UPDATED,
-                get<DateTimeFormatter>(named("formattedLastUpdatedDate"))
-                    .format(currentDateTime.toInstant())
-            )
+            currentDateTime.let {
+                DataState.lastFullDataUpdateTimeMs = it.time
+                prefManager.setString(
+                    LAST_UPDATED,
+                    get<DateTimeFormatter>(named("formattedLastUpdatedDate"))
+                        .format(it.toInstant())
+                )
+            }
         }
     }
     

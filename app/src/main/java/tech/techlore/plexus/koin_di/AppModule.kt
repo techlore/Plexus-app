@@ -37,6 +37,7 @@ import tech.techlore.plexus.keystore.KeyStoreManager
 import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import java.time.Year
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -55,6 +56,12 @@ val appModule =
         single { Locale.getDefault() }
         single(named("currentYear")) { Year.now().value }
         single(named("zoneId")) { ZoneId.systemDefault() }
+        
+        single(named("formattedLastUpdatedDate")) {
+            DateTimeFormatter
+                .ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+                .withZone(ZoneOffset.UTC)
+        }
         
         single(named("formattedDateWithoutYear")) {
             DateTimeFormatter

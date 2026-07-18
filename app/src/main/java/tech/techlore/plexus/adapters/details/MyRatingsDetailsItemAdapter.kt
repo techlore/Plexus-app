@@ -112,8 +112,4 @@ class MyRatingsDetailsItemAdapter(
         }
         
     }
-    
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
 }

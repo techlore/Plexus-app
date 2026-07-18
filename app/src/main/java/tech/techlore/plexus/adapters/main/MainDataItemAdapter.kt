@@ -32,7 +32,6 @@ import tech.techlore.plexus.interfaces.main.FavToggleListener
 import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.utils.UiUtils.Companion.hScroll
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
-import tech.techlore.plexus.utils.UiUtils.Companion.mapScoreRangeToStatusString
 import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithoutIcon
 
 class MainDataItemAdapter(private val clickListener: OnItemClickListener,
@@ -107,15 +106,9 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
             hScroll()
         }
         
-        holder.dgStatus.apply {
-            text = mapScoreRangeToStatusString(context, mainDataMini.dgScore)//context.getString(mainDataMini.dgStatusStringResId)
-            setStatusStyleWithoutIcon(context, mainDataMini.dgScore)
-        }
+        holder.dgStatus.setStatusStyleWithoutIcon(context, mainDataMini.dgScore)
         
-        holder.mgStatus.apply {
-            text = mapScoreRangeToStatusString(context, mainDataMini.mgScore)
-            setStatusStyleWithoutIcon(context, mainDataMini.mgScore)
-        }
+        holder.mgStatus.setStatusStyleWithoutIcon(context, mainDataMini.mgScore)
         
         holder.fav.apply {
             setOnCheckedChangeListener(null)

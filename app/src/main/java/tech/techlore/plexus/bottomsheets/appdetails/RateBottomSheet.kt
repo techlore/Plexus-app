@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -30,7 +31,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import tech.techlore.plexus.R
-import tech.techlore.plexus.activities.AppDetailsActivity
 import tech.techlore.plexus.databinding.BottomSheetFooterBinding
 import tech.techlore.plexus.databinding.BottomSheetHeaderBinding
 import tech.techlore.plexus.databinding.BottomSheetRateBinding
@@ -52,6 +52,12 @@ class RateBottomSheet(
     
     private var _binding: BottomSheetRateBinding? = null
     private val bottomSheetBinding get() = _binding!!
+    private val footerBinding by lazy {
+        BottomSheetFooterBinding.bind(bottomSheetBinding.root)
+    }
+    private val confBeforeSubmit by lazy {
+        get<PreferenceManager>().getBoolean(CONF_BEFORE_SUBMIT, defValue = false)
+    }
     
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -63,9 +69,7 @@ class RateBottomSheet(
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         
-        val footerBinding = BottomSheetFooterBinding.bind(bottomSheetBinding.root)
         var job: Job? = null
-        val detailsActivity = requireActivity() as AppDetailsActivity
         
         // Title
         BottomSheetHeaderBinding.bind(bottomSheetBinding.root)
@@ -84,22 +88,21 @@ class RateBottomSheet(
         }
         
         // Notes
-        var maxTextLength: Int
         bottomSheetBinding.submitNotesBox.apply {
             hint = "${getString(R.string.notes)} (${getString(R.string.optional)})"
-            maxTextLength = counterMaxLength
         }
         bottomSheetBinding.submitNotesText.doOnTextChanged { charSequence, _, _, _ ->
             job?.cancel()
             job = lifecycleScope.launch {
                 delay(300.milliseconds)
-                footerBinding.positiveButton.isEnabled =
-                    charSequence!!.isEmpty()
-                    || (charSequence.length in 5..maxTextLength
-                        && !charSequence.hasBlockedWord(requireContext())
-                        && !charSequence.hasRepeatedChars()
-                        && !charSequence.hasEmojis()
-                        && !charSequence.isURL())
+                updateButtonState(charSequence)
+            }
+        }
+        
+        // Checkbox
+        if (confBeforeSubmit) {
+            bottomSheetBinding.confSubmitCheckbox.setOnCheckedChangeListener { _, _ ->
+                updateButtonState(bottomSheetBinding.submitNotesText.text)
             }
         }
         
@@ -107,23 +110,38 @@ class RateBottomSheet(
             isEnabled = false
             text = getString(R.string.submit)
             setOnClickListener {
-                detailsActivity.apply {
-                    submitStatusCheckedChipId = bottomSheetBinding.submitStatusChipGroup.checkedChipId
-                    submitNotes = bottomSheetBinding.submitNotesText.text.toString()
+                if (confBeforeSubmit && !bottomSheetBinding.confSubmitCheckbox.isVisible) {
+                    isEnabled = false
+                    bottomSheetBinding.confSubmitCheckbox.isVisible = true
                 }
-                if (get<PreferenceManager>().getBoolean(CONF_BEFORE_SUBMIT, defValue = false)) {
-                    ConfirmSubmitBottomSheet(
-                        detailsActivity.app.name,
-                        submitConfirmClickListener
-                    ).show(parentFragmentManager, "ConfirmSubmitBottomSheet")
-                }
-                else detailsActivity.showUploadBottomSheet()
+                else submitConfirmClickListener.onSubmitConfirmed(
+                    checkedStatusChipId = bottomSheetBinding.submitStatusChipGroup.checkedChipId,
+                    notes = bottomSheetBinding.submitNotesText.text.toString()
+                )
             }
         }
         
         footerBinding.negativeButton.setOnClickListener {
             dismiss()
         }
+    }
+    
+    private fun updateButtonState(notesCharSequence: CharSequence?) {
+        val text = notesCharSequence ?: ""
+        
+        if (bottomSheetBinding.confSubmitCheckbox.isVisible
+            && !bottomSheetBinding.confSubmitCheckbox.isChecked) {
+            footerBinding.positiveButton.isEnabled = false
+            return
+        }
+        
+        footerBinding.positiveButton.isEnabled =
+            text.isEmpty()
+            || (text.length in 5..350
+                && !text.hasBlockedWord(requireContext())
+                && !text.hasRepeatedChars()
+                && !text.hasEmojis()
+                && !text.isURL())
     }
     
     override fun onDismiss(dialog: DialogInterface) {

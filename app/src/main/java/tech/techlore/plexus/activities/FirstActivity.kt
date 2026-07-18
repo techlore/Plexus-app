@@ -51,8 +51,6 @@ import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAU
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
-import tech.techlore.plexus.utils.IntentUtils.Companion.startActivityWithTransition
-import tech.techlore.plexus.utils.IntentUtils.Companion.startDetailsActivity
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
 import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
@@ -170,6 +168,16 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
                         rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).orEmpty()
                         androidVersion = getAndroidVersionString()
                     }
+                    startActivity(
+                        if (packageNameString != null) {
+                            Intent(this@FirstActivity, AppDetailsActivity::class.java)
+                                .putExtra("packageName", packageName)
+                                .putExtra("fromShortcut", true)
+                        }
+                        else {
+                            Intent(this@FirstActivity, MainActivity::class.java)
+                        }
+                    )
                     finishAfterTransition()
                 }
                 catch (e: Exception) {
@@ -212,15 +220,5 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
                 }
             )
         }
-    }
-    
-    override fun finishAfterTransition() {
-        super.finishAfterTransition()
-        // If started from shortcut, open details activity
-        // else main activity
-        packageNameString?.let {
-            startDetailsActivity(it, isFromShortcut = true)
-        }
-        ?: startActivityWithTransition(Intent(this@FirstActivity, MainActivity::class.java))
     }
 }

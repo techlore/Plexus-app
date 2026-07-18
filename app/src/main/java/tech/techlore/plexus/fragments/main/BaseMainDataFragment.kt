@@ -28,7 +28,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.transition.AutoTransition
+import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
@@ -69,9 +69,9 @@ abstract class BaseMainDataFragment
     protected lateinit var mainDataItemAdapter: MainDataItemAdapter
     protected val prefManager by inject<PreferenceManager>()
     protected val mainRepository by inject<MainDataRepository>()
+    protected var ascDescChipId = 0
     protected var installedFromChipId = 0
     protected var statusToggleBtnId = 0
-    protected var ascDescChipId = 0
     private var pagingJob: Job? = null
     private var isViewStubInflated = false
     
@@ -141,9 +141,9 @@ abstract class BaseMainDataFragment
     }
     
     private fun setSortPrefs() {
+        ascDescChipId = prefManager.getInt(A_Z_SORT)
         installedFromChipId = prefManager.getInt(INSTALLED_FROM_SORT)
         statusToggleBtnId = prefManager.getInt(STATUS_TOGGLE)
-        ascDescChipId = prefManager.getInt(A_Z_SORT)
     }
     
     private fun loadPagedData() {
@@ -177,7 +177,7 @@ abstract class BaseMainDataFragment
     override fun onViewTypeChanged() {
         mainDataItemAdapter.isGridViewLayout = mainActivity.isGridView
         fragmentBinding.recyclerView.apply {
-            TransitionManager.beginDelayedTransition(this, AutoTransition())
+            TransitionManager.beginDelayedTransition(this, Fade())
             layoutManager = getViewStyle(requireContext(), mainActivity.isGridView)
             mainDataItemAdapter.notifyItemRangeChanged(0, mainDataItemAdapter.itemCount)
             smoothScrollToPosition(0) // Scroll to top

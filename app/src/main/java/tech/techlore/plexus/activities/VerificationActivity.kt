@@ -63,15 +63,17 @@ class VerificationActivity : AppCompatActivity() {
     private var isCodeReceived = false
     private var emailString = ""
     private var deviceId = ""
-    private val fadeInAnim by lazy {
+    private val enterAnim by lazy {
         AnimationUtils.loadAnimation(
             this,
-            android.R.anim.fade_in)
+            R.anim.slide_from_end
+        )
     }
-    private val fadeOutAnim by lazy {
+    private val exitAnim by lazy {
         AnimationUtils.loadAnimation(
             this,
-            android.R.anim.fade_out)
+            R.anim.slide_to_start
+        )
     }
     private val sixteenDpToPx by lazy {
         convertDpToPx(this, 16f)
@@ -219,8 +221,8 @@ class VerificationActivity : AppCompatActivity() {
         arrayOf(activityBinding.titleTextViewSwitcher, activityBinding.editTextViewSwitcher)
             .forEach {
                 it.apply {
-                    inAnimation = fadeInAnim
-                    outAnimation = fadeOutAnim
+                    inAnimation = enterAnim
+                    outAnimation = exitAnim
                     layoutParams =
                         (layoutParams as ViewGroup.MarginLayoutParams).apply {
                             topMargin = tenDpToPx

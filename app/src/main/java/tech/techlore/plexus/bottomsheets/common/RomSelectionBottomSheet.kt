@@ -53,10 +53,6 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
     private val bottomSheetBinding get() = _binding!!
     private var job: Job? = null
     
-    private companion object {
-        const val NO_MATCH_FOUND = -1
-    }
-    
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -73,52 +69,14 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
         
         lifecycleScope.launch {
             
-            val customRomsList = resources.getStringArray(R.array.custom_roms)
-            val truncatedCustomRomsList =
-                customRomsList.map {
-                    // Remove "OS", "Project", "ROM" etc.
-                    // from words in the custom ROMs list
-                    it.removePrefix("Project")
-                        .removePrefix("The")
-                        .removeSuffix("OS")
-                        .removeSuffix("Project")
-                        .removeSuffix("ROM")
-                        .replace(" ", "")
-                }
-            
-            val allRomsDropdownList = arrayOf(getString(R.string.select)) +
-                                      "Stock (${Build.MANUFACTURER} ${Build.MODEL})" +
-                                      customRomsList
-            
-            val customRomsPattern = truncatedCustomRomsList.joinToString("|") { Regex.escape(it) }
-            val customRomsRegex = "(?i)($customRomsPattern)".toRegex(setOf(RegexOption.IGNORE_CASE))
-            
-            // Check a few properties from build.prop
-            // that might contain ROM name
-            val buildPropValues =
-                listOf("ro.build.flavor",
-                       "ro.product.system.name",
-                       "ro.build.user",
-                       "ro.build.description",
-                       "ro.build.fingerprint")
-                    .mapNotNull { getSystemProperty(it) }
-            
-            // Check if any value from build.prop matches against custom roms list
-            val matchingValue = buildPropValues.firstOrNull { customRomsRegex.containsMatchIn(it) }
-            val romNameIndex =
-                truncatedCustomRomsList.indexOfFirst {
-                    matchingValue?.contains(it, ignoreCase = true) == true
-                } // -1 would mean no matching index
+            val allRomsDropdownList =
+                arrayOf(getString(R.string.select)) +
+                "Stock (${Build.MANUFACTURER} ${Build.MODEL})" +
+                resources.getStringArray(R.array.custom_roms)
             
             // ROM dropdown
             (bottomSheetBinding.romDropdownMenu as MaterialAutoCompleteTextView).apply {
-                setText(
-                    if (romNameIndex != NO_MATCH_FOUND) allRomsDropdownList[romNameIndex + 2]
-                    else allRomsDropdownList[0]
-                    // allRomsDropdownList[romNameIndex + 2]
-                    // because allRomsDropdownList has two extra items "Select" & "Stock (device)",
-                    // not present in truncatedCustomRomsList
-                )
+                setText(allRomsDropdownList[0])
                 setSimpleItems(allRomsDropdownList)
                 setOnItemClickListener { _, _, position, _ ->
                     footerBinding.positiveButton.isEnabled = position != 0 && job == null
@@ -131,10 +89,10 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
                 val positiveButtonText = if (isFromNavView) getString(R.string.done) else getString(R.string.proceed)
                 job =
                     lifecycleScope.launch {
-                        for (i in 5 downTo 1) {
+                        (5 downTo 1).forEach {
                             withContext(Dispatchers.Main) {
                                 @SuppressLint("SetTextI18n")
-                                text = "$positiveButtonText ${i}s"
+                                text = "$positiveButtonText ${it}s"
                             }
                             delay(1000.milliseconds)
                         }
@@ -145,12 +103,14 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
                         }
                     }
                 setOnClickListener {
-                    get<EncryptedPreferenceManager>().setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
-                    get<EncryptedPreferenceManager>().getString(DEVICE_ROM)?.let {
-                        DeviceState.rom = it
-                        if (it == "CalyxOS") {
-                            lifecycleScope.launch {
-                                isDeviceDeGoogledOrMicroG(requireContext().packageManager)
+                    get<EncryptedPreferenceManager>().apply {
+                        setString(DEVICE_ROM, bottomSheetBinding.romDropdownMenu.text.toString())
+                        getString(DEVICE_ROM)?.let {
+                            DeviceState.rom = it
+                            if (it == "CalyxOS") {
+                                lifecycleScope.launch {
+                                    isDeviceDeGoogledOrMicroG(requireContext().packageManager)
+                                }
                             }
                         }
                     }
@@ -166,20 +126,6 @@ class RomSelectionBottomSheet(private val isFromNavView: Boolean = true) : Botto
             // Cancel
             footerBinding.negativeButton.setOnClickListener { dismiss() }
             
-        }
-    }
-    
-    @SuppressLint("PrivateApi")
-    private suspend fun getSystemProperty(propertyName: String): String? {
-        return withContext(Dispatchers.IO) {
-            try {
-                val systemProperties = Class.forName("android.os.SystemProperties")
-                val getProperty = systemProperties.getMethod("get", String::class.java)
-                getProperty.invoke(null, propertyName) as? String
-            }
-            catch (_: Exception) {
-                null
-            }
         }
     }
     

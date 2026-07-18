@@ -68,6 +68,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.interfaces.details.SubmitConfirmClickListener
+import tech.techlore.plexus.utils.TimeUtils.Companion.isLastFullDataUpdateMoreThan20Mins
 import kotlin.system.exitProcess
 
 class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
@@ -198,7 +199,7 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
         // Rate
         activityBinding.rateBtn.setOnClickListener {
             when {
-                !DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
+                /*!DeviceState.isDeviceDeGoogled && !DeviceState.isDeviceMicroG ->
                     showSnackbar(activityBinding.detailsCoordLayout,
                                  getString(R.string.device_should_be_degoogled_or_microg),
                                  activityBinding.detailsFloatingToolbar)
@@ -208,7 +209,7 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
                                  getString(R.string.install_app_to_submit, app.name),
                                  anchorView =
                                      if (activityBinding.scrollTopFab.isVisible) activityBinding.scrollTopFab
-                                     else activityBinding.detailsFloatingToolbar)
+                                     else activityBinding.detailsFloatingToolbar)*/
                 
                 encPrefManager.getString(DEVICE_ROM).isNullOrEmpty() ->
                     RomSelectionBottomSheet(isFromNavView = false).show(supportFragmentManager, "RomSelectionBottomSheet")
@@ -258,7 +259,7 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
                     // 1. It's not used anywhere else, except details activity
                     // 2. We're already retrieving the latest ratings everytime in details activity
                     if (ratingsResponse.meta.totalPages > 1) {
-                        val maxThreads = 8
+                        val maxThreads = 6
                         (2 .. ratingsResponse.meta.totalPages step maxThreads).forEach {
                             val lastPageInBatch = (it + maxThreads - 1).coerceAtMost(ratingsResponse.meta.totalPages)
                             (it .. lastPageInBatch).map { pageNumber ->
@@ -273,9 +274,13 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
                     
                     // Since the latest ratings are already retrieved,
                     // get latest score of current app & update in DB
-                    if (!isFromShortcut && hasRatings) {
+                    if (
+                        isLastFullDataUpdateMoreThan20Mins()
+                        && !isFromShortcut
+                        && hasRatings
+                    ) {
                         mainRepository.updateSingleApp(packageName = packageNameString)
-                        app = mainRepository.getAppByPackage(packageNameString) !!
+                        app = mainRepository.getAppByPackage(packageNameString)!!
                         DataState.isSingleAppUpdated = true
                     }
                     
@@ -583,7 +588,9 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
         }
     }
     
-    override fun onSubmitConfirmed() {
+    override fun onSubmitConfirmed(checkedStatusChipId: Int, notes: String) {
+        submitStatusCheckedChipId = checkedStatusChipId
+        submitNotes = notes
         showUploadBottomSheet()
     }
     

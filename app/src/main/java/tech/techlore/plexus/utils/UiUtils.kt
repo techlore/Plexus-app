@@ -141,10 +141,6 @@ class UiUtils {
         fun NavController.refreshFragment() {
             val action =
                 when (currentDestination!!.id) {
-                    R.id.plexusDataFragment -> R.id.action_global_to_plexusDataFragment
-                    R.id.installedAppsFragment -> R.id.action_global_to_installedAppsFragment
-                    R.id.favoritesFragment -> R.id.action_global_to_favoritesFragment
-                    R.id.searchFragment -> R.id.action_searchFragment_self
                     R.id.myRatingsFragment -> R.id.action_global_to_myRatingsFragment
                     R.id.allRatingsFragment -> R.id.action_allRatingsFragment_self
                     else -> R.id.action_myRatingsDetailsFragment_self
@@ -210,29 +206,91 @@ class UiUtils {
         }
         
         fun MaterialTextView.setStatusStyleWithoutIcon(context: Context, score: Float) {
-            val (textColor, backgroundDrawable) =
+            val (statusText, textColor, backgroundDrawable) =
                 when (score) {
                     0.0f ->
-                        Pair(context.resources.getColor(R.color.color_onSurface, context.theme),
-                             R.drawable.shape_outlined_rounded_corners_large)// No background tint. Only show outline
+                        Triple(
+                            context.getString(R.string.na),
+                            context.resources.getColor(R.color.color_onSurface, context.theme),
+                            R.drawable.shape_outlined_rounded_corners_large
+                        )
                     
                     in 1.0f..1.9f ->
-                        Pair(context.resources.getColor(R.color.color_broken_status_text, context.theme),
-                             R.drawable.shape_status_broken)
+                        Triple(
+                            context.getString(R.string.broken_title),
+                            context.resources.getColor(R.color.color_broken_status_text, context.theme),
+                            R.drawable.shape_status_broken
+                        )
                     
                     in 2.0f..2.9f ->
-                        Pair(context.resources.getColor(R.color.color_bronze_status_text, context.theme),
-                             R.drawable.shape_status_bronze)
+                        Triple(
+                            context.getString(R.string.bronze_title),
+                            context.resources.getColor(R.color.color_bronze_status_text, context.theme),
+                            R.drawable.shape_status_bronze
+                        )
                     
                     in 3.0f..3.4f ->
-                        Pair(context.resources.getColor(R.color.color_silver_status_text, context.theme),
-                             R.drawable.shape_status_silver)
+                        Triple(
+                            context.getString(R.string.silver_title),
+                            context.resources.getColor(R.color.color_silver_status_text, context.theme),
+                            R.drawable.shape_status_silver
+                        )
                     
                     else ->
-                        Pair(context.resources.getColor(R.color.color_gold_status_text, context.theme),
-                             R.drawable.shape_status_gold)
+                        Triple(
+                            context.getString(R.string.gold_title),
+                            context.resources.getColor(R.color.color_gold_status_text, context.theme),
+                            R.drawable.shape_status_gold
+                        )
                 }
             
+            text = statusText
+            setTextColor(ColorStateList.valueOf(textColor))
+            setBackgroundDrawable(ContextCompat.getDrawable(context, backgroundDrawable))
+        }
+        
+        fun MaterialTextView.setStatusStyleWithIcon(context: Context,
+                                                    googleLib: String,
+                                                    ratingScore: Int) {
+            val statusIcon =
+                when (googleLib) {
+                    "native" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
+                    else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
+                }
+            
+            val (statusString, textColor, backgroundDrawable) =
+                when (ratingScore) {
+                    1 ->
+                        Triple(
+                            context.getString(R.string.broken_title),
+                            context.resources.getColor(R.color.color_broken_status_text, context.theme),
+                            R.drawable.shape_status_broken
+                        )
+                    
+                    2 ->
+                        Triple(
+                            context.getString(R.string.bronze_title),
+                            context.resources.getColor(R.color.color_bronze_status_text, context.theme),
+                            R.drawable.shape_status_bronze
+                        )
+                    
+                    3 ->
+                        Triple(
+                            context.getString(R.string.silver_title),
+                            context.resources.getColor(R.color.color_silver_status_text, context.theme),
+                            R.drawable.shape_status_silver
+                        )
+                    
+                    else ->
+                        Triple(
+                            context.getString(R.string.gold_title),
+                            context.resources.getColor(R.color.color_gold_status_text, context.theme),
+                            R.drawable.shape_status_gold
+                        )
+                }
+            
+            setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
+            text = statusString
             setTextColor(ColorStateList.valueOf(textColor))
             setBackgroundDrawable(ContextCompat.getDrawable(context, backgroundDrawable))
         }
@@ -272,40 +330,6 @@ class UiUtils {
                 setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
                 text = installedFromText
             }
-        }
-        
-        fun MaterialTextView.setStatusStyleWithIcon(context: Context,
-                                                    googleLib: String,
-                                                    ratingScore: Int) {
-            val statusIcon =
-                when (googleLib) {
-                    "native" -> ContextCompat.getDrawable(context, R.drawable.ic_degoogled)
-                    else -> ContextCompat.getDrawable(context, R.drawable.ic_microg)
-                }
-            
-            val (statusString, textColor, backgroundTint) =
-                when (ratingScore) {
-                    1 -> Triple(context.getString(R.string.broken_title),
-                                context.resources.getColor(R.color.color_broken_status_text, context.theme),
-                                context.resources.getColor(R.color.color_broken_status, context.theme))
-                    
-                    2 -> Triple(context.getString(R.string.bronze_title),
-                                context.resources.getColor(R.color.color_bronze_status_text, context.theme),
-                                context.resources.getColor(R.color.color_bronze_status, context.theme))
-                    
-                    3 -> Triple(context.getString(R.string.silver_title),
-                                context.resources.getColor(R.color.color_silver_status_text, context.theme),
-                                context.resources.getColor(R.color.color_silver_status, context.theme))
-                    
-                    else -> Triple(context.getString(R.string.gold_title),
-                                   context.resources.getColor(R.color.color_gold_status_text, context.theme),
-                                   context.resources.getColor(R.color.color_gold_status, context.theme))
-                }
-            
-            setCompoundDrawablesWithIntrinsicBounds(statusIcon, null, null, null)
-            text = statusString
-            setTextColor(ColorStateList.valueOf(textColor))
-            backgroundTintList = ColorStateList.valueOf(backgroundTint)
         }
         
         fun String.formatRfc3339ToLocalized(): String {

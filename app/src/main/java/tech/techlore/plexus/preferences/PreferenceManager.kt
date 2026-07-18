@@ -35,7 +35,6 @@ class PreferenceManager(context: Context) {
         const val MATERIAL_YOU = "material_you"
         const val DEF_VIEW = "def_view"
         const val CONF_BEFORE_SUBMIT = "conf_before_submit"
-        const val IS_FIRST_SUBMISSION = "is_first_submission"
     }
 
     private val sharedPreferences =

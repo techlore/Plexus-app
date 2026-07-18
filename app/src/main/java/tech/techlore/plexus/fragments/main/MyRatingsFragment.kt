@@ -35,7 +35,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.transition.AutoTransition
+import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.Job
@@ -53,7 +53,6 @@ import tech.techlore.plexus.interfaces.main.SortPrefsChangeListener
 import tech.techlore.plexus.interfaces.main.ViewTypeChangeListener
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.A_Z_SORT
-import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_SUBMISSION
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.repositories.database.MyRatingsRepository
 import tech.techlore.plexus.utils.UiUtils.Companion.adjustEdgeToEdge
@@ -155,15 +154,7 @@ class MyRatingsFragment :
             val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_my_ratings)
             fragmentBinding.root.findViewById<MaterialTextView>(R.id.emptyListViewText).apply {
                 setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-                text =
-                    if (prefManager.getBoolean(IS_FIRST_SUBMISSION)) {
-                        getString(R.string.no_ratings_available) +
-                        "\n\n" +
-                        getString(R.string.submit_first_rating)
-                    }
-                    else {
-                        getString(R.string.no_ratings_available)
-                    }
+                text = getString(R.string.submit_first_rating)
             }
         }
         else {
@@ -224,7 +215,7 @@ class MyRatingsFragment :
     override fun onViewTypeChanged() {
         myRatingsItemAdapter.isGridViewLayout = mainActivity.isGridView
         fragmentBinding.recyclerView.apply {
-            TransitionManager.beginDelayedTransition(this, AutoTransition())
+            TransitionManager.beginDelayedTransition(this, Fade())
             layoutManager = getViewStyle(requireContext(), mainActivity.isGridView)
             myRatingsItemAdapter.notifyItemRangeChanged(0, myRatingsItemAdapter.itemCount)
             smoothScrollToPosition(0) // Scroll to top
