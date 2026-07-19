@@ -41,6 +41,7 @@ import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.CONF_BEFORE_SUBMIT
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
+import tech.techlore.plexus.utils.UiUtils.Companion.convertDpToPx
 import kotlin.getValue
 
 class SettingsFragment : Fragment() {
@@ -66,9 +67,12 @@ class SettingsFragment : Fragment() {
         ViewCompat.setOnApplyWindowInsetsListener(fragmentBinding.settingsScrollView) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                         or WindowInsetsCompat.Type.displayCutout())
-            v.updatePadding(left = insets.left,
-                            bottom = insets.bottom,
-                            right = insets.right)
+            v.updatePadding(
+                left = insets.left,
+                right = insets.right,
+                bottom = insets.bottom + convertDpToPx(requireContext(), 64f)
+                // Docked toolbar height = 64dp
+            )
             
             WindowInsetsCompat.CONSUMED
         }
