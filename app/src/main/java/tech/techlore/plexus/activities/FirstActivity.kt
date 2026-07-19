@@ -169,14 +169,11 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
                         androidVersion = getAndroidVersionString()
                     }
                     startActivity(
-                        if (packageNameString != null) {
+                        packageNameString?.let {
                             Intent(this@FirstActivity, AppDetailsActivity::class.java)
                                 .putExtra("packageName", packageName)
                                 .putExtra("fromShortcut", true)
-                        }
-                        else {
-                            Intent(this@FirstActivity, MainActivity::class.java)
-                        }
+                        } ?: Intent(this@FirstActivity, MainActivity::class.java)
                     )
                     finishAfterTransition()
                 }

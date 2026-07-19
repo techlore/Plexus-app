@@ -51,7 +51,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
     
     private val apiRepository by inject<ApiRepository>()
     private val prefManager by inject<PreferenceManager>()
-    private val pagingConfig = PagingConfig(pageSize = 35, prefetchDistance = 10, enablePlaceholders = false)
+    private val pagingConfig = PagingConfig(pageSize = 25, prefetchDistance = 10, enablePlaceholders = false)
     
     suspend fun plexusDataIntoDB() {
         withContext(Dispatchers.IO) {

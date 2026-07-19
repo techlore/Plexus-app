@@ -52,27 +52,9 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/searchNavHost"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_64"
-        app:navGraph="@navigation/search_fragment_nav_graph"
-        app:defaultNavHost="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/emptySearchView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/no_apps_found"
-        android:textSize="@dimen/text_17"
-        android:textColor="?attr/colorControlNormal"
-        app:drawableTopCompat="@drawable/ic_no_apps"
-        android:drawablePadding="@dimen/margin_10"
-        android:visibility="gone"/>
+    <include
+        android:id="@+id/searchRecyclerViewRoot"
+        layout="@layout/recycler_view"/>
 
     <com.google.android.material.dockedtoolbar.DockedToolbarLayout
         android:id="@+id/searchDockedToolbar"

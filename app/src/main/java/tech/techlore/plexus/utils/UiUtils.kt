@@ -110,9 +110,14 @@ class UiUtils {
             ViewCompat.setOnApplyWindowInsetsListener(this) { v, windowInsets ->
                 val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
                                                             or WindowInsetsCompat.Type.displayCutout())
-                v.updatePadding(left = insets.left,
-                                right = insets.right,
-                                bottom = insets.bottom + convertDpToPx(context, 10f))
+                v.updatePadding(
+                    left = insets.left,
+                    right = insets.right,
+                    bottom = insets.bottom + convertDpToPx(context, 74f)
+                    // 74 = 64 + 10
+                    // Docked toolbar height = 64dp
+                    // Space between docked toolbar & last item in recycler view = 10dp
+                )
                 
                 WindowInsetsCompat.CONSUMED
             }

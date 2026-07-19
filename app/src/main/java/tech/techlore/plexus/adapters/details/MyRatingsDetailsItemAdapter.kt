@@ -69,6 +69,7 @@ class MyRatingsDetailsItemAdapter(
         
         // Notes
         if (!myRatingsDetails.notes.isNullOrEmpty()) {
+            holder.notesCard.isVisible = true
             holder.notes.text = myRatingsDetails.notes
             holder.translateBtn.visibility = View.INVISIBLE
         }

@@ -34,7 +34,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.paging.LoadState
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.google.android.material.textview.MaterialTextView
@@ -74,6 +73,7 @@ class MyRatingsFragment :
     private lateinit var myRatingsItemAdapter: MyRatingsItemAdapter
     private var ascDescChipId = 0
     private var pagingJob: Job? = null
+    private var shouldScrollToTop = false
     private var isViewStubInflated = false
     private var clickedItemPackageName = ""
     private var isMyRatingCountChanged = false
@@ -182,20 +182,35 @@ class MyRatingsFragment :
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     launch {
+                        myRatingsItemAdapter.onPagesUpdatedFlow.collect {
+                            if (myRatingsItemAdapter.itemCount == 0) showEmptyListView()
+                            else {
+                                hideEmptyListView()
+                                
+                                // Scroll to top only when sort prefs changed,
+                                // not when items inserted/deleted/updated
+                                if (shouldScrollToTop) {
+                                    fragmentBinding.recyclerView.apply {
+                                        // Use scrollToPosition(0)
+                                        // instead of smoothScrollToPosition(0)
+                                        // or else appbar & recycler view will start having issues
+                                        scrollToPosition(0)
+                                        post {
+                                            mainActivity.activityBinding.mainAppBar.isLifted = false
+                                        }
+                                    }
+                                    shouldScrollToTop = false
+                                }
+                            }
+                        }
+                    }
+                    
+                    launch {
                         myRatingsRepository
                             .getSortedMyRatingsByName(orderPref = ascDescChipId)
                             .collectLatest { pagingData ->
                                 myRatingsItemAdapter.submitData(pagingData)
                             }
-                    }
-                    
-                    launch {
-                        myRatingsItemAdapter.loadStateFlow.collectLatest { loadStates ->
-                            if (loadStates.refresh is LoadState.NotLoading) {
-                                if (myRatingsItemAdapter.itemCount == 0) showEmptyListView()
-                                else hideEmptyListView()
-                            }
-                        }
                     }
                 }
             }
@@ -229,7 +244,6 @@ class MyRatingsFragment :
         if (myRatingsItemAdapter.itemCount != 0) {
             setSortPrefs()
             loadPagedData()
-            fragmentBinding.recyclerView.smoothScrollToPosition(0)
         }
     }
     

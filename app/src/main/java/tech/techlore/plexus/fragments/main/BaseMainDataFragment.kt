@@ -26,7 +26,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
@@ -73,6 +72,7 @@ abstract class BaseMainDataFragment
     protected var installedFromChipId = 0
     protected var statusToggleBtnId = 0
     private var pagingJob: Job? = null
+    private var shouldScrollToTop = false
     private var isViewStubInflated = false
     
     override fun onCreateView(inflater: LayoutInflater,
@@ -151,17 +151,30 @@ abstract class BaseMainDataFragment
         pagingJob = viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    getDataFromDB().collectLatest { pagingData ->
-                        mainDataItemAdapter.submitData(pagingData)
+                    mainDataItemAdapter.onPagesUpdatedFlow.collect {
+                        if (mainDataItemAdapter.itemCount == 0) showEmptyListView()
+                        else hideEmptyListView()
+                        
+                        // Scroll to top only when sort prefs changed,
+                        // not when items inserted/deleted/updated
+                        if (shouldScrollToTop) {
+                            fragmentBinding.recyclerView.apply {
+                                // Use scrollToPosition(0)
+                                // instead of smoothScrollToPosition(0)
+                                // or else appbar & recycler view will start having issues
+                                scrollToPosition(0)
+                                post {
+                                    mainActivity.activityBinding.mainAppBar.isLifted = false
+                                }
+                            }
+                            shouldScrollToTop = false
+                        }
                     }
                 }
                 
                 launch {
-                    mainDataItemAdapter.loadStateFlow.collect { loadStates ->
-                        if (loadStates.refresh is LoadState.NotLoading) {
-                            if (mainDataItemAdapter.itemCount == 0) showEmptyListView()
-                            else hideEmptyListView()
-                        }
+                    getDataFromDB().collectLatest { pagingData ->
+                        mainDataItemAdapter.submitData(pagingData)
                     }
                 }
             }
@@ -186,8 +199,8 @@ abstract class BaseMainDataFragment
     
     override fun onSortPrefsChanged() {
         setSortPrefs()
+        shouldScrollToTop = true
         loadPagedData()
-        fragmentBinding.recyclerView.smoothScrollToPosition(0) // Scroll to top
     }
     
     override fun onFavToggled(name: String, packageName: String, isChecked: Boolean) {
