@@ -1,8 +1,9 @@
 # CHANGELOG
 
 
-## v2.1.8
+## v2.1.9
 - Support for Android 17.
+- Added option to delete submitted ratings.
 - Fix connection issues when using proxies.
 - Fixed app crashing in some cases while searching.
 - New translations & updated existing ones (contributed by the community).

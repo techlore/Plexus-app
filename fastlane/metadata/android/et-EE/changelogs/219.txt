@@ -1,4 +1,5 @@
 - Android 17 tugi.
+- Lisati võimalus kustutada esitatud hinnanguid.
 - Parandatud ühendusprobleemid prokside kasutamisel.
 - Parandatud rakenduse kokkujooksmine teatud juhtudel otsingu ajal.
 - Uued tõlked ja olemasolevate tõlgete uuendamine (kogukonna poolt esitatud).

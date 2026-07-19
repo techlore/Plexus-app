@@ -1,4 +1,5 @@
 - Supporto per Android 17.
+- Aggiunta la possibilità di eliminare le valutazioni inviate.
 - Risolti i problemi di connessione durante l'utilizzo dei proxy.
 - Risolto il problema che causava il crash dell'app in alcuni casi durante la ricerca.
 - Nuove traduzioni e aggiornamenti di quelle esistenti (fornite dalla comunità).

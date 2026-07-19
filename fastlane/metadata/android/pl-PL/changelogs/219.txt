@@ -1,4 +1,5 @@
 - Obsługa systemu Android 17.
+- Dodano możliwość usuwania przesłanych ocen.
 - Naprawiono problemy z połączeniem podczas korzystania z serwerów proxy.
 - Naprawiono awarię aplikacji występującą w niektórych przypadkach podczas wyszukiwania.
 - Nowe tłumaczenia i aktualizacja istniejących (dostarczone przez społeczność).

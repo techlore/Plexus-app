@@ -1,4 +1,5 @@
 - Android 17 desteği.
+- Gönderilen puanlamaları silme seçeneği eklendi.
 - Proxy kullanılırken yaşanan bağlantı sorunları giderildi.
 - Arama sırasında bazı durumlarda uygulamanın çökmesi sorunu giderildi.
 - Yeni çeviriler eklendi ve mevcut çeviriler güncellendi (topluluk tarafından sağlandı).

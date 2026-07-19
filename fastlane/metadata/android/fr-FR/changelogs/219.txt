@@ -1,4 +1,5 @@
 - Prise en charge d'Android 17.
+- Ajout de l’option permettant de supprimer les évaluations envoyées.
 - Correction des problèmes de connexion lors de l'utilisation de proxys.
 - Correction des plantages de l'application pouvant survenir dans certains cas lors d'une recherche.
 - Nouvelles traductions et mise à jour des traductions existantes (fournies par la communauté).

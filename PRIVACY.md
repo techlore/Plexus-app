@@ -12,6 +12,7 @@ The app requires the following permissions:
 - **ACCESS_NETWORK_STATE**: Required to determine whether an internet connection is available before initiating any network request.
 - **INTERNET**: Required to retrieve the data from the server and submit your ratings.
 - **QUERY_ALL_PACKAGES**: Required to scan all the installed apps on your device.
+- **INSTALL_SHORTCUT**: Required to create shortcuts on your device's home screen. Enables quick access to a specific app's details page.
 
 
 ## Data collection
@@ -23,12 +24,12 @@ The app requires the following permissions:
   - App package
   - App version
   - App build
-  - Installation source of the app (Google Play alternative/F-Droid/apk)
+  - Installation source of the app (`Google Play alternative`/`F-Droid`/`apk`)
   - ROM name
-  - Device brand and model (only if Stock ROM is selected)
+  - Device brand and model (only if `Stock ROM` is selected)
   - ROM build
   - Android version
-  - de-Googled device or microG
+  - Device status (`de-Googled`/`microG`)
   - Your rating
   - Any information you optionally submit in the notes field
 
@@ -40,4 +41,4 @@ This app does not contain any trackers, you can check the [εxodus report](https
 ## Changes to our privacy policy
 We reserve the right to modify this Privacy Policy and our Terms of Use as needed. If any changes are made, we will post them on this page to ensure you are always aware of the information we collect, how we use it, and when we disclose it. It is your responsibility to review any updates to this Privacy Policy. If you disagree with any modifications, if and when such changes may be made to this Privacy Policy, you must stop using this application.
 
-**Last modified: Sep 13, 2023**
+**Last modified: July 19, 2026**

@@ -1,4 +1,5 @@
 - Unterstützung für Android 17.
+- Option zum Löschen übermittelter Bewertungen hinzugefügt.
 - Behebung von Verbindungsproblemen bei der Verwendung von Proxys.
 - Behebung eines App-Absturzes, der in einigen Fällen während der Suche auftrat.
 - Neue Übersetzungen und Aktualisierung bestehender Übersetzungen (von der Community beigesteuert).
