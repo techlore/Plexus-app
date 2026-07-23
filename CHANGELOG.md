@@ -1,6 +1,10 @@
 # CHANGELOG
 
 
+## v2.2.0
+- Fixed app crashing on start in older devices.
+
+
 ## v2.1.9
 - Support for Android 17.
 - Added option to delete submitted ratings.
