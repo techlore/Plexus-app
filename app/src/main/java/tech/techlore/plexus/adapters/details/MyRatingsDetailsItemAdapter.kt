@@ -24,12 +24,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.R
-import tech.techlore.plexus.diffcallbacks.MyRatingsDetailsDiffCallback
 import tech.techlore.plexus.interfaces.details.DeleteBtnClickListener
 import tech.techlore.plexus.models.myratings.MyRatingDetails
 import tech.techlore.plexus.utils.UiUtils.Companion.formatRfc3339ToLocalized
@@ -38,7 +38,19 @@ import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithIcon
 
 class MyRatingsDetailsItemAdapter(
     private val deleteBtnClickListener: DeleteBtnClickListener
-) : ListAdapter<MyRatingDetails, MyRatingsDetailsItemAdapter.ListViewHolder>(MyRatingsDetailsDiffCallback()) {
+) : ListAdapter<MyRatingDetails, MyRatingsDetailsItemAdapter.ListViewHolder>(DIFF_CALLBACK) {
+    
+    private companion object {
+        private val DIFF_CALLBACK =
+            object : DiffUtil.ItemCallback<MyRatingDetails>() {
+                override fun areItemsTheSame(oldItem: MyRatingDetails, newItem: MyRatingDetails): Boolean {
+                    return oldItem.id == newItem.id
+                }
+                override fun areContentsTheSame(oldItem: MyRatingDetails, newItem: MyRatingDetails): Boolean {
+                    return oldItem == newItem
+                }
+            }
+    }
     
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val notesCard: LinearLayout = itemView.findViewById(R.id.ratingsNotesCard)

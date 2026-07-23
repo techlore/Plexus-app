@@ -22,12 +22,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 import me.stellarsand.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
-import tech.techlore.plexus.diffcallbacks.MainDataMiniDiffCallback
 import tech.techlore.plexus.interfaces.main.FavToggleListener
 import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.utils.UiUtils.Companion.hScroll
@@ -36,7 +36,7 @@ import tech.techlore.plexus.utils.UiUtils.Companion.setStatusStyleWithoutIcon
 
 class MainDataItemAdapter(private val clickListener: OnItemClickListener,
                           private val favToggleListener: FavToggleListener) :
-    PagingDataAdapter<MainDataMini, MainDataItemAdapter.ListViewHolder>(MainDataMiniDiffCallback()),
+    PagingDataAdapter<MainDataMini, MainDataItemAdapter.ListViewHolder>(DIFF_CALLBACK),
     PopupTextProvider {
     
     var isGridViewLayout = false
@@ -44,6 +44,15 @@ class MainDataItemAdapter(private val clickListener: OnItemClickListener,
     private companion object {
         private const val VIEW_TYPE_LIST = 0
         private const val VIEW_TYPE_GRID = 1
+        private val DIFF_CALLBACK =
+            object : DiffUtil.ItemCallback<MainDataMini>() {
+                override fun areItemsTheSame(oldItem: MainDataMini, newItem: MainDataMini): Boolean {
+                    return oldItem.packageName == newItem.packageName
+                }
+                override fun areContentsTheSame(oldItem: MainDataMini, newItem: MainDataMini): Boolean {
+                    return oldItem == newItem
+                }
+            }
     }
     
     interface OnItemClickListener {

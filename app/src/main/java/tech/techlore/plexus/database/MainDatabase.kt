@@ -22,7 +22,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.sqlite.SQLiteConnection
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import androidx.sqlite.execSQL
 import tech.techlore.plexus.dao.MainDataDao
 import tech.techlore.plexus.dao.MyRatingsDao
 import tech.techlore.plexus.models.main.MainData
@@ -44,9 +46,9 @@ abstract class MainDatabase : RoomDatabase() {
         private var INSTANCE: MainDatabase? = null
         
         val MIGRATION_1_TO_2 = object : Migration(1, 2) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE my_ratings_table ADD COLUMN totalRatings INTEGER NOT NULL DEFAULT 0")
-                db.execSQL("UPDATE my_ratings_table SET totalRatings = coalesce(json_array_length(ratingsDetails), 0)")
+            override fun migrate(connection: SQLiteConnection) {
+                connection.execSQL("ALTER TABLE my_ratings_table ADD COLUMN totalRatings INTEGER NOT NULL DEFAULT 0")
+                connection.execSQL("UPDATE my_ratings_table SET totalRatings = coalesce(json_array_length(ratingsDetails), 0)")
             }
         }
         
@@ -58,6 +60,7 @@ abstract class MainDatabase : RoomDatabase() {
                         MainDatabase::class.java,
                         "main_database.db"
                     )
+                    .setDriver(BundledSQLiteDriver())
                     .addMigrations(MIGRATION_1_TO_2)
                     .build()
                     .also { INSTANCE = it }

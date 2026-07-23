@@ -48,7 +48,7 @@ class MyRatingsRepository(private val myRatingsDao: MyRatingsDao) {
     
     fun getSortedMyRatingsByName(orderPref: Int): Flow<PagingData<MyRatingMini>> {
         return Pager(
-            config = PagingConfig(pageSize = 35, prefetchDistance = 8, enablePlaceholders = false),
+            config = PagingConfig(pageSize = 25, prefetchDistance = 10, enablePlaceholders = false),
             pagingSourceFactory = {
                 myRatingsDao.getSortedMyRatingsByName(orderPref != R.id.sortZA)
             }

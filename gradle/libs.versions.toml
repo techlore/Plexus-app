@@ -31,6 +31,7 @@ kotlinxSerialization = "1.11.0"
 paging3 = "3.5.0"
 ktor = "3.5.1"
 room = "2.8.4"
+sqlBundledDriver = "2.7.0"
 coil = "3.5.0"
 androidfastscrollKt = "v1.0.8"
 ksoup = "0.2.6"
@@ -58,6 +59,7 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlBundledDriver" }
 coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 androidFastScrollKt = { module = "com.github.StellarSand:AndroidFastScroll-kt", version.ref = "androidfastscrollKt" }
@@ -69,7 +71,7 @@ lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 androidxCoreComponents = ["androidx-appcompat", "androidx-core-ktx", "androidx-core-splashscreen"]
 navigation = ["androidx-navigation-runtime-ktx", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
 ktor = ["ktor", "ktor-engine", "ktor-content-negotiation", "ktor-converter-kotlinx-serialization"]
-room = ["androidx-room-runtime", "androidx-room-ktx", "androidx-room-paging"]
+room = ["androidx-room-runtime", "androidx-room-ktx", "androidx-room-paging", "androidx-sqlite-bundled"]
 coil = ["coil", "coil-network"]
 ksoup = ["ksoup", "ksoup-network"]
 

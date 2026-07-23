@@ -30,7 +30,7 @@ import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 class LicenseItemAdapter(private val aListViewItems: ArrayList<License>,
                          private val mainActivity: MainActivity) : RecyclerView.Adapter<LicenseItemAdapter.ListViewHolder>() {
     
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
         val licenseTitle: MaterialTextView = itemView.findViewById(R.id.licenseTitle)
         val licenseDesc: MaterialTextView = itemView.findViewById(R.id.licenseDesc)
@@ -60,9 +60,5 @@ class LicenseItemAdapter(private val aListViewItems: ArrayList<License>,
     
     override fun getItemCount(): Int {
         return aListViewItems.size
-    }
-    
-    override fun getItemViewType(position: Int): Int {
-        return position
     }
 }

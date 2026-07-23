@@ -32,7 +32,7 @@ import tech.techlore.plexus.utils.IntentUtils.Companion.openURL
 class SupportMethodItemAdapter (private val aListViewItems: ArrayList<SupportMethod>,
                                 private val mainActivity: MainActivity) : RecyclerView.Adapter<SupportMethodItemAdapter.ListViewHolder>() {
     
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         
         val supportMethodTitle: MaterialTextView = itemView.findViewById(R.id.supportMethodTitle)
         val supportMethodQr: ShapeableImageView = itemView.findViewById(R.id.supportMethodQr)
@@ -71,9 +71,5 @@ class SupportMethodItemAdapter (private val aListViewItems: ArrayList<SupportMet
     
     override fun getItemCount(): Int {
         return aListViewItems.size
-    }
-    
-    override fun getItemViewType(position: Int): Int {
-        return position
     }
 }

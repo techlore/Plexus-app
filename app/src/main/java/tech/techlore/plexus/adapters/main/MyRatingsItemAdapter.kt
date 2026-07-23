@@ -22,18 +22,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import me.stellarsand.android.fastscroll.PopupTextProvider
 import tech.techlore.plexus.R
-import tech.techlore.plexus.diffcallbacks.MyRatingMiniDiffCallback
 import tech.techlore.plexus.models.mini.MyRatingMini
 import tech.techlore.plexus.utils.UiUtils.Companion.displayAppIcon
 
 class MyRatingsItemAdapter(
     private val clickListener: OnItemClickListener
-) : PagingDataAdapter<MyRatingMini, MyRatingsItemAdapter.ListViewHolder>(MyRatingMiniDiffCallback()),
+) : PagingDataAdapter<MyRatingMini, MyRatingsItemAdapter.ListViewHolder>(DIFF_CALLBACK),
     PopupTextProvider {
     
     var isGridViewLayout = false
@@ -41,6 +41,15 @@ class MyRatingsItemAdapter(
     private companion object {
         private const val VIEW_TYPE_LIST = 0
         private const val VIEW_TYPE_GRID = 1
+        private val DIFF_CALLBACK =
+            object : DiffUtil.ItemCallback<MyRatingMini>() {
+                override fun areItemsTheSame(oldItem: MyRatingMini, newItem: MyRatingMini): Boolean {
+                    return oldItem.packageName == newItem.packageName
+                }
+                override fun areContentsTheSame(oldItem: MyRatingMini, newItem: MyRatingMini): Boolean {
+                    return oldItem == newItem
+                }
+            }
     }
     
     interface OnItemClickListener {
