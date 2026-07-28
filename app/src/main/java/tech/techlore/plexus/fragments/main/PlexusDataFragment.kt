@@ -26,7 +26,7 @@ import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
-import tech.techlore.plexus.utils.TimeUtils.Companion.isLastFullDataUpdateMoreThan20Mins
+import tech.techlore.plexus.utils.TimeUtils.Companion.isLastFullDataUpdateMoreThan10Mins
 
 class PlexusDataFragment : BaseMainDataFragment() {
     
@@ -38,7 +38,7 @@ class PlexusDataFragment : BaseMainDataFragment() {
     }
     
     override fun onSwipeRefresh() {
-        if (!isLastFullDataUpdateMoreThan20Mins()) fragmentBinding.swipeRefreshLayout.isRefreshing = false
+        if (!isLastFullDataUpdateMoreThan10Mins()) fragmentBinding.swipeRefreshLayout.isRefreshing = false
         else {
             lifecycleScope.launch {
                 if (hasInternet(requireContext())) {

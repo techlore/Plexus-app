@@ -43,15 +43,18 @@ import tech.techlore.plexus.bottomsheets.common.HelpBottomSheet
 import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.interfaces.HelpBtmSheetDismissedListener
 import tech.techlore.plexus.objects.AppState
+import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.objects.DeviceState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager.Companion.DEVICE_ROM
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.IS_FIRST_LAUNCH
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.LAST_FULL_DATA_UPDATE
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MATERIAL_YOU
 import tech.techlore.plexus.repositories.database.MainDataRepository
 import tech.techlore.plexus.utils.DeviceUtils.Companion.isDeviceDeGoogledOrMicroG
 import tech.techlore.plexus.utils.NetworkUtils.Companion.hasInternet
+import tech.techlore.plexus.utils.TimeUtils.Companion.isLastFullDataUpdateMoreThan10Mins
 import tech.techlore.plexus.utils.UiUtils.Companion.hideViewWithAnim
 import tech.techlore.plexus.utils.UiUtils.Companion.setNavBarContrastEnforced
 import tech.techlore.plexus.utils.UiUtils.Companion.showViewWithAnim
@@ -61,6 +64,7 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
     
     private lateinit var activityBinding: ActivityFirstBinding
     private val prefManager by inject<PreferenceManager>()
+    private val mainDataRepository by inject<MainDataRepository>()
     private var packageNameString: String? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,51 +157,56 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
     
     private fun retrieveData() {
         lifecycleScope.launch {
-            if (hasInternet(this@FirstActivity)) {
-                try {
-                    get<MainDataRepository>().apply {
-                        packageNameString?.let {
-                            updateSingleApp(it)
-                        } ?: plexusDataIntoDB()
-                        
-                        activityBinding.progressText.text = getString(R.string.scan_installed)
-                        installedAppsIntoDB(this@FirstActivity)
-                    }
-                    isDeviceDeGoogledOrMicroG(packageManager)
-                    DeviceState.apply {
-                        rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).orEmpty()
-                        androidVersion = getAndroidVersionString()
-                    }
-                    startActivity(
-                        packageNameString?.let {
-                            Intent(this@FirstActivity, AppDetailsActivity::class.java)
-                                .putExtra("packageName", packageName)
-                                .putExtra("fromShortcut", true)
-                        } ?: Intent(this@FirstActivity, MainActivity::class.java)
-                    )
-                    finishAfterTransition()
-                }
-                catch (e: Exception) {
-                    ExceptionErrorBottomSheet(
-                        exception = e,
-                        negativeBtnText = getString(R.string.exit),
-                        onPositiveBtnClick = { retrieveData() },
-                        onNegativeBtnClick = {
-                            finishAndRemoveTask()
-                            exitProcess(0)
+            try {
+                DataState.lastFullDataUpdateTimeMs = prefManager.getLong(LAST_FULL_DATA_UPDATE)
+                
+                if (isLastFullDataUpdateMoreThan10Mins()) {
+                    if (hasInternet(this@FirstActivity)) {
+                        mainDataRepository.apply {
+                            packageNameString?.let {
+                                updateSingleApp(it)
+                            } ?: plexusDataIntoDB()
                         }
-                    ).show(supportFragmentManager, "ExceptionErrorBottomSheet")
+                    }
+                    else {
+                        NoNetworkBottomSheet(
+                            negativeBtnText = getString(R.string.exit),
+                            onPositiveBtnClick = { retrieveData() },
+                            onNegativeBtnClick = {
+                                finishAndRemoveTask()
+                                exitProcess(0)
+                            }
+                        ).show(supportFragmentManager, "NoNetworkBottomSheet")
+                        return@launch
+                    }
                 }
+                
+                activityBinding.progressText.text = getString(R.string.scan_installed)
+                mainDataRepository.installedAppsIntoDB(this@FirstActivity)
+                isDeviceDeGoogledOrMicroG(packageManager)
+                DeviceState.apply {
+                    rom = get<EncryptedPreferenceManager>().getString(DEVICE_ROM).orEmpty()
+                    androidVersion = getAndroidVersionString()
+                }
+                startActivity(
+                    packageNameString?.let {
+                        Intent(this@FirstActivity, AppDetailsActivity::class.java)
+                            .putExtra("packageName", packageName)
+                            .putExtra("fromShortcut", true)
+                    } ?: Intent(this@FirstActivity, MainActivity::class.java)
+                )
+                finishAfterTransition()
             }
-            else {
-                NoNetworkBottomSheet(
+            catch (e: Exception) {
+                ExceptionErrorBottomSheet(
+                    exception = e,
                     negativeBtnText = getString(R.string.exit),
                     onPositiveBtnClick = { retrieveData() },
                     onNegativeBtnClick = {
                         finishAndRemoveTask()
                         exitProcess(0)
                     }
-                ).show(supportFragmentManager, "NoNetworkBottomSheet")
+                ).show(supportFragmentManager, "ExceptionErrorBottomSheet")
             }
         }
     }

@@ -24,6 +24,7 @@ class PreferenceManager(context: Context) {
     companion object {
         const val IS_FIRST_LAUNCH = "is_first_launch"
         const val LAST_UPDATED = "last_updated"
+        const val LAST_FULL_DATA_UPDATE = "last_full_data_update"
         const val SHOW_DEV_VERF_WARNING =  "show_dev_verf_warning"
         const val A_Z_SORT = "a_z_sort"
         const val GRID_VIEW = "grid_view"
@@ -58,6 +59,17 @@ class PreferenceManager(context: Context) {
     fun setInt(key: String, value: Int) {
         sharedPreferences.edit().apply {
             putInt(key, value)
+            apply()
+        }
+    }
+    
+    fun getLong(key: String, defValue: Long = 0L): Long {
+        return sharedPreferences.getLong(key, defValue)
+    }
+    
+    fun setLong(key: String, value: Long) {
+        sharedPreferences.edit().apply {
+            putLong(key, value)
             apply()
         }
     }

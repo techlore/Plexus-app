@@ -23,10 +23,10 @@ class TimeUtils {
     
     companion object {
         
-        private const val TWENTY_MINS_IN_MS = 1200000L
+        private const val TEN_MINS_IN_MS = 600000L
         
-        fun isLastFullDataUpdateMoreThan20Mins(): Boolean {
-            return(System.currentTimeMillis() - DataState.lastFullDataUpdateTimeMs) > TWENTY_MINS_IN_MS
+        fun isLastFullDataUpdateMoreThan10Mins(): Boolean {
+            return(System.currentTimeMillis() - DataState.lastFullDataUpdateTimeMs) > TEN_MINS_IN_MS
         }
         
     }

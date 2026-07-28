@@ -38,6 +38,7 @@ import tech.techlore.plexus.models.mini.MainDataMini
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.PreferenceManager
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.DG_STATUS_SORT
+import tech.techlore.plexus.preferences.PreferenceManager.Companion.LAST_FULL_DATA_UPDATE
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.LAST_UPDATED
 import tech.techlore.plexus.preferences.PreferenceManager.Companion.MG_STATUS_SORT
 import tech.techlore.plexus.repositories.api.ApiRepository
@@ -77,6 +78,7 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
             
             currentDateTime.let {
                 DataState.lastFullDataUpdateTimeMs = it.time
+                prefManager.setLong(LAST_FULL_DATA_UPDATE, it.time)
                 prefManager.setString(
                     LAST_UPDATED,
                     get<DateTimeFormatter>(named("formattedLastUpdatedDate"))

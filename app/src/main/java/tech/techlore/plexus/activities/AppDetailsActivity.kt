@@ -68,7 +68,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.interfaces.details.SubmitConfirmClickListener
-import tech.techlore.plexus.utils.TimeUtils.Companion.isLastFullDataUpdateMoreThan20Mins
+import tech.techlore.plexus.utils.TimeUtils.Companion.isLastFullDataUpdateMoreThan10Mins
 import kotlin.system.exitProcess
 
 class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
@@ -275,7 +275,7 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
                     // Since the latest ratings are already retrieved,
                     // get latest score of current app & update in DB
                     if (
-                        isLastFullDataUpdateMoreThan20Mins()
+                        isLastFullDataUpdateMoreThan10Mins()
                         && !isFromShortcut
                         && hasRatings
                     ) {
