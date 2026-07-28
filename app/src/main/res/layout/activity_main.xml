@@ -25,7 +25,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity"
+    android:transitionGroup="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/mainAppBar"

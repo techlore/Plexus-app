@@ -94,8 +94,9 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangeListene
                 MaterialSharedAxis(
                     if (isFromShortcut) MaterialSharedAxis.X else MaterialSharedAxis.Z,
                     true
-                )
-            returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+                ).apply { duration = 300L }
+            returnTransition =
+                MaterialSharedAxis(MaterialSharedAxis.Z, false).apply { duration = 300L }
         }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
