@@ -1,6 +1,10 @@
 # CHANGELOG
 
 
+## v2.2.1
+- Fixed certificate pinning errors.
+
+
 ## v2.2.0
 - Fixed app crashing on start in older devices.
 
