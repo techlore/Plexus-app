@@ -94,9 +94,8 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangeListene
                 MaterialSharedAxis(
                     if (isFromShortcut) MaterialSharedAxis.X else MaterialSharedAxis.Z,
                     true
-                ).apply { duration = 300L }
-            returnTransition =
-                MaterialSharedAxis(MaterialSharedAxis.Z, false).apply { duration = 300L }
+                )
+            returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -141,7 +140,7 @@ abstract class BaseDetailsActivity : AppCompatActivity(), SortPrefsChangeListene
         }
         
         lifecycleScope.launch {
-            app = mainRepository.getAppByPackage(packageNameString) !!
+            app = mainRepository.getAppByPackage(packageNameString)!!
             myRatingDetailsList =
                 myRatingsRepository.getMyRatingByPackage(packageNameString)?.let {
                     it.ratingsDetails as ArrayList<MyRatingDetails>

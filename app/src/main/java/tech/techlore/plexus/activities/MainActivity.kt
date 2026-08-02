@@ -73,12 +73,8 @@ class MainActivity : AppCompatActivity(), NavViewItemSelectListener, SortPrefsCh
             setNavBarContrastEnforced()
             requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
             enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                duration = 300L
-            }
-            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                duration = 300L
-            }
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)

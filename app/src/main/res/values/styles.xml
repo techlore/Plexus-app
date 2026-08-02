@@ -55,6 +55,7 @@
     </style>
 
     <style name="BaseThemeChipStyle" parent="BaseChipStyle">
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
         <item name="chipBackgroundColor">@color/chip_bg_color</item>
         <item name="closeIconSize">24dp</item>
         <item name="closeIconStartPadding">@dimen/margin_4</item>

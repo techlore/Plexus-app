@@ -83,14 +83,8 @@ class SearchActivity
         window.apply {
             setNavBarContrastEnforced()
             requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
-            enterTransition =
-                MaterialSharedAxis(MaterialSharedAxis.Y, true).apply {
-                    duration = 300L
-                }
-            returnTransition =
-                MaterialSharedAxis(MaterialSharedAxis.Y, false).apply {
-                    duration = 300L
-                }
+            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
+            returnTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
         }
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)

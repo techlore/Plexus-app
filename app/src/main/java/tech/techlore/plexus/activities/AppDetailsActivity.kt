@@ -44,7 +44,6 @@ import tech.techlore.plexus.bottomsheets.common.NoNetworkBottomSheet
 import tech.techlore.plexus.bottomsheets.appdetails.RateBottomSheet
 import tech.techlore.plexus.bottomsheets.appdetails.UploadBottomSheet
 import tech.techlore.plexus.models.get.ratings.Rating
-import tech.techlore.plexus.models.ratingrange.RatingRange
 import tech.techlore.plexus.objects.AppState
 import tech.techlore.plexus.objects.DataState
 import tech.techlore.plexus.preferences.EncryptedPreferenceManager
@@ -68,7 +67,8 @@ import androidx.core.graphics.drawable.toBitmap
 import com.google.android.material.textview.MaterialTextView
 import tech.techlore.plexus.bottomsheets.common.ExceptionErrorBottomSheet
 import tech.techlore.plexus.interfaces.details.SubmitConfirmClickListener
-import tech.techlore.plexus.utils.TimeUtils.Companion.isLastFullDataUpdateMoreThan10Mins
+import kotlin.collections.forEach
+import kotlin.math.truncate
 import kotlin.system.exitProcess
 
 class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
@@ -272,18 +272,6 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
                         }
                     }
                     
-                    // Since the latest ratings are already retrieved,
-                    // get latest score of current app & update in DB
-                    if (
-                        isLastFullDataUpdateMoreThan10Mins()
-                        && !isFromShortcut
-                        && hasRatings
-                    ) {
-                        mainRepository.updateSingleApp(packageName = packageNameString)
-                        app = mainRepository.getAppByPackage(packageNameString)!!
-                        DataState.isSingleAppUpdated = true
-                    }
-                    
                     afterRatingsRetrieved()
                 }
                 catch (e: Exception) {
@@ -309,31 +297,49 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
     @SuppressLint("SetTextI18n")
     private fun afterRatingsRetrieved(){
         lifecycleScope.launch {
+            var newTotalDgRatings = 0
+            var newTotalMgRatings = 0
+            var dgScoreSum = 0.0f
+            var mgScoreSum = 0.0f
+            
             withContext(Dispatchers.Default) {
-                val ratingRanges = arrayOf(RatingRange("gold", 3.5f, 4.0f),
-                                           RatingRange("silver", 3.0f, 3.4f),
-                                           RatingRange("bronze", 2.0f, 2.9f),
-                                           RatingRange("broken", 1.0f, 1.9f))
+                val ratingCounts = mutableMapOf<String, Int>()
                 
-                val ratingCounts = mutableMapOf<Pair<String?, String>, Int>()
-                for (rating in ratingsList) {
-                    for (range in ratingRanges) {
-                        if (rating.ratingScore !!.ratingScore >= range.minValue
-                            && rating.ratingScore !!.ratingScore <= range.maxValue) {
-                            val key = rating.ratingType to range.status
-                            ratingCounts[key] = (ratingCounts[key] ?: 0) + 1
+                ratingsList.forEach {
+                    val ratingScore = it.ratingScore!!.ratingScore.toFloat()
+                    val ratingType = it.ratingType!!
+                    
+                    when (ratingType) {
+                        "native" -> {
+                            dgScoreSum += ratingScore
+                            newTotalDgRatings ++
+                        }
+                        else -> {
+                            mgScoreSum += ratingScore
+                            newTotalMgRatings ++
                         }
                     }
+                    
+                    val status =
+                        when (ratingScore) {
+                            in 3.5f..4.0f -> "gold"
+                            in 3.0f..3.4f -> "silver"
+                            in 2.0f..2.9f -> "bronze"
+                            else -> "broken"
+                        }
+                    
+                    val key = "${ratingType}:${status}"
+                    ratingCounts[key] = ratingCounts.getOrPut(key) { 0 } + 1
                 }
                 
-                dgGoldRatingsPercent = calcPercent(ratingCounts["native" to "gold"] ?: 0, app.totalDgRatings)
-                dgSilverRatingsPercent = calcPercent(ratingCounts["native" to "silver"] ?: 0, app.totalDgRatings)
-                dgBronzeRatingsPercent = calcPercent(ratingCounts["native" to "bronze"] ?: 0, app.totalDgRatings)
-                dgBrokenRatingsPercent = calcPercent(ratingCounts["native" to "broken"] ?: 0, app.totalDgRatings)
-                mgGoldRatingsPercent = calcPercent(ratingCounts["micro_g" to "gold"] ?: 0, app.totalMgRatings)
-                mgSilverRatingsPercent = calcPercent(ratingCounts["micro_g" to "silver"] ?: 0, app.totalMgRatings)
-                mgBronzeRatingsPercent = calcPercent(ratingCounts["micro_g" to "bronze"] ?: 0, app.totalMgRatings)
-                mgBrokenRatingsPercent = calcPercent(ratingCounts["micro_g" to "broken"] ?: 0, app.totalMgRatings)
+                dgGoldRatingsPercent = calcPercent(ratingCounts["native:gold"] ?: 0, app.totalDgRatings)
+                dgSilverRatingsPercent = calcPercent(ratingCounts["native:silver"] ?: 0, app.totalDgRatings)
+                dgBronzeRatingsPercent = calcPercent(ratingCounts["native:bronze"] ?: 0, app.totalDgRatings)
+                dgBrokenRatingsPercent = calcPercent(ratingCounts["native:broken"] ?: 0, app.totalDgRatings)
+                mgGoldRatingsPercent = calcPercent(ratingCounts["micro_g:gold"] ?: 0, app.totalMgRatings)
+                mgSilverRatingsPercent = calcPercent(ratingCounts["micro_g:silver"] ?: 0, app.totalMgRatings)
+                mgBronzeRatingsPercent = calcPercent(ratingCounts["micro_g:bronze"] ?: 0, app.totalMgRatings)
+                mgBrokenRatingsPercent = calcPercent(ratingCounts["micro_g:broken"] ?: 0, app.totalMgRatings)
                 
                 // Get different app versions, ROMs & android versions from ratings list
                 // and store them in a separate list to show in sort ratings bottom sheet
@@ -347,9 +353,27 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
                 
                 differentAndroidVerList =
                     arrayOf(getString(R.string.any)) +
-                    ratingsList.map { it.androidVersion }.distinct()
+                    ratingsList.map { it.androidVersion }.distinct().sortedByDescending { it }
                 
                 sortRatings()
+            }
+            
+            if (
+                !isFromShortcut
+                && hasRatings
+                && (app.totalDgRatings != newTotalDgRatings || app.totalMgRatings != newTotalMgRatings)
+            ) {
+                withContext(Dispatchers.IO) {
+                    app.apply {
+                        dgScore = calcAvgScore(dgScoreSum, newTotalDgRatings)
+                        totalDgRatings = newTotalDgRatings
+                        mgScore = calcAvgScore(mgScoreSum, newTotalMgRatings)
+                        totalMgRatings = newTotalMgRatings
+                        isInPlexusData = true
+                    }
+                    mainRepository.updateSingleApp(app)
+                    DataState.isSingleAppUpdated = true
+                }
             }
             
             // Toggle button group
@@ -406,10 +430,16 @@ class AppDetailsActivity : BaseDetailsActivity(), SubmitConfirmClickListener {
         }
     }
     
+    private fun calcAvgScore(totalRatingsSum: Float, ratingsCount: Int): Float {
+        return if (hasRatings) truncate((totalRatingsSum / ratingsCount.toFloat()) * 10.0f) / 10.0f
+        else 0.0f
+    }
+    
     private fun calcPercent(ratingsCount: Int, totalRatings: Int): Float {
-        return if (totalRatings == 0 || ratingsCount == 0) 0.0f else {
+        return if (!hasRatings) 0.0f
+        else {
             val result = (ratingsCount.toFloat() / totalRatings.toFloat()) * 100.0f
-            ((result * 10.0f).toInt().toFloat()) / 10.0f // Limit result to 1 decimal place without rounding off
+            truncate(result * 10.0f) / 10.0f // Limit result to 1 decimal place without rounding off
         }
     }
     
