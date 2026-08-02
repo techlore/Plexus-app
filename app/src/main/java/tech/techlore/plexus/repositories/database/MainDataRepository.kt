@@ -92,13 +92,15 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
         // Insert/update all apps in db
         getAppsRoot.appData.forEach { appData ->
             mainDataDao.insertOrUpdatePlexusData(
-                MainData(name = appData.name,
-                         packageName = appData.packageName,
-                         iconUrl = appData.iconUrl.orEmpty(),
-                         dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
-                         totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
-                         mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
-                         totalMgRatings = appData.scoresRoot.mgScore.totalRatings)
+                MainData(
+                    name = appData.name,
+                    packageName = appData.packageName,
+                    iconUrl = appData.iconUrl.orEmpty(),
+                    dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
+                    totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
+                    mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
+                    totalMgRatings = appData.scoresRoot.mgScore.totalRatings
+                )
             )
         }
     }
@@ -114,19 +116,20 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
                     when {
                         !it.isInPlexusData-> mainDataDao.delete(it)
                         else ->
-                            it.apply {
-                                isInstalled = false
-                                installedVersion = ""
+                            mainDataDao.updateInstalledApp(
+                                packageName = it.packageName,
+                                installedVersion = "",
+                                installedBuild = 0L,
+                                isInstalled = false,
                                 installedFrom = ""
-                                mainDataDao.update(it)
-                            }
+                            )
                     }
                 }
             }
             
             // Insert/update new data
             installedApps.forEach {
-                mainDataDao.insertOrUpdateInstalledApps(it)
+                mainDataDao.insertOrUpdateInstalledApp(it)
             }
         }
     }
@@ -233,19 +236,36 @@ class MainDataRepository(private val mainDataDao: MainDataDao): KoinComponent {
         }
     }
     
-    suspend fun updateSingleApp(packageName: String) {
+    suspend fun updateSingleApp(mainData: MainData) {
+        withContext(Dispatchers.IO) {
+            mainDataDao.updatePlexusData(
+                name = mainData.name,
+                packageName = mainData.packageName,
+                iconUrl = mainData.iconUrl,
+                dgScore = mainData.dgScore,
+                totalDgRatings = mainData.totalDgRatings,
+                mgScore = mainData.mgScore,
+                totalMgRatings = mainData.totalMgRatings,
+                isInPlexusData = mainData.isInPlexusData
+            )
+        }
+    }
+    
+    suspend fun insertOrUpdateSingleApp(packageName: String) {
         withContext(Dispatchers.IO) {
             val singleAppResponse = apiRepository.getSingleAppWithScores(packageName)
             val appData = singleAppResponse.appData
             mainDataDao.insertOrUpdatePlexusData(
-                MainData(name = appData.name,
-                         packageName = appData.packageName,
-                         iconUrl = appData.iconUrl.orEmpty(),
-                         dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
-                         totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
-                         mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
-                         totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
-                         isInPlexusData = true)
+                MainData(
+                    name = appData.name,
+                    packageName = appData.packageName,
+                    iconUrl = appData.iconUrl.orEmpty(),
+                    dgScore = appData.scoresRoot.dgScore.score.truncatedScore(),
+                    totalDgRatings = appData.scoresRoot.dgScore.totalRatings,
+                    mgScore = appData.scoresRoot.mgScore.score.truncatedScore(),
+                    totalMgRatings = appData.scoresRoot.mgScore.totalRatings,
+                    isInPlexusData = true
+                )
             )
         }
     }

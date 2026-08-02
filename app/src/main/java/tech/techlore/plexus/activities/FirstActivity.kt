@@ -164,7 +164,7 @@ class FirstActivity : AppCompatActivity(), HelpBtmSheetDismissedListener {
                     if (hasInternet(this@FirstActivity)) {
                         mainDataRepository.apply {
                             packageNameString?.let {
-                                updateSingleApp(it)
+                                insertOrUpdateSingleApp(it)
                             } ?: plexusDataIntoDB()
                         }
                     }

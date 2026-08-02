@@ -24,7 +24,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Update
 import tech.techlore.plexus.models.main.MainData
 import tech.techlore.plexus.models.mini.MainDataMini
 
@@ -34,41 +33,79 @@ interface MainDataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(mainData: MainData)
     
-    @Update
-    suspend fun update(mainData: MainData)
-    
     @Delete
     suspend fun delete(mainData: MainData)
     
+    @Query("""
+        UPDATE main_table
+        SET name = :name,
+            iconUrl = :iconUrl,
+            dgScore = :dgScore,
+            totalDgRatings = :totalDgRatings,
+            mgScore = :mgScore,
+            totalMgRatings = :totalMgRatings,
+            isInPlexusData = :isInPlexusData
+        WHERE packageName = :packageName
+    """)
+    suspend fun updatePlexusData(
+        name: String,
+        packageName: String,
+        iconUrl: String?,
+        dgScore: Float,
+        totalDgRatings: Int,
+        mgScore: Float,
+        totalMgRatings: Int,
+        isInPlexusData: Boolean
+    )
+    
+    @Query("""
+        UPDATE main_table
+        SET installedVersion = :installedVersion,
+            installedBuild = :installedBuild,
+            isInstalled = :isInstalled,
+            installedFrom = :installedFrom
+        WHERE packageName = :packageName
+    """)
+    suspend fun updateInstalledApp(
+        packageName: String,
+        installedVersion: String,
+        installedBuild: Long,
+        isInstalled: Boolean,
+        installedFrom: String
+    )
+    
+    @Query("SELECT EXISTS(SELECT 1 FROM main_table WHERE packageName = :packageName)")
+    suspend fun isAppinDb(packageName: String): Boolean
+    
     @Transaction
     suspend fun insertOrUpdatePlexusData(mainData: MainData) {
-        
-        val existingData = getAppByPackage(mainData.packageName)
-        
-        existingData?.apply {
-            name = mainData.name
-            iconUrl = mainData.iconUrl
-            dgScore = mainData.dgScore
-            totalDgRatings = mainData.totalDgRatings
-            mgScore = mainData.mgScore
-            totalMgRatings = mainData.totalMgRatings
-            isInPlexusData = mainData.isInPlexusData
-            update(this)
-        } ?: insert(mainData)
+        if (isAppinDb(mainData.packageName)) {
+            updatePlexusData(
+                name = mainData.name,
+                packageName = mainData.packageName,
+                iconUrl = mainData.iconUrl,
+                dgScore = mainData.dgScore,
+                totalDgRatings = mainData.totalDgRatings,
+                mgScore = mainData.mgScore,
+                totalMgRatings = mainData.totalMgRatings,
+                isInPlexusData = mainData.isInPlexusData
+            )
+        }
+        else insert(mainData)
     }
     
     @Transaction
-    suspend fun insertOrUpdateInstalledApps(mainData: MainData) {
-        
-        val existingApp = getAppByPackage(mainData.packageName)
-        
-        existingApp?.apply {
-            installedVersion = mainData.installedVersion
-            installedBuild = mainData.installedBuild
-            isInstalled = mainData.isInstalled
-            installedFrom = mainData.installedFrom
-            update(this)
-        } ?: run {
+    suspend fun insertOrUpdateInstalledApp(mainData: MainData) {
+        if (isAppinDb(mainData.packageName)) {
+            updateInstalledApp(
+                packageName = mainData.packageName,
+                installedVersion = mainData.installedVersion,
+                installedBuild = mainData.installedBuild,
+                isInstalled = mainData.isInstalled,
+                installedFrom = mainData.installedFrom
+            )
+        }
+        else {
             mainData.isInPlexusData = false
             insert(mainData)
         }

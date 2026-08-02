@@ -17,13 +17,15 @@
 
 package tech.techlore.plexus.utils
 
+import kotlin.math.truncate
+
 class ScoreUtils {
     
     companion object {
         
         fun Float.truncatedScore(): Float {
             // Convert to 1 decimal place without rounding off
-            return ((this * 10.0f).toInt().toFloat()) / 10.0f
+            return truncate(this * 10.0f) / 10.0f
         }
         
     }

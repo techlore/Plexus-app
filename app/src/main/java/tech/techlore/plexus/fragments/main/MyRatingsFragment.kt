@@ -254,7 +254,7 @@ class MyRatingsFragment :
                 if (myRatingsNewCount == 0)
                     myRatingsRepository.deleteSingleMyRating(clickedItemPackageName)
                 
-                get<MainDataRepository>().updateSingleApp(clickedItemPackageName)
+                get<MainDataRepository>().insertOrUpdateSingleApp(clickedItemPackageName)
                 
                 isMyRatingCountChanged = false
                 myRatingsNewCount = -1
