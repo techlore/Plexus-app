@@ -73,8 +73,8 @@
     <string name="menu_help">Hilfe</string>
     <string name="menu_links">Links</string>
     <!--My ratings details fragment-->
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="delete">Löschen</string>
     <!--#########################################################################################-->
 
     <!--Verification activity-->
@@ -144,8 +144,8 @@
     <string name="translated_using_libretranslate">\u00DCbersetzt mit LibreTranslate:</string>
     <string name="error_translating">Fehler beim \u00DCbersetzen</string>
     <!--Delete rating-->
-    <string name="delete_rating">Delete rating</string>
-    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
+    <string name="delete_rating">Bewertung löschen</string>
+    <string name="delete_rating_desc">Bist du sicher, dass du diese Bewertung endgültig löschen möchtest?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Wenn du dein Konto löschst: \n• wirst du keine Bewertungen mehr abgeben können. \n• Alle zuvor abgegebenen Bewertungen werden dauerhaft von diesem Gerät entfernt. \n \nBist du sicher, dass du fortfahren möchtest?</string>
     <!--First submission-->
@@ -178,6 +178,6 @@
     <string name="device_should_be_degoogled_or_microg">Das Gerät sollte entweder de-Googled sein oder microG haben, um eine Bewertung abzugeben</string>
     <string name="rating_already_submitted">Bewertung für %1$s %2$s bereits abgegeben</string>
     <string name="no_browsers">Keine Browser auf diesem Gerät installiert</string>
-    <string name="deleted_rating_successfully">Rating deleted successfully</string>
+    <string name="deleted_rating_successfully">Bewertung erfolgreich gelöscht</string>
     <string name="deleted_account_successfully">Konto erfolgreich gel\u00F6scht</string>
 </resources>
