@@ -16,23 +16,23 @@
 #
 
 [versions]
-androidGradle = "9.3.1"
-kotlinGradle = "2.4.10" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
-ksp = "2.3.10" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
-appcompat = "1.7.1"
+androidGradle = "9.4.1"
+kotlinGradle = "2.4.20" # https://github.com/JetBrains/kotlin/releases/latest (latest version is not auto detected)
+ksp = "2.3.12" # https://github.com/google/ksp/releases/latest (latest version is not auto detected)
+appcompat = "1.8.0"
 coreKtx = "1.19.0"
 splashscreen = "1.2.0"
 material3 = "1.14.0"
 koin = "4.1.1" # v4.2.0 & above causes issues with backstack
 swiperefreshlayout = "1.2.0"
 securityCryptoKtx = "1.1.0-alpha06" # Don't update or else Encrypted Shared Prefs is deprecated
-navigationKtx = "2.9.8"
+navigationKtx = "2.10.1"
 kotlinxSerialization = "1.11.0"
-paging3 = "3.5.0"
-ktor = "3.5.1"
-room = "2.8.4"
-sqlBundledDriver = "2.7.0"
-coil = "3.5.0"
+paging3 = "3.5.1"
+ktor = "3.6.0"
+room = "2.8.5"
+sqlBundledDriver = "2.7.1"
+coil = "3.6.3"
 androidfastscrollKt = "v1.0.8"
 ksoup = "0.2.6"
 lottie = "6.7.1"
