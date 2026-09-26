@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~     Copyright (C) 2022-present Techlore
   ~
@@ -15,10 +14,7 @@
   ~
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  -->
-
-<resources>
-
+  --><resources>
     <!--
     Ensure proper encoding of characters
         à = \u00E0
@@ -30,42 +26,37 @@
 
     <!--First activity-->
     <string name="retrieving_data">Recuperando i dati</string>
-    <string name="scan_installed">Scansionando le appplicazioni installate</string>
-    <string name="welcome_text_desc">Come utente novizio, si consiglia di prendere familiarizzazione con le icone e gli indicatori di stato.</string>
+    <string name="scan_installed">Scansionando le applicazioni installate</string>
+    <string name="welcome_text_desc">Come utente novizio, si consiglia di familiarizzare con le icone e gli indicatori di stato.</string>
     <string name="skip">Salta</string>
-
     <!--#########################################################################################-->
 
     <!--Main activity-->
-    <string name="no_apps_found">Nessuna appplicazione trovata</string>
+    <string name="no_apps_found">Nessuna applicazione trovata</string>
     <string name="new_submission">Nuovo invio</string>
-
     <!--My ratings fragment-->
     <string name="no_ratings_available">Nessuna valutazione disponibile</string>
     <string name="submit_first_rating">Tocca \u002B per inviare la prima valutazione</string>
-
     <!--Toolbar menu-->
-    <string name="menu_back">Back</string>
+    <string name="menu_back">Indietro</string>
     <string name="menu_search">Cerca</string>
     <string name="menu_sort">Ordina</string>
-    <string name="menu_view">View</string>
-
+    <string name="menu_view">Vedi</string>
     <!--Nav view-->
-    <string name="device_info">Device info</string>
-    <string name="tap_to_select_rom">Tap here to select the ROM on this device.</string>
+    <string name="device_info">Informazioni sul dispositivo</string>
+    <string name="tap_to_select_rom">Clicca qui per selezionare la ROM su questo dispositivo</string>
     <string name="plexus_data">Dati di Plexus</string>
-    <string name="installed_apps">Appplicazioni installate</string>
+    <string name="installed_apps">Applicazioni installate</string>
     <string name="favorites">Preferiti</string>
     <string name="my_account">Il mio account</string>
     <string name="my_ratings">Le mie valutazioni</string>
     <string name="delete_account">Elimina l\'account</string>
     <string name="settings">Impostazioni</string>
-
     <!--#########################################################################################-->
 
     <!--App details activity-->
     <string name="share">Condividi</string>
-    <string name="shortcut">Shortcut</string>
+    <string name="shortcut">Scorciatoia</string>
     <string name="app">Applicazione</string>
     <string name="package_name">Nome del pacchetto</string>
     <string name="retrieving_ratings">Recupero delle valutazioni</string>
@@ -74,15 +65,12 @@
     <string name="ratings">Valutazioni</string>
     <string name="scroll_to_top">Scorri in alto</string>
     <string name="rate">Valutazione</string>
-
     <!--Toolbar menu-->
     <string name="menu_help">Aiuto</string>
     <string name="menu_links">Links</string>
-
     <!--My ratings details fragment-->
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-
+    <string name="edit">Modifica</string>
+    <string name="delete">Cancella</string>
     <!--#########################################################################################-->
 
     <!--Verification activity-->
@@ -100,7 +88,6 @@
     <string name="enter_code_sent_to_email">Inserire il codice di verifica inviato a\n%1$s</string>
     <string name="verification_code">Codice di verifica</string>
     <string name="error_sending_code">Errore durante l\'invio del codice</string>
-
     <!--#########################################################################################-->
 
     <!--Settings activity-->
@@ -116,7 +103,6 @@
     <string name="view_on_github">Apri su GitHub</string>
     <string name="visit_techlore">Visita Techlore</string>
     <string name="third_party_licenses">Licenze dei componenti terze parti</string>
-
     <!--#########################################################################################-->
 
     <!--Bottom sheets-->
@@ -125,13 +111,10 @@
     <string name="dismiss">Chiudi</string>
     <string name="exit">Esci</string>
     <string name="retry">Riprova</string>
-
     <!--No Network/Internet-->
     <string name="error_occurred_title">Si \u00E8 verificato un errore</string>
     <string name="no_network_title">Nessuna connesione nternet</string>
-    <string name="no_network_desc">Connettiti a una rete Wi-Fi o ai dati mobili e riprova.
-        Se gi\u00E0 connesso, assicurarsi di avere una connessione ad Internet.</string>
-
+    <string name="no_network_desc">Connettiti a una rete Wi-Fi o ai dati mobili e riprova. Se già connesso, assicurati di avere una connessione ad Internet.</string>
     <!--Help-->
     <string name="icons">Icone</string>
     <string name="not_tested_subtitle">Non disponibile, l\'applicazione non \u00E8 stata testata</string>
@@ -148,73 +131,60 @@
     <string name="installation_source_desc">Fonte di installazione delle applicazioni</string>
     <string name="apps_submit_proc">Procedura di invio delle applicazioni</string>
     <string name="faqs">Domande frequenti</string>
-
     <!--Developer verification warning-->
-    <string name="dev_verf_warn_desc">Google has announced that starting from 2026/2027, all apps on certified Android devices will require the developers to submit personal identity details directly to Google.
-        \n
-        \nSince the developers of this app do not agree to this requirement, this app may no longer work on certified Android devices <b>after that time</b>.</string>
-    <string name="details">Details</string>
-    <string name="solutions">Solutions</string>
-    <string name="do_not_show_again">Don\'t show this again</string>
-
+    <string name="dev_verf_warn_desc">Google ha annunciato che, a partire dal 2006/2007, tutte le applicazioni installabili su dispositivi Android certificati richiederanno agli sviluppatori di fornire direttamente a Google i loro dati identificativi. \n \nPertanto, essendo gli sviluppatori di quest\'app contrari a questo requisito, <b>a partire da quella data</b> quest\'app potrebbe non funzionare più sui dispositivi Android certificati.</string>
+    <string name="details">Dettagli</string>
+    <string name="solutions">Soluzione</string>
+    <string name="do_not_show_again">Non mostrare più questo messaggio.</string>
     <!--Sort-->
     <string name="alphabetical">Alfabetico</string>
     <string name="installed_from">Installato da</string>
     <string name="any">Qualsiasi</string>
     <string name="status">Stato</string>
-
     <!--Translate-->
     <string name="translate">Tradurre</string>
     <string name="translating">Trasloco …</string>
     <string name="translated_using_libretranslate">Tradotto con LibreTranslate:</string>
     <string name="error_translating">Errore durante la traduzione</string>
-
     <!--Delete rating-->
-    <string name="delete_rating">Delete rating</string>
-    <string name="delete_rating_desc">Are you sure you want to permanently delete this rating?</string>
-
+    <string name="delete_rating">Elimina valutazione</string>
+    <string name="delete_rating_desc">Sei sicuro di voler eliminare definitivamente questa valutazione?</string>
     <!--Delete account-->
     <string name="delete_account_desc">Se cancelli il tuo account:
         \n\u2022 non sarai pi\u00F9 in grado di inviare valutazioni.
         \n\u2022 tutte le valutazioni precedentemente inviate saranno rimosse in modo permanente da questo dispositivo.
         \n
         \n\u00C8 sicuro di voler procedere?</string>
-
     <!--First submission-->
     <string name="first_submission_desc">Tutti i futuri invii terranno conto di questa selezione, che non potr\u00E0 essere modificata in seguito.</string>
     <string name="select_correct_rom">Seleziona la ROM corretta installata sul dispositivo.</string>
     <string name="select">Seleziona</string>
     <string name="proceed">Procedi</string>
-
     <!--Rate-->
     <string name="issues_to_check_in_apps">Problemi comuni da controllare nelle app</string>
     <string name="notes">Appunti</string>
     <string name="optional">opzionale</string>
     <string name="submit">Invia</string>
-
     <!--Submit-->
     <string name="about_to_submit">Stai per inviare una valutazione. Procedere con l\'invio?</string>
     <string name="wait_submitting_data">Si prega di attendere, invio dei dati in corso…</string>
     <string name="submit_success">Inviato con successo</string>
     <string name="submit_error">Errore durante l\'invio dei dati</string>
     <string name="thanks_for_submitting">Grazie per aver contribuito a Plexus e per aver aiutato la comunit\u00E0.</string>
-
     <!--Theme-->
     <string name="follow_system">Segui l\'impostazione di sistema</string>
     <string name="light">Chiaro</string>
     <string name="dark">Scuro</string>
-
     <!--#########################################################################################-->
 
     <!--Snackbars-->
-    <string name="added_to_fav">Added %1$s to favorites</string>
-    <string name="removed_from_fav">Removed %1$s from favorites</string>
-    <string name="undo">Undo</string>
+    <string name="added_to_fav">Aggiunto %1$s ai preferiti</string>
+    <string name="removed_from_fav">Rimosso %1$s dai preferiti</string>
+    <string name="undo">Annulla</string>
     <string name="install_app_to_submit">Installare %1$s per inviare una valutazione</string>
     <string name="device_should_be_degoogled_or_microg">Il dispositivo deve essere de-Googled o avere microG installato per inviare la valutazione</string>
     <string name="rating_already_submitted">Valutazione gi\u00E0 inviata per %1$s %2$s</string>
     <string name="no_browsers">Nessun browser installato sul dispositivo</string>
-    <string name="deleted_rating_successfully">Rating deleted successfully</string>
+    <string name="deleted_rating_successfully">Valutazione eliminata con successo</string>
     <string name="deleted_account_successfully">Account cancellato con successo</string>
-
 </resources>
