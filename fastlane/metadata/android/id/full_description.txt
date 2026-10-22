@@ -1,0 +1,7 @@
+<b>Hilangkan kekhawatiran soal kompatibilitas aplikasi pada perangkat Android yang telah dihapus layanan Google-nya.</b>
+
+Layanan Google Play adalah komponen penting di sebagian besar perangkat Android. Mereka memungkinkan Anda mengakses akun Google Anda dengan lancar dan menyediakan fitur khusus Google untuk aplikasi yang bergantung padanya.
+Namun, saat Anda mem-flash ROM khusus tanpa Layanan Google Play atau memilih alternatif seperti microG, aplikasi tertentu mungkin mengalami masalah — baik tidak berfungsi sama sekali atau mengalami keterbatasan pada fitur tertentu.
+
+Plexus memberikan wawasan mendetail mengenai kompatibilitas aplikasi, baik saat Anda menggunakan ROM tanpa Layanan Google Play (seperti <i>LineageOS</i>) atau ROM dengan microG (seperti <i>CalyxOS</i>). Ini membantu Anda mengidentifikasi aplikasi mana yang berfungsi, tidak berfungsi, atau memiliki fitur terbatas.
+Semua informasi dikumpulkan oleh komunitas, untuk komunitas.
