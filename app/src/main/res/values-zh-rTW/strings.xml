@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~     Copyright (C) 2022-present Techlore
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!--
+    Ensure proper encoding of characters when translating to other languages.
+    example: ä as \u00E4, é as \u00E9 etc.
+
+    + = \u002B
+    & = &amp;
+    -->
+
+    <!--First activity -->
+    <string name="retrieving_data">正在擷取資料</string>
+    <string name="scan_installed">正在掃描已安裝的應用程式</string>
+    <string name="welcome_text_desc">作為首次使用本應用程式的使用者，請花點時間熟悉各個圖示與狀態指示。</string>
+    <string name="skip">略過</string>
+
+    <!--#########################################################################################-->
+
+    <!--Main activity-->
+    <string name="no_apps_found">找不到應用程式</string>
+    <string name="new_submission">新增提交</string>
+
+    <!--My ratings fragment-->
+    <string name="no_ratings_available">目前沒有評分</string>
+    <string name="submit_first_rating">點選 \u002B 提交你的第一則評分</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_back">返回</string>
+    <string name="menu_search">搜尋</string>
+    <string name="menu_sort">排序</string>
+    <string name="menu_view">檢視</string>
+
+    <!--Nav view-->
+    <string name="device_info">裝置資訊</string>
+    <string name="tap_to_select_rom">點選此處，選擇此裝置上的 ROM。</string>
+    <string name="plexus_data">Plexus 資料</string>
+    <string name="installed_apps">已安裝的應用程式</string>
+    <string name="favorites">我的最愛</string>
+    <string name="my_account">我的帳號</string>
+    <string name="my_ratings">我的評分</string>
+    <string name="delete_account">刪除帳號</string>
+    <string name="settings">設定</string>
+
+    <!--#########################################################################################-->
+
+    <!--App details activity-->
+    <string name="share">分享</string>
+    <string name="shortcut">捷徑</string>
+    <string name="app">應用程式</string>
+    <string name="package_name">套件</string>
+    <string name="retrieving_ratings">正在擷取評分</string>
+    <string name="total_score">總分</string>
+    <string name="total_ratings">評分總數</string>
+    <string name="ratings">評分</string>
+    <string name="scroll_to_top">捲動至頂端</string>
+    <string name="rate">評分</string>
+
+    <!--Toolbar menu-->
+    <string name="menu_help">說明</string>
+    <string name="menu_links">連結</string>
+
+    <!--My ratings details fragment-->
+    <string name="edit">編輯</string>
+    <string name="delete">刪除</string>
+
+    <!--#########################################################################################-->
+
+    <!--Verification activity-->
+    <string name="verification">驗證</string>
+    <string name="verify_to_get_started">驗證你的電子郵件以開始使用</string>
+    <string name="terms_conditions_title">條款與細則</string>
+    <string name="terms_conditions_desc">提交應用程式至 Plexus 需要你的電子郵件。
+        \n此電子郵件僅用於驗證，驗證完成後將從我們的系統中移除。
+        \n
+        \n這麼做是為了：
+        \n\u2022 防止 API 遭到潛在濫用。
+        \n\u2022 確保所提交資料的正確性。
+        \n
+        \n你可以隨時在此裝置上刪除你的帳號。</string>
+    <string name="enter_code_sent_to_email">請輸入寄送至\n%1$s 的驗證碼</string>
+    <string name="verification_code">驗證碼</string>
+    <string name="error_sending_code">寄送驗證碼時發生錯誤</string>
+
+    <!--#########################################################################################-->
+
+    <!--Settings activity-->
+    <string name="theme">主題</string>
+    <string name="material_you">Material You\n（需重新啟動應用程式）</string>
+    <string name="default_view">預設檢視</string>
+    <string name="conf_before_submit">提交前先確認</string>
+    <string name="about">關於</string>
+    <string name="version">版本</string>
+    <string name="privacy_policy">隱私權政策</string>
+    <string name="report_issue">回報問題</string>
+    <string name="support_us">贊助我們</string>
+    <string name="view_on_github">在 GitHub 上檢視</string>
+    <string name="visit_techlore">前往 Techlore</string>
+    <string name="third_party_licenses">第三方授權</string>
+
+    <!--#########################################################################################-->
+
+    <!--Bottom sheets-->
+    <string name="done">完成</string>
+    <string name="cancel">取消</string>
+    <string name="dismiss">關閉</string>
+    <string name="exit">結束</string>
+    <string name="retry">重試</string>
+
+    <!--No Network/Internet-->
+    <string name="error_occurred_title">發生錯誤</string>
+    <string name="no_network_title">沒有網路連線</string>
+    <string name="no_network_desc">請連線至 Wi-Fi 或行動數據後重試。
+        若已連線，請確認該網路可正常連上網際網路。</string>
+
+    <!--Help-->
+    <string name="icons">圖示</string>
+    <string name="not_tested_subtitle">無法使用，應用程式尚未經過測試</string>
+    <string name="broken_title">損壞</string>
+    <string name="broken_subtitle">無法使用，多半是無法開啟的應用程式</string>
+    <string name="bronze_title">青銅</string>
+    <string name="bronze_subtitle">尚可接受，但部分功能缺失或損壞</string>
+    <string name="silver_title">白銀</string>
+    <string name="silver_subtitle">幾乎所有功能都能正常運作，僅有極少的限制</string>
+    <string name="gold_title">黃金</string>
+    <string name="gold_subtitle">完美或近乎完美的體驗</string>
+    <string name="other">其他</string>
+    <string name="android_version_desc">Android 版本</string>
+    <string name="installation_source_desc">應用程式的安裝來源</string>
+    <string name="apps_submit_proc">應用程式提交流程</string>
+    <string name="faqs">常見問題</string>
+
+    <!--Developer verification warning-->
+    <string name="dev_verf_warn_desc">Google 已宣布，自 2026/2027 年起，所有通過認證的 Android 裝置上的應用程式，其開發者都必須直接向 Google 提交個人身分資料。
+        \n
+        \n由於本應用程式的開發者不同意此項要求，<b>在該時間之後</b>，本應用程式可能無法再於通過認證的 Android 裝置上運作。</string>
+    <string name="details">詳細資訊</string>
+    <string name="solutions">解決方案</string>
+    <string name="do_not_show_again">不再顯示</string>
+
+    <!--Sort-->
+    <string name="alphabetical">依字母順序</string>
+    <string name="installed_from">安裝來源</string>
+    <string name="any">任何</string>
+    <string name="status">狀態</string>
+
+    <!--Translate-->
+    <string name="translate">翻譯</string>
+    <string name="translating">翻譯中 …</string>
+    <string name="translated_using_libretranslate">使用 LibreTranslate 翻譯：</string>
+    <string name="error_translating">翻譯時發生錯誤</string>
+
+    <!--Delete rating-->
+    <string name="delete_rating">刪除評分</string>
+    <string name="delete_rating_desc">確定要永久刪除這則評分嗎？</string>
+
+    <!--Delete account-->
+    <string name="delete_account_desc">如果你刪除帳號：
+        \n\u2022 你將無法提交評分。
+        \n\u2022 先前提交的所有評分都將從此裝置永久移除。
+        \n
+        \n確定要繼續嗎？</string>
+
+    <!--First submission-->
+    <string name="first_submission_desc">你日後所有的提交都會採用此選擇，且之後無法變更。</string>
+    <string name="select_correct_rom">請選擇此裝置上實際安裝的正確 ROM。</string>
+    <string name="select">選擇</string>
+    <string name="proceed">繼續</string>
+
+    <!--Rate-->
+    <string name="issues_to_check_in_apps">應用程式中應檢查的常見問題</string>
+    <string name="notes">備註</string>
+    <string name="optional">選填</string>
+    <string name="submit">提交</string>
+
+    <!--Submit-->
+    <string name="about_to_submit">你即將提交一則評分，確定要繼續嗎？</string>
+    <string name="wait_submitting_data">請稍候，正在提交資料 …</string>
+    <string name="submit_success">提交成功</string>
+    <string name="submit_error">提交資料時發生錯誤</string>
+    <string name="thanks_for_submitting">感謝你提交資料，為社群貢獻一份心力。</string>
+
+    <!--Theme-->
+    <string name="follow_system">跟隨系統</string>
+    <string name="light">淺色</string>
+    <string name="dark">深色</string>
+
+    <!--#########################################################################################-->
+
+    <!--Snackbars-->
+    <string name="added_to_fav">已將 %1$s 加入我的最愛</string>
+    <string name="removed_from_fav">已將 %1$s 從我的最愛移除</string>
+    <string name="undo">復原</string>
+    <string name="install_app_to_submit">請先安裝 %1$s 才能提交評分</string>
+    <string name="device_should_be_degoogled_or_microg">裝置必須已去 Google 化，或已安裝 microG，才能提交評分</string>
+    <string name="rating_already_submitted">已針對 %1$s %2$s 提交過評分</string>
+    <string name="no_browsers">此裝置未安裝任何瀏覽器</string>
+    <string name="deleted_rating_successfully">評分已成功刪除</string>
+    <string name="deleted_account_successfully">帳號已成功刪除</string>
+
+</resources>
